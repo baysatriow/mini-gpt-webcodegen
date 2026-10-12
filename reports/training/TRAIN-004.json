@@ -1,0 +1,118 @@
+{
+  "run_id": "TRAIN-004",
+  "status": "completed",
+  "started_at_utc": "2026-10-12T13:34:00.049629+00:00",
+  "config": {
+    "mode": "pretrain",
+    "seed": 42,
+    "block_size": 1024,
+    "dataset_dir": "data/processed/pretrain",
+    "tokenizer": "data/tokenizer/tokenizer.json",
+    "label_alignment": "already_shifted_next_token",
+    "long_documents": "pack across blocks without discarding tail",
+    "model_config_path": "configs/model.json",
+    "device": "cuda",
+    "precision": "bf16",
+    "batch_size": 4,
+    "gradient_accumulation": 4,
+    "max_steps": 1200,
+    "warmup_steps": 60,
+    "learning_rate": 0.0003,
+    "min_learning_rate": 3e-05,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "validation_interval": 100,
+    "validation_batches": 32,
+    "checkpoint_interval": 100,
+    "log_interval": 10,
+    "reserve_free_bytes": 16106127360,
+    "status": "bounded baseline after measured GPU profile; not quality guarantee",
+    "source_config_sha256": "8df2b184f598c29733f22559f829f5272c82988b385995ac034b4cf5488001d4",
+    "model_config": {
+      "vocab_size": 8192,
+      "block_size": 1024,
+      "n_layer": 6,
+      "n_head": 6,
+      "n_embd": 384,
+      "dropout": 0.1,
+      "tie_embeddings": true,
+      "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+    },
+    "lineage": {
+      "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+      "pipeline_summary_sha256": "85f8f6994e70111a887dd60d7b8c70d80de1835ec66ecd8862381e023e5ed283",
+      "data_sha256": {
+        "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+        "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e"
+      },
+      "validation_indices_sha256": "dd94b79817d7a88299f2042b2ba0bc8e11fa02c3f5c343be95d121a166865959",
+      "train_blocks_or_examples": 18593,
+      "validation_blocks_or_examples": 128,
+      "smoke": false
+    }
+  },
+  "config_sha256": "09e6bb74ae7dc962b23c3ab35bd1c64d330cb4644cc35fed0fa567382f83c341",
+  "resume_parent": "checkpoints\\TRAIN-003\\last.pt",
+  "label_alignment": "already shifted; loss consumes labels directly",
+  "global_step": 1200,
+  "last_committed_step": 1200,
+  "git_commit": "81130214207dfae301bffe3114753f0b50f1d626",
+  "parameter_count": 14186496,
+  "model_config": {
+    "vocab_size": 8192,
+    "block_size": 1024,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.1,
+    "tie_embeddings": true,
+    "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+  },
+  "device": "cuda",
+  "precision": "bf16",
+  "resume_parent_sha256": "c64002c61513e0fe990f9075641106d0f314b8fbfc57da83dc22088806bb75df",
+  "initial_validation": {
+    "loss": 2.220936931669712,
+    "perplexity": 9.2159615483125,
+    "valid_tokens": 131072,
+    "batches": 32
+  },
+  "final_train_loss": 0.9336324334144592,
+  "total_train_tokens": 19657265,
+  "final_validation": {
+    "loss": 1.1113905031234026,
+    "perplexity": 3.038580614085162,
+    "valid_tokens": 131072,
+    "batches": 32
+  },
+  "best_validation_loss": 1.1113905031234026,
+  "final_checkpoint_sha256": "9923d60cb5392e99974fcba5472291117c4bd795dbb5819e57e20cfbc23b5001",
+  "best_checkpoint_sha256": "9f407be207c9b9090104d48243109a2c333d9609cd89e7584dd8ccd5d5b50486",
+  "ended_at_utc": "2026-10-12T13:37:47.063375+00:00",
+  "wall_seconds": 227.01663500000723,
+  "free_bytes_after": 27378417664,
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "peak_allocated_bytes": 2181572096,
+  "peak_reserved_bytes": 2357198848,
+  "environment": {
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "executable": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\.venv\\Scripts\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "bf16_supported": true,
+    "gpu": "NVIDIA GeForce RTX 5070",
+    "cuda_architectures": [
+      "sm_75",
+      "sm_80",
+      "sm_86",
+      "sm_90",
+      "sm_100",
+      "sm_120"
+    ]
+  }
+}

@@ -19,6 +19,8 @@ Catat setiap percobaan pretraining, penyelarasan instruksi, resume, atau evaluas
 | --- | --- | --- | --- | --- | --- |
 | TRAIN-001 | GPU profiling, bobot dibuang | Selesai | RUN-056 | HEAD dasar b81cc61, working tree Task 6 | 14.186.496 parameter; batch 1/2/4 finite; batch 4 peak allocated 2.189.641.216 bytes |
 | TRAIN-002 | Smoke pretraining BF16 | Selesai, 5 update | RUN-061 | HEAD dasar 24f9e5b, working tree Task 7 | Validation subset loss 9,1021 menjadi 8,7006; bukan baseline kualitas |
+| TRAIN-003 | Baseline bagian awal | Berhenti terencana, step 200 | RUN-062 | 8113021 | Validation subset 9,1015 menjadi 2,2209; dilanjutkan TRAIN-004 |
+| TRAIN-004 | Resume baseline | Selesai, step 1.200 | RUN-064, RUN-066, RUN-067 | 8113021 | Validation subset 1,1114; full test loss 1,0710 / perplexity 2,9183; probe JSON 0/4 |
 
 ## TRAIN-001: Profiling kandidat Mini GPT
 
@@ -38,6 +40,24 @@ Catat setiap percobaan pretraining, penyelarasan instruksi, resume, atau evaluas
 - Config, environment, hash lineage, global step, total token, waktu dan peak VRAM aktual: `reports/training/TRAIN-002.json`. Full config/checkpoint lokal: `checkpoints/TRAIN-002/`; metrics: `outputs/metrics/TRAIN-002.jsonl`; console: `logs/training/TRAIN-002.log`.
 - Checkpoint last dan best dipilih lewat validation loss. Target labels dikonsumsi langsung tanpa shift kedua. Tidak ada SFT atau skor website.
 - Pengujian engine RUN-060: 47 tests, termasuk loss masking, checksum sebelum load, resume CPU identik bitwise, draft SFT gate, serta failure artifact simulated OOM. Simulasi bukan OOM hardware yang benar-benar terjadi.
+
+## TRAIN-003 dan TRAIN-004: Baseline dan resume aktual
+
+- Command pertama: `python -m qa.train_minigpt --config configs/training_pretrain.json --run-id TRAIN-003 --stop-after 200`. Command resume: `python -m qa.train_minigpt --config configs/training_pretrain.json --run-id TRAIN-004 --resume checkpoints/TRAIN-003/last.pt`.
+- Konfigurasi: 14.186.496 parameter, seed 42, BF16, batch 4 / accumulation 4, grad clip 1; AdamW betas 0,9/0,95, weight decay 0,1, LR 0,0003, warmup 60, cosine decay menuju 0,00003. Target 1.200 optimizer update; validation/checkpoint tiap100, 128 validation blocks dipilih seed59 dan dipakai tetap.
+- TRAIN-003: wall 47,244 detik, 200 update. TRAIN-004: wall 227,017 detik untuk update201-1200. Total waktu proses 274,261 detik, tidak termasuk profiling/smoke/evaluasi. Stop pertama sengaja untuk memeriksa resume GPU; bukan crash.
+- Validation sebelum/sesudah load checkpoint step200 sama persis: 2,220936931669712. Cursor sampler step200 800, lalu step210 840 dan step1200 4.800. Optimizer, scheduler, RNG, total token dan dataset cursor dipulihkan. Identik bitwise terhadap run tanpa jeda diuji pada CPU fixture; perbandingan bitwise penuh dua run GPU tidak dilakukan.
+- Train loss akhir 0,933632; validation subset akhir/best 1,111391, perplexity 3,038581. Token valid kumulatif 19.657.265, sekitar 1,03 lintasan token train. Median throughput update 77.932,47 token/detik. Peak TRAIN-004 allocated 2.181.572.096 / reserved 2.357.198.848 bytes. Tidak ada OOM/NaN pada run aktual.
+- Config/environment/hash/step/VRAM aktual ada di `reports/training/TRAIN-003.json` dan `reports/training/TRAIN-004.json`. Checkpoint last/best per run masing-masing 170.347.289 bytes, lokal di checkpoints/. Model best TRAIN-004 dipilih berdasarkan validation subset step1200, SHA-256 `9f407be207c9b9090104d48243109a2c333d9609cd89e7584dd8ccd5d5b50486`.
+- Metrics setiap step berada di `outputs/metrics/TRAIN-003.jsonl` serta TRAIN-004.jsonl; console `logs/training/TRAIN-003.log` / TRAIN-004.log. RUN console dilacak Git. Grafik loss/LR: `reports/training/BASELINE_LOSS_2026-10-12.png`, 1.200 train updates / 13 validation points unik. Grafik telah diperiksa visual.
+
+### Evaluasi baseline, RUN-066
+
+- Command: `python -m qa.evaluate_minigpt --checkpoint checkpoints/TRAIN-004/best.pt --report-id TRAIN-004`.
+- Test partition penuh, 507 batches / 2.074.051 token label valid: mean cross entropy 1,070987, perplexity 2,918259. Mean dihitung berdasarkan token valid; padding -100 dikecualikan. Test tidak dipakai memilih hyperparameter/checkpoint.
+- Empat probe buatan Indonesia, mode exploratory_unreviewed, greedy temperature0/seed42, maksimal512 token: parseable JSON 0/4 dan schema valid 0/4. Tiga output berakhir EOS, satu mencapai token limit. Output menyerupai potongan HTML, belum PageSpec JSON. Semua raw output/error disimpan di `reports/training/TRAIN-004_evaluation.json` dan outputs/metrics/ lokal.
+- Probe ini bukan benchmark SFT held-out, bukan hasil reviewed manusia, dan tidak dibuka di browser. Manual rubric tetap kosong. Tidak ada klaim layout/interaksi berhasil.
+- Interpretasi: model belajar distribusi kode, tetapi belum dilatih mengikuti prompt-ke-PageSpec. Gerbang aplikasi needs-data; kurasi instruksi Indonesia dan SFT harus dilakukan sebelum membangun produk.
 
 ## Protokol pencatatan
 

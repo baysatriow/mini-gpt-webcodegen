@@ -410,27 +410,27 @@ git push origin HEAD
 - `evaluate_checkpoint(checkpoint, prompts_path, schema_path) -> dict` menulis JSON summary, contoh output, dan jumlah parse/schema failures.
 - Prompt held-out berisi keluarga layout yang tidak masuk train atau validation.
 
-- [ ] **Step 1: Tulis test metric mask dan JSON invalid**
+- [x] **Step 1: Tulis test metric mask dan JSON invalid**
 
 Pastikan label `-100` tidak dihitung pada loss, perplexity sama dengan eksponensial loss token yang dihitung, JSON invalid tercatat gagal tanpa menghentikan batch evaluasi.
 
-- [ ] **Step 2: Jalankan evaluation test**
+- [x] **Step 2: Jalankan evaluation test**
 
 Run: `python -m unittest tests.evaluation -v`
 
 Expected: gagal sebelum metric dan evaluator dibuat.
 
-- [ ] **Step 3: Implementasikan evaluator dan output machine-readable**
+- [x] **Step 3: Implementasikan evaluator dan output machine-readable**
 
 Tulis satu record per prompt berisi prompt ID, checkpoint hash, raw output, parse status, schema errors, seed/decode config, serta rubric manual kosong untuk reviewer. Jangan menulis skor visual otomatis tanpa browser.
 
-- [ ] **Step 4: Jalankan evaluasi pada fixture dan checkpoint**
+- [x] **Step 4: Jalankan evaluasi pada fixture dan checkpoint**
 
 Run: `python -m unittest tests.evaluation -v`
 
 Expected: test fixture lulus. Evaluasi checkpoint menulis parse/schema rates dan daftar error; reviewer melengkapi rubric layout, teks, aksesibilitas, dan style.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add src/evaluation/metrics.py src/evaluation/generate.py tests/evaluation/__init__.py tests/evaluation/test_metrics.py configs/evaluation.json qa/evaluate_minigpt.py

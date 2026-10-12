@@ -988,3 +988,66 @@ Planning disetujui oleh pengguna melalui permintaan implementasi pipeline dan do
 - **Commit:** `24f9e5be4f29a4d120870ba666e016a8c90a8b65`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-061_train_002_smoke_training.txt`.
+
+### RUN-062
+
+- **Waktu:** 2026-10-12T20:32:32.164701+07:00 sampai 2026-10-12T20:33:22.637608+07:00.
+- **Tujuan:** TRAIN_003_baseline_pretraining.
+- **Command:** `.\.venv\Scripts\python.exe -B -m qa.train_minigpt --config configs/training_pretrain.json --run-id TRAIN-003 --stop-after 200`.
+- **Commit:** `81130214207dfae301bffe3114753f0b50f1d626`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-062_train_003_baseline_pretraining.txt`.
+
+### RUN-063
+
+- **Waktu:** 2026-10-12T20:33:35.012015+07:00 sampai 2026-10-12T20:33:37.051119+07:00.
+- **Tujuan:** evaluation_metrics_red.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest tests.evaluation.test_metrics -v`.
+- **Commit:** `81130214207dfae301bffe3114753f0b50f1d626`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-063_evaluation_metrics_red.txt`.
+
+### RUN-065
+
+- **Waktu:** 2026-10-12T20:37:09.662758+07:00 sampai 2026-10-12T20:37:12.657770+07:00.
+- **Tujuan:** evaluation_metrics_green.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest tests.evaluation.test_metrics -v`.
+- **Commit:** `81130214207dfae301bffe3114753f0b50f1d626`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-065_evaluation_metrics_green.txt`.
+
+### RUN-064
+
+- **Waktu:** 2026-10-12T20:33:57.219315+07:00 sampai 2026-10-12T20:37:48.014504+07:00.
+- **Tujuan:** TRAIN_004_resume_baseline.
+- **Command:** `.\.venv\Scripts\python.exe -B -m qa.train_minigpt --config configs/training_pretrain.json --run-id TRAIN-004 --resume checkpoints/TRAIN-003/last.pt`.
+- **Commit:** `81130214207dfae301bffe3114753f0b50f1d626`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-064_train_004_resume_baseline.txt`.
+
+### RUN-066
+
+- **Waktu:** 2026-10-12T20:38:05.320255+07:00 sampai 2026-10-12T20:38:24.348403+07:00.
+- **Tujuan:** trained_checkpoint_heldout_evaluation.
+- **Command:** `.\.venv\Scripts\python.exe -B -m qa.evaluate_minigpt --checkpoint checkpoints/TRAIN-004/best.pt --report-id TRAIN-004`.
+- **Commit:** `81130214207dfae301bffe3114753f0b50f1d626`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-066_trained_checkpoint_heldout_evaluation.txt`.
+
+### RUN-067
+
+- **Waktu:** 2026-10-12T20:39:12.871232+07:00 sampai 2026-10-12T20:39:14.079981+07:00.
+- **Tujuan:** export_baseline_training_curves.
+- **Command:** `.\.venv\Scripts\python.exe -B qa/plot_training.py`.
+- **Commit:** `81130214207dfae301bffe3114753f0b50f1d626`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-067_export_baseline_training_curves.txt`.
+
+### RUN-068
+
+- **Waktu:** 2026-10-12T20:40:05.237722+07:00 sampai 2026-10-12T20:40:10.897829+07:00.
+- **Tujuan:** full_model_training_evaluation_suite.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest discover -s tests -v`.
+- **Commit:** `81130214207dfae301bffe3114753f0b50f1d626`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-068_full_model_training_evaluation_suite.txt`.
