@@ -1,0 +1,25 @@
+RUN-027 | 2026-10-12T18:19:00.313281+07:00 | normalize_red
+Command: .\.venv\Scripts\python.exe -m unittest tests.data.test_normalize -v
+Commit: 6e9c4055e97de20ab18b16a7a4c7707f589652f5
+
+test_normalize (unittest.loader._FailedTest.test_normalize) ... ERROR
+
+======================================================================
+ERROR: test_normalize (unittest.loader._FailedTest.test_normalize)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_normalize
+Traceback (most recent call last):
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\data\test_normalize.py", line 6, in <module>
+    from src.data.normalize import normalize_annotation, normalize_jsonl, prepare_pretraining, structural_group
+ModuleNotFoundError: No module named 'src.data.normalize'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+
+Exit code: 1

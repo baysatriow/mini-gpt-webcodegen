@@ -1,0 +1,23 @@
+RUN-029 | 2026-10-12T18:19:50.168214+07:00 | vulcan_adapter_regression_green
+Command: .\.venv\Scripts\python.exe -m unittest tests.data.test_schema tests.data.test_sources -v
+Commit: 6e9c4055e97de20ab18b16a7a4c7707f589652f5
+
+test_plain_css_and_tailwind_are_valid (tests.data.test_schema.SchemaTests.test_plain_css_and_tailwind_are_valid) ... ok
+test_rejects_invalid_theme_and_extra_top_level_fields (tests.data.test_schema.SchemaTests.test_rejects_invalid_theme_and_extra_top_level_fields) ... ok
+test_rejects_unknown_target_duplicate_ids_and_mismatched_interaction (tests.data.test_schema.SchemaTests.test_rejects_unknown_target_duplicate_ids_and_mismatched_interaction) ... ok
+test_rejects_unsupported_style_script_attributes_and_urls (tests.data.test_schema.SchemaTests.test_rejects_unsupported_style_script_attributes_and_urls) ... ok
+test_budget_failure_does_not_promote_partial_to_final (tests.data.test_sources.SourceTests.test_budget_failure_does_not_promote_partial_to_final) ... ok
+test_manifest_atomic_json (tests.data.test_sources.SourceTests.test_manifest_atomic_json) ... ok
+test_projects_columns_at_loader_and_emits_stable_provenance (tests.data.test_sources.SourceTests.test_projects_columns_at_loader_and_emits_stable_provenance) ... ok
+test_reserve_rejects_before_iterating (tests.data.test_sources.SourceTests.test_reserve_rejects_before_iterating) ... ok
+test_short_read_fails_and_completed_download_is_reusable (tests.data.test_sources.SourceTests.test_short_read_fails_and_completed_download_is_reusable) ... complete fixture: 2 rows, 206 bytes
+reuse fixture: 2 rows, SHA-256 verified
+ok
+test_vulcan_uses_pinned_http_stream_without_extra_dependency (tests.data.test_sources.SourceTests.test_vulcan_uses_pinned_http_stream_without_extra_dependency) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.128s
+
+OK
+
+Exit code: 0

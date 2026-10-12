@@ -14,7 +14,9 @@ Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download da
 ## Progres
 
 - Task 1: complete. RUN-022 gagal karena modul belum ada; RUN-023 lulus 4 tests schema dan aturan interaksi.
-- Task 2: pending.
+- Task 2: complete. RUN-029 lulus 10 tests; RUN-030 smoke 20 baris per source berhasil. RUN-031 menjalankan download penuh.
 - Task 3: pending.
 - Task 4: pending.
 - Task 5: pending.
+
+- Debugging: RUN-026 WebSight berhasil tetapi Vulcan gagal karena requests tidak terpasang. Regression RUN-028 gagal untuk sebab yang sama; adapter urllib pada RUN-029 lulus, live retry RUN-030 berhasil.

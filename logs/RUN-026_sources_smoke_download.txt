@@ -1,0 +1,23 @@
+RUN-026 | 2026-10-12T18:17:26.822198+07:00 | sources_smoke_download
+Command: .\.venv\Scripts\python.exe -m src.data.sources --config configs/dataset.json --limit 20
+Commit: 6e9c4055e97de20ab18b16a7a4c7707f589652f5
+
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+complete websight_v01: 20 rows, 42801 bytes
+complete websight_v02: 20 rows, 45185 bytes
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\data\sources.py", line 183, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\data\sources.py", line 175, in main
+    result = download_source(source, ROOT, seed=config["seed"], reserve_bytes=config["reserve_free_bytes"],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\data\sources.py", line 118, in download_source
+    for row in itertools.islice(rows, limit):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\data\sources.py", line 68, in stream_vulcan
+    import requests
+ModuleNotFoundError: No module named 'requests'
+
+Exit code: 1

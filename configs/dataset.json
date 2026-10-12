@@ -1,0 +1,33 @@
+{
+  "seed": 42,
+  "raw_max_bytes": 1073741824,
+  "reserve_free_bytes": 16106127360,
+  "max_text_bytes": 262144,
+  "split_ratios": [0.8, 0.1, 0.1],
+  "sources": [
+    {
+      "id": "websight_v01", "dataset": "HuggingFaceM4/WebSight", "kind": "parquet",
+      "config_name": "v0.1", "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+      "split": "train", "columns": ["text"], "limit": 20000, "buffer_size": 1000,
+      "license_id": "cc-by-4.0", "source_url": "https://huggingface.co/datasets/HuggingFaceM4/WebSight",
+      "attribution": "WebSight, Hugo Laurencon, Leo Tronchon, Victor Sanh, 2024; arXiv:2403.09029",
+      "style_mode": "plain_css"
+    },
+    {
+      "id": "websight_v02", "dataset": "HuggingFaceM4/WebSight", "kind": "parquet",
+      "config_name": "v0.2", "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+      "split": "train", "columns": ["text", "llm_generated_idea"], "limit": 30000, "buffer_size": 1000,
+      "license_id": "cc-by-4.0", "source_url": "https://huggingface.co/datasets/HuggingFaceM4/WebSight",
+      "attribution": "WebSight, Hugo Laurencon, Leo Tronchon, Victor Sanh, 2024; arXiv:2403.09029",
+      "style_mode": "tailwind"
+    },
+    {
+      "id": "vulcan", "dataset": "xlelords/vulcan", "kind": "jsonl",
+      "filename": "frontend_sft.jsonl", "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+      "split": "full", "limit": 5000, "license_id": "mit",
+      "source_url": "https://huggingface.co/datasets/xlelords/vulcan",
+      "attribution": "Vulcan Front-End Code SFT Dataset, xlelords, 2026",
+      "style_mode": "plain_css"
+    }
+  ]
+}

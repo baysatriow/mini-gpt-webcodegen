@@ -636,3 +636,66 @@ Planning disetujui oleh pengguna melalui permintaan implementasi pipeline dan do
 ### RUN-021
 
 - Probe memakai to_dict berhasil, exit 0. Revision/lisensi WebSight dan Vulcan terverifikasi. Output `logs/RUN-021_metadata_probe_fixed.txt`.
+
+### RUN-024
+
+- **Waktu:** 2026-10-12T18:15:08.314647+07:00 sampai 2026-10-12T18:15:08.539875+07:00.
+- **Tujuan:** sources_red.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_sources -v`.
+- **Commit:** `6e9c4055e97de20ab18b16a7a4c7707f589652f5`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-024_sources_red.txt`.
+
+### RUN-025
+
+- **Waktu:** 2026-10-12T18:17:15.236783+07:00 sampai 2026-10-12T18:17:15.612372+07:00.
+- **Tujuan:** sources_green.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_schema tests.data.test_sources -v`.
+- **Commit:** `6e9c4055e97de20ab18b16a7a4c7707f589652f5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-025_sources_green.txt`.
+
+### RUN-026
+
+- **Waktu:** 2026-10-12T18:17:26.822198+07:00 sampai 2026-10-12T18:18:38.152481+07:00.
+- **Tujuan:** sources_smoke_download.
+- **Command:** `.\.venv\Scripts\python.exe -m src.data.sources --config configs/dataset.json --limit 20`.
+- **Commit:** `6e9c4055e97de20ab18b16a7a4c7707f589652f5`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-026_sources_smoke_download.txt`.
+
+### RUN-027
+
+- **Waktu:** 2026-10-12T18:19:00.313281+07:00 sampai 2026-10-12T18:19:00.507194+07:00.
+- **Tujuan:** normalize_red.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_normalize -v`.
+- **Commit:** `6e9c4055e97de20ab18b16a7a4c7707f589652f5`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-027_normalize_red.txt`.
+
+### RUN-028
+
+- **Waktu:** 2026-10-12T18:19:46.824768+07:00 sampai 2026-10-12T18:19:47.151928+07:00.
+- **Tujuan:** vulcan_adapter_regression_red.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_sources.SourceTests.test_vulcan_uses_pinned_http_stream_without_extra_dependency -v`.
+- **Commit:** `6e9c4055e97de20ab18b16a7a4c7707f589652f5`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-028_vulcan_adapter_regression_red.txt`.
+
+### RUN-029
+
+- **Waktu:** 2026-10-12T18:19:50.168214+07:00 sampai 2026-10-12T18:19:50.677649+07:00.
+- **Tujuan:** vulcan_adapter_regression_green.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_schema tests.data.test_sources -v`.
+- **Commit:** `6e9c4055e97de20ab18b16a7a4c7707f589652f5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-029_vulcan_adapter_regression_green.txt`.
+
+### RUN-030
+
+- **Waktu:** 2026-10-12T18:19:52.909279+07:00 sampai 2026-10-12T18:19:54.868338+07:00.
+- **Tujuan:** sources_smoke_retry.
+- **Command:** `.\.venv\Scripts\python.exe -m src.data.sources --config configs/dataset.json --limit 20`.
+- **Commit:** `6e9c4055e97de20ab18b16a7a4c7707f589652f5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-030_sources_smoke_retry.txt`.

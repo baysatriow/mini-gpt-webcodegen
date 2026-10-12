@@ -129,27 +129,27 @@ git push -u origin HEAD
 - Konfigurasi awal mematok dataset `HuggingFaceM4/WebSight`, config `v0.1` atau `v0.2`, split `train`, field text dan `llm_generated_idea` yang tersedia, serta limit contoh yang dapat diubah.
 - Setiap source row mendapat index lokal, revision, konfigurasi, waktu akses, dan hash teks.
 
-- [ ] **Step 1: Tulis pemeriksaan dengan loader palsu**
+- [x] **Step 1: Tulis pemeriksaan dengan loader palsu**
 
 Buat test yang menyuntikkan iterable 3 record serta loader palsu. Minta `limit=2`, lalu pastikan hanya dua record yang dikembalikan, field image tidak disentuh, dan dataset name/config/revision/split tercatat.
 
-- [ ] **Step 2: Jalankan test loader palsu**
+- [x] **Step 2: Jalankan test loader palsu**
 
 Run: `python -m unittest tests.data.test_sources -v`
 
 Expected: gagal karena `stream_websight` dan `write_manifest` belum ada.
 
-- [ ] **Step 3: Implementasikan adapter streaming**
+- [x] **Step 3: Implementasikan adapter streaming**
 
 Panggil `datasets.load_dataset("HuggingFaceM4/WebSight", config_name, split="train", revision=revision, streaming=True)`. Panggil `select_columns` sebelum iterasi. Terapkan shuffle buffer terbatas dengan seed config, lalu `take(limit)`. Buat seed, buffer size, column list, dan limit eksplisit di `configs/dataset.json`. Jangan memanggil `load_dataset` tanpa `streaming=True`.
 
-- [ ] **Step 4: Jalankan unit dan smoke fetch terbatas**
+- [x] **Step 4: Jalankan unit dan smoke fetch terbatas**
 
 Run: `python -m unittest tests.data.test_sources -v`
 
 Expected: semua test lokal lulus. Jalankan `python -m src.data.sources --config configs/dataset.json --limit 20`; expected: maksimal 20 teks diterima, tidak ada image payload pada JSONL, revision tetap di manifest, dan disk usage dicatat di RUN.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add src/data/sources.py configs/dataset.json tests/data/test_sources.py data/manifests/README.md

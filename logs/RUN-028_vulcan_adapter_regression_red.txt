@@ -1,0 +1,23 @@
+RUN-028 | 2026-10-12T18:19:46.824768+07:00 | vulcan_adapter_regression_red
+Command: .\.venv\Scripts\python.exe -m unittest tests.data.test_sources.SourceTests.test_vulcan_uses_pinned_http_stream_without_extra_dependency -v
+Commit: 6e9c4055e97de20ab18b16a7a4c7707f589652f5
+
+test_vulcan_uses_pinned_http_stream_without_extra_dependency (tests.data.test_sources.SourceTests.test_vulcan_uses_pinned_http_stream_without_extra_dependency) ... ERROR
+
+======================================================================
+ERROR: test_vulcan_uses_pinned_http_stream_without_extra_dependency (tests.data.test_sources.SourceTests.test_vulcan_uses_pinned_http_stream_without_extra_dependency)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\data\test_sources.py", line 32, in test_vulcan_uses_pinned_http_stream_without_extra_dependency
+    rows = list(stream_vulcan(source))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\data\sources.py", line 68, in stream_vulcan
+    import requests
+ModuleNotFoundError: No module named 'requests'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.032s
+
+FAILED (errors=1)
+
+Exit code: 1
