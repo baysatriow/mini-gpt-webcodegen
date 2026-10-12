@@ -59,6 +59,8 @@ Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download da
 
 ## AI-007: notebook dan review akhir training
 
+- Ruling: pertahankan folder scratch review yang diabaikan Git karena pembersihan ditolak pemeriksaan otomatis dengan alasan blocked by policy. Biaya: artifact sementara review tetap di disk lokal; source/data/checkpoint dan hasil push tidak terdampak.
+
 - Pengguna meminta notebook dan melanjutkan setelah jeda. Tiga notebook dibuat dengan VENV/kernel proyek. RUN-073 semua sel berhasil; tidak menambah training produksi.
 - Review b81cc61..dd26110: 0 Critical, 5 Important, 1 Minor. Lima Important masuk satu fix pass. Notebook di luar frozen range reviewer dan diperiksa melalui eksekusi actual.
 - Final: fixed resume best dan transaksi checkpoint, RUN-071 RED ke RUN-072 GREEN. Regression menjaga best yang dirujuk last saat save last gagal.
