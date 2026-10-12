@@ -15,7 +15,7 @@ Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download da
 
 - Task 1: complete. RUN-022 gagal karena modul belum ada; RUN-023 lulus 4 tests schema dan aturan interaksi.
 - Task 2: complete. RUN-029 lulus 10 tests; RUN-030 smoke 20 baris per source berhasil. RUN-031 menjalankan download penuh.
-- Task 3: pending.
+- Task 3: complete. RUN-027 red; RUN-032 lulus 16 tests keseluruhan. Draft tidak masuk SFT, source JS tetap string untuk pretraining.
 - Task 4: pending.
 - Task 5: pending.
 

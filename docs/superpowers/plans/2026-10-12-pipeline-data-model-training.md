@@ -175,27 +175,27 @@ git push origin HEAD
 - Satu anotasi memetakan `source_row_id`, prompt Bahasa Indonesia, content language, `group_id`, PageSpec, status review, reviewer initials, dan alasan perubahan.
 - WebSight v0.1 dapat dipakai untuk pretraining markup; untuk SFT, pasangkan dengan prompt hasil anotasi dan tinjauan manusia. WebSight v0.2 dapat memakai `llm_generated_idea` sebagai bahan prompt, tetapi terjemahan/penyusunan prompt tetap ditinjau.
 
-- [ ] **Step 1: Tulis pemeriksaan normalizer**
+- [x] **Step 1: Tulis pemeriksaan normalizer**
 
 Periksa prompt kosong, source id tidak dikenal, target schema invalid, license tidak ada, `annotation_status` belum `reviewed`, serta pasangan valid. Untuk record ditolak, pastikan alasan menyebut field yang menyebabkan reject.
 
-- [ ] **Step 2: Jalankan pemeriksaan normalizer**
+- [x] **Step 2: Jalankan pemeriksaan normalizer**
 
 Run: `python -m unittest tests.data.test_normalize -v`
 
 Expected: gagal sebelum normalizer dibuat.
 
-- [ ] **Step 3: Implementasikan konversi dan report reject**
+- [x] **Step 3: Implementasikan konversi dan report reject**
 
 Implementasikan normalizer sebagai transformasi lokal deterministik. Simpan anotasi bersama source row ID dan revision, validasi PageSpec sebelum ditulis, tolak record tanpa review, dan keluarkan jumlah accepted/rejected beserta alasan ke file report terpisah. Jangan memanggil layanan LLM jaringan dari preprocessing.
 
-- [ ] **Step 4: Jalankan unit dan konversi fixture**
+- [x] **Step 4: Jalankan unit dan konversi fixture**
 
 Run: `python -m unittest tests.data.test_normalize -v`
 
 Expected: fixture menghasilkan satu baris JSONL kanonis dan record invalid hanya masuk report reject.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add src/data/normalize.py data/annotations/README.md tests/data/test_normalize.py configs/dataset.json
