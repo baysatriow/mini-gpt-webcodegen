@@ -112,7 +112,7 @@ Validator tidak menjamin kualitas isi. Renderer menerima hanya ID interaksi yang
 - `src/training/train.py`: optimizer, validation, logging, checkpoint/resume dengan config, tokenizer, source manifest, dan RNG state.
 - `src/evaluation/`: loss, perplexity, JSON parse/schema, prompt held-out, serta rubric kualitas halaman.
 
-Kontrak data telah diimplementasikan. PageExample adalah record kanonis, dengan alias WebPageExample; style_mode dan interactions dibaca dari target_spec. Validator berada pada schema.py dan diekspor kembali melalui validate.py. Model/training/evaluasi belum dibuat.
+Kontrak data, model, training, dan evaluator telah diimplementasikan. PageExample adalah record kanonis, dengan alias WebPageExample; style_mode dan interactions dibaca dari target_spec. Validator berada pada schema.py dan diekspor kembali melalui validate.py. Mini GPT berparameter 14.186.496, loop BF16, checkpoint/resume, mask token, dan probe PageSpec tersedia. SFT belum dijalankan.
 
 ## Evaluasi dan gerbang tahap
 
@@ -148,4 +148,4 @@ Kontrak data telah diimplementasikan. PageExample adalah record kanonis, dengan 
 
 ## Status
 
-Planning sudah disetujui pengguna. Download subset dan pipeline data telah dijalankan; BPE ditrain baru hanya pada train partition. SFT produksi menunggu anotasi Indonesia reviewed. Model, training model, evaluasi model, serta aplikasi belum dibuat. Urutan implementasi ada di [rencana implementasi](superpowers/plans/2026-10-12-pipeline-data-model-training.md), dan command data ada di [panduan pipeline](PIPELINE_DATA_GUIDE.md). Aplikasi preview/unduhan dilaksanakan setelah lolos gerbang evaluasi model.
+Planning sudah disetujui pengguna. Download subset dan pipeline data telah dijalankan; BPE ditrain baru hanya pada train partition. Model dan pretraining baseline 1.200 update selesai, termasuk resume pada GPU dan evaluasi token test penuh. Loss test 1,071 / perplexity 2,918, tetapi 4 probe eksploratif menghasilkan 0 PageSpec JSON valid. SFT produksi menunggu anotasi Indonesia reviewed, dan aplikasi belum dibuat. Gerbang needs-data dijelaskan pada [laporan training](../reports/PIPELINE_TRAINING_SUMMARY.md). Urutan implementasi ada di [rencana implementasi](superpowers/plans/2026-10-12-pipeline-data-model-training.md), command data di [panduan pipeline](PIPELINE_DATA_GUIDE.md), dan training di [panduan training](TRAINING_GUIDE.md).

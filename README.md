@@ -32,7 +32,7 @@ Mini GPT WebCodeGen adalah proyek kuliah untuk membangun model generatif decoder
 | Keluaran aplikasi | HTML5, CSS biasa atau Tailwind, JavaScript murni |
 | Metrik dan log | Markdown, JSONL/JSON, grafik loss |
 
-Environment GPU tersedia dan sudah diperiksa secara lokal. Ukuran model dan konfigurasi training belum dipilih. Periksa ulang versi software sebelum membuat ulang environment.
+Environment GPU tersedia dan sudah diperiksa secara lokal. Baseline Mini GPT memakai 14.186.496 parameter, 6 layer / 6 head / embedding 384, context 1.024, dan BF16. Batch 4 dengan accumulation 4 dipilih setelah profiling RTX 5070. Periksa ulang versi software sebelum membuat ulang environment.
 
 ## Alur produk
 
@@ -91,9 +91,9 @@ Panduan menyebut training dan fine-tuning. Di proyek ini, model dimulai dari bob
 1. Riset dataset dan environment GPU: selesai dan dicatat.
 2. Scope, teknologi, alur pipeline, training log, dan rencana implementasi: disetujui pengguna.
 3. Pipeline data: downloader, validator, normalizer, dedup/group split, BPE, dan batch loader sudah diimplementasikan. Download 55.000 teks selesai; hasil preparation dan pemeriksaan tersedia di manifest/laporan.
-4. Mini GPT dan training: tahap berikutnya setelah pipeline data. SFT produksi menunggu review anotasi Indonesia.
-5. Evaluasi held-out dan pengukuran model: menunggu training.
-6. Aplikasi preview dan unduhan: tahap akhir.
+4. Mini GPT, training loop, checkpoint dan resume: tersedia. Pretraining baseline 1.200 update selesai; SFT produksi menunggu review anotasi Indonesia.
+5. Evaluasi token pada test penuh selesai: loss 1,071 dan perplexity 2,918. Empat probe eksploratif belum menghasilkan JSON valid, sehingga kemampuan PageSpec belum siap.
+6. Aplikasi preview dan unduhan: tahap akhir, gerbang saat ini needs-data.
 
 Dokumen desain ada di [docs/README.md](docs/README.md), rencana implementasi di [rencana pipeline](docs/superpowers/plans/2026-10-12-pipeline-data-model-training.md), dan catatan eksperimen di [log training](logs/LOG_TRAINING.md).
 
@@ -106,7 +106,7 @@ Set-Location 'F:\Generative_AI\Vibe_Coding_Proyek_1'
 .\.venv\Scripts\Activate.ps1
 ```
 
-Training Mini GPT, evaluasi model, dan aplikasi preview belum dijalankan.
+Pretraining dan evaluasi token sudah dijalankan; SFT dan aplikasi preview belum dijalankan.
 
 ## Menjalankan pipeline data
 
@@ -122,4 +122,10 @@ CSS/JS standalone tetap menjadi teks untuk pretraining; target PageSpec hanya be
 
 Petunjuk rinci ada di [panduan pipeline](docs/PIPELINE_DATA_GUIDE.md) dan hasil nyata di [laporan status data](reports/STATUS_PIPELINE_2026-10-12.md). Manifest kecil menyimpan source revision/license/checksum, split, tokenizer, token profile, dan status instruksi. Vocabulary BPE 8.192 baru dilatih dari train split; blok pretraining 1.024 token memakai label next-token yang sudah digeser.
 
-Review pipeline menemukan empat masalah yang telah diperbaiki dan dicatat di [laporan review](reports/REVIEW_PIPELINE_2026-10-12.md). Sebanyak 37 tests lulus. Family allocation dipakai bersama oleh pretraining dan SFT; preparation anotasi memverifikasi dan mempertahankan tokenizer/cache yang cocok. RUN-052 memeriksa ulang seluruh data aktual dan transfer batch ke RTX 5070. Model belum dilatih dan 119 draft produksi masih menunggu review.
+Pada akhir tahap data, review menemukan empat masalah yang diperbaiki dan dicatat di [laporan review](reports/REVIEW_PIPELINE_2026-10-12.md), dengan 37 tests lulus. Family allocation dipakai bersama oleh pretraining dan SFT; preparation anotasi memverifikasi dan mempertahankan tokenizer/cache yang cocok. RUN-052 memeriksa ulang seluruh data aktual dan transfer batch ke RTX 5070. Status model/training terbaru tersedia di bagian berikut; 119 draft produksi tetap menunggu review.
+
+## Model dan baseline aktual
+
+Tahap berikutnya sudah dilaksanakan: model dari bobot acak, optimizer AdamW, validation, checksum checkpoint, RNG/data cursor resume, dan evaluator tersedia. RUN-068 lulus 49 tests. TRAIN-003/004 melatih 19.657.265 token valid dalam 1.200 update, dengan stop/resume terencana pada step 200. Validation subset loss turun dari 9,102 menjadi 1,111; test penuh loss 1,071 / perplexity 2,918. Peak allocated saat resume sekitar 2,03 GiB.
+
+Namun probe PageSpec JSON masih 0/4 valid. Hasil ini memerlukan kurasi instruksi dan SFT dari checkpoint proyek sebelum aplikasi dibuat. Status dan bukti lengkap: [laporan training](reports/PIPELINE_TRAINING_SUMMARY.md), [panduan training](docs/TRAINING_GUIDE.md), serta [grafik loss](reports/training/BASELINE_LOSS_2026-10-12.png). Data/checkpoint/tokenizer tetap lokal, log dan laporan kecil dipush ke repo private.

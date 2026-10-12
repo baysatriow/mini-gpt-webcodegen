@@ -454,23 +454,23 @@ git push origin HEAD
 - Ringkasan laporan merujuk commit, TRAIN IDs, dataset manifests, training graphs, held-out metrics, checkpoint hash, attribution, keterbatasan, dan rekomendasi.
 - Status gerbang bernilai `ready`, `needs-data`, atau `needs-model-work`, dengan bukti untuk setiap nilai.
 
-- [ ] **Step 1: Cocokkan setiap klaim dengan run artifact**
+- [x] **Step 1: Cocokkan setiap klaim dengan run artifact**
 
 Bangun tabel klaim, TRAIN/RUN ID, artifact, dan nilai aktual. Hilangkan klaim yang tidak didukung output run.
 
-- [ ] **Step 2: Jalankan pemeriksaan dokumentasi dan license**
+- [x] **Step 2: Jalankan pemeriksaan dokumentasi dan license**
 
 Pastikan manifest mencatat WebSight revision/CC-BY attribution, Webdev tidak disebut sebagai training source, WebMC tetap benchmark saja, dan log mencakup run gagal.
 
-- [ ] **Step 3: Tulis laporan hasil**
+- [x] **Step 3: Tulis laporan hasil**
 
 Masukkan parameter/model hash, ukuran dataset dan split, token counts, kurva loss, parse/schema rates, contoh prompt/output, reviewer rubric, serta keterbatasan. Jangan melatih ulang hanya untuk mempercantik hasil.
 
-- [ ] **Step 4: Minta persetujuan sebelum aplikasi**
+- [x] **Step 4: Minta persetujuan sebelum aplikasi**
 
 Perlihatkan laporan, README, dan planning kepada pengguna. Implementasi antarmuka, preview iframe, packaging Tailwind, dan unduhan dimulai hanya setelah pipeline serta kualitas model ditinjau.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add reports/PIPELINE_TRAINING_SUMMARY.md README.md logs/LOG_TRAINING.md docs/PROJECT_SCOPE_AND_PIPELINE.md
