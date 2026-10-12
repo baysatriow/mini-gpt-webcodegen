@@ -1,0 +1,21 @@
+RUN-096 | 2026-10-13T05:28:18.337157+07:00 | train_approved_sft_pilot
+Command: .venv/Scripts/python.exe -m qa.train_minigpt --config configs/training_sft_pilot.json --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt
+Commit: 09dd290eb3aa08b98f4a75c60c300f64e1d528e3
+
+{"event": "validation", "step": 0, "loss": 7.511530427851229, "perplexity": 1829.0105706635502, "valid_tokens": 1404, "batches": 2}
+{"event": "train", "step": 1, "loss": 7.414723997367952, "grad_norm": 26.6721248626709, "valid_tokens": 1401, "learning_rate": 2.5e-05, "seconds": 0.2968965999898501, "tokens_per_second": 4718.814563884853, "data_cursor": 2}
+{"event": "train", "step": 5, "loss": 4.611383017431745, "grad_norm": 8.71996784210205, "valid_tokens": 1401, "learning_rate": 0.0001, "seconds": 0.07251979998545721, "tokens_per_second": 19318.86188711152, "data_cursor": 10}
+{"event": "train", "step": 10, "loss": 3.943981140703069, "grad_norm": 3.452887535095215, "valid_tokens": 1401, "learning_rate": 9.578385041664925e-05, "seconds": 0.06458359997486696, "tokens_per_second": 21692.81366392097, "data_cursor": 20}
+{"event": "validation", "step": 10, "loss": 4.457794971955129, "perplexity": 86.29701181634883, "valid_tokens": 1404, "batches": 2}
+{"event": "train", "step": 15, "loss": 3.4566705283056747, "grad_norm": 2.145493268966675, "valid_tokens": 1401, "learning_rate": 8.392544243589427e-05, "seconds": 0.06239320000167936, "tokens_per_second": 22454.37002689862, "data_cursor": 30}
+{"event": "train", "step": 20, "loss": 3.117473114906763, "grad_norm": 2.0994555950164795, "valid_tokens": 1401, "learning_rate": 6.664685702961344e-05, "seconds": 0.06376580003416166, "tokens_per_second": 21971.025208645282, "data_cursor": 40}
+{"event": "validation", "step": 20, "loss": 3.944592772046385, "perplexity": 51.655298346968344, "valid_tokens": 1404, "batches": 2}
+{"event": "train", "step": 25, "loss": 2.8655890846660865, "grad_norm": 1.6489001512527466, "valid_tokens": 1401, "learning_rate": 4.718583200498814e-05, "seconds": 0.06067460001213476, "tokens_per_second": 23090.3870766318, "data_cursor": 50}
+{"event": "train", "step": 30, "loss": 2.696836592723947, "grad_norm": 2.0554416179656982, "valid_tokens": 1401, "learning_rate": 2.9189060364202943e-05, "seconds": 0.06344360002549365, "tokens_per_second": 22082.60564402136, "data_cursor": 60}
+{"event": "validation", "step": 30, "loss": 3.7839557180377494, "perplexity": 43.98970890492969, "valid_tokens": 1404, "batches": 2}
+{"event": "train", "step": 35, "loss": 2.5901698807492415, "grad_norm": 1.8126460313796997, "valid_tokens": 1401, "learning_rate": 1.602885682970026e-05, "seconds": 0.06935429997975007, "tokens_per_second": 20200.62202933432, "data_cursor": 70}
+{"event": "train", "step": 40, "loss": 2.533279713011911, "grad_norm": 1.7695269584655762, "valid_tokens": 1401, "learning_rate": 1.017123858587145e-05, "seconds": 0.06255639996379614, "tokens_per_second": 22395.790052030072, "data_cursor": 80}
+{"event": "validation", "step": 40, "loss": 3.7392419016259346, "perplexity": 42.0660878411792, "valid_tokens": 1404, "batches": 2}
+{"run_id": "TRAIN-006", "status": "completed", "checkpoint": "checkpoints\\TRAIN-006\\last.pt"}
+
+Exit code: 0

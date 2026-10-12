@@ -217,3 +217,69 @@ Tidak ada TRAIN baru atau optimizer update. Baseline TRAIN-004 dan parent `TRAIN
 - Tidak ada hasil SFT/visual baru. Review manusia, corpus instruksi lebih luas dan accepted/rejected preparation diperlukan sebelum profiling/training SFT.
 
 Rincian: [pilot v2](../reports/data/ANNOTATION_REVIEW_PILOT_ID_V2.json), [revisi](../reports/data/ANNOTATION_PILOT_REVISIONS_V2.json), [coverage kandidat](../reports/data/ANNOTATION_CANDIDATE_COVERAGE_V1.json), [AI-009](interaksi_llm/AI-009_2026-10-13.md).
+
+## AI-010: Approval, preparation dan SFT pilot nyata
+
+Persetujuan langsung pengguna "aprove lanjut" untuk seluruh 12 kandidat v2, bukan kandidat perluasan. RUN-093 memverifikasi checksum paket, membuat reviewed copy/path worksheet baru, tanpa menimpa draft asli. `reviewer=user_chat_approval`, revision `human-approved-pilot-v2-20261013`; nama pribadi/checklist individual tidak diberikan dan tidak direka. SHA reviewed JSONL `cc1d349231786be7a286ed8ed250405556781cc8d445f236d3bb4a05535dcb38`.
+
+RUN-094 preparation: 12 accepted / 0 rejected / 0 duplicate, 12 family, 4/4/4. Tokenizer/cache/corpus dan assignment pretraining dipertahankan. BPE SHA `f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7`, assignment SHA `b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b`. Source: WebSight CC-BY-4.0 dan Vulcan MIT, revision/atribusi ditahan pada data/lineage. Test tidak menjadi train.
+
+Model dari random weights proyek: 14.186.496 parameter, 6 layer/6 head/embedding384/context1024/vocab8192/dropout0,1. Label sudah shifted next-token; prompt/padding -100, JSON/EOS aktif. Oversize ditolak utuh. VENV Python3.11.9/PyTorch2.14.1+cu130/CUDA13.0/RTX5070/BF16 live verified. Parent smoke dan pilot sama, pretrain step1200 `TRAIN-004-VERIFIED`; optimizer/schedule baru, bukan resume atau bobot pretrained eksternal.
+
+Preflight HEAD `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`. Config/evaluator pilot baru merupakan perubahan lokal belum committed saat run, seperti tercatat pada RUN. Setelah sesi ini config/code/results dilacak satu commit agar kondisi kerja reviewable. Source-config SHA dan expanded-config SHA berbeda karena trainer menambahkan model/lineage/override; keduanya direkam pada report.
+
+### TRAIN-005: smoke SFT
+
+- RUN: RUN-095; status **completed**, update 3; last_committed_step 3.
+- Waktu aktual Asia/Jakarta: 2026-10-13T05:27:36.969360+07:00 sampai 2026-10-13T05:27:45.624715+07:00; wall 8.655439 detik. Timestamp UTC asli pada laporan; tanggal client sesi 13 Oktober 2026.
+- Tujuan: memastikan batch target-mask/gradient/checkpoint berjalan pada GPU.
+- Optimizer AdamW: seed 42, batch 2 x accumulation 1, LR 0.0001 ke 1e-05, cosine/warmup 4, betas [0.9, 0.95], weight decay 0.1, grad clip 1.0.
+- Validation interval 1, validation batches 2, checkpoint interval 1, log interval 1; full validation empat contoh / 1.404 target labels / dua batch.
+- Initial validation loss 7.511530427851, PPL 1829.010570663550; final validation loss 5.349697884671, PPL 210.544679482009; final train loss 5.380970453199.
+- Valid target train tokens 2,034; microbatch accumulation smoke satu, hanya tiga update, bukan benchmark kemampuan.
+- Peak GPU allocated 1,205,175,808 bytes (1.122407 GiB), reserved 1,325,400,064 bytes (1.234375 GiB). Tidak ada OOM/nonfinite pada run ini; hasil bukan jaminan semua config muat.
+- Free disk setelah run 26,520,719,360 bytes (24.699345 GiB), reserve config 16,106,127,360 bytes.
+- Parent `checkpoints/TRAIN-004-VERIFIED/best.pt`, SHA `49e03ebb37f01619de9dc93a55f6828367d84fd34380986bfa15597d9583831c`. Kedua run independen dari parent sama; pilot tidak dimulai dari smoke.
+- Source config SHA `fed5201907570e90bc23ef7f185d743e1e824921bd159c0a20bc348f3c1f8c8c`; expanded config SHA `981d9dd77a895aba84e4307003c381a674b2e9a3924fb96b6fc64a27b0a24821`.
+- SFT train SHA `e909dbb3e89f3346d934d535c413d4cea305fe122835b00a8c368e9a6c81f67d`, validation SHA `4fbc318e136ff6eafc91d8002f69089125a76a8f5f96d551d10427aa6ec57b95`.
+- Best validation step 3, loss 5.349697884671, payload SHA `5775435063dda891dcfaa68f2be2d96c4ef31aea665f8e11e53c1e6311f82117`; final/last payload SHA `82d2e387f0b36d29a414175544973def50082c176600ffedc3ed4546fbd6e21d`. Best dipilih validation, bukan test.
+- Artifact lokal: `checkpoints/TRAIN-005/best.pt`, `last.pt`, `.versions/`, `outputs/metrics/TRAIN-005.jsonl`, `logs/training/TRAIN-005.log`; report tracked [report TRAIN-005](../reports/training/TRAIN-005.json). Error lengkap: tidak ada exception yang menggagalkan run; stdout tetap pada log RUN.
+
+### TRAIN-006: SFT pilot reviewed
+
+- RUN: RUN-096; status **completed**, update 40; last_committed_step 40.
+- Waktu aktual Asia/Jakarta: 2026-10-13T05:28:24.765079+07:00 sampai 2026-10-13T05:28:36.481796+07:00; wall 11.717124 detik. Timestamp UTC asli pada laporan; tanggal client sesi 13 Oktober 2026.
+- Tujuan: percobaan proses penyelarasan kecil dengan budget 40 update sebelum test.
+- Optimizer AdamW: seed 42, batch 2 x accumulation 2, LR 0.0001 ke 1e-05, cosine/warmup 4, betas [0.9, 0.95], weight decay 0.1, grad clip 1.0.
+- Validation interval 10, validation batches 2, checkpoint interval 10, log interval 5; full validation empat contoh / 1.404 target labels / dua batch.
+- Initial validation loss 7.511530427851, PPL 1829.010570663550; final validation loss 3.739241901626, PPL 42.066087841179; final train loss 2.533279713012.
+- Valid target train tokens 56,040; 1.401 target labels per update; empat contoh diulang 40 passes, sekitar 160 presentasi, bukan 160 contoh unik.
+- Peak GPU allocated 1,266,312,704 bytes (1.179346 GiB), reserved 1,392,508,928 bytes (1.296875 GiB). Tidak ada OOM/nonfinite pada run ini; hasil bukan jaminan semua config muat.
+- Free disk setelah run 25,839,218,688 bytes (24.064648 GiB), reserve config 16,106,127,360 bytes.
+- Parent `checkpoints/TRAIN-004-VERIFIED/best.pt`, SHA `49e03ebb37f01619de9dc93a55f6828367d84fd34380986bfa15597d9583831c`. Kedua run independen dari parent sama; pilot tidak dimulai dari smoke.
+- Source config SHA `fed5201907570e90bc23ef7f185d743e1e824921bd159c0a20bc348f3c1f8c8c`; expanded config SHA `121c2fd14282faa3995820139384420db225735463685b179a1f4e327c3a07e8`.
+- SFT train SHA `e909dbb3e89f3346d934d535c413d4cea305fe122835b00a8c368e9a6c81f67d`, validation SHA `4fbc318e136ff6eafc91d8002f69089125a76a8f5f96d551d10427aa6ec57b95`.
+- Best validation step 40, loss 3.739241901626, payload SHA `74705520f6f6c543dc8d9908057769fdf81f478159efb44b6e3966ca847c5540`; final/last payload SHA `a2a76fb7b0f110778b08cdf54b9dce75c0398ed0a1abcc57bf5addadfcca326a`. Best dipilih validation, bukan test.
+- Artifact lokal: `checkpoints/TRAIN-006/best.pt`, `last.pt`, `.versions/`, `outputs/metrics/TRAIN-006.jsonl`, `logs/training/TRAIN-006.log`; report tracked [report TRAIN-006](../reports/training/TRAIN-006.json). Error lengkap: tidak ada exception yang menggagalkan run; stdout tetap pada log RUN.
+
+### RUN-097: Evaluasi held-out SFT pilot TRAIN-006
+
+- Checkpoint best step40 berdasarkan validation, budget/schedule ditetapkan sebelum melihat test. `qa/evaluate_sft_pilot.py` menolak report overwrite, smoke checkpoint, prompt di luar artifact test reviewed dan schema selain proyek.
+- Actual SFT test 4 contoh/4 family, batch2, labels1531, batches2. Loss **3.48825924385614**, perplexity **32.72892501203196**; target JSON masked loss, bukan pretraining corpus loss.
+- Decoding greedy temperature0/max_new_tokens768/seed42/context1024, precisionBF16. Generation mode production adalah gate ancestry/membership, belum aplikasi siap.
+- JSON parseable **0/4**, schema valid **0/4**, semua stop_reason token_limit dan generated_tokens768, tidak ada EOS. Parse error setiap contoh: `Expecting value: line 1 column 1 (char 0)`.
+- Raw output tidak di-repair; tidak ada hasil render/browser/visual/manual acceptance. Cuplikan raw tersimpan pada notebook05; full local `outputs/metrics/TRAIN-006_sft_outputs.json`.
+- Test SHA `8f469daab1a040b6c60b35ef1f64664b89ea38f9c9329acb0ae11014cb64c873`; evaluation config SHA `e2ecc362304bcd85e85693e6ba097089b0ccd0df9aa7aeb91830f8303351342b`.
+- [Report test](../reports/training/TRAIN-006_sft_evaluation.json). Status evaluasi selesai meskipun kualitas generasi gagal. Tidak ada tuning/retry training dari hasil test.
+
+### Analisis dan keputusan
+
+Train hanya navbar/hero/text_section/contact_form dengan menu_toggle/form_validate. Feature_grid/footer/testimonial/pricing belum ada di train pilot; coverage gabungan tidak berarti train mencakup semuanya. Empat contoh dan pengulangan kuat membatasi kesimpulan. Penurunan teacher-forced loss belum menjamin generasi autoregresif valid. Tidak menyimpulkan satu penyebab kegagalan sudah dibuktikan.
+
+Perlu perluasan train berdasarkan katalog proyek yang sudah ditetapkan dan review manusia, dengan partition keluarga tetap. Jangan menyalin target test ke train atau menyesuaikan parameter dari test. Setelah test pilot dibaca, reuse hanya eksploratif; evaluasi final membutuhkan holdout yang belum dipakai untuk pengembangan. Budget/data run berikutnya belum ditentukan. Gerbang aplikasi **needs-more-data-and-model-work**, software tahap akhir.
+
+RUN-098 menulis notebook05/grafik/profil dari log aktual. RUN-099 lima notebook, 7+10+6+9+6=38 sel kode tanpa error. Source notebook01-04 sama; output snapshot historis dipulihkan sesudah rerun, status terbaru pada notebook05. Grafik diperiksa secara visual. Warning kernel Windows/TCP tetap tercatat; bukan error sel. Tidak menjalankan suite unit tambahan pada sesi ini.
+
+[Ringkasan terbaru](../reports/SFT_PILOT_SUMMARY_2026-10-13.md), [ekspor interaksi AI-010](interaksi_llm/AI-010_2026-10-13.md).
+
+RUN-100 mendokumentasikan hasil; RUN-101 syntax/format/link memeriksa 53 Python, 35 JSON, 42 Markdown dan lima notebook / 38 sel tanpa temuan. GitHub private dan ignore artifact lokal dikonfirmasi. Blank line tambahan pada akhir dua log diperbaiki sebelum commit; isi riwayat RUN tetap dipertahankan.

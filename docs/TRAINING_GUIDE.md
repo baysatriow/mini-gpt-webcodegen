@@ -5,7 +5,7 @@ Semua command dijalankan dari root proyek menggunakan VENV lokal. Config dan bob
 ## Profiling, smoke, dan baseline
 
 ```powershell
-.\.venv\Scripts\python.exe qa/run_logged.py --label gpu_profile -- .\.venv\Scripts\python.exe qa/profile_minigpt.py --run-id TRAIN-005
+.\.venv\Scripts\python.exe qa/run_logged.py --label gpu_profile -- .\.venv\Scripts\python.exe qa/profile_minigpt.py --run-id TRAIN-NNN
 .\.venv\Scripts\python.exe qa/run_logged.py --label smoke -- .\.venv\Scripts\python.exe -m qa.train_minigpt --config configs/training_pretrain.json --max-steps 5 --smoke
 .\.venv\Scripts\python.exe qa/run_logged.py --label baseline -- .\.venv\Scripts\python.exe -m qa.train_minigpt --config configs/training_pretrain.json
 ```
@@ -32,7 +32,7 @@ SFT produksi memerlukan preparation reviewed yang complete. Jangan mengganti sta
 .\.venv\Scripts\python.exe qa/run_logged.py --label sft -- .\.venv\Scripts\python.exe -m qa.train_minigpt --config configs/training_sft.json --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt
 ```
 
-Command tersebut belum dijalankan pada produksi. SFT memakai bobot checkpoint proyek, tokenizer yang sama, optimizer/schedule baru, dan target/padding mask. Resume SFT memakai checkpoint SFT sendiri. Target JSON yang melebihi context ditolak utuh. Config SFT merupakan kandidat dan harus diprofilkan kembali setelah anotasi tersedia.
+Config `training_sft.json` tetap kandidat 400 update dan belum dijalankan. Eksperimen reviewed memakai `training_sft_pilot.json` terpisah, 40 update. SFT memakai bobot checkpoint proyek, tokenizer yang sama, optimizer/schedule baru, dan target/padding mask. Resume SFT memakai checkpoint SFT sendiri. Target JSON yang melebihi context ditolak utuh.
 
 Parent harus menjalani pretraining proyek, memiliki update, dan bukan smoke. Fingerprint mengikat tokenizer, revision corpus, assignment family, semua partition teks dan token cache. SFT mencatat checksum/phase/step parent serta manifest reviewed. Fingerprint pretraining tetap sama saat hanya menambahkan anotasi; hash seluruh pipeline summary dapat berubah.
 
@@ -61,7 +61,7 @@ Mode `production` memerlukan checkpoint SFT dengan ancestry verified. Prompt har
 
 Proses per sel tersedia di [notebook](../notebooks/README.md).
 
-Pilot instruksi Indonesia serta checklist manusia tersedia pada [panduan review](ANNOTATION_REVIEW_GUIDE.md) dan notebook 04. Seluruh 12 kandidat masih draft. Schema/context yang benar tidak menggantikan persetujuan reviewer, dan pilot perlu diperluas sebelum training SFT.
+Pilot instruksi Indonesia disetujui pengguna pada 13 Oktober 2026. Reviewed copy 12 contoh, split 4/4/4, dipakai untuk smoke TRAIN-005 dan pilot TRAIN-006. Paket draft/notebook 04 tetap snapshot riwayat; status terbaru tersedia pada [notebook 05](../notebooks/05_sft_pilot_dan_evaluasi.ipynb) dan [laporan SFT](../reports/SFT_PILOT_SUMMARY_2026-10-13.md). Corpus perlu diperluas sebelum eksperimen lanjutan.
 
 ```powershell
 .\.venv\Scripts\python.exe qa/run_logged.py --label evaluate -- .\.venv\Scripts\python.exe -m qa.evaluate_minigpt --checkpoint checkpoints/TRAIN-004/best.pt --report-id TRAIN-004
@@ -70,3 +70,16 @@ Pilot instruksi Indonesia serta checklist manusia tersedia pada [panduan review]
 Config saat ini mengukur test token penuh dan4probe PageSpec buatan dengan label exploratory_unreviewed. Probe tersebut bukan benchmark SFT reviewed. Parsing JSON dan schema diperiksa terpisah; raw output serta error tetap dicatat. Tidak ada skor browser/visual otomatis. Untuk evaluasi produksi, diperlukan reviewed test annotations dan isolasi family yang sama dengan pipeline data.
 
 Rujukan API dasar: [PyTorch AMP](https://docs.pytorch.org/docs/2.14/amp.html), [reproducibility](https://docs.pytorch.org/docs/2.14/notes/randomness.html), [checkpoint](https://docs.pytorch.org/tutorials/beginner/saving_loading_models.html). Struktur model/loop proyek ditulis mengikuti kontrak sendiri.
+
+## Perintah SFT pilot yang sudah dijalankan
+
+```powershell
+.\.venv\Scripts\python.exe qa/run_logged.py --label prepare_reviewed_sft_pilot -- .\.venv\Scripts\python.exe -m src.data.pipeline --config configs/dataset.json --annotations data/annotations/reviewed_pilot_v2.jsonl
+.\.venv\Scripts\python.exe qa/run_logged.py --label sft_pilot_smoke -- .\.venv\Scripts\python.exe -m qa.train_minigpt --config configs/training_sft_pilot.json --max-steps 3 --smoke --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt
+.\.venv\Scripts\python.exe qa/run_logged.py --label train_approved_sft_pilot -- .\.venv\Scripts\python.exe -m qa.train_minigpt --config configs/training_sft_pilot.json --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt
+.\.venv\Scripts\python.exe qa/run_logged.py --label evaluate_reviewed_sft_pilot -- .\.venv\Scripts\python.exe -m qa.evaluate_sft_pilot --checkpoint checkpoints/TRAIN-006/best.pt --report-id TRAIN-006
+```
+
+Jangan menjalankan ulang evaluasi dengan report ID yang sama; evaluator menolak menimpa bukti. Smoke dan pilot dimulai dari parent yang sama, bukan dari checkpoint smoke. Evaluator ini menghitung loss mask target JSON pada test SFT, bukan token cache pretraining. Mode `production` berarti provenance verified, belum kualitas aplikasi. Config mengunci schema proyek untuk menghindari klaim schema alternatif.
+
+Checkpoint dipilih berdasarkan validation, budget 40 update dan decoding greedy/768 token ditentukan sebelum test. Hasil 0/4 parseable/schema valid disimpan apa adanya. Tidak ada output repair atau tuning dari hasil test. Test pilot yang sudah dibaca hanya bisa dipakai lagi dengan label eksploratif; evaluasi final memakai holdout yang belum dipakai untuk pengembangan.

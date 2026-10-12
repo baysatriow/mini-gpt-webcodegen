@@ -14,7 +14,7 @@ Zona waktu pencatatan: Asia/Jakarta
 - Jangan masukkan API key, password, token, atau data pribadi ke log.
 - Jika ada koreksi setelah dicatat, tambahkan catatan koreksi baru yang merujuk ID lama. Jangan menghapus atau mengubah riwayat run.
 
-Ringkasan terbaru: baseline tetap 1.200 update, test loss 1,071 / perplexity 2,918 dan probe JSON/schema 0/4. AI-009 merevisi pilot v2 (empat target/lima prompt), fragmen tidak tersedia 4 menjadi 0, maksimum 612 token, serta katalog 14 kandidat train. Empat notebook berjalan 32 sel tanpa error. Reviewed produksi tetap 0, tidak ada training baru. RUN mengikuti ID tertinggi pada logs/RUN-*.txt; interaksi berikutnya AI-010.
+Ringkasan terbaru AI-010: pengguna menyetujui 12 kandidat pilot v2, preparation SFT 4/4/4 selesai; TRAIN-005 smoke 3 update dan TRAIN-006 pilot 40 update selesai. Validation target loss 7,512 ke 3,739, test loss 3,488 / PPL 32,729, JSON/schema valid 0/4. Lima notebook, 38 sel kode tanpa error, aplikasi needs-more-data-and-model-work. [Interaksi AI-010](interaksi_llm/AI-010_2026-10-13.md), [hasil SFT](../reports/SFT_PILOT_SUMMARY_2026-10-13.md). RUN mengikuti ID tertinggi logs/RUN-*.txt; interaksi berikutnya AI-011.
 
 ---
 
@@ -1285,3 +1285,93 @@ Planning disetujui oleh pengguna melalui permintaan implementasi pipeline dan do
 - **Commit:** `3643af44c43b2a2fc2b42ec1dda0b816307b30b5`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-092_annotation_v2_delivery_checks.txt`.
+
+### RUN-093
+
+- **Waktu:** 2026-10-13T05:25:56.712676+07:00 sampai 2026-10-13T05:26:01.269196+07:00.
+- **Tujuan:** record_user_approval_pilot_v2.
+- **Command:** `.venv/Scripts/python.exe .tmp/approve_pilot_v2.py`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-093_record_user_approval_pilot_v2.txt`.
+
+### RUN-094
+
+- **Waktu:** 2026-10-13T05:26:03.596384+07:00 sampai 2026-10-13T05:26:54.042273+07:00.
+- **Tujuan:** prepare_reviewed_sft_pilot.
+- **Command:** `.venv/Scripts/python.exe -m src.data.pipeline --config configs/dataset.json --annotations data/annotations/reviewed_pilot_v2.jsonl`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-094_prepare_reviewed_sft_pilot.txt`.
+
+### RUN-095
+
+- **Waktu:** 2026-10-13T05:27:30.924278+07:00 sampai 2026-10-13T05:27:46.571810+07:00.
+- **Tujuan:** sft_pilot_smoke.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_minigpt --config configs/training_sft_pilot.json --max-steps 3 --smoke --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-095_sft_pilot_smoke.txt`.
+
+### RUN-096
+
+- **Waktu:** 2026-10-13T05:28:18.337157+07:00 sampai 2026-10-13T05:28:37.395854+07:00.
+- **Tujuan:** train_approved_sft_pilot.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_minigpt --config configs/training_sft_pilot.json --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-096_train_approved_sft_pilot.txt`.
+
+### RUN-097
+
+- **Waktu:** 2026-10-13T05:28:52.135125+07:00 sampai 2026-10-13T05:29:24.075037+07:00.
+- **Tujuan:** evaluate_reviewed_sft_pilot.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_sft_pilot --checkpoint checkpoints/TRAIN-006/best.pt --report-id TRAIN-006`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-097_evaluate_reviewed_sft_pilot.txt`.
+
+### RUN-098
+
+- **Waktu:** 2026-10-13T05:33:34.185547+07:00 sampai 2026-10-13T05:33:35.196422+07:00.
+- **Tujuan:** author_sft_pilot_notebook.
+- **Command:** `.venv/Scripts/python.exe .tmp/author_sft_pilot_notebook.py`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-098_author_sft_pilot_notebook.txt`.
+
+### RUN-099
+
+- **Waktu:** 2026-10-13T05:33:41.397920+07:00 sampai 2026-10-13T05:34:04.952277+07:00.
+- **Tujuan:** execute_sft_pilot_notebooks.
+- **Command:** `.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-099_execute_sft_pilot_notebooks.txt`.
+
+### RUN-100
+
+- **Waktu:** 2026-10-13T05:37:22.619237+07:00 sampai 2026-10-13T05:37:22.804608+07:00.
+- **Tujuan:** document_sft_pilot_results.
+- **Command:** `.venv/Scripts/python.exe .tmp/document_sft_pilot.py`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-100_document_sft_pilot_results.txt`.
+
+### RUN-101
+
+- **Waktu:** 2026-10-13T05:37:34.728769+07:00 sampai 2026-10-13T05:37:35.224505+07:00.
+- **Tujuan:** sft_pilot_delivery_checks.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-101_sft_pilot_delivery_checks.txt`.
+
+### RUN-102
+
+- **Waktu:** 2026-10-13T05:38:08.730525+07:00 sampai 2026-10-13T05:38:09.180841+07:00.
+- **Tujuan:** sft_pilot_final_delivery.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-102_sft_pilot_final_delivery.txt`.

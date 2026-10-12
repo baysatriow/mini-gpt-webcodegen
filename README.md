@@ -91,15 +91,15 @@ Panduan menyebut training dan fine-tuning. Di proyek ini, model dimulai dari bob
 1. Riset dataset dan environment GPU: selesai dan dicatat.
 2. Scope, teknologi, alur pipeline, training log, dan rencana implementasi: disetujui pengguna.
 3. Pipeline data: downloader, validator, normalizer, dedup/group split, BPE, dan batch loader sudah diimplementasikan. Download 55.000 teks selesai; hasil preparation dan pemeriksaan tersedia di manifest/laporan.
-4. Mini GPT, training loop, checkpoint dan resume: tersedia. Pretraining baseline 1.200 update selesai; SFT produksi menunggu review anotasi Indonesia.
-5. Evaluasi token pada test penuh selesai: loss 1,071 dan perplexity 2,918. Empat probe eksploratif belum menghasilkan JSON valid, sehingga kemampuan PageSpec belum siap.
-6. Aplikasi preview dan unduhan: tahap akhir, gerbang saat ini needs-data.
+4. Mini GPT, training loop, checkpoint dan resume: tersedia. Pretraining baseline 1.200 update selesai; 12 anotasi pilot v2 disetujui, preparation SFT 4/4/4 selesai, smoke 3 update dan pilot SFT 40 update selesai.
+5. Test kode baseline: loss 1,071 / perplexity 2,918. Test target JSON SFT pilot: loss 3,488 / perplexity 32,729; generasi JSON/schema valid 0/4. Dua loss memakai korpus berbeda dan tidak dibandingkan langsung.
+6. Aplikasi preview dan unduhan: tahap akhir, gerbang saat ini needs-more-data-and-model-work.
 
 Dokumen desain ada di [docs/README.md](docs/README.md), rencana implementasi di [rencana pipeline](docs/superpowers/plans/2026-10-12-pipeline-data-model-training.md), dan catatan eksperimen di [log training](logs/LOG_TRAINING.md).
 
 ## Environment lokal
 
-Tiga notebook dengan output aktual tersedia di [panduan notebook](notebooks/README.md): [data/tokenisasi](notebooks/01_data_dan_tokenisasi.ipynb), [model/training](notebooks/02_model_dan_training.ipynb), dan [evaluasi/hasil](notebooks/03_evaluasi_dan_hasil.ipynb). Pilih kernel **Mini GPT WebCodeGen (Python 3.11 CUDA)**. Run All default tidak memulai ulang baseline; smoke harus diaktifkan secara eksplisit.
+Lima notebook dengan output aktual tersedia di [panduan notebook](notebooks/README.md): data/tokenisasi, model/training, evaluasi baseline, kurasi, dan [SFT pilot terbaru](notebooks/05_sft_pilot_dan_evaluasi.ipynb). Pilih kernel **Mini GPT WebCodeGen (Python 3.11 CUDA)**. Run All default tidak memulai ulang training; smoke harus diaktifkan secara eksplisit pada notebook model.
 
 Review training menghasilkan lima Important yang diperbaiki. RUN-075 lulus 58 tests. Verified copy baseline memiliki model tensors identik untuk parent SFT berikutnya. Lihat [hasil dan batas review](reports/REVIEW_TRAINING_2026-10-12.md).
 
@@ -110,7 +110,7 @@ Set-Location 'F:\Generative_AI\Vibe_Coding_Proyek_1'
 .\.venv\Scripts\Activate.ps1
 ```
 
-Pretraining dan evaluasi token sudah dijalankan; SFT dan aplikasi preview belum dijalankan.
+Pretraining, SFT pilot dan evaluasi sudah dijalankan; aplikasi preview belum dibuat.
 
 ## Menjalankan pipeline data
 
@@ -136,8 +136,16 @@ Namun probe PageSpec JSON masih 0/4 valid. Hasil ini memerlukan kurasi instruksi
 
 ## Kurasi instruksi Indonesia
 
-Paket review pilot tersedia lokal: 12 draft dari 12 keluarga, 6 CSS biasa dan 6 Tailwind, termasuk menu responsif dan validasi form. Prompt, target JSON, source, catatan proyeksi dan worksheet manusia tersedia untuk diperiksa. Semua target lolos schema/context, tetapi reviewed produksi masih 0.
+Paket review pilot tersedia lokal: 12 kandidat dari 12 keluarga, 6 CSS biasa dan 6 Tailwind, termasuk menu responsif dan validasi form. Pengguna menyetujui seluruh pilot v2 melalui chat pada 13 Oktober 2026. Reviewed copy berisi 12 anotasi; paket draft dan worksheet kosong asli dipertahankan sebagai riwayat. Nama pribadi/checklist per kolom tidak diasumsikan.
 
-Mulai dari [notebook kurasi](notebooks/04_kurasi_dan_sft.ipynb), [panduan review](docs/ANNOTATION_REVIEW_GUIDE.md), dan [laporan coverage](reports/data/ANNOTATION_REVIEW_PILOT_ID_V1.json). Pilot belum cukup untuk generalisasi; lanjutkan review dan perluasan data sebelum SFT.
+Mulai dari [notebook kurasi](notebooks/04_kurasi_dan_sft.ipynb), [panduan review](docs/ANNOTATION_REVIEW_GUIDE.md), dan [bukti approval](reports/data/ANNOTATION_APPROVAL_PILOT_V2.json). Pilot belum cukup untuk generalisasi; perluas data reviewed sebelum eksperimen berikutnya.
 
-Revisi terbaru [pilot v2](reports/data/ANNOTATION_REVIEW_PILOT_ID_V2.json) memperbaiki empat target dan lima prompt, dengan fragmen tidak tersedia 4 menjadi 0. Paket lokal `outputs/annotation_review/pilot-id-v2/` menggantikan v1 untuk review. Pemindaian train menghasilkan [14 kandidat tambahan](reports/data/ANNOTATION_CANDIDATE_COVERAGE_V1.json) untuk inspeksi; kandidat belum menjadi anotasi dan source tabs terpilih belum memiliki implementasi fungsi. Reviewed produksi tetap 0.
+Revisi [pilot v2](reports/data/ANNOTATION_REVIEW_PILOT_ID_V2.json) memperbaiki empat target dan lima prompt, dengan fragmen tidak tersedia 4 menjadi 0. Snapshot ini mencatat status draft saat diekspor; status terbaru ada pada bukti approval. Pemindaian train menghasilkan [14 kandidat tambahan](reports/data/ANNOTATION_CANDIDATE_COVERAGE_V1.json) untuk inspeksi; kandidat belum menjadi anotasi dan source tabs terpilih belum memiliki implementasi fungsi.
+
+## Hasil SFT pilot 13 Oktober 2026
+
+TRAIN-005 smoke 3 update dan TRAIN-006 pilot 40 update memakai parent pretraining proyek yang sama, tokenizer dan assignment family tetap. Pilot memakai batch 2 x accumulation 2, BF16 pada RTX 5070. Validation target-token loss turun **7,512 ke 3,739**, peak allocated sekitar **1,18 GiB**, free disk setelah training sekitar **24,07 GiB**, di atas reserve 15 GiB.
+
+Test reviewed empat contoh menghasilkan **0/4 JSON valid**; seluruh generasi mencapai batas 768 token. Penurunan loss belum menunjukkan model bisa membuat website. Budget training/checkpoint dipilih sebelum test, tidak ada tuning ulang dari hasil test. Empat contoh train diulang 40 kali; corpus perlu diperluas berdasarkan katalog proyek. Karena test pilot sudah dibaca, evaluasi final generalisasi perlu data yang belum dipakai untuk pengembangan.
+
+Lihat [notebook SFT](notebooks/05_sft_pilot_dan_evaluasi.ipynb), [hasil lengkap](reports/SFT_PILOT_SUMMARY_2026-10-13.md), [metrik test](reports/training/TRAIN-006_sft_evaluation.json) dan [log training](logs/LOG_TRAINING.md). Belum ada evaluasi browser/visual atau aplikasi preview.

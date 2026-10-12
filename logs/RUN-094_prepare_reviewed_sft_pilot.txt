@@ -1,0 +1,22 @@
+RUN-094 | 2026-10-13T05:26:03.596384+07:00 | prepare_reviewed_sft_pilot
+Command: .venv/Scripts/python.exe -m src.data.pipeline --config configs/dataset.json --annotations data/annotations/reviewed_pilot_v2.jsonl
+Commit: 09dd290eb3aa08b98f4a75c60c300f64e1d528e3
+
+HTML preprocessing: accepted=54996 rejected=4
+Grouped split: {'train': 41639, 'validation': 5016, 'test': 4556}, groups=41434, duplicates=3785
+{
+  "status": "complete",
+  "tokenization": {
+    "status": "complete",
+    "action": "reused"
+  },
+  "sft": {
+    "status": "complete",
+    "draft_queue_rows": 119,
+    "reviewed_production_rows": 12,
+    "rejected": 0
+  },
+  "free_bytes_after": 27202232320
+}
+
+Exit code: 0

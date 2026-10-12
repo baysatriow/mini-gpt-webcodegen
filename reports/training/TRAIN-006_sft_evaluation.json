@@ -1,0 +1,44 @@
+{
+  "report_id": "TRAIN-006",
+  "checkpoint": "checkpoints\\TRAIN-006\\best.pt",
+  "checkpoint_sha256": "74705520f6f6c543dc8d9908057769fdf81f478159efb44b6e3966ca847c5540",
+  "checkpoint_step": 40,
+  "checkpoint_phase": "sft",
+  "config_sha256": "e2ecc362304bcd85e85693e6ba097089b0ccd0df9aa7aeb91830f8303351342b",
+  "sft_test_metrics": {
+    "loss": 3.48825924385614,
+    "perplexity": 32.72892501203196,
+    "valid_tokens": 1531,
+    "batches": 2
+  },
+  "sft_test_sha256": "8f469daab1a040b6c60b35ef1f64664b89ea38f9c9329acb0ae11014cb64c873",
+  "sft_split_counts": {
+    "train": 4,
+    "validation": 4,
+    "test": 4
+  },
+  "generation": {
+    "count": 4,
+    "parseable": 0,
+    "schema_valid": 0,
+    "parseable_rate": 0.0,
+    "schema_valid_rate": 0.0,
+    "generation_mode": "production",
+    "checkpoint_step": 40,
+    "checkpoint_sha256": "74705520f6f6c543dc8d9908057769fdf81f478159efb44b6e3966ca847c5540",
+    "schema_sha256": "7a13c15552171245fa0d28876eb6bd9612ece8dddc05a330c793574950e93bb7",
+    "prompt_file_sha256": "8f469daab1a040b6c60b35ef1f64664b89ea38f9c9329acb0ae11014cb64c873",
+    "browser_evaluated": false,
+    "manual_review_completed": false
+  },
+  "generated_specs_with_resolved_local_links": 0,
+  "raw_outputs_path": "outputs\\metrics\\TRAIN-006_sft_outputs.json",
+  "status": "evaluated_pilot",
+  "application_gate": "needs-more-data-and-model-work",
+  "limits": [
+    "Only four reviewed pilot test examples; no generalization claim",
+    "Loss applies to SFT JSON target tokens, not the pretraining token corpus",
+    "No prompt-fit, visual, accessibility, or browser interaction approval",
+    "No checkpoint selection or hyperparameter tuning from test results"
+  ]
+}

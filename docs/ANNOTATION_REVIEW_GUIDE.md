@@ -2,9 +2,9 @@
 
 ## Tujuan tahap ini
 
-Menyiapkan pasangan prompt Indonesia dan PageSpec untuk continued training model proyek. Pretraining baseline tersedia, tetapi probe JSON masih 0/4 valid. Data instruksi harus diperiksa sebelum SFT. Semua kandidat pilot masih **draft**, reviewer dan keputusan manusia kosong.
+Menyiapkan pasangan prompt Indonesia dan PageSpec untuk continued training model proyek. Pengguna menyetujui 12 kandidat pilot v2 pada 13 Oktober 2026. Reviewed copy sudah dipersiapkan dan dipakai pada SFT pilot; paket draft awal tetap tersedia sebagai riwayat.
 
-Ini pelaksanaan tahap anotasi pada rencana pipeline yang sudah disetujui. Tidak ada training baru atau aplikasi generator pada tahap ini.
+Ini pelaksanaan tahap anotasi pada rencana pipeline yang sudah disetujui. Hasil SFT terbaru ada pada [notebook 05](../notebooks/05_sft_pilot_dan_evaluasi.ipynb); aplikasi generator tetap tahap akhir.
 
 ## Paket lokal
 
@@ -94,3 +94,11 @@ Gunakan dua path output baru, bukan menimpa hasil review sebelumnya:
 ```
 
 Exporter menerima subset draft dari queue yang ada, memverifikasi source text/provenance/family assignment, memeriksa schema, fragmen lokal serta tokenizer/context, dan mengekspor checklist kosong. Exporter tidak menerjemahkan sendiri, tidak menetapkan persetujuan manusia, serta tidak mengimpor CSV ke training. Draft v1 ditulis oleh LLM pada sesi AI-008 dan direvisi pada AI-009; semuanya membutuhkan review manusia.
+
+## Persetujuan chat dan hasil aktual AI-010
+
+Instruksi manusia **"aprove lanjut"** menyetujui seluruh 12 kandidat paket v2 yang sedang ditinjau. RUN-093 memverifikasi checksum paket sebelum membuat `data/annotations/reviewed_pilot_v2.jsonl` dan worksheet keputusan baru di `outputs/annotation_review/pilot-id-v2-approved/`. Paket v1/v2 asli tidak ditimpa. [Metadata approval](../reports/data/ANNOTATION_APPROVAL_PILOT_V2.json) mencatat teks, scope, hash, revision dan provenance.
+
+Reviewer dicatat sebagai `user_chat_approval`; nama pribadi dan checklist individual tidak diberikan. Kolom checklist tetap kosong dan tidak diubah menjadi yes. Approval ini berlaku pada 12 target v2, tidak mencakup kandidat perluasan atau revisi baru yang mengubah makna. Approval JSON belum browser acceptance.
+
+RUN-094 menerima 12/12 reviewed, nol rejected/duplicate, 12 family, split 4/4/4 tetap. Tokenizer/cache dan family assignment pretraining dipertahankan. RUN-095 smoke dan RUN-096 SFT pilot selesai, tetapi RUN-097 menghasilkan JSON valid 0/4. Perlu perluasan train dengan review manusia sebelum eksperimen berikutnya; jangan memindahkan contoh validation/test untuk memperbaiki hasil.

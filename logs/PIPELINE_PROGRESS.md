@@ -93,3 +93,14 @@ Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download da
 - RUN-090/091: notebook 04 v2 berisi perbandingan perubahan/coverage, empat notebook/32 sel tanpa error. Tidak ada TRAIN baru.
 - Needs-data: paket v2 dan worksheet tersedia, keputusan/nama reviewer diminta. Reviewed produksi masih 0; perlu review dan perluasan corpus sebelum SFT.
 - RUN-092: 52 Python, 28 JSON, 40 Markdown, empat notebook/32 sel valid tanpa temuan. Diff whitespace bersih dan GitHub private dikonfirmasi ulang. Paket/source kandidat tetap lokal.
+
+## AI-010: Reviewed SFT pilot
+
+- Direct human approval "aprove lanjut" untuk seluruh 12 kandidat v2. RUN-093 reviewed copy baru, reviewer teknis user_chat_approval, tanpa mengarang nama/checklist individual. Paket asli immutable.
+- RUN-094 12 accepted/0 rejected/0 duplicate, 4 train/4 validation/4 test, tokenizer/cache/family assignment tetap.
+- RUN-095 TRAIN-005 smoke3, selesai. RUN-096 TRAIN-006 pilot40, selesai, parent pretrain sama; validation loss7,512 ke3,739, peak allocated1,179GiB, free24,07GiB.
+- RUN-097 test JSON target loss3,488/PPL32,729, generasi0/4valid/parseable; empat output token_limit768. Tidak ada repair, tuning dari test atau browser acceptance.
+- Ruling: budget40 dan best validation ditetapkan sebelum test. Cost: pilot empat train belum memadai. Perlu perluasan reviewed train berdasarkan katalog proyek; test yang sudah dilihat hanya eksploratif untuk penggunaan berikutnya.
+- RUN-098/099 notebook05/profil/grafik; lima notebook38sel tanpa cell error. Snapshot output notebook01-04 dipertahankan, status terbaru pada05.
+- Ruling: aplikasi tetap tahap akhir, needs-more-data-and-model-work. Tidak menyalin target test ke train. Kandidat tambahan belum disetujui oleh approval12pilot.
+- RUN-100/101: hasil dan log lengkap ditulis; 53 Python / 35 JSON / 42 Markdown / lima notebook dengan 38 sel valid, tanpa temuan format/syntax/link. Private GitHub dan ignore reviewed/raw/checkpoint dikonfirmasi. Dua blank line baru pada log diperbaiki sebelum commit.

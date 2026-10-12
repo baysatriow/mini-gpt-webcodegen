@@ -1,0 +1,7 @@
+RUN-100 | 2026-10-13T05:37:22.619237+07:00 | document_sft_pilot_results
+Command: .venv/Scripts/python.exe .tmp/document_sft_pilot.py
+Commit: 09dd290eb3aa08b98f4a75c60c300f64e1d528e3
+
+{"documents_written": true, "AI": "AI-010", "training_runs": ["TRAIN-005", "TRAIN-006"], "generation_valid": "0/4"}
+
+Exit code: 0

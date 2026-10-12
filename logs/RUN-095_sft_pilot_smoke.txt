@@ -1,0 +1,14 @@
+RUN-095 | 2026-10-13T05:27:30.924278+07:00 | sft_pilot_smoke
+Command: .venv/Scripts/python.exe -m qa.train_minigpt --config configs/training_sft_pilot.json --max-steps 3 --smoke --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt
+Commit: 09dd290eb3aa08b98f4a75c60c300f64e1d528e3
+
+{"event": "validation", "step": 0, "loss": 7.511530427851229, "perplexity": 1829.0105706635502, "valid_tokens": 1404, "batches": 2}
+{"event": "train", "step": 1, "loss": 7.416116078694661, "grad_norm": 27.75438117980957, "valid_tokens": 768, "learning_rate": 2.5e-05, "seconds": 0.401671500003431, "tokens_per_second": 1912.010187412948, "data_cursor": 1}
+{"event": "validation", "step": 1, "loss": 6.477688955105947, "perplexity": 650.465951869374, "valid_tokens": 1404, "batches": 2}
+{"event": "train", "step": 2, "loss": 6.369249389069905, "grad_norm": 22.076812744140625, "valid_tokens": 633, "learning_rate": 5e-05, "seconds": 0.03770049999002367, "tokens_per_second": 16790.22825075277, "data_cursor": 2}
+{"event": "validation", "step": 2, "loss": 5.615253850605413, "perplexity": 274.58307342847087, "valid_tokens": 1404, "batches": 2}
+{"event": "train", "step": 3, "loss": 5.380970453199052, "grad_norm": 10.042282104492188, "valid_tokens": 633, "learning_rate": 7.500000000000001e-05, "seconds": 0.03612119995523244, "tokens_per_second": 17524.334761428792, "data_cursor": 3}
+{"event": "validation", "step": 3, "loss": 5.349697884671029, "perplexity": 210.5446794820089, "valid_tokens": 1404, "batches": 2}
+{"run_id": "TRAIN-005", "status": "completed", "checkpoint": "checkpoints\\TRAIN-005\\last.pt"}
+
+Exit code: 0

@@ -1,0 +1,9 @@
+{
+  "device": "cuda", "precision": "bf16", "batch_size": 2,
+  "seed": 42, "max_new_tokens": 768, "temperature": 0,
+  "generation_mode": "production",
+  "prompts_path": "data/processed/sft/test.jsonl",
+  "schema_path": "configs/page_spec.schema.json",
+  "selection_rule": "best chosen with validation; fixed decode config; pilot test used for reporting only",
+  "experiment_scope": "four reviewed held-out pilot examples; production is the provenance gate name, not an application readiness claim"
+}
