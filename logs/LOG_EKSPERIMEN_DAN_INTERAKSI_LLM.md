@@ -708,3 +708,30 @@ Planning disetujui oleh pengguna melalui permintaan implementasi pipeline dan do
 - **Commit:** `4db811562d9736d87ee4c7681ea0a3bec70b706d`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-032_normalize_green.txt`.
+
+### RUN-033
+
+- **Waktu:** 2026-10-12T18:24:14.923770+07:00 sampai 2026-10-12T18:24:15.133136+07:00.
+- **Tujuan:** split_red.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_split -v`.
+- **Commit:** `e22b0da2bf4810b2678f657343e2fab1c69ab681`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-033_split_red.txt`.
+
+### RUN-031
+
+- **Waktu:** 2026-10-12T18:20:37.596982+07:00 sampai 2026-10-12T18:24:38.478216+07:00.
+- **Tujuan:** dataset_download_full.
+- **Command:** `.\.venv\Scripts\python.exe -m src.data.sources --config configs/dataset.json`.
+- **Commit:** `6e9c4055e97de20ab18b16a7a4c7707f589652f5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-031_dataset_download_full.txt`.
+
+### RUN-034
+
+- **Waktu:** 2026-10-12T18:25:08.865893+07:00 sampai 2026-10-12T18:25:09.418934+07:00.
+- **Tujuan:** split_green.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_schema tests.data.test_sources tests.data.test_normalize tests.data.test_split -v`.
+- **Commit:** `e22b0da2bf4810b2678f657343e2fab1c69ab681`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-034_split_green.txt`.

@@ -1,0 +1,31 @@
+{
+  "status": "complete",
+  "source": {
+    "id": "websight_v01",
+    "dataset": "HuggingFaceM4/WebSight",
+    "kind": "parquet",
+    "config_name": "v0.1",
+    "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+    "split": "train",
+    "columns": [
+      "text"
+    ],
+    "limit": 20000,
+    "buffer_size": 1000,
+    "license_id": "cc-by-4.0",
+    "source_url": "https://huggingface.co/datasets/HuggingFaceM4/WebSight",
+    "attribution": "WebSight, Hugo Laurencon, Leo Tronchon, Victor Sanh, 2024; arXiv:2403.09029",
+    "style_mode": "plain_css"
+  },
+  "selection_sha256": "a88ab60a10029f27164a9c203755372f2b29d013ee6a6ccf9012b7bb0b9312ca",
+  "seed": 42,
+  "sampling": "seeded buffer and shard shuffle",
+  "started_utc": "2026-10-12T11:20:38.484812+00:00",
+  "rows": 20000,
+  "bytes": 40723783,
+  "free_bytes_before": 28900249600,
+  "output": "data/raw/websight_v01-20000.jsonl",
+  "sha256": "9e4759eb6cca2afdbf6822dbb6a02b96ac6270545ec6fa9933e3d2fd28f1b7c3",
+  "completed_utc": "2026-10-12T11:21:46.143528+00:00",
+  "free_bytes_after": 28859416576
+}

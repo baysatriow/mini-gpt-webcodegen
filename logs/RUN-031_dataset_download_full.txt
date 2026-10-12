@@ -1,0 +1,66 @@
+RUN-031 | 2026-10-12T18:20:37.596982+07:00 | dataset_download_full
+Command: .\.venv\Scripts\python.exe -m src.data.sources --config configs/dataset.json
+Commit: 6e9c4055e97de20ab18b16a7a4c7707f589652f5
+
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+websight_v01: 1000/20000 rows, 2.0 MiB
+websight_v01: 2000/20000 rows, 3.9 MiB
+websight_v01: 3000/20000 rows, 5.9 MiB
+websight_v01: 4000/20000 rows, 7.8 MiB
+websight_v01: 5000/20000 rows, 9.7 MiB
+websight_v01: 6000/20000 rows, 11.7 MiB
+websight_v01: 7000/20000 rows, 13.6 MiB
+websight_v01: 8000/20000 rows, 15.5 MiB
+websight_v01: 9000/20000 rows, 17.5 MiB
+websight_v01: 10000/20000 rows, 19.4 MiB
+websight_v01: 11000/20000 rows, 21.3 MiB
+websight_v01: 12000/20000 rows, 23.3 MiB
+websight_v01: 13000/20000 rows, 25.2 MiB
+websight_v01: 14000/20000 rows, 27.1 MiB
+websight_v01: 15000/20000 rows, 29.1 MiB
+websight_v01: 16000/20000 rows, 31.0 MiB
+websight_v01: 17000/20000 rows, 33.0 MiB
+websight_v01: 18000/20000 rows, 34.9 MiB
+websight_v01: 19000/20000 rows, 36.9 MiB
+websight_v01: 20000/20000 rows, 38.8 MiB
+complete websight_v01: 20000 rows, 40723783 bytes
+websight_v02: 1000/30000 rows, 2.3 MiB
+websight_v02: 2000/30000 rows, 4.6 MiB
+websight_v02: 3000/30000 rows, 6.8 MiB
+websight_v02: 4000/30000 rows, 9.1 MiB
+websight_v02: 5000/30000 rows, 11.5 MiB
+websight_v02: 6000/30000 rows, 13.7 MiB
+websight_v02: 7000/30000 rows, 16.0 MiB
+websight_v02: 8000/30000 rows, 18.4 MiB
+websight_v02: 9000/30000 rows, 20.7 MiB
+websight_v02: 10000/30000 rows, 23.0 MiB
+websight_v02: 11000/30000 rows, 25.3 MiB
+websight_v02: 12000/30000 rows, 27.6 MiB
+websight_v02: 13000/30000 rows, 29.9 MiB
+websight_v02: 14000/30000 rows, 32.2 MiB
+websight_v02: 15000/30000 rows, 34.5 MiB
+websight_v02: 16000/30000 rows, 36.8 MiB
+websight_v02: 17000/30000 rows, 39.1 MiB
+websight_v02: 18000/30000 rows, 41.5 MiB
+websight_v02: 19000/30000 rows, 43.7 MiB
+websight_v02: 20000/30000 rows, 46.0 MiB
+websight_v02: 21000/30000 rows, 48.4 MiB
+websight_v02: 22000/30000 rows, 50.6 MiB
+websight_v02: 23000/30000 rows, 52.9 MiB
+websight_v02: 24000/30000 rows, 55.2 MiB
+websight_v02: 25000/30000 rows, 57.5 MiB
+websight_v02: 26000/30000 rows, 59.9 MiB
+websight_v02: 27000/30000 rows, 62.2 MiB
+websight_v02: 28000/30000 rows, 64.7 MiB
+websight_v02: 29000/30000 rows, 67.1 MiB
+websight_v02: 30000/30000 rows, 69.5 MiB
+complete websight_v02: 30000 rows, 72847730 bytes
+vulcan: 1000/5000 rows, 2.0 MiB
+vulcan: 2000/5000 rows, 3.9 MiB
+vulcan: 3000/5000 rows, 5.9 MiB
+vulcan: 4000/5000 rows, 7.9 MiB
+vulcan: 5000/5000 rows, 9.3 MiB
+complete vulcan: 5000 rows, 9705334 bytes
+{"total_raw_bytes": 123276847, "free_bytes_after": 28776210432}
+
+Exit code: 0

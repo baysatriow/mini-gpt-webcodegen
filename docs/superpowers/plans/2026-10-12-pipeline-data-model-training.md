@@ -219,27 +219,27 @@ git push origin HEAD
 - `assign_splits(examples: Sequence[PageExample], seed: int, ratios: tuple[float, float, float]) -> list[PageExample]` membagi group ke `train`, `validation`, `test`.
 - Default rasio konfigurasi `0.80, 0.10, 0.10` berlaku pada jumlah group, bukan jumlah baris. Simpan seed, group count, example count, dan hash split.
 
-- [ ] **Step 1: Tulis test anti-leakage**
+- [x] **Step 1: Tulis test anti-leakage**
 
 Buat dua PageExample dari `group_id="layout-hero-001"` dan satu dari `layout-form-004`; pastikan dua contoh pertama selalu satu split dan seed sama menghasilkan hasil sama.
 
-- [ ] **Step 2: Jalankan test anti-leakage**
+- [x] **Step 2: Jalankan test anti-leakage**
 
 Run: `python -m unittest tests.data.test_split -v`
 
 Expected: gagal karena split belum dibuat.
 
-- [ ] **Step 3: Implementasikan dedup dan group allocation**
+- [x] **Step 3: Implementasikan dedup dan group allocation**
 
 Urutkan group IDs dengan seeded RNG, alokasikan group utuh ke split menurut rasio jumlah group, kemudian tulis contoh dalam urutan stabil. Jika group kurang dari 10, hentikan dengan pesan yang menjelaskan bahwa validation/test tidak dapat diandalkan. Jangan menurunkan group ID saat warna atau sinonim berubah.
 
-- [ ] **Step 4: Jalankan pemeriksaan repeatability dan overlap**
+- [x] **Step 4: Jalankan pemeriksaan repeatability dan overlap**
 
 Run: `python -m unittest tests.data.test_split -v`
 
 Expected: `group_id` antar split tidak beririsan, hasil seed sama persis, dan duplicate canonical hash masuk reject list.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add src/data/split.py tests/data/test_split.py configs/dataset.json
