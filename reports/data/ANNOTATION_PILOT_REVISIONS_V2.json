@@ -1,0 +1,107 @@
+{
+  "prior_revision": "llm-pilot-id-v1",
+  "revision": "llm-pilot-id-v2",
+  "source_ids_and_families_preserved": true,
+  "reviewed_production_rows": 0,
+  "rows": [
+    {
+      "review_id": "R-de355fb5b8b6",
+      "title": "Hubungi Kami",
+      "target_changed": false,
+      "prompt_changed": false,
+      "unresolved_before": 0,
+      "unresolved_after": 0
+    },
+    {
+      "review_id": "R-6a30eecac831",
+      "title": "Navigasi Brand",
+      "target_changed": true,
+      "prompt_changed": true,
+      "unresolved_before": 4,
+      "unresolved_after": 0
+    },
+    {
+      "review_id": "R-3fd49df7d7c4",
+      "title": "Misi Organisasi Sosial",
+      "target_changed": false,
+      "prompt_changed": true,
+      "unresolved_before": 0,
+      "unresolved_after": 0
+    },
+    {
+      "review_id": "R-df71eed31a9f",
+      "title": "Fitness Company",
+      "target_changed": false,
+      "prompt_changed": false,
+      "unresolved_before": 0,
+      "unresolved_after": 0
+    },
+    {
+      "review_id": "R-0f4b79fbd4da",
+      "title": "Koleksi Fashion",
+      "target_changed": false,
+      "prompt_changed": false,
+      "unresolved_before": 0,
+      "unresolved_after": 0
+    },
+    {
+      "review_id": "R-3e3a950af0ef",
+      "title": "Fitness Company",
+      "target_changed": false,
+      "prompt_changed": false,
+      "unresolved_before": 0,
+      "unresolved_after": 0
+    },
+    {
+      "review_id": "R-488d3bfb598d",
+      "title": "Penyedia Layanan Kesehatan",
+      "target_changed": false,
+      "prompt_changed": false,
+      "unresolved_before": 0,
+      "unresolved_after": 0
+    },
+    {
+      "review_id": "R-c5a4ef0d5cf3",
+      "title": "EdTech Startup",
+      "target_changed": true,
+      "prompt_changed": true,
+      "unresolved_before": 0,
+      "unresolved_after": 0
+    },
+    {
+      "review_id": "R-f018074c02f9",
+      "title": "Aksesori Otomotif",
+      "target_changed": false,
+      "prompt_changed": false,
+      "unresolved_before": 0,
+      "unresolved_after": 0
+    },
+    {
+      "review_id": "R-b8e84893ce43",
+      "title": "Katalog Mobil",
+      "target_changed": false,
+      "prompt_changed": false,
+      "unresolved_before": 0,
+      "unresolved_after": 0
+    },
+    {
+      "review_id": "R-24eedfe9601b",
+      "title": "Toko Aksesori Otomotif",
+      "target_changed": true,
+      "prompt_changed": true,
+      "unresolved_before": 0,
+      "unresolved_after": 0
+    },
+    {
+      "review_id": "R-14228b77a0d6",
+      "title": "Perusahaan Penerbitan",
+      "target_changed": true,
+      "prompt_changed": true,
+      "unresolved_before": 0,
+      "unresolved_after": 0
+    }
+  ],
+  "limits": [
+    "Fragment existence is checked; link label meaning and browser behavior still require human review"
+  ]
+}

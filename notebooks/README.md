@@ -30,3 +30,5 @@ SFT menunggu review manusia, sesuai [panduan training](../docs/TRAINING_GUIDE.md
 RUN-078 menjalankan versi final: 7 + 10 + 6 = 23 sel kode, tanpa cell error. RUN-079 memeriksa ulang format/syntax/link; RUN-080 suite pipeline 58/58 lulus.
 
 RUN-085 menjalankan keempat notebook: 30 sel kode, tanpa cell error. Notebook 04 menyimpan output review pilot 12 kandidat; belum ada persetujuan manusia atau SFT baru. [Panduan review](../docs/ANNOTATION_REVIEW_GUIDE.md) menjelaskan langkah berikutnya.
+
+AI-009 memperbarui notebook 04 ke pilot v2, menambahkan tabel sebelum/sesudah serta coverage kandidat tambahan. RUN-091 menjalankan empat notebook: 32 sel kode tanpa error. Output v1 terdahulu tersimpan di riwayat Git dan paket lokal v1 tetap tersedia. Semua anotasi masih draft.

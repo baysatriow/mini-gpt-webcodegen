@@ -139,3 +139,5 @@ Namun probe PageSpec JSON masih 0/4 valid. Hasil ini memerlukan kurasi instruksi
 Paket review pilot tersedia lokal: 12 draft dari 12 keluarga, 6 CSS biasa dan 6 Tailwind, termasuk menu responsif dan validasi form. Prompt, target JSON, source, catatan proyeksi dan worksheet manusia tersedia untuk diperiksa. Semua target lolos schema/context, tetapi reviewed produksi masih 0.
 
 Mulai dari [notebook kurasi](notebooks/04_kurasi_dan_sft.ipynb), [panduan review](docs/ANNOTATION_REVIEW_GUIDE.md), dan [laporan coverage](reports/data/ANNOTATION_REVIEW_PILOT_ID_V1.json). Pilot belum cukup untuk generalisasi; lanjutkan review dan perluasan data sebelum SFT.
+
+Revisi terbaru [pilot v2](reports/data/ANNOTATION_REVIEW_PILOT_ID_V2.json) memperbaiki empat target dan lima prompt, dengan fragmen tidak tersedia 4 menjadi 0. Paket lokal `outputs/annotation_review/pilot-id-v2/` menggantikan v1 untuk review. Pemindaian train menghasilkan [14 kandidat tambahan](reports/data/ANNOTATION_CANDIDATE_COVERAGE_V1.json) untuk inspeksi; kandidat belum menjadi anotasi dan source tabs terpilih belum memiliki implementasi fungsi. Reviewed produksi tetap 0.

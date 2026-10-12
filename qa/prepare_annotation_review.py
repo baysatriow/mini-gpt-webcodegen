@@ -19,6 +19,27 @@ from src.data.split import assignment_hash, read_group_assignment
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def local_link_findings(spec):
+    """Check PageSpec section anchors only; labels and browser behavior need review."""
+    if not isinstance(spec, dict):
+        return []
+    ids = {section.get("id") for section in spec.get("sections", []) if isinstance(section, dict)}
+    findings = []
+    def walk(value, path):
+        if isinstance(value, dict):
+            href = value.get("href")
+            if isinstance(href, str) and href.startswith("#"):
+                if not href[1:] or href[1:] not in ids:
+                    findings.append(f"{path}.href: unresolved section fragment {href}")
+            for key, child in value.items():
+                walk(child, f"{path}.{key}")
+        elif isinstance(value, list):
+            for index, child in enumerate(value):
+                walk(child, f"{path}[{index}]")
+    walk(spec, "$")
+    return findings
+
+
 def inspect_candidate(annotation, source, assignment, tokenizer, block_size):
     group = normalize_source_code(source["text"])[3]
     if annotation["group_id"] != group or group not in assignment:
@@ -33,7 +54,8 @@ def inspect_candidate(annotation, source, assignment, tokenizer, block_size):
     errors = validate_page_spec(annotation["target_spec"])
     tokens = len(tokenizer.encode(annotation["prompt"], add_special_tokens=False).ids)
     tokens += len(tokenizer.encode(canonical, add_special_tokens=False).ids) + 3
-    blockers = list(errors)
+    link_findings = local_link_findings(annotation["target_spec"])
+    blockers = list(errors) + link_findings
     if annotation.get("prompt_language") != "id":
         blockers.append("Prompt belum berbahasa Indonesia")
     try:
@@ -43,6 +65,7 @@ def inspect_candidate(annotation, source, assignment, tokenizer, block_size):
     return {"source_group_id": group, "authoritative_split": assignment[group],
             "schema_valid": not errors, "sequence_tokens": tokens,
             "block_size": block_size, "technical_blockers": blockers,
+            "local_link_findings": link_findings,
             "human_review_required": True}
 
 
@@ -136,6 +159,8 @@ def prepare_packet(queue_path, drafts_path, output, report_path):
                 "schema_valid_rows": sum(x["schema_valid"] for x in checks),
                 "within_context_rows": sum(x["sequence_tokens"] <= block_size for x in checks),
                 "technical_ready_rows": sum(not x["technical_blockers"] for x in checks),
+                "unresolved_local_link_rows": sum(bool(x["local_link_findings"]) for x in checks),
+                "unresolved_local_link_count": sum(len(x["local_link_findings"]) for x in checks),
                 "max_sequence_tokens": max(x["sequence_tokens"] for x in checks)}
     report = {"status": "awaiting_human_review", "reviewed_production_rows": 0,
               "queue": coverage(queue, inventory), "pilot": coverage(drafts, assessments),

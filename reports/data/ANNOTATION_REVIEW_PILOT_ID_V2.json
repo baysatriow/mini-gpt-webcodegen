@@ -1,0 +1,95 @@
+{
+  "status": "awaiting_human_review",
+  "reviewed_production_rows": 0,
+  "queue": {
+    "rows": 119,
+    "unique_families": 102,
+    "split_counts": {
+      "train": 94,
+      "test": 14,
+      "validation": 11
+    },
+    "style_counts": {
+      "plain_css": 69,
+      "tailwind": 50
+    },
+    "source_counts": {
+      "websight_v01": 50,
+      "websight_v02": 50,
+      "vulcan": 19
+    },
+    "section_counts": {
+      "hero": 119
+    },
+    "interaction_counts": {},
+    "schema_valid_rows": 119,
+    "within_context_rows": 119,
+    "technical_ready_rows": 0,
+    "unresolved_local_link_rows": 0,
+    "unresolved_local_link_count": 0,
+    "max_sequence_tokens": 404
+  },
+  "pilot": {
+    "rows": 12,
+    "unique_families": 12,
+    "split_counts": {
+      "train": 4,
+      "validation": 4,
+      "test": 4
+    },
+    "style_counts": {
+      "plain_css": 6,
+      "tailwind": 6
+    },
+    "source_counts": {
+      "vulcan": 2,
+      "websight_v01": 4,
+      "websight_v02": 6
+    },
+    "section_counts": {
+      "contact_form": 1,
+      "navbar": 5,
+      "hero": 7,
+      "feature_grid": 5,
+      "text_section": 9,
+      "footer": 4
+    },
+    "interaction_counts": {
+      "form_validate": 1,
+      "menu_toggle": 1
+    },
+    "schema_valid_rows": 12,
+    "within_context_rows": 12,
+    "technical_ready_rows": 12,
+    "unresolved_local_link_rows": 0,
+    "unresolved_local_link_count": 0,
+    "max_sequence_tokens": 612
+  },
+  "block_size": 1024,
+  "selection": "operator-curated subset; authoritative partitions inherited; not representative evaluation",
+  "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+  "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+  "raw_files_sha256": {
+    "data\\raw\\websight_v01-20000.jsonl": "9e4759eb6cca2afdbf6822dbb6a02b96ac6270545ec6fa9933e3d2fd28f1b7c3",
+    "data\\raw\\websight_v02-30000.jsonl": "1f7f386a739ac2e2fd03f7b2d3faae1d4818222d1bf04b1d6aa09d11c2bf3f1d",
+    "data\\raw\\vulcan-5000.jsonl": "e46805cbf559c2a2cf86ad8b5fdd4aeadf885d0500f86b32a44abe30a146574c"
+  },
+  "queue_sha256": "74664270b2b67450db335e25dda6969720569b2f46e782600bfa0f2ce77ff7c0",
+  "pilot_input_sha256": "0e24b44c6326a1b15f85149e705bb2373c0b47b5ca91660164a266a2f1d5c45b",
+  "packet_path": "outputs\\annotation_review\\pilot-id-v2",
+  "free_bytes_before": 27203117056,
+  "files": {
+    "drafts.json": "aba6b70bfd1c09acbbb49df76f3d31a506d4ea2ce75aa3256c9f3f1c1f36a88b",
+    "drafts.jsonl": "0e24b44c6326a1b15f85149e705bb2373c0b47b5ca91660164a266a2f1d5c45b",
+    "inventory.csv": "8b75643d341e320d214832f6d806a90bfa9d01f20d0308c15c6b12f3631aca3c",
+    "packet.html": "e2fc1dc85c1ee7f168a5d04ad0c6bdec60fc2f597887c1786767b87910b6d4c5",
+    "review.csv": "4262f109ac6b60ff3702bb04b2e83e45eb946a7a974b62c6ef42ffe06edd5b11"
+  },
+  "limits": [
+    "No human decisions supplied",
+    "No source HTML executed or browser layout checked",
+    "No SFT updates",
+    "Manual projection and translated texts require review",
+    "Missing interaction types and limited sample size prevent broad quality claims"
+  ]
+}

@@ -84,3 +84,12 @@ Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download da
 - RUN-084/085 menambah dan menjalankan notebook 04; total empat notebook/30 sel tanpa error, gate loader menolak draft.
 - Needs-data: review konkret pada `outputs/annotation_review/pilot-id-v1/packet.html` dan `review.csv`, revisi link/proyeksi, perluas coverage, lalu preparation SFT. Tidak ada TRAIN baru.
 - RUN-086: 51 Python, 25 JSON, 39 Markdown, 4 notebook/30 sel tanpa temuan. `git diff --check` bersih; private GitHub dan ignore paket lokal dikonfirmasi. Source notebook lama dipertahankan, notebook kurasi baru menyimpan hasil eksekusi.
+
+## AI-009: Revisi pilot dan kandidat perluasan
+
+- RUN-087/088: v2 12 draft/12 keluarga; empat target/lima prompt direvisi. Semua fragment tersedia dan target <=1.024 token, maksimum 612.
+- Ruling: source ID/family/partition dipertahankan; tautan fungsi yang tidak didukung dihapus. Alasan: menghindari janji fitur/section rekaan. Cost: proyeksi lebih sempit, perlu persetujuan manusia.
+- RUN-089: katalog train 14 kandidat/14 keluarga. Sinyal yang terdeteksi belum merupakan anotasi, modal/filter belum ditemukan heuristik. Tabs source tidak memiliki fungsi yang dipanggil; accordion native perlu review adaptasi.
+- RUN-090/091: notebook 04 v2 berisi perbandingan perubahan/coverage, empat notebook/32 sel tanpa error. Tidak ada TRAIN baru.
+- Needs-data: paket v2 dan worksheet tersedia, keputusan/nama reviewer diminta. Reviewed produksi masih 0; perlu review dan perluasan corpus sebelum SFT.
+- RUN-092: 52 Python, 28 JSON, 40 Markdown, empat notebook/32 sel valid tanpa temuan. Diff whitespace bersih dan GitHub private dikonfirmasi ulang. Paket/source kandidat tetap lokal.

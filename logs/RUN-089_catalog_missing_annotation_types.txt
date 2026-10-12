@@ -1,0 +1,69 @@
+RUN-089 | 2026-10-13T00:14:22.301362+07:00 | catalog_missing_annotation_types
+Command: .venv/Scripts/python.exe -m qa.catalog_annotation_candidates --output outputs/annotation_candidates/coverage-v1 --report reports/data/ANNOTATION_CANDIDATE_COVERAGE_V1.json
+Commit: 3643af44c43b2a2fc2b42ec1dda0b816307b30b5
+
+{
+  "status": "candidate_signals_only",
+  "rows_scanned": 41639,
+  "html_rows_scanned": 38666,
+  "split": "train",
+  "per_type_limit": 6,
+  "candidate_row_counts": {
+    "testimonial": 3379,
+    "pricing_table": 52,
+    "accordion": 1,
+    "tabs": 1,
+    "modal": 0,
+    "filter": 0
+  },
+  "candidate_family_counts": {
+    "testimonial": 3345,
+    "pricing_table": 52,
+    "accordion": 1,
+    "tabs": 1,
+    "modal": 0,
+    "filter": 0
+  },
+  "selected_counts": {
+    "testimonial": 6,
+    "pricing_table": 6,
+    "accordion": 1,
+    "tabs": 1,
+    "modal": 0,
+    "filter": 0
+  },
+  "selected_records": 14,
+  "selected_unique_source_rows": 14,
+  "selected_unique_families": 14,
+  "vulcan_train_idea_counts": {
+    "Write CSS for a modern ghost button with a hover effect. Use CSS variables.": 205,
+    "Write a pure-CSS bar loading animation.": 294,
+    "Build an accessible contact form with name, email, and message fields plus client-side validation. Include HTML, CSS, and vanilla JS.": 600,
+    "Write a responsive CSS Grid layout that shows 3 columns on desktop and collapses to one on mobile.": 272,
+    "Create a hero section with a bold headline, subheadline, CTA button, and an animated gradient background. Self-contained HTML.": 600,
+    "Write a responsive CSS Grid layout that shows 2 columns on desktop and collapses to one on mobile.": 308,
+    "Build a responsive sticky navigation bar with a mobile hamburger toggle. Include the HTML, CSS, and vanilla JS.": 600,
+    "Create a CSS feature card with an icon, title, body text, and a lift-on-hover effect.": 600,
+    "Write a pure-CSS dots loading animation.": 278,
+    "Write a responsive CSS Grid layout that shows 4 columns on desktop and collapses to one on mobile.": 274,
+    "Write CSS for a modern outline button with a hover effect. Use CSS variables.": 222,
+    "Write CSS for a modern gradient button with a hover effect. Use CSS variables.": 233,
+    "Write a pure-CSS spinner loading animation.": 287
+  },
+  "train_sha256": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+  "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+  "output_path": "outputs\\annotation_candidates\\coverage-v1",
+  "files": {
+    "candidates.csv": "f57463245e7ec58de9889aa648f5d562af1ca4f7f6d850d2b91849b4f567280d",
+    "candidates.jsonl": "9db8d124a0881bdb08adcf0be86f313633ea0a9fefc2e9ed8b08fd3c933a574e"
+  },
+  "limits": [
+    "Heuristic signals can include placeholders or miss differently named components",
+    "No Indonesian prompts or PageSpec targets created",
+    "No human review or browser execution",
+    "Only train corpus inspected; validation/test not used for selection",
+    "No SFT updates"
+  ]
+}
+
+Exit code: 0

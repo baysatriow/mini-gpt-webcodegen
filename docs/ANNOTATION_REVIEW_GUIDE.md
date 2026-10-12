@@ -8,7 +8,7 @@ Ini pelaksanaan tahap anotasi pada rencana pipeline yang sudah disetujui. Tidak 
 
 ## Paket lokal
 
-Buka `outputs/annotation_review/pilot-id-v1/packet.html` di browser atau baca [notebook kurasi](../notebooks/04_kurasi_dan_sft.ipynb). Dokumen HTML menampilkan prompt, PageSpec, catatan perubahan, provenance, idea dan kode sumber sebagai teks yang di-escape. Dokumen tidak menjalankan HTML/JavaScript sumber dan tidak memuat gambar/CDN sumber.
+Buka paket terbaru `outputs/annotation_review/pilot-id-v2/packet.html` di browser atau baca [notebook kurasi](../notebooks/04_kurasi_dan_sft.ipynb). Paket v1 dipertahankan sebagai riwayat. Dokumen HTML menampilkan prompt, PageSpec, catatan perubahan, provenance, idea dan kode sumber sebagai teks yang di-escape. Dokumen tidak menjalankan HTML/JavaScript sumber dan tidak memuat gambar/CDN sumber.
 
 File paket:
 
@@ -20,7 +20,7 @@ File paket:
 | `drafts.jsonl` / `drafts.json` | Target dan prompt pilot, tetap draft |
 | `manifest.json` | Hash input/output, tokenizer, family assignment dan coverage |
 
-Paket dan source turunan tetap lokal. Ringkasan tanpa teks sumber ada di [laporan pilot](../reports/data/ANNOTATION_REVIEW_PILOT_ID_V1.json). Setelah clone, paket tidak otomatis tersedia; siapkan corpus dan file draft hasil kurasi di mesin tersebut.
+Paket dan source turunan tetap lokal. Ringkasan terbaru tanpa teks sumber ada di [laporan pilot v2](../reports/data/ANNOTATION_REVIEW_PILOT_ID_V2.json), dan [laporan v1](../reports/data/ANNOTATION_REVIEW_PILOT_ID_V1.json) menyimpan hasil sebelumnya. Setelah clone, paket tidak otomatis tersedia; siapkan corpus dan file draft hasil kurasi di mesin tersebut.
 
 ## Hasil pilot v1
 
@@ -41,7 +41,28 @@ Isi `review.csv` sambil membaca kartu yang memiliki `review_id` dan `source_row_
 4. `interactions_ok`: ID interaksi memang didukung sumber, target section sesuai, dan label tautan sesuai tujuan. Halaman statis tidak diberi JavaScript rekaan.
 5. `human_decision`: pilih `approve`, `revise`, atau `reject`. Isi nama reviewer, waktu dengan zona waktu, dan alasan pada `notes`. Kolom kosong berarti belum ditinjau.
 
-Semua proyeksi perlu penilaian manusia. Empat kandidat perlu perhatian tautan khusus: **Navigasi Brand**, **EdTech Startup**, **Toko Aksesori Otomotif**, dan **Perusahaan Penerbitan**. Ada fragmen sumber yang belum memiliki tujuan, tombol tanpa aksi, atau label tujuan yang belum tepat. Jangan menerima kandidat tersebut tanpa menyelesaikan atau secara eksplisit membatasi kontrak komponennya. Ketepatan link/tujuan belum diperiksa oleh JSON Schema.
+Semua proyeksi perlu penilaian manusia. Empat kandidat memiliki perubahan fungsi pada v2 yang harus ditinjau: **Navigasi Brand**, **EdTech Startup**, **Toko Aksesori Otomotif**, dan **Perusahaan Penerbitan**. Fragmen tak tersedia dan label tujuan yang belum tepat pada v1 direvisi seperti tabel berikut. Pemeriksaan tambahan pada exporter hanya memastikan ID section tujuan tersedia; kesesuaian label, makna, dan perilaku browser tetap dinilai terpisah.
+
+## Revisi pilot v2
+
+| Kandidat | Perbaikan |
+| --- | --- |
+| Navigasi Brand | Komponen navbar mandiri dengan satu tautan Navigasi menuju navbar. Empat tujuan yang tidak memiliki section dihapus. |
+| EdTech Startup | CTA menjadi Lihat Fitur menuju section fitur; tidak menjanjikan pendaftaran. |
+| Toko Aksesori Otomotif | Hanya tautan produk dan profil yang tersedia. Kontak tanpa detail dihapus; hero menjadi teks centered karena gambar tidak didukung. |
+| Perusahaan Penerbitan | Dibatasi menjadi profil penerbit; tautan toko, bergabung dan kontak dihapus. Beranda/Kembali ke awal menuju hero. |
+
+Empat target dan lima prompt berubah. Prompt organisasi sosial diperjelas agar warna dan kartu sesuai target. Source ID, family dan partition dipertahankan. Semua 12 target lolos schema/context, maksimum **612 token**; fragmen tidak tersedia turun dari 4 menjadi 0. Status tetap draft dengan reviewer kosong. Rincian: [perbandingan revisi](../reports/data/ANNOTATION_PILOT_REVISIONS_V2.json).
+
+Gunakan `outputs/annotation_review/pilot-id-v2/review.csv` untuk review terbaru. Persetujuan v1, jika ada, tidak otomatis berlaku untuk target yang berubah pada v2.
+
+## Kandidat tambahan dan batas corpus
+
+Pemindaian train membaca 41.639 baris, termasuk 38.666 HTML, dan menyimpan 14 kandidat dari 14 keluarga: enam testimonial, enam pricing, satu accordion dan satu tabs. Ini sinyal untuk inspeksi, belum pasangan instruksi atau data reviewed. Kandidat disimpan di `outputs/annotation_candidates/coverage-v1/` dengan provenance; ringkasan di [laporan coverage](../reports/data/ANNOTATION_CANDIDATE_COVERAGE_V1.json).
+
+Source tabs terpilih hanya memanggil `openTab` lewat atribut onclick dan tidak menyediakan implementasi fungsi atau script eksternal. Jangan menganggap interaksi tersebut tersedia atau memberi label target tabs tanpa memperbaiki/menilai adaptasinya. Source accordion memakai details/summary native HTML, sehingga memerlukan penilaian adaptasi ke katalog renderer JavaScript proyek.
+
+Pencarian heuristik tidak menemukan modal/filter; hasil nol tidak membuktikan keduanya tidak ada. Pola lain bisa terlewat. Review dan penambahan bahan yang benar-benar mendukung interaksi diperlukan sebelum mengklaim coverage lengkap. Source validation/test tidak dipakai untuk memilih kandidat perluasan ini.
 
 Pada Misi Organisasi Sosial, tombol donasi dihilangkan karena fragmen sumber tidak memiliki section donasi. Pada katalog aksesori/mobil, tabel menjadi kartu. Pada Fitness Company, sidebar atau warna per blok hilang. Reviewer harus menerima atau merevisi perubahan tersebut secara sadar.
 
@@ -69,7 +90,7 @@ Panduan training dan konfigurasi ada di [TRAINING_GUIDE](TRAINING_GUIDE.md). Not
 Gunakan dua path output baru, bukan menimpa hasil review sebelumnya:
 
 ```powershell
-.\.venv\Scripts\python.exe qa/run_logged.py --label export_annotation_review_packet -- .\.venv\Scripts\python.exe -m qa.prepare_annotation_review --drafts data/annotations/pilot_drafts_id_v2.jsonl --output outputs/annotation_review/pilot-id-v2 --report reports/data/ANNOTATION_REVIEW_PILOT_ID_V2.json
+.\.venv\Scripts\python.exe qa/run_logged.py --label export_annotation_review_packet -- .\.venv\Scripts\python.exe -m qa.prepare_annotation_review --drafts data/annotations/pilot_drafts_id_v3.jsonl --output outputs/annotation_review/pilot-id-v3 --report reports/data/ANNOTATION_REVIEW_PILOT_ID_V3.json
 ```
 
-Exporter menerima subset draft dari queue yang ada, memverifikasi source text/provenance/family assignment, memeriksa schema serta tokenizer/context, dan mengekspor checklist kosong. Exporter tidak menerjemahkan sendiri, tidak menetapkan persetujuan manusia, serta tidak mengimpor CSV ke training. Draft v1 ditulis oleh LLM pada sesi AI-008 dan membutuhkan review manusia.
+Exporter menerima subset draft dari queue yang ada, memverifikasi source text/provenance/family assignment, memeriksa schema, fragmen lokal serta tokenizer/context, dan mengekspor checklist kosong. Exporter tidak menerjemahkan sendiri, tidak menetapkan persetujuan manusia, serta tidak mengimpor CSV ke training. Draft v1 ditulis oleh LLM pada sesi AI-008 dan direvisi pada AI-009; semuanya membutuhkan review manusia.

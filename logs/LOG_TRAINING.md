@@ -204,3 +204,16 @@ Tahap data, **bukan TRAIN baru**. Jumlah update produksi dan checkpoint tetap ba
 - Keterbatasan: corpus kecil, belum semua section/interaksi, perubahan layout perlu penilaian manusia, empat kandidat memiliki isu kontrak/tujuan tautan. Review dan perluasan data diperlukan sebelum SFT.
 
 Rincian: [panduan review](../docs/ANNOTATION_REVIEW_GUIDE.md), [laporan pilot](../reports/data/ANNOTATION_REVIEW_PILOT_ID_V1.json), [interaksi AI-008](interaksi_llm/AI-008_2026-10-12.md).
+
+## AI-009: Revisi data dan coverage sebelum SFT
+
+Tidak ada TRAIN baru atau optimizer update. Baseline TRAIN-004 dan parent `TRAIN-004-VERIFIED` tetap.
+
+- RUN-087/088 menyiapkan pilot v2: 12 draft/12 keluarga, empat target dan lima prompt berubah. Partition 4 train/4 validation/4 test dan style 6/6 dipertahankan. Reviewed produksi 0, reviewer kosong.
+- Schema/context valid 12/12, maksimum 612 token. Fragment tidak tersedia empat pada v1 menjadi nol pada v2. Audit ini memeriksa keberadaan section, bukan semantik label/browser.
+- Tokenizer dan assignment hashes sama dengan v1. Corpus pretraining, token cache dan checkpoint tidak diubah.
+- RUN-089 katalog dari train: 41.639 baris dibaca/38.666 HTML, 14 kandidat/14 keluarga tersimpan. Coverage heuristik menemukan bahan testimonial/pricing dan kandidat accordion/tabs, belum modal/filter. Kandidat tabs tidak memiliki fungsi openTab yang dipanggil source; belum layak dianggap interaksi bekerja. Accordion native memerlukan adaptasi yang ditinjau.
+- RUN-090/091 memperbarui dan mengeksekusi notebook kurasi: empat notebook, 32 sel kode tanpa error. Status reviewed/production tetap nol; loader tetap menolak draft.
+- Tidak ada hasil SFT/visual baru. Review manusia, corpus instruksi lebih luas dan accepted/rejected preparation diperlukan sebelum profiling/training SFT.
+
+Rincian: [pilot v2](../reports/data/ANNOTATION_REVIEW_PILOT_ID_V2.json), [revisi](../reports/data/ANNOTATION_PILOT_REVISIONS_V2.json), [coverage kandidat](../reports/data/ANNOTATION_CANDIDATE_COVERAGE_V1.json), [AI-009](interaksi_llm/AI-009_2026-10-13.md).

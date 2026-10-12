@@ -14,7 +14,7 @@ Zona waktu pencatatan: Asia/Jakarta
 - Jangan masukkan API key, password, token, atau data pribadi ke log.
 - Jika ada koreksi setelah dicatat, tambahkan catatan koreksi baru yang merujuk ID lama. Jangan menghapus atau mengubah riwayat run.
 
-Ringkasan terbaru: baseline TRAIN-003/004 tetap 1.200 update, test loss 1,071 / perplexity 2,918, probe JSON/schema 0/4. AI-008 menyiapkan pilot 12 draft Indonesia dari queue 119, paket review dan notebook 04. Empat notebook berjalan 30 sel tanpa error. Reviewed produksi tetap 0 dan tidak ada training baru. Riwayat RUN lama dipertahankan; nomor RUN mengikuti ID tertinggi pada logs/RUN-*.txt, interaksi berikutnya AI-009.
+Ringkasan terbaru: baseline tetap 1.200 update, test loss 1,071 / perplexity 2,918 dan probe JSON/schema 0/4. AI-009 merevisi pilot v2 (empat target/lima prompt), fragmen tidak tersedia 4 menjadi 0, maksimum 612 token, serta katalog 14 kandidat train. Empat notebook berjalan 32 sel tanpa error. Reviewed produksi tetap 0, tidak ada training baru. RUN mengikuti ID tertinggi pada logs/RUN-*.txt; interaksi berikutnya AI-010.
 
 ---
 
@@ -1222,3 +1222,66 @@ Planning disetujui oleh pengguna melalui permintaan implementasi pipeline dan do
 - **Commit:** `04557166735abf2460c8f4aa90b45bb13b68b333`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-086_annotation_delivery_checks.txt`.
+
+### RUN-087
+
+- **Waktu:** 2026-10-13T00:12:47.836295+07:00 sampai 2026-10-13T00:12:47.965444+07:00.
+- **Tujuan:** revise_indonesian_annotation_pilot.
+- **Command:** `.venv/Scripts/python.exe .tmp/revise_annotation_pilot.py`.
+- **Commit:** `3643af44c43b2a2fc2b42ec1dda0b816307b30b5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-087_revise_indonesian_annotation_pilot.txt`.
+
+### RUN-088
+
+- **Waktu:** 2026-10-13T00:12:50.280183+07:00 sampai 2026-10-13T00:12:56.862143+07:00.
+- **Tujuan:** export_annotation_review_v2.
+- **Command:** `.venv/Scripts/python.exe -m qa.prepare_annotation_review --drafts data/annotations/pilot_drafts_id_v2.jsonl --output outputs/annotation_review/pilot-id-v2 --report reports/data/ANNOTATION_REVIEW_PILOT_ID_V2.json`.
+- **Commit:** `3643af44c43b2a2fc2b42ec1dda0b816307b30b5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-088_export_annotation_review_v2.txt`.
+
+### RUN-089
+
+- **Waktu:** 2026-10-13T00:14:22.301362+07:00 sampai 2026-10-13T00:14:28.999456+07:00.
+- **Tujuan:** catalog_missing_annotation_types.
+- **Command:** `.venv/Scripts/python.exe -m qa.catalog_annotation_candidates --output outputs/annotation_candidates/coverage-v1 --report reports/data/ANNOTATION_CANDIDATE_COVERAGE_V1.json`.
+- **Commit:** `3643af44c43b2a2fc2b42ec1dda0b816307b30b5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-089_catalog_missing_annotation_types.txt`.
+
+### RUN-090
+
+- **Waktu:** 2026-10-13T00:16:02.250059+07:00 sampai 2026-10-13T00:16:04.511470+07:00.
+- **Tujuan:** update_review_notebook_v2.
+- **Command:** `.venv/Scripts/python.exe .tmp/update_review_notebook_v2.py`.
+- **Commit:** `3643af44c43b2a2fc2b42ec1dda0b816307b30b5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-090_update_review_notebook_v2.txt`.
+
+### RUN-091
+
+- **Waktu:** 2026-10-13T00:16:06.789127+07:00 sampai 2026-10-13T00:16:25.200806+07:00.
+- **Tujuan:** execute_review_notebook_v2.
+- **Command:** `.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place`.
+- **Commit:** `3643af44c43b2a2fc2b42ec1dda0b816307b30b5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-091_execute_review_notebook_v2.txt`.
+
+## AI-009: Revisi pilot dan coverage data
+
+- **Instruksi:** Setelah mapping, pengguna memberi instruksi oke lanjut.
+- **Hasil:** Paket v2 tetap 12 draft/12 keluarga; empat target/lima prompt diperbaiki, semua fragment tersedia. Kandidat tambahan 14 source rows dari train tersimpan untuk inspeksi, belum target SFT.
+- **Bukti:** RUN-087 revisi, RUN-088 export v2, RUN-089 katalog 41.639 train rows, RUN-090 notebook v2, RUN-091 empat notebook/32 sel tanpa error.
+- **Batas:** Reviewed 0/optimizer updates 0. Source tabs hanya memanggil fungsi yang belum diimplementasikan; modal/filter belum ditemukan heuristik. Keputusan review manusia dan nama reviewer diminta.
+- **Ekspor interaksi:** [AI-009](interaksi_llm/AI-009_2026-10-13.md).
+- **Artifact:** [pilot v2](../reports/data/ANNOTATION_REVIEW_PILOT_ID_V2.json), [perbandingan](../reports/data/ANNOTATION_PILOT_REVISIONS_V2.json), [coverage](../reports/data/ANNOTATION_CANDIDATE_COVERAGE_V1.json).
+
+### RUN-092
+
+- **Waktu:** 2026-10-13T00:20:48.198412+07:00 sampai 2026-10-13T00:20:48.675025+07:00.
+- **Tujuan:** annotation_v2_delivery_checks.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `3643af44c43b2a2fc2b42ec1dda0b816307b30b5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-092_annotation_v2_delivery_checks.txt`.
