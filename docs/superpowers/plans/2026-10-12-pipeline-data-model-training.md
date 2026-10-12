@@ -362,27 +362,27 @@ git push origin HEAD
 - `save_checkpoint(path, state: dict) -> None`; `load_checkpoint(path, model, optimizer, scheduler) -> dict` memulihkan model, optimizer, scheduler, step, dan RNG state.
 - SFT loss menghitung hanya label bukan `-100`. Pretraining loss memprediksi token berikutnya untuk seluruh token valid.
 
-- [ ] **Step 1: Tulis test satu optimizer step dan resume**
+- [x] **Step 1: Tulis test satu optimizer step dan resume**
 
 Gunakan model mini deterministik dan batch kecil. Pastikan parameter berubah setelah step, loss finite, prompt loss diabaikan pada SFT, dan state hasil save/load meneruskan `global_step` serta parameter yang sama.
 
-- [ ] **Step 2: Jalankan training/checkpoint test**
+- [x] **Step 2: Jalankan training/checkpoint test**
 
 Run: `python -m unittest tests.training -v`
 
 Expected: gagal sebelum engine tersedia.
 
-- [ ] **Step 3: Implementasikan loop dengan config immutable per run**
+- [x] **Step 3: Implementasikan loop dengan config immutable per run**
 
 Set seed sebelum loader/model. Gunakan AdamW dan konfigurasi optimizer eksplisit. BF16 CUDA berjalan dalam `torch.autocast("cuda", dtype=torch.bfloat16)` hanya jika config mengaktifkannya. Jalankan validation tanpa grad, append satu record JSONL per step, simpan checkpoint `last` dan `best` berdasarkan validation loss, serta tulis console output ke log TRAIN.
 
-- [ ] **Step 4: Jalankan unit dan smoke training tanpa dataset penuh**
+- [x] **Step 4: Jalankan unit dan smoke training tanpa dataset penuh**
 
 Run: `python -m unittest tests.training -v`
 
 Expected: test resume identik dan batch mini berakhir dengan loss finite. Jalankan `python -m qa.train_minigpt --config configs/training_pretrain.json --max-steps 5 --smoke`; expected: menyimpan artifact terpisah, tidak menimpa config produksi, dan membuat entry TRAIN baru.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add src/training/engine.py tests/training/__init__.py tests/training/test_engine.py tests/training/test_checkpoint.py qa/train_minigpt.py configs/training_sft.json logs/LOG_TRAINING.md

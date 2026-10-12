@@ -1,0 +1,25 @@
+RUN-059 | 2026-10-12T20:27:52.180127+07:00 | training_cli_sft_gate_red
+Command: .\.venv\Scripts\python.exe -B -m unittest tests.training.test_cli -v
+Commit: 24f9e5be4f29a4d120870ba666e016a8c90a8b65
+
+test_cli (unittest.loader._FailedTest.test_cli) ... ERROR
+
+======================================================================
+ERROR: test_cli (unittest.loader._FailedTest.test_cli)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_cli
+Traceback (most recent call last):
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\training\test_cli.py", line 6, in <module>
+    from qa.train_minigpt import prepare_training_data
+ModuleNotFoundError: No module named 'qa.train_minigpt'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+
+Exit code: 1

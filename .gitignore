@@ -2,6 +2,7 @@
 .tmp/
 .cache/
 .superpowers/
+configs/.TRAIN-*.json
 data/tokenizer/
 data/annotations/*.jsonl
 logs/training/

@@ -1,0 +1,18 @@
+RUN-061 | 2026-10-12T20:30:23.476525+07:00 | TRAIN_002_smoke_training
+Command: .\.venv\Scripts\python.exe -B -m qa.train_minigpt --config configs/training_pretrain.json --run-id TRAIN-002 --max-steps 5 --smoke
+Commit: 24f9e5be4f29a4d120870ba666e016a8c90a8b65
+
+{"event": "validation", "step": 0, "loss": 9.10213851928711, "perplexity": 8974.46426171776, "valid_tokens": 8192, "batches": 2}
+{"event": "train", "step": 1, "loss": 9.095550537109375, "grad_norm": 4.090672969818115, "valid_tokens": 4096, "learning_rate": 4.9999999999999996e-06, "seconds": 0.2799553000368178, "tokens_per_second": 14630.907146467034, "data_cursor": 1}
+{"event": "validation", "step": 1, "loss": 9.069372653961182, "perplexity": 8685.173487091426, "valid_tokens": 8192, "batches": 2}
+{"event": "train", "step": 2, "loss": 9.057327270507812, "grad_norm": 4.261361598968506, "valid_tokens": 4096, "learning_rate": 9.999999999999999e-06, "seconds": 0.06520999997155741, "tokens_per_second": 62812.45210529902, "data_cursor": 2}
+{"event": "validation", "step": 2, "loss": 9.005437850952148, "perplexity": 8147.267312681681, "valid_tokens": 8192, "batches": 2}
+{"event": "train", "step": 3, "loss": 9.006105422973633, "grad_norm": 4.813415050506592, "valid_tokens": 4096, "learning_rate": 1.4999999999999999e-05, "seconds": 0.059759700030554086, "tokens_per_second": 68541.17403376836, "data_cursor": 3}
+{"event": "validation", "step": 3, "loss": 8.915214538574219, "perplexity": 7444.37906417615, "valid_tokens": 8192, "batches": 2}
+{"event": "train", "step": 4, "loss": 8.929920196533203, "grad_norm": 4.388765335083008, "valid_tokens": 4096, "learning_rate": 1.9999999999999998e-05, "seconds": 0.05966570001328364, "tokens_per_second": 68649.15687049828, "data_cursor": 4}
+{"event": "validation", "step": 4, "loss": 8.80872917175293, "perplexity": 6692.408958247991, "valid_tokens": 8192, "batches": 2}
+{"event": "train", "step": 5, "loss": 8.803996086120605, "grad_norm": 4.442985534667969, "valid_tokens": 4096, "learning_rate": 2.4999999999999998e-05, "seconds": 0.06065250001847744, "tokens_per_second": 67532.25339025064, "data_cursor": 5}
+{"event": "validation", "step": 5, "loss": 8.700616359710693, "perplexity": 6006.613310983928, "valid_tokens": 8192, "batches": 2}
+{"run_id": "TRAIN-002", "status": "completed", "checkpoint": "checkpoints\\TRAIN-002\\last.pt"}
+
+Exit code: 0

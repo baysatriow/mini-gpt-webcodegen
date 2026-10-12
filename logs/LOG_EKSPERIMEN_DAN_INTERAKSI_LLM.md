@@ -943,3 +943,48 @@ Planning disetujui oleh pengguna melalui permintaan implementasi pipeline dan do
 - **Commit:** `b81cc6191a735df3a9aadf90b7cb0c5f47006816`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-056_train_001_gpu_profile.txt`.
+
+### RUN-057
+
+- **Waktu:** 2026-10-12T20:23:01.766072+07:00 sampai 2026-10-12T20:23:03.839663+07:00.
+- **Tujuan:** training_engine_red.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest discover -s tests/training -v`.
+- **Commit:** `24f9e5be4f29a4d120870ba666e016a8c90a8b65`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-057_training_engine_red.txt`.
+
+### RUN-058
+
+- **Waktu:** 2026-10-12T20:26:13.064477+07:00 sampai 2026-10-12T20:26:17.310255+07:00.
+- **Tujuan:** training_engine_green.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest discover -s tests/training -v`.
+- **Commit:** `24f9e5be4f29a4d120870ba666e016a8c90a8b65`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-058_training_engine_green.txt`.
+
+### RUN-059
+
+- **Waktu:** 2026-10-12T20:27:52.180127+07:00 sampai 2026-10-12T20:27:52.378178+07:00.
+- **Tujuan:** training_cli_sft_gate_red.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest tests.training.test_cli -v`.
+- **Commit:** `24f9e5be4f29a4d120870ba666e016a8c90a8b65`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-059_training_cli_sft_gate_red.txt`.
+
+### RUN-060
+
+- **Waktu:** 2026-10-12T20:30:15.592251+07:00 sampai 2026-10-12T20:30:21.196437+07:00.
+- **Tujuan:** model_training_suite_green.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest discover -s tests -v`.
+- **Commit:** `24f9e5be4f29a4d120870ba666e016a8c90a8b65`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-060_model_training_suite_green.txt`.
+
+### RUN-061
+
+- **Waktu:** 2026-10-12T20:30:23.476525+07:00 sampai 2026-10-12T20:30:32.287364+07:00.
+- **Tujuan:** TRAIN_002_smoke_training.
+- **Command:** `.\.venv\Scripts\python.exe -B -m qa.train_minigpt --config configs/training_pretrain.json --run-id TRAIN-002 --max-steps 5 --smoke`.
+- **Commit:** `24f9e5be4f29a4d120870ba666e016a8c90a8b65`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-061_train_002_smoke_training.txt`.

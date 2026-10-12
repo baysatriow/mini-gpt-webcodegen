@@ -18,6 +18,7 @@ Catat setiap percobaan pretraining, penyelarasan instruksi, resume, atau evaluas
 | TRAIN ID | Tahap | Status | RUN IDs | Commit | Hasil |
 | --- | --- | --- | --- | --- | --- |
 | TRAIN-001 | GPU profiling, bobot dibuang | Selesai | RUN-056 | HEAD dasar b81cc61, working tree Task 6 | 14.186.496 parameter; batch 1/2/4 finite; batch 4 peak allocated 2.189.641.216 bytes |
+| TRAIN-002 | Smoke pretraining BF16 | Selesai, 5 update | RUN-061 | HEAD dasar 24f9e5b, working tree Task 7 | Validation subset loss 9,1021 menjadi 8,7006; bukan baseline kualitas |
 
 ## TRAIN-001: Profiling kandidat Mini GPT
 
@@ -28,6 +29,15 @@ Catat setiap percobaan pretraining, penyelarasan instruksi, resume, atau evaluas
 - Semua loss/grad norm finite. Tidak ada OOM. Warning konversi loss Tensor ke scalar direkam; pencatatan berikutnya memakai detach. Angka ini profiling batch berulang, bukan throughput end-to-end baseline.
 - Keputusan: microbatch 4 dengan accumulation 4 sebagai titik awal baseline, effective batch 16 blok / 16.384 token maksimum per update. Ukur lagi VRAM/throughput selama run aktual.
 - Tidak ada validation/test, generation quality, atau PageSpec evaluation pada profiling ini. Profiling tidak membuktikan model sudah mempelajari dataset.
+
+## TRAIN-002: Smoke training aktual
+
+- Command: `python -m qa.train_minigpt --config configs/training_pretrain.json --run-id TRAIN-002 --max-steps 5 --smoke`.
+- Tujuan: memeriksa loop CUDA, optimizer, validation, checkpoint last/best, dan output metrik pada subset kecil. Model tetap 14.186.496 parameter dari bobot acak, seed 42, BF16. Subset 32 train blocks / 8 validation blocks; microbatch 4, accumulation 1 pada smoke.
+- Optimizer AdamW LR dasar 0,0003, warmup 60 dari config baseline; run 5 steps berhenti saat warmup. Loss train akhir 8,803996; validation awal 9,102139 dan akhir 8,700616. Semua finite; tidak ada OOM/NaN.
+- Config, environment, hash lineage, global step, total token, waktu dan peak VRAM aktual: `reports/training/TRAIN-002.json`. Full config/checkpoint lokal: `checkpoints/TRAIN-002/`; metrics: `outputs/metrics/TRAIN-002.jsonl`; console: `logs/training/TRAIN-002.log`.
+- Checkpoint last dan best dipilih lewat validation loss. Target labels dikonsumsi langsung tanpa shift kedua. Tidak ada SFT atau skor website.
+- Pengujian engine RUN-060: 47 tests, termasuk loss masking, checksum sebelum load, resume CPU identik bitwise, draft SFT gate, serta failure artifact simulated OOM. Simulasi bukan OOM hardware yang benar-benar terjadi.
 
 ## Protokol pencatatan
 
