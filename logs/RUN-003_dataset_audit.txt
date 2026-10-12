@@ -1,0 +1,114 @@
+webdev_card: HTTP 401 HTTP Error 401: Unauthorized
+webdev_metadata: HTTP 401 HTTP Error 401: Unauthorized
+webmc_metadata: HTTP 200 
+webmc_card: HTTP 200 
+websight_card: HTTP 200 
+webmc_tree: HTTP 200 
+websight_metadata: HTTP 200 
+websight_size: HTTP 200 
+webdev_rows: HTTP 401 HTTP Error 401: Unauthorized
+websight_rows_0: HTTP 200 
+websight_rows_240000: HTTP 200 
+websight_rows_720000: HTTP 200 
+websight_rows_480000: HTTP 200 
+websight_rows_1440000: HTTP 200 
+websight_rows_1200000: HTTP 200 
+websight_rows_1680000: HTTP 200 
+websight_rows_960000: HTTP 200 
+{
+  "checked_at_utc": "2026-10-12T10:03:01.832633+00:00",
+  "webmc": {
+    "count": 600,
+    "columns": [
+      "choices",
+      "gold",
+      "query"
+    ],
+    "choice_counts": {
+      "4": 600
+    },
+    "gold_counts": {
+      "2": 123,
+      "1": 125,
+      "3": 82,
+      "0": 270
+    },
+    "gold_out_of_bounds": 0,
+    "duplicate_queries_exact": 0,
+    "queries_containing_html": 384,
+    "example": {
+      "query": "Source codes: <!DOCTYPE html><html><head><title>My Personal Website</title><link href=\"styles.css\" rel=\"stylesheet\"></head><body><header><div id=\"banner\"><img src=\"cover-photo.jpg\" alt=\"Cover Photo\"><h1>Welcome to My Personal Website!</h1></div></header><nav><ul><li><a href=\"#about-me\">About Me</a></li><li><a href=\"#experties\">My Skills</a></li><li><a href=\"#portfolio\">Portfolio</a></li><li><a href=\"#contact-me\">Contact Me</a></li></ul></nav><main><section id=\"about-me\"><h2>About Me</h2><p>Some information about me...</p></section><section id=\"experties\"><h2>My Skills</h2><p>Here's a list of my skills...</p></section><!-- Other sections can be created similarly --></main></body></html> What purpose does the navigation (nav) section serve in this personal website?",
+      "choices": [
+        "Displaying blog posts.",
+        "Allowing users to open the website's source codes.",
+        "Facilitating easy navigation to specific sections of the website.",
+        "Showcasing a list of the user's skills."
+      ],
+      "gold": 2
+    },
+    "repository_files": [
+      {
+        "path": ".gitattributes",
+        "type": "file",
+        "size": 2307
+      },
+      {
+        "path": "README.md",
+        "type": "file",
+        "size": 13934
+      },
+      {
+        "path": "WebMC.json",
+        "type": "file",
+        "size": 1168192
+      }
+    ]
+  },
+  "websight_sample": {
+    "sample_count": 800,
+    "columns": [
+      "image",
+      "llm_generated_idea",
+      "text"
+    ],
+    "nonempty_prompt": 800,
+    "nonempty_code": 800,
+    "duplicate_prompts_exact": 0,
+    "duplicate_codes_whitespace_normalized": 0,
+    "code_chars_min": 463,
+    "code_chars_median": 1600.5,
+    "code_chars_p95": 2542,
+    "code_chars_max": 4815,
+    "tailwind_reference": 800,
+    "script_tag": 1,
+    "inline_event_attribute": 0,
+    "http_url": 800,
+    "source_unsplash_reference": 522,
+    "placeholder_text": 127,
+    "prompt_cjk_characters_present": 0,
+    "notes": "Lexical indicators only; no HTML/CSS/JS execution or browser validation. Character counts are not tokenizer counts.",
+    "sampling": "Eight ordered blocks, length 100, offsets 0 through 1680000; not a random sample. Images were not downloaded."
+  },
+  "webdev_access": {
+    "webdev_metadata": {
+      "url": "https://huggingface.co/api/datasets/Hoglet-33/webdev-coding-dataset",
+      "status": 401,
+      "error": "HTTP Error 401: Unauthorized"
+    },
+    "webdev_card": {
+      "url": "https://huggingface.co/datasets/Hoglet-33/webdev-coding-dataset/raw/main/README.md",
+      "status": 401,
+      "error": "HTTP Error 401: Unauthorized"
+    },
+    "webdev_rows": {
+      "url": "https://datasets-server.huggingface.co/rows?dataset=Hoglet-33%2Fwebdev-coding-dataset&config=default&split=train&offset=0&length=100",
+      "status": 401,
+      "error": "HTTP Error 401: Unauthorized"
+    }
+  },
+  "revisions": {
+    "webdev": null,
+    "webmc": "8090e6cd8cb71a5a0d5630da8eacd0b873963774",
+    "websight": "b11f8172f89c992b56ac702319e02c428cca4a4e"
+  }
+}

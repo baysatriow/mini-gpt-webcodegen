@@ -1,0 +1,23 @@
+RUN-017 repository preflight, 2026-10-12 Asia/Jakarta
+
+Tujuan
+- Periksa privasi repository GitHub sebelum push pertama.
+- Periksa staging, whitespace, remote, aturan ignore, dan path lokal sensitif.
+
+Hasil
+- Repository: https://github.com/baysatriow/mini-gpt-webcodegen
+- Visibility: PRIVATE
+- Branch lokal: main
+- Remote origin: https://github.com/baysatriow/mini-gpt-webcodegen.git
+- Status remote: belum memiliki default branch sebelum push pertama.
+- File staged: 49
+- Ringkasan staged: 3.548 baris tambahan.
+- `git diff --cached --check`: exit 0, tidak ada masalah whitespace.
+- `.venv`, `data/raw`, dokumen referensi asli, dan catatan lokasi lama: diabaikan Git.
+- Path mesin lokal atau email pengguna pada ringkasan audit/config yang diperiksa: tidak ditemukan.
+- Pemeriksaan dokumen terdahulu pada RUN-016: 20 file Markdown, 19 link relatif, 9 task plan, tanpa error.
+
+Batas verifikasi
+- Pemeriksaan ini hanya mencakup dokumentasi, konfigurasi, staging, dan metadata repository.
+- Tidak ada model, data training, pipeline training, hasil website, atau aplikasi yang dijalankan.
+- Commit dan push dilakukan setelah catatan preflight ini dibuat.

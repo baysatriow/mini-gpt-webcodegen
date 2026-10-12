@@ -1,0 +1,9 @@
+markdown_files=20 relative_links=19
+ERRORS:
+broken link: logs\LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md -> Vibe_Coding_Proyek_1/logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md
+plan_placeholder_'TBD'=False
+plan_placeholder_'TODO'=False
+plan_placeholder_'implement later'=False
+plan_placeholder_'add appropriate error handling'=False
+plan_placeholder_'similar to Task'=False
+plan_tasks= 9

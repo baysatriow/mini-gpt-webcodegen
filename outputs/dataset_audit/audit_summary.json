@@ -1,0 +1,248 @@
+{
+  "checked_at_utc": "2026-10-12T10:06:25.847803+00:00",
+  "requests": {
+    "webmc_metadata": {
+      "url": "https://huggingface.co/api/datasets/IFM/WebMC",
+      "status": 200,
+      "bytes": 1153
+    },
+    "webdev_metadata": {
+      "url": "https://huggingface.co/api/datasets/Hoglet-33/webdev-coding-dataset",
+      "status": 401,
+      "error": "HTTP Error 401: Unauthorized"
+    },
+    "websight_metadata": {
+      "url": "https://huggingface.co/api/datasets/HuggingFaceM4/WebSight",
+      "status": 200,
+      "bytes": 56357
+    },
+    "webdev_card": {
+      "url": "https://huggingface.co/datasets/Hoglet-33/webdev-coding-dataset/raw/main/README.md",
+      "status": 401,
+      "error": "HTTP Error 401: Unauthorized"
+    },
+    "webmc_tree": {
+      "url": "https://huggingface.co/api/datasets/IFM/WebMC/tree/main",
+      "status": 200,
+      "bytes": 299
+    },
+    "webdev_rows": {
+      "url": "https://datasets-server.huggingface.co/rows?dataset=Hoglet-33%2Fwebdev-coding-dataset&config=default&split=train&offset=0&length=100",
+      "status": 401,
+      "error": "HTTP Error 401: Unauthorized"
+    },
+    "websight_size": {
+      "url": "https://datasets-server.huggingface.co/size?dataset=HuggingFaceM4%2FWebSight",
+      "status": 200,
+      "bytes": 1122
+    },
+    "WebMC": {
+      "url": "https://huggingface.co/datasets/IFM/WebMC/resolve/main/WebMC.json",
+      "status": 200,
+      "bytes": 1168192
+    },
+    "websight_card": {
+      "url": "https://huggingface.co/datasets/HuggingFaceM4/WebSight/raw/main/README.md",
+      "status": 200,
+      "bytes": 5160
+    },
+    "websight_rows_0": {
+      "url": "https://datasets-server.huggingface.co/rows?dataset=HuggingFaceM4%2FWebSight&config=v0.2&split=train&offset=0&length=100",
+      "status": 200,
+      "bytes": 270828
+    },
+    "websight_rows_240000": {
+      "url": "https://datasets-server.huggingface.co/rows?dataset=HuggingFaceM4%2FWebSight&config=v0.2&split=train&offset=240000&length=100",
+      "status": 200,
+      "bytes": 269167
+    },
+    "websight_rows_480000": {
+      "url": "https://datasets-server.huggingface.co/rows?dataset=HuggingFaceM4%2FWebSight&config=v0.2&split=train&offset=480000&length=100",
+      "status": 200,
+      "bytes": 260455
+    },
+    "websight_rows_720000": {
+      "url": "https://datasets-server.huggingface.co/rows?dataset=HuggingFaceM4%2FWebSight&config=v0.2&split=train&offset=720000&length=100",
+      "status": 200,
+      "bytes": 264410
+    },
+    "websight_rows_1200000": {
+      "url": "https://datasets-server.huggingface.co/rows?dataset=HuggingFaceM4%2FWebSight&config=v0.2&split=train&offset=1200000&length=100",
+      "status": 200,
+      "bytes": 258312
+    },
+    "websight_rows_1440000": {
+      "url": "https://datasets-server.huggingface.co/rows?dataset=HuggingFaceM4%2FWebSight&config=v0.2&split=train&offset=1440000&length=100",
+      "status": 200,
+      "bytes": 269626
+    },
+    "websight_rows_960000": {
+      "url": "https://datasets-server.huggingface.co/rows?dataset=HuggingFaceM4%2FWebSight&config=v0.2&split=train&offset=960000&length=100",
+      "status": 200,
+      "bytes": 267771
+    },
+    "websight_rows_1680000": {
+      "url": "https://datasets-server.huggingface.co/rows?dataset=HuggingFaceM4%2FWebSight&config=v0.2&split=train&offset=1680000&length=100",
+      "status": 200,
+      "bytes": 265594
+    },
+    "webmc_card": {
+      "url": "https://huggingface.co/datasets/IFM/WebMC/raw/main/README.md",
+      "status": null,
+      "error": "TimeoutError: The read operation timed out"
+    }
+  },
+  "webmc": {
+    "count": 600,
+    "columns": [
+      "choices",
+      "gold",
+      "query"
+    ],
+    "choice_counts": {
+      "4": 600
+    },
+    "gold_counts": {
+      "2": 123,
+      "1": 125,
+      "3": 82,
+      "0": 270
+    },
+    "gold_out_of_bounds": 0,
+    "duplicate_queries_exact": 0,
+    "queries_containing_html": 384,
+    "example": {
+      "query": "Source codes: <!DOCTYPE html><html><head><title>My Personal Website</title><link href=\"styles.css\" rel=\"stylesheet\"></head><body><header><div id=\"banner\"><img src=\"cover-photo.jpg\" alt=\"Cover Photo\"><h1>Welcome to My Personal Website!</h1></div></header><nav><ul><li><a href=\"#about-me\">About Me</a></li><li><a href=\"#experties\">My Skills</a></li><li><a href=\"#portfolio\">Portfolio</a></li><li><a href=\"#contact-me\">Contact Me</a></li></ul></nav><main><section id=\"about-me\"><h2>About Me</h2><p>Some information about me...</p></section><section id=\"experties\"><h2>My Skills</h2><p>Here's a list of my skills...</p></section><!-- Other sections can be created similarly --></main></body></html> What purpose does the navigation (nav) section serve in this personal website?",
+      "choices": [
+        "Displaying blog posts.",
+        "Allowing users to open the website's source codes.",
+        "Facilitating easy navigation to specific sections of the website.",
+        "Showcasing a list of the user's skills."
+      ],
+      "gold": 2
+    },
+    "repository_files": [
+      {
+        "path": ".gitattributes",
+        "type": "file",
+        "size": 2307
+      },
+      {
+        "path": "README.md",
+        "type": "file",
+        "size": 13934
+      },
+      {
+        "path": "WebMC.json",
+        "type": "file",
+        "size": 1168192
+      }
+    ]
+  },
+  "websight_sample": {
+    "sample_count": 800,
+    "columns": [
+      "image",
+      "llm_generated_idea",
+      "text"
+    ],
+    "nonempty_prompt": 800,
+    "nonempty_code": 800,
+    "duplicate_prompts_exact": 0,
+    "duplicate_codes_whitespace_normalized": 0,
+    "code_chars_min": 463,
+    "code_chars_median": 1600.5,
+    "code_chars_p95": 2542,
+    "code_chars_max": 4815,
+    "tailwind_reference": 800,
+    "script_tag": 1,
+    "inline_event_attribute": 0,
+    "http_url": 800,
+    "source_unsplash_reference": 522,
+    "placeholder_text": 127,
+    "prompt_cjk_characters_present": 0,
+    "notes": "Lexical indicators only; no HTML/CSS/JS execution or browser validation. Character counts are not tokenizer counts.",
+    "sampling": "Eight ordered blocks, length 100, offsets 0 through 1680000; not a random sample. Images were not downloaded."
+  },
+  "websight_size": {
+    "size": {
+      "dataset": {
+        "dataset": "HuggingFaceM4/WebSight",
+        "num_bytes_original_files": 317180094013,
+        "num_bytes_parquet_files": 317180094013,
+        "num_bytes_memory": 420173534202,
+        "num_rows": 2745658,
+        "estimated_num_rows": null
+      },
+      "configs": [
+        {
+          "dataset": "HuggingFaceM4/WebSight",
+          "config": "v0.2",
+          "num_bytes_original_files": 285785923573,
+          "num_bytes_parquet_files": 285785923573,
+          "num_bytes_memory": 380574016861,
+          "num_rows": 1922671,
+          "num_columns": 3,
+          "estimated_num_rows": null
+        },
+        {
+          "dataset": "HuggingFaceM4/WebSight",
+          "config": "v0.1",
+          "num_bytes_original_files": 31394170440,
+          "num_bytes_parquet_files": 31394170440,
+          "num_bytes_memory": 39599517341,
+          "num_rows": 822987,
+          "num_columns": 2,
+          "estimated_num_rows": null
+        }
+      ],
+      "splits": [
+        {
+          "dataset": "HuggingFaceM4/WebSight",
+          "config": "v0.2",
+          "split": "train",
+          "num_bytes_parquet_files": 285785923573,
+          "num_bytes_memory": 380574016861,
+          "num_rows": 1922671,
+          "num_columns": 3,
+          "estimated_num_rows": null
+        },
+        {
+          "dataset": "HuggingFaceM4/WebSight",
+          "config": "v0.1",
+          "split": "train",
+          "num_bytes_parquet_files": 31394170440,
+          "num_bytes_memory": 39599517341,
+          "num_rows": 822987,
+          "num_columns": 2,
+          "estimated_num_rows": null
+        }
+      ]
+    },
+    "pending": [],
+    "failed": [],
+    "partial": false
+  },
+  "webdev_access": {
+    "webdev_metadata": {
+      "url": "https://huggingface.co/api/datasets/Hoglet-33/webdev-coding-dataset",
+      "status": 401,
+      "error": "HTTP Error 401: Unauthorized"
+    },
+    "webdev_card": {
+      "url": "https://huggingface.co/datasets/Hoglet-33/webdev-coding-dataset/raw/main/README.md",
+      "status": 401,
+      "error": "HTTP Error 401: Unauthorized"
+    },
+    "webdev_rows": {
+      "url": "https://datasets-server.huggingface.co/rows?dataset=Hoglet-33%2Fwebdev-coding-dataset&config=default&split=train&offset=0&length=100",
+      "status": 401,
+      "error": "HTTP Error 401: Unauthorized"
+    }
+  },
+  "revisions": {
+    "webdev": null,
+    "webmc": "8090e6cd8cb71a5a0d5630da8eacd0b873963774",
+    "websight": "b11f8172f89c992b56ac702319e02c428cca4a4e"
+  }
+}

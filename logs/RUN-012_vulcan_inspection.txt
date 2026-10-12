@@ -1,0 +1,15 @@
+Kode Python persis dijalankan melalui here-string PowerShell:
+
+import json,re
+from pathlib import Path
+p=Path('data/raw/dataset_audit/vulcan')
+s=json.loads(Path('outputs/dataset_audit/vulcan_summary.json').read_text(encoding='utf-8'))
+print(json.dumps(s['prompt_frequency'],indent=2))
+scripts=set()
+for line in p.joinpath('frontend_sft.jsonl').read_text(encoding='utf-8').splitlines():
+    for m in json.loads(line)['messages']:
+        if m['role']=='assistant':
+            scripts.update(re.sub(r'\s+',' ',x).strip() for x in re.findall(r'<script\b[^>]*>(.*?)</script\s*>',m['content'],re.I|re.S) if x.strip())
+print(json.dumps(sorted(scripts),indent=2))
+
+Hasil ringkas dari output tool: exit 0; dua script unik berupa toggle menu hamburger dan validasi formulir kontak. Frekuensi seluruh prompt tersimpan di outputs/dataset_audit/vulcan_summary.json. Ini ringkasan hasil, bukan salinan lengkap stdout.

@@ -1,0 +1,46 @@
+F:\Generative_AI\Vibe_Coding_Proyek_1\.venv\Lib\site-packages\torch\_subclasses\functional_tensor.py:368: UserWarning: Failed to initialize NumPy: No module named 'numpy' (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\utils\tensor_numpy.cpp:84.)
+  cpu = _conversion_method_template(device=torch.device("cpu"))
+{
+  "checked_at_utc": "2026-10-12T10:10:46.156085+00:00",
+  "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+  "interpreter": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\.venv\\Scripts\\python.exe",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "kind": "CUDA environment verification; no dataset or Mini GPT training",
+  "status": "passed",
+  "torch": "2.14.1+cu130",
+  "cuda_runtime": "13.0",
+  "cuda_available": true,
+  "cudnn": 92400,
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "compute_capability": [
+    12,
+    0
+  ],
+  "vram_bytes": 12820480000,
+  "compiled_architectures": [
+    "sm_75",
+    "sm_80",
+    "sm_86",
+    "sm_90",
+    "sm_100",
+    "sm_120"
+  ],
+  "bf16_supported": true,
+  "fp32_matmul": "passed: CUDA result matches CPU reference",
+  "causal_attention_forward_backward": "passed: torch.bfloat16, finite gradients",
+  "mixed_precision_adamw": "passed: finite parameter update",
+  "peak_allocated_bytes": 67617280,
+  "nvidia_smi": "NVIDIA GeForce RTX 5070, 610.62, 12227 MiB, 12.0",
+  "packages": {
+    "torch": "2.14.1+cu130",
+    "numpy": null,
+    "datasets": null,
+    "tokenizers": null,
+    "tqdm": null,
+    "matplotlib": null,
+    "pandas": null,
+    "ipykernel": null,
+    "jsonschema": null,
+    "safetensors": null
+  }
+}

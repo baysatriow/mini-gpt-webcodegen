@@ -1,0 +1,9 @@
+12/10/2026 Asia/Jakarta
+Jenis: probe koneksi paket dengan Python inline melalui PowerShell.
+Exit code: 1
+Error:
+  File "<string>", line 1
+    import socket,time,json,concurrent.futures; hosts=['pypi.org','files.pythonhosted.org']; targets=[(h,info) for h in hosts for info in {(x[0],x[4]) for x in socket.getaddrinfo(h,443,type=socket.SOCK_STREAM)}]; exec('def probe(item):\n h,(family,address)=item\n s=socket.socket(family,socket.SOCK_STREAM); s.settimeout(3); started=time.monotonic()\n try:\n  s.connect(address); status=\
+                                                                                                                                                                                                                          ^
+SyntaxError: unterminated string literal (detected at line 1)
+Analisis: escaping tanda kutip pada Python inline diproses berbeda oleh PowerShell. Probe diperbaiki memakai here-string literal yang dikirim ke stdin Python pada RUN-009. Environment PyTorch tidak diubah oleh probe yang gagal.

@@ -1,0 +1,64 @@
+P0: PANDUAN PROYEK KELOMPOK: VIBE CODING & GENERATIVE AI FROM SCRATCH
+P1: Dalam proyek ini, setiap kelompok (terdiri dari 4 anggota) akan membangun model Computer Vision atau Generative Model tingkat menengah hingga lanjut dari nol (from scratch).
+P2: Seluruh kode, arsitektur, dan proses debugging wajib dibangun menggunakan metode Vibe Coding, yaitu berkolaborasi aktif dengan Large Language Model (LLM) tanpa menyalin (copy-paste) dari tutorial internet.
+P3: Proyek ini mencakup penyiapan jalur data (data pipeline), perancangan model, pelatihan (training), penyelarasan (fine-tuning), hingga dokumentasi terstruktur dari setiap interaksi log bersama kecerdasan buatan.
+P4: 1. Instruksi Pelaksanaan
+P5: Dilarang Keras Copy-Paste Tutorial: Mahasiswa tidak diperbolehkan menyalin blok kode utuh dari GitHub orang lain atau blog tutorial. Dokumentasi resmi pustaka (seperti PyTorch/TensorFlow) hanya boleh digunakan sebagai referensi fungsi dasar.
+P6: Dokumentasi Chat LLM: Setiap kelompok wajib merekam dan melampirkan riwayat obrolan dengan LLM dalam bentuk tautan aktif (share link) atau ekspor dokumen Markdown/PDF.
+P7: Proses Debugging Mandiri: Jika terjadi kesalahan/eror pada kode, mahasiswa harus mengonsultasikan pesan eror tersebut kepada LLM, menganalisis solusinya, dan mendokumentasikannya di Log Interaksi.
+P8: 2. Pembagian Tugas Kelompok (Job Desk)
+P9: Anggota 1: Prompt Engineer & LLM Navigator (Ketua)
+P10: Tanggung Jawab: Mengarahkan interaksi dengan LLM dan menyusun strategi arsitektur model.
+P11: Tugas Spesifik: Merancang system prompt awal, mengomunikasikan kebutuhan arsitektur ke AI, dan menjaga konsistensi logika coding yang dihasilkan dari awal hingga akhir.
+P12: Anggota 2: Data Pipeline & Preprocessing Engineer
+P13: Tanggung Jawab: Mengisolasikan, menyiapkan, dan menyuplai dataset ke dalam model.
+P14: Tugas Spesifik: Mencari/menyiapkan dataset ringan, menginstruksikan LLM membuat skrip data augmentation, normalisasi gambar/teks, data loader, serta memastikan ukuran input (shape) sesuai arsitektur.
+P15: Anggota 3: Training Loop & Hyperparameter Tuning Engineer
+P16: Tanggung Jawab: Mengelola jalannya pelatihan model dan optimasi performa.
+P17: Tugas Spesifik: Memandu LLM menyusun fungsi loss kustom dan perulangan epoch (training loop), melakukan eksperimen fine-tuning (tuning learning rate, batch size), serta mencatat metrik performa.
+P18: Anggota 4: Lead Documentarian & Error Handler
+P19: Tanggung Jawab: Mencatat rekam jejak interaksi AI dan memimpin penyelesaian bug.
+P20: Tugas Spesifik: Mengompilasi 'Log Interaksi LLM', menangkap pesan eror compiler untuk diformulasikan menjadi prompt perbaikan ke AI, dan menyusun laporan akhir kelompok.
+P21: 3. Pilihan Metode dan Arsitektur Model
+P22: Berikut adalah contoh pilihan arsitektur model yang bisa digunakan. Setiap kelompok dibebaskan memilih salah satu dari metode terkini berdasarkan minat dan spesifikasi perangkat keras (hardware) yang dimiliki.
+P23: Untuk usulan model lain di luar contoh yang diberikan, silakan konsultasikan dengan dosen kelas. Pastikan bahwa model masih dapat dikategorikan sebagai model terkini (10 tahun terakhir)
+P24: Generative Image & Computer Vision
+P25: Pix2Pix (Conditional GAN): Menerjemahkan gambar domain A ke B (misal: sketsa ke foto berwarna) menggunakan Generator U-Net dan Discriminator PatchGAN. Tantangan: Skip connections dan gabungan loss (BCE + L1).
+P26: CycleGAN: Penerjemahan penerjemahan gaya visual dari domain A ke domain B tanpa memerlukan dataset berpasangan menggunakan konsep Cycle Consistency Loss. (misal: mengubah foto pemandangan nyata menjadi lukisan seni klasik). Tantangan: Melibatkan koordinasi dua Generator dan dua Discriminator sekaligus.
+P27: Conditional GAN Klasik: Model GAN standar yang dikondisikan lewat penambahan tensor label kelas pada sisi input, sehingga model dapat menghasilkan klasifikasi visual tertentu berdasarkan perintah indeks  (misal: Fashion-MNIST). Tantangan: Penggabungan (concatenation) matriks gambar dan label.
+P28: Vision Transformer (ViT) Minimalis: Mengganti total CNN tradisional dengan mekanisme Self-Attention dengan memotong gambar menjadi patches kecil untuk klasifikasi atau rekonstruksi.
+P29: Mini Diffusion Model (DDPM): Model difusi skala kecil yang belajar menghapus noise secara bertahap pada matriks gambar kecil (32x32 atau 28x28). Tantangan: Menyusun noise schedule dan timestep embedding.
+P30: Generative Text & NLP
+P31: Mini-Transformer (GPT Minimalis): Decoder-only Transformer menggunakan mekanisme Self-Attention tanpa RNN untuk memprediksi kata berikutnya. Tantangan: Menyusun Multi-Head Attention dari nol.
+P32: BERT dari Nol (Masked Language Model): Encoder Transformer dua arah untuk menebak kata tersembunyi ([MASK]). Tantangan: Membuat pipeline otomatisasi data masking dan matriks atensi dua arah.
+P33: Mini-Transformer (GPT Minimalis): Membangun kerangka Decoder-only Transformer dari nol menggunakan mekanisme Self-Attention serta komponen Positional Encoding mandiri untuk melakukan prediksi kelanjutan kata berikutnya pada korpus teks kutipan pendek.
+P34: Multimodal & Cross-Discipline
+P35: Image Captioning Minimalis (CNN + Text Decoder): Model lintas domain yang menerima input berupa data visual (gambar) lalu menerjemahkannya menjadi satu rangkaian kalimat deskripsi teks. Memanfaatkan ekstraksi fitur CNN dan digabungkan ke modul penulas kata (LSTM/Transformer Decoder).
+P36: Neural Style Transfer (NST): Model optimasi pemindahan estetika seni tanpa melatih bobot jaringan secara konvensional. Tantangan: Membuat pipeline untuk menghitung Content Loss dan Style Loss berbasis ekstraksi fitur Gram Matrix dari lapisan tengah VGG-19.
+P37: Generative Audio & Sequence
+P38: Generative Audio (MIDI String Generator): Model mengenerate rangkaian nada musik tanpa pemrosesan berkas biner .wav yang berat.
+P41: 4. Rubrik Penilaian (Total: 100 Poin)
+P43: 5. Template/Contoh Log Interaksi LLM
+P44: Catatan Khusus: Setiap berinteraksi dengan AI untuk membuat bagian kode baru atau memecahkan bug, isilah log di bawah ini.
+P45: LOG INTERAKSI LLM - KELOMPOK [Nama Kelompok]
+� Tanggal Sesi: [DD/MM/YYYY]
+� Target Modul: (Contoh: Struktur Pemotong Patches pada ViT / Debugging Loss)
+� Tautan Sesi Chat: [Sertakan tautan share link AI]
+
+KRONOLOGI PROMPT & RESPONS:
+1. TAHAP INISIASI (Meminta Kode Awal)
+   - Prompt Kelompok: "[Tulis prompt spesifik Anda di sini]"
+   - Alasan Khusus: [Mengapa menggunakan pendekatan/instruksi ini?]
+   - Output Model: [Jelaskan ringkasan skrip atau tempel cuplikan kode krusial]
+
+2. TAHAP PENANGANAN EROR / DEBUGGING
+   - Pesan Eror dari Notebook: [Salin pesan eror konsol secara utuh]
+   - Prompt Perbaikan ke LLM: "[Tulis bagaimana Anda menanyakan solusi eror ke AI]"
+   - Analisis & Solusi Kelompok: [Bagaimana AI membantu Anda memperbaiki eror dan apa pelajaran yang kelompok ambil?]
+
+TABLE 0
+Kriteria Penilaian | Bobot | Deskripsi Penilaian
+Kualitas & Orisinalitas Vibe Coding | 30% | Kemampuan mengarahkan LLM untuk menghasilkan kode yang bersih, modular, dan bebas dari plagiasi langsung tutorial internet. Dinilai dari variasi prompt.
+Log Interaksi & Dokumentasi LLM | 25% | Kelengkapan rekam jejak percakapan dengan LLM, menunjukkan kronologi rasional dari tahap inisiasi -> penanganan eror -> optimasi.
+Fungsionalitas Model & Pelatihan | 25% | Model dapat berjalan tanpa eror, proses training/fine-tuning terdokumentasi dengan grafik metrik yang valid, serta luaran model logis.
+Kerjasama Tim & Manajemen Integrasi | 20% | Keselarasan penggabungan tugas antar job desk anggota (terlihat pada Git commit atau log kerja) serta penguasaan materi individu saat presentasi.

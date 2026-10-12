@@ -1,0 +1,13 @@
+12/10/2026 Asia/Jakarta
+Command: uv venv --python "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\python.exe" --seed "F:\Generative_AI\Vibe_Coding_Proyek_1\.venv"
+Using CPython 3.11.9 interpreter at: C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\python.exe
+Creating virtual environment with seed packages at: .venv
+warning: Failed to hardlink files; falling back to full copy. This may lead to degraded performance.
+If the cache and target directories are on different filesystems, hardlinking may not be supported.
++ packaging==26.3
++ pip==26.2.1
++ setuptools==84.0.0
++ wheel==0.48.0
+Activate with: .venv\Scripts\activate
+Exit code: 0
+Catatan: file log ini disusun dari output tool setelah perintah selesai.

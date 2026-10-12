@@ -1,0 +1,1 @@
+Proses uv pip install dihentikan pada 17:09 Asia/Jakarta setelah lebih dari 3 menit belum mengeluarkan hasil resolusi paket. Dilanjutkan dengan pip untuk memperoleh progres per paket. Tidak ada pesan error dari proses uv sebelum dihentikan.

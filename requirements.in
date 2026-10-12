@@ -1,0 +1,10 @@
+# Tools for dataset inspection, tokenization, notebooks, and training records.
+numpy
+datasets
+tokenizers
+tqdm
+matplotlib
+pandas
+ipykernel
+jsonschema
+safetensors

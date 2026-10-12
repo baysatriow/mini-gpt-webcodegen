@@ -1,0 +1,10 @@
+# Verified project tools, 2026-10-12. Install requirements-gpu.txt first.
+numpy==2.4.6
+datasets==5.1.0
+tokenizers==0.23.3
+tqdm==4.70.1
+matplotlib==3.11.2
+pandas==3.0.6
+ipykernel==7.4.0
+jsonschema==4.26.0
+safetensors==0.8.0

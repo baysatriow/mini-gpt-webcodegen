@@ -1,0 +1,42 @@
+{
+  "audited_at": "2026-10-12T17:38:03.890978+07:00",
+  "source": "https://huggingface.co/datasets/xlelords/vulcan",
+  "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+  "license_declared": "mit",
+  "rows": 5000,
+  "train_rows": 4750,
+  "validation_rows": 250,
+  "unique_user_prompts": 14,
+  "prompt_frequency": {
+    "Create a CSS feature card with an icon, title, body text, and a lift-on-hover effect.": 600,
+    "Write CSS for a modern pulse button with a hover effect. Use CSS variables.": 227,
+    "Create a hero section with a bold headline, subheadline, CTA button, and an animated gradient background. Self-contained HTML.": 600,
+    "Write CSS for a modern ghost button with a hover effect. Use CSS variables.": 205,
+    "Write CSS for a modern outline button with a hover effect. Use CSS variables.": 222,
+    "Write a pure-CSS dots loading animation.": 278,
+    "Write a pure-CSS spinner loading animation.": 287,
+    "Build an accessible contact form with name, email, and message fields plus client-side validation. Include HTML, CSS, and vanilla JS.": 600,
+    "Write a responsive CSS Grid layout that shows 4 columns on desktop and collapses to one on mobile.": 274,
+    "Build a responsive sticky navigation bar with a mobile hamburger toggle. Include the HTML, CSS, and vanilla JS.": 600,
+    "Write CSS for a modern gradient button with a hover effect. Use CSS variables.": 233,
+    "Write a pure-CSS bar loading animation.": 294,
+    "Write a responsive CSS Grid layout that shows 3 columns on desktop and collapses to one on mobile.": 272,
+    "Write a responsive CSS Grid layout that shows 2 columns on desktop and collapses to one on mobile.": 308
+  },
+  "unique_assistant_outputs_exact": 5000,
+  "unique_assistant_outputs_whitespace_normalized": 5000,
+  "rows_with_script_tag": 1200,
+  "rows_with_addEventListener": 1200,
+  "unique_nonempty_script_bodies_whitespace_normalized": 2,
+  "rows_with_tailwind_reference": 0,
+  "rows_with_bootstrap_reference": 0,
+  "rows_with_doctype": 1800,
+  "train_validation_shared_unique_prompts": 14,
+  "validation_rows_with_prompt_seen_in_train": 250,
+  "validation_rows_with_normalized_output_seen_in_train": 0,
+  "limitations": [
+    "Static text audit only; generated code was not executed.",
+    "Exact prompt overlap does not measure semantic template similarity.",
+    "No model training or model evaluation was performed."
+  ]
+}
