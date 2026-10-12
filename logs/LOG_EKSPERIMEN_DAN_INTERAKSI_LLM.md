@@ -14,7 +14,7 @@ Zona waktu pencatatan: Asia/Jakarta
 - Jangan masukkan API key, password, token, atau data pribadi ke log.
 - Jika ada koreksi setelah dicatat, tambahkan catatan koreksi baru yang merujuk ID lama. Jangan menghapus atau mengubah riwayat run.
 
-Belum ada training Mini GPT, evaluasi hasil website, atau aplikasi yang dijalankan. RUN-001 sampai RUN-018 mencatat setup, audit sumber, pemeriksaan persyaratan, review planning, dan status commit/push, termasuk run yang gagal atau terhenti. Environment akhir berhasil diverifikasi. RUN-011 dan RUN-012 menambahkan audit Vulcan. RUN-014 menangkap satu tautan Markdown rusak, lalu RUN-015 dan RUN-016 memverifikasi perbaikannya. RUN-017 memeriksa preflight repository; RUN-018 memastikan commit planning sudah sampai di branch privat dan working tree bersih. Nomor run berikutnya: RUN-019. Nomor interaksi berikutnya: AI-005.
+Belum ada training Mini GPT, evaluasi hasil website, atau aplikasi yang dijalankan. RUN-001 sampai RUN-018 mencatat setup, audit sumber, pemeriksaan persyaratan, review planning, dan status commit/push, termasuk run yang gagal atau terhenti. Environment akhir berhasil diverifikasi. RUN-011 dan RUN-012 menambahkan audit Vulcan. RUN-014 menangkap satu tautan Markdown rusak, lalu RUN-015 dan RUN-016 memverifikasi perbaikannya. RUN-017 memeriksa preflight repository; RUN-018 memastikan commit planning sudah sampai di branch privat dan working tree bersih. Nomor RUN berikutnya mengikuti ID tertinggi pada logs/RUN-*.txt. Nomor interaksi berikutnya: AI-006.
 
 ---
 
@@ -602,3 +602,37 @@ Perbarui setelah ada beberapa run; jangan menggantikan catatan run individual di
 - **Contoh hasil terbaik:**
 - **Keterbatasan yang ditemukan:**
 - **Keputusan eksperimen berikutnya:**
+
+### RUN-022
+
+- **Waktu:** 2026-10-12T18:12:05.611978+07:00 sampai 2026-10-12T18:12:05.797906+07:00.
+- **Tujuan:** schema_red.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_schema -v`.
+- **Commit:** `7956be40214dcf98fbe3a3d23bda1d0eaf67b3b4`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-022_schema_red.txt`.
+
+### RUN-023
+
+- **Waktu:** 2026-10-12T18:13:10.849424+07:00 sampai 2026-10-12T18:13:11.298856+07:00.
+- **Tujuan:** schema_green.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_schema -v`.
+- **Commit:** `7956be40214dcf98fbe3a3d23bda1d0eaf67b3b4`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-023_schema_green.txt`.
+
+## Pipeline data, sesi AI-005
+
+Planning disetujui oleh pengguna melalui permintaan implementasi pipeline dan download dataset. Ringkasan sesi: `logs/interaksi_llm/AI-005_2026-10-12.md`.
+
+### RUN-019
+
+- Storage preflight: F bebas 26,92 GiB. Output `logs/RUN-019_storage_preflight.txt`. Batas raw 1 GiB dan reserve 15 GiB.
+
+### RUN-020
+
+- Probe metadata gagal, exit 1, KeyError: 0 akibat dict(DatasetCardData). Output `logs/RUN-020_metadata_probe_failed.txt`.
+
+### RUN-021
+
+- Probe memakai to_dict berhasil, exit 0. Revision/lisensi WebSight dan Vulcan terverifikasi. Output `logs/RUN-021_metadata_probe_fixed.txt`.

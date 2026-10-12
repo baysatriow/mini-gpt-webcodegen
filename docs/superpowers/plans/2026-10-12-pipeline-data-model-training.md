@@ -82,27 +82,27 @@
 - Theme menerima warna hexadecimal dan font dari enum. Link hanya menerima `https`, `mailto`, `tel`, atau fragment lokal.
 - Komponen tidak menerima `script`, atribut `on*`, protokol URL selain `https`, `mailto`, `tel`, dan fragment lokal.
 
-- [ ] **Step 1: Tulis pemeriksaan schema yang akan gagal**
+- [x] **Step 1: Tulis pemeriksaan schema yang akan gagal**
 
 Tambahkan `unittest.TestCase` yang memeriksa PageSpec valid, field `style_mode` invalid, ID interaksi di luar katalog, `script` sebagai component, dan atribut `onclick`. Gunakan object minimal eksplisit dengan satu section `hero` dan satu paragraph.
 
-- [ ] **Step 2: Jalankan pemeriksaan sebelum fungsi tersedia**
+- [x] **Step 2: Jalankan pemeriksaan sebelum fungsi tersedia**
 
 Run: `python -m unittest tests.data.test_schema -v`
 
 Expected: gagal karena module/schema belum tersedia.
 
-- [ ] **Step 3: Buat record dan schema ketat**
+- [x] **Step 3: Buat record dan schema ketat**
 
 Implementasikan `PageExample` sebagai `dataclass(frozen=True)` dan `validate_page_spec` menggunakan `jsonschema.Draft202012Validator`. Gunakan `additionalProperties: false` pada object utama dan tiap component, panjang string maksimum, batas section, serta enum tag/interaksi.
 
-- [ ] **Step 4: Jalankan seluruh pemeriksaan schema**
+- [x] **Step 4: Jalankan seluruh pemeriksaan schema**
 
 Run: `python -m unittest tests.data.test_schema -v`
 
 Expected: seluruh assertion lulus dan semua error menyebut JSON path yang ditolak.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add src/data/schema.py configs/page_spec.schema.json tests/__init__.py tests/data/__init__.py tests/data/test_schema.py

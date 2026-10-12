@@ -1,0 +1,5 @@
+Metadata probe corrected, 2026-10-12 Asia/Jakarta
+HfApi.dataset_info(name).card_data.to_dict() succeeded.
+HuggingFaceM4/WebSight: revision b11f8172f89c992b56ac702319e02c428cca4a4e, license cc-by-4.0.
+xlelords/vulcan: revision 19d2a482c78554e59feca0ce2b50fb7835e90c6f, license mit.
+Exit code: 0.

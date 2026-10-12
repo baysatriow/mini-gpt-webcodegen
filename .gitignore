@@ -1,6 +1,10 @@
 .venv/
 .tmp/
 .cache/
+.superpowers/
+data/tokenizer/
+data/annotations/*.jsonl
+logs/training/
 __pycache__/
 *.py[cod]
 .ipynb_checkpoints/

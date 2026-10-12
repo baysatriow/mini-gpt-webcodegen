@@ -1,0 +1,7 @@
+Storage preflight 2026-10-12 Asia/Jakarta
+Drive C free 62.66 GiB; D 118.57 GiB; E 672.69 GiB; F 26.92 GiB.
+Dataset project and all new caches stay on F.
+Existing audited Vulcan full file: 8,502,110 bytes.
+Decision: 20,000 WebSight v0.1, 30,000 WebSight v0.2, 5,000 Vulcan rows.
+Raw download maximum 1 GiB; preserve 15 GiB free for derived data and later checkpoints.
+Entire 317 GB WebSight is not downloaded.

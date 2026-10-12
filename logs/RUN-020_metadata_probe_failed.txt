@@ -1,0 +1,7 @@
+Metadata probe failed, 2026-10-12 Asia/Jakarta
+Installed datasets=5.1.0; tokenizers=0.23.3.
+ParquetConfig includes columns for physical projection.
+Command used HfApi.dataset_info and dict(info.card_data).
+Traceback: DatasetCardData.__getitem__ -> KeyError: 0.
+Exit code: 1.
+Cause: card_data requires to_dict rather than dict constructor.
