@@ -29,6 +29,12 @@
       "test": 4556
     },
     "group_overlap": [],
+    "split_policy": "seeded_groups",
+    "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+    "group_assignment": {
+      "path": "group_assignment.json",
+      "sha256": "00c8cf3ffd18f06d38b28926572401d55967dec745c4a1e314c3d3dd2420a39c"
+    },
     "files": {
       "train": {
         "path": "train.jsonl",
@@ -51,7 +57,7 @@
   },
   "raw_rows": 55000,
   "raw_bytes": 123276847,
-  "free_bytes_before": 28404555776,
+  "free_bytes_before": 28404125696,
   "sources": [
     {
       "id": "websight_v01",
@@ -167,5 +173,9 @@
       "label_alignment": "labels[i] is next token for input_ids[i]; do not shift again in model loss"
     }
   },
-  "free_bytes_after": 28404690944
+  "tokenization": {
+    "status": "complete",
+    "action": "reused"
+  },
+  "free_bytes_after": 28402167808
 }

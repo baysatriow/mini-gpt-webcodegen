@@ -21,6 +21,26 @@ def annotation():
 
 
 class NormalizeTests(unittest.TestCase):
+    def test_nullable_html_attributes_do_not_abort_following_records(self):
+        rows = [source_row(), source_row(), source_row()]
+        rows[0]["text"] = '<html><body><div class>Hi</div></body></html>'
+        rows[1]["text"] = '<html><body><input type></body></html>'
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            raw = root / "source.jsonl"
+            raw.write_text("".join(json.dumps(row) + "\n" for row in rows))
+            report = prepare_pretraining([raw], root / "clean.jsonl")
+            self.assertEqual(report["accepted"], 3)
+            self.assertEqual(report["rejected"], 0)
+            self.assertEqual(len((root / "clean.jsonl").read_text().splitlines()), 3)
+
+    def test_annotation_retains_source_row_and_computed_family(self):
+        ann = annotation()
+        ann["source_group_id"] = "invented-family"
+        result = normalize_annotation(source_row(), ann, {"id": "websight_v01"})
+        self.assertEqual(result.source_row_id, "row-1")
+        self.assertEqual(result.source_group_id, structural_group(source_row()["text"]))
+
     def test_css_only_source_is_kept_as_css_pretraining_text(self):
         row = source_row()
         row["text"] = ':root { --accent: #ffffff; } .card { color: var(--accent); padding: 16px; }'

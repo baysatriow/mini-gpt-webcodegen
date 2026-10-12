@@ -17,8 +17,9 @@ from torch.utils.data import DataLoader
 from src.data.dataset import PretrainingBlockDataset
 from src.data.normalize import read_jsonl
 from src.data.pipeline import load_completed_sources
+from src.data.integrity import reuse_tokenization, validate_sft_artifacts
 from src.data.sources import sha256_file, write_manifest
-from src.data.split import canonical_hash
+from src.data.split import canonical_hash, read_group_assignment
 
 
 def main():
@@ -26,7 +27,7 @@ def main():
     summary = json.loads((ROOT / "data/manifests/pipeline_summary.json").read_text())
     assert summary["status"] == "complete", "Pipeline is incomplete"
     source_paths, manifests = load_completed_sources(config, ROOT)
-    raw_counts, scripts = Counter(), Counter()
+    raw_counts, scripts, source_rows = Counter(), Counter(), {}
     for path, manifest in zip(source_paths, manifests):
         count = 0
         for row in read_jsonl(path):
@@ -35,6 +36,8 @@ def main():
             assert row["license_id"] == manifest["source"]["license_id"]
             assert __import__("hashlib").sha256(row["text"].encode()).hexdigest() == row["text_sha256"]
             count += 1
+            if summary["sft"]["status"] == "complete":
+                source_rows[row["source_row_id"]] = row
             scripts[row["source_id"]] += bool(re.search(r"<script(?:\s|>)", row["text"], re.I))
         assert count == manifest["rows"]
         raw_counts[manifest["source"]["id"]] = count
@@ -55,7 +58,10 @@ def main():
     for a, b in [("train", "validation"), ("train", "test"), ("validation", "test")]:
         assert not groups[a] & groups[b], "Group leakage"
         assert not hashes[a] & hashes[b], "Exact duplicate leakage"
+    assert json.loads((ROOT / "data/processed/pretrain/manifest.json").read_text()) == summary["split"]
+    read_group_assignment(ROOT / "data/processed/pretrain")
     token_path = ROOT / "data/tokenizer/tokenizer.json"
+    reuse_tokenization(ROOT, summary, summary["split"], json.loads((ROOT / "configs/tokenizer.json").read_text()))
     token_manifest = summary["tokenizer"]
     assert token_manifest["trained_only_on_train"]
     assert token_manifest["train_rows"] == summary["split"]["row_counts"]["train"]
@@ -74,7 +80,8 @@ def main():
     train = PretrainingBlockDataset(ROOT / "data/processed/pretrain/train.tokens.bin", 1024, tokenizer.token_to_id("<pad>"))
     batch = next(iter(DataLoader(train, batch_size=2, num_workers=0)))
     assert tuple(batch["input_ids"].shape) == (2, 1024)
-    assert torch.equal(batch["input_ids"][:, 1:], batch["labels"][:, :-1]), "Next-token labels shifted incorrectly"
+    valid = batch["labels"][:, :-1] != -100
+    assert torch.equal(batch["input_ids"][:, 1:][valid], batch["labels"][:, :-1][valid]), "Next-token labels shifted incorrectly"
     last = train[len(train)-1]
     assert (last["labels"][last["input_ids"] == tokenizer.token_to_id("<pad>")] == -100).all()
     assert torch.cuda.is_available(), "CUDA not available in project VENV"
@@ -82,16 +89,17 @@ def main():
     torch.cuda.synchronize()
     assert all(value.is_cuda for value in gpu_batch.values())
     queue = list(read_jsonl(ROOT / "data/annotations/review_queue.jsonl"))
-    assert all(row["annotation_status"] == "draft" and not row["reviewer"] for row in queue)
-    assert summary["sft"]["reviewed_production_rows"] == 0
-    assert not (ROOT / "data/processed/sft/train.jsonl").exists()
+    assert all(row["annotation_status"] in {"draft", "reviewed"} and
+               (not row["reviewer"] if row["annotation_status"] == "draft" else bool(row["reviewer"])) for row in queue)
+    sft_validation = validate_sft_artifacts(ROOT, summary["sft"], source_rows)
     result = {"status": "passed", "raw_rows": dict(raw_counts), "rows_with_script_tag": dict(scripts),
               "group_overlap": [], "exact_duplicate_overlap": [], "normalized_transforms": dict(transformed),
               "split_counts": summary["split"]["row_counts"], "vocab_size": tokenizer.get_vocab_size(),
               "tokenizer_fit": "train only", "token_cache_sha256": "verified all splits",
               "gpu": torch.cuda.get_device_name(0), "batch_shape": [2, 1024],
               "gpu_batch_transfer": True, "model_training_executed": False,
-              "draft_annotations": len(queue), "reviewed_annotations": 0,
+              "draft_annotations": sum(row["annotation_status"] == "draft" for row in queue),
+              "reviewed_annotations": sft_validation["reviewed_rows"], "sft": sft_validation,
               "free_bytes": shutil.disk_usage(ROOT).free}
     write_manifest(ROOT / "data/manifests/validation_summary.json", result)
     print(json.dumps(result, indent=2))

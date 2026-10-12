@@ -1,6 +1,6 @@
 # Ruang Lingkup dan Rancangan Pipeline
 
-Dokumen ini menetapkan desain Mini GPT WebCodeGen sebelum pipeline data, model, training, atau aplikasi ditulis. Tujuan proyek adalah membuat model decoder-only dari bobot acak yang menghasilkan rancangan website terstruktur.
+Dokumen ini menetapkan desain Mini GPT WebCodeGen dan mencatat status implementasi pipeline data. Tujuan proyek adalah membuat model decoder-only dari bobot acak yang menghasilkan rancangan website terstruktur.
 
 ## Tujuan dan persyaratan tugas
 
@@ -59,23 +59,26 @@ Versi PyTorch adalah versi VENV yang tersedia dan diuji secara lokal pada 12 Okt
 
 Data tidak digabung sebelum schema dan license dicatat. Halaman sumber dikonversi ke PageSpec menggunakan anotasi terstruktur yang ditinjau kelompok; source code tidak diperlakukan sebagai PageSpec secara otomatis. `group_id` merepresentasikan keluarga halaman/template. Split dilakukan berdasarkan group, bukan baris, untuk mengurangi kebocoran. Dedup menyimpan alasan dan kunci pembanding. Test set ditahan hingga pilihan hyperparameter selesai.
 
+Alokasi keluarga pretraining disimpan dan menjadi acuan SFT. Record instruksi membawa source_row_id dan source_group_id yang dihitung ulang dari raw code. Group manual yang menggabungkan partition berbeda ditolak; validation/test SFT tetap berada pada partition sumber yang sama, bukan diacak ulang pada subset anotasi.
+
 ## Diagram pipeline
 
 ```mermaid
 flowchart TD
     A[Manifest sumber, revision, lisensi] --> B[Streaming subset teks]
     B --> C[Ekstraksi ide dan markup]
-    C --> D[Normalisasi teks, HTML, CSS, Tailwind]
-    D --> E[Konversi ke spesifikasi JSON]
-    E --> F[Validasi schema dan pemeriksaan semantik]
-    F --> G[Dedup dan kelompok template]
-    G --> H[Split train, validation, test per group]
-    H --> I[Tokenizer BPE pada train]
-    I --> J[Blok token dan data loader]
-    J --> K[Mini GPT random-init, next-token]
-    K --> L[Continued training instruksi prompt-ke-JSON]
-    L --> M[Evaluasi loss dan kualitas tugas]
-    M --> N[Checkpoint dan laporan]
+    C --> D[Normalisasi HTML CSS JavaScript]
+    D --> E[Dedup dan alokasi keluarga template]
+    E --> F[Tokenizer BPE pada train dan blok token]
+    F --> G[Mini GPT bobot acak, next-token]
+    C --> H[Draft PageSpec dan review prompt Indonesia]
+    H --> I[Validasi schema dan provenance]
+    E --> I
+    I --> J[SFT mengikuti partition sumber]
+    G --> K[Continued training prompt-ke-JSON]
+    J --> K
+    K --> L[Evaluasi loss dan kualitas tugas]
+    L --> M[Checkpoint dan laporan]
 ```
 
 Pretraining mempelajari struktur teks/kode dari sumber yang dikurasi. Pada tahap penyelarasan, prompt diikuti target PageSpec JSON dan loss dihitung pada token target, bukan prompt. Urutan field JSON kanonis ditetapkan agar target konsisten.
@@ -99,9 +102,10 @@ Validator tidak menjamin kualitas isi. Renderer menerima hanya ID interaksi yang
 ## Kontrak modul
 
 - `src/data/sources.py`: mengambil sumber yang diizinkan, revision, dan metadata lisensi.
-- `src/data/normalize.py`: menghasilkan `WebPageExample` dengan `example_id`, `prompt`, `target_spec`, `style_mode`, `interactions`, `source_id`, `source_revision`, `license_id`, `group_id`, dan `split`.
+- `src/data/normalize.py`: menghasilkan kode pretraining atau `PageExample` reviewed dengan prompt/target_spec, provenance, source_row_id/source_group_id, group_id, dan split. Style_mode/interactions dibaca dari target_spec.
 - `src/data/validate.py`: memeriksa schema dan batas komponen/interaksi.
-- `src/data/split.py`: membagi berdasarkan `group_id` memakai seed konfigurasi.
+- `src/data/split.py`: alokasi group pretraining memakai seed konfigurasi; SFT mewarisi alokasi source family dan memeriksa konflik group manual.
+- `src/data/integrity.py`: memverifikasi lineage tokenizer/cache dan SFT terhadap raw source serta alokasi keluarga bersama.
 - `src/data/tokenizer.py`: melatih BPE pada train, menyimpan vocab dan hash.
 - `src/data/dataset.py`: membuat token input dan label untuk pretraining/SFT.
 - `src/models/minigpt.py`: menerima `[batch, sequence]`, menghasilkan logits `[batch, sequence, vocab]`.

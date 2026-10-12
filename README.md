@@ -55,14 +55,17 @@ Model menghasilkan PageSpec dengan section terbatas seperti navbar, hero, featur
 ```mermaid
 flowchart LR
     A[Dataset, revision, lisensi] --> B[Streaming subset teks]
-    B --> C[Normalisasi dan kurasi]
-    C --> D[JSONL prompt dan spesifikasi]
-    D --> E[Validasi, dedup, split keluarga template]
-    E --> F[Tokenizer proyek dan data loader]
-    F --> G[Pretraining Mini GPT bobot acak]
-    G --> H[Penyelarasan prompt ke JSON]
-    H --> I[Evaluasi loss dan hasil website]
-    I --> J[Checkpoint dan laporan]
+    B --> C[Kode HTML CSS JavaScript]
+    C --> D[Dedup dan alokasi keluarga template]
+    D --> E[BPE train saja dan token cache]
+    E --> F[Pretraining Mini GPT bobot acak]
+    B --> G[Draft PageSpec dan review prompt Indonesia]
+    G --> H[Validasi schema dan provenance]
+    D --> H
+    H --> I[SFT mengikuti partition sumber]
+    F --> J[Penyelarasan prompt ke JSON]
+    I --> J
+    J --> K[Evaluasi held-out dan laporan]
 ```
 
 ## Dataset yang dipertimbangkan
@@ -118,3 +121,5 @@ Download memverifikasi dan memakai ulang file yang selesai. Config awal mematok 
 CSS/JS standalone tetap menjadi teks untuk pretraining; target PageSpec hanya berasal dari anotasi reviewed. Grouping template adalah heuristik, sehingga pemeriksaan tanpa overlap group/exact hash tidak membuktikan nol kebocoran semantik.
 
 Petunjuk rinci ada di [panduan pipeline](docs/PIPELINE_DATA_GUIDE.md) dan hasil nyata di [laporan status data](reports/STATUS_PIPELINE_2026-10-12.md). Manifest kecil menyimpan source revision/license/checksum, split, tokenizer, token profile, dan status instruksi. Vocabulary BPE 8.192 baru dilatih dari train split; blok pretraining 1.024 token memakai label next-token yang sudah digeser.
+
+Review pipeline menemukan empat masalah yang telah diperbaiki dan dicatat di [laporan review](reports/REVIEW_PIPELINE_2026-10-12.md). Sebanyak 37 tests lulus. Family allocation dipakai bersama oleh pretraining dan SFT; preparation anotasi memverifikasi dan mempertahankan tokenizer/cache yang cocok. RUN-052 memeriksa ulang seluruh data aktual dan transfer batch ke RTX 5070. Model belum dilatih dan 119 draft produksi masih menunggu review.

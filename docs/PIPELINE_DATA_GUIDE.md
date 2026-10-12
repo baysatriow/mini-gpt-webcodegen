@@ -24,6 +24,8 @@ Source dipakai untuk pretraining sebagai kode HTML, CSS, atau JavaScript, dengan
 
 Exact duplicate dideduplikasi berdasarkan isi kanonis. Family grouping mengabaikan variasi warna/teks tertentu pada struktur HTML dan nilai tema pada CSS. Seed split 80/10/10 berlaku pada jumlah group, sehingga rasio baris dapat berbeda. Grouping merupakan heuristik dan tidak membuktikan ketiadaan seluruh duplikasi semantik.
 
+Peta keluarga ke partition disimpan di `data/processed/pretrain/group_assignment.json`. Manifest menyimpan checksum peta tersebut dan file split. Alokasi ini menjadi acuan bersama untuk pretraining, tokenizer, dan SFT, sehingga keluarga validation/test SFT tidak dipindah ke train pretraining.
+
 BPE baru dilatih hanya dari train partition, vocabulary 8.192, min_frequency 2. Tokenizer disimpan lokal di `data/tokenizer/tokenizer.json`. Token profile mencatat p50/p95/max; metadata train hash dan tokenizer hash ada di manifest. Pretraining memakai blok 1.024 token yang dikemas tanpa membuang ekor dokumen panjang. Token cache uint32 dapat dibaca dengan memory mapping agar tidak memuat seluruh corpus ke VRAM.
 
 `labels[i]` sudah merupakan next token untuk `input_ids[i]`. Training engine nanti harus memakai label secara langsung, tanpa menggesernya lagi. SFT memask label prompt dan padding dengan -100; target JSON yang melebihi konteks ditolak utuh.
@@ -38,6 +40,10 @@ BPE baru dilatih hanya dari train partition, vocabulary 8.192, min_frequency 2. 
 
 Hanya anotasi yang lulus pemeriksaan menjadi SFT. Dataset SFT membutuhkan setidaknya 10 keluarga template untuk split. Tanpa anotasi reviewed, status `awaiting_review` dilaporkan dengan jelas dan tidak ada SFT train set yang diklaim siap.
 
+Record SFT mempertahankan `source_row_id` dan `source_group_id` yang dihitung ulang dari kode sumber. `group_id` anotasi boleh dipakai untuk menggabungkan keluarga terkait, tetapi penggabungan yang melintasi partition sumber ditolak. Pilih contoh reviewed yang mencakup ketiga partition sumber; subset tidak diacak ulang untuk mencapai rasio 80/10/10. Rasio SFT mengikuti ketersediaan anotasi pada partition yang sudah ditentukan.
+
+Command anotasi tanpa `--train-tokenizer` mempertahankan metadata tokenizer, profile, dan cache hanya jika hash input, hash artifact, jumlah baris, dan config masih cocok. Status `requires_tokenization` berarti data berhasil disiapkan tetapi tokenizer/cache perlu dibangun kembali dengan `--train-tokenizer`. Command tanpa anotasi mempertahankan SFT sebelumnya hanya setelah validasi provenance dan partition. Jika input anotasi baru tidak menghasilkan contoh reviewed, manifest SFT ditandai `awaiting_review`; file split lama yang mungkin tersisa tidak dianggap sebagai dataset siap pakai.
+
 ## Pemeriksaan dan bukti
 
 ```powershell
@@ -46,6 +52,8 @@ Hanya anotasi yang lulus pemeriksaan menjadi SFT. Dataset SFT membutuhkan setida
 ```
 
 Pemeriksaan integritas memastikan row count, revision/license, raw checksum, split isolation, tokenizer lineage, token cache, label alignment, dan transfer batch kecil ke CUDA. Transfer tensor GPU tidak sama dengan training Mini GPT. Nama reviewer TEST_FIXTURE dalam tests adalah data buatan untuk pengujian, bukan review kelompok atas source produksi.
+
+Saat SFT sudah complete, checker memeriksa schema, status reviewed, provenance sampai raw source, checksum, jumlah contoh, dan kesesuaian family partition dengan pretraining. Saat awaiting_review, checker memastikan tidak ada manifest SFT complete yang siap dipakai. Anotasi draft produksi tidak diubah menjadi reviewed oleh pemeriksaan atau tests.
 
 Raw, processed data, cache, dan tokenizer lokal di-ignore Git. Code, config, manifest kecil, attribution, serta log di-commit dan dipush pada branch feature/pipeline-data-model-training tanpa trailer Co-Authored-By.
 

@@ -33,5 +33,9 @@
   "model_training_executed": false,
   "draft_annotations": 119,
   "reviewed_annotations": 0,
-  "free_bytes": 28404678656
+  "sft": {
+    "status": "awaiting_review",
+    "reviewed_rows": 0
+  },
+  "free_bytes": 28402155520
 }

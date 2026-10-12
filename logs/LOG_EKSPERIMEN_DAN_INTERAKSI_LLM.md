@@ -852,3 +852,58 @@ Planning disetujui oleh pengguna melalui permintaan implementasi pipeline dan do
 - **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-047_verify_download_reuse.txt`.
+
+### RUN-048
+
+- **Waktu:** 2026-10-12T18:58:41.605827+07:00 sampai 2026-10-12T18:58:44.046318+07:00.
+- **Tujuan:** review_regressions_red.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest discover -s tests -v`.
+- **Commit:** `41608790d716e2e9e2682df0203756450d023284`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-048_review_regressions_red.txt`.
+
+### RUN-049
+
+- **Waktu:** 2026-10-12T19:00:43.393958+07:00 sampai 2026-10-12T19:00:46.475700+07:00.
+- **Tujuan:** review_regressions_green.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest discover -s tests -v`.
+- **Commit:** `41608790d716e2e9e2682df0203756450d023284`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-049_review_regressions_green.txt`.
+
+### RUN-050
+
+- **Waktu:** 2026-10-12T19:01:45.824857+07:00 sampai 2026-10-12T19:01:48.783099+07:00.
+- **Tujuan:** review_regressions_final.
+- **Command:** `.\.venv\Scripts\python.exe -B -W error::ResourceWarning -m unittest discover -s tests -v`.
+- **Commit:** `41608790d716e2e9e2682df0203756450d023284`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-050_review_regressions_final.txt`.
+
+### RUN-051
+
+- **Waktu:** 2026-10-12T19:01:50.991312+07:00 sampai 2026-10-12T19:02:32.441288+07:00.
+- **Tujuan:** prepare_verify_existing_tokenizer.
+- **Command:** `.\.venv\Scripts\python.exe -B -m src.data.pipeline --config configs/dataset.json`.
+- **Commit:** `41608790d716e2e9e2682df0203756450d023284`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-051_prepare_verify_existing_tokenizer.txt`.
+
+### RUN-052
+
+- **Waktu:** 2026-10-12T19:03:18.734486+07:00 sampai 2026-10-12T19:03:23.718433+07:00.
+- **Tujuan:** final_data_integrity_gpu.
+- **Command:** `.\.venv\Scripts\python.exe -B qa/check_data_pipeline.py`.
+- **Commit:** `41608790d716e2e9e2682df0203756450d023284`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-052_final_data_integrity_gpu.txt`.
+
+## Penutupan implementasi pipeline data, AI-005
+
+- Tasks 1-5 selesai; source downloader, validator PageSpec, normalizer, authoritative family split, BPE, cache, batch loader, dan integrity checker tersedia.
+- Download selesai: 55.000 baris / 117,57 MiB. Corpus final: 51.211 unik, 19.038.770 train tokens. Free F setelah verifikasi sekitar 26,45 GiB.
+- Review independen range 7956be4..4160879: 4 Important, seluruhnya diperbaiki; Critical/Minor 0. RUN-048 red, RUN-050 green 37 tests, RUN-051 reuse terverifikasi, RUN-052 data aktual/CUDA batch lulus.
+- Pemeriksaan artifact statis: AST 25 file Python, JSON 16 file, tautan Markdown dan larangan em dash pada 27 dokumen buatan proyek lulus. License card asli dipertahankan verbatim.
+- RUN setelah review mencatat HEAD dasar 4160879 dan berjalan pada working tree perbaikan. Code/perbaikan, manifest, dokumen dan log kemudian disimpan bersama ke Git pada branch feature/pipeline-data-model-training.
+- Tidak ada training model, skor kualitas generation, atau browser rendering. Anotasi produksi 119 draft / 0 reviewed. Model dan training merupakan tahap berikutnya.
+- Laporan rinci: reports/STATUS_PIPELINE_2026-10-12.md dan reports/REVIEW_PIPELINE_2026-10-12.md. Petunjuk operasi: docs/PIPELINE_DATA_GUIDE.md. Raw/cache/tokenizer/VENV tetap lokal dan di-ignore Git.

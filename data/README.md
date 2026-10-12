@@ -8,6 +8,7 @@ Folder ini mendokumentasikan sumber, manifest, dan hasil pipeline dataset Mini G
 - Record pretraining menyimpan text, code_language, source revision/license, transformation, group_id, dan split. Contoh SFT menyimpan PageExample dengan prompt dan target_spec; style_mode/interactions berasal dari target_spec.
 - Data raw terdiri dari subset 20.000 WebSight v0.1, 30.000 WebSight v0.2, dan 5.000 Vulcan. Download selesai dan checksum direkam di manifests/.
 - Byte-level BPE dan token cache terdapat di tokenizer/ dan processed/ lokal. Anotasi draft untuk tinjauan berada di annotations/ lokal.
+- `processed/pretrain/group_assignment.json` menjadi acuan keluarga ke partition untuk semua tahap. SFT mempertahankan source_row_id/source_group_id dan mengikuti alokasi ini. Peta dan split lokal disertai checksum pada manifest.
 - WebSight v0.2 diproses melalui streaming kolom teks tanpa screenshot. Vulcan hanya seed. WebMC tetap benchmark. Webdev belum dapat diverifikasi.
 - Jangan campur data sebelum bahasa, schema, lisensi, dan fungsi sumber dicatat.
 

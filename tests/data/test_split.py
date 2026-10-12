@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from src.data.split import assign_splits, canonical_hash, deduplicate, split_jsonl
+from src.data.split import assign_splits, canonical_hash, deduplicate, split_jsonl, read_group_assignment
 from src.data.schema import PageExample
 from tests.data.test_schema import valid_spec
 
@@ -18,6 +18,36 @@ def records():
 
 
 class SplitTests(unittest.TestCase):
+    def test_sft_inherits_global_family_partition_and_checks_manual_merges(self):
+        global_map = {f"source-{i}": ("train" if i < 8 else "validation" if i == 8 else "test") for i in range(10)}
+        rows = [{"example_id": str(i), "group_id": f"manual-{i}", "source_group_id": f"source-{i}"} for i in range(10)]
+        assigned = assign_splits(rows, 17, source_group_splits=global_map)
+        self.assertTrue(all(row["split"] == global_map[row["source_group_id"]] for row in assigned))
+        rows[8]["group_id"] = rows[0]["group_id"]
+        with self.assertRaisesRegex(ValueError, "manual.*conflict"):
+            assign_splits(rows, 17, source_group_splits=global_map)
+
+    def test_unknown_source_family_and_missing_heldout_partition_are_rejected(self):
+        rows = [{"example_id": str(i), "group_id": f"g-{i}", "source_group_id": f"s-{i}"} for i in range(10)]
+        with self.assertRaisesRegex(ValueError, "unknown source family"):
+            assign_splits(rows, 42, source_group_splits={})
+        with self.assertRaisesRegex(ValueError, "all three"):
+            assign_splits(rows, 42, source_group_splits={f"s-{i}": "train" for i in range(10)})
+
+    def test_persisted_family_map_is_verified_against_split_files(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            raw = root / "rows.jsonl"
+            rows = [{"example_id": str(i), "text": str(i), "group_id": f"g-{i}"} for i in range(20)]
+            raw.write_text("".join(json.dumps(row) + "\n" for row in rows))
+            split_jsonl(raw, root / "split")
+            assignment = read_group_assignment(root / "split")
+            self.assertEqual(len(assignment), 20)
+            with (root / "split/train.jsonl").open("a") as handle:
+                handle.write("{}\n")
+            with self.assertRaisesRegex(ValueError, "checksum"):
+                read_group_assignment(root / "split")
+
     def test_group_never_crosses_split_and_seed_is_repeatable(self):
         first = assign_splits(records(), 42, (0.8, 0.1, 0.1))
         second = assign_splits(list(reversed(records())), 42, (0.8, 0.1, 0.1))

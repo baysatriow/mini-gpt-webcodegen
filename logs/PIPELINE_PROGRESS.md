@@ -27,3 +27,13 @@ Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download da
 - Koreksi corpus: RUN-037/RUN-040 menyaring 3.204 record; inspeksi menemukan 3.200 CSS-only Vulcan dan empat HTML rusak. Regression RUN-041 gagal; RUN-042 menangkap var() CSS yang salah dibaca sebagai deklarasi JS. RUN-044 lulus setelah regex deklarasi diperbaiki. RUN-043 adalah percobaan lama; hasil final hanya RUN-045.
 - Final data: accepted 54.996, rejected 4, duplicate 3.785, unique 51.211. Split train 41.639 / validation 5.016 / test 4.556. Group overlap dan exact-hash overlap kosong.
 - BPE train-only 8.192; train tokens 19.038.770. Dataset queue 119 draft, reviewed 0. Tidak ada training model atau browser rendering.
+
+## Review dan penutupan tahap data
+
+- Satu reviewer independen pada range 7956be4..4160879 menemukan 4 Important, 0 Critical, 0 Minor. Semua Important diterima; tidak ada temuan yang ditunda. Detail: reports/REVIEW_PIPELINE_2026-10-12.md.
+- Ruling: source family pretraining menjadi acuan SFT; group manual hanya boleh menggabungkan source dari partition yang sama. Alasan: seed yang sama pada subset berbeda tidak menjamin isolasi lintas fase. Biaya: kelompok harus memilih anotasi pada train/validation/test sumber; subset bisa memiliki rasio baris berbeda.
+- Perbaikan satu pass: nullable HTML attributes, immutable source linkage/family, persisted split allocation, verified tokenizer/cache reuse, serta checker SFT berdasarkan status.
+- RUN-048 red; RUN-049/RUN-050 green 37 tests. RUN-050 memakai ResourceWarning sebagai error. Fixture reviewed hanya untuk tests.
+- RUN-051 mempertahankan split dan token artifacts dengan hash yang sama; action reused. RUN-052 integritas seluruh data aktual dan CUDA batch lulus. Free F 26,45 GiB.
+- Ruling: branch feature tetap dipush sesuai instruksi pengguna; tidak digabung ke main karena Tasks 6-9 belum diimplementasikan. Workspace review plan tetap lokal untuk tahap berikutnya. Risiko: konsumen main belum mendapat kode tahap data hingga integrasi dipilih.
+- Tahap data Tasks 1-5 complete. Model dan training Tasks 6-9 belum dimulai. SFT produksi awaiting_review; bukan model siap menghasilkan website.

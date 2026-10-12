@@ -9,6 +9,7 @@ Catat setiap percobaan pretraining, penyelarasan instruksi, resume, atau evaluas
 - VENV lokal: CPython 3.11.9, PyTorch 2.14.1+cu130, runtime CUDA 13.0, RTX 5070 sekitar 12 GB VRAM.
 - Download 55.000 source selesai. Corpus pretraining 51.211 unik sudah displit, BPE train-only 8.192 dan token cache tersedia; SFT produksi menunggu anotasi reviewed.
 - RUN-031 download; RUN-045 preparation final; RUN-046 integrity/GPU batch; RUN-047 reuse. Nomor RUN berikutnya mengikuti ID tertinggi di logs/RUN-*.txt.
+- Review data: empat temuan diperbaiki. RUN-050 lulus 37 tests; RUN-051 memverifikasi dan mempertahankan tokenizer/cache; RUN-052 integrity/CUDA batch lulus. SFT wajib mengikuti family partition pretraining dan menunggu review produksi. Temuan/ruling ada pada reports/REVIEW_PIPELINE_2026-10-12.md serta logs/PIPELINE_PROGRESS.md.
 - TRAIN-001 adalah slot pertama yang menunggu Mini GPT dan profiling GPU. Planning telah disetujui.
 - Token train 19.038.770, vocabulary 8.192, blok data 1.024. Dimensi model, batch, LR, scheduler, precision dan total step dipilih setelah profiling GPU; blok data dapat diregenerasi jika berubah.
 

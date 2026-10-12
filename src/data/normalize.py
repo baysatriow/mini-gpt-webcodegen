@@ -37,7 +37,7 @@ class StructureParser(HTMLParser):
         self.current = tag
         if tag in {"style", "script"}:
             self.skip += 1
-        values = dict(attrs)
+        values = {key: value or "" for key, value in attrs}
         layout = sorted(c for c in values.get("class", "").split() if re.match(
             r"^(?:[a-z]+:)?(?:flex|grid|container|hidden|block|relative|absolute|fixed|sticky|w-|h-|p[xytrbl]?-|m[xytrbl]?-|gap-|space-|justify-|items-)", c))
         self.tokens.append("+" + tag + ":" + ",".join(layout) + ":" + values.get("type", ""))
@@ -106,6 +106,17 @@ def code_group(text, language):
     return language + "-" + hashlib.sha256(skeleton.encode()).hexdigest()[:24]
 
 
+def normalize_source_code(text, max_text_bytes=262144):
+    if not isinstance(text, str) or not text.strip():
+        raise ValueError("text: empty/non-text source")
+    text = re.sub(r"^```(?:html)?\s*\n|\n```\s*$", "", text.strip())
+    if len(text.encode("utf-8")) > max_text_bytes:
+        raise ValueError("text: exceeds byte limit")
+    language = classify_code(text)
+    text, transform = normalize_html_document(text) if language == "html" else (text, "not_html")
+    return text, language, transform, code_group(text, language)
+
+
 def _require_provenance(row):
     for key in ["source_row_id", "source_id", "source_revision", "license_id", "source_url", "attribution"]:
         if not isinstance(row.get(key), str) or not row[key].strip():
@@ -133,11 +144,14 @@ def normalize_annotation(row: dict, annotation: dict, source_meta: dict) -> Page
     if errors:
         raise ValueError("target_spec: " + "; ".join(errors))
     canonical = json.dumps(annotation["target_spec"], ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-    example_id = hashlib.sha256((row["source_row_id"] + annotation["prompt"] + canonical).encode()).hexdigest()
-    return PageExample(example_id, annotation["prompt"].strip(), annotation["target_spec"], row["source_id"],
+    prompt = annotation["prompt"].strip()
+    example_id = hashlib.sha256((row["source_row_id"] + prompt + canonical).encode()).hexdigest()
+    source_group = normalize_source_code(row.get("text"))[3]
+    return PageExample(example_id, prompt, annotation["target_spec"], row["source_id"],
                        row["source_revision"], row["license_id"], annotation["group_id"],
                        source_url=row["source_url"], attribution=row["attribution"],
-                       annotation_revision=annotation["annotation_revision"], reviewer=annotation["reviewer"])
+                       annotation_revision=annotation["annotation_revision"], reviewer=annotation["reviewer"],
+                       source_row_id=row["source_row_id"], source_group_id=source_group)
 
 
 def normalize_jsonl(source_path: Path, annotation_path: Path, output_path: Path) -> tuple[int, int]:
@@ -177,16 +191,8 @@ def prepare_pretraining(source_paths, output_path, max_text_bytes=262144):
             for row in read_jsonl(path):
                 try:
                     _require_provenance(row)
-                    text = row.get("text")
-                    if not isinstance(text, str) or not text.strip():
-                        raise ValueError("text: empty/non-text source")
-                    text = re.sub(r"^```(?:html)?\s*\n|\n```\s*$", "", text.strip())
-                    if len(text.encode("utf-8")) > max_text_bytes:
-                        raise ValueError("text: exceeds byte limit")
+                    text, language, transform, group = normalize_source_code(row.get("text"), max_text_bytes)
                     source_hash = hashlib.sha256(row["text"].encode()).hexdigest()
-                    language = classify_code(text)
-                    text, transform = normalize_html_document(text) if language == "html" else (text, "not_html")
-                    group = code_group(text, language)
                     record = {**row, "text": text, "group_id": group, "split": "unsplit",
                               "text_sha256": source_hash, "html_transform": transform,
                               "normalized_text_sha256": hashlib.sha256(text.encode()).hexdigest(),

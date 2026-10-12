@@ -53,6 +53,8 @@ class PageExample:
     attribution: str = ""
     annotation_revision: str = ""
     reviewer: str = ""
+    source_row_id: str = ""
+    source_group_id: str = ""
 
     @property
     def style_mode(self):
