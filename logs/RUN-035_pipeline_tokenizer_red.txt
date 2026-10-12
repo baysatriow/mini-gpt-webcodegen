@@ -1,0 +1,39 @@
+RUN-035 | 2026-10-12T18:28:11.846947+07:00 | pipeline_tokenizer_red
+Command: .\.venv\Scripts\python.exe -m unittest tests.data.test_pipeline tests.data.test_tokenizer_dataset -v
+Commit: d00d2e418222f04673baf02e7bb328ace143c6d1
+
+test_pipeline (unittest.loader._FailedTest.test_pipeline) ... ERROR
+test_tokenizer_dataset (unittest.loader._FailedTest.test_tokenizer_dataset) ... ERROR
+
+======================================================================
+ERROR: test_pipeline (unittest.loader._FailedTest.test_pipeline)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_pipeline
+Traceback (most recent call last):
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\data\test_pipeline.py", line 7, in <module>
+    from src.data.pipeline import load_completed_sources
+ModuleNotFoundError: No module named 'src.data.pipeline'
+
+
+======================================================================
+ERROR: test_tokenizer_dataset (unittest.loader._FailedTest.test_tokenizer_dataset)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_tokenizer_dataset
+Traceback (most recent call last):
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\data\test_tokenizer_dataset.py", line 7, in <module>
+    from src.data.tokenizer import train_tokenizer
+ModuleNotFoundError: No module named 'src.data.tokenizer'
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+FAILED (errors=2)
+
+Exit code: 1

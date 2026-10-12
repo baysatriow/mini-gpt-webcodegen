@@ -1,0 +1,20 @@
+RUN-038 | 2026-10-12T18:34:53.898476+07:00 | fragment_normalization_red
+Command: .\.venv\Scripts\python.exe -m unittest tests.data.test_normalize.NormalizeTests.test_component_fragment_is_wrapped_with_provenance_not_discarded -v
+Commit: d00d2e418222f04673baf02e7bb328ace143c6d1
+
+test_component_fragment_is_wrapped_with_provenance_not_discarded (tests.data.test_normalize.NormalizeTests.test_component_fragment_is_wrapped_with_provenance_not_discarded) ... FAIL
+
+======================================================================
+FAIL: test_component_fragment_is_wrapped_with_provenance_not_discarded (tests.data.test_normalize.NormalizeTests.test_component_fragment_is_wrapped_with_provenance_not_discarded)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\data\test_normalize.py", line 32, in test_component_fragment_is_wrapped_with_provenance_not_discarded
+    self.assertEqual(report["accepted"], 1)
+AssertionError: 0 != 1
+
+----------------------------------------------------------------------
+Ran 1 test in 0.018s
+
+FAILED (failures=1)
+
+Exit code: 1

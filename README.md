@@ -86,9 +86,9 @@ Panduan menyebut training dan fine-tuning. Di proyek ini, model dimulai dari bob
 ## Status tahapan
 
 1. Riset dataset dan environment GPU: selesai dan dicatat.
-2. Scope, teknologi, alur pipeline, training log, dan rencana implementasi: disusun untuk ditinjau.
-3. Pipeline data: menunggu planning ditinjau.
-4. Mini GPT dan training: menunggu pipeline data.
+2. Scope, teknologi, alur pipeline, training log, dan rencana implementasi: disetujui pengguna.
+3. Pipeline data: downloader, validator, normalizer, dedup/group split, BPE, dan batch loader sudah diimplementasikan. Download 55.000 teks selesai; hasil preparation dan pemeriksaan tersedia di manifest/laporan.
+4. Mini GPT dan training: tahap berikutnya setelah pipeline data. SFT produksi menunggu review anotasi Indonesia.
 5. Evaluasi held-out dan pengukuran model: menunggu training.
 6. Aplikasi preview dan unduhan: tahap akhir.
 
@@ -104,3 +104,17 @@ Set-Location 'F:\Generative_AI\Vibe_Coding_Proyek_1'
 ```
 
 Training Mini GPT, evaluasi model, dan aplikasi preview belum dijalankan.
+
+## Menjalankan pipeline data
+
+```powershell
+.\.venv\Scripts\python.exe qa/run_logged.py --label download_dataset -- .\.venv\Scripts\python.exe -m src.data.sources --config configs/dataset.json
+.\.venv\Scripts\python.exe qa/run_logged.py --label prepare_dataset -- .\.venv\Scripts\python.exe -m src.data.pipeline --config configs/dataset.json --train-tokenizer
+.\.venv\Scripts\python.exe qa/run_logged.py --label data_integrity -- .\.venv\Scripts\python.exe qa/check_data_pipeline.py
+```
+
+Download memverifikasi dan memakai ulang file yang selesai. Config awal mematok 20.000 WebSight v0.1, 30.000 WebSight v0.2, dan 5.000 Vulcan; total raw 123.276.847 bytes. Cache dan data ada pada drive proyek. Batas raw 1 GiB dan reserve disk 15 GiB mencegah unduhan seluruh korpus.
+
+CSS/JS standalone tetap menjadi teks untuk pretraining; target PageSpec hanya berasal dari anotasi reviewed. Grouping template adalah heuristik, sehingga pemeriksaan tanpa overlap group/exact hash tidak membuktikan nol kebocoran semantik.
+
+Petunjuk rinci ada di [panduan pipeline](docs/PIPELINE_DATA_GUIDE.md) dan hasil nyata di [laporan status data](reports/STATUS_PIPELINE_2026-10-12.md). Manifest kecil menyimpan source revision/license/checksum, split, tokenizer, token profile, dan status instruksi. Vocabulary BPE 8.192 baru dilatih dari train split; blok pretraining 1.024 token memakai label next-token yang sudah digeser.

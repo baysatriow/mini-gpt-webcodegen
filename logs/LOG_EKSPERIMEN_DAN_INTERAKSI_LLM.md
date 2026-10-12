@@ -14,7 +14,7 @@ Zona waktu pencatatan: Asia/Jakarta
 - Jangan masukkan API key, password, token, atau data pribadi ke log.
 - Jika ada koreksi setelah dicatat, tambahkan catatan koreksi baru yang merujuk ID lama. Jangan menghapus atau mengubah riwayat run.
 
-Belum ada training Mini GPT, evaluasi hasil website, atau aplikasi yang dijalankan. RUN-001 sampai RUN-018 mencatat setup, audit sumber, pemeriksaan persyaratan, review planning, dan status commit/push, termasuk run yang gagal atau terhenti. Environment akhir berhasil diverifikasi. RUN-011 dan RUN-012 menambahkan audit Vulcan. RUN-014 menangkap satu tautan Markdown rusak, lalu RUN-015 dan RUN-016 memverifikasi perbaikannya. RUN-017 memeriksa preflight repository; RUN-018 memastikan commit planning sudah sampai di branch privat dan working tree bersih. Nomor RUN berikutnya mengikuti ID tertinggi pada logs/RUN-*.txt. Nomor interaksi berikutnya: AI-006.
+Training Mini GPT, evaluasi model, dan aplikasi belum dijalankan. RUN-001 sampai RUN-018 adalah persiapan awal. Sesi AI-005 sudah menjalankan pipeline data: RUN-031 download 55.000 source, RUN-045 preparation corpus final dan BPE baru train-only, RUN-046 integritas serta transfer batch RTX 5070, RUN-047 reuse download. Hasil final: 51.211 record unik, 19.038.770 train tokens, vocabulary 8.192. SFT produksi menunggu review 119 anotasi draft. Nomor RUN berikutnya mengikuti ID tertinggi pada logs/RUN-*.txt; nomor interaksi berikutnya AI-006.
 
 ---
 
@@ -735,3 +735,120 @@ Planning disetujui oleh pengguna melalui permintaan implementasi pipeline dan do
 - **Commit:** `e22b0da2bf4810b2678f657343e2fab1c69ab681`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-034_split_green.txt`.
+
+### RUN-035
+
+- **Waktu:** 2026-10-12T18:28:11.846947+07:00 sampai 2026-10-12T18:28:12.062803+07:00.
+- **Tujuan:** pipeline_tokenizer_red.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_pipeline tests.data.test_tokenizer_dataset -v`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-035_pipeline_tokenizer_red.txt`.
+
+### RUN-036
+
+- **Waktu:** 2026-10-12T18:30:50.857557+07:00 sampai 2026-10-12T18:30:53.326314+07:00.
+- **Tujuan:** pipeline_tokenizer_green.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest discover -s tests -v`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-036_pipeline_tokenizer_green.txt`.
+
+### RUN-037
+
+- **Waktu:** 2026-10-12T18:31:11.566525+07:00 sampai 2026-10-12T18:32:24.338536+07:00.
+- **Tujuan:** prepare_data_and_fit_tokenizer.
+- **Command:** `.\.venv\Scripts\python.exe -m src.data.pipeline --config configs/dataset.json --train-tokenizer`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-037_prepare_data_and_fit_tokenizer.txt`.
+
+### RUN-038
+
+- **Waktu:** 2026-10-12T18:34:53.898476+07:00 sampai 2026-10-12T18:34:54.253004+07:00.
+- **Tujuan:** fragment_normalization_red.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_normalize.NormalizeTests.test_component_fragment_is_wrapped_with_provenance_not_discarded -v`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-038_fragment_normalization_red.txt`.
+
+### RUN-039
+
+- **Waktu:** 2026-10-12T18:35:28.763399+07:00 sampai 2026-10-12T18:35:31.143993+07:00.
+- **Tujuan:** fragment_normalization_green.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest discover -s tests -v`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-039_fragment_normalization_green.txt`.
+
+### RUN-040
+
+- **Waktu:** 2026-10-12T18:35:33.357836+07:00 sampai 2026-10-12T18:36:56.799663+07:00.
+- **Tujuan:** prepare_data_tokenizer_after_fragment_fix.
+- **Command:** `.\.venv\Scripts\python.exe -m src.data.pipeline --config configs/dataset.json --train-tokenizer`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-040_prepare_data_tokenizer_after_fragment_fix.txt`.
+
+### RUN-041
+
+- **Waktu:** 2026-10-12T18:39:18.046811+07:00 sampai 2026-10-12T18:39:18.380315+07:00.
+- **Tujuan:** css_js_corpus_regression_red.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_normalize.NormalizeTests.test_css_only_source_is_kept_as_css_pretraining_text tests.data.test_normalize.NormalizeTests.test_javascript_only_source_is_kept_as_code -v`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-041_css_js_corpus_regression_red.txt`.
+
+### RUN-042
+
+- **Waktu:** 2026-10-12T18:39:21.373918+07:00 sampai 2026-10-12T18:39:23.870987+07:00.
+- **Tujuan:** css_js_corpus_regression_green.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest discover -s tests -v`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-042_css_js_corpus_regression_green.txt`.
+
+### RUN-044
+
+- **Waktu:** 2026-10-12T18:40:14.784722+07:00 sampai 2026-10-12T18:40:17.221080+07:00.
+- **Tujuan:** css_var_classifier_fixed.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest discover -s tests -v`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-044_css_var_classifier_fixed.txt`.
+
+### RUN-043
+
+- **Waktu:** 2026-10-12T18:39:26.060021+07:00 sampai 2026-10-12T18:40:58.444522+07:00.
+- **Tujuan:** prepare_final_web_code_corpus.
+- **Command:** `.\.venv\Scripts\python.exe -m src.data.pipeline --config configs/dataset.json --train-tokenizer`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-043_prepare_final_web_code_corpus.txt`.
+
+### RUN-045
+
+- **Waktu:** 2026-10-12T18:42:30.883696+07:00 sampai 2026-10-12T18:44:03.222939+07:00.
+- **Tujuan:** prepare_corpus_final_classifier.
+- **Command:** `.\.venv\Scripts\python.exe -m src.data.pipeline --config configs/dataset.json --train-tokenizer`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-045_prepare_corpus_final_classifier.txt`.
+
+### RUN-046
+
+- **Waktu:** 2026-10-12T18:44:32.148995+07:00 sampai 2026-10-12T18:44:36.631010+07:00.
+- **Tujuan:** data_integrity_and_gpu_batch.
+- **Command:** `.\.venv\Scripts\python.exe qa/check_data_pipeline.py`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-046_data_integrity_and_gpu_batch.txt`.
+
+### RUN-047
+
+- **Waktu:** 2026-10-12T18:44:38.843331+07:00 sampai 2026-10-12T18:44:40.410476+07:00.
+- **Tujuan:** verify_download_reuse.
+- **Command:** `.\.venv\Scripts\python.exe -m src.data.sources --config configs/dataset.json`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-047_verify_download_reuse.txt`.

@@ -267,27 +267,27 @@ git push origin HEAD
 - `encode_sft(prompt: str, target_json: str, tokenizer, block_size: int) -> tuple[list[int], list[int]]` memberi label `-100` pada seluruh posisi prompt dan padding.
 - `PageSpecDataset(rows, tokenizer, mode, block_size)` mengembalikan tensor `input_ids` dan `labels` panjang tetap.
 
-- [ ] **Step 1: Tulis test token round trip dan label mask**
+- [x] **Step 1: Tulis test token round trip dan label mask**
 
 Gunakan fixture Unicode Indonesia, HTML tag, CSS punctuation, Tailwind class, serta token special. Pastikan decode mempertahankan karakter, dan label SFT pada prompt/padding bernilai `-100`.
 
-- [ ] **Step 2: Jalankan test tokenizer/dataset**
+- [x] **Step 2: Jalankan test tokenizer/dataset**
 
 Run: `python -m unittest tests.data.test_tokenizer_dataset -v`
 
 Expected: gagal sebelum tokenizer dan dataset dibuat.
 
-- [ ] **Step 3: Implementasikan BPE dan batch packing**
+- [x] **Step 3: Implementasikan BPE dan batch packing**
 
 Buat tokenizer byte-level baru dari iterator train split, special token untuk awal/akhir prompt dan target serta padding. Tolak target JSON lebih panjang dari block size dan catat jumlah truncation; jangan memotong JSON tanpa penanda. Simpan tokenizer JSON, vocab, special-token map, block size, dan hash.
 
-- [ ] **Step 4: Jalankan unit dan hitung distribusi token**
+- [x] **Step 4: Jalankan unit dan hitung distribusi token**
 
 Run: `python -m unittest tests.data.test_tokenizer_dataset -v`
 
 Expected: semua mask dan round-trip benar; report menampilkan p50/p95/max tokens per contoh dan jumlah contoh yang melewati block size sebelum training dimulai.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add src/data/tokenizer.py src/data/dataset.py tests/data/test_tokenizer_dataset.py configs/tokenizer.json configs/training_pretrain.json configs/training_sft.json

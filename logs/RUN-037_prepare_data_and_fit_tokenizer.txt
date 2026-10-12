@@ -1,0 +1,21 @@
+RUN-037 | 2026-10-12T18:31:11.566525+07:00 | prepare_data_and_fit_tokenizer
+Command: .\.venv\Scripts\python.exe -m src.data.pipeline --config configs/dataset.json --train-tokenizer
+Commit: d00d2e418222f04673baf02e7bb328ace143c6d1
+
+HTML preprocessing: accepted=51796 rejected=3204
+Grouped split: {'train': 38579, 'validation': 4819, 'test': 4613}, groups=41425, duplicates=3785
+Training fresh byte-level BPE on train split only
+train: 18255301 tokens, 17828 blocks
+validation: 2140435 tokens, 2091 blocks
+test: 2119162 tokens, 2070 blocks
+{
+  "status": "complete",
+  "sft": {
+    "status": "awaiting_review",
+    "draft_queue_rows": 119,
+    "reviewed_production_rows": 0
+  },
+  "free_bytes_after": 28432621568
+}
+
+Exit code: 0

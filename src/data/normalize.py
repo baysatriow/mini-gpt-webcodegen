@@ -57,18 +57,53 @@ class StructureParser(HTMLParser):
                 self.headings.append(value)
 
 
-def parse_html(text):
+def normalize_html_document(text):
     parser = StructureParser()
     parser.feed(text)
     parser.close()
-    if not {"html", "body"}.issubset(parser.tags) or not {"html", "body"}.issubset(parser.closed):
-        raise ValueError("html_structure: expected complete html/body source")
+    if {"html", "body"}.issubset(parser.tags) and {"html", "body"}.issubset(parser.closed):
+        return text, "none"
+    if {"html", "body"} & (parser.tags | parser.closed) or not (parser.tags - {"style", "script"}):
+        raise ValueError("html_structure: incomplete document or no component markup")
+    return "<html><body>" + text + "</body></html>", "wrapped_component_fragment"
+
+
+def parse_html(text):
+    document, _ = normalize_html_document(text)
+    parser = StructureParser()
+    parser.feed(document)
+    parser.close()
     return parser
 
 
 def structural_group(text: str) -> str:
     parser = parse_html(text)
     return "layout-" + hashlib.sha256("|".join(parser.tokens).encode()).hexdigest()[:24]
+
+
+def classify_code(text):
+    parser = StructureParser()
+    parser.feed(text)
+    if parser.tags:
+        return "html"
+    if re.search(r"\b(?:const|let|var)\s+[A-Za-z_$]|\bfunction\s*(?:[A-Za-z_$][\w$]*)?\s*\(|(?:document|window)\.|=>", text):
+        return "javascript"
+    if "{" in text and text.count("{") == text.count("}") and re.search(r"[\w-]+\s*:\s*[^;{}]+;", text):
+        return "css"
+    raise ValueError("code_language: unrecognized HTML/CSS/JavaScript source")
+
+
+def code_group(text, language):
+    if language == "html":
+        return structural_group(text)
+    skeleton = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
+    if language == "css":
+        skeleton = re.sub(r"([\w-]+)\s*:\s*[^;{}]+;", r"\1:VALUE;", skeleton)
+    else:
+        skeleton = re.sub(r"([\"']).*?\1", "STRING", skeleton)
+        skeleton = re.sub(r"\b\d+(?:\.\d+)?\b", "NUMBER", skeleton)
+    skeleton = re.sub(r"\s+", "", skeleton)
+    return language + "-" + hashlib.sha256(skeleton.encode()).hexdigest()[:24]
 
 
 def _require_provenance(row):
@@ -106,7 +141,8 @@ def normalize_annotation(row: dict, annotation: dict, source_meta: dict) -> Page
 
 
 def normalize_jsonl(source_path: Path, annotation_path: Path, output_path: Path) -> tuple[int, int]:
-    sources = {row["source_row_id"]: row for row in read_jsonl(source_path)}
+    source_paths = source_path if isinstance(source_path, (list, tuple)) else [source_path]
+    sources = {row["source_row_id"]: row for path in source_paths for row in read_jsonl(path)}
     output_path.parent.mkdir(parents=True, exist_ok=True)
     partial = output_path.with_suffix(".jsonl.partial")
     accepted, rejects = 0, []
@@ -147,10 +183,15 @@ def prepare_pretraining(source_paths, output_path, max_text_bytes=262144):
                     text = re.sub(r"^```(?:html)?\s*\n|\n```\s*$", "", text.strip())
                     if len(text.encode("utf-8")) > max_text_bytes:
                         raise ValueError("text: exceeds byte limit")
-                    group = structural_group(text)
+                    source_hash = hashlib.sha256(row["text"].encode()).hexdigest()
+                    language = classify_code(text)
+                    text, transform = normalize_html_document(text) if language == "html" else (text, "not_html")
+                    group = code_group(text, language)
                     record = {**row, "text": text, "group_id": group, "split": "unsplit",
+                              "text_sha256": source_hash, "html_transform": transform,
+                              "normalized_text_sha256": hashlib.sha256(text.encode()).hexdigest(),
                               "example_id": hashlib.sha256(text.encode()).hexdigest(),
-                              "data_mode": "pretrain", "basic_html_parse": True}
+                              "data_mode": "pretrain", "code_language": language, "basic_html_parse": language == "html"}
                     output.write(json.dumps(record, ensure_ascii=False) + "\n")
                     counts["accepted"] += 1
                 except ValueError as error:

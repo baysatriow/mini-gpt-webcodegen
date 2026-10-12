@@ -1,0 +1,8 @@
+{
+  "mode": "pretrain", "seed": 42, "block_size": 1024,
+  "dataset_dir": "data/processed/pretrain",
+  "tokenizer": "data/tokenizer/tokenizer.json",
+  "label_alignment": "already_shifted_next_token",
+  "long_documents": "pack across blocks without discarding tail",
+  "status": "data configuration; model and GPU profiling pending"
+}

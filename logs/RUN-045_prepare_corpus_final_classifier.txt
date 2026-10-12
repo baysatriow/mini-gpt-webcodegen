@@ -1,0 +1,21 @@
+RUN-045 | 2026-10-12T18:42:30.883696+07:00 | prepare_corpus_final_classifier
+Command: .\.venv\Scripts\python.exe -m src.data.pipeline --config configs/dataset.json --train-tokenizer
+Commit: d00d2e418222f04673baf02e7bb328ace143c6d1
+
+HTML preprocessing: accepted=54996 rejected=4
+Grouped split: {'train': 41639, 'validation': 5016, 'test': 4556}, groups=41434, duplicates=3785
+Training fresh byte-level BPE on train split only
+train: 19038770 tokens, 18593 blocks
+validation: 2266877 tokens, 2214 blocks
+test: 2074052 tokens, 2026 blocks
+{
+  "status": "complete",
+  "sft": {
+    "status": "awaiting_review",
+    "draft_queue_rows": 119,
+    "reviewed_production_rows": 0
+  },
+  "free_bytes_after": 28404690944
+}
+
+Exit code: 0

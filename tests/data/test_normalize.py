@@ -21,6 +21,44 @@ def annotation():
 
 
 class NormalizeTests(unittest.TestCase):
+    def test_css_only_source_is_kept_as_css_pretraining_text(self):
+        row = source_row()
+        row["text"] = ':root { --accent: #ffffff; } .card { color: var(--accent); padding: 16px; }'
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            raw = root / "source.jsonl"
+            raw.write_text(json.dumps(row) + "\n")
+            report = prepare_pretraining([raw], root / "clean.jsonl")
+            self.assertEqual(report["accepted"], 1)
+            result = json.loads((root / "clean.jsonl").read_text())
+            self.assertEqual(result["code_language"], "css")
+            self.assertEqual(result["text"], row["text"])
+
+    def test_javascript_only_source_is_kept_as_code(self):
+        row = source_row()
+        row["text"] = 'const button = document.querySelector("#menu"); button.addEventListener("click", () => { button.hidden = true; });'
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            raw = root / "source.jsonl"
+            raw.write_text(json.dumps(row) + "\n")
+            report = prepare_pretraining([raw], root / "clean.jsonl")
+            self.assertEqual(report["accepted"], 1)
+            self.assertEqual(json.loads((root / "clean.jsonl").read_text())["code_language"], "javascript")
+
+    def test_component_fragment_is_wrapped_with_provenance_not_discarded(self):
+        row = source_row()
+        row["text"] = '<style>.card{color:red;}</style><div class="card">Card</div><script>console.log(1)</script>'
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            raw = root / "source.jsonl"
+            raw.write_text(json.dumps(row) + "\n")
+            report = prepare_pretraining([raw], root / "clean.jsonl")
+            self.assertEqual(report["accepted"], 1)
+            result = json.loads((root / "clean.jsonl").read_text())
+            self.assertEqual(result["html_transform"], "wrapped_component_fragment")
+            self.assertIn("<html><body>", result["text"])
+            self.assertEqual(result["text_sha256"], __import__("hashlib").sha256(row["text"].encode()).hexdigest())
+
     def test_reviewed_indonesian_annotation_becomes_canonical_example(self):
         result = normalize_annotation(source_row(), annotation(), {"id": "websight_v01"})
         self.assertEqual(result.license_id, "cc-by-4.0")

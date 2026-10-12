@@ -1,0 +1,171 @@
+{
+  "status": "complete",
+  "pretrain": {
+    "accepted": 54996,
+    "rejected": 4,
+    "html_check": "basic parse and root/body presence; not browser validation"
+  },
+  "split": {
+    "status": "complete",
+    "seed": 42,
+    "ratios_by_group": [
+      0.8,
+      0.1,
+      0.1
+    ],
+    "input_sha256": "167ce6169eac7cd60aaa0ec21b55ae06fb8573ad352d09016a3e2c33bd9bae26",
+    "source_rows": 54996,
+    "deduplicated_rows": 51211,
+    "duplicates": 3785,
+    "group_count": 41434,
+    "group_counts": {
+      "train": 33147,
+      "validation": 4143,
+      "test": 4144
+    },
+    "row_counts": {
+      "train": 41639,
+      "validation": 5016,
+      "test": 4556
+    },
+    "group_overlap": [],
+    "files": {
+      "train": {
+        "path": "train.jsonl",
+        "sha256": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b"
+      },
+      "validation": {
+        "path": "validation.jsonl",
+        "sha256": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd"
+      },
+      "test": {
+        "path": "test.jsonl",
+        "sha256": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+      }
+    }
+  },
+  "sft": {
+    "status": "awaiting_review",
+    "draft_queue_rows": 119,
+    "reviewed_production_rows": 0
+  },
+  "raw_rows": 55000,
+  "raw_bytes": 123276847,
+  "free_bytes_before": 28404555776,
+  "sources": [
+    {
+      "id": "websight_v01",
+      "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+      "license": "cc-by-4.0",
+      "rows": 20000,
+      "bytes": 40723783
+    },
+    {
+      "id": "websight_v02",
+      "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+      "license": "cc-by-4.0",
+      "rows": 30000,
+      "bytes": 72847730
+    },
+    {
+      "id": "vulcan",
+      "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+      "license": "mit",
+      "rows": 5000,
+      "bytes": 9705334
+    }
+  ],
+  "tokenizer": {
+    "status": "complete",
+    "train_rows": 41639,
+    "trained_only_on_train": true,
+    "train_input_sha256": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+    "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+    "vocab_size": 8192,
+    "requested_vocab_size": 8192,
+    "special_token_ids": {
+      "<pad>": 0,
+      "<unk>": 1,
+      "<bos>": 2,
+      "<eos>": 3,
+      "<prompt>": 4,
+      "<target>": 5
+    },
+    "config": {
+      "vocab_size": 8192,
+      "min_frequency": 2,
+      "block_size": 1024,
+      "type": "byte_level_bpe",
+      "fit_split": "train",
+      "initialization": "new tokenizer, no pretrained vocabulary"
+    }
+  },
+  "token_profiles": {
+    "train": {
+      "rows": 41639,
+      "total_tokens": 19038770,
+      "p50": 437.0,
+      "p95": 751.0,
+      "max": 1631,
+      "block_size": 1024,
+      "documents_above_block_size": 89,
+      "pretrain_long_documents": "packed across blocks without discarding tail; SFT oversize rejected"
+    },
+    "validation": {
+      "rows": 5016,
+      "total_tokens": 2266877,
+      "p50": 440.0,
+      "p95": 680.25,
+      "max": 1511,
+      "block_size": 1024,
+      "documents_above_block_size": 15,
+      "pretrain_long_documents": "packed across blocks without discarding tail; SFT oversize rejected"
+    },
+    "test": {
+      "rows": 4556,
+      "total_tokens": 2074052,
+      "p50": 443.0,
+      "p95": 674.0,
+      "max": 1461,
+      "block_size": 1024,
+      "documents_above_block_size": 11,
+      "pretrain_long_documents": "packed across blocks without discarding tail; SFT oversize rejected"
+    }
+  },
+  "token_caches": {
+    "train": {
+      "rows": 41639,
+      "tokens": 19038770,
+      "blocks": 18593,
+      "block_size": 1024,
+      "dtype": "uint32 little-endian",
+      "bytes": 76155080,
+      "source_sha256": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+      "sha256": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+      "label_alignment": "labels[i] is next token for input_ids[i]; do not shift again in model loss"
+    },
+    "validation": {
+      "rows": 5016,
+      "tokens": 2266877,
+      "blocks": 2214,
+      "block_size": 1024,
+      "dtype": "uint32 little-endian",
+      "bytes": 9067508,
+      "source_sha256": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+      "sha256": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+      "label_alignment": "labels[i] is next token for input_ids[i]; do not shift again in model loss"
+    },
+    "test": {
+      "rows": 4556,
+      "tokens": 2074052,
+      "blocks": 2026,
+      "block_size": 1024,
+      "dtype": "uint32 little-endian",
+      "bytes": 8296208,
+      "source_sha256": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5",
+      "sha256": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a",
+      "label_alignment": "labels[i] is next token for input_ids[i]; do not shift again in model loss"
+    }
+  },
+  "free_bytes_after": 28404690944
+}

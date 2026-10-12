@@ -1,0 +1,9 @@
+{
+  "mode": "sft", "seed": 42, "block_size": 1024,
+  "dataset_dir": "data/processed/sft",
+  "tokenizer": "data/tokenizer/tokenizer.json",
+  "label_alignment": "already_shifted_next_token",
+  "prompt_and_padding_label": -100,
+  "oversize_json": "reject without truncation",
+  "status": "requires reviewed Indonesian annotations and GPU profiling"
+}

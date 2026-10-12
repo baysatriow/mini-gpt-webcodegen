@@ -1,0 +1,29 @@
+RUN-041 | 2026-10-12T18:39:18.046811+07:00 | css_js_corpus_regression_red
+Command: .\.venv\Scripts\python.exe -m unittest tests.data.test_normalize.NormalizeTests.test_css_only_source_is_kept_as_css_pretraining_text tests.data.test_normalize.NormalizeTests.test_javascript_only_source_is_kept_as_code -v
+Commit: d00d2e418222f04673baf02e7bb328ace143c6d1
+
+test_css_only_source_is_kept_as_css_pretraining_text (tests.data.test_normalize.NormalizeTests.test_css_only_source_is_kept_as_css_pretraining_text) ... FAIL
+test_javascript_only_source_is_kept_as_code (tests.data.test_normalize.NormalizeTests.test_javascript_only_source_is_kept_as_code) ... FAIL
+
+======================================================================
+FAIL: test_css_only_source_is_kept_as_css_pretraining_text (tests.data.test_normalize.NormalizeTests.test_css_only_source_is_kept_as_css_pretraining_text)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\data\test_normalize.py", line 32, in test_css_only_source_is_kept_as_css_pretraining_text
+    self.assertEqual(report["accepted"], 1)
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_javascript_only_source_is_kept_as_code (tests.data.test_normalize.NormalizeTests.test_javascript_only_source_is_kept_as_code)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\data\test_normalize.py", line 45, in test_javascript_only_source_is_kept_as_code
+    self.assertEqual(report["accepted"], 1)
+AssertionError: 0 != 1
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.026s
+
+FAILED (failures=2)
+
+Exit code: 1

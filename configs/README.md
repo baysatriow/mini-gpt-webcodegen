@@ -1,12 +1,12 @@
 # Konfigurasi
 
-Konfigurasi YAML untuk implementasi kelak dipisah menurut bagian pipeline:
+Konfigurasi JSON dipisah menurut bagian pipeline:
 
-- `dataset.yaml`: source/revision, kolom, kuota streaming, filter, dedup, split seed, dan lisensi.
-- `tokenizer.yaml`: byte-level BPE, vocabulary, special tokens, dan context length.
-- `model.yaml`: dimensi embedding, layer/head, positional embedding, dropout, dan parameter.
-- `training_pretrain.yaml`: objective next-token, optimizer, learning rate, effective batch, steps, precision, scheduler, dan checkpoint.
-- `training_sft.yaml`: format prompt-target, target mask, continued training, serta interval validation.
-- `evaluation.yaml`: held-out prompts, decoding, pemeriksaan schema, dan rubric manual.
+- `dataset.json`: source/revision, kolom, kuota streaming, disk budget/reserve, split seed, dan lisensi.
+- `page_spec.schema.json`: schema komponen, tema, link, dan interaksi yang diizinkan.
+- `tokenizer.json`: byte-level BPE, vocabulary 8.192, special tokens, dan blok 1.024.
+- `training_pretrain.json`: data path, objective next-token, dan label alignment. Hyperparameter optimizer/model belum dipilih.
+- `training_sft.json`: format prompt-target, target mask, serta oversize rejection.
+- `model.json` dan `evaluation.json`: disusun pada tahap model/evaluasi berikutnya.
 
 Nilai hyperparameter ditentukan setelah data ditokenisasi dan baseline mengukur VRAM. Setiap run harus menyimpan snapshot konfigurasi, seed, commit, versi package, hash manifest, dan TRAIN ID. Jangan mengedit config run yang sedang aktif.

@@ -7,16 +7,16 @@ Catat setiap percobaan pretraining, penyelarasan instruksi, resume, atau evaluas
 - Training Mini GPT belum dijalankan.
 - Model yang direncanakan mulai dari bobot acak, tanpa bobot model pralatih.
 - VENV lokal: CPython 3.11.9, PyTorch 2.14.1+cu130, runtime CUDA 13.0, RTX 5070 sekitar 12 GB VRAM.
-- Dataset proyek belum dikurasi, dinormalisasi, atau dikonversi ke target JSON.
-- RUN-017 mencatat preflight repository dan RUN-018 memverifikasi commit/push planning. RUN-019 menjadi nomor run berikutnya untuk pipeline atau eksperimen.
-- TRAIN-001 adalah slot pertama yang menunggu pipeline data dan planning.
-- Ukuran model, jumlah token, tokenizer vocabulary, panjang konteks, batch, LR, scheduler, dan total step belum ditentukan.
+- Download 55.000 source selesai. Corpus pretraining 51.211 unik sudah displit, BPE train-only 8.192 dan token cache tersedia; SFT produksi menunggu anotasi reviewed.
+- RUN-031 download; RUN-045 preparation final; RUN-046 integrity/GPU batch; RUN-047 reuse. Nomor RUN berikutnya mengikuti ID tertinggi di logs/RUN-*.txt.
+- TRAIN-001 adalah slot pertama yang menunggu Mini GPT dan profiling GPU. Planning telah disetujui.
+- Token train 19.038.770, vocabulary 8.192, blok data 1.024. Dimensi model, batch, LR, scheduler, precision dan total step dipilih setelah profiling GPU; blok data dapat diregenerasi jika berubah.
 
 ## Indeks
 
 | TRAIN ID | Tahap | Status | RUN IDs | Commit | Hasil |
 | --- | --- | --- | --- | --- | --- |
-| TRAIN-001 | Menunggu data dan planning | Belum dijalankan | Belum ada | Belum ada | Belum ada model, command, atau metrik |
+| TRAIN-001 | Menunggu model dan profiling | Belum dijalankan | Belum ada | Belum ada | Belum ada model, command, atau metrik |
 
 ## Protokol pencatatan
 

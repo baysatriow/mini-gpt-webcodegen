@@ -108,7 +108,7 @@ Validator tidak menjamin kualitas isi. Renderer menerima hanya ID interaksi yang
 - `src/training/train.py`: optimizer, validation, logging, checkpoint/resume dengan config, tokenizer, source manifest, dan RNG state.
 - `src/evaluation/`: loss, perplexity, JSON parse/schema, prompt held-out, serta rubric kualitas halaman.
 
-Kontrak ini untuk planning. Implementasi belum dibuat.
+Kontrak data telah diimplementasikan. PageExample adalah record kanonis, dengan alias WebPageExample; style_mode dan interactions dibaca dari target_spec. Validator berada pada schema.py dan diekspor kembali melalui validate.py. Model/training/evaluasi belum dibuat.
 
 ## Evaluasi dan gerbang tahap
 
@@ -144,4 +144,4 @@ Kontrak ini untuk planning. Implementasi belum dibuat.
 
 ## Status
 
-Environment dan audit dataset siap. Pipeline data, model, training, evaluasi model, dan aplikasi belum dijalankan. Urutan implementasi dan interface rinci ada di dokumen [rencana implementasi](superpowers/plans/2026-10-12-pipeline-data-model-training.md). Aplikasi preview/unduhan dilaksanakan setelah konfirmasi planning dan lolos gerbang evaluasi model.
+Planning sudah disetujui pengguna. Download subset dan pipeline data telah dijalankan; BPE ditrain baru hanya pada train partition. SFT produksi menunggu anotasi Indonesia reviewed. Model, training model, evaluasi model, serta aplikasi belum dibuat. Urutan implementasi ada di [rencana implementasi](superpowers/plans/2026-10-12-pipeline-data-model-training.md), dan command data ada di [panduan pipeline](PIPELINE_DATA_GUIDE.md). Aplikasi preview/unduhan dilaksanakan setelah lolos gerbang evaluasi model.
