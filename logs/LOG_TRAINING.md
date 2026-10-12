@@ -8,7 +8,7 @@ Catat setiap percobaan pretraining, penyelarasan instruksi, resume, atau evaluas
 - Model yang direncanakan mulai dari bobot acak, tanpa bobot model pralatih.
 - VENV lokal: CPython 3.11.9, PyTorch 2.14.1+cu130, runtime CUDA 13.0, RTX 5070 sekitar 12 GB VRAM.
 - Dataset proyek belum dikurasi, dinormalisasi, atau dikonversi ke target JSON.
-- RUN-017 mencatat preflight repository sebelum commit planning. RUN-018 menjadi nomor run berikutnya untuk pipeline atau eksperimen.
+- RUN-017 mencatat preflight repository dan RUN-018 memverifikasi commit/push planning. RUN-019 menjadi nomor run berikutnya untuk pipeline atau eksperimen.
 - TRAIN-001 adalah slot pertama yang menunggu pipeline data dan planning.
 - Ukuran model, jumlah token, tokenizer vocabulary, panjang konteks, batch, LR, scheduler, dan total step belum ditentukan.
 
