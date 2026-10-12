@@ -187,3 +187,20 @@ Tidak ada TRAIN baru atau update produksi. Training aktual tetap TRAIN-001 sampa
 Rincian: [review](../reports/REVIEW_TRAINING_2026-10-12.md), [migration](../reports/training/TRAIN-004_lineage_migration.json), [evaluasi copy](../reports/training/TRAIN-004-VERIFIED_evaluation.json), [notebook](../notebooks/README.md).
 
 - Verifikasi akhir AI-007: RUN-078 tiga notebook, 23 sel kode tanpa error; RUN-079 syntax/JSON/Markdown links/nbformat tanpa temuan; RUN-080 58/58 tests lulus. Tidak ada training produksi tambahan.
+
+## AI-008: Persiapan anotasi sebelum SFT
+
+Tahap data, **bukan TRAIN baru**. Jumlah update produksi dan checkpoint tetap baseline TRAIN-004/verified copy. Tidak ada optimizer update pada sesi ini.
+
+- Parent yang disiapkan untuk SFT: `checkpoints/TRAIN-004-VERIFIED/best.pt`, step 1.200, dengan fingerprint corpus/tokenizer/partition yang sudah diverifikasi.
+- Queue awal 119 draft/102 keluarga: 94 train, 11 validation, 14 test; semuanya hero sederhana, belum siap sebagai pasangan instruksi Indonesia.
+- Pilot `data/annotations/pilot_drafts_id_v1.jsonl`: 12 draft/12 keluarga, 4 train, 4 validation, 4 test. Enam `plain_css`, enam `tailwind`. Dua contoh per kombinasi style/partition asal, tanpa reshuffle.
+- Semua prompt/target pilot ditulis ulang dalam bahasa Indonesia oleh LLM, revision `llm-pilot-id-v1`. Reviewer dan persetujuan manusia kosong. Jangan menyebut ini data reviewed.
+- Target mencakup contact_form, navbar, hero, feature_grid, text_section dan footer; interaksi form_validate dan menu_toggle berasal dari source JavaScript Vulcan.
+- RUN-083 memverifikasi source text/provenance/family assignment, schema dan `encode_sft`: 12/12 lolos format, semua <=1.024 token, maksimum 640. Tidak memotong JSON atau melatih tokenizer ulang. Lolos format tidak berarti proyeksi semantik/tautan sudah disetujui.
+- Tokenizer SHA tetap `f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7`; family assignment SHA `b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b`.
+- Paket review lokal memuat sumber, prompt, target, catatan perubahan, checklist kosong serta hash output. Gambar/CDN/script sumber tidak dijalankan.
+- RUN-085 notebook 04 memeriksa mask prompt/target dan membuktikan loader menolak draft. Keempat notebook selesai 30 sel kode tanpa error. Tidak ada metrik SFT, generasi model baru atau hasil browser pada tahap ini.
+- Keterbatasan: corpus kecil, belum semua section/interaksi, perubahan layout perlu penilaian manusia, empat kandidat memiliki isu kontrak/tujuan tautan. Review dan perluasan data diperlukan sebelum SFT.
+
+Rincian: [panduan review](../docs/ANNOTATION_REVIEW_GUIDE.md), [laporan pilot](../reports/data/ANNOTATION_REVIEW_PILOT_ID_V1.json), [interaksi AI-008](interaksi_llm/AI-008_2026-10-12.md).

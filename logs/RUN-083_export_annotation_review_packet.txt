@@ -1,0 +1,97 @@
+RUN-083 | 2026-10-12T22:38:31.113691+07:00 | export_annotation_review_packet
+Command: .venv/Scripts/python.exe -m qa.prepare_annotation_review --drafts data/annotations/pilot_drafts_id_v1.jsonl --output outputs/annotation_review/pilot-id-v1 --report reports/data/ANNOTATION_REVIEW_PILOT_ID_V1.json
+Commit: 04557166735abf2460c8f4aa90b45bb13b68b333
+
+{
+  "status": "awaiting_human_review",
+  "reviewed_production_rows": 0,
+  "queue": {
+    "rows": 119,
+    "unique_families": 102,
+    "split_counts": {
+      "train": 94,
+      "test": 14,
+      "validation": 11
+    },
+    "style_counts": {
+      "plain_css": 69,
+      "tailwind": 50
+    },
+    "source_counts": {
+      "websight_v01": 50,
+      "websight_v02": 50,
+      "vulcan": 19
+    },
+    "section_counts": {
+      "hero": 119
+    },
+    "interaction_counts": {},
+    "schema_valid_rows": 119,
+    "within_context_rows": 119,
+    "technical_ready_rows": 0,
+    "max_sequence_tokens": 404
+  },
+  "pilot": {
+    "rows": 12,
+    "unique_families": 12,
+    "split_counts": {
+      "train": 4,
+      "validation": 4,
+      "test": 4
+    },
+    "style_counts": {
+      "plain_css": 6,
+      "tailwind": 6
+    },
+    "source_counts": {
+      "vulcan": 2,
+      "websight_v01": 4,
+      "websight_v02": 6
+    },
+    "section_counts": {
+      "contact_form": 1,
+      "navbar": 5,
+      "hero": 7,
+      "feature_grid": 5,
+      "text_section": 9,
+      "footer": 4
+    },
+    "interaction_counts": {
+      "form_validate": 1,
+      "menu_toggle": 1
+    },
+    "schema_valid_rows": 12,
+    "within_context_rows": 12,
+    "technical_ready_rows": 12,
+    "max_sequence_tokens": 640
+  },
+  "block_size": 1024,
+  "selection": "purposeful pilot, two per style/partition cell, not representative evaluation",
+  "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+  "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+  "raw_files_sha256": {
+    "data\\raw\\websight_v01-20000.jsonl": "9e4759eb6cca2afdbf6822dbb6a02b96ac6270545ec6fa9933e3d2fd28f1b7c3",
+    "data\\raw\\websight_v02-30000.jsonl": "1f7f386a739ac2e2fd03f7b2d3faae1d4818222d1bf04b1d6aa09d11c2bf3f1d",
+    "data\\raw\\vulcan-5000.jsonl": "e46805cbf559c2a2cf86ad8b5fdd4aeadf885d0500f86b32a44abe30a146574c"
+  },
+  "queue_sha256": "74664270b2b67450db335e25dda6969720569b2f46e782600bfa0f2ce77ff7c0",
+  "pilot_input_sha256": "0850dea6a8107652f02a790c7cb2f46e63850d7794787d717d18ec5237ace199",
+  "packet_path": "outputs\\annotation_review\\pilot-id-v1",
+  "free_bytes_before": 27203559424,
+  "files": {
+    "drafts.json": "3e06db2eadcca61139105fad710a47e91ba19cbfc7a0e891ed301de25d78bbd6",
+    "drafts.jsonl": "0850dea6a8107652f02a790c7cb2f46e63850d7794787d717d18ec5237ace199",
+    "inventory.csv": "8b75643d341e320d214832f6d806a90bfa9d01f20d0308c15c6b12f3631aca3c",
+    "packet.html": "0a91537befabf7d72d7e30d2a28bccb4e2a6bc598c6cd25ef262a60744dfb1c1",
+    "review.csv": "e9d6a152234dc0457c3ddc62334428bd4dbf06692f04d546924d689f24dab5cf"
+  },
+  "limits": [
+    "No human decisions supplied",
+    "No source HTML executed or browser layout checked",
+    "No SFT updates",
+    "Manual projection and translated texts require review",
+    "Missing interaction types and limited sample size prevent broad quality claims"
+  ]
+}
+
+Exit code: 0

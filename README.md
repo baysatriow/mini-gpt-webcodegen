@@ -133,3 +133,9 @@ Pada akhir tahap data, review menemukan empat masalah yang diperbaiki dan dicata
 Tahap berikutnya sudah dilaksanakan: model dari bobot acak, optimizer AdamW, validation, checksum checkpoint, RNG/data cursor resume, dan evaluator tersedia. RUN-068 lulus 49 tests. TRAIN-003/004 melatih 19.657.265 token valid dalam 1.200 update, dengan stop/resume terencana pada step 200. Validation subset loss turun dari 9,102 menjadi 1,111; test penuh loss 1,071 / perplexity 2,918. Peak allocated saat resume sekitar 2,03 GiB.
 
 Namun probe PageSpec JSON masih 0/4 valid. Hasil ini memerlukan kurasi instruksi dan SFT dari checkpoint proyek sebelum aplikasi dibuat. Status dan bukti lengkap: [laporan training](reports/PIPELINE_TRAINING_SUMMARY.md), [panduan training](docs/TRAINING_GUIDE.md), serta [grafik loss](reports/training/BASELINE_LOSS_2026-10-12.png). Data/checkpoint/tokenizer tetap lokal, log dan laporan kecil dipush ke repo private.
+
+## Kurasi instruksi Indonesia
+
+Paket review pilot tersedia lokal: 12 draft dari 12 keluarga, 6 CSS biasa dan 6 Tailwind, termasuk menu responsif dan validasi form. Prompt, target JSON, source, catatan proyeksi dan worksheet manusia tersedia untuk diperiksa. Semua target lolos schema/context, tetapi reviewed produksi masih 0.
+
+Mulai dari [notebook kurasi](notebooks/04_kurasi_dan_sft.ipynb), [panduan review](docs/ANNOTATION_REVIEW_GUIDE.md), dan [laporan coverage](reports/data/ANNOTATION_REVIEW_PILOT_ID_V1.json). Pilot belum cukup untuk generalisasi; lanjutkan review dan perluasan data sebelum SFT.

@@ -14,7 +14,7 @@ Zona waktu pencatatan: Asia/Jakarta
 - Jangan masukkan API key, password, token, atau data pribadi ke log.
 - Jika ada koreksi setelah dicatat, tambahkan catatan koreksi baru yang merujuk ID lama. Jangan menghapus atau mengubah riwayat run.
 
-Ringkasan terbaru: baseline Mini GPT TRAIN-003/004 selesai 1.200 update, evaluasi token test loss 1,071 / perplexity 2,918, dan probe JSON/schema 0/4. Pipeline reviewed produksi masih 0 dari 119 draft; aplikasi belum dibuat. AI-007 menambahkan notebook, perbaikan review training, serta verified copy tanpa optimizer update. Riwayat RUN lama dipertahankan. Nomor RUN berikutnya mengikuti ID tertinggi pada logs/RUN-*.txt; interaksi berikutnya AI-008.
+Ringkasan terbaru: baseline TRAIN-003/004 tetap 1.200 update, test loss 1,071 / perplexity 2,918, probe JSON/schema 0/4. AI-008 menyiapkan pilot 12 draft Indonesia dari queue 119, paket review dan notebook 04. Empat notebook berjalan 30 sel tanpa error. Reviewed produksi tetap 0 dan tidak ada training baru. Riwayat RUN lama dipertahankan; nomor RUN mengikuti ID tertinggi pada logs/RUN-*.txt, interaksi berikutnya AI-009.
 
 ---
 
@@ -1159,3 +1159,66 @@ Planning disetujui oleh pengguna melalui permintaan implementasi pipeline dan do
 - **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-080_final_pipeline_suite.txt`.
+
+### RUN-081
+
+- **Waktu:** 2026-10-12T22:38:08.494027+07:00 sampai 2026-10-12T22:38:08.612227+07:00.
+- **Tujuan:** author_indonesian_annotation_pilot.
+- **Command:** `.venv/Scripts/python.exe .tmp/author_review_pilot.py`.
+- **Commit:** `04557166735abf2460c8f4aa90b45bb13b68b333`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-081_author_indonesian_annotation_pilot.txt`.
+
+### RUN-082
+
+- **Waktu:** 2026-10-12T22:38:28.830147+07:00 sampai 2026-10-12T22:38:28.944789+07:00.
+- **Tujuan:** author_indonesian_annotation_pilot.
+- **Command:** `.venv/Scripts/python.exe .tmp/author_review_pilot.py`.
+- **Commit:** `04557166735abf2460c8f4aa90b45bb13b68b333`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-082_author_indonesian_annotation_pilot.txt`.
+
+### RUN-083
+
+- **Waktu:** 2026-10-12T22:38:31.113691+07:00 sampai 2026-10-12T22:38:34.771913+07:00.
+- **Tujuan:** export_annotation_review_packet.
+- **Command:** `.venv/Scripts/python.exe -m qa.prepare_annotation_review --drafts data/annotations/pilot_drafts_id_v1.jsonl --output outputs/annotation_review/pilot-id-v1 --report reports/data/ANNOTATION_REVIEW_PILOT_ID_V1.json`.
+- **Commit:** `04557166735abf2460c8f4aa90b45bb13b68b333`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-083_export_annotation_review_packet.txt`.
+
+### RUN-084
+
+- **Waktu:** 2026-10-12T22:42:00.223974+07:00 sampai 2026-10-12T22:42:00.576990+07:00.
+- **Tujuan:** author_annotation_review_notebook.
+- **Command:** `.venv/Scripts/python.exe .tmp/author_review_notebook.py`.
+- **Commit:** `04557166735abf2460c8f4aa90b45bb13b68b333`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-084_author_annotation_review_notebook.txt`.
+
+### RUN-085
+
+- **Waktu:** 2026-10-12T22:42:12.068851+07:00 sampai 2026-10-12T22:42:29.083488+07:00.
+- **Tujuan:** annotation_review_notebooks_execution.
+- **Command:** `.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place`.
+- **Commit:** `04557166735abf2460c8f4aa90b45bb13b68b333`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-085_annotation_review_notebooks_execution.txt`.
+
+## AI-008: Pilot anotasi dan kurasi SFT
+
+- **Instruksi:** Pengguna meminta melanjutkan pipeline dan notebook, mempertahankan log serta commit/push.
+- **Hasil:** 12 draft prompt/target Indonesia dari 12 keluarga, 6 CSS biasa dan 6 Tailwind, 4 train/4 validation/4 test sesuai partisi asal. Paket review lokal dan notebook 04 tersedia.
+- **Bukti:** RUN-081 gagal import script authoring; RUN-082/083 berhasil menyiapkan draft dan paket; RUN-084 membuat notebook; RUN-085 empat notebook/30 sel tanpa cell error. Seluruh target pilot lolos schema/context, maksimum 640 dari 1.024 token.
+- **Batas:** Reviewed produksi 0, optimizer updates 0. Perubahan layout/tautan membutuhkan review dan corpus perlu diperluas. Tidak ada training atau hasil browser baru.
+- **Ekspor interaksi lengkap:** [AI-008](interaksi_llm/AI-008_2026-10-12.md).
+- **Panduan dan ringkasan:** [review anotasi](../docs/ANNOTATION_REVIEW_GUIDE.md), [coverage pilot](../reports/data/ANNOTATION_REVIEW_PILOT_ID_V1.json).
+
+### RUN-086
+
+- **Waktu:** 2026-10-12T22:45:53.500962+07:00 sampai 2026-10-12T22:45:53.928216+07:00.
+- **Tujuan:** annotation_delivery_checks.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `04557166735abf2460c8f4aa90b45bb13b68b333`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-086_annotation_delivery_checks.txt`.

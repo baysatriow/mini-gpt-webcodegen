@@ -1,0 +1,16 @@
+RUN-086 | 2026-10-12T22:45:53.500962+07:00 | annotation_delivery_checks
+Command: .venv/Scripts/python.exe .tmp/check_delivery.py
+Commit: 04557166735abf2460c8f4aa90b45bb13b68b333
+
+{
+  "counts": {
+    "python": 51,
+    "json": 25,
+    "markdown": 39,
+    "notebook": 4,
+    "executed_code_cells": 30
+  },
+  "errors": []
+}
+
+Exit code: 0

@@ -61,6 +61,8 @@ Mode `production` memerlukan checkpoint SFT dengan ancestry verified. Prompt har
 
 Proses per sel tersedia di [notebook](../notebooks/README.md).
 
+Pilot instruksi Indonesia serta checklist manusia tersedia pada [panduan review](ANNOTATION_REVIEW_GUIDE.md) dan notebook 04. Seluruh 12 kandidat masih draft. Schema/context yang benar tidak menggantikan persetujuan reviewer, dan pilot perlu diperluas sebelum training SFT.
+
 ```powershell
 .\.venv\Scripts\python.exe qa/run_logged.py --label evaluate -- .\.venv\Scripts\python.exe -m qa.evaluate_minigpt --checkpoint checkpoints/TRAIN-004/best.pt --report-id TRAIN-004
 ```

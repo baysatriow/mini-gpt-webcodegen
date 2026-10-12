@@ -73,3 +73,14 @@ Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download da
 - Ruling: pertahankan feature branch dan push sesuai instruksi pengguna. Merge/PR belum diminta. Biaya: main belum memuat pipeline hingga integrasi dipilih.
 
 - Verifikasi final: RUN-078 notebook 23 sel tanpa error; RUN-079 50 Python / 24 JSON / 37 Markdown / 3 notebook tanpa temuan; RUN-080 suite 58/58. Repository GitHub dikonfirmasi private. Feature branch tetap dipush tanpa coauthor trailer.
+
+## AI-008: Review anotasi Indonesia
+
+- Ruling: laksanakan persiapan review dari tahap anotasi yang sudah disetujui. Alasan: baseline belum menghasilkan PageSpec valid dan produksi reviewed masih 0. Biaya: SFT menunggu data yang ditinjau; aplikasi tetap tahap akhir.
+- RUN-081 gagal import package pada script authoring lokal, RUN-082 berhasil setelah pembacaan JSON mandiri.
+- RUN-083 mengekspor pilot 12 draft/12 keluarga, enam CSS biasa dan enam Tailwind, empat per partition asal. Queue awal 119 draft/102 keluarga diaudit.
+- Seluruh pilot lolos schema/context, maksimum 640 token dari batas 1.024. Dua interaksi berasal dari script sumber, tanpa memasukkan kode script ke PageSpec.
+- Ruling: semua tetap draft, reviewer kosong. Alasan: proyeksi layout, terjemahan dan tujuan link belum ditinjau manusia. Biaya: belum ada data SFT produksi meski format benar.
+- RUN-084/085 menambah dan menjalankan notebook 04; total empat notebook/30 sel tanpa error, gate loader menolak draft.
+- Needs-data: review konkret pada `outputs/annotation_review/pilot-id-v1/packet.html` dan `review.csv`, revisi link/proyeksi, perluas coverage, lalu preparation SFT. Tidak ada TRAIN baru.
+- RUN-086: 51 Python, 25 JSON, 39 Markdown, 4 notebook/30 sel tanpa temuan. `git diff --check` bersih; private GitHub dan ignore paket lokal dikonfirmasi. Source notebook lama dipertahankan, notebook kurasi baru menyimpan hasil eksekusi.
