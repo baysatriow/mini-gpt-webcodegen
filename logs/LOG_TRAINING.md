@@ -17,7 +17,17 @@ Catat setiap percobaan pretraining, penyelarasan instruksi, resume, atau evaluas
 
 | TRAIN ID | Tahap | Status | RUN IDs | Commit | Hasil |
 | --- | --- | --- | --- | --- | --- |
-| TRAIN-001 | Menunggu model dan profiling | Belum dijalankan | Belum ada | Belum ada | Belum ada model, command, atau metrik |
+| TRAIN-001 | GPU profiling, bobot dibuang | Selesai | RUN-056 | HEAD dasar b81cc61, working tree Task 6 | 14.186.496 parameter; batch 1/2/4 finite; batch 4 peak allocated 2.189.641.216 bytes |
+
+## TRAIN-001: Profiling kandidat Mini GPT
+
+- Model: random init, 6 layer / 6 head / embedding 384 / context 1024 / vocab 8192 / tied embeddings / dropout 0,1. Parameter terukur 14.186.496.
+- Command: `python qa/profile_minigpt.py --run-id TRAIN-001`, output RUN-056 dan `outputs/metrics/TRAIN-001_profile.json` lokal.
+- RTX 5070, PyTorch 2.14.1+cu130, BF16, seed 42, AdamW LR 0,0003, grad clip 1. Empat optimizer update per kandidat pada batch train pertama yang sama; satu warmup, tiga step timing. Bobot kandidat tidak menjadi checkpoint baseline.
+- Batch 1: 0,0200 detik/step; allocated 761.374.208 bytes. Batch 2: 0,0272 detik/step; allocated 1.238.009.344 bytes. Batch 4: 0,0524 detik/step, 78.170,8 token/detik; allocated 2.189.641.216 / reserved 2.424.307.712 bytes.
+- Semua loss/grad norm finite. Tidak ada OOM. Warning konversi loss Tensor ke scalar direkam; pencatatan berikutnya memakai detach. Angka ini profiling batch berulang, bukan throughput end-to-end baseline.
+- Keputusan: microbatch 4 dengan accumulation 4 sebagai titik awal baseline, effective batch 16 blok / 16.384 token maksimum per update. Ukur lagi VRAM/throughput selama run aktual.
+- Tidak ada validation/test, generation quality, atau PageSpec evaluation pada profiling ini. Profiling tidak membuktikan model sudah mempelajari dataset.
 
 ## Protokol pencatatan
 

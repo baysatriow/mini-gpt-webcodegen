@@ -37,3 +37,12 @@ Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download da
 - RUN-051 mempertahankan split dan token artifacts dengan hash yang sama; action reused. RUN-052 integritas seluruh data aktual dan CUDA batch lulus. Free F 26,45 GiB.
 - Ruling: branch feature tetap dipush sesuai instruksi pengguna; tidak digabung ke main karena Tasks 6-9 belum diimplementasikan. Workspace review plan tetap lokal untuk tahap berikutnya. Risiko: konsumen main belum mendapat kode tahap data hingga integrasi dipilih.
 - Tahap data Tasks 1-5 complete. Model dan training Tasks 6-9 belum dimulai. SFT produksi awaiting_review; bukan model siap menghasilkan website.
+
+## Tahap model dan training, AI-006
+
+- Pengguna mengizinkan kelanjutan setelah laporan tahap data. Tasks 6-9 dimulai dari b81cc61, checkout feature yang sama.
+- Task 6: in_progress. RUN-053 preflight VENV/RTX 5070/BF16 lulus, F sekitar 26,45 GiB bebas.
+- Task 6: complete. RUN-054 red missing module; RUN-055 green 41 tests termasuk causal-prefix, CPU gradient, context rejection, dan CUDA BF16. RUN-056 profile 14.186.496 parameter, batch 4 peak allocated 2,04 GiB; bobot profile dibuang.
+- Pre-flight Tasks 5/6/7: dataset memberi input/labels [B,T], label sudah next-token; model memberi logits [B,T,V]. Engine memakai cross entropy langsung, tanpa shift kedua. Tidak ada konflik.
+- Pre-flight Tasks 7/8: validation memakai target-mask yang sama dan agregasi berdasarkan jumlah token valid. Test partition baru dipakai setelah pemilihan checkpoint/hyperparameter berdasarkan validation.
+- Ruling: jalankan smoke dan baseline pretraining yang dibatasi config setelah profiling, bukan SFT atas draft. Alasan: produksi reviewed masih 0. Biaya: kemampuan prompt-ke-PageSpec belum dapat dinyatakan siap meskipun pretraining berjalan.

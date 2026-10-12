@@ -907,3 +907,39 @@ Planning disetujui oleh pengguna melalui permintaan implementasi pipeline dan do
 - RUN setelah review mencatat HEAD dasar 4160879 dan berjalan pada working tree perbaikan. Code/perbaikan, manifest, dokumen dan log kemudian disimpan bersama ke Git pada branch feature/pipeline-data-model-training.
 - Tidak ada training model, skor kualitas generation, atau browser rendering. Anotasi produksi 119 draft / 0 reviewed. Model dan training merupakan tahap berikutnya.
 - Laporan rinci: reports/STATUS_PIPELINE_2026-10-12.md dan reports/REVIEW_PIPELINE_2026-10-12.md. Petunjuk operasi: docs/PIPELINE_DATA_GUIDE.md. Raw/cache/tokenizer/VENV tetap lokal dan di-ignore Git.
+
+### RUN-053
+
+- **Waktu:** 2026-10-12T20:13:34.757296+07:00 sampai 2026-10-12T20:13:45.509158+07:00.
+- **Tujuan:** training_environment_preflight.
+- **Command:** `.\.venv\Scripts\python.exe -B qa/check_gpu_environment.py`.
+- **Commit:** `b81cc6191a735df3a9aadf90b7cb0c5f47006816`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-053_training_environment_preflight.txt`.
+
+### RUN-054
+
+- **Waktu:** 2026-10-12T20:15:31.826712+07:00 sampai 2026-10-12T20:15:33.797795+07:00.
+- **Tujuan:** minigpt_model_red.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest tests.models.test_minigpt -v`.
+- **Commit:** `b81cc6191a735df3a9aadf90b7cb0c5f47006816`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-054_minigpt_model_red.txt`.
+
+### RUN-055
+
+- **Waktu:** 2026-10-12T20:17:26.374646+07:00 sampai 2026-10-12T20:17:30.721785+07:00.
+- **Tujuan:** minigpt_model_green.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest discover -s tests -v`.
+- **Commit:** `b81cc6191a735df3a9aadf90b7cb0c5f47006816`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-055_minigpt_model_green.txt`.
+
+### RUN-056
+
+- **Waktu:** 2026-10-12T20:17:33.089900+07:00 sampai 2026-10-12T20:17:38.270226+07:00.
+- **Tujuan:** TRAIN_001_gpu_profile.
+- **Command:** `.\.venv\Scripts\python.exe -B qa/profile_minigpt.py --run-id TRAIN-001`.
+- **Commit:** `b81cc6191a735df3a9aadf90b7cb0c5f47006816`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-056_train_001_gpu_profile.txt`.

@@ -1,0 +1,25 @@
+RUN-054 | 2026-10-12T20:15:31.826712+07:00 | minigpt_model_red
+Command: .\.venv\Scripts\python.exe -B -m unittest tests.models.test_minigpt -v
+Commit: b81cc6191a735df3a9aadf90b7cb0c5f47006816
+
+test_minigpt (unittest.loader._FailedTest.test_minigpt) ... ERROR
+
+======================================================================
+ERROR: test_minigpt (unittest.loader._FailedTest.test_minigpt)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_minigpt
+Traceback (most recent call last):
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\models\test_minigpt.py", line 6, in <module>
+    from src.models.minigpt import MiniGPT
+ModuleNotFoundError: No module named 'src.models.minigpt'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+
+Exit code: 1

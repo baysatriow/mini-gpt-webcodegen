@@ -313,27 +313,27 @@ git push origin HEAD
 - `Block.forward(x)` melakukan pre-layer normalization, causal attention residual, MLP/GELU residual.
 - Embedding token dijumlahkan dengan learned positional embedding; model memakai final layer norm dan linear language-model head.
 
-- [ ] **Step 1: Tulis test causal attention dan ukuran tensor**
+- [x] **Step 1: Tulis test causal attention dan ukuran tensor**
 
 Uji output shape, causal mask dengan membandingkan prefix logits sebelum/sesudah token suffix diubah, backward menghasilkan gradien finite, serta panjang sequence di atas block size ditolak.
 
-- [ ] **Step 2: Jalankan model test**
+- [x] **Step 2: Jalankan model test**
 
 Run: `python -m unittest tests.models.test_minigpt -v`
 
 Expected: gagal sebelum modul model dibuat.
 
-- [ ] **Step 3: Implementasikan komponen dengan operasi PyTorch dasar**
+- [x] **Step 3: Implementasikan komponen dengan operasi PyTorch dasar**
 
 Gunakan `nn.Embedding`, `nn.Linear`, `nn.LayerNorm`, `nn.Dropout`, `torch.matmul`, dan mask segitiga kausal. Tulis struktur attention dan decoder block sendiri; jangan memakai `nn.Transformer` atau bobot model lain. Inisialisasi linear/embedding dengan normal ber-mean nol, std `0.02`, serta bias nol.
 
-- [ ] **Step 4: Jalankan CPU, CUDA dan BF16 forward/backward**
+- [x] **Step 4: Jalankan CPU, CUDA dan BF16 forward/backward**
 
 Run: `python -m unittest tests.models.test_minigpt -v`
 
 Expected: seluruh output shape benar dan loss/gradien finite pada CPU serta RTX 5070; catat parameter count dan peak VRAM pada RUN.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add src/models/minigpt.py tests/models/__init__.py tests/models/test_minigpt.py configs/model.json
