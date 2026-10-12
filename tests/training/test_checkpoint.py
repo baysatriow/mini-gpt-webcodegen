@@ -5,7 +5,7 @@ from pathlib import Path
 import torch
 
 from src.models.minigpt import MiniGPT
-from src.training.engine import load_checkpoint, run_training
+from src.training.engine import load_checkpoint, run_training, read_checkpoint
 from tests.training.test_engine import fixture
 
 
@@ -19,8 +19,8 @@ class CheckpointTests(unittest.TestCase):
             interrupted = run_training(path, train, val, "TRAIN-PART", stop_after=2)
             train, val = fixture_loaders(path)
             resumed = run_training(path, train, val, "TRAIN-RESUME", resume=interrupted)
-            first = torch.load(full, map_location="cpu", weights_only=True)
-            second = torch.load(resumed, map_location="cpu", weights_only=True)
+            first = read_checkpoint(full)
+            second = read_checkpoint(resumed)
             self.assertEqual(second["global_step"], 4)
             self.assertEqual(first["sampler"], second["sampler"])
             self.assertEqual(first["scheduler"], second["scheduler"])

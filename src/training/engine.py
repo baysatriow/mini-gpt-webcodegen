@@ -8,6 +8,7 @@ import shutil
 import subprocess
 import time
 import traceback
+import uuid
 from contextlib import nullcontext
 from datetime import datetime, timezone
 from pathlib import Path
@@ -153,19 +154,87 @@ def evaluate_tokens(model, loader, *, precision="fp32", max_batches=None):
 
 
 def save_checkpoint(path: Path, state: dict):
+    path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
+    versions = path.parent / ".versions"
+    versions.mkdir(exist_ok=True)
+    previous = None
+    if path.exists():
+        previous, _ = _checkpoint_payload(path)
+    payload = versions / f"{path.stem}-{uuid.uuid4().hex}.pt"
+    manifest_path = payload.with_suffix(".json")
     partial = path.with_suffix(".pt.partial")
-    torch.save(state, partial)
-    os.replace(partial, path)
-    write_manifest(path.with_suffix(".json"), {"format_version": 1, "sha256": sha256_file(path), "bytes": path.stat().st_size,
-                   "run_id": state["run_id"], "global_step": state["global_step"], "lineage": state["config"]["lineage"]})
+    try:
+        with payload.open("xb") as handle:
+            torch.save(state, handle)
+            handle.flush()
+            os.fsync(handle.fileno())
+        write_manifest(manifest_path, {"format_version": 2, "sha256": sha256_file(payload), "bytes": payload.stat().st_size,
+                       "run_id": state["run_id"], "global_step": state["global_step"], "lineage": state["config"]["lineage"]})
+        pointer = {"format_version": 2, "payload": str(payload.relative_to(path.parent)),
+                   "manifest_sha256": sha256_file(manifest_path),
+                   "retained_payloads": [state["best_checkpoint"]["payload"]] if state.get("best_checkpoint") else []}
+        with partial.open("w", encoding="utf-8") as handle:
+            json.dump(pointer, handle)
+            handle.flush()
+            os.fsync(handle.fileno())
+        _checkpoint_payload(partial)
+        # The only commit operation. Older pointer/payload remain usable until this succeeds.
+        os.replace(partial, path)
+    except BaseException:
+        for candidate in (partial, payload, manifest_path):
+            candidate.unlink(missing_ok=True)
+        raise
+    # Keep both the current and immediately previous generation; cleanup is best effort.
+    keep = {payload.resolve(), previous.resolve() if previous else None}
+    for reference_path in path.parent.glob("*.pt"):
+        with reference_path.open("rb") as handle:
+            is_pointer = handle.read(1) == b"{"
+        if is_pointer:
+            reference = json.loads(reference_path.read_text(encoding="utf-8"))
+            for relative in reference.get("retained_payloads", []):
+                pinned = (path.parent / relative).resolve()
+                if pinned.is_relative_to(versions.resolve()):
+                    keep.add(pinned)
+    for candidate in versions.glob(f"{path.stem}-*.pt"):
+        if candidate.resolve() not in keep:
+            try:
+                candidate.unlink()
+                candidate.with_suffix(".json").unlink(missing_ok=True)
+            except OSError:
+                pass
+
+
+def _checkpoint_payload(path: Path):
+    path = Path(path)
+    with path.open("rb") as handle:
+        pointer_format = handle.read(1) == b"{"
+    if pointer_format:
+        try:
+            pointer = json.loads(path.read_text(encoding="utf-8"))
+            payload = (path.parent / pointer["payload"]).resolve()
+            if pointer["format_version"] != 2 or not payload.is_relative_to((path.parent / ".versions").resolve()):
+                raise ValueError("Checkpoint pointer escapes generation directory")
+            manifest_path = payload.with_suffix(".json")
+            if sha256_file(manifest_path) != pointer["manifest_sha256"]:
+                raise ValueError("Checkpoint manifest checksum mismatch")
+        except (json.JSONDecodeError, KeyError) as error:
+            raise ValueError("Checkpoint pointer checksum/format mismatch") from error
+    else:
+        payload, manifest_path = path, path.with_suffix(".json")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if payload.stat().st_size != manifest["bytes"] or sha256_file(payload) != manifest["sha256"]:
+        raise ValueError("Checkpoint checksum/byte mismatch")
+    return payload, manifest
+
+
+def checkpoint_sha256(path: Path):
+    return _checkpoint_payload(Path(path))[1]["sha256"]
 
 
 def read_checkpoint(path: Path):
-    manifest = json.loads(path.with_suffix(".json").read_text(encoding="utf-8"))
-    if path.stat().st_size != manifest["bytes"] or sha256_file(path) != manifest["sha256"]:
-        raise ValueError("Checkpoint checksum/byte mismatch")
-    return torch.load(path, map_location="cpu", weights_only=True)
+    payload, _ = _checkpoint_payload(Path(path))
+    return torch.load(payload, map_location="cpu", weights_only=True)
 
 
 def load_checkpoint(path, model, optimizer, scheduler, *, restore_rng=True):
@@ -229,7 +298,7 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
         model_config = config.get("model_config") or json.loads((root / config["model_config_path"]).read_text())
         config["model_config"] = model_config
         model = MiniGPT(model_config).to(device)
-        estimated_checkpoint_bytes = model.parameter_count() * 12 * 2 + 64 * 1024**2
+        estimated_checkpoint_bytes = model.parameter_count() * 12 * 6 + 64 * 1024**2
         if shutil.disk_usage(root).free < config["reserve_free_bytes"] + estimated_checkpoint_bytes:
             raise OSError("Insufficient storage for last/best checkpoints while preserving reserve")
         optimizer = torch.optim.AdamW(model.parameters(), lr=config["learning_rate"], betas=tuple(config["betas"]), weight_decay=config["weight_decay"])
@@ -240,37 +309,76 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
             minimum = config["min_learning_rate"] / config["learning_rate"]
             return minimum + (1 - minimum) * (1 + math.cos(math.pi * progress)) / 2
         scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, rate)
-        step, best, total_tokens = 0, float("inf"), 0
+        step, best, total_tokens, best_reference = 0, float("inf"), 0, None
+        best_path = directory / "best.pt"
         if device.type == "cuda":
             torch.cuda.reset_peak_memory_stats()
         if config.get("initial_checkpoint") and not resume:
-            parent = read_checkpoint(root / config["initial_checkpoint"])
-            if parent["config"]["lineage"].get("tokenizer_sha256") != config["lineage"].get("tokenizer_sha256"):
-                raise ValueError("Initial checkpoint tokenizer lineage mismatch")
-            load_checkpoint(root / config["initial_checkpoint"], model, None, None, restore_rng=False)
+            from src.training.lineage import validate_initial_checkpoint
+            initial_path = root / config["initial_checkpoint"]
+            if checkpoint_sha256(initial_path) != config["initial_checkpoint_sha256"]:
+                raise ValueError("Initial checkpoint checksum changed")
+            parent = read_checkpoint(initial_path)
+            validate_initial_checkpoint(parent, config, root)
+            load_checkpoint(initial_path, model, None, None, restore_rng=False)
         if resume:
             state = read_checkpoint(Path(resume))
-            if state["config"] != config:
+            def verified_resume_config(candidate):
+                if ("pretrain_fingerprint" not in candidate["config"]["lineage"]
+                        and "pretrain_fingerprint" in config["lineage"]):
+                    from src.training.lineage import bind_legacy_checkpoint
+                    summary_data = json.loads((root / "data/manifests/pipeline_summary.json").read_text(encoding="utf-8"))
+                    return bind_legacy_checkpoint(candidate, root, summary_data)["config"]
+                return candidate["config"]
+            if verified_resume_config(state) != config:
                 raise ValueError("Resume immutable training config/data lineage mismatch")
             state = load_checkpoint(resume, model, optimizer, scheduler)
             train_loader.batch_sampler.load_state_dict(state["sampler"])
             step, best, total_tokens = state["global_step"], state["best_validation_loss"], state["total_tokens"]
+            reference = state.get("best_checkpoint")
+            parent_best_path = root / reference["path"] if reference else Path(resume).parent / "best.pt"
+            if reference and checkpoint_sha256(parent_best_path) != reference["sha256"]:
+                raise ValueError("Resume best checkpoint checksum mismatch")
+            parent_best = read_checkpoint(parent_best_path)
+            if (verified_resume_config(parent_best) != config or parent_best["best_validation_loss"] != best
+                    or parent_best["global_step"] > step):
+                raise ValueError("Resume best checkpoint state/loss mismatch")
+            parent_best["config"] = config
+            save_checkpoint(best_path, parent_best)
+            best_payload = _checkpoint_payload(best_path)[0]
+            best_reference = {"path": str(best_payload.relative_to(root)), "payload": str(best_payload.relative_to(directory)),
+                              "sha256": checkpoint_sha256(best_path),
+                              "global_step": parent_best["global_step"], "validation_loss": best}
+            summary["best_checkpoint_source"] = str(parent_best_path)
         summary.update(parameter_count=model.parameter_count(), model_config=model.config,
                        device=str(device), precision=config["precision"], global_step=step,
-                       resume_parent_sha256=sha256_file(Path(resume)) if resume else None)
-        def snapshot():
+                       resume_parent_sha256=checkpoint_sha256(Path(resume)) if resume else None)
+        def snapshot(*, include_best=True):
             return {"format_version": 1, "run_id": run_id, "model": model.state_dict(), "model_config": model.config,
                     "optimizer": optimizer.state_dict(), "scheduler": scheduler.state_dict(), "global_step": step,
                     "total_tokens": total_tokens, "best_validation_loss": best, "config": config,
-                    "sampler": train_loader.batch_sampler.state_dict(), "rng": capture_rng_state()}
+                    "sampler": train_loader.batch_sampler.state_dict(), "rng": capture_rng_state(),
+                    "best_checkpoint": best_reference if include_best else None}
+        def commit_best(loss):
+            nonlocal best, best_reference
+            previous_best = best
+            best = loss
+            try:
+                save_checkpoint(best_path, snapshot(include_best=False))
+            except BaseException:
+                best = previous_best
+                raise
+            best_payload = _checkpoint_payload(best_path)[0]
+            best_reference = {"path": str(best_payload.relative_to(root)), "payload": str(best_payload.relative_to(directory)),
+                              "sha256": checkpoint_sha256(best_path),
+                              "global_step": step, "validation_loss": best}
         initial_validation = evaluate_tokens(model, validation_loader, precision=config["precision"], max_batches=config["validation_batches"])
-        best = min(best, initial_validation["loss"])
+        if best_reference is None or initial_validation["loss"] < best:
+            commit_best(initial_validation["loss"])
         emit({"event": "validation", "step": step, **initial_validation})
         summary["initial_validation"] = initial_validation
         save_checkpoint(last, snapshot())
         summary["last_committed_step"] = step
-        # The resumed model is a valid baseline for best in its new run directory.
-        save_checkpoint(directory / "best.pt", snapshot())
         iterator = _iterator_without_rng_change(train_loader)
         target_step = min(config["max_steps"], stop_after) if stop_after is not None else config["max_steps"]
         while step < target_step:
@@ -299,15 +407,14 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
                 emit({"event": "validation", "step": step, **validation})
                 summary["final_validation"] = validation
                 if validation["loss"] < best:
-                    best = validation["loss"]
-                    save_checkpoint(directory / "best.pt", snapshot())
+                    commit_best(validation["loss"])
             if step % config["checkpoint_interval"] == 0 or step == target_step:
                 save_checkpoint(last, snapshot())
                 summary["last_committed_step"] = step
                 write_manifest(summary_path, summary)
         summary.update(status="completed" if step == config["max_steps"] else "stopped_at_limit",
-                       best_validation_loss=best, final_checkpoint_sha256=sha256_file(last),
-                       best_checkpoint_sha256=sha256_file(directory / "best.pt"))
+                       best_validation_loss=best, final_checkpoint_sha256=checkpoint_sha256(last),
+                       best_checkpoint_sha256=checkpoint_sha256(best_path), best_checkpoint=best_reference)
         return last
     except (Exception, KeyboardInterrupt) as error:
         summary.update(status="interrupted" if isinstance(error, KeyboardInterrupt) else "failed",

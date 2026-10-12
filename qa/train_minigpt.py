@@ -22,7 +22,8 @@ from src.data.normalize import read_jsonl
 from src.data.pipeline import load_completed_sources
 from src.data.sources import sha256_file, write_manifest
 from src.data.split import read_group_assignment
-from src.training.engine import ResumableBatchSampler, read_checkpoint, run_training
+from src.training.engine import ResumableBatchSampler, read_checkpoint, run_training, checkpoint_sha256
+from src.training.lineage import pretrain_descriptor, sft_descriptor, validate_initial_checkpoint, verify_checkpoint_lineage
 
 
 def prepare_training_data(root, config, smoke=False):
@@ -59,6 +60,9 @@ def prepare_training_data(root, config, smoke=False):
     lineage = {"tokenizer_sha256": sha256_file(tokenizer_path), "pipeline_summary_sha256": sha256_file(root / "data/manifests/pipeline_summary.json"),
                "data_sha256": inputs, "validation_indices_sha256": hashlib.sha256(json.dumps(indices).encode()).hexdigest(),
                "train_blocks_or_examples": len(datasets["train"]), "validation_blocks_or_examples": len(indices), "smoke": smoke}
+    lineage["pretrain_fingerprint"] = pretrain_descriptor(root, summary)
+    if config["mode"] == "sft":
+        lineage["sft_fingerprint"] = sft_descriptor(summary)
     return train_loader, validation_loader, lineage
 
 
@@ -102,7 +106,7 @@ def main(argv=None):
         config["model_config"] = json.loads((ROOT / config["model_config_path"]).read_text())
         if args.initialize_from:
             config["initial_checkpoint"] = str(args.initialize_from.resolve().relative_to(ROOT))
-            config["initial_checkpoint_sha256"] = sha256_file(args.initialize_from)
+            config["initial_checkpoint_sha256"] = checkpoint_sha256(args.initialize_from)
         if args.resume:
             parent = read_checkpoint(args.resume)
             for key in ("initial_checkpoint", "initial_checkpoint_sha256"):
@@ -111,6 +115,17 @@ def main(argv=None):
         if config["mode"] == "sft" and not (args.initialize_from or args.resume):
             raise ValueError("SFT requires a checkpoint from project pretraining")
         train, validation, config["lineage"] = prepare_training_data(ROOT, config, args.smoke)
+        if config["mode"] == "sft":
+            summary = json.loads((ROOT / "data/manifests/pipeline_summary.json").read_text(encoding="utf-8"))
+            if args.initialize_from:
+                parent = read_checkpoint(args.initialize_from)
+                validate_initial_checkpoint(parent, config, ROOT, summary)
+                config["lineage"]["pretraining_parent"] = {
+                    "checkpoint_sha256": checkpoint_sha256(args.initialize_from), "phase": parent["config"]["mode"],
+                    "global_step": parent["global_step"], "pretrain_fingerprint": config["lineage"]["pretrain_fingerprint"]}
+            elif args.resume:
+                verify_checkpoint_lineage(parent, ROOT, summary)
+                config["lineage"]["pretraining_parent"] = parent["config"]["lineage"]["pretraining_parent"]
         tokenizer = Tokenizer.from_file(str(ROOT / config["tokenizer"]))
         if tokenizer.get_vocab_size() != config["model_config"]["vocab_size"] or config["block_size"] != config["model_config"]["block_size"]:
             raise ValueError("Model/data tokenizer vocabulary or context mismatch")

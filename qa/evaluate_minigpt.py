@@ -14,7 +14,8 @@ from src.data.integrity import reuse_tokenization
 from src.data.sources import sha256_file, write_manifest
 from src.evaluation.generate import evaluate_checkpoint
 from src.models.minigpt import MiniGPT
-from src.training.engine import evaluate_tokens, load_checkpoint, read_checkpoint
+from src.training.engine import evaluate_tokens, load_checkpoint, read_checkpoint, checkpoint_sha256
+from src.training.lineage import verify_checkpoint_lineage
 
 
 def main():
@@ -27,6 +28,7 @@ def main():
     summary = json.loads((ROOT / "data/manifests/pipeline_summary.json").read_text())
     reuse_tokenization(ROOT, summary, summary["split"], json.loads((ROOT / "configs/tokenizer.json").read_text()))
     state = read_checkpoint(args.checkpoint)
+    verify_checkpoint_lineage(state, ROOT, summary)
     partition = config["token_partition"]
     if partition not in {"validation", "test"}:
         raise ValueError("Evaluation partition must be held-out validation/test")
@@ -37,7 +39,7 @@ def main():
     del model
     generation = evaluate_checkpoint(args.checkpoint, ROOT / config["prompts_path"], ROOT / config["schema_path"], config=config,
                                      root=ROOT, output_path=ROOT / f"outputs/metrics/{args.report_id}_outputs.json")
-    report = {"report_id": args.report_id, "checkpoint": str(args.checkpoint), "checkpoint_sha256": sha256_file(args.checkpoint),
+    report = {"report_id": args.report_id, "checkpoint": str(args.checkpoint), "checkpoint_sha256": checkpoint_sha256(args.checkpoint),
               "checkpoint_step": state["global_step"], "checkpoint_phase": state["config"]["mode"],
               "held_out_token_partition": partition, "held_out_token_metrics": tokens,
               "held_out_data_sha256": summary["token_caches"][partition]["sha256"],

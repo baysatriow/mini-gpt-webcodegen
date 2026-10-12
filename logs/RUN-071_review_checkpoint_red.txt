@@ -1,0 +1,55 @@
+RUN-071 | 2026-10-12T21:57:49.307501+07:00 | review_checkpoint_red
+Command: ./.venv/Scripts/python.exe -m unittest tests.training.test_review_checkpoint tests.training.test_lineage -v
+Commit: dd2611001052346617b74856e1da4c609a353a8b
+
+test_every_failed_save_stage_retains_previous_committed_payload (tests.training.test_review_checkpoint.ReviewCheckpointTests.test_every_failed_save_stage_retains_previous_committed_payload) ... 
+  test_every_failed_save_stage_retains_previous_committed_payload (tests.training.test_review_checkpoint.ReviewCheckpointTests.test_every_failed_save_stage_retains_previous_committed_payload) (stage='manifest') ... ERROR
+test_resume_preserves_earlier_best_weights_and_actual_validation (tests.training.test_review_checkpoint.ReviewCheckpointTests.test_resume_preserves_earlier_best_weights_and_actual_validation) ... {"event": "validation", "step": 0, "loss": 1.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "train", "step": 1, "loss": 3.497948408126831, "grad_norm": 3.3596768379211426, "valid_tokens": 8, "learning_rate": 0.001, "seconds": 0.06874550000065938, "tokens_per_second": 116.37125339001487, "data_cursor": 1}
+{"event": "train", "step": 2, "loss": 3.4166786670684814, "grad_norm": 3.2066521644592285, "valid_tokens": 8, "learning_rate": 0.001, "seconds": 0.00458110001636669, "tokens_per_second": 1746.3054662458271, "data_cursor": 2}
+{"event": "validation", "step": 2, "loss": 2.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "validation", "step": 2, "loss": 2.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "train", "step": 3, "loss": 3.4130873680114746, "grad_norm": 4.437862396240234, "valid_tokens": 4, "learning_rate": 0.0007750000000000001, "seconds": 0.004988199973013252, "tokens_per_second": 801.8924705586123, "data_cursor": 3}
+{"event": "train", "step": 4, "loss": 3.353144407272339, "grad_norm": 2.75575852394104, "valid_tokens": 8, "learning_rate": 0.00032500000000000015, "seconds": 0.005708199983928353, "tokens_per_second": 1401.4925935538865, "data_cursor": 4}
+{"event": "validation", "step": 4, "loss": 1.5, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+FAIL
+test_lineage (unittest.loader._FailedTest.test_lineage) ... ERROR
+
+======================================================================
+ERROR: test_every_failed_save_stage_retains_previous_committed_payload (tests.training.test_review_checkpoint.ReviewCheckpointTests.test_every_failed_save_stage_retains_previous_committed_payload) (stage='manifest')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\training\test_review_checkpoint.py", line 51, in test_every_failed_save_stage_retains_previous_committed_payload
+    self.assertEqual(read_checkpoint(path)["value"], 7)
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\training\engine.py", line 167, in read_checkpoint
+    raise ValueError("Checkpoint checksum/byte mismatch")
+ValueError: Checkpoint checksum/byte mismatch
+
+======================================================================
+ERROR: test_lineage (unittest.loader._FailedTest.test_lineage)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_lineage
+Traceback (most recent call last):
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\training\test_lineage.py", line 8, in <module>
+    from src.training.lineage import validate_initial_checkpoint, verify_checkpoint_lineage, verify_production_prompts
+ModuleNotFoundError: No module named 'src.training.lineage'
+
+
+======================================================================
+FAIL: test_resume_preserves_earlier_best_weights_and_actual_validation (tests.training.test_review_checkpoint.ReviewCheckpointTests.test_resume_preserves_earlier_best_weights_and_actual_validation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\training\test_review_checkpoint.py", line 25, in test_resume_preserves_earlier_best_weights_and_actual_validation
+    self.assertEqual(best["global_step"], 0)
+AssertionError: 2 != 0
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.443s
+
+FAILED (failures=1, errors=2)
+
+Exit code: 1
