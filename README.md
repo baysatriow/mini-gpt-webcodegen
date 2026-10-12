@@ -99,6 +99,10 @@ Dokumen desain ada di [docs/README.md](docs/README.md), rencana implementasi di 
 
 ## Environment lokal
 
+Tiga notebook dengan output aktual tersedia di [panduan notebook](notebooks/README.md): [data/tokenisasi](notebooks/01_data_dan_tokenisasi.ipynb), [model/training](notebooks/02_model_dan_training.ipynb), dan [evaluasi/hasil](notebooks/03_evaluasi_dan_hasil.ipynb). Pilih kernel **Mini GPT WebCodeGen (Python 3.11 CUDA)**. Run All default tidak memulai ulang baseline; smoke harus diaktifkan secara eksplisit.
+
+Review training menghasilkan lima Important yang diperbaiki. RUN-075 lulus 58 tests. Verified copy baseline memiliki model tensors identik untuk parent SFT berikutnya. Lihat [hasil dan batas review](reports/REVIEW_TRAINING_2026-10-12.md).
+
 Lihat [panduan environment](docs/PANDUAN_ENVIRONMENT.md).
 
 ```powershell

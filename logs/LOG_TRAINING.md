@@ -168,3 +168,22 @@ Token loss/perplexity tidak cukup untuk menyatakan halaman berguna. Catat validi
 ## Rencana pengelolaan checkpoint
 
 Checkpoint resume menyertakan model, optimizer, scheduler, global step, config, tokenizer hash, RNG state, dan data manifest hash. Simpan `last` untuk melanjutkan training dan `best` berdasarkan metrik validation yang ditentukan sebelum run. Jangan memilih checkpoint berdasarkan test set. Setiap save/load/resume dicatat.
+
+## AI-007: review, verified copy, dan notebook
+
+Tidak ada TRAIN baru atau update produksi. Training aktual tetap TRAIN-001 sampai TRAIN-004.
+
+- Review b81cc61..dd26110: 5 Important diperbaiki satu pass; 1 Minor deferred. Reviewer memeriksa 12 tests; implementer menjalankan suite penuh setelah fix.
+- RUN-071 red: best step tidak sesuai loss, checksum rusak saat sidecar gagal, validator lineage belum ada. RUN-072 green 55 tests. RUN-074 red helper legacy binding; RUN-075 green 58 tests dengan ResourceWarning sebagai error.
+- Format baru: immutable payload/manifest dan satu pointer commit. Best mencatat generation/step/loss/checksum. Last mempertahankan best historis, juga saat validation lebih sering daripada checkpoint save. Fault injection meliputi payload, manifest, commit, dan last save; bukan power-loss hardware.
+- Lineage mencakup revision corpus, assignment family, checksum teks/token semua partition, tokenizer, reviewed manifest SFT, dan ancestry parent. Parent harus pretraining dengan update, bukan smoke. Evaluasi produksi memerlukan membership artifact test verified.
+- RUN-076: verified copy baseline step 1.200, model tensors identik bitwise, optimizer updates 0. SHA sumber `9f407be207c9b9090104d48243109a2c333d9609cd89e7584dd8ccd5d5b50486`; SHA payload copy `49e03ebb37f01619de9dc93a55f6828367d84fd34380986bfa15597d9583831c`.
+- Fingerprint pretraining `fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a`. Hash copy berubah karena metadata; bobot tidak berubah. Free disk setelah migration 27.204.759.552 bytes, sekitar 25,34 GiB, di atas reserve 15 GiB.
+- RUN-077: copy dievaluasi melalui gate baru, test loss 1,0709870979895217 / perplexity 2,9182586860057063 / 2.074.051 label / 507 batches, sama dengan RUN-066. Probe JSON/schema 0/4. Tidak ada tuning atau training baru.
+- Notebook menyimpan output actual kernel proyek. RUN-070 berhenti pada syntax notebook 03; RUN-073 ketiganya lulus setelah koreksi. Default tidak melatih ulang; smoke harus diaktifkan eksplisit dan membuat RUN/TRAIN baru.
+- Minor deferred: schema alternatif hanya dihash; validator memakai schema proyek. Config aktual cocok. Jangan mengklaim custom schema telah digunakan.
+- Gerbang tetap needs-data: reviewed produksi 0 dari 119 draft. Review manusia, SFT, dan evaluasi PageSpec diperlukan sebelum aplikasi.
+
+Rincian: [review](../reports/REVIEW_TRAINING_2026-10-12.md), [migration](../reports/training/TRAIN-004_lineage_migration.json), [evaluasi copy](../reports/training/TRAIN-004-VERIFIED_evaluation.json), [notebook](../notebooks/README.md).
+
+- Verifikasi akhir AI-007: RUN-078 tiga notebook, 23 sel kode tanpa error; RUN-079 syntax/JSON/Markdown links/nbformat tanpa temuan; RUN-080 58/58 tests lulus. Tidak ada training produksi tambahan.

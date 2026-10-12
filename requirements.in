@@ -6,5 +6,7 @@ tqdm
 matplotlib
 pandas
 ipykernel
+nbformat
+nbclient
 jsonschema
 safetensors

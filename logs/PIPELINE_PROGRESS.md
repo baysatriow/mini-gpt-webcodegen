@@ -56,3 +56,18 @@ Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download da
 - Ruling: laporan gerbang aplikasi needs-data. Alasan: pretraining membaik pada kode, tetapi belum ada SFT reviewed dan probe JSON gagal. Biaya: produk preview/unduhan belum bisa dilanjutkan sebelum data instruksi dikurasi dan kemampuan PageSpec diuji.
 - Task 9: complete untuk laporan gerbang, bukan klaim model/aplikasi siap. Laporan claims/artifact, grafik, checkpoint hash, license/attribution, dan batas bukti tersedia di reports/PIPELINE_TRAINING_SUMMARY.md serta docs/TRAINING_GUIDE.md. Pemeriksaan AST44 Python / JSON22 / Markdown30 (tautan dan tanpa em dash) lulus.
 - Task 9 Step 4 Ruling: sampaikan gerbang needs-data kepada pengguna dan pertahankan aplikasi sebagai tahap berikutnya setelah kualitas model ditinjau. Belum meminta izin implementasi aplikasi karena probe PageSpec belum valid dan pengguna mengarahkan software di akhir. Biaya: pekerjaan aplikasi tetap menunggu kurasi/SFT; tidak ada persetujuan aplikasi yang diasumsikan.
+
+## AI-007: notebook dan review akhir training
+
+- Pengguna meminta notebook dan melanjutkan setelah jeda. Tiga notebook dibuat dengan VENV/kernel proyek. RUN-073 semua sel berhasil; tidak menambah training produksi.
+- Review b81cc61..dd26110: 0 Critical, 5 Important, 1 Minor. Lima Important masuk satu fix pass. Notebook di luar frozen range reviewer dan diperiksa melalui eksekusi actual.
+- Final: fixed resume best dan transaksi checkpoint, RUN-071 RED ke RUN-072 GREEN. Regression menjaga best yang dirujuk last saat save last gagal.
+- Final: fixed parent SFT, membership test prompt, dan fingerprint evaluasi, RUN-071 RED ke RUN-072 GREEN. Fixture preparation/SFT RUN-074/075 membuktikan assignment tetap dan menolak spoofed test prompt.
+- Final: fixed binding legacy, RUN-074 RED ke RUN-075 GREEN. Suite 58/58, reviewed hanya fixture.
+- Final: minor (deferred): schema alternatif dihash tetapi validator memakai schema proyek; config actual cocok.
+- Ruling: verified copy baseline sebelum preparation SFT. Alasan: legacy belum merekam fingerprint baru. Biaya: sekitar 163 MiB tambahan dan SHA payload baru meski bobot sama.
+- RUN-076 verified copy, bobot identik, optimizer updates 0. RUN-077 gate baru menerima corpus actual; metrik dan probe sama dengan baseline asli.
+- Ruling: pertahankan needs-data dan aplikasi sebagai tahap akhir. Biaya: software menunggu kurasi/SFT dan review kualitas, karena reviewed produksi 0 dan JSON probe gagal.
+- Ruling: pertahankan feature branch dan push sesuai instruksi pengguna. Merge/PR belum diminta. Biaya: main belum memuat pipeline hingga integrasi dipilih.
+
+- Verifikasi final: RUN-078 notebook 23 sel tanpa error; RUN-079 50 Python / 24 JSON / 37 Markdown / 3 notebook tanpa temuan; RUN-080 suite 58/58. Repository GitHub dikonfirmasi private. Feature branch tetap dipush tanpa coauthor trailer.

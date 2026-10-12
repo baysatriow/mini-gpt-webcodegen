@@ -1,0 +1,24 @@
+RUN-070 | 2026-10-12T21:54:33.092247+07:00 | notebook_execution
+Command: ./.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place
+Commit: dd2611001052346617b74856e1da4c609a353a8b
+
+F:\Generative_AI\Vibe_Coding_Proyek_1\.venv\Lib\site-packages\zmq\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.
+  self._get_loop()
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+{"notebook": "01_data_dan_tokenisasi.ipynb", "kernel": "mini-gpt-webcodegen", "code_cells": 7, "error_outputs": 0, "saved_to": "notebooks\\01_data_dan_tokenisasi.ipynb"}
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+{"notebook": "02_model_dan_training.ipynb", "kernel": "mini-gpt-webcodegen", "code_cells": 9, "error_outputs": 0, "saved_to": "notebooks\\02_model_dan_training.ipynb"}
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\execute_notebooks.py", line 43, in <module>
+    main()
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\execute_notebooks.py", line 29, in main
+    ast.parse(cell.source)
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\ast.py", line 50, in parse
+    return compile(source, filename, mode, flags,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<unknown>", line 2
+    print("
+          ^
+SyntaxError: unterminated string literal (detected at line 2)
+
+Exit code: 1

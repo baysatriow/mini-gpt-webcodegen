@@ -13,6 +13,8 @@ Dokumen di sini menjelaskan ruang lingkup, persyaratan tugas, sumber dataset, en
 - [Review pipeline](../reports/REVIEW_PIPELINE_2026-10-12.md): empat temuan, perbaikan, regression tests, dan batas review data.
 - [Panduan training](TRAINING_GUIDE.md): profiling, smoke/baseline, resume, SFT, failure artifact, dan evaluasi.
 - [Ringkasan training](../reports/PIPELINE_TRAINING_SUMMARY.md): hasil terukur, grafik, checkpoint, probe JSON, dan gerbang needs-data.
+- [Notebook proses](../notebooks/README.md): tiga notebook, output aktual, dan kernel proyek.
+- [Review training](../reports/REVIEW_TRAINING_2026-10-12.md): checkpoint terbaik, transaksi save, lineage parent/SFT/test, verified copy, dan Minor ditunda.
 
 ## Status
 

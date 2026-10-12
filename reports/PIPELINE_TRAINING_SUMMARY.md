@@ -48,3 +48,7 @@ Langkah berikut: kurasi anotasi, preparation SFT, profiling ulang batch SFT, con
 ## Dataset dan atribusi
 
 Subset WebSight v0.1/v0.2 memakai revision pinned dan CC-BY-4.0; Vulcan memakai MIT. License card asli dan atribusi ada di [data/licenses](../data/licenses/README.md). Webdev tidak menjadi sumber training; WebMC tetap kandidat benchmark terpisah. Gambar/screenshot dan aset eksternal tidak diunduh. Data, tokenizer, cache, checkpoint dan raw metric besar tetap lokal; code, config, manifest, log RUN, grafik, dan summary kecil dipush ke repo private tanpa Co-Authored-By.
+
+## Kelanjutan AI-007
+
+Tiga [notebook](../notebooks/README.md) tersedia dengan output actual kernel proyek. Lima Important review training diperbaiki; RUN-075 lulus 58 tests. RUN-076 membuat copy baseline dengan fingerprint pretraining verified dan model tensors identik, tanpa optimizer update. RUN-077 mengevaluasi copy melalui gate baru: loss/perplexity dan probe JSON/schema sama dengan baseline asli. Aplikasi tetap needs-data. Rincian serta satu Minor deferred ada di [review training](REVIEW_TRAINING_2026-10-12.md).

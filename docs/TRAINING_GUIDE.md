@@ -29,14 +29,24 @@ Data loader memakai sampler deterministik dan num_workers0 agar cursor dapat dip
 SFT produksi memerlukan preparation reviewed yang complete. Jangan mengganti status119draft menjadi reviewed tanpa tinjauan manusia. Ikuti [panduan data](PIPELINE_DATA_GUIDE.md).
 
 ```powershell
-.\.venv\Scripts\python.exe qa/run_logged.py --label sft -- .\.venv\Scripts\python.exe -m qa.train_minigpt --config configs/training_sft.json --initialize-from checkpoints/TRAIN-004/best.pt
+.\.venv\Scripts\python.exe qa/run_logged.py --label sft -- .\.venv\Scripts\python.exe -m qa.train_minigpt --config configs/training_sft.json --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt
 ```
 
 Command tersebut belum dijalankan pada produksi. SFT memakai bobot checkpoint proyek, tokenizer yang sama, optimizer/schedule baru, dan target/padding mask. Resume SFT memakai checkpoint SFT sendiri. Target JSON yang melebihi context ditolak utuh. Config SFT merupakan kandidat dan harus diprofilkan kembali setelah anotasi tersedia.
 
+Parent harus menjalani pretraining proyek, memiliki update, dan bukan smoke. Fingerprint mengikat tokenizer, revision corpus, assignment family, semua partition teks dan token cache. SFT mencatat checksum/phase/step parent serta manifest reviewed. Fingerprint pretraining tetap sama saat hanya menambahkan anotasi; hash seluruh pipeline summary dapat berubah.
+
+TRAIN-004 lama sudah mendapat verified copy pada RUN-076, dengan bobot identik dan tanpa optimizer update. Copy dibuat sebelum summary berubah karena preparation SFT. Untuk checkpoint legacy lain:
+
+```powershell
+.\.venv\Scripts\python.exe qa/run_logged.py --label bind_legacy -- .\.venv\Scripts\python.exe qa/migrate_checkpoint_lineage.py --checkpoint checkpoints/TRAIN-NNN/best.pt --output checkpoints/TRAIN-NNN-VERIFIED/best.pt --report-id TRAIN-NNN
+```
+
+Gunakan path/report ID baru. Migration menolak lineage historis yang tidak dapat dibuktikan; tidak menebak split atau menimpa checkpoint lama.
+
 ## Artifact dan penanganan kegagalan
 
-- `checkpoints/TRAIN-NNN/`: last.pt, best.pt, sidecar checksum, dan config snapshot lokal.
+- `checkpoints/TRAIN-NNN/`: last.pt/best.pt adalah pointer format baru, payload/manifest checksum immutable dalam `.versions/`, dan config snapshot lokal. Checkpoint lama tetap dibaca dengan format legacy.
 - `outputs/metrics/TRAIN-NNN.jsonl`: satu record train setiap update, validation, dan failure event.
 - `logs/training/TRAIN-NNN.log`: console ringkas lokal; output command penuh juga dicatat pada RUN yang dilacak Git.
 - `reports/training/TRAIN-NNN.json`: status, config/lineage, metric, hash, waktu, environment, peak VRAM, resume parent.
@@ -44,6 +54,12 @@ Command tersebut belum dijalankan pada produksi. SFT memakai bobot checkpoint pr
 Loss atau gradient nonfinite menghentikan update; OOM/exception dicatat sebagai failed, interupsi sebagai interrupted. Checkpoint terakhir yang sudah selesai dipertahankan; state separuh optimizer update tidak disimpan sebagai checkpoint sukses. Resume dari last_committed_step dapat mengulang kerja sejak checkpoint terakhir, seperti tercatat di failure summary. OOM hardware belum terjadi pada run aktual; jalur failure OOM diuji melalui simulasi pada fixture.
 
 ## Evaluasi
+
+Gunakan `src.training.engine.read_checkpoint` untuk membaca pointer/payload verified; `checkpoint_sha256` mengembalikan SHA payload, bukan pointer. Payload/manifest baru diselesaikan dahulu lalu satu pointer di-commit atomik. Generation yang dirujuk last dipertahankan walau best berganti. Recovery dibuktikan lewat fault injection proses, bukan power-loss fisik. Storage trainer memasukkan sampai enam payload selama transaksi/retention.
+
+Mode `production` memerlukan checkpoint SFT dengan ancestry verified. Prompt harus identik dengan isi/ID sumber/review/family artifact SFT test; label reviewed/test saja tidak cukup. Evaluasi token memeriksa fingerprint checkpoint terhadap corpus. Schema alternatif belum didukung, seperti pada [review training](../reports/REVIEW_TRAINING_2026-10-12.md).
+
+Proses per sel tersedia di [notebook](../notebooks/README.md).
 
 ```powershell
 .\.venv\Scripts\python.exe qa/run_logged.py --label evaluate -- .\.venv\Scripts\python.exe -m qa.evaluate_minigpt --checkpoint checkpoints/TRAIN-004/best.pt --report-id TRAIN-004

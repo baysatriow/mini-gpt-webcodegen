@@ -14,7 +14,7 @@ Zona waktu pencatatan: Asia/Jakarta
 - Jangan masukkan API key, password, token, atau data pribadi ke log.
 - Jika ada koreksi setelah dicatat, tambahkan catatan koreksi baru yang merujuk ID lama. Jangan menghapus atau mengubah riwayat run.
 
-Training Mini GPT, evaluasi model, dan aplikasi belum dijalankan. RUN-001 sampai RUN-018 adalah persiapan awal. Sesi AI-005 sudah menjalankan pipeline data: RUN-031 download 55.000 source, RUN-045 preparation corpus final dan BPE baru train-only, RUN-046 integritas serta transfer batch RTX 5070, RUN-047 reuse download. Hasil final: 51.211 record unik, 19.038.770 train tokens, vocabulary 8.192. SFT produksi menunggu review 119 anotasi draft. Nomor RUN berikutnya mengikuti ID tertinggi pada logs/RUN-*.txt; nomor interaksi berikutnya AI-006.
+Ringkasan terbaru: baseline Mini GPT TRAIN-003/004 selesai 1.200 update, evaluasi token test loss 1,071 / perplexity 2,918, dan probe JSON/schema 0/4. Pipeline reviewed produksi masih 0 dari 119 draft; aplikasi belum dibuat. AI-007 menambahkan notebook, perbaikan review training, serta verified copy tanpa optimizer update. Riwayat RUN lama dipertahankan. Nomor RUN berikutnya mengikuti ID tertinggi pada logs/RUN-*.txt; interaksi berikutnya AI-008.
 
 ---
 
@@ -1051,3 +1051,111 @@ Planning disetujui oleh pengguna melalui permintaan implementasi pipeline dan do
 - **Commit:** `81130214207dfae301bffe3114753f0b50f1d626`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-068_full_model_training_evaluation_suite.txt`.
+
+### RUN-069
+
+- **Waktu:** 2026-10-12T21:49:37.045460+07:00 sampai 2026-10-12T21:49:41.424527+07:00.
+- **Tujuan:** notebook_dependencies.
+- **Command:** `./.venv/Scripts/python.exe -m pip install --no-cache-dir nbformat nbclient`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-069_notebook_dependencies.txt`.
+
+### RUN-070
+
+- **Waktu:** 2026-10-12T21:54:33.092247+07:00 sampai 2026-10-12T21:54:42.841766+07:00.
+- **Tujuan:** notebook_execution.
+- **Command:** `./.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-070_notebook_execution.txt`.
+
+### RUN-071
+
+- **Waktu:** 2026-10-12T21:57:49.307501+07:00 sampai 2026-10-12T21:57:53.057521+07:00.
+- **Tujuan:** review_checkpoint_red.
+- **Command:** `./.venv/Scripts/python.exe -m unittest tests.training.test_review_checkpoint tests.training.test_lineage -v`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-071_review_checkpoint_red.txt`.
+
+### RUN-072
+
+- **Waktu:** 2026-10-12T22:01:20.031048+07:00 sampai 2026-10-12T22:01:27.210310+07:00.
+- **Tujuan:** review_fixes_green.
+- **Command:** `./.venv/Scripts/python.exe -m unittest discover -s tests -v`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-072_review_fixes_green.txt`.
+
+### RUN-073
+
+- **Waktu:** 2026-10-12T22:02:39.116972+07:00 sampai 2026-10-12T22:02:51.880956+07:00.
+- **Tujuan:** notebook_execution_corrected.
+- **Command:** `./.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-073_notebook_execution_corrected.txt`.
+
+### RUN-074
+
+- **Waktu:** 2026-10-12T22:04:22.309719+07:00 sampai 2026-10-12T22:04:27.386194+07:00.
+- **Tujuan:** lineage_binding_red.
+- **Command:** `./.venv/Scripts/python.exe -m unittest tests.training.test_lineage tests.training.test_lineage_integration tests.training.test_review_checkpoint -v`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-074_lineage_binding_red.txt`.
+
+### RUN-075
+
+- **Waktu:** 2026-10-12T22:05:32.472663+07:00 sampai 2026-10-12T22:05:40.504407+07:00.
+- **Tujuan:** review_full_suite_green.
+- **Command:** `./.venv/Scripts/python.exe -W error::ResourceWarning -m unittest discover -s tests -v`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-075_review_full_suite_green.txt`.
+
+### RUN-076
+
+- **Waktu:** 2026-10-12T22:05:42.736559+07:00 sampai 2026-10-12T22:05:47.690353+07:00.
+- **Tujuan:** baseline_lineage_verified_copy.
+- **Command:** `./.venv/Scripts/python.exe qa/migrate_checkpoint_lineage.py --checkpoint checkpoints/TRAIN-004/best.pt --output checkpoints/TRAIN-004-VERIFIED/best.pt --report-id TRAIN-004`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-076_baseline_lineage_verified_copy.txt`.
+
+### RUN-077
+
+- **Waktu:** 2026-10-12T22:09:38.283645+07:00 sampai 2026-10-12T22:10:00.087335+07:00.
+- **Tujuan:** verified_baseline_evaluation.
+- **Command:** `./.venv/Scripts/python.exe -m qa.evaluate_minigpt --checkpoint checkpoints/TRAIN-004-VERIFIED/best.pt --report-id TRAIN-004-VERIFIED`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-077_verified_baseline_evaluation.txt`.
+
+### RUN-078
+
+- **Waktu:** 2026-10-12T22:16:59.622010+07:00 sampai 2026-10-12T22:17:11.793757+07:00.
+- **Tujuan:** notebooks_final_execution.
+- **Command:** `./.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-078_notebooks_final_execution.txt`.
+
+### RUN-079
+
+- **Waktu:** 2026-10-12T22:18:58.351473+07:00 sampai 2026-10-12T22:18:58.793056+07:00.
+- **Tujuan:** final_delivery_checks.
+- **Command:** `./.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-079_final_delivery_checks.txt`.
+
+### RUN-080
+
+- **Waktu:** 2026-10-12T22:18:58.912382+07:00 sampai 2026-10-12T22:19:06.752858+07:00.
+- **Tujuan:** final_pipeline_suite.
+- **Command:** `./.venv/Scripts/python.exe -W error::ResourceWarning -m unittest discover -s tests -v`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-080_final_pipeline_suite.txt`.

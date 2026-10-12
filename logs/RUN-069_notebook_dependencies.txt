@@ -1,0 +1,32 @@
+RUN-069 | 2026-10-12T21:49:37.045460+07:00 | notebook_dependencies
+Command: ./.venv/Scripts/python.exe -m pip install --no-cache-dir nbformat nbclient
+Commit: dd2611001052346617b74856e1da4c609a353a8b
+
+Collecting nbformat
+  Downloading nbformat-5.11.1-py3-none-any.whl.metadata (3.7 kB)
+Collecting nbclient
+  Downloading nbclient-0.11.0-py3-none-any.whl.metadata (7.3 kB)
+Collecting fastjsonschema>=2.15 (from nbformat)
+  Downloading fastjsonschema-2.22.2-py3-none-any.whl.metadata (2.1 kB)
+Requirement already satisfied: jsonschema>=2.6 in .\.venv\Lib\site-packages (from nbformat) (4.26.0)
+Requirement already satisfied: jupyter-core!=5.0.*,>=4.12 in .\.venv\Lib\site-packages (from nbformat) (5.9.1)
+Requirement already satisfied: traitlets>=5.1 in .\.venv\Lib\site-packages (from nbformat) (5.16.1)
+Requirement already satisfied: jupyter-client>=7.0.0 in .\.venv\Lib\site-packages (from nbclient) (8.10.0)
+Requirement already satisfied: attrs>=22.2.0 in .\.venv\Lib\site-packages (from jsonschema>=2.6->nbformat) (26.1.0)
+Requirement already satisfied: jsonschema-specifications>=2023.03.6 in .\.venv\Lib\site-packages (from jsonschema>=2.6->nbformat) (2025.9.1)
+Requirement already satisfied: referencing>=0.28.4 in .\.venv\Lib\site-packages (from jsonschema>=2.6->nbformat) (0.37.0)
+Requirement already satisfied: rpds-py>=0.25.0 in .\.venv\Lib\site-packages (from jsonschema>=2.6->nbformat) (2026.9.1)
+Requirement already satisfied: python-dateutil>=2.8.2 in .\.venv\Lib\site-packages (from jupyter-client>=7.0.0->nbclient) (2.9.0.post0)
+Requirement already satisfied: pyzmq>=25.0 in .\.venv\Lib\site-packages (from jupyter-client>=7.0.0->nbclient) (27.2.0)
+Requirement already satisfied: tornado>=6.4.1 in .\.venv\Lib\site-packages (from jupyter-client>=7.0.0->nbclient) (6.5.10)
+Requirement already satisfied: typing-extensions>=4.13.0 in .\.venv\Lib\site-packages (from jupyter-client>=7.0.0->nbclient) (4.16.0)
+Requirement already satisfied: platformdirs>=2.5 in .\.venv\Lib\site-packages (from jupyter-core!=5.0.*,>=4.12->nbformat) (4.13.0)
+Requirement already satisfied: six>=1.5 in .\.venv\Lib\site-packages (from python-dateutil>=2.8.2->jupyter-client>=7.0.0->nbclient) (1.17.0)
+Downloading nbformat-5.11.1-py3-none-any.whl (79 kB)
+Downloading nbclient-0.11.0-py3-none-any.whl (25 kB)
+Downloading fastjsonschema-2.22.2-py3-none-any.whl (27 kB)
+Installing collected packages: fastjsonschema, nbformat, nbclient
+
+Successfully installed fastjsonschema-2.22.2 nbclient-0.11.0 nbformat-5.11.1
+
+Exit code: 0
