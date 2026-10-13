@@ -1,0 +1,56 @@
+RUN-218 | 2026-10-13T21:20:54.474373+07:00 | AI-018 freeze final review sample before training
+Command: .venv/Scripts/python.exe -m qa.prepare_fullpage_benchmark
+Commit: 86f94fea8e0c76d8bd6b3911895b63207ace4ddb
+
+{
+  "seed": 42,
+  "final_requests_sha256": "038845b1187bc4b588aa98db8c8e8944d1480faa16067a02e291deedc5a3ffa4",
+  "final_tasks_sha256": "230584ac1340b7ff96ed0745bb3090c345a8516c4a6ae72dce98c6b6f6d06586",
+  "final_pages": 80,
+  "model_gate": {
+    "complete_min": 76,
+    "required_roles_min": 76,
+    "accepted_fact_link_asset_rate": 1.0
+  },
+  "review_ids": {
+    "landing_page:plain_css": [
+      "page0280-plain_css",
+      "page0286-plain_css",
+      "page0296-plain_css"
+    ],
+    "landing_page:tailwind": [
+      "page0288-tailwind",
+      "page0294-tailwind",
+      "page0318-tailwind"
+    ],
+    "company_profile:plain_css": [
+      "page0285-plain_css",
+      "page0287-plain_css",
+      "page0315-plain_css"
+    ],
+    "company_profile:tailwind": [
+      "page0283-tailwind",
+      "page0307-tailwind",
+      "page0317-tailwind"
+    ]
+  },
+  "ratings": [
+    "relevance",
+    "text_quality",
+    "layout_hierarchy",
+    "consistency"
+  ],
+  "review_gate": {
+    "mean_min": 4,
+    "individual_min": 3,
+    "reviewer_identity_required": true
+  },
+  "viewports": [
+    390,
+    1440
+  ],
+  "status": "frozen_before_training",
+  "final_targets_opened": false
+}
+
+Exit code: 0

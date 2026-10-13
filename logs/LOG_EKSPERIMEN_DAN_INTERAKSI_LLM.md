@@ -2709,3 +2709,30 @@ print(json.dumps(report,indent=2))"`.
 - **Commit:** `4a95bf0ade7b9f9fbd775a83bc24b07b569b587c`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-216_ai_018_profile_rtx5070_fullpage_effective_batch48_context2048.txt`.
+
+### RUN-217
+
+- **Waktu:** 2026-10-13T21:19:18.442233+07:00 sampai 2026-10-13T21:20:25.155492+07:00.
+- **Tujuan:** AI-018 profile representative trimmed fullpage tasks.
+- **Command:** `.venv/Scripts/python.exe -m qa.profile_fullpage_training --report-id FULLPAGE-GPU-002 --representative`.
+- **Commit:** `86f94fea8e0c76d8bd6b3911895b63207ace4ddb`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-217_ai_018_profile_representative_trimmed_fullpage_tasks.txt`.
+
+### RUN-218
+
+- **Waktu:** 2026-10-13T21:20:54.474373+07:00 sampai 2026-10-13T21:20:54.850849+07:00.
+- **Tujuan:** AI-018 freeze final review sample before training.
+- **Command:** `.venv/Scripts/python.exe -m qa.prepare_fullpage_benchmark`.
+- **Commit:** `86f94fea8e0c76d8bd6b3911895b63207ace4ddb`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-218_ai_018_freeze_final_review_sample_before_training.txt`.
+
+### RUN-219
+
+- **Waktu:** 2026-10-13T21:21:16.108851+07:00 sampai 2026-10-13T21:21:18.437439+07:00.
+- **Tujuan:** AI-018 freeze pilot training budget after profiling.
+- **Command:** `.venv/Scripts/python.exe -m qa.configure_fullpage_training --scope pilot --profile reports/training/FULLPAGE-GPU-002.json --output configs/fullpage/pilot.json`.
+- **Commit:** `86f94fea8e0c76d8bd6b3911895b63207ace4ddb`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-219_ai_018_freeze_pilot_training_budget_after_profiling.txt`.

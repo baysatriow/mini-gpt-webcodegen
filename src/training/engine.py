@@ -163,7 +163,11 @@ def evaluate_tokens(model, loader, *, precision="fp32", max_batches=None):
                     break
                 item = {key: value.to(device) for key, value in item.items()}
                 with _autocast(device, precision):
-                    loss, count = loss_sum(model(item["input_ids"]), item["labels"])
+                    if getattr(model, 'validation_supervised_only_logits', False):
+                        active = item['labels'] != -100
+                        loss, count = loss_sum(model(item['input_ids'], output_mask=active), item['labels'][active])
+                    else:
+                        loss, count = loss_sum(model(item["input_ids"]), item["labels"])
                 total_loss += float(loss)
                 total_tokens += count
                 batches += 1
@@ -328,6 +332,7 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
             raise ValueError("Start a fresh process with the configured allocator before importing torch")
         model.set_attention_backend(performance.get("attention_backend", "manual"))
         model.supervised_only_logits = performance.get("supervised_only_logits", False)
+        model.validation_supervised_only_logits = performance.get('validation_supervised_only_logits', False)
         if performance.get("tf32", False):
             if device.type != "cuda":
                 raise ValueError("TF32 performance setting requires CUDA")
@@ -437,6 +442,8 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
                     batches.append(next(iterator))
             used_lr = optimizer.param_groups[0]["lr"]
             report = train_one_step(model, batches, optimizer, None, config["mode"], precision=config["precision"], grad_clip=config["grad_clip"])
+            if config.get('data_origin') == 'fullpage_curriculum':
+                report['supervised_tokens_after_position_1024'] = sum(int((b['labels'][:,1024:] != -100).sum()) for b in batches)
             scheduler.step()
             step += 1
             total_tokens += report["valid_tokens"]

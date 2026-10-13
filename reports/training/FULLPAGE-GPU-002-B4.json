@@ -1,0 +1,55 @@
+{
+  "batch": 4,
+  "accumulation": 12,
+  "effective_batch": 48,
+  "length": "trimmed representative tasks",
+  "real_target_tokens": 410,
+  "warmup_updates": 6,
+  "measured_updates": 20,
+  "status": "stable",
+  "seconds": 5.509900400007609,
+  "valid_tokens": 240870,
+  "tokens_per_second": 43715.853738421,
+  "peak_allocated_bytes": 1196771328,
+  "peak_reserved_bytes": 1310720000,
+  "free_device_bytes": 10205790208,
+  "total_device_bytes": 12820480000,
+  "last_step": {
+    "loss": 2.4221764141712225,
+    "grad_norm": 1.5434348583221436,
+    "valid_tokens": 9557
+  },
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "telemetry": {
+    "sample_count": 14,
+    "interval_seconds": 0.5,
+    "raw_path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\metrics\\FULLPAGE-GPU-002-B4_gpu.jsonl",
+    "errors": [],
+    "memory_scope": "nvidia-smi memory includes other desktop applications",
+    "utilization_pct": {
+      "mean": 48.42857142857143,
+      "max": 89.0,
+      "min": 3.0
+    },
+    "memory_used_mib": {
+      "mean": 5266.714285714285,
+      "max": 5473.0,
+      "min": 4010.0
+    },
+    "power_w": {
+      "mean": 114.43142857142857,
+      "max": 142.11,
+      "min": 39.21
+    },
+    "temperature_c": {
+      "mean": 49.5,
+      "max": 52.0,
+      "min": 43.0
+    },
+    "sm_clock_mhz": {
+      "mean": 2905.5714285714284,
+      "max": 2947.0,
+      "min": 2685.0
+    }
+  }
+}

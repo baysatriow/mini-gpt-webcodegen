@@ -468,3 +468,6 @@ RUN-107 pemeriksaan source: 57 Python / 40 JSON / 44 Markdown / lima notebook / 
 - RUN-209/210 menghasilkan initializationweights-only konteks2.048 dari TRAIN-015best. CheckpointSHA27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372; parameter14.579.712. Baris1.024lama/tensor lainidentik dan prefixlogits selisih0.0.
 - Optimizer/scheduler lama tidakdireuse. Posisi1.024baru randomnormal0/std0.02 seed42, belum dilatih. Load dan ancestrymatch diperiksa, modelconfigmismatch ditolak. Freebytes18.971.791.360 setelahmigrasi, reserve15GiB dipertahankan.
 - [Migration report](../reports/training/INIT-2048-001.json), [load inspection](../reports/training/INIT-2048-001_LOAD_INSPECTION.json). Ini bukan run training atau klaim halaman lengkap.
+
+## TRAIN-016, fullpage pilot, mulai
+Budget600 updates, context2048, plan512/section1536, batch16/accum3, effective48, BF16 SDPA fused AdamW, seed42. Konfigurasi configs/fullpage/pilot.json immutable, data fullpage-v1 pilot40 train/10 development families, human_reviewed=False. Parent INIT-2048-001 sha27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372. Profil FULLPAGE-GPU-001/002. Final belum dibuka; angka kualitas menunggu report aktual.

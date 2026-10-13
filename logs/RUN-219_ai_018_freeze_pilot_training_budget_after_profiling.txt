@@ -1,0 +1,13 @@
+RUN-219 | 2026-10-13T21:21:16.108851+07:00 | AI-018 freeze pilot training budget after profiling
+Command: .venv/Scripts/python.exe -m qa.configure_fullpage_training --scope pilot --profile reports/training/FULLPAGE-GPU-002.json --output configs/fullpage/pilot.json
+Commit: 86f94fea8e0c76d8bd6b3911895b63207ace4ddb
+
+{
+  "scope": "pilot",
+  "batch_size": 16,
+  "gradient_accumulation": 3,
+  "max_steps": 600,
+  "learning_rate": 5e-05
+}
+
+Exit code: 0
