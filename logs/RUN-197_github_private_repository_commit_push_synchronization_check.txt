@@ -1,0 +1,21 @@
+RUN-197 | 2026-10-13T20:09:00.478714+07:00 | GitHub private repository commit push synchronization check
+Command: .venv/Scripts/python.exe -c "import json, subprocess
+
+def git(*args):
+ return subprocess.check_output(['git',*args],text=True,encoding='utf-8').strip()
+branch=git('branch','--show-current'); local=git('rev-parse','HEAD')
+remote=git('ls-remote','origin','refs/heads/'+branch).split()[0]
+status=git('status','--porcelain=v1'); body=git('log','-1','--format=%B')
+repo=json.loads(subprocess.check_output(['gh','repo','view','baysatriow/mini-gpt-webcodegen','--json','nameWithOwner,isPrivate,url'],text=True,encoding='utf-8'))
+assert local==remote, 'Local and GitHub differ'
+assert not status, 'Uncommitted changes exist'
+assert 'co-authored-by:' not in body.lower(), 'Unexpected coauthor trailer'
+assert repo['isPrivate']
+print(json.dumps({'branch':branch,'local_commit':local,'github_commit':remote,'synchronized':True,'working_tree_clean_except_current_run_log':True,'coauthor_trailer':False,'repository':repo},indent=2))"
+Commit: 81e64cb62ae3d9c399f9aa23595dc84e31cc0cb5
+
+Traceback (most recent call last):
+  File "<string>", line 10, in <module>
+AssertionError: Uncommitted changes exist
+
+Exit code: 1

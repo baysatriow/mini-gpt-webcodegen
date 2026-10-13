@@ -2315,3 +2315,47 @@ print('Two valid manual fixtures and documentation links/status checked. No trai
 - **Commit:** `219fc9e5985ec4a0181c3a5f4570c042001bfd85`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-196_ai_014_analysis_artifacts_and_documentation_consistency_check.txt`.
+
+### RUN-197
+
+- **Waktu:** 2026-10-13T20:09:00.478714+07:00 sampai 2026-10-13T20:09:02.710572+07:00.
+- **Tujuan:** GitHub private repository commit push synchronization check.
+- **Command:** `.venv/Scripts/python.exe -c "import json, subprocess
+
+def git(*args):
+ return subprocess.check_output(['git',*args],text=True,encoding='utf-8').strip()
+branch=git('branch','--show-current'); local=git('rev-parse','HEAD')
+remote=git('ls-remote','origin','refs/heads/'+branch).split()[0]
+status=git('status','--porcelain=v1'); body=git('log','-1','--format=%B')
+repo=json.loads(subprocess.check_output(['gh','repo','view','baysatriow/mini-gpt-webcodegen','--json','nameWithOwner,isPrivate,url'],text=True,encoding='utf-8'))
+assert local==remote, 'Local and GitHub differ'
+assert not status, 'Uncommitted changes exist'
+assert 'co-authored-by:' not in body.lower(), 'Unexpected coauthor trailer'
+assert repo['isPrivate']
+print(json.dumps({'branch':branch,'local_commit':local,'github_commit':remote,'synchronized':True,'working_tree_clean_except_current_run_log':True,'coauthor_trailer':False,'repository':repo},indent=2))"`.
+- **Commit:** `81e64cb62ae3d9c399f9aa23595dc84e31cc0cb5`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-197_github_private_repository_commit_push_synchronization_check.txt`.
+
+### RUN-198
+
+- **Waktu:** 2026-10-13T20:09:33.351744+07:00 sampai 2026-10-13T20:09:35.652274+07:00.
+- **Tujuan:** GitHub sync rerun excluding new check logs.
+- **Command:** `.venv/Scripts/python.exe -c "import json, subprocess
+
+def git(*args):
+ return subprocess.check_output(['git',*args],text=True,encoding='utf-8').strip()
+branch=git('branch','--show-current'); local=git('rev-parse','HEAD')
+remote=git('ls-remote','origin','refs/heads/'+branch).split()[0]
+lines=git('status','--porcelain=v1').splitlines()
+expected={'logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md','logs/RUN-197_github_private_repository_commit_push_synchronization_check.txt','logs/RUN-198_github_sync_rerun_excluding_new_check_logs.txt'}
+actual={line[3:] if line[:1]==' ' else line[2:].strip() for line in lines}
+assert actual<=expected, 'Unexpected changes: '+repr(actual-expected)
+assert local==remote
+assert 'co-authored-by:' not in git('log','-1','--format=%B').lower()
+repo=json.loads(subprocess.check_output(['gh','repo','view','baysatriow/mini-gpt-webcodegen','--json','nameWithOwner,isPrivate,url'],text=True,encoding='utf-8'))
+assert repo['isPrivate']
+print(json.dumps({'branch':branch,'local_commit':local,'github_commit':remote,'synchronized':True,'pending_only_verification_logs':sorted(actual),'coauthor_trailer':False,'repository':repo,'correction':'RUN-197 detected its own newly created log; this rerun allows only the named verification logs.'},indent=2))"`.
+- **Commit:** `81e64cb62ae3d9c399f9aa23595dc84e31cc0cb5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-198_github_sync_rerun_excluding_new_check_logs.txt`.

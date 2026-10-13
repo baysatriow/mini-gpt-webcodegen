@@ -1,0 +1,38 @@
+RUN-198 | 2026-10-13T20:09:33.351744+07:00 | GitHub sync rerun excluding new check logs
+Command: .venv/Scripts/python.exe -c "import json, subprocess
+
+def git(*args):
+ return subprocess.check_output(['git',*args],text=True,encoding='utf-8').strip()
+branch=git('branch','--show-current'); local=git('rev-parse','HEAD')
+remote=git('ls-remote','origin','refs/heads/'+branch).split()[0]
+lines=git('status','--porcelain=v1').splitlines()
+expected={'logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md','logs/RUN-197_github_private_repository_commit_push_synchronization_check.txt','logs/RUN-198_github_sync_rerun_excluding_new_check_logs.txt'}
+actual={line[3:] if line[:1]==' ' else line[2:].strip() for line in lines}
+assert actual<=expected, 'Unexpected changes: '+repr(actual-expected)
+assert local==remote
+assert 'co-authored-by:' not in git('log','-1','--format=%B').lower()
+repo=json.loads(subprocess.check_output(['gh','repo','view','baysatriow/mini-gpt-webcodegen','--json','nameWithOwner,isPrivate,url'],text=True,encoding='utf-8'))
+assert repo['isPrivate']
+print(json.dumps({'branch':branch,'local_commit':local,'github_commit':remote,'synchronized':True,'pending_only_verification_logs':sorted(actual),'coauthor_trailer':False,'repository':repo,'correction':'RUN-197 detected its own newly created log; this rerun allows only the named verification logs.'},indent=2))"
+Commit: 81e64cb62ae3d9c399f9aa23595dc84e31cc0cb5
+
+{
+  "branch": "feature/pipeline-data-model-training",
+  "local_commit": "81e64cb62ae3d9c399f9aa23595dc84e31cc0cb5",
+  "github_commit": "81e64cb62ae3d9c399f9aa23595dc84e31cc0cb5",
+  "synchronized": true,
+  "pending_only_verification_logs": [
+    "logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md",
+    "logs/RUN-197_github_private_repository_commit_push_synchronization_check.txt",
+    "logs/RUN-198_github_sync_rerun_excluding_new_check_logs.txt"
+  ],
+  "coauthor_trailer": false,
+  "repository": {
+    "isPrivate": true,
+    "nameWithOwner": "baysatriow/mini-gpt-webcodegen",
+    "url": "https://github.com/baysatriow/mini-gpt-webcodegen"
+  },
+  "correction": "RUN-197 detected its own newly created log; this rerun allows only the named verification logs."
+}
+
+Exit code: 0
