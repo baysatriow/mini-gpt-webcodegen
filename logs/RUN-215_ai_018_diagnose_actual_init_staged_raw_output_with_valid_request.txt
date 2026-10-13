@@ -1,0 +1,11 @@
+RUN-215 | 2026-10-13T21:16:19.946028+07:00 | AI-018 diagnose actual INIT staged raw output with valid request
+Command: .venv/Scripts/python.exe -m qa.diagnose_fullpage_generation
+Commit: 4a95bf0ade7b9f9fbd775a83bc24b07b569b587c
+
+{
+  "status": "stage_failed",
+  "attempts": 2,
+  "seconds": 4.722109900030773
+}
+
+Exit code: 0

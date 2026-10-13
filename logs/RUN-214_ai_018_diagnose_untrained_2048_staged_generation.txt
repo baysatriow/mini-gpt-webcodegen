@@ -1,0 +1,12 @@
+RUN-214 | 2026-10-13T21:15:16.231548+07:00 | AI-018 diagnose untrained 2048 staged generation
+Command: .venv/Scripts/python.exe -m qa.generate_fullpage --request examples/generated/AI-018-manual/landing_page-plain_css/page_spec.json --checkpoint checkpoints/INIT-2048-001/initial.pt --output outputs/fullpage/init-diagnosis
+Commit: 4a95bf0ade7b9f9fbd775a83bc24b07b569b587c
+
+{
+  "request_id": null,
+  "status": "stage_failed",
+  "seconds": 0.03816039999946952,
+  "total_generated_tokens": 0
+}
+
+Exit code: 0

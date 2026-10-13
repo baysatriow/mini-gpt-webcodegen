@@ -1,0 +1,57 @@
+{
+  "label": "real model output before fullpage training, not an accepted website",
+  "request_id": "page0000-plain_css",
+  "metadata": {
+    "checkpoint_sha256": "27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372",
+    "checkpoint_run_id": "INIT-2048-001",
+    "checkpoint_step": 0,
+    "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+    "config": {
+      "precision": "bf16",
+      "temperature": 0,
+      "seed": 42
+    },
+    "schemas_sha256": {
+      "page.schema.json": "eac9c31ba0e46d64f176d428862b217b9dc7246c35b5f7b499c407a29515cf3f",
+      "plan.schema.json": "cf8ef56b884ae9b3d15e03698a5cffff9a6fc29c0f311f32050a1e627c4f5e35",
+      "request.schema.json": "243dba40b54c02055397af96824f24e06e1a03b0d5e09ca7c7d0385f46e55fd1",
+      "section.schema.json": "099bb0a51e0420c9b46dbf2787368798f8f89346e66c309ac139a5e0b1d48c3f"
+    },
+    "prompt_source_sha256": "4926508d444b79ec4f60f78e05e3aec204651223d945d148b51f4f044a9333c4"
+  },
+  "attempts": [
+    {
+      "raw": "{\":\",\":\":\",\":\":\",\":\":\":\":\",\":\",\":\":\",\":\",\",\":\",\":\":\":\",\",\",\",\":\":\",\":\"s\",\":\"s\",\":\":\",\"s\"s\":\":\"s\"s\":\"s\",\"s\"s\":\":\"s\"s\"s\"s\"s\",\"s\":\":\":\"s\":\"s\"s\"s\":\"s\"s\"s\"s\"s\"s\":\":\"s\"s\":\",\"s\"s\"s\"s\"s\":\"s\",\",\"s\"s\":\":\",\":\"s\"s\"s\",\":\"s\",\"s\"s\",\"s\",\":\":\"s\":\":\",\"s\":\"s\"s\":\"s\",\"s\"s\"s\"s\":\"s\"s\"s\",\"s\":\",\":\"s\"s\":\":\",\"s\"s\"s\"s\",\",\",\",\",\":\":\"s\"s\"s\"s\"s\"s\",\"s\"s\",\":\"s\",\",\"s\":\":\"s\":\"s\",\"s\":\",\":\",\"s\"s\"s\":\"s\"s\",\"s\"s\"s\"s\",\":\",\",\",\":\"s\":\":\",\":\"s\":\":\",\"s\"s\"s\"s\",\",\",\"s\"s\",\"s\":\",\"s\"s\":\",\":\",\"s\"s\",\":\"s\",\"s\"s\":\"s\":\"s\",\",\",\"s\"s\"s\",\"s\",\":\",\"s\"s\"s\"s\",\",\"s\":\"s\"",
+      "stop_reason": "token_limit",
+      "generated_tokens": 512,
+      "prefix_tokens": 1389,
+      "max_new_tokens": 512,
+      "seconds": 2.5594501000014134,
+      "task": "page_plan",
+      "stage": "plan",
+      "retry": false,
+      "errors": [
+        "Missing EOS: token_limit"
+      ]
+    },
+    {
+      "raw": "{\",\":\",\":\":\",\":\",\",\":\":\",\":\",\":\",\":\":\",\",\",\":\":\",\":\",\",\":\",\":\":\":\",\":\":\":\":\":\"s\",\",\",\"s\"s\":\",\":\":\"s\"s\"s\",\"s\":\":\":\"s\":\"s\"s\"s\"s\"s\":\"s\"s\":\"s\"s\":\"s\"s\":\",\"s\"s\"s\"s\"s\":\"s\",\",\"s\"s\":\":\",\":\"s\"s\"s\",\":\"s\",\"s\"s\":\"s\",\":\":\"s\":\":\"s\"s\":\"s\"s\":\"s\"s\"s\"s\",\"s\":\"s\"s\"s\",\"s\":\",\":\"s\"s\"s\":\",\"s\"s\"s\"s\":\",\",\",\"s\":\",\":\"s\"s\"s\"s\"s\",\"s\"s\",\":\"s\",\",\"s\":\":\"s\":\"s\"s\"s\":\",\":\",\"s\"s\"s\":\"s\"s\",\"s\"s\"s\"s\",\":\",\",\",\":\"s\":\":\":\":\"s\"s\":\",\"s\"s\"s\"s\"s\",\",\"s\"s\",\"s\":\"s\"s\":\":\",\":\",\"s\"s\",\":\"s\",\"s\"s\":\",\":\"s\",\"s\",\"s\"s\"s\":\"s\":\":\",\"s\"s\"s\"s\",\",\"s\":\"s\"s\"s\"s\":\",\",\"s\"s\",\"",
+      "stop_reason": "token_limit",
+      "generated_tokens": 512,
+      "prefix_tokens": 1407,
+      "max_new_tokens": 512,
+      "seconds": 2.1109667000127956,
+      "task": "page_plan",
+      "stage": "plan",
+      "retry": true,
+      "errors": [
+        "Missing EOS: token_limit"
+      ]
+    }
+  ],
+  "status": "stage_failed",
+  "seconds": 4.722109900030773,
+  "total_generated_tokens": 1024,
+  "first_attempt_success": false,
+  "browser_status": "pending"
+}

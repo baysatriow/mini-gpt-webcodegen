@@ -2682,3 +2682,30 @@ print(json.dumps(report,indent=2))"`.
 - **Commit:** `8e0501205e8d9934cac9d5d3f1c655885065a5d3`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-213_ai_018_render_four_complete_page_manual_fixtures.txt`.
+
+### RUN-214
+
+- **Waktu:** 2026-10-13T21:15:16.231548+07:00 sampai 2026-10-13T21:15:19.226089+07:00.
+- **Tujuan:** AI-018 diagnose untrained 2048 staged generation.
+- **Command:** `.venv/Scripts/python.exe -m qa.generate_fullpage --request examples/generated/AI-018-manual/landing_page-plain_css/page_spec.json --checkpoint checkpoints/INIT-2048-001/initial.pt --output outputs/fullpage/init-diagnosis`.
+- **Commit:** `4a95bf0ade7b9f9fbd775a83bc24b07b569b587c`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-214_ai_018_diagnose_untrained_2048_staged_generation.txt`.
+
+### RUN-215
+
+- **Waktu:** 2026-10-13T21:16:19.946028+07:00 sampai 2026-10-13T21:16:27.635850+07:00.
+- **Tujuan:** AI-018 diagnose actual INIT staged raw output with valid request.
+- **Command:** `.venv/Scripts/python.exe -m qa.diagnose_fullpage_generation`.
+- **Commit:** `4a95bf0ade7b9f9fbd775a83bc24b07b569b587c`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-215_ai_018_diagnose_actual_init_staged_raw_output_with_valid_request.txt`.
+
+### RUN-216
+
+- **Waktu:** 2026-10-13T21:16:38.822335+07:00 sampai 2026-10-13T21:18:08.871335+07:00.
+- **Tujuan:** AI-018 profile RTX5070 fullpage effective batch48 context2048.
+- **Command:** `.venv/Scripts/python.exe -m qa.profile_fullpage_training --report-id FULLPAGE-GPU-001`.
+- **Commit:** `4a95bf0ade7b9f9fbd775a83bc24b07b569b587c`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-216_ai_018_profile_rtx5070_fullpage_effective_batch48_context2048.txt`.

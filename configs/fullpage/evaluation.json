@@ -1,0 +1,15 @@
+{
+  "precision": "bf16",
+  "temperature": 0,
+  "seed": 42,
+  "context_tokens": 2048,
+  "page_plan_max_new_tokens": 512,
+  "section_content_max_new_tokens": 1536,
+  "max_retries": 1,
+  "complete_gate": 0.95,
+  "required_roles_gate": 0.95,
+  "accepted_structural_facts_links_assets_gate": 1.0,
+  "development_pages": 80,
+  "final_pages": 80,
+  "browser_status": "pending"
+}
