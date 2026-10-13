@@ -1,0 +1,13 @@
+RUN-224 | 2026-10-13T21:27:13.350751+07:00 | AI-018 freeze main config with per-write storage guard
+Command: .venv/Scripts/python.exe -m qa.configure_fullpage_training --scope main --profile reports/training/FULLPAGE-GPU-002.json --output configs/fullpage/training-v2.json
+Commit: 2d50242592c1182b557cee941017ce2d8faf9e04
+
+{
+  "scope": "main",
+  "batch_size": 16,
+  "gradient_accumulation": 3,
+  "max_steps": 2400,
+  "learning_rate": 5e-05
+}
+
+Exit code: 0

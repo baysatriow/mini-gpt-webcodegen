@@ -1,0 +1,25 @@
+{
+  "checkpoint_sha256": "5386787f5a93b2be7911f3ef1c36a23a80e907f752d359ccf2ba900326b54f87",
+  "scope": "pilot",
+  "step": 600,
+  "ordinary_ce_by_task": {
+    "page_plan": {
+      "loss": 0.2652617931484201,
+      "valid_tokens": 16132,
+      "rows": 40,
+      "tokens_after_position_1024": 16132,
+      "loss_after_position_1024": 0.2652617931484201
+    },
+    "section_content": {
+      "loss": 0.10851461514508647,
+      "valid_tokens": 43508,
+      "rows": 200,
+      "tokens_after_position_1024": 0,
+      "loss_after_position_1024": null
+    }
+  },
+  "selected_vs_full_projection_max_abs_difference": 0,
+  "projection_ce_equivalent_within_1e_3_per_token": true,
+  "final_data_opened": false,
+  "disk_free_bytes": 18254798848
+}

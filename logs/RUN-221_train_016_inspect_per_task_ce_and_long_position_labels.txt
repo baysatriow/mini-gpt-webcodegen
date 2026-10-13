@@ -1,0 +1,31 @@
+RUN-221 | 2026-10-13T21:24:22.526266+07:00 | TRAIN-016 inspect per-task CE and long position labels
+Command: .venv/Scripts/python.exe -m qa.inspect_fullpage_training --checkpoint checkpoints/TRAIN-016/best.pt --report reports/training/TRAIN-016_TASK_LOSS.json
+Commit: 2d50242592c1182b557cee941017ce2d8faf9e04
+
+{
+  "checkpoint_sha256": "5386787f5a93b2be7911f3ef1c36a23a80e907f752d359ccf2ba900326b54f87",
+  "scope": "pilot",
+  "step": 600,
+  "ordinary_ce_by_task": {
+    "page_plan": {
+      "loss": 0.2652617931484201,
+      "valid_tokens": 16132,
+      "rows": 40,
+      "tokens_after_position_1024": 16132,
+      "loss_after_position_1024": 0.2652617931484201
+    },
+    "section_content": {
+      "loss": 0.10851461514508647,
+      "valid_tokens": 43508,
+      "rows": 200,
+      "tokens_after_position_1024": 0,
+      "loss_after_position_1024": null
+    }
+  },
+  "selected_vs_full_projection_max_abs_difference": 0,
+  "projection_ce_equivalent_within_1e_3_per_token": true,
+  "final_data_opened": false,
+  "disk_free_bytes": 18254798848
+}
+
+Exit code: 0

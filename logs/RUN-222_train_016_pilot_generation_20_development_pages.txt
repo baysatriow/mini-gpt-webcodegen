@@ -1,0 +1,32 @@
+RUN-222 | 2026-10-13T21:24:26.155119+07:00 | TRAIN-016 pilot generation 20 development pages
+Command: .venv/Scripts/python.exe -m qa.evaluate_fullpage --scope pilot --checkpoint checkpoints/TRAIN-016/best.pt --output outputs/fullpage/TRAIN-016-pilot --report reports/fullpage/TRAIN-016_PILOT.json
+Commit: 2d50242592c1182b557cee941017ce2d8faf9e04
+
+{"page": 1, "of": 20, "request_id": "page0240-plain_css", "status": "stage_failed", "seconds": 3.17}
+{"page": 2, "of": 20, "request_id": "page0240-tailwind", "status": "stage_failed", "seconds": 2.676}
+{"page": 3, "of": 20, "request_id": "page0241-plain_css", "status": "stage_failed", "seconds": 2.311}
+{"page": 4, "of": 20, "request_id": "page0241-tailwind", "status": "stage_failed", "seconds": 2.655}
+{"page": 5, "of": 20, "request_id": "page0242-plain_css", "status": "stage_failed", "seconds": 3.115}
+{"page": 6, "of": 20, "request_id": "page0242-tailwind", "status": "stage_failed", "seconds": 2.845}
+{"page": 7, "of": 20, "request_id": "page0243-plain_css", "status": "stage_failed", "seconds": 2.804}
+{"page": 8, "of": 20, "request_id": "page0243-tailwind", "status": "stage_failed", "seconds": 2.336}
+{"page": 9, "of": 20, "request_id": "page0244-plain_css", "status": "stage_failed", "seconds": 3.078}
+{"page": 10, "of": 20, "request_id": "page0244-tailwind", "status": "stage_failed", "seconds": 2.686}
+{"page": 11, "of": 20, "request_id": "page0245-plain_css", "status": "stage_failed", "seconds": 2.567}
+{"page": 12, "of": 20, "request_id": "page0245-tailwind", "status": "stage_failed", "seconds": 2.509}
+{"page": 13, "of": 20, "request_id": "page0246-plain_css", "status": "stage_failed", "seconds": 3.302}
+{"page": 14, "of": 20, "request_id": "page0246-tailwind", "status": "stage_failed", "seconds": 2.47}
+{"page": 15, "of": 20, "request_id": "page0247-plain_css", "status": "stage_failed", "seconds": 2.694}
+{"page": 16, "of": 20, "request_id": "page0247-tailwind", "status": "stage_failed", "seconds": 2.283}
+{"page": 17, "of": 20, "request_id": "page0248-plain_css", "status": "stage_failed", "seconds": 3.025}
+{"page": 18, "of": 20, "request_id": "page0248-tailwind", "status": "stage_failed", "seconds": 2.842}
+{"page": 19, "of": 20, "request_id": "page0249-plain_css", "status": "stage_failed", "seconds": 2.772}
+{"page": 20, "of": 20, "request_id": "page0249-tailwind", "status": "stage_failed", "seconds": 2.662}
+{
+  "scope": "pilot",
+  "complete": 0,
+  "total": 20,
+  "model_gate": false
+}
+
+Exit code: 0

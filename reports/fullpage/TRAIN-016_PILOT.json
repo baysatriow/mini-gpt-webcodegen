@@ -1,0 +1,159 @@
+{
+  "checkpoint_sha256": "5386787f5a93b2be7911f3ef1c36a23a80e907f752d359ccf2ba900326b54f87",
+  "requests_sha256": "bd27cb1de36e615d98c2883584baafcf4fb9c9adaf2c0145a5154bb35eb1e785",
+  "count": 20,
+  "source_sha256": {
+    "src/fullpage/generation.py": "78828a8f8f0e42dc23454fb33f6d9e9073f2560376f5752a93683f5a8fb000b9",
+    "src/fullpage/compose.py": "61680ed195e3ec80121cd1fda0edade00c2ad22f15bf7dcee3c4261450382317",
+    "src/fullpage/contracts.py": "760ca3067f5faa6823693815c1792932d509acae6dfe9934271ebe1cfd7bd119",
+    "src/fullpage/prompts.py": "4926508d444b79ec4f60f78e05e3aec204651223d945d148b51f4f044a9333c4"
+  },
+  "complete": 0,
+  "total": 20,
+  "complete_rate": 0.0,
+  "required_roles": 0,
+  "required_roles_rate": 0.0,
+  "first_attempt_complete": 0,
+  "after_retry_complete": 0,
+  "accepted_facts_links_assets_valid": true,
+  "model_gate": false,
+  "groups": {
+    "landing_page:plain_css": {
+      "total": 5,
+      "complete": 0,
+      "first_attempt": 0
+    },
+    "landing_page:tailwind": {
+      "total": 5,
+      "complete": 0,
+      "first_attempt": 0
+    },
+    "company_profile:plain_css": {
+      "total": 5,
+      "complete": 0,
+      "first_attempt": 0
+    },
+    "company_profile:tailwind": {
+      "total": 5,
+      "complete": 0,
+      "first_attempt": 0
+    }
+  },
+  "failures": {
+    "Invalid JSON/contract": 20
+  },
+  "page_seconds": {
+    "total": 54.801074699964374,
+    "mean": 2.740053734998219
+  },
+  "generation_tokens": 13371,
+  "wall_seconds": 54.82129880000139,
+  "output": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\fullpage\\TRAIN-016-pilot",
+  "browser_status": "pending",
+  "human_review_status": "pending",
+  "results": [
+    {
+      "request_id": "page0240-plain_css",
+      "status": "stage_failed",
+      "seconds": 3.169668799964711
+    },
+    {
+      "request_id": "page0240-tailwind",
+      "status": "stage_failed",
+      "seconds": 2.675512499990873
+    },
+    {
+      "request_id": "page0241-plain_css",
+      "status": "stage_failed",
+      "seconds": 2.3106870999909006
+    },
+    {
+      "request_id": "page0241-tailwind",
+      "status": "stage_failed",
+      "seconds": 2.655453099985607
+    },
+    {
+      "request_id": "page0242-plain_css",
+      "status": "stage_failed",
+      "seconds": 3.1145029999897815
+    },
+    {
+      "request_id": "page0242-tailwind",
+      "status": "stage_failed",
+      "seconds": 2.8447297000093386
+    },
+    {
+      "request_id": "page0243-plain_css",
+      "status": "stage_failed",
+      "seconds": 2.80431109998608
+    },
+    {
+      "request_id": "page0243-tailwind",
+      "status": "stage_failed",
+      "seconds": 2.3361131999990903
+    },
+    {
+      "request_id": "page0244-plain_css",
+      "status": "stage_failed",
+      "seconds": 3.078459299984388
+    },
+    {
+      "request_id": "page0244-tailwind",
+      "status": "stage_failed",
+      "seconds": 2.6863126999814995
+    },
+    {
+      "request_id": "page0245-plain_css",
+      "status": "stage_failed",
+      "seconds": 2.5665893999976106
+    },
+    {
+      "request_id": "page0245-tailwind",
+      "status": "stage_failed",
+      "seconds": 2.508848500030581
+    },
+    {
+      "request_id": "page0246-plain_css",
+      "status": "stage_failed",
+      "seconds": 3.302257900009863
+    },
+    {
+      "request_id": "page0246-tailwind",
+      "status": "stage_failed",
+      "seconds": 2.470400999998674
+    },
+    {
+      "request_id": "page0247-plain_css",
+      "status": "stage_failed",
+      "seconds": 2.6936041000299156
+    },
+    {
+      "request_id": "page0247-tailwind",
+      "status": "stage_failed",
+      "seconds": 2.283375500002876
+    },
+    {
+      "request_id": "page0248-plain_css",
+      "status": "stage_failed",
+      "seconds": 3.0252794999978505
+    },
+    {
+      "request_id": "page0248-tailwind",
+      "status": "stage_failed",
+      "seconds": 2.841641599952709
+    },
+    {
+      "request_id": "page0249-plain_css",
+      "status": "stage_failed",
+      "seconds": 2.771721000026446
+    },
+    {
+      "request_id": "page0249-tailwind",
+      "status": "stage_failed",
+      "seconds": 2.6616057000355795
+    }
+  ],
+  "scope": "pilot",
+  "request_file_sha256": "2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836",
+  "final_used": false
+}

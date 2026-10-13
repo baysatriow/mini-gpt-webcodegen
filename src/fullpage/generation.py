@@ -47,6 +47,15 @@ class FullPageGenerator:
         if lineage['tokenizer_sha256']!=actual: raise ValueError('Tokenizer differs from checkpoint')
         if not (lineage.get('migration_kind')=='position_extension' or state['config'].get('data_origin')=='fullpage_curriculum'):
             raise ValueError('Missing project fullpage ancestry')
+        if state['config'].get('data_origin')=='fullpage_curriculum':
+            for name,digest in lineage['schema_sha256'].items():
+                if sha256_file(self.root/'configs/fullpage'/name)!=digest: raise ValueError('Generation schema differs from training')
+            if sha256_file(self.root/'src/fullpage/prompts.py')!=lineage['source_sha256']['src/fullpage/prompts.py']:
+                raise ValueError('Task prompts differ from training')
+            ancestor=lineage['initialization_parent']
+        else: ancestor=lineage
+        if ancestor.get('source_checkpoint_sha256')!='3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638':
+            raise ValueError('Project source ancestry mismatch')
         seed_everything(self.config['seed']); self.model=MiniGPT(state['model_config']).to('cuda')
         self.model.load_state_dict(state['model']); self.model.set_attention_backend('sdpa'); self.model.eval()
         self.tokenizer=Tokenizer.from_file(str(self.root/'data/tokenizer/tokenizer.json')); self.catalog=load_asset_catalog(self.root)

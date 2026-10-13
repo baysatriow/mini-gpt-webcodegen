@@ -471,3 +471,6 @@ RUN-107 pemeriksaan source: 57 Python / 40 JSON / 44 Markdown / lima notebook / 
 
 ## TRAIN-016, fullpage pilot, mulai
 Budget600 updates, context2048, plan512/section1536, batch16/accum3, effective48, BF16 SDPA fused AdamW, seed42. Konfigurasi configs/fullpage/pilot.json immutable, data fullpage-v1 pilot40 train/10 development families, human_reviewed=False. Parent INIT-2048-001 sha27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372. Profil FULLPAGE-GPU-001/002. Final belum dibuka; angka kualitas menunggu report aktual.
+
+### TRAIN-016 hasil
+Completed600,124.5807516detik, beststep600/CE0.1509130906. Checkpoint best5386787f5a93b2be7911f3ef1c36a23a80e907f752d359ccf2ba900326b54f87. Generation pilot0/20. Per-task dan GPU/disk detail terdapat pada reports/training/TRAIN-016*.json serta reports/fullpage/TRAIN-016_PILOT.json. Final tertutup. INIT-independent main2400 akan memakai configs/fullpage/training-v2.json; best weights-only, last full optimizer/scheduler/RNG/sampler.

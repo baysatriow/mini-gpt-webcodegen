@@ -2736,3 +2736,48 @@ print(json.dumps(report,indent=2))"`.
 - **Commit:** `86f94fea8e0c76d8bd6b3911895b63207ace4ddb`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-219_ai_018_freeze_pilot_training_budget_after_profiling.txt`.
+
+### RUN-220
+
+- **Waktu:** 2026-10-13T21:21:58.829770+07:00 sampai 2026-10-13T21:24:07.291177+07:00.
+- **Tujuan:** TRAIN-016 fullpage pilot 600 updates RTX5070.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_fullpage --config configs/fullpage/pilot.json --run-id TRAIN-016`.
+- **Commit:** `2d50242592c1182b557cee941017ce2d8faf9e04`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-220_train_016_fullpage_pilot_600_updates_rtx5070.txt`.
+
+### RUN-221
+
+- **Waktu:** 2026-10-13T21:24:22.526266+07:00 sampai 2026-10-13T21:24:26.026182+07:00.
+- **Tujuan:** TRAIN-016 inspect per-task CE and long position labels.
+- **Command:** `.venv/Scripts/python.exe -m qa.inspect_fullpage_training --checkpoint checkpoints/TRAIN-016/best.pt --report reports/training/TRAIN-016_TASK_LOSS.json`.
+- **Commit:** `2d50242592c1182b557cee941017ce2d8faf9e04`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-221_train_016_inspect_per_task_ce_and_long_position_labels.txt`.
+
+### RUN-222
+
+- **Waktu:** 2026-10-13T21:24:26.155119+07:00 sampai 2026-10-13T21:25:23.833030+07:00.
+- **Tujuan:** TRAIN-016 pilot generation 20 development pages.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_fullpage --scope pilot --checkpoint checkpoints/TRAIN-016/best.pt --output outputs/fullpage/TRAIN-016-pilot --report reports/fullpage/TRAIN-016_PILOT.json`.
+- **Commit:** `2d50242592c1182b557cee941017ce2d8faf9e04`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-222_train_016_pilot_generation_20_development_pages.txt`.
+
+### RUN-223
+
+- **Waktu:** 2026-10-13T21:25:47.549273+07:00 sampai 2026-10-13T21:25:49.801714+07:00.
+- **Tujuan:** AI-018 freeze main 2400-update fullpage experiment after pilot diagnosis.
+- **Command:** `.venv/Scripts/python.exe -m qa.configure_fullpage_training --scope main --profile reports/training/FULLPAGE-GPU-002.json --output configs/fullpage/training.json`.
+- **Commit:** `2d50242592c1182b557cee941017ce2d8faf9e04`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-223_ai_018_freeze_main_2400_update_fullpage_experiment_after_pilot_diagnos.txt`.
+
+### RUN-224
+
+- **Waktu:** 2026-10-13T21:27:13.350751+07:00 sampai 2026-10-13T21:27:16.154034+07:00.
+- **Tujuan:** AI-018 freeze main config with per-write storage guard.
+- **Command:** `.venv/Scripts/python.exe -m qa.configure_fullpage_training --scope main --profile reports/training/FULLPAGE-GPU-002.json --output configs/fullpage/training-v2.json`.
+- **Commit:** `2d50242592c1182b557cee941017ce2d8faf9e04`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-224_ai_018_freeze_main_config_with_per_write_storage_guard.txt`.

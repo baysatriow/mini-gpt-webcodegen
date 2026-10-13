@@ -182,6 +182,20 @@ def evaluate_tokens(model, loader, *, precision="fp32", max_batches=None):
 
 def save_checkpoint(path: Path, state: dict):
     path = Path(path)
+    if state['config'].get('data_origin') == 'fullpage_curriculum':
+        root = path.resolve().parents[2]
+        model_bytes = sum(t.numel() * t.element_size() for t in {t.data_ptr(): t for t in state['model'].values()}.values())
+        projected = model_bytes * (1 if state.get('weights_only') else 3) + 32 * 1024**2
+        if shutil.disk_usage(root).free < state['config']['reserve_free_bytes'] + projected:
+            raise OSError('Checkpoint write would breach 15GiB disk reserve')
+        phase_dirs = [root/'data/processed/fullpage', root/'assets/fullpage', root/'outputs/fullpage', root/'checkpoints/INIT-2048-001']
+        for directory in (root/'checkpoints').iterdir():
+            config_path = directory/'config.json'
+            if config_path.is_file() and json.loads(config_path.read_text(encoding='utf-8')).get('data_origin') == 'fullpage_curriculum':
+                phase_dirs.append(directory)
+        current = sum(p.stat().st_size for d in phase_dirs if d.exists() for p in d.rglob('*') if p.is_file())
+        if current + projected + 16 * 1024**2 > 1.5 * 1024**3:
+            raise OSError('Checkpoint write would exceed fullpage phase artifact budget1.5GiB')
     path.parent.mkdir(parents=True, exist_ok=True)
     versions = path.parent / ".versions"
     versions.mkdir(exist_ok=True)
@@ -371,6 +385,8 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
             load_checkpoint(initial_path, model, None, None, restore_rng=False)
         if resume:
             state = read_checkpoint(Path(resume))
+            if state.get('weights_only'):
+                raise ValueError('Exact resume requires last checkpoint with optimizer/scheduler state; best is weights-only')
             def verified_resume_config(candidate):
                 if ("pretrain_fingerprint" not in candidate["config"]["lineage"]
                         and "pretrain_fingerprint" in config["lineage"]):
@@ -414,7 +430,12 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
             previous_best = best
             best = loss
             try:
-                save_checkpoint(best_path, snapshot(include_best=False))
+                best_state = snapshot(include_best=False)
+                if performance.get('best_weights_only', False):
+                    best_state.pop('optimizer', None)
+                    best_state.pop('scheduler', None)
+                    best_state['weights_only'] = True
+                save_checkpoint(best_path, best_state)
             except BaseException:
                 best = previous_best
                 raise

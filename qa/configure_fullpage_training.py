@@ -26,6 +26,7 @@ def main():
                        'initialization_parent':parent['config']['lineage'],'schema_sha256':manifest['schema_sha256'],
                        'source_sha256':{p.relative_to(root).as_posix():sha256_file(p) for p in [root/'src/training/engine.py',root/'src/models/minigpt.py',root/'src/fullpage/dataset.py',root/'src/fullpage/prompts.py']},
                        'profile_sha256':sha256_file(root/args.profile)}}
+    config['performance']['best_weights_only']=args.scope=='main'
     write_json(root/args.output,config); print(json.dumps({k:config[k] for k in ('scope','batch_size','gradient_accumulation','max_steps','learning_rate')},indent=2))
 
 

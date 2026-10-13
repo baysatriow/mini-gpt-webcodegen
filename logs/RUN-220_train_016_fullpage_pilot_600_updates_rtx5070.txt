@@ -1,0 +1,21 @@
+RUN-220 | 2026-10-13T21:21:58.829770+07:00 | TRAIN-016 fullpage pilot 600 updates RTX5070
+Command: .venv/Scripts/python.exe -m qa.train_fullpage --config configs/fullpage/pilot.json --run-id TRAIN-016
+Commit: 2d50242592c1182b557cee941017ce2d8faf9e04
+
+{"event": "validation", "step": 0, "loss": 6.259770864771965, "perplexity": 523.0990659510674, "valid_tokens": 59640, "batches": 15}
+{"event": "train", "step": 1, "loss": 5.165311086954681, "grad_norm": 23.579086303710938, "valid_tokens": 7381, "supervised_tokens_after_position_1024": 0, "learning_rate": 8.333333333333333e-07, "time_unix": 1791901324.8686655, "seconds": 0.2747582000447437, "tokens_per_second": 26863.620444441774, "data_cursor": 3}
+{"event": "train", "step": 100, "loss": 1.790944789353666, "grad_norm": 1.4929155111312866, "valid_tokens": 14355, "supervised_tokens_after_position_1024": 6453, "learning_rate": 4.9423326457667795e-05, "time_unix": 1791901342.8773813, "seconds": 0.20492869999725372, "tokens_per_second": 70048.75354302434, "data_cursor": 300}
+{"event": "validation", "step": 100, "loss": 1.579524346600436, "perplexity": 4.852647084121565, "valid_tokens": 59640, "batches": 15}
+{"event": "train", "step": 200, "loss": 0.4707168686351837, "grad_norm": 1.0618114471435547, "valid_tokens": 7825, "supervised_tokens_after_position_1024": 0, "learning_rate": 4.303538800126812e-05, "time_unix": 1791901363.6810043, "seconds": 0.07804590003797784, "tokens_per_second": 100261.51272766774, "data_cursor": 600}
+{"event": "validation", "step": 200, "loss": 0.7074429773628752, "perplexity": 2.028796940779058, "valid_tokens": 59640, "batches": 15}
+{"event": "train", "step": 300, "loss": 0.4640280300491174, "grad_norm": 1.8985114097595215, "valid_tokens": 12995, "supervised_tokens_after_position_1024": 0, "learning_rate": 3.153592818359279e-05, "time_unix": 1791901383.8616297, "seconds": 0.11910730000818148, "tokens_per_second": 109103.30432397824, "data_cursor": 900}
+{"event": "validation", "step": 300, "loss": 0.36683361480733356, "perplexity": 1.4431577790527408, "valid_tokens": 59640, "batches": 15}
+{"event": "train", "step": 400, "loss": 0.4076846873546437, "grad_norm": 1.9791038036346436, "valid_tokens": 19349, "supervised_tokens_after_position_1024": 19349, "learning_rate": 1.8708549608991342e-05, "time_unix": 1791901404.4832106, "seconds": 0.3960082000121474, "tokens_per_second": 48860.09936008011, "data_cursor": 1200}
+{"event": "validation", "step": 400, "loss": 0.2427419712365993, "perplexity": 1.2747396621807734, "valid_tokens": 59640, "batches": 15}
+{"event": "train", "step": 500, "loss": 0.2061694091430653, "grad_norm": 1.0611200332641602, "valid_tokens": 11333, "supervised_tokens_after_position_1024": 6469, "learning_rate": 8.773772523748754e-06, "time_unix": 1791901424.7724996, "seconds": 0.18168380000861362, "tokens_per_second": 62377.6032836318, "data_cursor": 1500}
+{"event": "validation", "step": 500, "loss": 0.1787234049847588, "perplexity": 1.1956899765383693, "valid_tokens": 59640, "batches": 15}
+{"event": "train", "step": 600, "loss": 0.17651811833712314, "grad_norm": 0.9335676431655884, "valid_tokens": 11551, "supervised_tokens_after_position_1024": 6444, "learning_rate": 5.000380770700755e-06, "time_unix": 1791901444.2685344, "seconds": 0.1883689999813214, "tokens_per_second": 61321.13034068978, "data_cursor": 1800}
+{"event": "validation", "step": 600, "loss": 0.15091309064510763, "perplexity": 1.1628955871845912, "valid_tokens": 59640, "batches": 15}
+{"last_checkpoint": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\checkpoints\\TRAIN-016\\last.pt"}
+
+Exit code: 0

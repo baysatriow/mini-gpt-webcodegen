@@ -1,0 +1,13 @@
+RUN-223 | 2026-10-13T21:25:47.549273+07:00 | AI-018 freeze main 2400-update fullpage experiment after pilot diagnosis
+Command: .venv/Scripts/python.exe -m qa.configure_fullpage_training --scope main --profile reports/training/FULLPAGE-GPU-002.json --output configs/fullpage/training.json
+Commit: 2d50242592c1182b557cee941017ce2d8faf9e04
+
+{
+  "scope": "main",
+  "batch_size": 16,
+  "gradient_accumulation": 3,
+  "max_steps": 2400,
+  "learning_rate": 5e-05
+}
+
+Exit code: 0
