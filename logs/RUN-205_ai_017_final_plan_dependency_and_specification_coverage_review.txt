@@ -1,0 +1,29 @@
+RUN-205 | 2026-10-13T20:46:57.454989+07:00 | AI-017 final plan dependency and specification coverage review
+Command: .venv/Scripts/python.exe -c "import re
+from pathlib import Path
+p=Path('docs/superpowers/plans/2026-10-13-full-page-generation.md')
+s=p.read_text(encoding='utf-8')
+for a,b in {'proporsi30%plan/70%section':'proporsi 30% plan/70% section','budgetactual':'budget aktual','termasuktemporary':'termasuk temporary','Bekukan pilot:600':'Bekukan pilot: 600','seed42':'seed 42','LR5e-5 ke5e-6':'LR 5e-5 ke 5e-6','mengubahbudget':'mengubah budget','Kualitasgeneration':'Kualitas generation','Task6 pada20':'Task 6 pada 20','tidakcukup':'tidak cukup','ordinaryCE':'ordinary CE','output_maskhanya':'output_mask hanya','bukanfinal':'bukan final','sebelumgate':'sebelum gate','benchmarkmanifest':'benchmark manifest','finalreports':'final reports','rawerrors':'raw errors','rejectedreport':'rejected report','reportaktual':'report aktual','tokenGPU':'token GPU','Contohperintah':'Contoh perintah','versi1':'versi 1','kelas1600':'kelas 1600','genredataset':'genre dataset','modelgate':'model gate'}.items(): s=s.replace(a,b)
+s=s.replace('Create fullpage/','Create src/fullpage/')
+s=s.replace('Output status accepted/missing_information/stage_failed', 'Output status accepted/missing_information/stage_failed')
+head5=s.index('## Task 5:'); head6=s.index('## Task 6:'); head7=s.index('## Task 7:')
+profile=s[head5:head6].replace('## Task 5:', '## Task 6:').replace('Task 6 pada 20', 'Task 5 pada 20')
+generation=s[head6:head7].replace('## Task 6:', '## Task 5:')
+generation=generation.replace('Jalankan developer requests, bukan final: dua genre/two styles, required facts hilang, prefix overflow, invalid plan/section, mixed style, broken fragment/media, retry gagal dan EOS early. Simpan first attempt/post retry rates secara terpisah. Eval pilot 20 pages; ukur total page elapsed/token per stage, bukan loss saja. No checkpoint activation sebelum gate baru.', 'Periksa validator dan orkestrasi memakai fixture manual yang diberi label jelas: required facts hilang, prefix overflow, invalid plan/section, mixed style, broken fragment/media, retry gagal dan EOS early. Rekam raw keluaran INIT2048 sebagai diagnosis kegagalan, bukan hasil model yang sudah dilatih. Setelah pilot pada Task 6, jalankan generator ini pada 20 page development pilot, simpan first attempt/post retry rates, total page elapsed dan token per stage. Jangan aktifkan checkpoint sebelum gate baru.')
+s=s[:head5]+generation+profile+s[head7:]
+s=s.replace('Task1/6 memeriksa', 'Task1/5 memeriksa').replace('Task1/4/6 memeriksa', 'Task1/4/5 memeriksa').replace('Task6/7 memeriksa', 'Task5/7 memeriksa')
+s=s.replace('spec5/6→Task4/6; spec8→Task5', 'spec5/6→Task4/5; spec8→Task6')
+with p.open('w',encoding='utf-8',newline='\n') as f: f.write(s)
+assert len(re.findall(r'^## Task [1-8]:',s,re.M))==8
+assert len(re.findall(r'^- \[ \]',s,re.M))>=36
+assert not re.search(r'\b(TODO|TBD|FIXME)\b',s)
+assert chr(8212) not in s
+assert 'engine.train_one_step/run_training' in s
+assert 'root=None' in s and 'subclass ResumableBatchSampler' in s
+assert s.index('## Task 5: Generasi') < s.index('## Task 6: Profil')
+print('Eight tasks reviewed against ten spec sections and five failure classes. Generation CLI precedes pilot evaluation; nested config root, sampler inheritance, no placeholders, and budget 2048/1536/512 checked. No implementation or tests executed.')"
+Commit: 4384169744fdf6bc94945a9d3b481a7b558a093e
+
+Eight tasks reviewed against ten spec sections and five failure classes. Generation CLI precedes pilot evaluation; nested config root, sampler inheritance, no placeholders, and budget 2048/1536/512 checked. No implementation or tests executed.
+
+Exit code: 0

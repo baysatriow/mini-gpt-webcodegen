@@ -2477,3 +2477,113 @@ print('Historical model and evaluator configuration preserved. No generation, tr
 - **Commit:** `379920e99a83e955f70499d8bc7272fc7737acf9`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-202_ai_016_confirm_1536_output_design_budget_with_2048_context.txt`.
+
+### RUN-203
+
+- **Waktu:** 2026-10-13T20:38:35.758644+07:00 sampai 2026-10-13T20:38:35.968682+07:00.
+- **Tujuan:** AI-017 measure plan descriptor serialization before implementation planning.
+- **Command:** `.venv/Scripts/python.exe -c "import json
+from pathlib import Path
+from tokenizers import Tokenizer
+f=json.loads(Path('reports/analysis/AI-014_FULL_PAGE_SCOPE_VALID.json').read_text(encoding='utf-8'))
+t=Tokenizer.from_file('data/tokenizer/tokenizer.json')
+rows={}
+roles={'nav':'navigation','main':'hero','about':'about','services':'services','benefits':'benefits','process':'process','faq':'faq','contact':'contact','footer':'footer','vision':'values','projects':'portfolio'}
+for genre,x in f['profiles'].items():
+ spec=x['spec']; descriptors=[]
+ for s in spec['sections']:
+  typ=s['type']; variant={'navbar':'inline','hero':'split','text_section':'prose','contact_form':'panel','footer':'columns'}[typ]
+  descriptors.append({'id':s['id'],'type':typ,'role':roles[s['id']],'variant':variant,'fact_ids':['name'] if typ in ('navbar','hero','footer') else [s['id']],'asset_ids':[]})
+ plan={'schema_version':'1.0','title':spec['title'],'genre':genre,'language':'id','style_mode':spec['style_mode'],'theme':spec['theme'],'sections':descriptors}
+ verbose=len(t.encode(json.dumps(plan,ensure_ascii=False,separators=(',',':')),add_special_tokens=False).ids)+1
+ compact={**plan,'sections':[[d[k] for k in ('id','type','role','variant','fact_ids','asset_ids')] for d in descriptors]}
+ compact_tokens=len(t.encode(json.dumps(compact,ensure_ascii=False,separators=(',',':')),add_special_tokens=False).ids)+1
+ rows[genre]={'section_count':len(descriptors),'object_descriptor_tokens_with_eos':verbose,'tuple_descriptor_tokens_with_eos':compact_tokens,'object_fits_plan_512':verbose<=512,'tuple_fits_plan_512':compact_tokens<=512}
+report={'status':'manual_serialization_analysis_not_model_generation','plan_output_budget':512,'maximum_output_budget':1536,'rows':rows}
+p=Path('reports/analysis/AI-017_PLAN_SERIALIZATION_BUDGET.json')
+with p.open('x',encoding='utf-8',newline='\n') as h: json.dump(report,h,indent=2); h.write('\n')
+print(json.dumps(report,indent=2))"`.
+- **Commit:** `4384169744fdf6bc94945a9d3b481a7b558a093e`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-203_ai_017_measure_plan_descriptor_serialization_before_implementation_pla.txt`.
+
+### RUN-204
+
+- **Waktu:** 2026-10-13T20:45:43.886250+07:00 sampai 2026-10-13T20:45:44.020116+07:00.
+- **Tujuan:** AI-017 self review implementation interfaces and plan readability.
+- **Command:** `.venv/Scripts/python.exe -c "from pathlib import Path
+p=Path('docs/superpowers/plans/2026-10-13-full-page-generation.md')
+s=p.read_text(encoding='utf-8')
+replacements={
+'pasangan attention':'pasangan attention', 'tetap12':'tetap 12','source/config':'source/config',
+'pergenre/style':'per genre/style','maksimum16':'maksimum 16','semua80':'semua 80','semua40':'semua 40','data/task':'data/task',
+'prefix1.536':'prefix 1.536','prefix512/513':'prefix 512/513','TRAIN-015/checkpoint':'TRAIN-015/checkpoint',
+'init2048':'INIT2048','runbudgetbeku':'run dengan budget beku','selalubestordinaryCE':'selalu best ordinary CE','pemilihanlastsetelahfinal':'pemilihan last setelah final',
+'kasusloop':'kasus loop','tidakberubah':'tidak berubah','tidakberdaftar':'tidak terdaftar','tidaktersedia':'tidak tersedia','belumdilakukan':'belum dilakukan','belumlulus':'belum lulus','tidakdipilihulang':'tidak dipilih ulang','tidakmenyusunangka':'tidak menyusun angka',
+'selberturutan':'sel berurutan','seltraining':'sel training','Selnotebook':'Sel notebook','setiapnotebookdibuka':'setiap notebook dibuka','otomatisdijalankan':'otomatis dijalankan','mereferensikanrunconfig':'mereferensikan run config','Contohmanual':'Contoh manual','finaltidakotomatisdibuka':'final tidak otomatis dibuka','notebookpengembangan':'notebook pengembangan','eksekusinyata':'eksekusi nyata','projectkernelmini-gpt-webcodegen':'project kernel mini-gpt-webcodegen',
+'panjangtask':'panjang task','serializedplan':'serialized plan','migrationtensor':'migration tensor','configtraining':'config training','rawplan':'raw plan','persection':'per section','PageSpecgabungan':'PageSpec gabungan','outputgallery':'output gallery','evaluationgate':'evaluation gate',
+'seluruhRUN':'seluruh RUN','AIentries':'AI entries','batasbukti':'batas bukti','Immutableevidence':'Immutable evidence','ditulisnewlineLF':'ditulis newline LF','ketikaGitmenyimpan':'ketika Git menyimpan','ZIPharus':'ZIP harus','cocokdenganmanifest':'cocok dengan manifest','Periksaartifacts':'Periksa artifacts','filechanged':'file changed','stagedbytes':'staged bytes','linknotebook':'link notebook','gitdiffcheck':'git diff check','SHAremote':'SHA remote','danprivate':'dan private','humanreview':'human review',
+'belum ada perubahanproduk':'belum ada perubahan produk','pilihaneksekusi':'pilihan eksekusi','memberikaninstruksi':'memberikan instruksi','spawnsubagent':'spawn subagent','agenutama':'agen utama','antartask':'antar task','salingbergantung':'saling bergantung','memintaefisiensi':'meminta efisiensi','testbaru':'test baru','LimaReviewFocus':'Lima Review Focus','pemeriksaandi':'pemeriksaan di','taskpemilik':'task pemilik','taskspesifik':'task spesifik','freshprocess':'fresh process','examplecommands':'example commands','CLIbaru':'CLI baru','namaoutputunik/refuseoverwrite':'nama output unik/refuse overwrite','defaultrepo':'default repo','reportedinputhashes':'reported input hashes',
+'rawaccepted':'raw accepted','kegallery':'ke gallery','manifestfilehash':'manifest file hash','modelgate':'model gate','browsergate':'browser gate','tahapakhir':'tahap akhir','menunggupenerimaanpage':'menunggu penerimaan page','candidatebeku':'candidate beku','setelahdevelopmentgate':'setelah development gate','final80pages':'final 80 pages','finalerrors':'final errors','pemeriksaanseluruh80':'pemeriksaan seluruh 80','review/browser12samples':'review/browser 12 samples','di390/1440':'di 390/1440','acceptancepenuh':'acceptance penuh','Lockcandidate':'Lock candidate','checkpointSHA':'checkpoint SHA','taskserialization':'task serialization','benchmarkhashes':'benchmark hashes','selectionrules':'selection rules','developmentresult':'development result','gatebelumlulus':'gate belum lulus','finaltidakdijalankan':'final tidak dijalankan',
+'Siapkan12reviewpage':'Siapkan 12 review page','melihatoutput':'melihat output','masingmasingkombinasigenre/style':'masing-masing kombinasi genre/style','seededmanifest':'seeded manifest','Manualrating':'Manual rating','tiap1..5':'tiap 1..5','meandimension':'mean dimension','setiaprating':'setiap rating','ratingatasnamamanusia':'rating atas nama manusia',
+'developmentfamilies':'development families','2style':'2 style','danlast':'dan last','stylecomplete':'style complete','requiredroles':'required roles','firstattempt':'first attempt','stopreason':'stop reason','Gate95%':'Gate 95%','denominator80request':'denominator 80 request','minimal76':'minimal 76','serta76':'serta 76','requiredcoverage':'required coverage','diterimaharus100%structuralfacts':'diterima harus 100% structural facts','taskfitting':'task fitting','checkpointactivation':'checkpoint activation','Eval pilot20pages':'Eval pilot 20 pages','totalpageelapsed/tokenperstage':'total page elapsed/token per stage',
+'perbandinganangka':'perbandingan angka','developerrequests':'developer requests','twostyles':'two styles','requiredfactshilang':'required facts hilang','prefixoverflow':'prefix overflow','invalidplan/section':'invalid plan/section','mixedstyle':'mixed style','brokenfragment/media':'broken fragment/media','retrygagal':'retry gagal','EOSearly':'EOS early','postretry':'post retry',
+'rawplan':'raw plan','keobject':'ke object','tiapsection':'tiap section','factshilang':'facts hilang','At most one retry':'Maksimal satu retry','errorringkas':'error ringkas','separat':'terpisah','IncompleteEOS/tokenlimit/unknownID/errors':'Incomplete EOS/token limit/unknown ID/errors','setelahretry':'setelah retry','seluruhstagevalid':'seluruh stage valid','logitssemua':'logits semua','hanyaposisiterakhir':'hanya posisi terakhir','tanpaKVcache':'tanpa KV cache','bisnisfacts':'business facts','businessfacts':'business facts','seluruhfakta':'seluruh fakta','terlebihdahulu':'terlebih dahulu','Config runtime plan512/section1536/temperature0/seed42':'Config runtime plan 512/section 1536/temperature 0/seed 42','eos berhenti dini':'EOS berhenti dini','output diparse persis tanpa slicingfirstJSON/targetfallback':'output diparse persis tanpa slicing first JSON/target fallback',
+'profil fullcontext':'profil full context','sebelumrun':'sebelum run','budget2.400':'budget 2.400','runbudgetbeku':'run dengan budget beku','lulus gate lanjutfinal':'lulus gate lanjut final','pilot20 page developmentpilot':'pilot 20 page development pilot','jangan buka final':'jangan buka final',
+'600 updates':'600 updates','sebelum600':'sebelum 600','setelah melihathasil':'setelah melihat hasil','development taskpilot':'development task pilot','INIT2048':'INIT-2048','validate/checkpoint100':'validate/checkpoint 100','warmup60':'warmup 60','config/hash':'config/hash','engine exactresume':'engine exact resume','pertask':'per task','labelsdiatasposisi1024':'labels di atas posisi 1024','globalstepvalidtokens':'global step/valid tokens','20 page developmentpilot':'20 page development pilot','trainbudget':'train budget','warmup120/validate400':'warmup 120/validate 400','2.400 updates/warmup120/validate400':'2.400 updates/warmup 120/validate 400',
+'allocator sebelum importtorch':'allocator sebelum import torch','batch4/8/12/16':'batch 4/8/12/16','enamwarmup':'enam warmup','dan20':'dan 20','panjangrepresentatif':'panjang representatif','near2048':'near 2048','weights dibuang':'weights dibuang','finitegrad/temp/power/utilization sertaOOM':'finite grad/temp/power/utilization serta OOM','desktopheadroom':'desktop headroom','throughputvalidtokens':'throughput valid tokens','panjangterburuk':'panjang terburuk','membacafinal':'membaca final','setiapwrite':'setiap write','terukur':'terukur','reserve15GiB':'reserve 15 GiB',
+'hashes':'hashes','SVG milikproyek':'SVG milik proyek','ilustrasi SVG lokal milikproyek':'ilustrasi SVG lokal milik proyek','tidakterdaftar':'tidak terdaftar','bagianhilang/props asing':'bagian hilang/props asing','targettersedia':'target tersedia','bagiantersedia':'bagian tersedia','tidakdipilihulang':'tidak dipilih ulang','fieldbrand/contact/price/name':'field brand/contact/price/name','katalog sesuai descriptor':'katalog sesuai descriptor','dispatch v1 ke rendererlama danv2 kefungsi baru':'dispatch v1 ke renderer lama dan v2 ke fungsi baru','enumvariant':'enum variant','validated':'validated','navbarresponsive':'navbar responsive','contactpanel':'contact panel','footerberkelompok':'footer berkelompok','Layout390px':'Layout 390px','desktop1440px':'desktop 1440px','Exportindex/styles/app/page_spec/assets':'Export index/styles/app/page_spec/assets','catalogsubset':'catalog subset','dua genre/two styles':'dua genre/dua style','fieldfakta':'field fakta','responsiveCSS':'responsive CSS','interaksikatalog':'interaksi katalog','Label fixturemanual':'Label fixture manual','modeloutput':'model output','Browserinspection':'Browser inspection','statusvisualpending':'status visual pending',
+'32 contoh train':'32 contoh train','sedikitnya32':'sedikitnya 32','di atas1.024':'di atas 1.024','prompt/pad':'prompt/pad','masking':'masking','Batch48':'Batch 48','melebihibudget':'melebihi budget','training/pilot':'training/pilot','Tidak menggunakan validation':'Tidak menggunakan validation','final terpisah':'final terpisah','blueprint':'blueprint','manifest320':'manifest 320','genre seimbang':'genre seimbang','curriculumterukur':'curriculum terukur',
+'run_id INIT-2048-001/global_step0/model_config/model/config.lineage/best_checkpoint=None':'run_id INIT-2048-001/global_step 0/model_config/model/config.lineage/best_checkpoint=None','wajib0':'wajib 0','tetaptied':'tetap tied','prefix pendek':'prefix pendek','shape2.048':'shape 2.048','parent untouched':'parent unchanged','parent TRAIN-015 best3399709':'parent TRAIN-015 best 3399709','fitting':'fitting',
+'mediamax':'media max','maksimal180':'maksimal 180','Plan root':'Plan root','default512':'default 512','judulmaksimal':'judul maksimal','TaskDataset/TaskBatchSampler/trim_collate':'TaskDataset/TaskBatchSampler/trim_collate','train_one_step/train_loop':'train_one_step/run_training',
+'positivedata':'positive data','seluruhprops':'seluruh props','facthanya':'fact hanya'
+}
+for before,after in sorted(replacements.items(),key=lambda pair:len(pair[0]),reverse=True):
+ s=s.replace(before,after)
+s=s.replace('TaskBatchSampler(lengths: list[int], task_kinds: list[str], batch_size: int, seed: int)', 'TaskBatchSampler(ResumableBatchSampler) dengan constructor (lengths: list[int], task_kinds: list[str], batch_size: int, seed: int)')
+s=s.replace('Modify engine data loader dispatch khusus fullpage_curriculum.', 'Wrapper train_fullpage membangun loader baru dan meneruskannya ke engine.run_training; engine tidak membangun loader dari data_origin.')
+s=s.replace('Adapter engine menerima TaskDataset/TaskBatchSampler/trim_collate dan fullpage initial lineage, tanpa mengubah kontrak pretrain/v1.', 'Wrapper membangun TaskDataset/TaskBatchSampler/trim_collate. Tambahkan parameter keyword root=None pada engine.run_training; nilai default tetap config_path.parent.parent untuk caller lama, wrapper baru memberi root repo eksplisit karena konfigurasi berada di configs/fullpage. TaskBatchSampler subclass ResumableBatchSampler agar pemeriksaan exact resume existing tetap berlaku; num_workers=0.')
+with p.open('w',encoding='utf-8',newline='\n') as h: h.write(s)
+assert 'train_loop' not in s
+print('Plan self-review corrected actual engine function name, explicit repo root for nested configs, sampler subclass requirement and documentation readability. Product source unchanged.')"`.
+- **Commit:** `4384169744fdf6bc94945a9d3b481a7b558a093e`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-204_ai_017_self_review_implementation_interfaces_and_plan_readability.txt`.
+
+### RUN-205
+
+- **Waktu:** 2026-10-13T20:46:57.454989+07:00 sampai 2026-10-13T20:46:57.574721+07:00.
+- **Tujuan:** AI-017 final plan dependency and specification coverage review.
+- **Command:** `.venv/Scripts/python.exe -c "import re
+from pathlib import Path
+p=Path('docs/superpowers/plans/2026-10-13-full-page-generation.md')
+s=p.read_text(encoding='utf-8')
+for a,b in {'proporsi30%plan/70%section':'proporsi 30% plan/70% section','budgetactual':'budget aktual','termasuktemporary':'termasuk temporary','Bekukan pilot:600':'Bekukan pilot: 600','seed42':'seed 42','LR5e-5 ke5e-6':'LR 5e-5 ke 5e-6','mengubahbudget':'mengubah budget','Kualitasgeneration':'Kualitas generation','Task6 pada20':'Task 6 pada 20','tidakcukup':'tidak cukup','ordinaryCE':'ordinary CE','output_maskhanya':'output_mask hanya','bukanfinal':'bukan final','sebelumgate':'sebelum gate','benchmarkmanifest':'benchmark manifest','finalreports':'final reports','rawerrors':'raw errors','rejectedreport':'rejected report','reportaktual':'report aktual','tokenGPU':'token GPU','Contohperintah':'Contoh perintah','versi1':'versi 1','kelas1600':'kelas 1600','genredataset':'genre dataset','modelgate':'model gate'}.items(): s=s.replace(a,b)
+s=s.replace('Create fullpage/','Create src/fullpage/')
+s=s.replace('Output status accepted/missing_information/stage_failed', 'Output status accepted/missing_information/stage_failed')
+head5=s.index('## Task 5:'); head6=s.index('## Task 6:'); head7=s.index('## Task 7:')
+profile=s[head5:head6].replace('## Task 5:', '## Task 6:').replace('Task 6 pada 20', 'Task 5 pada 20')
+generation=s[head6:head7].replace('## Task 6:', '## Task 5:')
+generation=generation.replace('Jalankan developer requests, bukan final: dua genre/two styles, required facts hilang, prefix overflow, invalid plan/section, mixed style, broken fragment/media, retry gagal dan EOS early. Simpan first attempt/post retry rates secara terpisah. Eval pilot 20 pages; ukur total page elapsed/token per stage, bukan loss saja. No checkpoint activation sebelum gate baru.', 'Periksa validator dan orkestrasi memakai fixture manual yang diberi label jelas: required facts hilang, prefix overflow, invalid plan/section, mixed style, broken fragment/media, retry gagal dan EOS early. Rekam raw keluaran INIT2048 sebagai diagnosis kegagalan, bukan hasil model yang sudah dilatih. Setelah pilot pada Task 6, jalankan generator ini pada 20 page development pilot, simpan first attempt/post retry rates, total page elapsed dan token per stage. Jangan aktifkan checkpoint sebelum gate baru.')
+s=s[:head5]+generation+profile+s[head7:]
+s=s.replace('Task1/6 memeriksa', 'Task1/5 memeriksa').replace('Task1/4/6 memeriksa', 'Task1/4/5 memeriksa').replace('Task6/7 memeriksa', 'Task5/7 memeriksa')
+s=s.replace('spec5/6→Task4/6; spec8→Task5', 'spec5/6→Task4/5; spec8→Task6')
+with p.open('w',encoding='utf-8',newline='\n') as f: f.write(s)
+assert len(re.findall(r'^## Task [1-8]:',s,re.M))==8
+assert len(re.findall(r'^- \[ \]',s,re.M))>=36
+assert not re.search(r'\b(TODO|TBD|FIXME)\b',s)
+assert chr(8212) not in s
+assert 'engine.train_one_step/run_training' in s
+assert 'root=None' in s and 'subclass ResumableBatchSampler' in s
+assert s.index('## Task 5: Generasi') < s.index('## Task 6: Profil')
+print('Eight tasks reviewed against ten spec sections and five failure classes. Generation CLI precedes pilot evaluation; nested config root, sampler inheritance, no placeholders, and budget 2048/1536/512 checked. No implementation or tests executed.')"`.
+- **Commit:** `4384169744fdf6bc94945a9d3b481a7b558a093e`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-205_ai_017_final_plan_dependency_and_specification_coverage_review.txt`.
+
+### AI-017: Rencana implementasi setelah persetujuan spesifikasi
+
+- Pengguna: Gas bro. Skill writing-plans dipakai untuk menulis [rencana delapan tahap](../docs/superpowers/plans/2026-10-13-full-page-generation.md). [Interaksi](interaksi_llm/AI-017_2026-10-13.md).
+- RUN-203 mengukur format plan objek654/655 vs tuple366/367 token. Format tuple enam field dipilih agar budget plan512 terpenuhi, sementara output isi maksimal1.536 dan konteks2.048.
+- RUN-204/205 self-review memperbaiki nama engine run_training, root eksplisit untuk config nested, sampler subclass untuk exact resume, kejelasan teks dan urutan generator sebelum pilot. Tidak ada implementasi/training/test suite baru.
+- Spesifikasi dilanjutkan atas persetujuan pengguna, rencana tertulis menunggu review dan pemilihan metode eksekusi sesuai writing-plans. Native direkomendasikan karena efisiensi dan interface yang saling bergantung. Branch pengembangan dipertahankan, main tidak diubah.

@@ -2,7 +2,7 @@
 
 Tanggal: 13 Oktober 2026. Interaksi: AI-015.
 
-Status: arah generasi bertahap disetujui pengguna; spesifikasi tertulis ini menunggu review. Belum ada perubahan model, training, atau renderer dari spesifikasi ini.
+Status: spesifikasi dilanjutkan atas persetujuan pengguna "Gas bro" setelah keputusan output 1.536. Rencana implementasi disusun pada AI-017. Belum ada perubahan model, training, atau renderer dari spesifikasi ini.
 
 ## 1. Tujuan dan batas proyek
 
@@ -60,6 +60,8 @@ Dua task model memakai tokenizer/penanda proyek yang ada:
 - section_content: ringkasan plan, fakta yang relevan dan satu section descriptor menjadi SectionSpec 1.0, berisi id/type/role/variant dan props sesuai schema komponennya.
 
 PlanValidator memeriksa jumlah/urutan/jenis bagian, referensi fakta/aset, variasi yang kompatibel serta kecocokan genre. SectionValidator memeriksa schema props dan identitas descriptor. Task serializer bersifat deterministik dan dicatat dalam manifest. Encoder baru harus task-aware; encode_sft lama memvalidasi PageSpec v1 dan tidak digunakan untuk PlanSpec/SectionSpec secara langsung.
+
+Format generasi plan memakai enam elemen per section dengan urutan tetap: [id, type, role, variant, fact_ids, asset_ids]. Validator memeriksa bentuk tuple dan setiap referensi sebelum decoder memetakannya ke objek bernama untuk komposer. Ini serialisasi yang eksplisit, bukan perbaikan output rusak. RUN-203 mengukur dua plan manual 9 bagian: format objek 654/655 token termasuk EOS, format tuple 366/367. Format ringkas dipilih untuk mempertahankan budget plan 512. Panjang semua target curriculum tetap diperiksa; dua contoh tersebut tidak membuktikan semua plan akan muat.
 
 Komposer menghasilkan PageSpec 2.0 dengan metadata plan dan seluruh bagian valid. Theme dan style mode berasal dari plan, bukan dipilih ulang per bagian. Navbar dan CTA menggunakan ID bagian yang benar. Kontak, harga, angka dan nama yang diberikan harus dipertahankan tepat. Teks kreatif harus relevan terhadap fakta; ketepatan makna tetap membutuhkan review, tidak dianggap terbukti oleh JSON Schema.
 
@@ -134,4 +136,4 @@ Notebook baru menunjukkan secara berurutan: inspeksi panjang dan family split, m
 
 Manifest dan log mencatat hashes source/config/schema/tokenizer/data/checkpoint, seed, provenance, budget, loss, valid tokens, duration, VRAM/telemetry, stop reason, hasil tiap tahap dan review. Tiap eksekusi mendapatkan RUN baru, termasuk kegagalan/rerun; interaksi LLM dicatat terpisah. Commit/push dilakukan di feature/pipeline-data-model-training tanpa Co-Authored-By. Main telah menerima progres sementara; perubahan berikut tetap di branch tersebut.
 
-Dokumen pendukung: reports/FULL_PAGE_DIRECTION_2026-10-13.md dan reports/analysis/AI-015_CONTEXT_2048_DESIGN.json. Berikutnya adalah review spesifikasi ini, lalu rencana implementasi sesuai skill writing-plans. Belum ada implementasi atau jaminan kualitas halaman lengkap dari spesifikasi ini.
+Dokumen pendukung: reports/FULL_PAGE_DIRECTION_2026-10-13.md, reports/analysis/AI-015_CONTEXT_2048_DESIGN.json dan reports/analysis/AI-016_OUTPUT_1536_DESIGN.json. Rencana: docs/superpowers/plans/2026-10-13-full-page-generation.md. Berikutnya adalah review rencana dan pemilihan metode eksekusi sesuai skill writing-plans. Belum ada implementasi atau jaminan kualitas halaman lengkap dari spesifikasi ini.

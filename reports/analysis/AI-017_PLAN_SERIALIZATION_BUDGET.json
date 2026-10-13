@@ -1,0 +1,21 @@
+{
+  "status": "manual_serialization_analysis_not_model_generation",
+  "plan_output_budget": 512,
+  "maximum_output_budget": 1536,
+  "rows": {
+    "landing_page": {
+      "section_count": 9,
+      "object_descriptor_tokens_with_eos": 654,
+      "tuple_descriptor_tokens_with_eos": 366,
+      "object_fits_plan_512": false,
+      "tuple_fits_plan_512": true
+    },
+    "company_profile": {
+      "section_count": 9,
+      "object_descriptor_tokens_with_eos": 655,
+      "tuple_descriptor_tokens_with_eos": 367,
+      "object_fits_plan_512": false,
+      "tuple_fits_plan_512": true
+    }
+  }
+}

@@ -152,3 +152,8 @@ Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download da
 ## AI-016: Output maksimum 1.536 ditetapkan
 
 - Spesifikasi pipeline baru memakai context2.048 dan output task isi1.536, prefix maksimum512 termasuk penanda. Task plan512. Belum mengubah runtime/checkpoint lama atau menjalankan training.
+
+## AI-017: Rencana implementasi tersedia untuk review
+
+- Spesifikasi dilanjutkan setelah pengguna Gas bro. [Rencana delapan tahap](../docs/superpowers/plans/2026-10-13-full-page-generation.md) tersedia dengan context2.048/output1.536, plan ringkas512 dan migrasi terukur.
+- Status: planning selesai dan self-review dilakukan, kode/migration/training baru belum dimulai. Review rencana dan metode eksekusi berikutnya sesuai writing-plans, Native direkomendasikan untuk efisiensi.

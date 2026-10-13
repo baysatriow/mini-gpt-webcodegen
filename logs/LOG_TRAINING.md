@@ -456,3 +456,9 @@ RUN-107 pemeriksaan source: 57 Python / 40 JSON / 44 Markdown / lima notebook / 
 
 - Keputusan pengguna: context2.048/output maksimum1.536; plan tetap512. Dengan output penuh, prefix dan penanda maksimum512. Menggantikan usulan full-page1.600 dan section1.024 pada desain AI-015.
 - Tidak ada training/checkpoint/profil GPU baru. Spesifikasi dan perhitungan budget diperbarui, bukan konfigurasi runtime historis. [Spesifikasi](../docs/superpowers/specs/2026-10-13-full-page-generation-design.md).
+
+#### AI-017: Rencana migrasi/data/training, belum eksekusi
+
+- Rencana memakai context2.048/output section1.536/plan512. RUN-203 mengukur fixture plan ringkas366/367 token, bukan output model. Posisi tambahan belum dilatih.
+- [Rencana implementasi](../docs/superpowers/plans/2026-10-13-full-page-generation.md) memuat migrasi weights-only, curriculum baru, loader/sampler exact-resume, profil batch4/8/12/16, pilot600 dan proposal training utama2.400 yang dikunci setelah diagnosis pilot sebelum run. Angka tersebut rencana, bukan hasil.
+- Generator disiapkan sebelum pilot, benchmark final baru belum dijalankan. Tidak ada TRAIN-016, migrasi checkpoint, data baru atau test suite pada tahap penulisan rencana. RUN-204/205 review dokumen/interfaces selesai.
