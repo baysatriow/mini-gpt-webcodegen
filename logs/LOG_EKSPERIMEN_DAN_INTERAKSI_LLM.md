@@ -3263,3 +3263,283 @@ if (root/'data/evaluation/fullpage/final_consumption.json').exists(): raise Valu
 - **Commit:** `e52bf140ce106abf15ab0264e7cc9c50bb81f6ef`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-261_ai_019_recheck_revised_source_freeze_worst_context_gpu_stability_and_e.txt`.
+
+### RUN-262
+
+- **Waktu:** 2026-10-14T01:01:59.842680+07:00 sampai 2026-10-14T01:11:51.167589+07:00.
+- **Tujuan:** TRAIN-018 train fullpage v2 from INIT2048 to approved global update 1800.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_fullpage --config configs/fullpage/training-improvement-v2-r1.json --run-id TRAIN-018 --stop-after 1800`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-262_train_018_train_fullpage_v2_from_init2048_to_approved_global_update_18.txt`.
+
+### RUN-263
+
+- **Waktu:** 2026-10-14T01:12:06.441062+07:00 sampai 2026-10-14T01:12:09.611831+07:00.
+- **Tujuan:** TRAIN-018 capture immutable weights only generation snapshot at global update 1800.
+- **Command:** `.venv/Scripts/python.exe -m qa.snapshot_fullpage_checkpoint --source checkpoints/TRAIN-018/last.pt --destination checkpoints/TRAIN-018/generation-1800.pt --run-id TRAIN-018 --step 1800`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-263_train_018_capture_immutable_weights_only_generation_snapshot_at_global.txt`.
+
+### RUN-264
+
+- **Waktu:** 2026-10-14T01:12:22.032972+07:00 sampai 2026-10-14T01:12:24.471871+07:00.
+- **Tujuan:** TRAIN-019 check exact resume state sampler global step and disk reserve.
+- **Command:** `.venv/Scripts/python.exe -c "import json,shutil
+from pathlib import Path
+from src.data.sources import sha256_file
+from src.training.engine import checkpoint_sha256,read_checkpoint
+root=Path.cwd(); cfg=json.loads((root/'configs/fullpage/training-improvement-v2-r1.json').read_text(encoding='utf-8')); checkpoint=root/'checkpoints/TRAIN-018/last.pt'; state=read_checkpoint(checkpoint); config_hash=sha256_file(root/'configs/fullpage/training-improvement-v2-r1.json')
+if state['run_id']!='TRAIN-018' or state['global_step']!=1800 or state.get('weights_only'): raise ValueError('Exact-resume checkpoint is not full state at global step 1800')
+if state['config']!=cfg or state['sampler']['cursor']!=5400: raise ValueError('Resume config or sampler cursor mismatch')
+unique={t.data_ptr():t for t in state['model'].values()}; model_bytes=sum(t.numel()*t.element_size() for t in unique.values()); estimate=model_bytes*8+128*1024**2; free=shutil.disk_usage(root).free
+if free < cfg['reserve_free_bytes']+estimate: raise OSError('Reserve does not cover exact resume checkpoint generations')
+if checkpoint_sha256(root/cfg['initial_checkpoint'])!=cfg['initial_checkpoint_sha256']: raise ValueError('Fresh INIT2048 parent changed')
+if (root/'data/evaluation/fullpage/final_consumption.json').exists(): raise ValueError('Final benchmark has been claimed')
+print(json.dumps({'resume_checkpoint_sha256':checkpoint_sha256(checkpoint),'run_id':state['run_id'],'global_step':state['global_step'],'sampler_cursor':state['sampler']['cursor'],'effective_batch':cfg['batch_size']*cfg['gradient_accumulation'],'config_sha256':config_hash,'free_gib':round(free/2**30,3),'required_resume_allowance_gib':round(estimate/2**30,3),'free_after_reserve_and_estimate_gib':round((free-cfg['reserve_free_bytes']-estimate)/2**30,3),'final_claimed':False},indent=2))"`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-264_train_019_check_exact_resume_state_sampler_global_step_and_disk_reserv.txt`.
+
+### RUN-265
+
+- **Waktu:** 2026-10-14T01:12:29.875261+07:00 sampai 2026-10-14T01:21:59.132389+07:00.
+- **Tujuan:** TRAIN-019 exact resume same approved budget from global update 1800 to 3600.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_fullpage --config configs/fullpage/training-improvement-v2-r1.json --run-id TRAIN-019 --resume checkpoints/TRAIN-018/last.pt`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-265_train_019_exact_resume_same_approved_budget_from_global_update_1800_to.txt`.
+
+### RUN-266
+
+- **Waktu:** 2026-10-14T01:22:10.137778+07:00 sampai 2026-10-14T01:22:13.267115+07:00.
+- **Tujuan:** TRAIN-019 capture immutable weights only generation snapshot at global update 3600.
+- **Command:** `.venv/Scripts/python.exe -m qa.snapshot_fullpage_checkpoint --source checkpoints/TRAIN-019/last.pt --destination checkpoints/TRAIN-019/generation-3600.pt --run-id TRAIN-019 --step 3600`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-266_train_019_capture_immutable_weights_only_generation_snapshot_at_global.txt`.
+
+### RUN-267
+
+- **Waktu:** 2026-10-14T01:22:25.959880+07:00 sampai 2026-10-14T01:32:08.826679+07:00.
+- **Tujuan:** EVAL development fullpage v2 with frozen TRAIN-018 global step 1800 snapshot.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_fullpage --scope development --dataset-dir data/processed/fullpage/v2 --checkpoint checkpoints/TRAIN-018/generation-1800.pt --output outputs/fullpage/fullpage-improvement-v2/development-1800 --report reports/fullpage/TRAIN-018_DEVELOPMENT.json`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-267_eval_development_fullpage_v2_with_frozen_train_018_global_step_1800_sn.txt`.
+
+### RUN-269
+
+- **Waktu:** 2026-10-14T01:33:11.272267+07:00 sampai 2026-10-14T01:33:11.578434+07:00.
+- **Tujuan:** AI-019 classify 1800-step development failures while frozen 3600 evaluation runs.
+- **Command:** `.venv/Scripts/python.exe -c "import collections,json
+from pathlib import Path
+root=Path.cwd(); report=json.loads((root/'reports/fullpage/TRAIN-018_DEVELOPMENT.json').read_text(encoding='utf-8')); out=Path(report['output']); stage=collections.Counter(); kinds=collections.Counter(); errors=collections.Counter(); failures=[]
+for row in report['results']:
+ if row['status']=='accepted': continue
+ data=json.loads((out/row['request_id']/'attempt-01'/'result.json').read_text(encoding='utf-8'))
+ failures.append(row['request_id'])
+ for attempt in data.get('attempts',[]):
+  if attempt.get('errors'):
+   stage[attempt.get('stage','unknown')]+=1; kinds[attempt.get('task','unknown')]+=1
+   for error in attempt['errors']:
+    lower=error.lower()
+    key='identity/name' if 'name' in lower or 'identity' in lower else 'required field/schema' if 'required' in lower or 'field' in lower or 'schema' in lower else 'fact/content' if 'fact' in lower or 'supplied' in lower else 'EOS/token limit' if 'eos' in lower or 'token' in lower else error.split(':',1)[0][:90]
+    errors[key]+=1
+print(json.dumps({'checkpoint_step':1800,'valid':report['complete'],'total':report['total'],'failed_pages':len(failures),'failure_ids':failures,'error_attempts_by_stage':stage,'error_attempts_by_task':kinds,'error_categories':errors,'final_used':report['final_used']},indent=2))"`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-269_ai_019_classify_1800_step_development_failures_while_frozen_3600_evalu.txt`.
+
+### RUN-268
+
+- **Waktu:** 2026-10-14T01:32:26.388409+07:00 sampai 2026-10-14T01:43:18.761085+07:00.
+- **Tujuan:** EVAL development fullpage v2 with frozen TRAIN-019 global step 3600 snapshot.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_fullpage --scope development --dataset-dir data/processed/fullpage/v2 --checkpoint checkpoints/TRAIN-019/generation-3600.pt --output outputs/fullpage/fullpage-improvement-v2/development-3600 --report reports/fullpage/TRAIN-019_DEVELOPMENT.json`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-268_eval_development_fullpage_v2_with_frozen_train_019_global_step_3600_sn.txt`.
+
+### RUN-270
+
+- **Waktu:** 2026-10-14T01:43:38.184176+07:00 sampai 2026-10-14T01:43:38.366663+07:00.
+- **Tujuan:** AI-019 classify full development failures for completed 3600-step snapshot.
+- **Command:** `.venv/Scripts/python.exe -c "import collections,json
+from pathlib import Path
+root=Path.cwd(); report=json.loads((root/'reports/fullpage/TRAIN-019_DEVELOPMENT.json').read_text(encoding='utf-8')); out=Path(report['output']); stage=collections.Counter(); kinds=collections.Counter(); errors=collections.Counter(); failed={}
+for row in report['results']:
+ if row['status']=='accepted': continue
+ data=json.loads((out/row['request_id']/'attempt-01'/'result.json').read_text(encoding='utf-8'))
+ categories=collections.Counter()
+ for attempt in data.get('attempts',[]):
+  if attempt.get('errors'):
+   stage[attempt.get('stage','unknown')]+=1; kinds[attempt.get('task','unknown')]+=1
+   for error in attempt['errors']:
+    lower=error.lower()
+    key='identity/name' if 'name' in lower or 'identity' in lower else 'required field/schema' if 'required' in lower or 'field' in lower or 'schema' in lower else 'unprovided structured item' if 'unprovided' in lower else 'fact/content' if 'fact' in lower or 'supplied' in lower else 'EOS/token limit' if 'eos' in lower or 'token' in lower else error.split(':',1)[0][:90]
+    categories[key]+=1; errors[key]+=1
+ failed[row['request_id']]=dict(categories)
+print(json.dumps({'checkpoint_step':3600,'valid':report['complete'],'total':report['total'],'failed_pages':report['total']-report['complete'],'first_attempt_valid':report['first_attempt_complete'],'required_roles':report['required_roles'],'errors_by_stage':stage,'errors_by_task':kinds,'error_categories':errors,'failure_ids_and_categories':failed,'final_used':report['final_used']},indent=2))"`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-270_ai_019_classify_full_development_failures_for_completed_3600_step_snap.txt`.
+
+### RUN-271
+
+- **Waktu:** 2026-10-14T01:43:54.139916+07:00 sampai 2026-10-14T01:43:56.736285+07:00.
+- **Tujuan:** EVAL select only frozen 1800 and 3600 checkpoints by approved development page ranking.
+- **Command:** `.venv/Scripts/python.exe -m qa.select_fullpage_improvement`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-271_eval_select_only_frozen_1800_and_3600_checkpoints_by_approved_developm.txt`.
+
+### RUN-272
+
+- **Waktu:** 2026-10-14T01:44:44.771064+07:00 sampai 2026-10-14T01:44:47.726587+07:00.
+- **Tujuan:** AI-019 collect TRAIN-018/019 exact resume GPU telemetry validation and development selection metrics.
+- **Command:** `.venv/Scripts/python.exe -c "import json
+from pathlib import Path
+from src.training.engine import checkpoint_sha256,read_checkpoint
+root=Path.cwd(); result={}
+for run in ('TRAIN-018','TRAIN-019'):
+ summary=json.loads((root/f'reports/training/{run}.json').read_text(encoding='utf-8')); telemetry=summary.get('gpu_telemetry') or {}; state=read_checkpoint(root/f'checkpoints/{run}/last.pt')
+ result[run]={'status':summary['status'],'start_step':summary.get('global_step') if run=='TRAIN-019' else 0,'final_step':summary['global_step'],'last_committed_step':summary['last_committed_step'],'resume_parent_sha256':summary.get('resume_parent_sha256'),'config_sha256':summary['config_sha256'],'initial_validation_loss':summary['initial_validation']['loss'],'final_validation_loss':summary['final_validation']['loss'],'best_validation_loss':summary['best_validation_loss'],'best_validation_step':summary['best_checkpoint']['global_step'],'total_train_tokens':summary['total_train_tokens'],'wall_seconds':summary['wall_seconds'],'peak_allocated_gib':summary.get('peak_allocated_bytes',0)/2**30,'peak_reserved_gib':summary.get('peak_reserved_bytes',0)/2**30,'gpu':summary.get('gpu'),'gpu_utilization_mean':telemetry.get('utilization_pct',{}).get('mean'),'gpu_utilization_max':telemetry.get('utilization_pct',{}).get('max'),'gpu_temperature_max_c':telemetry.get('temperature_c',{}).get('max'),'free_gib_after':summary['free_bytes_after']/2**30,'last_state_run_id':state['run_id'],'last_state_step':state['global_step'],'last_checkpoint_sha256':checkpoint_sha256(root/f'checkpoints/{run}/last.pt')}
+selection=json.loads((root/'reports/fullpage/AI-019_DEVELOPMENT_SELECTION.json').read_text(encoding='utf-8')); result['selection']={'status':selection['status'],'selected_step':selection['selected_step'],'selected_checkpoint':selection['selected_checkpoint'],'candidate_counts':[(r['step'],r['complete'],r['total'],r['ordinary_validation_ce']) for r in selection['candidates']],'gate_passed':selection['development_gate_passed'],'final_used':selection['final_used']}
+print(json.dumps(result,indent=2))"`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-272_ai_019_collect_train_018_019_exact_resume_gpu_telemetry_validation_and.txt`.
+
+### RUN-273
+
+- **Waktu:** 2026-10-14T01:46:43.388095+07:00 sampai 2026-10-14T01:46:43.500414+07:00.
+- **Tujuan:** AI-019 inspect notebook authoring and report-renderer dependencies.
+- **Command:** `.venv/Scripts/python.exe -c "import importlib.util,json
+names=['nbformat','nbclient','IPython','pandas','matplotlib']
+print(json.dumps({name:bool(importlib.util.find_spec(name)) for name in names},indent=2))"`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-273_ai_019_inspect_notebook_authoring_and_report_renderer_dependencies.txt`.
+
+### RUN-274
+
+- **Waktu:** 2026-10-14T01:48:22.522236+07:00 sampai 2026-10-14T01:48:28.067782+07:00.
+- **Tujuan:** AI-019 create and execute notebook documenting v2 training checkpoint comparison and failure map.
+- **Command:** `.venv/Scripts/python.exe -c "import json
+from pathlib import Path
+import nbformat as nbf
+from nbclient import NotebookClient
+root=Path.cwd(); target=root/'notebooks/12_perbaikan_fullpage_dan_evaluasi.ipynb'
+if target.exists(): raise FileExistsError('Notebook output already exists')
+md=lambda source: nbf.v4.new_markdown_cell(source)
+code=lambda source: nbf.v4.new_code_cell(source)
+cells=[
+md('''# 12. Perbaikan fullpage dan evaluasi checkpoint\n\nNotebook ini memperlihatkan eksperimen fullpage-v2 yang disetujui, training 3.600 update dengan exact resume, perbandingan checkpoint pada 1.800 dan 3.600, serta peta kegagalan development. Evaluasi menggunakan 80 request validasi yang sama. Target 95% berarti setidaknya 76 halaman lolos validator. Notebook ini tidak memuat training ulang dan tidak membuka data final.'''),
+md('''## 1. Data, pemisahan, dan konfigurasi\n\nData tambahan hanya dibuat dari keluarga train. Validasi dan final disalin byte-identik dari v1. Kita membandingkan hash yang tercatat pada manifest dan tidak membaca baris request final.'''),
+code('''from pathlib import Path\nimport hashlib, json\nimport pandas as pd\nfrom IPython.display import display\nROOT = Path.cwd().resolve()\nread = lambda p: json.loads((ROOT / p).read_text(encoding=\"utf-8\"))\nv1 = read(\"data/processed/fullpage/v1/manifest.json\")\nv2 = read(\"data/processed/fullpage/v2/manifest.json\")\nconfig = read(\"configs/fullpage/training-improvement-v2-r1.json\")\nheldout_names = (\"validation.jsonl\", \"validation.requests.jsonl\", \"test.jsonl\", \"test.requests.jsonl\")\nheldout_same = all(v1[\"files\"][name][\"sha256\"] == v2[\"files\"][name][\"sha256\"] for name in heldout_names)\nsummary = {\"train task rows\": v2[\"task_counts\"][\"train\"], \"train plan rows\": v2[\"augmentation\"][\"added_tasks\"][\"page_plan\"] + 960, \"train section rows\": v2[\"task_counts\"][\"train\"] - v2[\"augmentation\"][\"added_tasks\"][\"page_plan\"] - 960, \"train request variations\": v2[\"augmentation\"][\"train_pages_added\"], \"train families\": v2[\"family_counts\"][\"train\"], \"validation tasks\": v2[\"task_counts\"][\"validation\"], \"heldout hashes unchanged\": heldout_same, \"final request rows parsed\": False, \"plan batch probability\": config[\"plan_batch_probability\"], \"training updates\": config[\"max_steps\"]}\ndisplay(pd.DataFrame([summary]).T.rename(columns={0:\"Value\"}))'''),
+md('''## 2. RTX 5070 dan pemilihan batch\n\nKeempat ukuran microbatch diprofilkan dengan tugas fullpage-v2 dan rasio plan 70%. Batch 16 dipilih karena throughput terukur tertinggi sambil tetap stabil pada profil konteks terburuk 2.048 token.'''),
+code('''import torch\nprofile = read(\"reports/training/FULLPAGE-GPU-003.json\")\nprofile_rows = [{\"batch\": r[\"batch\"], \"accumulation\": r[\"accumulation\"], \"effective batch\": r[\"effective_batch\"], \"status\": r[\"status\"], \"tokens per second\": round(r[\"tokens_per_second\"]), \"peak allocated GiB\": round(r[\"peak_allocated_bytes\"] / 2**30, 2)} for r in profile[\"results\"]]\nprint({\"torch\": torch.__version__, \"CUDA build\": torch.version.cuda, \"CUDA available now\": torch.cuda.is_available(), \"GPU\": torch.cuda.get_device_name() if torch.cuda.is_available() else None})\ndisplay(pd.DataFrame(profile_rows))'''),
+md('''## 3. Training dan exact resume\n\nTRAIN-018 memulai dari checkpoint INIT2048 pada step 0 dan berhenti sementara sesudah step 1.800. TRAIN-019 memulihkan optimizer, scheduler, sampler cursor, dan random state dari checkpoint penuh tersebut lalu melanjutkan ke step global 3.600 dengan hash konfigurasi yang sama.'''),
+code('''runs = []\nfor run_id in (\"TRAIN-018\", \"TRAIN-019\"):\n    r = read(f\"reports/training/{run_id}.json\")\n    gpu = r.get(\"gpu_telemetry\", {})\n    runs.append({\"run\": run_id, \"status\": r[\"status\"], \"global step\": r[\"global_step\"], \"best validation CE\": r[\"best_validation_loss\"], \"final validation CE\": r[\"final_validation\"][\"loss\"], \"target tokens\": r[\"total_train_tokens\"], \"runtime seconds\": round(r[\"wall_seconds\"], 1), \"GPU utilization mean %\": round(gpu.get(\"utilization_pct\", {}).get(\"mean\", 0), 1), \"GPU temperature max C\": gpu.get(\"temperature_c\", {}).get(\"max\"), \"peak VRAM allocated GiB\": round(r[\"peak_allocated_bytes\"] / 2**30, 2), \"free disk GiB after\": round(r[\"free_bytes_after\"] / 2**30, 2), \"config SHA\": r[\"config_sha256\"]})\ndisplay(pd.DataFrame(runs).set_index(\"run\"))'''),
+code('''import matplotlib.pyplot as plt\nvalidation = {}\nfor run_id in (\"TRAIN-018\", \"TRAIN-019\"):\n    path = ROOT / f\"outputs/metrics/{run_id}.jsonl\"\n    for line in path.read_text(encoding=\"utf-8\").splitlines():\n        record = json.loads(line)\n        if record.get(\"event\") == \"validation\":\n            validation[record[\"step\"]] = record[\"loss\"]\nsteps = sorted(validation)\nplt.figure(figsize=(8, 4))\nplt.plot(steps, [validation[s] for s in steps], marker=\"o\")\nplt.xticks(steps)\nplt.xlabel(\"Global training update\")\nplt.ylabel(\"Ordinary validation cross entropy\")\nplt.title(\"TRAIN-018/019 validation trajectory\")\nplt.grid(True, alpha=.3)\nplt.show()\nprint({\"global updates plotted\": steps, \"initial CE\": validation[0], \"step 1800 CE\": validation[1800], \"step 3600 CE\": validation[3600]})'''),
+md('''## 4. Halaman development dan pemilihan checkpoint\n\nKelulusan dihitung dari halaman utuh yang lolos validator. Cross entropy hanya menjadi pemecah seri setelah jumlah halaman valid, cakupan role wajib, dan kelulusan pada percobaan pertama.'''),
+code('''evaluation = []\nfor step, rel in ((1800, \"reports/fullpage/TRAIN-018_DEVELOPMENT.json\"), (3600, \"reports/fullpage/TRAIN-019_DEVELOPMENT.json\")):\n    r = read(rel)\n    evaluation.append({\"step\": step, \"valid pages\": r[\"complete\"], \"total\": r[\"total\"], \"rate %\": round(r[\"complete_rate\"] * 100, 2), \"required roles\": r[\"required_roles\"], \"first attempt valid\": r[\"first_attempt_complete\"], \"ordinary validation CE\": round(validation[step], 6), \"gate 76/80\": r[\"model_gate\"]})\ndisplay(pd.DataFrame(evaluation).set_index(\"step\"))\nselection = read(\"reports/fullpage/AI-019_DEVELOPMENT_SELECTION.json\")\nprint({\"selected step\": selection[\"selected_step\"], \"selected checkpoint\": selection[\"selected_checkpoint\"], \"gate passed\": selection[\"development_gate_passed\"], \"final used\": selection[\"final_used\"]})'''),
+md('''## 5. Peta kegagalan dan batas bukti\n\nKegagalan identik pada CSS biasa dan Tailwind berarti masalah request keluarga yang sama dapat memengaruhi dua ekspor. Kelulusan validator membuktikan kontrak lokal, bukan penilaian visual browser atau kebenaran semua klaim teks.'''),
+code('''from collections import Counter\nsource_files = {1800: \"reports/fullpage/TRAIN-018_DEVELOPMENT.json\", 3600: \"reports/fullpage/TRAIN-019_DEVELOPMENT.json\"}\npass_ids, failed_ids, by_stage, by_category = {}, {}, {}, {}\nfor step, rel in source_files.items():\n    report = read(rel); output = Path(report[\"output\"])\n    passed = {r[\"request_id\"] for r in report[\"results\"] if r[\"status\"] == \"accepted\"}\n    failed = {r[\"request_id\"] for r in report[\"results\"] if r[\"status\"] != \"accepted\"}\n    pass_ids[step], failed_ids[step] = passed, failed\n    stage_counts, category_counts = Counter(), Counter()\n    for request_id in failed:\n        result = json.loads((output / request_id / \"attempt-01\" / \"result.json\").read_text(encoding=\"utf-8\"))\n        for attempt in result.get(\"attempts\", []):\n            for error in attempt.get(\"errors\", []):\n                stage_counts[attempt.get(\"stage\", \"unknown\")] += 1\n                low = error.lower()\n                category = \"identity/name\" if \"name\" in low or \"identity\" in low else \"required field/schema\" if \"required\" in low or \"field\" in low or \"schema\" in low else \"unprovided structured item\" if \"unprovided\" in low else \"fact/content\" if \"fact\" in low or \"supplied\" in low else error.split(\":\", 1)[0][:90]\n                category_counts[category] += 1\n    by_stage[step], by_category[step] = dict(stage_counts), dict(category_counts)\nnewly_valid = sorted(pass_ids[3600] - pass_ids[1800])\nstill_failed = sorted(failed_ids[3600] & failed_ids[1800])\nprint(json.dumps({\"newly valid request outputs\": len(newly_valid), \"regressions\": len(pass_ids[1800] - pass_ids[3600]), \"still failed\": len(still_failed), \"step 3600 error attempts by stage\": by_stage[3600], \"step 3600 error categories\": by_category[3600], \"still failed IDs\": still_failed, \"final consumed\": False}, indent=2))'''),
+md('''## Kesimpulan eksperimen\n\nSnapshot update 3.600 mencapai 70/80 halaman valid, naik dari 46/80 pada update 1.800 dan dari baseline TRAIN-017 sebesar 58/80. Target 76/80 belum tercapai, jadi seleksi berstatus `needs_additional_improvement` dan final tetap tertutup. GPU/browser, review manusia, dan kualitas visual tidak dinilai notebook ini.\n\nLangkah berikutnya perlu menargetkan kegagalan berulang pada identitas nama, field plan wajib, dan layanan atau klaim yang tidak punya fakta pendukung. Dataset WebMC tetap untuk evaluasi terpisah, bukan data training prompt-ke-halaman.''')]
+nb=nbf.v4.new_notebook(cells=cells,metadata={\"kernelspec\":{\"display_name\":\"Python 3\",\"language\":\"python\",\"name\":\"python3\"},\"language_info\":{\"name\":\"python\",\"version\":\"3.11\"}})
+try:
+    nb=NotebookClient(nb,timeout=180,kernel_name='python3',resources={\"metadata\":{\"path\":str(root)}}).execute()
+except Exception:
+    nbf.write(nb,target)
+    raise
+nbf.write(nb,target)
+print(json.dumps({\"notebook\":str(target.relative_to(root)),\"cells\":len(nb.cells),\"code_cells\":sum(c.cell_type=='code' for c in nb.cells),\"executed_code_cells\":sum(c.cell_type=='code' and c.execution_count is not None for c in nb.cells),\"bytes\":target.stat().st_size},indent=2))"`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-274_ai_019_create_and_execute_notebook_documenting_v2_training_checkpoint_.txt`.
+
+### AI-019, hasil eksperimen fullpage-v2
+
+- TRAIN-018/019 memakai satu budget exact-resume3600 update. Development 80 request: checkpoint1800 lolos46; checkpoint3600 lolos70; baseline TRAIN-017 LAST58. Step3600 terpilih oleh aturan beku, tetapi target76/80 belum lulus.
+- Error berulang tersisa pada identitas/nama, required plan fields dan fakta/list yang tidak didukung request. Tidak mengubah validator, tidak memakai WebMC sebagai data train, dan tidak membuka final.
+- GPU profile dan training log tersimpan; notebook12 tereksekusi enam code cells. Browser, review manusia, preview UI dan pemeriksaan visual belum dilakukan.
+- Rencana berikut yang direkomendasikan adalah desain eksperimen train-only terarah pada kategori kegagalan yang tersisa dengan contract tetap ketat. Perubahan data/prompt baru perlu direview dan disetujui melalui brainstorming sebelum implementasi.
+
+### Koreksi diagnosis AI-019
+
+RUN-277 membaca error validator mentah: tiga keluarga request mengalami plan identity/style mismatch, satu navbar brand mismatch, dan satu FAQ required fact item mismatch plus unprovided structured item. Ringkasan fact/content di RUN-270/272 adalah kategori kasar. RUN-278 memperbarui notebook12 dengan kelas yang lebih spesifik. RUN-275 gagal pada pemeriksaan wrapper karena variable kernel tidak tersedia di proses induk; RUN-276 mengonfirmasi notebook tersimpan dengan keenam code cells selesai dan final masih belum diklaim.
+
+### RUN-275
+
+- **Waktu:** 2026-10-14T01:51:54.968424+07:00 sampai 2026-10-14T01:51:59.594880+07:00.
+- **Tujuan:** AI-019 rerun notebook with live final-consumption existence guard.
+- **Command:** `.venv/Scripts/python.exe -c "from pathlib import Path
+import nbformat as nbf
+from nbclient import NotebookClient
+root=Path.cwd(); path=root/'notebooks/12_perbaikan_fullpage_dan_evaluasi.ipynb'; notebook=nbf.read(path,as_version=4)
+cell=next(c for c in notebook.cells if c.cell_type=='code' and 'heldout_names =' in c.source)
+cell.source=cell.source.replace('summary = {','final_claim_present = (ROOT / \"data/evaluation/fullpage/final_consumption.json\").exists()\nsummary = {',1)
+cell.source=cell.source.replace('\"final request rows parsed\": False','\"final claim present\": final_claim_present, \"final request rows parsed\": False',1)
+if 'final claim present' not in cell.source: raise ValueError('Notebook final claim check was not inserted')
+notebook=NotebookClient(notebook,timeout=180,kernel_name='python3',resources={\"metadata\":{\"path\":str(root)}}).execute(); nbf.write(notebook,path)
+errors=[o for c in notebook.cells if c.cell_type=='code' for o in c.get('outputs',[]) if o.get('output_type')=='error']
+if errors: raise ValueError('Notebook contains execution errors')
+print({'notebook':str(path.relative_to(root)),'code_cells':sum(c.cell_type=='code' for c in notebook.cells),'executed_cells':sum(c.cell_type=='code' and c.execution_count is not None for c in notebook.cells),'execution_errors':len(errors),'final_claim_check':'present' if final_claim_present else 'absent','final_request_rows_parsed':False})"`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-275_ai_019_rerun_notebook_with_live_final_consumption_existence_guard.txt`.
+
+### RUN-276
+
+- **Waktu:** 2026-10-14T01:52:18.564248+07:00 sampai 2026-10-14T01:52:18.961824+07:00.
+- **Tujuan:** AI-019 verify notebook stored output and final benchmark remains unclaimed.
+- **Command:** `.venv/Scripts/python.exe -c "import json
+from pathlib import Path
+import nbformat as nbf
+root=Path.cwd(); path=root/'notebooks/12_perbaikan_fullpage_dan_evaluasi.ipynb'; nb=nbf.read(path,as_version=4)
+code=[c for c in nb.cells if c.cell_type=='code']; errors=[o for c in code for o in c.get('outputs',[]) if o.get('output_type')=='error']
+first=next(c for c in code if 'heldout_names =' in c.source); output='\n'.join(str(o.get('data',{}).get('text/plain','')) for o in first.outputs if o.get('output_type')=='display_data')
+claim_exists=(root/'data/evaluation/fullpage/final_consumption.json').exists()
+if len(code)!=6 or any(c.execution_count is None for c in code) or errors or 'final claim present' not in first.source or str(claim_exists) not in output: raise ValueError('Notebook execution output or final-state evidence is incomplete')
+print(json.dumps({'notebook':str(path.relative_to(root)),'cells':len(nb.cells),'executed_code_cells':len(code),'execution_errors':len(errors),'live_final_claim_present':claim_exists,'final_requests_opened':False,'bytes':path.stat().st_size},indent=2))"`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-276_ai_019_verify_notebook_stored_output_and_final_benchmark_remains_uncla.txt`.
+
+### RUN-277
+
+- **Waktu:** 2026-10-14T01:53:04.564568+07:00 sampai 2026-10-14T01:53:04.710278+07:00.
+- **Tujuan:** AI-019 inspect only five failed development request templates at TRAIN-019.
+- **Command:** `.venv/Scripts/python.exe -c "import json
+from pathlib import Path
+root=Path.cwd(); report=json.loads((root/'reports/fullpage/TRAIN-019_DEVELOPMENT.json').read_text(encoding='utf-8')); base=Path(report['output']); names={'page0247-plain_css','page0249-plain_css','page0252-plain_css','page0253-plain_css','page0271-plain_css'}; rows=[]
+for name in sorted(names):
+ result=json.loads((base/name/'attempt-01'/'result.json').read_text(encoding='utf-8')); request=json.loads((base/name/'attempt-01'/'request.json').read_text(encoding='utf-8'))
+ rows.append({'request_id':name,'business_name':next(f['value'] for f in request['business_facts'] if f['kind']=='name'),'genre':request['genre'],'style':request['style_mode'],'status':result['status'],'attempts':[{'task':a.get('task'),'stage':a.get('stage'),'errors':a.get('errors')} for a in result['attempts'] if a.get('errors')]})
+print(json.dumps(rows,indent=2,ensure_ascii=False))"`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-277_ai_019_inspect_only_five_failed_development_request_templates_at_train.txt`.
+
+### RUN-278
+
+- **Waktu:** 2026-10-14T01:54:46.816254+07:00 sampai 2026-10-14T01:54:51.246697+07:00.
+- **Tujuan:** AI-019 refine notebook failure map using exact captured validator messages.
+- **Command:** `.venv/Scripts/python.exe -c "from pathlib import Path
+import nbformat as nbf
+from nbclient import NotebookClient
+root=Path.cwd(); path=root/'notebooks/12_perbaikan_fullpage_dan_evaluasi.ipynb'; nb=nbf.read(path,as_version=4)
+cell=next(c for c in nb.cells if c.cell_type=='code' and 'source_files =' in c.source)
+old='category = \"identity/name\" if \"name\" in low or \"identity\" in low else \"required field/schema\" if \"required\" in low or \"field\" in low or \"schema\" in low else \"unprovided structured item\" if \"unprovided\" in low else \"fact/content\" if \"fact\" in low or \"supplied\" in low else error.split(\":\", 1)[0][:90]'
+new='''if \"plan request identity/style mismatch\" in low: category = \"plan identity/style\"\n                elif \"brand fact mismatch\" in low: category = \"navbar brand identity\"\n                elif \"required fact item mismatch\" in low: category = \"required request fact item\"\n                elif \"unprovided structured item\" in low: category = \"unsupported structured item\"\n                elif \"required\" in low or \"field\" in low or \"schema\" in low: category = \"required field/schema\"\n                elif \"fact\" in low or \"supplied\" in low: category = \"fact/content\"\n                else: category = error.split(\":\", 1)[0][:90]'''
+if old not in cell.source: raise ValueError('Expected coarse failure classifier not found')
+cell.source=cell.source.replace(old,new,1)
+nb=NotebookClient(nb,timeout=180,kernel_name='python3',resources={\"metadata\":{\"path\":str(root)}}).execute(); nbf.write(nb,path)
+errors=[o for c in nb.cells if c.cell_type=='code' for o in c.get('outputs',[]) if o.get('output_type')=='error']
+if errors: raise ValueError('Notebook has execution errors')
+print({'notebook':str(path.relative_to(root)),'code_cells':sum(c.cell_type=='code' for c in nb.cells),'executed_cells':sum(c.cell_type=='code' and c.execution_count is not None for c in nb.cells),'execution_errors':len(errors),'failure_map':'specific identity and factual error classes'})"`.
+- **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-278_ai_019_refine_notebook_failure_map_using_exact_captured_validator_mess.txt`.

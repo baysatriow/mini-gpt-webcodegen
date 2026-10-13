@@ -1,0 +1,23 @@
+RUN-276 | 2026-10-14T01:52:18.564248+07:00 | AI-019 verify notebook stored output and final benchmark remains unclaimed
+Command: .venv/Scripts/python.exe -c "import json
+from pathlib import Path
+import nbformat as nbf
+root=Path.cwd(); path=root/'notebooks/12_perbaikan_fullpage_dan_evaluasi.ipynb'; nb=nbf.read(path,as_version=4)
+code=[c for c in nb.cells if c.cell_type=='code']; errors=[o for c in code for o in c.get('outputs',[]) if o.get('output_type')=='error']
+first=next(c for c in code if 'heldout_names =' in c.source); output='\n'.join(str(o.get('data',{}).get('text/plain','')) for o in first.outputs if o.get('output_type')=='display_data')
+claim_exists=(root/'data/evaluation/fullpage/final_consumption.json').exists()
+if len(code)!=6 or any(c.execution_count is None for c in code) or errors or 'final claim present' not in first.source or str(claim_exists) not in output: raise ValueError('Notebook execution output or final-state evidence is incomplete')
+print(json.dumps({'notebook':str(path.relative_to(root)),'cells':len(nb.cells),'executed_code_cells':len(code),'execution_errors':len(errors),'live_final_claim_present':claim_exists,'final_requests_opened':False,'bytes':path.stat().st_size},indent=2))"
+Commit: c829f024f66b0d343921f3fc872e3c6352f08769
+
+{
+  "notebook": "notebooks\\12_perbaikan_fullpage_dan_evaluasi.ipynb",
+  "cells": 13,
+  "executed_code_cells": 6,
+  "execution_errors": 0,
+  "live_final_claim_present": false,
+  "final_requests_opened": false,
+  "bytes": 60842
+}
+
+Exit code: 0

@@ -1,0 +1,85 @@
+RUN-272 | 2026-10-14T01:44:44.771064+07:00 | AI-019 collect TRAIN-018/019 exact resume GPU telemetry validation and development selection metrics
+Command: .venv/Scripts/python.exe -c "import json
+from pathlib import Path
+from src.training.engine import checkpoint_sha256,read_checkpoint
+root=Path.cwd(); result={}
+for run in ('TRAIN-018','TRAIN-019'):
+ summary=json.loads((root/f'reports/training/{run}.json').read_text(encoding='utf-8')); telemetry=summary.get('gpu_telemetry') or {}; state=read_checkpoint(root/f'checkpoints/{run}/last.pt')
+ result[run]={'status':summary['status'],'start_step':summary.get('global_step') if run=='TRAIN-019' else 0,'final_step':summary['global_step'],'last_committed_step':summary['last_committed_step'],'resume_parent_sha256':summary.get('resume_parent_sha256'),'config_sha256':summary['config_sha256'],'initial_validation_loss':summary['initial_validation']['loss'],'final_validation_loss':summary['final_validation']['loss'],'best_validation_loss':summary['best_validation_loss'],'best_validation_step':summary['best_checkpoint']['global_step'],'total_train_tokens':summary['total_train_tokens'],'wall_seconds':summary['wall_seconds'],'peak_allocated_gib':summary.get('peak_allocated_bytes',0)/2**30,'peak_reserved_gib':summary.get('peak_reserved_bytes',0)/2**30,'gpu':summary.get('gpu'),'gpu_utilization_mean':telemetry.get('utilization_pct',{}).get('mean'),'gpu_utilization_max':telemetry.get('utilization_pct',{}).get('max'),'gpu_temperature_max_c':telemetry.get('temperature_c',{}).get('max'),'free_gib_after':summary['free_bytes_after']/2**30,'last_state_run_id':state['run_id'],'last_state_step':state['global_step'],'last_checkpoint_sha256':checkpoint_sha256(root/f'checkpoints/{run}/last.pt')}
+selection=json.loads((root/'reports/fullpage/AI-019_DEVELOPMENT_SELECTION.json').read_text(encoding='utf-8')); result['selection']={'status':selection['status'],'selected_step':selection['selected_step'],'selected_checkpoint':selection['selected_checkpoint'],'candidate_counts':[(r['step'],r['complete'],r['total'],r['ordinary_validation_ce']) for r in selection['candidates']],'gate_passed':selection['development_gate_passed'],'final_used':selection['final_used']}
+print(json.dumps(result,indent=2))"
+Commit: c829f024f66b0d343921f3fc872e3c6352f08769
+
+{
+  "TRAIN-018": {
+    "status": "stopped_at_limit",
+    "start_step": 0,
+    "final_step": 1800,
+    "last_committed_step": 1800,
+    "resume_parent_sha256": null,
+    "config_sha256": "d6476a9ee322255f8d0863074543946bd6fd80692cb87370dd8c795fa8d2936f",
+    "initial_validation_loss": 6.266232563831536,
+    "final_validation_loss": 0.012055509651134822,
+    "best_validation_loss": 0.012055509651134822,
+    "best_validation_step": 1800,
+    "total_train_tokens": 29307745,
+    "wall_seconds": 566.6821440000203,
+    "peak_allocated_gib": 3.510134696960449,
+    "peak_reserved_gib": 3.818359375,
+    "gpu": "NVIDIA GeForce RTX 5070",
+    "gpu_utilization_mean": 92.18577075098814,
+    "gpu_utilization_max": 100.0,
+    "gpu_temperature_max_c": 70.0,
+    "free_gib_after": 16.020465850830078,
+    "last_state_run_id": "TRAIN-018",
+    "last_state_step": 1800,
+    "last_checkpoint_sha256": "160009de6d7b653ba392ca692a7b96fd1788a1659ca04dc9b34149d5dfe99c70"
+  },
+  "TRAIN-019": {
+    "status": "completed",
+    "start_step": 3600,
+    "final_step": 3600,
+    "last_committed_step": 3600,
+    "resume_parent_sha256": "160009de6d7b653ba392ca692a7b96fd1788a1659ca04dc9b34149d5dfe99c70",
+    "config_sha256": "d6476a9ee322255f8d0863074543946bd6fd80692cb87370dd8c795fa8d2936f",
+    "initial_validation_loss": 0.012055509651134822,
+    "final_validation_loss": 0.0075190683748171585,
+    "best_validation_loss": 0.0075190683748171585,
+    "best_validation_step": 3600,
+    "total_train_tokens": 58725809,
+    "wall_seconds": 547.8082043000031,
+    "peak_allocated_gib": 3.5094895362854004,
+    "peak_reserved_gib": 3.818359375,
+    "gpu": "NVIDIA GeForce RTX 5070",
+    "gpu_utilization_mean": 91.96642929806714,
+    "gpu_utilization_max": 100.0,
+    "gpu_temperature_max_c": 71.0,
+    "free_gib_after": 15.538284301757812,
+    "last_state_run_id": "TRAIN-019",
+    "last_state_step": 3600,
+    "last_checkpoint_sha256": "c96e58d74b7fb63d400f037290d6bbdf9267edff2ac46238528028732ac2c2b6"
+  },
+  "selection": {
+    "status": "needs_additional_improvement",
+    "selected_step": 3600,
+    "selected_checkpoint": "checkpoints/TRAIN-019/generation-3600.pt",
+    "candidate_counts": [
+      [
+        1800,
+        46,
+        80,
+        0.012055509651134822
+      ],
+      [
+        3600,
+        70,
+        80,
+        0.0075190683748171585
+      ]
+    ],
+    "gate_passed": false,
+    "final_used": false
+  }
+}
+
+Exit code: 0

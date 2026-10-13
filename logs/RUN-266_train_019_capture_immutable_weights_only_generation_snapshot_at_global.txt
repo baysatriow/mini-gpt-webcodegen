@@ -1,0 +1,17 @@
+RUN-266 | 2026-10-14T01:22:10.137778+07:00 | TRAIN-019 capture immutable weights only generation snapshot at global update 3600
+Command: .venv/Scripts/python.exe -m qa.snapshot_fullpage_checkpoint --source checkpoints/TRAIN-019/last.pt --destination checkpoints/TRAIN-019/generation-3600.pt --run-id TRAIN-019 --step 3600
+Commit: c829f024f66b0d343921f3fc872e3c6352f08769
+
+{
+  "source": "checkpoints/TRAIN-019/last.pt",
+  "source_sha256": "c96e58d74b7fb63d400f037290d6bbdf9267edff2ac46238528028732ac2c2b6",
+  "destination": "checkpoints/TRAIN-019/generation-3600.pt",
+  "destination_sha256": "4b3290fb62fc993f412c22db186c2e2e5383a1ef965214bbbfde75331155bf0a",
+  "destination_file_sha256": "43d3221c3d838bc830cb42b1aa5e8caed2bdece5e46c4fe28adcbd0b659aa1a1",
+  "run_id": "TRAIN-019",
+  "global_step": 3600,
+  "weights_only": true,
+  "dataset_manifest_sha256": "b26f1714fa186081dec30c6f7c8ace478287601e0fc2bb318ae6f3601dbfd86d"
+}
+
+Exit code: 0

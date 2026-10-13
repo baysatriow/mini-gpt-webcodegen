@@ -1,0 +1,318 @@
+{
+  "run_id": "TRAIN-019",
+  "status": "completed",
+  "started_at_utc": "2026-10-13T18:12:50.406345+00:00",
+  "config": {
+    "mode": "sft",
+    "scope": "main",
+    "data_origin": "fullpage_curriculum",
+    "human_reviewed": false,
+    "dataset_dir": "data/processed/fullpage/v2",
+    "plan_batch_probability": 0.7,
+    "seed": 42,
+    "block_size": 2048,
+    "tokenizer": "data/tokenizer/tokenizer.json",
+    "model_config_path": "configs/model_fullpage_2048.json",
+    "model_config": {
+      "vocab_size": 8192,
+      "block_size": 2048,
+      "n_layer": 6,
+      "n_head": 6,
+      "n_embd": 384,
+      "dropout": 0.1,
+      "tie_embeddings": true,
+      "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+    },
+    "device": "cuda",
+    "precision": "bf16",
+    "batch_size": 16,
+    "gradient_accumulation": 3,
+    "max_steps": 3600,
+    "warmup_steps": 180,
+    "learning_rate": 5e-05,
+    "min_learning_rate": 5e-06,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "weight_decay": 0.1,
+    "grad_clip": 1,
+    "validation_interval": 600,
+    "validation_batches": null,
+    "checkpoint_interval": 600,
+    "log_interval": 100,
+    "reserve_free_bytes": 16106127360,
+    "initial_checkpoint": "checkpoints/INIT-2048-001/initial.pt",
+    "initial_checkpoint_sha256": "27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372",
+    "performance": {
+      "attention_backend": "sdpa",
+      "fused_adamw": true,
+      "pin_memory": true,
+      "tf32": true,
+      "supervised_only_logits": true,
+      "validation_supervised_only_logits": true,
+      "allocator_config": "expandable_segments:True",
+      "gpu_telemetry": true,
+      "selected_by": "reports/training/FULLPAGE-GPU-003.json",
+      "best_weights_only": true
+    },
+    "selection_rule": "Compare only generation checkpoints at updates 1800 and 3600 by development complete-page count, required roles, first-attempt completeness, ordinary validation CE, then earlier update; development gate is at least 95 percent and final remains closed until it passes.",
+    "lineage": {
+      "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+      "fullpage_manifest_sha256": "b26f1714fa186081dec30c6f7c8ace478287601e0fc2bb318ae6f3601dbfd86d",
+      "initialization_parent": {
+        "migration_kind": "position_extension",
+        "source_checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+        "source_config_sha256": "9e72eec8798e47f90f17b77a6d99e10037d0273503e5bb104f8b284ad5fb3d98",
+        "source_lineage": {
+          "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+          "pretrain_fingerprint": {
+            "version": 1,
+            "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+            "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+            "source_revisions": [
+              {
+                "id": "vulcan",
+                "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+                "license": "mit",
+                "rows": 5000
+              },
+              {
+                "id": "websight_v01",
+                "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                "license": "cc-by-4.0",
+                "rows": 20000
+              },
+              {
+                "id": "websight_v02",
+                "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                "license": "cc-by-4.0",
+                "rows": 30000
+              }
+            ],
+            "partition_sha256": {
+              "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+              "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+              "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+            },
+            "token_cache_sha256": {
+              "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+              "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+              "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+            },
+            "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+          },
+          "synthetic_manifest_sha256": "0fb20da53b4e498cbcbadb7aa6296685a319ae323f68cc96e36f1659ba20d08c",
+          "data_sha256": {
+            "train": "7d0d9f247436ca413f93fcde7b22337de88a29c64150c41998a172058388d2fd",
+            "validation": "945bde9e48d4e4e274a63e519d13357b201e1c1fa9835af427cb0758031d2800"
+          },
+          "validation_indices_sha256": "9bc32cb1719357ec7de7e859d9c67f3f0bdb69cb6deca4043f46d59d6b552c07",
+          "train_blocks_or_examples": 40158,
+          "validation_blocks_or_examples": 1440,
+          "smoke": false,
+          "human_reviewed": false,
+          "pretraining_parent": {
+            "checkpoint_sha256": "49e03ebb37f01619de9dc93a55f6828367d84fd34380986bfa15597d9583831c",
+            "phase": "pretrain",
+            "global_step": 1200,
+            "pretrain_fingerprint": {
+              "version": 1,
+              "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+              "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+              "source_revisions": [
+                {
+                  "id": "vulcan",
+                  "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+                  "license": "mit",
+                  "rows": 5000
+                },
+                {
+                  "id": "websight_v01",
+                  "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                  "license": "cc-by-4.0",
+                  "rows": 20000
+                },
+                {
+                  "id": "websight_v02",
+                  "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                  "license": "cc-by-4.0",
+                  "rows": 30000
+                }
+              ],
+              "partition_sha256": {
+                "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+                "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+                "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+              },
+              "token_cache_sha256": {
+                "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+                "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+                "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+              },
+              "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+            }
+          },
+          "curriculum_parent": {
+            "checkpoint_sha256": "791a365463710f73dbfbba767bd8bd17f5b4442e8f6137a92ec8c5888d1a2ed3",
+            "global_step": 3600,
+            "synthetic_manifest_sha256": "4875ed584633d9ee59d121e7b9d89e277fe37ec5f249cf4e1b3f189c81fd4673",
+            "run_id": "TRAIN-012"
+          }
+        },
+        "pretrain_fingerprint": {
+          "version": 1,
+          "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+          "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+          "source_revisions": [
+            {
+              "id": "vulcan",
+              "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+              "license": "mit",
+              "rows": 5000
+            },
+            {
+              "id": "websight_v01",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 20000
+            },
+            {
+              "id": "websight_v02",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 30000
+            }
+          ],
+          "partition_sha256": {
+            "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+            "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+            "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+          },
+          "token_cache_sha256": {
+            "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+            "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+            "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+          },
+          "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+        },
+        "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+        "source_positions": 1024,
+        "target_positions": 2048,
+        "new_position_seed": 42,
+        "new_position_distribution": "normal mean0 std0.02",
+        "human_reviewed": false
+      },
+      "schema_sha256": {
+        "page.schema.json": "eac9c31ba0e46d64f176d428862b217b9dc7246c35b5f7b499c407a29515cf3f",
+        "plan.schema.json": "cf8ef56b884ae9b3d15e03698a5cffff9a6fc29c0f311f32050a1e627c4f5e35",
+        "request.schema.json": "243dba40b54c02055397af96824f24e06e1a03b0d5e09ca7c7d0385f46e55fd1",
+        "section.schema.json": "099bb0a51e0420c9b46dbf2787368798f8f89346e66c309ac139a5e0b1d48c3f"
+      },
+      "source_sha256": {
+        "src/training/engine.py": "8ad99657eeac42399b68af0dc16be491ff59c8704ef3b944de4c987684787cc3",
+        "src/models/minigpt.py": "bfa75a3f29ce9cfa2ee4256fd06c6deb08ba1803b94c5fdc7bf273e31f152ccd",
+        "src/fullpage/dataset.py": "ad4db3ae55083591839ffa1709470413e1a58fb2162ddd3794202fdd002accf3",
+        "src/fullpage/prompts.py": "4926508d444b79ec4f60f78e05e3aec204651223d945d148b51f4f044a9333c4"
+      },
+      "profile_sha256": "da81f787f667b11f90b020ebea29262e1bcd5c0fe8b05c22deaf0ce1a18c48cf"
+    },
+    "storage_phase_id": "fullpage-improvement-v2"
+  },
+  "config_sha256": "d6476a9ee322255f8d0863074543946bd6fd80692cb87370dd8c795fa8d2936f",
+  "resume_parent": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\checkpoints\\TRAIN-018\\last.pt",
+  "label_alignment": "already shifted; loss consumes labels directly",
+  "global_step": 3600,
+  "last_committed_step": 3600,
+  "git_commit": "c829f024f66b0d343921f3fc872e3c6352f08769",
+  "best_checkpoint_source": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\checkpoints\\TRAIN-018\\.versions\\best-d5b448ed36c442e7ad6c64fa835b4f37.pt",
+  "parameter_count": 14579712,
+  "model_config": {
+    "vocab_size": 8192,
+    "block_size": 2048,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.1,
+    "tie_embeddings": true,
+    "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+  },
+  "device": "cuda",
+  "precision": "bf16",
+  "performance": {
+    "attention_backend": "sdpa",
+    "fused_adamw": true,
+    "pin_memory": true,
+    "tf32": true,
+    "supervised_only_logits": true,
+    "validation_supervised_only_logits": true,
+    "allocator_config": "expandable_segments:True",
+    "gpu_telemetry": true,
+    "selected_by": "reports/training/FULLPAGE-GPU-003.json",
+    "best_weights_only": true
+  },
+  "allocator_config": "expandable_segments:True",
+  "resume_parent_sha256": "160009de6d7b653ba392ca692a7b96fd1788a1659ca04dc9b34149d5dfe99c70",
+  "initial_validation": {
+    "loss": 0.012055509651134822,
+    "perplexity": 1.0121284702050448,
+    "valid_tokens": 238822,
+    "batches": 60
+  },
+  "final_train_loss": 0.01141364376895146,
+  "total_train_tokens": 58725809,
+  "final_validation": {
+    "loss": 0.0075190683748171585,
+    "perplexity": 1.007547407552975,
+    "valid_tokens": 238822,
+    "batches": 60
+  },
+  "best_validation_loss": 0.0075190683748171585,
+  "final_checkpoint_sha256": "c96e58d74b7fb63d400f037290d6bbdf9267edff2ac46238528028732ac2c2b6",
+  "best_checkpoint_sha256": "0498728606e3dbd01c77576e17e15a3b4f7dd5a32717053acfcc0354ebf48d5d",
+  "best_checkpoint": {
+    "path": "checkpoints\\TRAIN-019\\.versions\\best-37f8ffa017f94b2e81834db85021ac6d.pt",
+    "payload": ".versions\\best-37f8ffa017f94b2e81834db85021ac6d.pt",
+    "sha256": "0498728606e3dbd01c77576e17e15a3b4f7dd5a32717053acfcc0354ebf48d5d",
+    "global_step": 3600,
+    "validation_loss": 0.0075190683748171585
+  },
+  "gpu_telemetry": {
+    "sample_count": 983,
+    "interval_seconds": 0.5,
+    "raw_path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\metrics\\TRAIN-019_gpu.jsonl",
+    "errors": [],
+    "memory_scope": "nvidia-smi memory includes other desktop applications",
+    "utilization_pct": {
+      "mean": 91.96642929806714,
+      "max": 100.0,
+      "min": 0.0
+    },
+    "memory_used_mib": {
+      "mean": 7044.784333672432,
+      "max": 7353.0,
+      "min": 3543.0
+    },
+    "power_w": {
+      "mean": 199.93312309257377,
+      "max": 217.93,
+      "min": 23.44
+    },
+    "temperature_c": {
+      "mean": 66.51271617497457,
+      "max": 71.0,
+      "min": 43.0
+    },
+    "sm_clock_mhz": {
+      "mean": 2906.852492370295,
+      "max": 2947.0,
+      "min": 315.0
+    }
+  },
+  "ended_at_utc": "2026-10-13T18:21:58.207842+00:00",
+  "wall_seconds": 547.8082043000031,
+  "free_bytes_after": 16684105728,
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "peak_allocated_bytes": 3768285696,
+  "peak_reserved_bytes": 4099932160
+}

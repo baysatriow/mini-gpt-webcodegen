@@ -962,3 +962,44 @@ Configs/fullpage/training-v2.json, INIT2048 parent,2400 updates,458.4783864detik
 - Denominator80, gate95% minimal76. Kedua checkpoint gagal; best tidak dikunci, last tidak dipromosikan, final80 belum dibuka, runtime historis tetap. Human review/browser390/1440/UI pending.
 - Data sintetis240/40/40 families, train5760/val960/final800 task rows, family/style lineage tetap; human_reviewed=False. Desain/generalization di luar empat sektor belum terbukti.
 - Report V2 memuat original report SHA, raw inputs/outputs hashes, corrected validator hashes, historical metrics dan revoked IDs. Gallery V2/ZIP diverifikasi pada RUN-238/239. Notebook10/11 menunjukkan proses aktual dan training opt-in.
+
+## TRAIN-018/019, fullpage-v2 plan focused experiment, 14 Oktober 2026
+
+### Tujuan dan data beku
+
+- Tujuan yang disetujui pengguna: menaikkan validasi halaman utuh menuju95%, dengan gate sekurangnya76/80 prompt development. Hasil merupakan eksperimen terkontrol, bukan jaminan mencapai target.
+- Inisialisasi fresh dari INIT2048, SHA-256 `27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372`. Model dan optimizer lama TRAIN-017 tidak digunakan sebagai parent.
+- Data `data/processed/fullpage/v2`, manifest SHA-256 `b26f1714fa186081dec30c6f7c8ace478287601e0fc2bb318ae6f3601dbfd86d`. Isinya17.280 training task dari240 keluarga train dan2.400 variasi request; keluarga independen tidak bertambah. Rasio sampling plan70% dan section30% menghasilkan757 batch plan dari1.080 batch pada epoch terukur. Input maksimum1852 token, atau1853 jika token EOS dihitung.
+- Seluruh empat file validation/final di v2 hash-identik dengan v1. Validasi mempunyai80 request. File final tidak diparse atau dipakai untuk pemilihan.
+- Human reviewed=False; contoh baru dibuat dari keluarga train. WebMC600MC tidak dipakai untuk training.
+
+### Perangkat, konfigurasi, dan resume
+
+- VENV proyek, torch2.14.1+cu130, CUDA13, NVIDIA GeForce RTX5070. Profile `FULLPAGE-GPU-003` memakai tugas representatif v2 dengan rasio plan70%. Batch4/8/12/16 stabil; batch16 dengan accumulation3 dipilih, effective batch48, throughput profile55.059 token/detik dan peak allocated3,50GiB. Batch16 juga stabil di konteks2048.
+- Konfigurasi aktif `configs/fullpage/training-improvement-v2-r1.json`, SHA-256 `d6476a9ee322255f8d0863074543946bd6fd80692cb87370dd8c795fa8d2936f`. Budget total3600 update global, warmup180, learning rate5e-5→5e-6, validasi dan checkpoint tiap600 update, BF16, SDPA, fused AdamW, TF32.
+- `TRAIN-018` dimulai fresh dari step0 sampai step1800 lalu disimpan sebagai checkpoint penuh `checkpoints/TRAIN-018/last.pt`, SHA-256 `160009de6d7b653ba392ca692a7b96fd1788a1659ca04dc9b34149d5dfe99c70`. Snapshot generasi weights-only `checkpoints/TRAIN-018/generation-1800.pt`, SHA-256 `f36e1a8ec238f860e800dbf6a6556b8d52afc4ec9e739524de251cc7a14c80a2`.
+- `TRAIN-019` melanjutkan optimizer, scheduler, sampler cursor5400, RNG, konfigurasi dan data identik. Resume parent SHA cocok dengan checkpoint TRAIN-018. Berakhir pada global step3600, status completed. Checkpoint penuh last SHA-256 `c96e58d74b7fb63d400f037290d6bbdf9267edff2ac46238528028732ac2c2b6`; snapshot generasi weights-only `checkpoints/TRAIN-019/generation-3600.pt`, SHA-256 `4b3290fb62fc993f412c22db186c2e2e5383a1ef965214bbbfde75331155bf0a`.
+- Checkpoint dan output berada pada fase storage `fullpage-improvement-v2`. Reserve disk15GiB dijaga, free disk setelah run15,54GiB. Estimasi fase resume diperbarui sebelum training; guard free disk setiap checkpoint tetap aktif.
+
+### Hasil optimisasi
+
+| Titik global | Status run | Validation CE | Runtime bagian | GPU utilitas rata-rata | Peak VRAM allocated | Halaman development valid |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| INIT, step0 | TRAIN-018 awal | 6,266233 | | | | |
+| 1.800 | TRAIN-018 berhenti sementara | 0,012056 | 566,68 detik | 92,19% | 3,51GiB | 46/80 (57,5%) |
+| 3.600 | TRAIN-019 selesai | 0,007519 | 547,81 detik | 91,97% | 3,51GiB | 70/80 (87,5%) |
+
+- Akumulasi training29.307.745 target token pada fase TRAIN-018; total sampai global step3600 ialah58.725.809 target token. Suhu GPU maksimum70C dan71C pada tiap run; pemakaian GPU mencapai100%. Total wall time training tercatat1.114,49 detik di luar evaluasi generasi.
+- Evaluasi memakai80 request validation identik, validator sama dan maksimal retry yang sama. Required roles70/80 dan first attempt valid70/80 di step3600. Retry tidak menyelamatkan halaman yang gagal.
+- Ranking beku memilih step3600 di atas step1800: kelulusan70 lebih besar dari46, lalu cakupan role, first attempt, ordinary CE, dan step lebih awal sebagai tie-break. Laporan `reports/fullpage/AI-019_DEVELOPMENT_SELECTION.json` menyatakan `needs_additional_improvement`; candidate tidak dikunci.
+- Baseline LAST TRAIN-017 yang direvalidasi58/80. Step3600 bertambah12 halaman, tetapi masih kurang6 halaman untuk ambang76. Target95% belum tercapai.
+- Sepuluh output gagal berasal dari lima keluarga request yang masing-masing dicoba pada CSS biasa dan Tailwind. Rekap error attempt: plan12, nav4, faq4; kategori tercatat identity/name12, field/schema6, unprovided structured item4, fact/content4. Angka kategori menghitung error per attempt, bukan keluarga unik.
+- Final consumption tidak terjadi. Klaim visual browser, review manusia, integrasi UI dan deployment masih pending. Cross entropy tidak menggantikan evaluasi halaman utuh.
+
+### Artefak dan run
+
+- Profile `reports/training/FULLPAGE-GPU-003.json`; konfigurasi aktif di atas; ringkasan `reports/training/TRAIN-018.json` dan `TRAIN-019.json`; development `reports/fullpage/TRAIN-018_DEVELOPMENT.json` dan `TRAIN-019_DEVELOPMENT.json`; selection `reports/fullpage/AI-019_DEVELOPMENT_SELECTION.json`.
+- Notebook12 merekam data, profil, training, kurva validasi dan perbandingan halaman: [12_perbaikan_fullpage_dan_evaluasi.ipynb](../notebooks/12_perbaikan_fullpage_dan_evaluasi.ipynb). Eksekusi tersimpan dan keenam code cell selesai.
+- RUN-262 TRAIN-018, RUN-263 snapshot1800, RUN-264 exact resume preflight, RUN-265 TRAIN-019, RUN-266 snapshot3600, RUN-267/268 development, RUN-269/270 diagnosis kegagalan, RUN-271 selection, RUN-272 audit metrik, RUN-274 notebook.
+- Persiapan dan konfigurasi di-commit serta di-push sebelum training pada `c829f02`. Semua percobaan gagal, termasuk pencarian yang tidak valid dan penolakan overwrite config, tetap ada pada canonical RUN ledger.
+- Koreksi diagnosis: klasifikasi fact/content dari RUN-270 bersifat kasar. RUN-277 membaca pesan validator mentah pada lima keluarga gagal. Tiga mengalami plan identity/style mismatch, satu navbar brand fact mismatch, dan satu FAQ mengalami required fact item mismatch serta unprovided structured item. RUN-275 mencatat bug kecil pada wrapper verifikasi notebook, RUN-276 memverifikasi semua code cells tersimpan tanpa error, dan RUN-278 memperjelas failure grouping pada notebook.

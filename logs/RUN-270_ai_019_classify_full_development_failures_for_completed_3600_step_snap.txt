@@ -1,0 +1,79 @@
+RUN-270 | 2026-10-14T01:43:38.184176+07:00 | AI-019 classify full development failures for completed 3600-step snapshot
+Command: .venv/Scripts/python.exe -c "import collections,json
+from pathlib import Path
+root=Path.cwd(); report=json.loads((root/'reports/fullpage/TRAIN-019_DEVELOPMENT.json').read_text(encoding='utf-8')); out=Path(report['output']); stage=collections.Counter(); kinds=collections.Counter(); errors=collections.Counter(); failed={}
+for row in report['results']:
+ if row['status']=='accepted': continue
+ data=json.loads((out/row['request_id']/'attempt-01'/'result.json').read_text(encoding='utf-8'))
+ categories=collections.Counter()
+ for attempt in data.get('attempts',[]):
+  if attempt.get('errors'):
+   stage[attempt.get('stage','unknown')]+=1; kinds[attempt.get('task','unknown')]+=1
+   for error in attempt['errors']:
+    lower=error.lower()
+    key='identity/name' if 'name' in lower or 'identity' in lower else 'required field/schema' if 'required' in lower or 'field' in lower or 'schema' in lower else 'unprovided structured item' if 'unprovided' in lower else 'fact/content' if 'fact' in lower or 'supplied' in lower else 'EOS/token limit' if 'eos' in lower or 'token' in lower else error.split(':',1)[0][:90]
+    categories[key]+=1; errors[key]+=1
+ failed[row['request_id']]=dict(categories)
+print(json.dumps({'checkpoint_step':3600,'valid':report['complete'],'total':report['total'],'failed_pages':report['total']-report['complete'],'first_attempt_valid':report['first_attempt_complete'],'required_roles':report['required_roles'],'errors_by_stage':stage,'errors_by_task':kinds,'error_categories':errors,'failure_ids_and_categories':failed,'final_used':report['final_used']},indent=2))"
+Commit: c829f024f66b0d343921f3fc872e3c6352f08769
+
+{
+  "checkpoint_step": 3600,
+  "valid": 70,
+  "total": 80,
+  "failed_pages": 10,
+  "first_attempt_valid": 70,
+  "required_roles": 70,
+  "errors_by_stage": {
+    "nav": 4,
+    "plan": 12,
+    "faq": 4
+  },
+  "errors_by_task": {
+    "section_content": 8,
+    "page_plan": 12
+  },
+  "error_categories": {
+    "fact/content": 4,
+    "identity/name": 12,
+    "required field/schema": 6,
+    "unprovided structured item": 4
+  },
+  "failure_ids_and_categories": {
+    "page0247-plain_css": {
+      "fact/content": 2
+    },
+    "page0247-tailwind": {
+      "fact/content": 2
+    },
+    "page0249-plain_css": {
+      "identity/name": 2
+    },
+    "page0249-tailwind": {
+      "identity/name": 2
+    },
+    "page0252-plain_css": {
+      "required field/schema": 3,
+      "unprovided structured item": 2
+    },
+    "page0252-tailwind": {
+      "required field/schema": 3,
+      "unprovided structured item": 2
+    },
+    "page0253-plain_css": {
+      "identity/name": 2
+    },
+    "page0253-tailwind": {
+      "identity/name": 2
+    },
+    "page0271-plain_css": {
+      "identity/name": 2
+    },
+    "page0271-tailwind": {
+      "identity/name": 2
+    }
+  },
+  "final_used": false
+}
+
+Exit code: 0

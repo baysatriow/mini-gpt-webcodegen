@@ -1,0 +1,23 @@
+RUN-275 | 2026-10-14T01:51:54.968424+07:00 | AI-019 rerun notebook with live final-consumption existence guard
+Command: .venv/Scripts/python.exe -c "from pathlib import Path
+import nbformat as nbf
+from nbclient import NotebookClient
+root=Path.cwd(); path=root/'notebooks/12_perbaikan_fullpage_dan_evaluasi.ipynb'; notebook=nbf.read(path,as_version=4)
+cell=next(c for c in notebook.cells if c.cell_type=='code' and 'heldout_names =' in c.source)
+cell.source=cell.source.replace('summary = {','final_claim_present = (ROOT / \"data/evaluation/fullpage/final_consumption.json\").exists()\nsummary = {',1)
+cell.source=cell.source.replace('\"final request rows parsed\": False','\"final claim present\": final_claim_present, \"final request rows parsed\": False',1)
+if 'final claim present' not in cell.source: raise ValueError('Notebook final claim check was not inserted')
+notebook=NotebookClient(notebook,timeout=180,kernel_name='python3',resources={\"metadata\":{\"path\":str(root)}}).execute(); nbf.write(notebook,path)
+errors=[o for c in notebook.cells if c.cell_type=='code' for o in c.get('outputs',[]) if o.get('output_type')=='error']
+if errors: raise ValueError('Notebook contains execution errors')
+print({'notebook':str(path.relative_to(root)),'code_cells':sum(c.cell_type=='code' for c in notebook.cells),'executed_cells':sum(c.cell_type=='code' and c.execution_count is not None for c in notebook.cells),'execution_errors':len(errors),'final_claim_check':'present' if final_claim_present else 'absent','final_request_rows_parsed':False})"
+Commit: c829f024f66b0d343921f3fc872e3c6352f08769
+
+F:\Generative_AI\Vibe_Coding_Proyek_1\.venv\Lib\site-packages\zmq\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.
+  self._get_loop()
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+Traceback (most recent call last):
+  File "<string>", line 12, in <module>
+NameError: name 'final_claim_present' is not defined
+
+Exit code: 1

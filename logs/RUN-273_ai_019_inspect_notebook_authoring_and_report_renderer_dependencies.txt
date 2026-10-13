@@ -1,0 +1,15 @@
+RUN-273 | 2026-10-14T01:46:43.388095+07:00 | AI-019 inspect notebook authoring and report-renderer dependencies
+Command: .venv/Scripts/python.exe -c "import importlib.util,json
+names=['nbformat','nbclient','IPython','pandas','matplotlib']
+print(json.dumps({name:bool(importlib.util.find_spec(name)) for name in names},indent=2))"
+Commit: c829f024f66b0d343921f3fc872e3c6352f08769
+
+{
+  "nbformat": true,
+  "nbclient": true,
+  "IPython": true,
+  "pandas": true,
+  "matplotlib": true
+}
+
+Exit code: 0

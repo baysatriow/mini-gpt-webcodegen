@@ -1,0 +1,22 @@
+RUN-278 | 2026-10-14T01:54:46.816254+07:00 | AI-019 refine notebook failure map using exact captured validator messages
+Command: .venv/Scripts/python.exe -c "from pathlib import Path
+import nbformat as nbf
+from nbclient import NotebookClient
+root=Path.cwd(); path=root/'notebooks/12_perbaikan_fullpage_dan_evaluasi.ipynb'; nb=nbf.read(path,as_version=4)
+cell=next(c for c in nb.cells if c.cell_type=='code' and 'source_files =' in c.source)
+old='category = \"identity/name\" if \"name\" in low or \"identity\" in low else \"required field/schema\" if \"required\" in low or \"field\" in low or \"schema\" in low else \"unprovided structured item\" if \"unprovided\" in low else \"fact/content\" if \"fact\" in low or \"supplied\" in low else error.split(\":\", 1)[0][:90]'
+new='''if \"plan request identity/style mismatch\" in low: category = \"plan identity/style\"\n                elif \"brand fact mismatch\" in low: category = \"navbar brand identity\"\n                elif \"required fact item mismatch\" in low: category = \"required request fact item\"\n                elif \"unprovided structured item\" in low: category = \"unsupported structured item\"\n                elif \"required\" in low or \"field\" in low or \"schema\" in low: category = \"required field/schema\"\n                elif \"fact\" in low or \"supplied\" in low: category = \"fact/content\"\n                else: category = error.split(\":\", 1)[0][:90]'''
+if old not in cell.source: raise ValueError('Expected coarse failure classifier not found')
+cell.source=cell.source.replace(old,new,1)
+nb=NotebookClient(nb,timeout=180,kernel_name='python3',resources={\"metadata\":{\"path\":str(root)}}).execute(); nbf.write(nb,path)
+errors=[o for c in nb.cells if c.cell_type=='code' for o in c.get('outputs',[]) if o.get('output_type')=='error']
+if errors: raise ValueError('Notebook has execution errors')
+print({'notebook':str(path.relative_to(root)),'code_cells':sum(c.cell_type=='code' for c in nb.cells),'executed_cells':sum(c.cell_type=='code' and c.execution_count is not None for c in nb.cells),'execution_errors':len(errors),'failure_map':'specific identity and factual error classes'})"
+Commit: c829f024f66b0d343921f3fc872e3c6352f08769
+
+F:\Generative_AI\Vibe_Coding_Proyek_1\.venv\Lib\site-packages\zmq\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.
+  self._get_loop()
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+{'notebook': 'notebooks\\12_perbaikan_fullpage_dan_evaluasi.ipynb', 'code_cells': 6, 'executed_cells': 6, 'execution_errors': 0, 'failure_map': 'specific identity and factual error classes'}
+
+Exit code: 0

@@ -1,0 +1,17 @@
+RUN-263 | 2026-10-14T01:12:06.441062+07:00 | TRAIN-018 capture immutable weights only generation snapshot at global update 1800
+Command: .venv/Scripts/python.exe -m qa.snapshot_fullpage_checkpoint --source checkpoints/TRAIN-018/last.pt --destination checkpoints/TRAIN-018/generation-1800.pt --run-id TRAIN-018 --step 1800
+Commit: c829f024f66b0d343921f3fc872e3c6352f08769
+
+{
+  "source": "checkpoints/TRAIN-018/last.pt",
+  "source_sha256": "160009de6d7b653ba392ca692a7b96fd1788a1659ca04dc9b34149d5dfe99c70",
+  "destination": "checkpoints/TRAIN-018/generation-1800.pt",
+  "destination_sha256": "f36e1a8ec238f860e800dbf6a6556b8d52afc4ec9e739524de251cc7a14c80a2",
+  "destination_file_sha256": "7fd6cb7bec51a75f28f678964494c3d2168e73e9e2489a5139a0430654ca45f8",
+  "run_id": "TRAIN-018",
+  "global_step": 1800,
+  "weights_only": true,
+  "dataset_manifest_sha256": "b26f1714fa186081dec30c6f7c8ace478287601e0fc2bb318ae6f3601dbfd86d"
+}
+
+Exit code: 0

@@ -1,0 +1,132 @@
+RUN-277 | 2026-10-14T01:53:04.564568+07:00 | AI-019 inspect only five failed development request templates at TRAIN-019
+Command: .venv/Scripts/python.exe -c "import json
+from pathlib import Path
+root=Path.cwd(); report=json.loads((root/'reports/fullpage/TRAIN-019_DEVELOPMENT.json').read_text(encoding='utf-8')); base=Path(report['output']); names={'page0247-plain_css','page0249-plain_css','page0252-plain_css','page0253-plain_css','page0271-plain_css'}; rows=[]
+for name in sorted(names):
+ result=json.loads((base/name/'attempt-01'/'result.json').read_text(encoding='utf-8')); request=json.loads((base/name/'attempt-01'/'request.json').read_text(encoding='utf-8'))
+ rows.append({'request_id':name,'business_name':next(f['value'] for f in request['business_facts'] if f['kind']=='name'),'genre':request['genre'],'style':request['style_mode'],'status':result['status'],'attempts':[{'task':a.get('task'),'stage':a.get('stage'),'errors':a.get('errors')} for a in result['attempts'] if a.get('errors')]})
+print(json.dumps(rows,indent=2,ensure_ascii=False))"
+Commit: c829f024f66b0d343921f3fc872e3c6352f08769
+
+[
+  {
+    "request_id": "page0247-plain_css",
+    "business_name": "Toko Yadilala",
+    "genre": "company_profile",
+    "style": "plain_css",
+    "status": "stage_failed",
+    "attempts": [
+      {
+        "task": "section_content",
+        "stage": "nav",
+        "errors": [
+          "Brand fact mismatch"
+        ]
+      },
+      {
+        "task": "section_content",
+        "stage": "nav",
+        "errors": [
+          "Brand fact mismatch"
+        ]
+      }
+    ]
+  },
+  {
+    "request_id": "page0249-plain_css",
+    "business_name": "Studio Mapurana",
+    "genre": "company_profile",
+    "style": "plain_css",
+    "status": "stage_failed",
+    "attempts": [
+      {
+        "task": "page_plan",
+        "stage": "plan",
+        "errors": [
+          "Plan request identity/style mismatch"
+        ]
+      },
+      {
+        "task": "page_plan",
+        "stage": "plan",
+        "errors": [
+          "Plan request identity/style mismatch"
+        ]
+      }
+    ]
+  },
+  {
+    "request_id": "page0252-plain_css",
+    "business_name": "Kursus Titikala",
+    "genre": "landing_page",
+    "style": "plain_css",
+    "status": "stage_failed",
+    "attempts": [
+      {
+        "task": "section_content",
+        "stage": "faq",
+        "errors": [
+          "Required fact item mismatch: faq1",
+          "Unprovided structured item: faq"
+        ]
+      },
+      {
+        "task": "section_content",
+        "stage": "faq",
+        "errors": [
+          "Required fact item mismatch: faq1",
+          "Required fact item mismatch: faq2",
+          "Unprovided structured item: faq"
+        ]
+      }
+    ]
+  },
+  {
+    "request_id": "page0253-plain_css",
+    "business_name": "Kursus Raramapu",
+    "genre": "company_profile",
+    "style": "plain_css",
+    "status": "stage_failed",
+    "attempts": [
+      {
+        "task": "page_plan",
+        "stage": "plan",
+        "errors": [
+          "Plan request identity/style mismatch"
+        ]
+      },
+      {
+        "task": "page_plan",
+        "stage": "plan",
+        "errors": [
+          "Plan request identity/style mismatch"
+        ]
+      }
+    ]
+  },
+  {
+    "request_id": "page0271-plain_css",
+    "business_name": "Toko Laditaya",
+    "genre": "company_profile",
+    "style": "plain_css",
+    "status": "stage_failed",
+    "attempts": [
+      {
+        "task": "page_plan",
+        "stage": "plan",
+        "errors": [
+          "Plan request identity/style mismatch"
+        ]
+      },
+      {
+        "task": "page_plan",
+        "stage": "plan",
+        "errors": [
+          "Plan request identity/style mismatch"
+        ]
+      }
+    ]
+  }
+]
+
+Exit code: 0

@@ -1,0 +1,77 @@
+RUN-269 | 2026-10-14T01:33:11.272267+07:00 | AI-019 classify 1800-step development failures while frozen 3600 evaluation runs
+Command: .venv/Scripts/python.exe -c "import collections,json
+from pathlib import Path
+root=Path.cwd(); report=json.loads((root/'reports/fullpage/TRAIN-018_DEVELOPMENT.json').read_text(encoding='utf-8')); out=Path(report['output']); stage=collections.Counter(); kinds=collections.Counter(); errors=collections.Counter(); failures=[]
+for row in report['results']:
+ if row['status']=='accepted': continue
+ data=json.loads((out/row['request_id']/'attempt-01'/'result.json').read_text(encoding='utf-8'))
+ failures.append(row['request_id'])
+ for attempt in data.get('attempts',[]):
+  if attempt.get('errors'):
+   stage[attempt.get('stage','unknown')]+=1; kinds[attempt.get('task','unknown')]+=1
+   for error in attempt['errors']:
+    lower=error.lower()
+    key='identity/name' if 'name' in lower or 'identity' in lower else 'required field/schema' if 'required' in lower or 'field' in lower or 'schema' in lower else 'fact/content' if 'fact' in lower or 'supplied' in lower else 'EOS/token limit' if 'eos' in lower or 'token' in lower else error.split(':',1)[0][:90]
+    errors[key]+=1
+print(json.dumps({'checkpoint_step':1800,'valid':report['complete'],'total':report['total'],'failed_pages':len(failures),'failure_ids':failures,'error_attempts_by_stage':stage,'error_attempts_by_task':kinds,'error_categories':errors,'final_used':report['final_used']},indent=2))"
+Commit: c829f024f66b0d343921f3fc872e3c6352f08769
+
+{
+  "checkpoint_step": 1800,
+  "valid": 46,
+  "total": 80,
+  "failed_pages": 34,
+  "failure_ids": [
+    "page0242-plain_css",
+    "page0242-tailwind",
+    "page0243-plain_css",
+    "page0243-tailwind",
+    "page0247-plain_css",
+    "page0247-tailwind",
+    "page0249-plain_css",
+    "page0249-tailwind",
+    "page0250-plain_css",
+    "page0250-tailwind",
+    "page0251-plain_css",
+    "page0251-tailwind",
+    "page0252-plain_css",
+    "page0252-tailwind",
+    "page0253-plain_css",
+    "page0253-tailwind",
+    "page0257-plain_css",
+    "page0257-tailwind",
+    "page0258-plain_css",
+    "page0258-tailwind",
+    "page0259-plain_css",
+    "page0259-tailwind",
+    "page0261-plain_css",
+    "page0261-tailwind",
+    "page0266-plain_css",
+    "page0266-tailwind",
+    "page0267-plain_css",
+    "page0267-tailwind",
+    "page0271-plain_css",
+    "page0271-tailwind",
+    "page0274-plain_css",
+    "page0274-tailwind",
+    "page0275-plain_css",
+    "page0275-tailwind"
+  ],
+  "error_attempts_by_stage": {
+    "plan": 28,
+    "services": 36,
+    "process": 4
+  },
+  "error_attempts_by_task": {
+    "page_plan": 28,
+    "section_content": 40
+  },
+  "error_categories": {
+    "identity/name": 28,
+    "required field/schema": 76,
+    "Unprovided structured item": 40
+  },
+  "final_used": false
+}
+
+Exit code: 0

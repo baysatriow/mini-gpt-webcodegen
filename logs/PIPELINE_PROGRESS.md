@@ -167,3 +167,16 @@ Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download da
 ### Delivery AI-018, 14 Oktober 2026
 
 RUN-241 notebook11 selesai8 cells; notebook10 SHA tetap7 cells. RUN-243 bytes ZIP/file972 dan HTML local links99 checked, source/raw/page/notebook/document identity checked. BEST39/80, LAST58/80 development V2; final/human/browser/UI pending. Untuk penerimaan saat ini gunakan gallery V2; gallery awal/ZIP historis tidak dipakai sebagai acceptance terkini. Dua minor review ditunda sebelum final nyata.
+
+## AI-019, eksperimen fullpage-v2, 14 Oktober 2026
+
+- WebMC pinned revision berhasil diunduh dan diperiksa:600 soal pilihan ganda, bukan file training50.000. Tidak dimasukkan ke SFT. Webdev API publik membalas401 dan ketersediaannya belum terkonfirmasi.
+- Curriculum v2 train-only dan sampler plan70%/section30% disiapkan. RTX5070 profile memilih batch16, accumulation3, effective48. TRAIN-018 fresh INIT2048 berhenti pada global1800 lalu TRAIN-019 exact resume sampai3600.
+- Development 80 prompt menghasilkan46/80 pada1800 dan70/80 pada3600. Baseline LAST TRAIN-01758/80. Step3600 terpilih, peningkatan12 halaman dari baseline tetapi masih kurang6 untuk gate76/80.
+- Peta gagal yang disimpan menunjukkan isu berulang di identity/name, plan required fields dan service/fact grounding. Final tetap tertutup, candidate tidak dikunci. Validator ketat tidak diubah.
+- Notebook [12](../notebooks/12_perbaikan_fullpage_dan_evaluasi.ipynb) merekam profile, kurva loss, evaluasi dan error map. Training log komprehensif di [LOG_TRAINING.md](../logs/LOG_TRAINING.md); laporan pemilihan di [AI-019_DEVELOPMENT_SELECTION.json](../reports/fullpage/AI-019_DEVELOPMENT_SELECTION.json).
+- Berikutnya: brainstorming bounded untuk eksperimen train-only dengan contoh nama literal, kelengkapan field plan, dan konten struktural yang hanya mengacu pada fakta request. Perlu persetujuan desain sebelum perubahan berikutnya. UI, browser, review manusia dan final masih pending.
+
+### Koreksi diagnosis error RUN-277
+
+Pemeriksaan pesan validator mentah mengonfirmasi tiga keluarga mengalami plan identity/style mismatch, satu navbar brand mismatch, dan satu FAQ berisi item yang tidak didukung business fact. CSS biasa dan Tailwind pada keluarga gagal mendapat hasil sama, jadi pola masalahnya ada di konten/model bersama, bukan renderer style. RUN-278 memperjelas kategori ini di notebook12. RUN-275 adalah kesalahan variabel pada wrapper verifikasi setelah notebook berjalan, bukan kegagalan cell; RUN-276 mengonfirmasi keenam code cell tersimpan tanpa error.

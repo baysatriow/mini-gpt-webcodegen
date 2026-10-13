@@ -1,0 +1,58 @@
+RUN-271 | 2026-10-14T01:43:54.139916+07:00 | EVAL select only frozen 1800 and 3600 checkpoints by approved development page ranking
+Command: .venv/Scripts/python.exe -m qa.select_fullpage_improvement
+Commit: c829f024f66b0d343921f3fc872e3c6352f08769
+
+{
+  "status": "needs_additional_improvement",
+  "selection_rule": "Compare only generation checkpoints at updates 1800 and 3600 by development complete-page count, required roles, first-attempt completeness, ordinary validation CE, then earlier update; development gate is at least 95 percent and final remains closed until it passes.",
+  "candidates": [
+    {
+      "step": 1800,
+      "run_id": "TRAIN-018",
+      "checkpoint": "checkpoints/TRAIN-018/generation-1800.pt",
+      "checkpoint_sha256": "f36e1a8ec238f860e800dbf6a6556b8d52afc4ec9e739524de251cc7a14c80a2",
+      "development_report": "reports/fullpage/TRAIN-018_DEVELOPMENT.json",
+      "development_report_sha256": "65c6e1a14715d77c706f849f253908049a94e1a049f3ce481d5a72bfbfd6df1e",
+      "complete": 46,
+      "total": 80,
+      "required_roles": 46,
+      "first_attempt_complete": 46,
+      "ordinary_validation_ce": 0.012055509651134822,
+      "model_gate": false
+    },
+    {
+      "step": 3600,
+      "run_id": "TRAIN-019",
+      "checkpoint": "checkpoints/TRAIN-019/generation-3600.pt",
+      "checkpoint_sha256": "4b3290fb62fc993f412c22db186c2e2e5383a1ef965214bbbfde75331155bf0a",
+      "development_report": "reports/fullpage/TRAIN-019_DEVELOPMENT.json",
+      "development_report_sha256": "834df13e10d162f9c72ee76d7e63e3fe13d0a74f276ab98032e9fe657a3b44db",
+      "complete": 70,
+      "total": 80,
+      "required_roles": 70,
+      "first_attempt_complete": 70,
+      "ordinary_validation_ce": 0.0075190683748171585,
+      "model_gate": false
+    }
+  ],
+  "selected_step": 3600,
+  "selected_run_id": "TRAIN-019",
+  "selected_checkpoint": "checkpoints/TRAIN-019/generation-3600.pt",
+  "selected_checkpoint_sha256": "4b3290fb62fc993f412c22db186c2e2e5383a1ef965214bbbfde75331155bf0a",
+  "development_complete": 70,
+  "development_total": 80,
+  "development_required_roles": 70,
+  "development_first_attempt_complete": 70,
+  "development_gate_passed": false,
+  "request_file_sha256": "2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836",
+  "request_identity_sha256": "e4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173",
+  "dataset_manifest_sha256": "b26f1714fa186081dec30c6f7c8ace478287601e0fc2bb318ae6f3601dbfd86d",
+  "training_config_sha256": "d6476a9ee322255f8d0863074543946bd6fd80692cb87370dd8c795fa8d2936f",
+  "resume_parent_sha256": "160009de6d7b653ba392ca692a7b96fd1788a1659ca04dc9b34149d5dfe99c70",
+  "final_targets_read_for_selection": false,
+  "final_used": false,
+  "browser_status": "pending",
+  "human_review_status": "pending"
+}
+
+Exit code: 0

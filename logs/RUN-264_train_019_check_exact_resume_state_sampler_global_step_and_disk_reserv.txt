@@ -1,0 +1,29 @@
+RUN-264 | 2026-10-14T01:12:22.032972+07:00 | TRAIN-019 check exact resume state sampler global step and disk reserve
+Command: .venv/Scripts/python.exe -c "import json,shutil
+from pathlib import Path
+from src.data.sources import sha256_file
+from src.training.engine import checkpoint_sha256,read_checkpoint
+root=Path.cwd(); cfg=json.loads((root/'configs/fullpage/training-improvement-v2-r1.json').read_text(encoding='utf-8')); checkpoint=root/'checkpoints/TRAIN-018/last.pt'; state=read_checkpoint(checkpoint); config_hash=sha256_file(root/'configs/fullpage/training-improvement-v2-r1.json')
+if state['run_id']!='TRAIN-018' or state['global_step']!=1800 or state.get('weights_only'): raise ValueError('Exact-resume checkpoint is not full state at global step 1800')
+if state['config']!=cfg or state['sampler']['cursor']!=5400: raise ValueError('Resume config or sampler cursor mismatch')
+unique={t.data_ptr():t for t in state['model'].values()}; model_bytes=sum(t.numel()*t.element_size() for t in unique.values()); estimate=model_bytes*8+128*1024**2; free=shutil.disk_usage(root).free
+if free < cfg['reserve_free_bytes']+estimate: raise OSError('Reserve does not cover exact resume checkpoint generations')
+if checkpoint_sha256(root/cfg['initial_checkpoint'])!=cfg['initial_checkpoint_sha256']: raise ValueError('Fresh INIT2048 parent changed')
+if (root/'data/evaluation/fullpage/final_consumption.json').exists(): raise ValueError('Final benchmark has been claimed')
+print(json.dumps({'resume_checkpoint_sha256':checkpoint_sha256(checkpoint),'run_id':state['run_id'],'global_step':state['global_step'],'sampler_cursor':state['sampler']['cursor'],'effective_batch':cfg['batch_size']*cfg['gradient_accumulation'],'config_sha256':config_hash,'free_gib':round(free/2**30,3),'required_resume_allowance_gib':round(estimate/2**30,3),'free_after_reserve_and_estimate_gib':round((free-cfg['reserve_free_bytes']-estimate)/2**30,3),'final_claimed':False},indent=2))"
+Commit: c829f024f66b0d343921f3fc872e3c6352f08769
+
+{
+  "resume_checkpoint_sha256": "160009de6d7b653ba392ca692a7b96fd1788a1659ca04dc9b34149d5dfe99c70",
+  "run_id": "TRAIN-018",
+  "global_step": 1800,
+  "sampler_cursor": 5400,
+  "effective_batch": 48,
+  "config_sha256": "d6476a9ee322255f8d0863074543946bd6fd80692cb87370dd8c795fa8d2936f",
+  "free_gib": 15.966,
+  "required_resume_allowance_gib": 0.56,
+  "free_after_reserve_and_estimate_gib": 0.407,
+  "final_claimed": false
+}
+
+Exit code: 0
