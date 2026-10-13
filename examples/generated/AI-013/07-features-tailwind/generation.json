@@ -1,0 +1,22 @@
+{
+  "example_id": "9af9e7fd94c380c963617b057fb9cfee12f533b1d3e2091ccaf83c0e42fdd177",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "cebe99c5cf6a5b9b27ee68ae4f4ed3ecf680f2e4fada9704fcd754d5c9c3ebd4",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "tailwind",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Klinik Takacraft",
+      "style_mode": "tailwind",
+      "primary": "#2563eb",
+      "font": "mono",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami mendukung pelanggan baru untuk memilih produk berkualitas."
+    },
+    "errors": []
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "interactions": [],
+  "language": "id",
+  "schema_version": "1.0",
+  "style_mode": "tailwind",
+  "theme": {
+    "background": "#ffffff",
+    "font": "sans",
+    "primary": "#f59e0b",
+    "text": "#111827"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "props": {
+        "brand": "Komunitas Worksi",
+        "links": [
+          {
+            "href": "#main",
+            "label": "Beranda"
+          }
+        ]
+      },
+      "type": "navbar"
+    },
+    {
+      "id": "main",
+      "props": {
+        "heading": "Komunitas Worksi",
+        "layout": "centered",
+        "text": "Kenali produk dan layanan kami."
+      },
+      "type": "hero"
+    },
+    {
+      "id": "testimonials",
+      "props": {
+        "heading": "Testimoni Contoh",
+        "items": [
+          {
+            "author": "Pengguna Demo",
+            "quote": "Ini testimoni contoh."
+          }
+        ]
+      },
+      "type": "testimonial"
+    },
+    {
+      "id": "footer",
+      "props": {
+        "text": "Komunitas Worksi"
+      },
+      "type": "footer"
+    }
+  ],
+  "title": "Komunitas Worksi"
+}

@@ -1,5 +1,7 @@
 # Pipeline ledger: docs/superpowers/plans/2026-10-12-pipeline-data-model-training.md
 
+Status terkini AI-013: [gerbang final TRAIN-015](../reports/FINAL_GATE_2026-10-13.md). Ringkasan terbaru ditambahkan di akhir file. Semua catatan sebelumnya dipertahankan sebagai riwayat.
+
 Status terbaru: [pengembangan output AI-011](../reports/OUTPUT_DEVELOPMENT_2026-10-13.md). Catatan fase sebelumnya dipertahankan.
 
 Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download dataset setelah pemeriksaan storage.
@@ -127,3 +129,11 @@ Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download da
 - Best step 0, 77 tensor identik parent TRAIN-012. Kualitas terpilih tidak membaik. RUN-163 development 24/24 schema valid, 20/24 exact; final v5 tetap tertutup. Runtime website tetap TRAIN-012 dengan overall historical gate gagal 43/48.
 - RUN-164 laporan/plot/notebook baru dan selection diagnostic; RUN-165 log training komprehensif; RUN-166 notebook 07 delapan sel tanpa error. Notebook 01 sampai 06 tetap dipertahankan. Peringatan Jupyter ditulis verbatim di RUN log.
 - [Laporan GPU](../reports/GPU_TRAINING_OPTIMIZATION_2026-10-13.md), [notebook 07](../notebooks/07_optimasi_gpu_dan_training.ipynb), dan [interaksi AI-012](interaksi_llm/AI-012_2026-10-13.md).
+# Status terbaru, AI-013, 13 Oktober 2026
+
+- TRAIN-015 selesai 2.400 update dengan data v6, total40.158train. Data tambahan21.090row sintetis, reviewed manusia tetap12. Validation/test/final v5 dipertahankan byte-identik selama pengembangan.
+- Development24/24schema dan24/24exact. Kandidat bestCE dipilih sebelum satu final:48/48schema dan44/48exact91,67%, melewati threshold90%. Empat kesalahan disimpan. Final ini sekarang consumed, bukan bahan pemilihan eksperimen selanjutnya.
+- Runtime command terbaru TRAIN-015 best. Gallery44website dan ZIP diekspor dari raw output yang accepted, HTML/CSS/Tailwind/JavaScript lokal. Prompt Senandika yang dahulu gagal kini diterima pada RUN-185.
+- Notebook08/09 dijalankan,9+6sel tanpa error; notebook01-07 dipertahankan. TRAIN log memuat budget, ancestry/hash, objective, disk, telemetry, hasil dan batas bukti.
+- [Final gate](../reports/FINAL_GATE_2026-10-13.md), [gallery](../examples/generated/AI-013/index.html), [notebook08](../notebooks/08_kualitas_penyalinan_dan_training.ipynb), [notebook09](../notebooks/09_evaluasi_final_dan_output.ipynb).
+- Tahap berikutnya: UI input dengan grammar prompt yang didukung, validasi per request, preview sandbox, unduhan, dan browser acceptance saat surface inspection tersedia. Prompt bebas/layout baru belum terbukti. Semua bagian berikut adalah riwayat tahap sebelumnya.

@@ -1,0 +1,1 @@
+Saya ingin halaman Indonesia bernama Klinik Takacraft menggunakan Tailwind. Aksen #2563eb, latar putih, teks #111827 dan font mono. Tampilkan navbar Beranda, hero centered dengan judul nama situs, dan footer nama situs. Teks utama: Kami mendukung pelanggan baru untuk memilih produk berkualitas. Gunakan menu responsif. Tambahkan dua kartu layanan: Pelatihan dan Pendampingan.

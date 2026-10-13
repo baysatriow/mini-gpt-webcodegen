@@ -1,0 +1,65 @@
+RUN-173 | 2026-10-13T19:06:34.440451+07:00 | AI-013 v6 batch48 memory and throughput probe discarded weights
+Command: .venv/Scripts/python.exe -m qa.profile_gpu_training --probe --dataset-dir data/processed/curriculum/v6 --report-id GPU-PERF-005 --case v6_packed_b48_a1 --batch 48 --accumulation 1 --backend sdpa --fused --packed --steps 40
+Commit: 4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9
+
+{
+  "case": "v6_packed_b48_a1",
+  "batch_size": 48,
+  "accumulation": 1,
+  "attention_backend": "sdpa",
+  "fused_adamw": true,
+  "supervised_only_logits": true,
+  "allocator_config": "expandable_segments:True",
+  "precision": "bf16",
+  "context": 1024,
+  "status": "completed",
+  "kind": "discarded performance probe on train only, not quality evaluation",
+  "warmup_updates": 6,
+  "measured_updates": 40,
+  "dataset_dir": "data\\processed\\curriculum\\v6",
+  "dataset_manifest_sha256": "0fb20da53b4e498cbcbadb7aa6296685a319ae323f68cc96e36f1659ba20d08c",
+  "seconds": 7.332465100043919,
+  "seconds_per_update": 0.18331162750109797,
+  "target_tokens_per_second": 104470.05059668294,
+  "input_tokens_per_second": 268133.5639753981,
+  "examples_per_second": 261.8491835697247,
+  "peak_allocated_bytes": 7057359360,
+  "peak_reserved_bytes": 7184842752,
+  "free_vram_bytes": 4331667456,
+  "max_grad_norm": 0.32353508472442627,
+  "last_loss": 0.05244540129998238,
+  "telemetry": {
+    "sample_count": 13,
+    "interval_seconds": 0.5,
+    "raw_path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\gpu_profile\\GPU-PERF-005\\v6_packed_b48_a1.telemetry.jsonl",
+    "errors": [],
+    "memory_scope": "nvidia-smi memory includes other desktop applications",
+    "utilization_pct": {
+      "mean": 94.15384615384616,
+      "max": 100.0,
+      "min": 90.0
+    },
+    "memory_used_mib": {
+      "mean": 9821.461538461539,
+      "max": 9990.0,
+      "min": 9543.0
+    },
+    "power_w": {
+      "mean": 182.53230769230768,
+      "max": 187.86,
+      "min": 131.61
+    },
+    "temperature_c": {
+      "mean": 57.0,
+      "max": 58.0,
+      "min": 55.0
+    },
+    "sm_clock_mhz": {
+      "mean": 2932.0,
+      "max": 2932.0,
+      "min": 2932.0
+    }
+  }
+}
+
+Exit code: 0

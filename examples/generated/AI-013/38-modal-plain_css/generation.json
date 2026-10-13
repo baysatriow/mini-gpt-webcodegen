@@ -1,0 +1,22 @@
+{
+  "example_id": "3f9b4058689bd4cf63d0132fbc764dd311a34a040280c5e9835820e24d8518cf",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "65d1a94b56e8b87291d9bbef9936aea36fe115001e95721a07262d6c590ebda7",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Komunitas Worksi",
+      "style_mode": "plain_css",
+      "primary": "#2563eb",
+      "font": "serif",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami melayani mitra usaha untuk meningkatkan pengalaman pengguna."
+    },
+    "errors": []
+  }
+}

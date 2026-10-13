@@ -1,0 +1,39 @@
+{
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "prompt_file_sha256": "3fce8e0e0456ccff285f6dc980e9f5f8d3737bf70392044c7a6f60082411fa57",
+  "model_quality_gate_passed": true,
+  "usage": "controlled_final_passed_demo",
+  "evidence_sha256": "8f92098bada4f494126f078dcdcdd53e415690288b9ce5b7efa4b5f32624ff36",
+  "decode_config": {
+    "precision": "bf16",
+    "temperature": 0,
+    "seed": 42,
+    "max_new_tokens": 768
+  },
+  "stop_reason": "eos",
+  "generated_tokens": 424,
+  "parse_status": "passed",
+  "schema_errors": [],
+  "parse_error": null,
+  "status": "accepted",
+  "prompt_contract_checked": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Kafe Senandika",
+      "style_mode": "tailwind",
+      "primary": "#10b981",
+      "font": "serif",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami membantu tim kreatif untuk mengembangkan gagasan baru."
+    },
+    "errors": []
+  },
+  "review_kind": "programmatic_contract",
+  "limits": [
+    "Controlled prompt patterns are supported; arbitrary wording is not established",
+    "Only explicitly extracted facts are checked; no human/browser quality approval",
+    "No JSON repair or fallback target"
+  ]
+}

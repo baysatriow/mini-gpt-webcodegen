@@ -1,0 +1,1 @@
+Tolong buat situs Indonesia bernama Klinik Sunpiblue menggunakan Tailwind. Aksen #06b6d4, latar putih, teks #111827 dan font serif. Tampilkan navbar Beranda, hero centered dengan judul nama situs, dan footer nama situs. Teks utama: Kami mendampingi pelajar Indonesia untuk memilih produk berkualitas. Navbar statis.

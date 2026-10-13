@@ -1,0 +1,66 @@
+{
+  "interactions": [
+    {
+      "target_id": "features",
+      "type": "filter"
+    }
+  ],
+  "language": "id",
+  "schema_version": "1.0",
+  "style_mode": "tailwind",
+  "theme": {
+    "background": "#ffffff",
+    "font": "serif",
+    "primary": "#2563eb",
+    "text": "#111827"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "props": {
+        "brand": "Toko Codemapolight",
+        "links": [
+          {
+            "href": "#main",
+            "label": "Beranda"
+          }
+        ]
+      },
+      "type": "navbar"
+    },
+    {
+      "id": "main",
+      "props": {
+        "heading": "Toko Codemapolight",
+        "layout": "centered",
+        "text": "Kami melayani pelajar Indonesia untuk merencanakan kegiatan bersama."
+      },
+      "type": "hero"
+    },
+    {
+      "id": "features",
+      "props": {
+        "heading": "Layanan",
+        "items": [
+          {
+            "heading": "Produk",
+            "text": "Informasi produk."
+          },
+          {
+            "heading": "Layanan",
+            "text": "Informasi layanan."
+          }
+        ]
+      },
+      "type": "feature_grid"
+    },
+    {
+      "id": "footer",
+      "props": {
+        "text": "Toko Codemapolight"
+      },
+      "type": "footer"
+    }
+  ],
+  "title": "Toko Codemapolight"
+}

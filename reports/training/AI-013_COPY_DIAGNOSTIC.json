@@ -1,0 +1,767 @@
+{
+  "dataset_manifest_sha256": "cb0537774dd785111329fc79a083a8ddbd3150ae60b5f40e57a0f6ce8e936394",
+  "train_rows": 19068,
+  "development": [
+    {
+      "evaluation": "reports\\training\\TRAIN-014-DEV_curriculum_evaluation.json",
+      "checkpoint_sha256": "0c7a4dae3ecc2b4801846727a91928e4ad3166a837cf1c16d158ccf288aaebfe",
+      "checkpoint_step": 0,
+      "schema_valid": 24,
+      "exact_contract": 20,
+      "count": 24,
+      "failures": [
+        {
+          "example_id": "8f673292ec0097dd6e3797c034de6cd21edf4a9a395483b35afc144774cb8990",
+          "recipe": "pricing",
+          "expected_name": "Kursus Workstaralasa",
+          "schema_valid": true,
+          "differences": [
+            {
+              "path": "$.sections[0].props.brand",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasa"
+            },
+            {
+              "path": "$.sections[1].props.heading",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasa"
+            },
+            {
+              "path": "$.sections[3].props.text",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasa"
+            },
+            {
+              "path": "$.title",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasa"
+            }
+          ],
+          "first_target_token_divergence": 128,
+          "expected_token": "sta",
+          "actual_token": "ra",
+          "name_piece_train_exposure": [
+            {
+              "id": 48,
+              "piece": "K",
+              "occurrences": 4740,
+              "train_rows": 4740
+            },
+            {
+              "id": 372,
+              "piece": "ur",
+              "occurrences": 1932,
+              "train_rows": 1932
+            },
+            {
+              "id": 6210,
+              "piece": "sus",
+              "occurrences": 960,
+              "train_rows": 960
+            },
+            {
+              "id": 3579,
+              "piece": " Work",
+              "occurrences": 168,
+              "train_rows": 168
+            },
+            {
+              "id": 776,
+              "piece": "sta",
+              "occurrences": 2,
+              "train_rows": 2
+            },
+            {
+              "id": 303,
+              "piece": "ra",
+              "occurrences": 210,
+              "train_rows": 204
+            },
+            {
+              "id": 271,
+              "piece": "la",
+              "occurrences": 918,
+              "train_rows": 894
+            },
+            {
+              "id": 88,
+              "piece": "s",
+              "occurrences": 1284,
+              "train_rows": 1248
+            },
+            {
+              "id": 70,
+              "piece": "a",
+              "occurrences": 8142,
+              "train_rows": 7326
+            }
+          ]
+        },
+        {
+          "example_id": "acc386a7e77c7d866c7c925d706db05b1c6a798ab957ac54889312544625f96f",
+          "recipe": "testimonial",
+          "expected_name": "Kursus Workstaralasa",
+          "schema_valid": true,
+          "differences": [
+            {
+              "path": "$.sections[0].props.brand",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasa"
+            },
+            {
+              "path": "$.sections[1].props.heading",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasa"
+            },
+            {
+              "path": "$.sections[3].props.text",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasa"
+            },
+            {
+              "path": "$.title",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasa"
+            }
+          ],
+          "first_target_token_divergence": 124,
+          "expected_token": "sta",
+          "actual_token": "ra",
+          "name_piece_train_exposure": [
+            {
+              "id": 48,
+              "piece": "K",
+              "occurrences": 4740,
+              "train_rows": 4740
+            },
+            {
+              "id": 372,
+              "piece": "ur",
+              "occurrences": 1932,
+              "train_rows": 1932
+            },
+            {
+              "id": 6210,
+              "piece": "sus",
+              "occurrences": 960,
+              "train_rows": 960
+            },
+            {
+              "id": 3579,
+              "piece": " Work",
+              "occurrences": 168,
+              "train_rows": 168
+            },
+            {
+              "id": 776,
+              "piece": "sta",
+              "occurrences": 2,
+              "train_rows": 2
+            },
+            {
+              "id": 303,
+              "piece": "ra",
+              "occurrences": 210,
+              "train_rows": 204
+            },
+            {
+              "id": 271,
+              "piece": "la",
+              "occurrences": 918,
+              "train_rows": 894
+            },
+            {
+              "id": 88,
+              "piece": "s",
+              "occurrences": 1284,
+              "train_rows": 1248
+            },
+            {
+              "id": 70,
+              "piece": "a",
+              "occurrences": 8142,
+              "train_rows": 7326
+            }
+          ]
+        },
+        {
+          "example_id": "d11ebe007fe2e1ac8ded8ff77d919273a8ff52f520bd0e04219af19ed4b8382c",
+          "recipe": "testimonial",
+          "expected_name": "Kursus Workstaralasa",
+          "schema_valid": true,
+          "differences": [
+            {
+              "path": "$.sections[0].props.brand",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workaladrasa"
+            },
+            {
+              "path": "$.sections[1].props.heading",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workaladrasa"
+            },
+            {
+              "path": "$.sections[3].props.text",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workaladrasa"
+            },
+            {
+              "path": "$.title",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workaladrasa"
+            }
+          ],
+          "first_target_token_divergence": 145,
+          "expected_token": "sta",
+          "actual_token": "alad",
+          "name_piece_train_exposure": [
+            {
+              "id": 48,
+              "piece": "K",
+              "occurrences": 4740,
+              "train_rows": 4740
+            },
+            {
+              "id": 372,
+              "piece": "ur",
+              "occurrences": 1932,
+              "train_rows": 1932
+            },
+            {
+              "id": 6210,
+              "piece": "sus",
+              "occurrences": 960,
+              "train_rows": 960
+            },
+            {
+              "id": 3579,
+              "piece": " Work",
+              "occurrences": 168,
+              "train_rows": 168
+            },
+            {
+              "id": 776,
+              "piece": "sta",
+              "occurrences": 2,
+              "train_rows": 2
+            },
+            {
+              "id": 303,
+              "piece": "ra",
+              "occurrences": 210,
+              "train_rows": 204
+            },
+            {
+              "id": 271,
+              "piece": "la",
+              "occurrences": 918,
+              "train_rows": 894
+            },
+            {
+              "id": 88,
+              "piece": "s",
+              "occurrences": 1284,
+              "train_rows": 1248
+            },
+            {
+              "id": 70,
+              "piece": "a",
+              "occurrences": 8142,
+              "train_rows": 7326
+            }
+          ]
+        },
+        {
+          "example_id": "162da6aeed7a41477c2858dc3bbd5496df63fbad01796c630a6a6f18e0fd6236",
+          "recipe": "pricing_contact",
+          "expected_name": "Kursus Workstaralasa",
+          "schema_valid": true,
+          "differences": [
+            {
+              "path": "$.sections[0].props.brand",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasa"
+            },
+            {
+              "path": "$.sections[1].props.heading",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasa"
+            },
+            {
+              "path": "$.sections[4].props.text",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasa"
+            },
+            {
+              "path": "$.title",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasa"
+            }
+          ],
+          "first_target_token_divergence": 144,
+          "expected_token": "sta",
+          "actual_token": "ra",
+          "name_piece_train_exposure": [
+            {
+              "id": 48,
+              "piece": "K",
+              "occurrences": 4740,
+              "train_rows": 4740
+            },
+            {
+              "id": 372,
+              "piece": "ur",
+              "occurrences": 1932,
+              "train_rows": 1932
+            },
+            {
+              "id": 6210,
+              "piece": "sus",
+              "occurrences": 960,
+              "train_rows": 960
+            },
+            {
+              "id": 3579,
+              "piece": " Work",
+              "occurrences": 168,
+              "train_rows": 168
+            },
+            {
+              "id": 776,
+              "piece": "sta",
+              "occurrences": 2,
+              "train_rows": 2
+            },
+            {
+              "id": 303,
+              "piece": "ra",
+              "occurrences": 210,
+              "train_rows": 204
+            },
+            {
+              "id": 271,
+              "piece": "la",
+              "occurrences": 918,
+              "train_rows": 894
+            },
+            {
+              "id": 88,
+              "piece": "s",
+              "occurrences": 1284,
+              "train_rows": 1248
+            },
+            {
+              "id": 70,
+              "piece": "a",
+              "occurrences": 8142,
+              "train_rows": 7326
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "evaluation": "reports\\training\\TRAIN-013-LAST-DEV_curriculum_evaluation.json",
+      "checkpoint_sha256": "fb4330b37f5198700d7d4ead95f7df264b02242dc3d82089e6a3dbfbaa338aac",
+      "checkpoint_step": 3600,
+      "schema_valid": 23,
+      "exact_contract": 20,
+      "count": 24,
+      "failures": [
+        {
+          "example_id": "8f673292ec0097dd6e3797c034de6cd21edf4a9a395483b35afc144774cb8990",
+          "recipe": "pricing",
+          "expected_name": "Kursus Workstaralasa",
+          "schema_valid": true,
+          "differences": [
+            {
+              "path": "$.sections[0].props.brand",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasa"
+            },
+            {
+              "path": "$.sections[1].props.heading",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasa"
+            },
+            {
+              "path": "$.sections[3].props.text",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasalasalasa"
+            },
+            {
+              "path": "$.title",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasalasalasalasa"
+            }
+          ],
+          "first_target_token_divergence": 128,
+          "expected_token": "sta",
+          "actual_token": "ra",
+          "name_piece_train_exposure": [
+            {
+              "id": 48,
+              "piece": "K",
+              "occurrences": 4740,
+              "train_rows": 4740
+            },
+            {
+              "id": 372,
+              "piece": "ur",
+              "occurrences": 1932,
+              "train_rows": 1932
+            },
+            {
+              "id": 6210,
+              "piece": "sus",
+              "occurrences": 960,
+              "train_rows": 960
+            },
+            {
+              "id": 3579,
+              "piece": " Work",
+              "occurrences": 168,
+              "train_rows": 168
+            },
+            {
+              "id": 776,
+              "piece": "sta",
+              "occurrences": 2,
+              "train_rows": 2
+            },
+            {
+              "id": 303,
+              "piece": "ra",
+              "occurrences": 210,
+              "train_rows": 204
+            },
+            {
+              "id": 271,
+              "piece": "la",
+              "occurrences": 918,
+              "train_rows": 894
+            },
+            {
+              "id": 88,
+              "piece": "s",
+              "occurrences": 1284,
+              "train_rows": 1248
+            },
+            {
+              "id": 70,
+              "piece": "a",
+              "occurrences": 8142,
+              "train_rows": 7326
+            }
+          ]
+        },
+        {
+          "example_id": "acc386a7e77c7d866c7c925d706db05b1c6a798ab957ac54889312544625f96f",
+          "recipe": "testimonial",
+          "expected_name": "Kursus Workstaralasa",
+          "schema_valid": false,
+          "differences": [
+            {
+              "path": "$",
+              "expected": {
+                "schema_version": "1.0",
+                "title": "Kursus Workstaralasa",
+                "language": "id",
+                "style_mode": "plain_css",
+                "theme": {
+                  "primary": "#2563eb",
+                  "background": "#ffffff",
+                  "text": "#111827",
+                  "font": "sans"
+                },
+                "sections": [
+                  {
+                    "id": "nav",
+                    "type": "navbar",
+                    "props": {
+                      "brand": "Kursus Workstaralasa",
+                      "links": [
+                        {
+                          "label": "Beranda",
+                          "href": "#main"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "main",
+                    "type": "hero",
+                    "props": {
+                      "heading": "Kursus Workstaralasa",
+                      "text": "Kami melayani mitra usaha untuk membangun identitas digital.",
+                      "layout": "centered"
+                    }
+                  },
+                  {
+                    "id": "testimonials",
+                    "type": "testimonial",
+                    "props": {
+                      "heading": "Testimoni Contoh",
+                      "items": [
+                        {
+                          "quote": "Ini testimoni contoh.",
+                          "author": "Pengguna Demo"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "footer",
+                    "type": "footer",
+                    "props": {
+                      "text": "Kursus Workstaralasa"
+                    }
+                  }
+                ],
+                "interactions": []
+              },
+              "actual": null
+            }
+          ],
+          "first_target_token_divergence": 124,
+          "expected_token": "sta",
+          "actual_token": "ra",
+          "name_piece_train_exposure": [
+            {
+              "id": 48,
+              "piece": "K",
+              "occurrences": 4740,
+              "train_rows": 4740
+            },
+            {
+              "id": 372,
+              "piece": "ur",
+              "occurrences": 1932,
+              "train_rows": 1932
+            },
+            {
+              "id": 6210,
+              "piece": "sus",
+              "occurrences": 960,
+              "train_rows": 960
+            },
+            {
+              "id": 3579,
+              "piece": " Work",
+              "occurrences": 168,
+              "train_rows": 168
+            },
+            {
+              "id": 776,
+              "piece": "sta",
+              "occurrences": 2,
+              "train_rows": 2
+            },
+            {
+              "id": 303,
+              "piece": "ra",
+              "occurrences": 210,
+              "train_rows": 204
+            },
+            {
+              "id": 271,
+              "piece": "la",
+              "occurrences": 918,
+              "train_rows": 894
+            },
+            {
+              "id": 88,
+              "piece": "s",
+              "occurrences": 1284,
+              "train_rows": 1248
+            },
+            {
+              "id": 70,
+              "piece": "a",
+              "occurrences": 8142,
+              "train_rows": 7326
+            }
+          ]
+        },
+        {
+          "example_id": "d11ebe007fe2e1ac8ded8ff77d919273a8ff52f520bd0e04219af19ed4b8382c",
+          "recipe": "testimonial",
+          "expected_name": "Kursus Workstaralasa",
+          "schema_valid": true,
+          "differences": [
+            {
+              "path": "$.sections[0].props.brand",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasa"
+            },
+            {
+              "path": "$.sections[1].props.heading",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasa"
+            },
+            {
+              "path": "$.sections[3].props.text",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasalasa"
+            },
+            {
+              "path": "$.title",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workrasalasalasalasalasa"
+            }
+          ],
+          "first_target_token_divergence": 145,
+          "expected_token": "sta",
+          "actual_token": "ra",
+          "name_piece_train_exposure": [
+            {
+              "id": 48,
+              "piece": "K",
+              "occurrences": 4740,
+              "train_rows": 4740
+            },
+            {
+              "id": 372,
+              "piece": "ur",
+              "occurrences": 1932,
+              "train_rows": 1932
+            },
+            {
+              "id": 6210,
+              "piece": "sus",
+              "occurrences": 960,
+              "train_rows": 960
+            },
+            {
+              "id": 3579,
+              "piece": " Work",
+              "occurrences": 168,
+              "train_rows": 168
+            },
+            {
+              "id": 776,
+              "piece": "sta",
+              "occurrences": 2,
+              "train_rows": 2
+            },
+            {
+              "id": 303,
+              "piece": "ra",
+              "occurrences": 210,
+              "train_rows": 204
+            },
+            {
+              "id": 271,
+              "piece": "la",
+              "occurrences": 918,
+              "train_rows": 894
+            },
+            {
+              "id": 88,
+              "piece": "s",
+              "occurrences": 1284,
+              "train_rows": 1248
+            },
+            {
+              "id": 70,
+              "piece": "a",
+              "occurrences": 8142,
+              "train_rows": 7326
+            }
+          ]
+        },
+        {
+          "example_id": "162da6aeed7a41477c2858dc3bbd5496df63fbad01796c630a6a6f18e0fd6236",
+          "recipe": "pricing_contact",
+          "expected_name": "Kursus Workstaralasa",
+          "schema_valid": true,
+          "differences": [
+            {
+              "path": "$.sections[0].props.brand",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workralasa"
+            },
+            {
+              "path": "$.sections[1].props.heading",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workralasa"
+            },
+            {
+              "path": "$.sections[4].props.text",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workralasa"
+            },
+            {
+              "path": "$.title",
+              "expected": "Kursus Workstaralasa",
+              "actual": "Kursus Workralasa"
+            }
+          ],
+          "first_target_token_divergence": 144,
+          "expected_token": "sta",
+          "actual_token": "ra",
+          "name_piece_train_exposure": [
+            {
+              "id": 48,
+              "piece": "K",
+              "occurrences": 4740,
+              "train_rows": 4740
+            },
+            {
+              "id": 372,
+              "piece": "ur",
+              "occurrences": 1932,
+              "train_rows": 1932
+            },
+            {
+              "id": 6210,
+              "piece": "sus",
+              "occurrences": 960,
+              "train_rows": 960
+            },
+            {
+              "id": 3579,
+              "piece": " Work",
+              "occurrences": 168,
+              "train_rows": 168
+            },
+            {
+              "id": 776,
+              "piece": "sta",
+              "occurrences": 2,
+              "train_rows": 2
+            },
+            {
+              "id": 303,
+              "piece": "ra",
+              "occurrences": 210,
+              "train_rows": 204
+            },
+            {
+              "id": 271,
+              "piece": "la",
+              "occurrences": 918,
+              "train_rows": 894
+            },
+            {
+              "id": 88,
+              "piece": "s",
+              "occurrences": 1284,
+              "train_rows": 1248
+            },
+            {
+              "id": 70,
+              "piece": "a",
+              "occurrences": 8142,
+              "train_rows": 7326
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "policy": "Only train and validation rows read; test/final files hashed for integrity but never parsed",
+  "limits": [
+    "Token exposure suggests a data imbalance; it does not prove causality or visual quality"
+  ]
+}

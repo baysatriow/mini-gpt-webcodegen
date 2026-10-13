@@ -1,0 +1,66 @@
+{
+  "interactions": [
+    {
+      "target_id": "features",
+      "type": "accordion"
+    }
+  ],
+  "language": "id",
+  "schema_version": "1.0",
+  "style_mode": "plain_css",
+  "theme": {
+    "background": "#ffffff",
+    "font": "sans",
+    "primary": "#10b981",
+    "text": "#111827"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "props": {
+        "brand": "Komunitas Worksi",
+        "links": [
+          {
+            "href": "#main",
+            "label": "Beranda"
+          }
+        ]
+      },
+      "type": "navbar"
+    },
+    {
+      "id": "main",
+      "props": {
+        "heading": "Komunitas Worksi",
+        "layout": "centered",
+        "text": "Bersama membangun pengalaman terbaik."
+      },
+      "type": "hero"
+    },
+    {
+      "id": "features",
+      "props": {
+        "heading": "Layanan",
+        "items": [
+          {
+            "heading": "Produk",
+            "text": "Informasi produk."
+          },
+          {
+            "heading": "Layanan",
+            "text": "Informasi layanan."
+          }
+        ]
+      },
+      "type": "feature_grid"
+    },
+    {
+      "id": "footer",
+      "props": {
+        "text": "Komunitas Worksi"
+      },
+      "type": "footer"
+    }
+  ],
+  "title": "Komunitas Worksi"
+}

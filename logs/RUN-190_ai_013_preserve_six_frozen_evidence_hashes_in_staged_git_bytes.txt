@@ -1,0 +1,16 @@
+RUN-190 | 2026-10-13T19:32:23.182762+07:00 | AI-013 preserve six frozen evidence hashes in staged Git bytes
+Command: .venv/Scripts/python.exe -m qa.audit_generated_artifacts --gallery-report reports/training/TRAIN-015_RENDERED_OUTPUTS.json --output reports/training/TRAIN-015_GIT_EVIDENCE_INTEGRITY.json --snapshot examples/generated/AI-013-senandika --staged-evidence
+Commit: 4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\audit_generated_artifacts.py", line 93, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\audit_generated_artifacts.py", line 84, in main
+    if hashlib.sha256(blob).hexdigest() != digest: raise ValueError(f'Staged frozen evidence changed: {path}')
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Staged frozen evidence changed: reports/training/TRAIN-015.json
+
+Exit code: 1

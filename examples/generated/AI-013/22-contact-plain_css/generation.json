@@ -1,0 +1,22 @@
+{
+  "example_id": "f718a19fcbe0875110210992a37e155eb23f24639677c39ca6d3bc7885455475",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "245bad32495cb1bd660ef20cda0995ffe5704d54ec37546e9cc89440a2f9218d",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Bengkel Norilightlight",
+      "style_mode": "plain_css",
+      "primary": "#f59e0b",
+      "font": "sans",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami mendampingi usaha kecil untuk merencanakan kegiatan bersama."
+    },
+    "errors": []
+  }
+}

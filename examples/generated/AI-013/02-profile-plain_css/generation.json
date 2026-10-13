@@ -1,0 +1,22 @@
+{
+  "example_id": "d5f7a4a267973e441f4b51b1c5f0d482b7394a4ee0346856797ca3772e92e76a",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "e356fb48f0d312c98f7039bf1849a0134d0d550d06e280cd193e0f8ed35f5454",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Pustaka Nostargomi",
+      "style_mode": "plain_css",
+      "primary": "#06b6d4",
+      "font": "serif",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami melayani usaha kecil untuk merencanakan kegiatan bersama."
+    },
+    "errors": []
+  }
+}

@@ -1,0 +1,1 @@
+Saya ingin halaman Indonesia bernama Toko Sunlacastar menggunakan CSS biasa. Aksen #06b6d4, latar putih, teks #111827 dan font mono. Tampilkan navbar Beranda, hero centered dengan judul nama situs, dan footer nama situs. Teks utama: Solusi sederhana untuk kebutuhan Anda. Gunakan menu responsif. Tambahkan modal informasi pada hero.

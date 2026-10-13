@@ -1,0 +1,22 @@
+{
+  "example_id": "f0e5bd2fa3235ee93418be90aa38eae2569c401b84ac1c2c4c4bf282b63f5ecc",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "b325b13fdb05a0e3d23b30268c58a82578318b217666fc6491ea375902b168f0",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "tailwind",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Dapur Fakamaweb",
+      "style_mode": "tailwind",
+      "primary": "#8b5cf6",
+      "font": "mono",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Solusi sederhana untuk kebutuhan Anda."
+    },
+    "errors": []
+  }
+}

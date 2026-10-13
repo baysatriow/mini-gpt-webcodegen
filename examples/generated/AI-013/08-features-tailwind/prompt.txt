@@ -1,0 +1,1 @@
+Buat website Indonesia bernama Dapur Fakamaweb menggunakan Tailwind. Aksen #10b981, latar putih, teks #111827 dan font mono. Tampilkan navbar Beranda, hero centered dengan judul nama situs, dan footer nama situs. Teks utama: Kami melayani pelanggan baru untuk merencanakan kegiatan bersama. Gunakan menu responsif. Tambahkan dua kartu layanan: Pelatihan dan Pendampingan.

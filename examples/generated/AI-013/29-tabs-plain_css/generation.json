@@ -1,0 +1,22 @@
+{
+  "example_id": "75e94013fe0c9063a863ebc0c5da5cfd038d2904af83de98c4dc22c761141353",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "e38a83f2619a682fd3752270402df95cfa349850fde209e362bbedabc43370b6",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Kebun Nori",
+      "style_mode": "plain_css",
+      "primary": "#f59e0b",
+      "font": "sans",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami melayani pemilik bisnis untuk meningkatkan pengalaman pengguna."
+    },
+    "errors": []
+  }
+}

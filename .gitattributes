@@ -1,5 +1,11 @@
 * text=auto eol=lf
 # Preserve generated snapshot bytes for file/ZIP checksum traceability.
 examples/generated/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Preserve the exact new evidence bytes referenced by frozen report hashes.
+reports/training/TRAIN-015*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/training/AI-013*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/training/GPU-PERF-005.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/training/TRAIN-013-LAST-DEV_curriculum_evaluation.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/data/SYNTHETIC_CURRICULUM_V6.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 logs/RUN-*.txt whitespace=-blank-at-eol
 data/licenses/*_CARD.md whitespace=-blank-at-eol

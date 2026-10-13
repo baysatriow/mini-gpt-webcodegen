@@ -1,0 +1,43 @@
+{
+  "interactions": [],
+  "language": "id",
+  "schema_version": "1.0",
+  "style_mode": "tailwind",
+  "theme": {
+    "background": "#ffffff",
+    "font": "mono",
+    "primary": "#2563eb",
+    "text": "#111827"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "props": {
+        "brand": "Klinik Sunpiblue",
+        "links": [
+          {
+            "href": "#main",
+            "label": "Beranda"
+          }
+        ]
+      },
+      "type": "navbar"
+    },
+    {
+      "id": "main",
+      "props": {
+        "heading": "Profil",
+        "text": "Kami mendampingi komunitas lokal untuk meningkatkan pengalaman pengguna."
+      },
+      "type": "text_section"
+    },
+    {
+      "id": "footer",
+      "props": {
+        "text": "Klinik Sunpiblue"
+      },
+      "type": "footer"
+    }
+  ],
+  "title": "Klinik Sunpiblue"
+}

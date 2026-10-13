@@ -1,0 +1,91 @@
+{
+  "interactions": [
+    {
+      "target_id": "contact",
+      "type": "form_validate"
+    }
+  ],
+  "language": "id",
+  "schema_version": "1.0",
+  "style_mode": "tailwind",
+  "theme": {
+    "background": "#ffffff",
+    "font": "mono",
+    "primary": "#10b981",
+    "text": "#111827"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "props": {
+        "brand": "Kafe Webtechraw",
+        "links": [
+          {
+            "href": "#main",
+            "label": "Beranda"
+          }
+        ]
+      },
+      "type": "navbar"
+    },
+    {
+      "id": "main",
+      "props": {
+        "heading": "Kafe Webtechraw",
+        "layout": "centered",
+        "text": "Kami membantu pemilik bisnis untuk memilih produk berkualitas."
+      },
+      "type": "hero"
+    },
+    {
+      "id": "features",
+      "props": {
+        "heading": "Layanan",
+        "items": [
+          {
+            "heading": "Kualitas",
+            "text": "Informasi kualitas."
+          },
+          {
+            "heading": "Kenyamanan",
+            "text": "Informasi kenyamanan."
+          }
+        ]
+      },
+      "type": "feature_grid"
+    },
+    {
+      "id": "contact",
+      "props": {
+        "fields": [
+          {
+            "label": "Nama",
+            "name": "nama",
+            "type": "text"
+          },
+          {
+            "label": "Email",
+            "name": "email",
+            "type": "email"
+          },
+          {
+            "label": "Pesan",
+            "name": "pesan",
+            "type": "textarea"
+          }
+        ],
+        "heading": "Hubungi Kami",
+        "submit_label": "Kirim"
+      },
+      "type": "contact_form"
+    },
+    {
+      "id": "footer",
+      "props": {
+        "text": "Kafe Webtechraw"
+      },
+      "type": "footer"
+    }
+  ],
+  "title": "Kafe Webtechraw"
+}

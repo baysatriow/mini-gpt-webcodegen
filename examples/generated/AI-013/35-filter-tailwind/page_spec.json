@@ -1,0 +1,66 @@
+{
+  "interactions": [
+    {
+      "target_id": "features",
+      "type": "filter"
+    }
+  ],
+  "language": "id",
+  "schema_version": "1.0",
+  "style_mode": "tailwind",
+  "theme": {
+    "background": "#ffffff",
+    "font": "mono",
+    "primary": "#10b981",
+    "text": "#111827"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "props": {
+        "brand": "Kafe Webtechraw",
+        "links": [
+          {
+            "href": "#main",
+            "label": "Beranda"
+          }
+        ]
+      },
+      "type": "navbar"
+    },
+    {
+      "id": "main",
+      "props": {
+        "heading": "Kafe Webtechraw",
+        "layout": "centered",
+        "text": "Kami membantu komunitas lokal untuk belajar dengan nyaman."
+      },
+      "type": "hero"
+    },
+    {
+      "id": "features",
+      "props": {
+        "heading": "Layanan",
+        "items": [
+          {
+            "heading": "Kualitas",
+            "text": "Informasi kualitas."
+          },
+          {
+            "heading": "Kenyamanan",
+            "text": "Informasi kenyamanan."
+          }
+        ]
+      },
+      "type": "feature_grid"
+    },
+    {
+      "id": "footer",
+      "props": {
+        "text": "Kafe Webtechraw"
+      },
+      "type": "footer"
+    }
+  ],
+  "title": "Kafe Webtechraw"
+}

@@ -4,6 +4,14 @@ Mini GPT WebCodeGen adalah proyek kuliah untuk membangun model generatif decoder
 
 ## Pengembangan terbaru, 13 Oktober 2026
 
+**TRAIN-015 memenuhi gerbang kontrak terkontrol:** development 24/24 sesuai persis, final 48/48 JSON valid dan 44/48 sesuai persis (91,67%). Kandidat dipilih sebelum satu evaluasi final. Empat kesalahan tetap disimpan. Benchmark ini memakai recipe sintetis bersama dengan nama yang dipisahkan antar partition, sehingga belum membuktikan kemampuan prompt bebas atau layout baru.
+
+Data v6 menambah 21.090 contoh train, total 40.158. Training 2.400 update selesai dalam 481 detik, dengan 46,35 juta label target dan sekitar 101.569 token target/detik saat update. GPU rata-rata 92,03%, maksimum 100%, suhu maksimum 68°C pada sampel update. Data, LR dan budget berbeda dari TRAIN-014; hasil ini bukan ablation yang mengisolasi efek data.
+
+Runtime yang digunakan pada command terbaru adalah **TRAIN-015 best**. [Gallery 44 website](examples/generated/AI-013/index.html) dan [ZIP output](examples/generated/AI-013/websites.zip) berisi HTML, CSS biasa atau Tailwind lokal, JavaScript, prompt dan keluaran model. [Kafe Senandika](examples/generated/AI-013-senandika/index.html) yang sebelumnya salah kini diterima pada prompt development yang sama. **UI generator dan pemeriksaan browser belum selesai.**
+
+Proses aktual tersedia di [notebook 08](notebooks/08_kualitas_penyalinan_dan_training.ipynb), [notebook 09](notebooks/09_evaluasi_final_dan_output.ipynb), [laporan final](reports/FINAL_GATE_2026-10-13.md), dan [log training](logs/LOG_TRAINING.md). Catatan berikut merupakan riwayat AI-011/AI-012 sebelum TRAIN-015.
+
 Optimasi RTX 5070 sudah dijalankan: **batch 48, BF16, SDPA, fused AdamW**, proyeksi hanya token target, dan allocator expandable segments. TRAIN-014 selesai 800 update dalam 162 detik, sekitar 99.200 token target/detik atau 3,43 kali baseline probe. Utilisasi rata-rata 93,23%, maksimum 100%, dan suhu maksimum 67°C pada sampel update. Kualitas terpilih belum meningkat, best step 0 identik dengan parent; runtime tetap TRAIN-012. Lihat [laporan GPU](reports/GPU_TRAINING_OPTIMIZATION_2026-10-13.md) dan [notebook 07](notebooks/07_optimasi_gpu_dan_training.ipynb).
 
 CLI prompt -> Mini GPT -> validasi PageSpec/kontrak -> renderer HTML/CSS/JavaScript sudah menghasilkan dua contoh Studio Cakrawala yang sesuai prompt, CSS biasa dan Tailwind dengan tabs. [Buka contoh hasil](examples/generated/AI-011/index.html) atau [unduh file](examples/generated/AI-011/examples.zip). Raw output/model SHA disertakan; tidak memperbaiki JSON atau mengganti nama setelah decoding.

@@ -1,0 +1,1 @@
+Rancang halaman Indonesia bernama Komunitas Worksi menggunakan CSS biasa. Aksen #2563eb, latar putih, teks #111827 dan font serif. Tampilkan navbar Beranda, hero centered dengan judul nama situs, dan footer nama situs. Teks utama: Kami melayani mitra usaha untuk meningkatkan pengalaman pengguna. Gunakan menu responsif. Tambahkan modal informasi pada hero.

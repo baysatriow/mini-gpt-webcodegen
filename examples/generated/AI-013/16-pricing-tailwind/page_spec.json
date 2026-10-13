@@ -1,0 +1,72 @@
+{
+  "interactions": [
+    {
+      "target_id": "nav",
+      "type": "menu_toggle"
+    }
+  ],
+  "language": "id",
+  "schema_version": "1.0",
+  "style_mode": "tailwind",
+  "theme": {
+    "background": "#ffffff",
+    "font": "mono",
+    "primary": "#8b5cf6",
+    "text": "#111827"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "props": {
+        "brand": "Dapur Fakamaweb",
+        "links": [
+          {
+            "href": "#main",
+            "label": "Beranda"
+          }
+        ]
+      },
+      "type": "navbar"
+    },
+    {
+      "id": "main",
+      "props": {
+        "heading": "Dapur Fakamaweb",
+        "layout": "centered",
+        "text": "Solusi sederhana untuk kebutuhan Anda."
+      },
+      "type": "hero"
+    },
+    {
+      "id": "pricing",
+      "props": {
+        "heading": "Paket",
+        "plans": [
+          {
+            "features": [
+              "Layanan dasar"
+            ],
+            "name": "Dasar",
+            "price": "Rp49.000"
+          },
+          {
+            "features": [
+              "Layanan lengkap"
+            ],
+            "name": "Plus",
+            "price": "Rp99.000"
+          }
+        ]
+      },
+      "type": "pricing_table"
+    },
+    {
+      "id": "footer",
+      "props": {
+        "text": "Dapur Fakamaweb"
+      },
+      "type": "footer"
+    }
+  ],
+  "title": "Dapur Fakamaweb"
+}

@@ -1,0 +1,7 @@
+RUN-172 | 2026-10-13T19:03:15.788642+07:00 | AI-013 prepare train-only lexical copying v6 preserve unopened heldout
+Command: .venv/Scripts/python.exe -m qa.prepare_copy_curriculum
+Commit: 4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9
+
+{"revision": "synthetic-contract-v6", "counts": {"train": {"rows": 40158, "families": 16239}, "validation": {"rows": 1440, "families": 240}, "test": {"rows": 1440, "families": 240}}, "added_rows": 21090, "rare_piece_count": 3903, "skipped_variants": 20679, "max_sequence_tokens": 892, "heldout_hashes_preserved": true, "final_read": false, "free_GiB": 18.36834716796875}
+
+Exit code: 0

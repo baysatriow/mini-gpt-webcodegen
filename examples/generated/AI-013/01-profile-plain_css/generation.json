@@ -1,0 +1,22 @@
+{
+  "example_id": "c98cbad74d2daa4ec491f9b5d7f32b9df531c5960bb1acabf5f111063bfd6cea",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "d3ff0d68df87db237ef20013bd1b4fa02a59dc32cc4733e05551e4310a618b22",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Kafe Webtechraw",
+      "style_mode": "plain_css",
+      "primary": "#f59e0b",
+      "font": "sans",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami melayani pemilik bisnis untuk merencanakan kegiatan bersama."
+    },
+    "errors": []
+  }
+}

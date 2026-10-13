@@ -1,6 +1,6 @@
 # Menghasilkan website dari model proyek
 
-Alur executable tersedia melalui CLI: prompt Indonesia -> Mini GPT proyek -> PageSpec JSON mentah -> schema/link/kontrak prompt -> renderer -> folder website. Antarmuka aplikasi generator akan dibuat pada tahap akhir. Laporan hasil terkini ada di [pengembangan output](../reports/OUTPUT_DEVELOPMENT_2026-10-13.md).
+Alur executable tersedia melalui CLI: prompt Indonesia -> Mini GPT proyek -> PageSpec JSON mentah -> schema/link/kontrak prompt -> renderer -> folder website. Antarmuka aplikasi generator akan dibuat pada tahap akhir. Laporan terkini: [gerbang final AI-013](../reports/FINAL_GATE_2026-10-13.md). Runtime terbaru TRAIN-015 best dan command terdapat pada bagian AI-013 di akhir panduan. Bagian awal berikut adalah riwayat AI-011.
 
 ## Persiapan
 
@@ -72,3 +72,16 @@ Setiap revision dataset yang sudah ada dipertahankan. Preparation memakai seed t
 ```
 
 Parent pretraining dan tokenizer HF harus direproduksi/disediakan terlebih dahulu sesuai [panduan training](TRAINING_GUIDE.md). Hasil penuh run aktual ada pada [log training](../logs/LOG_TRAINING.md). Jangan menganggap perintah reproduksi sebagai hasil training baru yang sudah dijalankan.
+# Runtime terbaru, AI-013
+
+TRAIN-015 best telah dipilih sebelum evaluasi final dan memenuhi gerbang kontrak terkontrol: 48/48 JSON valid, 44/48 sesuai persis. [Laporan final](../reports/FINAL_GATE_2026-10-13.md), [gallery](../examples/generated/AI-013/index.html), dan [ZIP](../examples/generated/AI-013/websites.zip). Ini belum kemampuan prompt bebas atau bukti browser. Empat output dengan nama salah tidak diekspor.
+
+CLI memerlukan checkpoint dan evidence secara eksplisit. Gunakan keduanya dari run yang sama. Contoh berikut menulis folder baru dan tetap memvalidasi setiap output, walaupun gerbang model secara keseluruhan lulus:
+
+```powershell
+.\.venv\Scripts\python.exe -m qa.run_logged --label generate_selected_model -- .venv/Scripts/python.exe -m qa.generate_website --checkpoint checkpoints/TRAIN-015/best.pt --evidence reports/training/TRAIN-015-FINAL_curriculum_evaluation.json --prompt-file outputs/generated_websites/kafe-senandika-v1/prompt.txt --output outputs/generated_websites/senandika-new-request
+```
+
+Prompt tersebut adalah contoh development yang pernah gagal. RUN-185 mengukur prompt yang sama tanpa `--development` dan hasilnya accepted pada folder `outputs/generated_websites/kafe-senandika-v2`. Model tidak memperbaiki JSON atau mengganti nama sesudah decoding. Jika output gagal kontrak, CLI menyimpan prompt/raw/error dan tidak menghasilkan HTML.
+
+Bagian berikut merekam runtime serta keterbatasan sebelum TRAIN-015. Notebook 08 mencatat fase development dan notebook 09 mencatat final yang sudah selesai. Final v5/v6 ini sudah terpakai; eksperimen baru membutuhkan holdout independen.

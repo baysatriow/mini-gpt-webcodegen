@@ -1,0 +1,22 @@
+{
+  "example_id": "4ae98e98f01b3f98b131154ebcbad40d210f7f87071b27e05873f9ce3c70660c",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "2eb9b14d099639a4a7373de63e0a87b6f2bac17d7727aefc6e9a98d16b7769b7",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Pustaka Nostargomi",
+      "style_mode": "plain_css",
+      "primary": "#f59e0b",
+      "font": "mono",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami melayani usaha kecil untuk menemukan solusi praktis."
+    },
+    "errors": []
+  }
+}

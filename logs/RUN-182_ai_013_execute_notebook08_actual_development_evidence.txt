@@ -1,0 +1,10 @@
+RUN-182 | 2026-10-13T19:19:52.560749+07:00 | AI-013 execute notebook08 actual development evidence
+Command: .venv/Scripts/python.exe -m qa.execute_notebooks --notebook 08_kualitas_penyalinan_dan_training.ipynb --save-in-place
+Commit: 4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9
+
+F:\Generative_AI\Vibe_Coding_Proyek_1\.venv\Lib\site-packages\zmq\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.
+  self._get_loop()
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+{"notebook": "08_kualitas_penyalinan_dan_training.ipynb", "kernel": "mini-gpt-webcodegen", "code_cells": 9, "error_outputs": 0, "saved_to": "notebooks\\08_kualitas_penyalinan_dan_training.ipynb"}
+
+Exit code: 0

@@ -14,7 +14,7 @@ import torch
 from torch.utils.data import DataLoader
 
 from src.data.curriculum import CurriculumDataset, verify_manifest
-from src.data.sources import write_manifest
+from src.data.sources import write_manifest, sha256_file
 from src.models.minigpt import MiniGPT
 from src.training.engine import ResumableBatchSampler, read_checkpoint, seed_everything, train_one_step
 from src.training.performance import GpuMonitor
@@ -48,7 +48,11 @@ def probe(args):
     monitor = None
     try:
         seed_everything(42)
-        manifest = verify_manifest(ROOT / 'data/processed/curriculum/v5')
+        dataset_dir = (ROOT / args.dataset_dir).resolve()
+        dataset_dir.relative_to(ROOT / 'data/processed/curriculum')
+        manifest = verify_manifest(dataset_dir)
+        report['dataset_dir'] = str(dataset_dir.relative_to(ROOT))
+        report['dataset_manifest_sha256'] = sha256_file(dataset_dir / 'manifest.json')
         parent = read_checkpoint(ROOT / 'checkpoints/TRAIN-012/best.pt')
         model = MiniGPT(parent['model_config']).cuda()
         model.load_state_dict(parent['model'])
@@ -109,6 +113,7 @@ def sweep(args):
     records = []
     for case, batch, accumulation, backend, fused in cases:
         command = [sys.executable, '-m', 'qa.profile_gpu_training', '--probe', '--report-id', args.report_id,
+                   '--dataset-dir', args.dataset_dir,
                    '--case', case, '--batch', str(batch), '--accumulation', str(accumulation),
                    '--backend', backend, '--steps', str(args.steps)] + (['--fused'] if fused else [])
         if args.packed and backend == 'sdpa':
@@ -146,6 +151,7 @@ def sweep(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--report-id', default='GPU-PERF-001')
+    parser.add_argument('--dataset-dir', default='data/processed/curriculum/v5')
     parser.add_argument('--inventory', action='store_true')
     parser.add_argument('--probe', action='store_true')
     parser.add_argument('--case')

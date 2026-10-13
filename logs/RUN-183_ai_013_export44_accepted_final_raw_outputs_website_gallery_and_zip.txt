@@ -1,0 +1,7 @@
+RUN-183 | 2026-10-13T19:23:43.107268+07:00 | AI-013 export44 accepted final raw outputs website gallery and ZIP
+Command: .venv/Scripts/python.exe -m qa.export_generated_websites --evaluation reports/training/TRAIN-015-FINAL_curriculum_evaluation.json --output examples/generated/AI-013 --report reports/training/TRAIN-015_RENDERED_OUTPUTS.json
+Commit: 4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9
+
+{"generated": 44, "gallery": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\examples\\generated\\AI-013\\index.html", "zip": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\examples\\generated\\AI-013\\websites.zip"}
+
+Exit code: 0

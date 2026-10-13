@@ -1,0 +1,22 @@
+{
+  "example_id": "b82915a197ffc5c526c2e1d774ec0d3c7c5137ddccd1f2ec269e0410dff5a2e5",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "9b5532c3965872417b81213d5e99f4863e653b35a18223a4e4c8aff3db59730d",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Toko Sunlacastar",
+      "style_mode": "plain_css",
+      "primary": "#8b5cf6",
+      "font": "mono",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami mendukung tim kreatif untuk mengembangkan gagasan baru."
+    },
+    "errors": []
+  }
+}

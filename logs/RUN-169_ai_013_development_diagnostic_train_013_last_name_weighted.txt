@@ -1,0 +1,79 @@
+RUN-169 | 2026-10-13T18:57:57.376099+07:00 | AI-013 development diagnostic TRAIN-013 last name-weighted
+Command: .venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-013/last.pt --split validation --report-id TRAIN-013-LAST-DEV
+Commit: 4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9
+
+{"example": 1, "count": 24, "recipe": "profile", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 2, "count": 24, "recipe": "profile", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 3, "count": 24, "recipe": "features", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 4, "count": 24, "recipe": "features", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 5, "count": 24, "recipe": "article", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 6, "count": 24, "recipe": "article", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 7, "count": 24, "recipe": "pricing", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 8, "count": 24, "recipe": "pricing", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 9, "count": 24, "recipe": "testimonial", "schema_valid": false, "exact_contract": false, "stop": "token_limit"}
+{"example": 10, "count": 24, "recipe": "testimonial", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 11, "count": 24, "recipe": "contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 12, "count": 24, "recipe": "contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 13, "count": 24, "recipe": "accordion", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 14, "count": 24, "recipe": "accordion", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 15, "count": 24, "recipe": "tabs", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 16, "count": 24, "recipe": "tabs", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 17, "count": 24, "recipe": "filter", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 18, "count": 24, "recipe": "filter", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 19, "count": 24, "recipe": "modal", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 20, "count": 24, "recipe": "modal", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 21, "count": 24, "recipe": "features_contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 22, "count": 24, "recipe": "features_contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 23, "count": 24, "recipe": "pricing_contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 24, "count": 24, "recipe": "pricing_contact", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{
+  "checkpoint_sha256": "fb4330b37f5198700d7d4ead95f7df264b02242dc3d82089e6a3dbfbaa338aac",
+  "checkpoint_step": 3600,
+  "schema_sha256": "7a13c15552171245fa0d28876eb6bd9612ece8dddc05a330c793574950e93bb7",
+  "split": "validation",
+  "prompt_file_sha256": "945bde9e48d4e4e274a63e519d13357b201e1c1fa9835af427cb0758031d2800",
+  "token_metrics": {
+    "loss": 0.007606502605645012,
+    "perplexity": 1.0076355055369104,
+    "valid_tokens": 623706,
+    "batches": 360
+  },
+  "count": 24,
+  "parseable": 23,
+  "schema_valid": 23,
+  "exact_contract": 20,
+  "schema_valid_rate": 0.9583333333333334,
+  "exact_contract_rate": 0.8333333333333334,
+  "resolved_links": 23,
+  "exact_field_matches": {
+    "title": 20,
+    "style_mode": 23,
+    "theme": 23,
+    "sections": 20,
+    "interactions": 23
+  },
+  "all_ended_eos": false,
+  "decode_config": {
+    "precision": "bf16",
+    "temperature": 0,
+    "seed": 42,
+    "max_new_tokens": 768
+  },
+  "acceptance_fixed_before_training": {
+    "schema_valid_rate": 0.95,
+    "exact_contract_rate": 0.9,
+    "repair_allowed": false
+  },
+  "contract_gate_passed": false,
+  "review_kind": "programmatic_contract, not human-reviewed production SFT",
+  "outputs_path": "outputs\\metrics\\TRAIN-013-LAST-DEV_curriculum_outputs.json",
+  "outputs_sha256": "ae8dfda5c4c84b1012ca6a69c1eb65d849743947027e505b1e841ad91ca2d242",
+  "limits": [
+    "Shared synthetic component recipes across partitions; fictional title families held out",
+    "No JSON repair or forced first token",
+    "No browser/manual acceptance",
+    "No claim of arbitrary real-world prompts or unseen layout-family generalization"
+  ]
+}
+
+Exit code: 0

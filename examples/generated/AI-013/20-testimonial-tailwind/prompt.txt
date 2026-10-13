@@ -1,0 +1,1 @@
+Buat website Indonesia bernama Komunitas Worksi menggunakan Tailwind. Aksen #f59e0b, latar putih, teks #111827 dan font sans. Tampilkan navbar Beranda, hero centered dengan judul nama situs, dan footer nama situs. Teks utama: Kenali produk dan layanan kami. Navbar statis. Tambahkan testimoni fiktif berjudul Testimoni Contoh: Ini testimoni contoh. oleh Pengguna Demo.

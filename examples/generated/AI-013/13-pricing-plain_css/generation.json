@@ -1,0 +1,22 @@
+{
+  "example_id": "8e7f9ad9ccb27f1e4d28e8c0f6c394cd50e3f8979e00f3141b9b61e8f292d5f4",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "94d8e235c4810eb65dd1d324e376caa1526a6d8a6aba84ee0c9c92def657dc41",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Galeri Smartbluebosa",
+      "style_mode": "plain_css",
+      "primary": "#10b981",
+      "font": "mono",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami melayani usaha kecil untuk memilih produk berkualitas."
+    },
+    "errors": []
+  }
+}

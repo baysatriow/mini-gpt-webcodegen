@@ -1,0 +1,22 @@
+{
+  "example_id": "0c874bd563f9398ea242f20cee4e0eb13edfecd784cdc5e1b61ac47411ba8eb9",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "8f3754fd1d043b09268f4031a71bdc6d2e44c4ac29b87d1bfc27f5f87b6e44f3",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "tailwind",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Klinik Sunpiblue",
+      "style_mode": "tailwind",
+      "primary": "#06b6d4",
+      "font": "serif",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami membantu usaha kecil untuk meningkatkan pengalaman pengguna."
+    },
+    "errors": []
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "example_id": "98d73873cc08b4f1a23ad7e584654462a759d148aa1213d6b3461c078552c2b0",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "e39043500d77d35007efc1b1dacc46e882ae6c1c721726123954edd1e23a9ff0",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "tailwind",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Toko Codemapolight",
+      "style_mode": "tailwind",
+      "primary": "#2563eb",
+      "font": "serif",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami melayani pelajar Indonesia untuk merencanakan kegiatan bersama."
+    },
+    "errors": []
+  }
+}
