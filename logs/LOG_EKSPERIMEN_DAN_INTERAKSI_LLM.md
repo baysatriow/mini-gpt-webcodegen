@@ -2970,3 +2970,11 @@ print(json.dumps(report,indent=2))"`.
 - **Commit:** `5270072201f1fb1725c61092844ceb28a8554f56`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-245_ai_018_verify_published_github_revision_privacy_and_historical_rendere.txt`.
+
+### RUN-246
+
+- **Waktu:** 2026-10-14T00:15:51.783536+07:00.
+- **Tujuan:** Cleanup scratch plan setelah ledger diarsipkan dan pemeriksaan akhir Git.
+- **Hasil:** automatic approval review menolak command, "blocked by policy"; proses tidak dimulai. Folder tidak dihapus, tidak ada workaround.
+- **Commit sebelum percobaan:** cffe1ed.
+- **Bukti dan keputusan:** logs/interaksi_llm/AI-018_2026-10-13.md; scratch tetap lokal, archive tetap di Git. Pemeriksaan Git diulang sebagai read-only, tidak menjalankan ulang cleanup.
