@@ -2655,3 +2655,21 @@ print(json.dumps(report,indent=2))"`.
 - **Commit:** `f194e7919d4757e75d945888afc6c8e15e400de9`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-210_ai_018_inspect_extended_checkpoint_loading_and_strict_initialization_l.txt`.
+
+### RUN-211
+
+- **Waktu:** 2026-10-13T21:05:12.923149+07:00 sampai 2026-10-13T21:05:24.101461+07:00.
+- **Tujuan:** AI-018 build new full page curriculum and frozen family splits.
+- **Command:** `.venv/Scripts/python.exe -m qa.prepare_fullpage_curriculum --output data/processed/fullpage/v1`.
+- **Commit:** `6d055ef275b4f7bf68b951f807d458310854add2`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-211_ai_018_build_new_full_page_curriculum_and_frozen_family_splits.txt`.
+
+### RUN-212
+
+- **Waktu:** 2026-10-13T21:10:13.974750+07:00 sampai 2026-10-13T21:10:24.603887+07:00.
+- **Tujuan:** AI-018 inspect fullpage loader and sampler continuation.
+- **Command:** `.venv/Scripts/python.exe -m qa.inspect_fullpage_data`.
+- **Commit:** `6d055ef275b4f7bf68b951f807d458310854add2`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-212_ai_018_inspect_fullpage_loader_and_sampler_continuation.txt`.

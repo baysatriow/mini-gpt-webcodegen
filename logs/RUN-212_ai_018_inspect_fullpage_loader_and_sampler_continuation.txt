@@ -1,0 +1,46 @@
+RUN-212 | 2026-10-13T21:10:13.974750+07:00 | AI-018 inspect fullpage loader and sampler continuation
+Command: .venv/Scripts/python.exe -m qa.inspect_fullpage_data
+Commit: 6d055ef275b4f7bf68b951f807d458310854add2
+
+{
+  "kind": "pipeline artifact diagnosis, not model generation",
+  "manifest_sha256": "86f4b41126478f87018271cb655da062d00119176df978ad9b2886976535b348",
+  "rows": {
+    "train": 5760,
+    "validation": 960
+  },
+  "counts": {
+    "train": {
+      "landing_page:plain_css": 120,
+      "landing_page:tailwind": 120,
+      "company_profile:plain_css": 120,
+      "company_profile:tailwind": 120
+    },
+    "validation": {
+      "landing_page:plain_css": 20,
+      "landing_page:tailwind": 20,
+      "company_profile:plain_css": 20,
+      "company_profile:tailwind": 20
+    }
+  },
+  "families_disjoint": true,
+  "intentional_target_duplicates": {
+    "train": 3350,
+    "validation": 550
+  },
+  "shared_component_templates": true,
+  "historical_final_used_for_selection": false,
+  "final_targets_opened": false,
+  "long_supervised_train_rows": 960,
+  "prompt_labels_masked": 2484212,
+  "eos_retained": true,
+  "sampler_restored_exactly": true,
+  "trim_shape": [
+    3,
+    1818
+  ],
+  "rejected_rows": 0,
+  "pad_labels_masked": true
+}
+
+Exit code: 0

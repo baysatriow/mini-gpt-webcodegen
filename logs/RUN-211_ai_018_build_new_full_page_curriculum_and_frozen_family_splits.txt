@@ -1,0 +1,42 @@
+RUN-211 | 2026-10-13T21:05:12.923149+07:00 | AI-018 build new full page curriculum and frozen family splits
+Command: .venv/Scripts/python.exe -m qa.prepare_fullpage_curriculum --output data/processed/fullpage/v1
+Commit: 6d055ef275b4f7bf68b951f807d458310854add2
+
+{
+  "version": "fullpage-v1",
+  "origin": "synthetic project-owned",
+  "human_reviewed": false,
+  "seed": 424242,
+  "family_counts": {
+    "train": 240,
+    "validation": 40,
+    "test": 40
+  },
+  "task_counts": {
+    "train": 5760,
+    "validation": 960,
+    "test": 800
+  },
+  "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+  "serialization": "canonical_nested_keys_plan_six_tuple_v1",
+  "block_size": 2048,
+  "output_budgets": {
+    "page_plan": 512,
+    "section_content": 1536
+  },
+  "long_train_rows": 480,
+  "max_prefix": {
+    "page_plan": 1404,
+    "section_content": 474
+  },
+  "max_target_with_eos": {
+    "page_plan": 411,
+    "section_content": 349
+  },
+  "max_total_tokens": 1815,
+  "bytes": 14110340,
+  "final_status": "frozen_unopened_for_model_selection",
+  "final_pages": 80
+}
+
+Exit code: 0
