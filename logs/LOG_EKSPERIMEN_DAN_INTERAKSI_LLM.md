@@ -1854,3 +1854,126 @@ Planning disetujui oleh pengguna melalui permintaan implementasi pipeline dan do
 - **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-155_verify_staged_example_checksums.txt`.
+
+### RUN-156
+
+- **Waktu:** 2026-10-13T10:21:55.222454+07:00 sampai 2026-10-13T10:22:02.181072+07:00.
+- **Tujuan:** gpu_performance_environment.
+- **Command:** `.venv/Scripts/python.exe -m qa.profile_gpu_training --inventory`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-156_gpu_performance_environment.txt`.
+
+### RUN-157
+
+- **Waktu:** 2026-10-13T10:22:10.945066+07:00 sampai 2026-10-13T10:23:22.976205+07:00.
+- **Tujuan:** gpu_training_batch_sweep.
+- **Command:** `.venv/Scripts/python.exe -m qa.profile_gpu_training`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-157_gpu_training_batch_sweep.txt`.
+
+### RUN-158
+
+- **Waktu:** 2026-10-13T10:24:26.085344+07:00 sampai 2026-10-13T10:25:53.838138+07:00.
+- **Tujuan:** sustained_gpu_batch_comparison.
+- **Command:** `.venv/Scripts/python.exe -m qa.profile_gpu_training --report-id GPU-PERF-002 --confirm --steps 200`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-158_sustained_gpu_batch_comparison.txt`.
+
+### RUN-159
+
+- **Waktu:** 2026-10-13T10:26:23.587465+07:00 sampai 2026-10-13T10:27:12.646501+07:00.
+- **Tujuan:** gpu_supervised_projection_sweep.
+- **Command:** `.venv/Scripts/python.exe -m qa.profile_gpu_training --report-id GPU-PERF-003 --packed --steps 100`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-159_gpu_supervised_projection_sweep.txt`.
+
+### RUN-160
+
+- **Waktu:** 2026-10-13T10:28:02.715640+07:00 sampai 2026-10-13T10:29:45.330617+07:00.
+- **Tujuan:** gpu_allocator_fragmentation_profile.
+- **Command:** `.venv/Scripts/python.exe -m qa.profile_gpu_training --report-id GPU-PERF-004 --packed --expandable-segments --steps 100`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-160_gpu_allocator_fragmentation_profile.txt`.
+
+### RUN-161
+
+- **Waktu:** 2026-10-13T10:30:36.767268+07:00 sampai 2026-10-13T10:30:41.696952+07:00.
+- **Tujuan:** profile_actual_attention_operators.
+- **Command:** `.venv/Scripts/python.exe -m qa.profile_attention_runtime`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-161_profile_actual_attention_operators.txt`.
+
+### RUN-162
+
+- **Waktu:** 2026-10-13T10:30:56.419791+07:00 sampai 2026-10-13T10:33:46.988604+07:00.
+- **Tujuan:** train_gpu_optimized_continuation.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_configured_gpu --config configs/training_gpu_optimized.json --initialize-from checkpoints/TRAIN-012/best.pt`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-162_train_gpu_optimized_continuation.txt`.
+
+### RUN-164
+
+- **Waktu:** 2026-10-13T10:35:06.842778+07:00 sampai 2026-10-13T10:35:11.458862+07:00.
+- **Tujuan:** summarize_gpu_training_and_notebook.
+- **Command:** `.venv/Scripts/python.exe -m qa.summarize_gpu_training --run-id TRAIN-014`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-164_summarize_gpu_training_and_notebook.txt`.
+
+### RUN-163
+
+- **Waktu:** 2026-10-13T10:34:14.741171+07:00 sampai 2026-10-13T10:35:22.177431+07:00.
+- **Tujuan:** gpu_optimized_development_evaluation.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-014/best.pt --report-id TRAIN-014-DEV`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-163_gpu_optimized_development_evaluation.txt`.
+
+### RUN-165
+
+- **Waktu:** 2026-10-13T10:38:38.844857+07:00 sampai 2026-10-13T10:38:38.985523+07:00.
+- **Tujuan:** record_actual_gpu_training.
+- **Command:** `.venv/Scripts/python.exe -m qa.record_gpu_training --run-id TRAIN-014`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-165_record_actual_gpu_training.txt`.
+
+### RUN-166
+
+- **Waktu:** 2026-10-13T10:38:41.110814+07:00 sampai 2026-10-13T10:38:44.144372+07:00.
+- **Tujuan:** execute_gpu_optimization_notebook.
+- **Command:** `.venv/Scripts/python.exe -m qa.execute_notebooks --notebook 07_optimasi_gpu_dan_training.ipynb --save-in-place`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-166_execute_gpu_optimization_notebook.txt`.
+
+### RUN-167
+
+- **Waktu:** 2026-10-13T10:41:09.427051+07:00 sampai 2026-10-13T10:41:09.964639+07:00.
+- **Tujuan:** gpu_training_delivery_structure.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-167_gpu_training_delivery_structure.txt`.
+
+### RUN-168
+
+- **Waktu:** 2026-10-13T10:42:50.802136+07:00 sampai 2026-10-13T10:42:51.289892+07:00.
+- **Tujuan:** gpu_final_artifact_structure.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-168_gpu_final_artifact_structure.txt`.
+
+## Ringkasan terbaru AI-012
+
+Optimasi GPU telah dijalankan, termasuk empat sweep yang bobotnya dibuang dan TRAIN-014 dengan 800 update nyata. Config terpilih batch 48, BF16, SDPA, fused AdamW, projection hanya token target, dan expandable segments. Throughput 99.200 token target/detik, sekitar 3,43 kali baseline probe. Utilisasi GPU rata-rata 93,23%, maksimum 100%, suhu maksimum 67C pada sampel update. Tidak ada exception/OOM/nonfinite pada training.
+
+Kualitas terpilih belum meningkat: best step 0 identik parent TRAIN-012; development 24/24 schema valid,20/24 exact. Runtime website tetap TRAIN-012 dan overall final historis 43/48 masih gagal. Final v5 tetap tertutup. Notebook 07 delapan sel berhasil dieksekusi; tujuh notebook memiliki 56 sel executed tanpa error sel, notebook 01 sampai 06 tetap dipertahankan. [Interaksi AI-012](interaksi_llm/AI-012_2026-10-13.md), [laporan GPU](../reports/GPU_TRAINING_OPTIMIZATION_2026-10-13.md), [notebook 07](../notebooks/07_optimasi_gpu_dan_training.ipynb). Interaksi berikutnya AI-013; nomor RUN mengikuti ID tertinggi di logs/RUN-*.txt.

@@ -83,8 +83,8 @@ def _autocast(device, precision):
 
 
 def loss_sum(logits, labels):
-    if labels.shape != logits.shape[:2]:
-        raise ValueError("Label shape must match logits [batch, sequence]")
+    if labels.shape != logits.shape[:-1]:
+        raise ValueError("Label shape must match every logits axis except vocabulary")
     count = int((labels != -100).sum().item())
     if not count:
         raise ValueError("Batch contains no supervised tokens")
@@ -111,14 +111,23 @@ def train_one_step(model, batch, optimizer, scaler, phase, *, precision="fp32", 
     denominator = sum(float(item['loss_weights'].sum()) for item in batches) if weighted else token_count
     if denominator <= 0 or not math.isfinite(denominator): raise ValueError('Invalid loss-weight denominator')
     for item in batches:
-        item = {key: value.to(device) for key, value in item.items()}
+        item = {key: value.to(device, non_blocking=value.is_pinned()) for key, value in item.items()}
         with _autocast(device, precision):
-            logits = model(item['input_ids'])
             if weighted:
                 weights, labels = item['loss_weights'], item['labels']
                 if (weights.shape != labels.shape or not torch.isfinite(weights).all() or (weights < 0).any()
                         or (weights[labels == -100] != 0).any() or (weights[labels != -100] <= 0).any()):
                     raise ValueError('Invalid weights or prompt/pad mask')
+            if getattr(model, 'supervised_only_logits', False):
+                active = item['labels'] != -100
+                logits = model(item['input_ids'], output_mask=active)
+                item['labels'] = item['labels'][active]
+                if weighted:
+                    item['loss_weights'] = item['loss_weights'][active]
+            else:
+                logits = model(item['input_ids'])
+            if weighted:
+                weights, labels = item['loss_weights'], item['labels']
                 losses = F.cross_entropy(logits.float().reshape(-1, logits.shape[-1]), labels.reshape(-1), ignore_index=-100, reduction='none')
                 total = (losses * weights.float().reshape(-1)).sum()
                 if not torch.isfinite(total): raise FloatingPointError('Nonfinite weighted loss')
@@ -306,16 +315,32 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
                 handle.write(line + "\n")
             print(line, flush=True)
     model, optimizer, scheduler, last = None, None, None, directory / "last.pt"
+    monitor = None
     try:
         seed_everything(config["seed"])
         device = torch.device(config["device"])
         model_config = config.get("model_config") or json.loads((root / config["model_config_path"]).read_text())
         config["model_config"] = model_config
         model = MiniGPT(model_config).to(device)
+        performance = config.get("performance", {})
+        requested_allocator = performance.get("allocator_config")
+        if requested_allocator and os.environ.get("PYTORCH_ALLOC_CONF") != requested_allocator:
+            raise ValueError("Start a fresh process with the configured allocator before importing torch")
+        model.set_attention_backend(performance.get("attention_backend", "manual"))
+        model.supervised_only_logits = performance.get("supervised_only_logits", False)
+        if performance.get("tf32", False):
+            if device.type != "cuda":
+                raise ValueError("TF32 performance setting requires CUDA")
+            torch.backends.cuda.matmul.allow_tf32 = True
+            torch.backends.cudnn.allow_tf32 = True
+        if performance.get("gpu_telemetry", False):
+            from src.training.performance import GpuMonitor
+            monitor = GpuMonitor(root / f"outputs/metrics/{run_id}_gpu.jsonl").start()
         estimated_checkpoint_bytes = model.parameter_count() * 12 * 6 + 64 * 1024**2
         if shutil.disk_usage(root).free < config["reserve_free_bytes"] + estimated_checkpoint_bytes:
             raise OSError("Insufficient storage for last/best checkpoints while preserving reserve")
-        optimizer = torch.optim.AdamW(model.parameters(), lr=config["learning_rate"], betas=tuple(config["betas"]), weight_decay=config["weight_decay"])
+        optimizer_options = {"fused": True} if performance.get("fused_adamw", False) else {}
+        optimizer = torch.optim.AdamW(model.parameters(), lr=config["learning_rate"], betas=tuple(config["betas"]), weight_decay=config["weight_decay"], **optimizer_options)
         def rate(step):
             if step < config["warmup_steps"]:
                 return (step + 1) / max(1, config["warmup_steps"])
@@ -366,6 +391,8 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
             summary["best_checkpoint_source"] = str(parent_best_path)
         summary.update(parameter_count=model.parameter_count(), model_config=model.config,
                        device=str(device), precision=config["precision"], global_step=step,
+                       performance=performance,
+                       allocator_config=os.environ.get("PYTORCH_ALLOC_CONF", ""),
                        resume_parent_sha256=checkpoint_sha256(Path(resume)) if resume else None)
         def snapshot(*, include_best=True):
             return {"format_version": 1, "run_id": run_id, "model": model.state_dict(), "model_config": model.config,
@@ -413,6 +440,7 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
                 torch.cuda.synchronize()
             seconds = time.perf_counter() - began
             emit({"event": "train", "step": step, **report, "learning_rate": used_lr,
+                  "time_unix": time.time(),
                   "seconds": seconds, "tokens_per_second": report["valid_tokens"] / seconds,
                   "data_cursor": train_loader.batch_sampler.cursor}, console=step % config["log_interval"] == 0 or step == 1)
             summary.update(global_step=step, final_train_loss=report["loss"], total_train_tokens=total_tokens)
@@ -437,6 +465,8 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
               "error_type": type(error).__name__, "error": str(error)})
         raise
     finally:
+        if monitor is not None:
+            summary["gpu_telemetry"] = monitor.finish()
         summary.update(ended_at_utc=datetime.now(timezone.utc).isoformat(), wall_seconds=time.perf_counter() - started,
                        free_bytes_after=shutil.disk_usage(root).free)
         if model is not None and next(model.parameters()).is_cuda:

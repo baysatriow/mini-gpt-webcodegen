@@ -117,3 +117,13 @@ Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download da
 - RUN-098/099 notebook05/profil/grafik; lima notebook38sel tanpa cell error. Snapshot output notebook01-04 dipertahankan, status terbaru pada05.
 - Ruling: aplikasi tetap tahap akhir, needs-more-data-and-model-work. Tidak menyalin target test ke train. Kandidat tambahan belum disetujui oleh approval12pilot.
 - RUN-100/101: hasil dan log lengkap ditulis; 53 Python / 35 JSON / 42 Markdown / lima notebook dengan 38 sel valid, tanpa temuan format/syntax/link. Private GitHub dan ignore reviewed/raw/checkpoint dikonfirmasi. Dua blank line baru pada log diperbaiki sebelum commit.
+
+## AI-012: Optimasi training GPU
+
+- RUN-156 mengonfirmasi VENV/CUDA/RTX 5070. RUN-157 sampai RUN-160 melakukan empat sweep aktual yang terpisah. Bobot probe dibuang; train-only, tidak membuka final.
+- Config terpilih batch 48, BF16, SDPA, fused AdamW, proyeksi token target, dan expandable segments. Batch 64 sedikit lebih cepat tetapi ditolak karena headroom kurang dari 1 GiB. Tidak melakukan perubahan power limit, clock, driver atau arsitektur.
+- RUN-161 operator profiler menunjukkan memory-efficient attention CUTLASS dan fused AdamW, bukan klaim FlashAttention.
+- RUN-162 TRAIN-014 selesai 800 update, 162,257 detik, 14.365.682 target labels. Throughput update setelah lima step awal 99.200 token target/detik, sekitar 3,43 kali baseline probe. Active GPU mean 93,23%, maksimum 100%, suhu maksimum 67C. Tidak ada exception/OOM/nonfinite.
+- Best step 0, 77 tensor identik parent TRAIN-012. Kualitas terpilih tidak membaik. RUN-163 development 24/24 schema valid, 20/24 exact; final v5 tetap tertutup. Runtime website tetap TRAIN-012 dengan overall historical gate gagal 43/48.
+- RUN-164 laporan/plot/notebook baru dan selection diagnostic; RUN-165 log training komprehensif; RUN-166 notebook 07 delapan sel tanpa error. Notebook 01 sampai 06 tetap dipertahankan. Peringatan Jupyter ditulis verbatim di RUN log.
+- [Laporan GPU](../reports/GPU_TRAINING_OPTIMIZATION_2026-10-13.md), [notebook 07](../notebooks/07_optimasi_gpu_dan_training.ipynb), dan [interaksi AI-012](interaksi_llm/AI-012_2026-10-13.md).

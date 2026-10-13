@@ -16,12 +16,18 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--save-in-place", action="store_true",
                         help="Save executed outputs in the tracked notebook files")
+    parser.add_argument("--notebook", help="Execute one notebook by filename in notebooks/")
     args = parser.parse_args()
     spec = KernelSpecManager().get_kernel_spec(KERNEL)
     expected = ROOT / ".venv/Scripts/python.exe"
     if Path(spec.argv[0]).resolve() != expected.resolve():
         raise ValueError("Notebook kernel does not point to this project's VENV")
-    for path in sorted((ROOT / "notebooks").glob("[0-9][0-9]_*.ipynb")):
+    paths = sorted((ROOT / "notebooks").glob("[0-9][0-9]_*.ipynb"))
+    if args.notebook:
+        paths = [path for path in paths if path.name == args.notebook]
+        if not paths:
+            raise ValueError("Notebook must be an existing numbered project notebook filename")
+    for path in paths:
         notebook = nbformat.read(path, as_version=4)
         nbformat.validate(notebook)
         for cell in notebook.cells:

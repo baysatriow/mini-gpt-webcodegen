@@ -1,0 +1,76 @@
+RUN-161 | 2026-10-13T10:30:36.767268+07:00 | profile_actual_attention_operators
+Command: .venv/Scripts/python.exe -m qa.profile_attention_runtime
+Commit: d876a9a227747ef751389f7ebf0c1e661885325b
+
+USDT:2026-10-13 10:30:40 49736:42352 C:\actions-runner\_work\pytorch\pytorch\third_party\kineto\libkineto\src\SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-10-13 10:30:40 49736:42352 C:\actions-runner\_work\pytorch\pytorch\third_party\kineto\libkineto\src\SyncActivityProfilerHandler.cpp:46] profiler_stop
+{
+  "kind": "operator profiling on train only; discarded weights",
+  "operators": [
+    {
+      "name": "Optimizer.zero_grad#AdamW.zero_grad",
+      "calls": 1
+    },
+    {
+      "name": "aten::scaled_dot_product_attention",
+      "calls": 6
+    },
+    {
+      "name": "aten::_scaled_dot_product_efficient_attention",
+      "calls": 6
+    },
+    {
+      "name": "aten::_efficient_attention_forward",
+      "calls": 6
+    },
+    {
+      "name": "_Z40fmha_cutlassF_bf16_aligned_64x64_rf_sm80N22PyTorchMemEffAttention15AttentionKernelIN7cutlass10bfloat16_tENS1_4arch4Sm80ELb1ELi64ELi64ELi64ELb1ELb1EE6ParamsE",
+      "calls": 6
+    },
+    {
+      "name": "autograd::engine::evaluate_function: ScaledDotProductEfficientAttentionBackward0",
+      "calls": 6
+    },
+    {
+      "name": "ScaledDotProductEfficientAttentionBackward0",
+      "calls": 6
+    },
+    {
+      "name": "aten::_scaled_dot_product_efficient_attention_backward",
+      "calls": 6
+    },
+    {
+      "name": "aten::_efficient_attention_backward",
+      "calls": 6
+    },
+    {
+      "name": "_Z49fmha_cutlassB_bf16_aligned_64x64_k64_dropout_sm80N22PyTorchMemEffAttention23AttentionBackwardKernelIN7cutlass4arch4Sm80ENS1_10bfloat16_tELb1ELb1ELb1ELi64ELi64ELi64ELb0EE6ParamsE",
+      "calls": 6
+    },
+    {
+      "name": "Optimizer.step#AdamW.step",
+      "calls": 1
+    },
+    {
+      "name": "Optimizer.step#AdamW.step",
+      "calls": 1
+    },
+    {
+      "name": "aten::_fused_adamw_",
+      "calls": 1
+    },
+    {
+      "name": "_ZN2at6native52_GLOBAL__N__5cba4f39_19_fused_adamw_impl_cu_8b44fa2325multi_tensor_apply_kernelINS1_32FusedOptimizerTensorListMetadataILi4EEENS1_20FusedAdamMathFunctorIfLi4ELNS0_9ADAM_MODEE1ELb0EEEJPKfdddddbS9_S9_EEEvT_T0_DpT1_",
+      "calls": 1
+    }
+  ],
+  "update": {
+    "loss": 7.055917603942891e-05,
+    "grad_norm": 0.0017556919483467937,
+    "valid_tokens": 1519
+  },
+  "torch": "2.14.1+cu130",
+  "gpu": "NVIDIA GeForce RTX 5070"
+}
+
+Exit code: 0

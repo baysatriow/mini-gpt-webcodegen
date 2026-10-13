@@ -10,6 +10,7 @@ Buka dengan VS Code/Jupyter dan pilih **Mini GPT WebCodeGen (Python 3.11 CUDA)**
 4. [Kurasi dan SFT](04_kurasi_dan_sft.ipynb): coverage queue/pilot, prompt Indonesia, PageSpec draft, checklist manusia, checksum/provenance, mask target, dan penolakan draft oleh loader produksi.
 5. [SFT pilot dan evaluasi](05_sft_pilot_dan_evaluasi.ipynb): approval 12 kandidat, preparation 4/4/4, coverage train, mask target, smoke/40 update pilot, loss graph dan hasil generasi held-out 0/4 valid.
 6. [Pengembangan output PageSpec](06_pengembangan_output_pagespec.ipynb): diagnosis, curriculum v1-v5, raw output, objective nama, final43/48 yang gagal, dan dua contoh website yang diterima per output. Grafik TRAIN-013 memakai weighted train objective dan ordinary validation CE, bukan dua loss yang langsung dibandingkan.
+7. [Optimasi GPU dan training](07_optimasi_gpu_dan_training.ipynb): empat sweep nyata, batch yang ditolak, backend CUDA aktual, TRAIN-014 dengan 800 update, throughput/VRAM/daya/suhu, dan development yang belum meningkat. Default membaca laporan; training opt-in melalui RUN logger.
 
 Output tersimpan berasal dari eksekusi nyata. Run All default membaca artifact historis dan menjalankan contoh kecil di memori. `RUN_SMOKE=False`; mengubahnya menjadi True memulai smoke baru melalui pencatat RUN dan TRAIN ID baru.
 

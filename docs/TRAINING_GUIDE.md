@@ -4,6 +4,18 @@ Semua command dijalankan dari root proyek menggunakan VENV lokal. Config dan bob
 
 ## Profiling, smoke, dan baseline
 
+### Runtime GPU untuk curriculum PageSpec
+
+Optimasi terbaru tersedia pada [laporan GPU](../reports/GPU_TRAINING_OPTIMIZATION_2026-10-13.md) dan [notebook 07](../notebooks/07_optimasi_gpu_dan_training.ipynb). TRAIN-014 selesai 800 update dengan batch 48, BF16, SDPA, fused AdamW, proyeksi vocabulary hanya untuk token target, dan allocator expandable segments. Throughput nyata sekitar 99.200 token target/detik, 3,43 kali baseline probe. Ini konfigurasi tercepat yang memenuhi syarat headroom pada grid yang sudah diukur. Kualitas terpilih belum meningkat; jangan menganggap throughput sebagai skor kualitas.
+
+```powershell
+.\.venv\Scripts\python.exe -m qa.run_logged --label train_gpu_optimized -- .venv/Scripts/python.exe -m qa.train_configured_gpu --initialize-from checkpoints/TRAIN-012/best.pt
+```
+
+Launcher memakai `configs/training_gpu_optimized.json` secara default dan membuat process baru dengan allocator yang tercatat. Semua run mendapat RUN/TRAIN baru. Batch ini diprofilkan untuk curriculum dengan mask prompt/padding. Profilkan kembali untuk pretraining code, model/context baru, atau beban GPU lain. Jika batch dikurangi, sesuaikan validation_batches untuk tetap membaca seluruh 1.440 validation rows. Pilih checkpoint dengan validation; final v5 tetap tertutup pada eksperimen optimasi ini.
+
+### Profil awal pretraining, riwayat
+
 ```powershell
 .\.venv\Scripts\python.exe qa/run_logged.py --label gpu_profile -- .\.venv\Scripts\python.exe qa/profile_minigpt.py --run-id TRAIN-NNN
 .\.venv\Scripts\python.exe qa/run_logged.py --label smoke -- .\.venv\Scripts\python.exe -m qa.train_minigpt --config configs/training_pretrain.json --max-steps 5 --smoke

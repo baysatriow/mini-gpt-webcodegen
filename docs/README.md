@@ -12,6 +12,7 @@ Dokumen di sini menjelaskan ruang lingkup, persyaratan tugas, sumber dataset, en
 - [Panduan pipeline data](PIPELINE_DATA_GUIDE.md): command akuisisi, preparation, review SFT, tokenizer, dan pemeriksaan integritas.
 - [Review pipeline](../reports/REVIEW_PIPELINE_2026-10-12.md): empat temuan, perbaikan, regression tests, dan batas review data.
 - [Panduan training](TRAINING_GUIDE.md): profiling, smoke/baseline, resume, SFT, failure artifact, dan evaluasi.
+- [Optimasi GPU](../reports/GPU_TRAINING_OPTIMIZATION_2026-10-13.md): empat sweep RTX 5070, runtime optimal, training nyata, telemetry, dan batas kualitas.
 - [Ringkasan baseline](../reports/PIPELINE_TRAINING_SUMMARY.md): hasil pretraining terukur, grafik, checkpoint dan probe JSON historis.
 - [Hasil SFT pilot](../reports/SFT_PILOT_SUMMARY_2026-10-13.md): approval, 40 update, loss target dan generasi 0/4 valid.
 - [Pengembangan output](SFT_DEVELOPMENT_2026-10-13.md): diagnosis, curriculum sintetis, serialization, dan penyalinan nama.

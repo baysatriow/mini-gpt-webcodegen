@@ -4,6 +4,8 @@ Mini GPT WebCodeGen adalah proyek kuliah untuk membangun model generatif decoder
 
 ## Pengembangan terbaru, 13 Oktober 2026
 
+Optimasi RTX 5070 sudah dijalankan: **batch 48, BF16, SDPA, fused AdamW**, proyeksi hanya token target, dan allocator expandable segments. TRAIN-014 selesai 800 update dalam 162 detik, sekitar 99.200 token target/detik atau 3,43 kali baseline probe. Utilisasi rata-rata 93,23%, maksimum 100%, dan suhu maksimum 67°C pada sampel update. Kualitas terpilih belum meningkat, best step 0 identik dengan parent; runtime tetap TRAIN-012. Lihat [laporan GPU](reports/GPU_TRAINING_OPTIMIZATION_2026-10-13.md) dan [notebook 07](notebooks/07_optimasi_gpu_dan_training.ipynb).
+
 CLI prompt -> Mini GPT -> validasi PageSpec/kontrak -> renderer HTML/CSS/JavaScript sudah menghasilkan dua contoh Studio Cakrawala yang sesuai prompt, CSS biasa dan Tailwind dengan tabs. [Buka contoh hasil](examples/generated/AI-011/index.html) atau [unduh file](examples/generated/AI-011/examples.zip). Raw output/model SHA disertakan; tidak memperbaiki JSON atau mengganti nama setelah decoding.
 
 Model runtime TRAIN-012 masih gagal overall quality gate:48/48schema valid,43/48exact89,58%, target90%. Contoh memakai **mode development** dengan validasi penuh per output, bukan klaim siap produksi. Kafe Senandika salah menjadi Senanka dan ditolak. Eksperimen name-weighted TRAIN-013 tidak meningkatkan validation; beststep0 identik parent. Final v5 belum dibuka. Prompt bebas/browser quality belum terbukti.
@@ -40,7 +42,7 @@ Lihat [hasil pengembangan](reports/OUTPUT_DEVELOPMENT_2026-10-13.md), [panduan g
 | Keluaran aplikasi | HTML5, CSS biasa atau Tailwind, JavaScript murni |
 | Metrik dan log | Markdown, JSONL/JSON, grafik loss |
 
-Environment GPU tersedia dan sudah diperiksa secara lokal. Baseline Mini GPT memakai 14.186.496 parameter, 6 layer / 6 head / embedding 384, context 1.024, dan BF16. Batch 4 dengan accumulation 4 dipilih setelah profiling RTX 5070. Periksa ulang versi software sebelum membuat ulang environment.
+Environment GPU tersedia dan sudah diperiksa secara lokal. Baseline Mini GPT memakai 14.186.496 parameter, 6 layer / 6 head / embedding 384, context 1.024, dan BF16. Profil awal pretraining memakai batch 4 dengan accumulation 4. Curriculum terbaru menggunakan [runtime GPU optimal](configs/training_gpu_optimized.json), batch 48 dengan accumulation 1. Ukuran batch ini perlu diprofilkan kembali untuk pretraining yang semua tokennya aktif. Periksa ulang versi software sebelum membuat ulang environment.
 
 ## Alur produk
 

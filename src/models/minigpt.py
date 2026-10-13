@@ -3,6 +3,7 @@ import math
 
 import torch
 from torch import nn
+from torch.nn import functional as F
 
 
 class CausalSelfAttention(nn.Module):
@@ -15,16 +16,23 @@ class CausalSelfAttention(nn.Module):
         self.projection = nn.Linear(width, width)
         self.attention_dropout = nn.Dropout(config["dropout"])
         self.output_dropout = nn.Dropout(config["dropout"])
+        # Runtime choice only: checkpoint tensor names and architecture stay compatible.
+        self.backend = "manual"
         self.register_buffer("causal_mask", torch.tril(torch.ones(config["block_size"], config["block_size"], dtype=torch.bool)), persistent=False)
 
     def forward(self, x):
         batch, length, width = x.shape
         q, k, v = self.qkv(x).chunk(3, dim=-1)
         q, k, v = [item.reshape(batch, length, self.heads, self.head_dim).transpose(1, 2) for item in (q, k, v)]
-        scores = (torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.head_dim)).float()
-        scores = scores.masked_fill(~self.causal_mask[:length, :length], float("-inf"))
-        weights = self.attention_dropout(torch.softmax(scores, dim=-1).to(v.dtype))
-        attended = torch.matmul(weights, v).transpose(1, 2).contiguous().reshape(batch, length, width)
+        if self.backend == "sdpa":
+            attended = F.scaled_dot_product_attention(q, k, v, is_causal=True,
+                dropout_p=self.attention_dropout.p if self.training else 0.0)
+        else:
+            scores = (torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.head_dim)).float()
+            scores = scores.masked_fill(~self.causal_mask[:length, :length], float("-inf"))
+            weights = self.attention_dropout(torch.softmax(scores, dim=-1).to(v.dtype))
+            attended = torch.matmul(weights, v)
+        attended = attended.transpose(1, 2).contiguous().reshape(batch, length, width)
         return self.output_dropout(self.projection(attended))
 
 
@@ -70,7 +78,7 @@ class MiniGPT(nn.Module):
             if isinstance(module, nn.Linear) and module.bias is not None:
                 nn.init.zeros_(module.bias)
 
-    def forward(self, input_ids):
+    def forward(self, input_ids, *, output_mask=None):
         if input_ids.ndim != 2 or input_ids.dtype != torch.long:
             raise ValueError("input_ids must be int64 [batch, sequence]")
         length = input_ids.shape[1]
@@ -78,7 +86,18 @@ class MiniGPT(nn.Module):
             raise ValueError("Sequence length exceeds context or is empty")
         positions = torch.arange(length, device=input_ids.device)
         embedded = self.token_embedding(input_ids) + self.position_embedding(positions)
-        return self.lm_head(self.final_norm(self.blocks(self.embedding_dropout(embedded))))
+        hidden = self.final_norm(self.blocks(self.embedding_dropout(embedded)))
+        if output_mask is not None:
+            if output_mask.shape != input_ids.shape or output_mask.dtype != torch.bool:
+                raise ValueError("Output mask must be bool with input shape")
+            hidden = hidden[output_mask]
+        return self.lm_head(hidden)
 
     def parameter_count(self):
         return sum(parameter.numel() for parameter in self.parameters())
+
+    def set_attention_backend(self, backend):
+        if backend not in {"manual", "sdpa"}:
+            raise ValueError("Attention backend must be manual or sdpa")
+        for block in self.blocks:
+            block.attention.backend = backend

@@ -63,8 +63,9 @@ def main():
                 or weights['train_sha256'] != manifest['files']['train']['rows']['sha256']):
             raise ValueError('Name-weight objective data changed')
         cfg['lineage']['name_loss_weights'] = weights
-    train = DataLoader(CurriculumDataset(manifest, 'train', weights_path), batch_sampler=ResumableBatchSampler(manifest['counts']['train']['rows'], cfg['batch_size'], cfg['seed']), num_workers=0)
-    development = DataLoader(Subset(CurriculumDataset(manifest, 'validation'), indices), batch_size=cfg['batch_size'], num_workers=0)
+    pinned = cfg.get('performance', {}).get('pin_memory', False)
+    train = DataLoader(CurriculumDataset(manifest, 'train', weights_path), batch_sampler=ResumableBatchSampler(manifest['counts']['train']['rows'], cfg['batch_size'], cfg['seed']), num_workers=0, pin_memory=pinned)
+    development = DataLoader(Subset(CurriculumDataset(manifest, 'validation'), indices), batch_size=cfg['batch_size'], num_workers=0, pin_memory=pinned)
     run_id = next_run_id()
     runtime = ROOT / f'configs/.{run_id}.json'
     write_manifest(runtime, cfg)
