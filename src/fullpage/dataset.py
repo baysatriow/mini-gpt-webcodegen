@@ -46,10 +46,14 @@ class TaskDataset(Dataset):
 
 
 class TaskBatchSampler(ResumableBatchSampler):
-    def __init__(self, lengths, task_kinds, batch_size, seed, balanced=True):
+    def __init__(self, lengths, task_kinds, batch_size, seed, balanced=True, plan_probability=.3):
         super().__init__(len(lengths), batch_size, seed)
+        if not 0 < plan_probability < 1: raise ValueError('Plan probability must be between zero and one')
+        self.plan_probability = plan_probability
         self.balanced = balanced
-        self.fingerprint = hashlib.sha256(canonical([lengths, task_kinds, balanced]).encode()).hexdigest()
+        identity = [lengths, task_kinds, balanced]
+        if plan_probability != .3: identity.append(plan_probability)
+        self.fingerprint = hashlib.sha256(canonical(identity).encode()).hexdigest()
         self.groups = {}
         for index, (length, task) in enumerate(zip(lengths, task_kinds, strict=True)):
             bucket = next(b for b in (256, 512, 1024, 2048) if length <= b)
@@ -63,7 +67,7 @@ class TaskBatchSampler(ResumableBatchSampler):
             return [order[i:i+self.batch_size] for i in range(0, self.size, self.batch_size)]
         batches = []
         for _ in range(self.batches_per_epoch):
-            task = 'page_plan' if rng.random() < .3 else 'section_content'
+            task = 'page_plan' if rng.random() < self.plan_probability else 'section_content'
             groups = [v for (kind, bucket), v in self.groups.items() if kind == task]
             pool = rng.choices(groups, weights=[len(v) for v in groups], k=1)[0]
             batches.append(rng.choices(pool, k=self.batch_size))

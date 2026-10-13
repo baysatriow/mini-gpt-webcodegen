@@ -3050,3 +3050,49 @@ print('Final opened:',data['final_opened'])"`.
 
 - Pengguna meminta improvement95% dan insight dataset. Desain bounded telah disetujui: plan70%,train-only augmentation,INIT2048,3600steps dan dua kandidat1800/3600.
 - Diagnosis RUN-247/248 dan hasil local manifest/primary dataset research tercatat di logs/interaksi_llm/AI-019_2026-10-14.md. Tidak membuka final atau download tambahan pada research.
+
+### RUN-249
+
+- **Waktu:** 2026-10-14T00:38:46.269709+07:00 sampai 2026-10-14T00:39:08.356687+07:00.
+- **Tujuan:** AI-019 create train only plan identity augmentation preserving frozen heldout bytes.
+- **Command:** `.venv/Scripts/python.exe -m qa.prepare_fullpage_improvement`.
+- **Commit:** `6d0b3b0148627c52cdffd0f390ad13aa5a2a3224`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-249_ai_019_create_train_only_plan_identity_augmentation_preserving_frozen_.txt`.
+
+### RUN-250
+
+- **Waktu:** 2026-10-14T00:40:21.794203+07:00 sampai 2026-10-14T00:40:24.717436+07:00.
+- **Tujuan:** AI-019 download pinned public WebMC files and inspect actual records and Webdev availability.
+- **Command:** `.venv/Scripts/python.exe -m qa.download_inspect_webmc`.
+- **Commit:** `6d0b3b0148627c52cdffd0f390ad13aa5a2a3224`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-250_ai_019_download_pinned_public_webmc_files_and_inspect_actual_records_a.txt`.
+
+### RUN-251
+
+- **Waktu:** 2026-10-14T00:41:18.466596+07:00 sampai 2026-10-14T00:41:18.994295+07:00.
+- **Tujuan:** AI-019 inspect all600 WebMC records schema duplicates answers token lengths and released role.
+- **Command:** `.venv/Scripts/python.exe -c "import collections, hashlib, json, re
+from pathlib import Path
+from tokenizers import Tokenizer
+root=Path.cwd(); meta=json.loads((root/'reports/data/WEBMC_DOWNLOAD_INSPECTION_V1.json').read_text(encoding='utf-8')); directory=root/meta['output']; path=directory/'WebMC.json'; rows=json.loads(path.read_text(encoding='utf-8'))
+errors=[]; choices=collections.Counter(); gold=collections.Counter(); canonical=[]; queries=[]; answer_html=0; query_html=0; lengths=[]
+tok=Tokenizer.from_file(str(root/'data/tokenizer/tokenizer.json'))
+for index,row in enumerate(rows):
+ if set(row)!=set(('query','choices','gold')): errors.append({'row':index,'error':'Unexpected fields'})
+ if not isinstance(row['query'],str) or not row['query'].strip(): errors.append({'row':index,'error':'Empty/invalid query'})
+ if not isinstance(row['choices'],list) or len(row['choices'])<2 or not all(isinstance(c,str) and c.strip() for c in row['choices']): errors.append({'row':index,'error':'Invalid choices'})
+ if not isinstance(row['gold'],int) or isinstance(row['gold'],bool) or not 0<=row['gold']<len(row['choices']): errors.append({'row':index,'error':'Gold outside choices'})
+ choices[len(row['choices'])]+=1; gold[row['gold']]+=1; canonical.append(json.dumps(row,sort_keys=True)); queries.append(row['query'])
+ if re.search(r'<(?:html|body|div|section|p|h[1-6]|button)\b',row['choices'][row['gold']],re.I): answer_html+=1
+ if re.search(r'<(?:html|body|div|section|p|h[1-6]|button)\b',row['query'],re.I): query_html+=1
+ lengths.append(len(tok.encode(row['query']+'\n'+json.dumps(row['choices'])).ids))
+readme=(directory/'README.md').read_text(encoding='utf-8')
+report={'repository':meta['repository'],'revision':meta['revision'],'source_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'records':len(rows),'schema_errors':errors,'schema_valid':not errors,'choice_count_distribution':dict(choices),'gold_distribution':dict(gold),'gold_index_zero_based':True,'duplicate_exact_rows':len(rows)-len(set(canonical)),'duplicate_query_text':len(rows)-len(set(queries)),'queries_with_html_tag':query_html,'gold_choices_with_html_tag':answer_html,'license_in_readme':'apache-2.0' if re.search('license: apache-2.0',readme,re.I) else None,'downloaded_bytes':sum(v['bytes'] for v in meta['files'].values()),'training_50000_file_present':False,'role':'public multiple-choice evaluation candidate, not instruction-to-plan training corpus','pipeline_integration':'not added','current_generator_accepts_mc_task':False,'model_token_lengths':{'min':min(lengths),'median':sorted(lengths)[len(lengths)//2],'max':max(lengths),'over2048':sum(n>2048 for n in lengths)},'question_text_not_executed':True,'actual_fullpage_final_opened':False}
+with (root/'reports/data/WEBMC_CONTENT_INSPECTION_V1.json').open('x',encoding='utf-8',newline='\n') as h: json.dump(report,h,ensure_ascii=False,indent=2); h.write('\n')
+print(json.dumps(report,indent=2))
+if errors: raise ValueError('WebMC records failed structural inspection')"`.
+- **Commit:** `6d0b3b0148627c52cdffd0f390ad13aa5a2a3224`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-251_ai_019_inspect_all600_webmc_records_schema_duplicates_answers_token_le.txt`.

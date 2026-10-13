@@ -1,0 +1,61 @@
+RUN-251 | 2026-10-14T00:41:18.466596+07:00 | AI-019 inspect all600 WebMC records schema duplicates answers token lengths and released role
+Command: .venv/Scripts/python.exe -c "import collections, hashlib, json, re
+from pathlib import Path
+from tokenizers import Tokenizer
+root=Path.cwd(); meta=json.loads((root/'reports/data/WEBMC_DOWNLOAD_INSPECTION_V1.json').read_text(encoding='utf-8')); directory=root/meta['output']; path=directory/'WebMC.json'; rows=json.loads(path.read_text(encoding='utf-8'))
+errors=[]; choices=collections.Counter(); gold=collections.Counter(); canonical=[]; queries=[]; answer_html=0; query_html=0; lengths=[]
+tok=Tokenizer.from_file(str(root/'data/tokenizer/tokenizer.json'))
+for index,row in enumerate(rows):
+ if set(row)!=set(('query','choices','gold')): errors.append({'row':index,'error':'Unexpected fields'})
+ if not isinstance(row['query'],str) or not row['query'].strip(): errors.append({'row':index,'error':'Empty/invalid query'})
+ if not isinstance(row['choices'],list) or len(row['choices'])<2 or not all(isinstance(c,str) and c.strip() for c in row['choices']): errors.append({'row':index,'error':'Invalid choices'})
+ if not isinstance(row['gold'],int) or isinstance(row['gold'],bool) or not 0<=row['gold']<len(row['choices']): errors.append({'row':index,'error':'Gold outside choices'})
+ choices[len(row['choices'])]+=1; gold[row['gold']]+=1; canonical.append(json.dumps(row,sort_keys=True)); queries.append(row['query'])
+ if re.search(r'<(?:html|body|div|section|p|h[1-6]|button)\b',row['choices'][row['gold']],re.I): answer_html+=1
+ if re.search(r'<(?:html|body|div|section|p|h[1-6]|button)\b',row['query'],re.I): query_html+=1
+ lengths.append(len(tok.encode(row['query']+'\n'+json.dumps(row['choices'])).ids))
+readme=(directory/'README.md').read_text(encoding='utf-8')
+report={'repository':meta['repository'],'revision':meta['revision'],'source_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'records':len(rows),'schema_errors':errors,'schema_valid':not errors,'choice_count_distribution':dict(choices),'gold_distribution':dict(gold),'gold_index_zero_based':True,'duplicate_exact_rows':len(rows)-len(set(canonical)),'duplicate_query_text':len(rows)-len(set(queries)),'queries_with_html_tag':query_html,'gold_choices_with_html_tag':answer_html,'license_in_readme':'apache-2.0' if re.search('license: apache-2.0',readme,re.I) else None,'downloaded_bytes':sum(v['bytes'] for v in meta['files'].values()),'training_50000_file_present':False,'role':'public multiple-choice evaluation candidate, not instruction-to-plan training corpus','pipeline_integration':'not added','current_generator_accepts_mc_task':False,'model_token_lengths':{'min':min(lengths),'median':sorted(lengths)[len(lengths)//2],'max':max(lengths),'over2048':sum(n>2048 for n in lengths)},'question_text_not_executed':True,'actual_fullpage_final_opened':False}
+with (root/'reports/data/WEBMC_CONTENT_INSPECTION_V1.json').open('x',encoding='utf-8',newline='\n') as h: json.dump(report,h,ensure_ascii=False,indent=2); h.write('\n')
+print(json.dumps(report,indent=2))
+if errors: raise ValueError('WebMC records failed structural inspection')"
+Commit: 6d0b3b0148627c52cdffd0f390ad13aa5a2a3224
+
+{
+  "repository": "IFM/WebMC",
+  "revision": "8090e6cd8cb71a5a0d5630da8eacd0b873963774",
+  "source_sha256": "e6bc8d57bedb3ca5120958450b026436741f463ba979ef856c6f600b38a9e9b7",
+  "records": 600,
+  "schema_errors": [],
+  "schema_valid": true,
+  "choice_count_distribution": {
+    "4": 600
+  },
+  "gold_distribution": {
+    "2": 123,
+    "1": 125,
+    "3": 82,
+    "0": 270
+  },
+  "gold_index_zero_based": true,
+  "duplicate_exact_rows": 0,
+  "duplicate_query_text": 0,
+  "queries_with_html_tag": 391,
+  "gold_choices_with_html_tag": 391,
+  "license_in_readme": "apache-2.0",
+  "downloaded_bytes": 1182126,
+  "training_50000_file_present": false,
+  "role": "public multiple-choice evaluation candidate, not instruction-to-plan training corpus",
+  "pipeline_integration": "not added",
+  "current_generator_accepts_mc_task": false,
+  "model_token_lengths": {
+    "min": 116,
+    "median": 728,
+    "max": 2078,
+    "over2048": 1
+  },
+  "question_text_not_executed": true,
+  "actual_fullpage_final_opened": false
+}
+
+Exit code: 0

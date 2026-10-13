@@ -188,11 +188,15 @@ def save_checkpoint(path: Path, state: dict):
         projected = model_bytes * (1 if state.get('weights_only') else 3) + 32 * 1024**2
         if shutil.disk_usage(root).free < state['config']['reserve_free_bytes'] + projected:
             raise OSError('Checkpoint write would breach 15GiB disk reserve')
-        phase_dirs = [root/'data/processed/fullpage', root/'assets/fullpage', root/'outputs/fullpage', root/'checkpoints/INIT-2048-001']
+        phase_id = state['config'].get('storage_phase_id')
+        phase_dirs = ([root/state['config']['dataset_dir'], root/'outputs/fullpage'/phase_id]
+                      if phase_id else [root/'data/processed/fullpage', root/'assets/fullpage', root/'outputs/fullpage', root/'checkpoints/INIT-2048-001'])
         for directory in (root/'checkpoints').iterdir():
             config_path = directory/'config.json'
-            if config_path.is_file() and json.loads(config_path.read_text(encoding='utf-8')).get('data_origin') == 'fullpage_curriculum':
-                phase_dirs.append(directory)
+            if config_path.is_file():
+                stored_config = json.loads(config_path.read_text(encoding='utf-8'))
+                if stored_config.get('data_origin') == 'fullpage_curriculum' and (not phase_id or stored_config.get('storage_phase_id') == phase_id):
+                    phase_dirs.append(directory)
         current = sum(p.stat().st_size for d in phase_dirs if d.exists() for p in d.rglob('*') if p.is_file())
         if current + projected + 16 * 1024**2 > 1.5 * 1024**3:
             raise OSError('Checkpoint write would exceed fullpage phase artifact budget1.5GiB')

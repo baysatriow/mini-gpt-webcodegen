@@ -1,0 +1,68 @@
+RUN-250 | 2026-10-14T00:40:21.794203+07:00 | AI-019 download pinned public WebMC files and inspect actual records and Webdev availability
+Command: .venv/Scripts/python.exe -m qa.download_inspect_webmc
+Commit: 6d0b3b0148627c52cdffd0f390ad13aa5a2a3224
+
+{
+  "repository": "IFM/WebMC",
+  "revision": "8090e6cd8cb71a5a0d5630da8eacd0b873963774",
+  "repository_files": [
+    ".gitattributes",
+    "README.md",
+    "WebMC.json"
+  ],
+  "declared_license": null,
+  "output": "data\\raw\\candidates\\webmc\\8090e6cd8cb71a5a0d5630da8eacd0b873963774",
+  "files": {
+    "README.md": {
+      "url": "https://huggingface.co/datasets/IFM/WebMC/resolve/8090e6cd8cb71a5a0d5630da8eacd0b873963774/README.md",
+      "sha256": "1d686cdf54a4334c0a04b7febe6818812e7b1de8e0ff86d39ee63ffb4e83ae81",
+      "bytes": 13934
+    },
+    "WebMC.json": {
+      "url": "https://huggingface.co/datasets/IFM/WebMC/resolve/8090e6cd8cb71a5a0d5630da8eacd0b873963774/WebMC.json",
+      "sha256": "e6bc8d57bedb3ca5120958450b026436741f463ba979ef856c6f600b38a9e9b7",
+      "bytes": 1168192
+    }
+  },
+  "root_type": "list",
+  "root_records": 600,
+  "root_keys": null,
+  "record_key_counts": {
+    "query": 600,
+    "choices": 600,
+    "gold": 600
+  },
+  "sample_records": [
+    {
+      "query": "Source codes: <!DOCTYPE html><html><head><title>My Personal Website</title><link href=\"styles.css\" rel=\"stylesheet\"></head><body><header><div id=\"banner\"><img src=\"cover-photo.jpg\" alt=\"Cover Photo\"><h1>Welcome to My Personal Website!</h1></div></header><nav><ul><li><a href=\"#about-me\">About Me</a></li><li><a href=\"#experties\">My Skills</a></li><li><a href=\"#portfolio\">Portfolio</a></li><li><a href=\"#contact-me\">Contact Me</a></li></ul></nav><main><section id=\"about-me\"><h2>About Me</h2><p>Some information about me...</p></section><section id=\"experties\"><h2>My Skills</h2><p>Here's a list of my skills...</p></section><!-- Other sections can be created similarly --></main></body></html> What purpose does the navigation (nav) section serve in this personal website?",
+      "choices": [
+        "Displaying blog posts.",
+        "Allowing users to open the website's source codes.",
+        "Facilitating easy navigation to specific sections of the website.",
+        "Showcasing a list of the user's skills."
+      ],
+      "gold": 2
+    },
+    {
+      "query": "Source codes: <!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"> <title>Best-Deals.com</title> </head> <body> <header> <h1>Best Deals in Town!</h1> </header> <nav> <a href=\"#electronics\">Electronics</a> <a href=\"#appliances\">Home Appliances</a> <a href=\"#groceries\">Groceries</a> </nav> </body> </html> Which links does the navbar section on this e-commerce site contain?",
+      "choices": [
+        "Electronics, Home Appliances and Apparel.",
+        "Electronics, Groceries and Home Appliances.",
+        "Electronics, Books and Home Furniture.",
+        "Electronics, Video Games, and Groceries."
+      ],
+      "gold": 1
+    }
+  ],
+  "webdev_current_public_status": {
+    "public_metadata_accessible": false,
+    "http_status": 401,
+    "meaning": "Could be unavailable, renamed or private; status alone does not distinguish these"
+  },
+  "training_pipeline_modified_by_download": false,
+  "candidate_not_added_to_training": true,
+  "storage_free_before": 17700683776,
+  "storage_free_after": 17698971648
+}
+
+Exit code: 0

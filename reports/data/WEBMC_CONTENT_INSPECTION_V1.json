@@ -1,0 +1,36 @@
+{
+  "repository": "IFM/WebMC",
+  "revision": "8090e6cd8cb71a5a0d5630da8eacd0b873963774",
+  "source_sha256": "e6bc8d57bedb3ca5120958450b026436741f463ba979ef856c6f600b38a9e9b7",
+  "records": 600,
+  "schema_errors": [],
+  "schema_valid": true,
+  "choice_count_distribution": {
+    "4": 600
+  },
+  "gold_distribution": {
+    "2": 123,
+    "1": 125,
+    "3": 82,
+    "0": 270
+  },
+  "gold_index_zero_based": true,
+  "duplicate_exact_rows": 0,
+  "duplicate_query_text": 0,
+  "queries_with_html_tag": 391,
+  "gold_choices_with_html_tag": 391,
+  "license_in_readme": "apache-2.0",
+  "downloaded_bytes": 1182126,
+  "training_50000_file_present": false,
+  "role": "public multiple-choice evaluation candidate, not instruction-to-plan training corpus",
+  "pipeline_integration": "not added",
+  "current_generator_accepts_mc_task": false,
+  "model_token_lengths": {
+    "min": 116,
+    "median": 728,
+    "max": 2078,
+    "over2048": 1
+  },
+  "question_text_not_executed": true,
+  "actual_fullpage_final_opened": false
+}

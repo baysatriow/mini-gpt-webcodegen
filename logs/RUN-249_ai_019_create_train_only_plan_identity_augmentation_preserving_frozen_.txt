@@ -1,0 +1,39 @@
+RUN-249 | 2026-10-14T00:38:46.269709+07:00 | AI-019 create train only plan identity augmentation preserving frozen heldout bytes
+Command: .venv/Scripts/python.exe -m qa.prepare_fullpage_improvement
+Commit: 6d0b3b0148627c52cdffd0f390ad13aa5a2a3224
+
+{
+  "version": "fullpage-v2",
+  "task_counts": {
+    "train": 17280,
+    "validation": 960,
+    "test": 800
+  },
+  "augmentation": {
+    "train_pages_added": 1920,
+    "train_pages_total": 2400,
+    "train_families": 240,
+    "new_name_aliases": 960,
+    "added_tasks": {
+      "page_plan": 3840,
+      "section_content": 7680
+    },
+    "development_names_in_train": false,
+    "final_parsed": false,
+    "policy": "aliases have at least three words, whereas original frozen name recipe has exactly two; no final names inspected",
+    "independent_families_not_added": true,
+    "source_sha256": "e5cd4cc534c33ed42a8c6f1fdc5bcc1756b16abf7fb34bf2aa71942b9c28a907"
+  },
+  "max_prefix": {
+    "page_plan": 1438,
+    "section_content": 474
+  },
+  "max_target_with_eos": {
+    "page_plan": 415,
+    "section_content": 349
+  },
+  "max_total_tokens": 1853,
+  "bytes": 42991460
+}
+
+Exit code: 0

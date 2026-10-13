@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 
 
-def run_fullpage_training(config_path,*,run_id,resume=None,root):
+def run_fullpage_training(config_path,*,run_id,resume=None,root,stop_after=None):
     import torch
     from torch.utils.data import DataLoader
     from tokenizers import Tokenizer
@@ -27,17 +27,18 @@ def run_fullpage_training(config_path,*,run_id,resume=None,root):
     for split in ('train','validation'):
         families=set(manifest['pilot_family_ids'][split]) if config['scope']=='pilot' else None
         dataset=TaskDataset(directory/(split+'.jsonl'),tokenizer,families)
-        sampler=TaskBatchSampler(dataset.lengths,dataset.task_kinds,config['batch_size'],config['seed'],balanced=split=='train')
+        sampler=TaskBatchSampler(dataset.lengths,dataset.task_kinds,config['batch_size'],config['seed'],balanced=split=='train',
+                                 plan_probability=config.get('plan_batch_probability',.3) if split=='train' else .3)
         loaders[split]=DataLoader(dataset,batch_sampler=sampler,collate_fn=trim_collate,num_workers=0,pin_memory=True)
-    return run_training(config_path,loaders['train'],loaders['validation'],run_id,resume=resume,root=root)
+    return run_training(config_path,loaders['train'],loaders['validation'],run_id,resume=resume,root=root,stop_after=stop_after)
 
 
 def main():
     p=argparse.ArgumentParser(description=__doc__); p.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[1]); p.add_argument('--config',required=True); p.add_argument('--run-id',required=True); p.add_argument('--resume')
-    args=p.parse_args()
+    p.add_argument('--stop-after',type=int); args=p.parse_args()
     # Set before torch and fullpage.dataset import.
     os.environ['PYTORCH_ALLOC_CONF']='expandable_segments:True'
-    checkpoint=run_fullpage_training(args.root/args.config,run_id=args.run_id,resume=args.root/args.resume if args.resume else None,root=args.root)
+    checkpoint=run_fullpage_training(args.root/args.config,run_id=args.run_id,resume=args.root/args.resume if args.resume else None,root=args.root,stop_after=args.stop_after)
     print(json.dumps({'last_checkpoint':str(checkpoint)}))
 
 
