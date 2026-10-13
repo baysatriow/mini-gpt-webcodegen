@@ -1,0 +1,39 @@
+{
+  "checkpoint_sha256": "791a365463710f73dbfbba767bd8bd17f5b4442e8f6137a92ec8c5888d1a2ed3",
+  "prompt_file_sha256": "a59bad22f00441567148b9fa5e0c27f55fb57391f13c4c594e5857c8f3f0a1b2",
+  "model_quality_gate_passed": false,
+  "usage": "validated_development_demo",
+  "evidence_sha256": "47727ba98dedc3f3644b3bffe79764513a5d208de9303e46fde07ed0b8f639e6",
+  "decode_config": {
+    "precision": "bf16",
+    "temperature": 0,
+    "seed": 42,
+    "max_new_tokens": 768
+  },
+  "stop_reason": "eos",
+  "generated_tokens": 416,
+  "parse_status": "passed",
+  "schema_errors": [],
+  "parse_error": null,
+  "status": "accepted",
+  "prompt_contract_checked": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Studio Cakrawala",
+      "style_mode": "tailwind",
+      "primary": "#10b981",
+      "font": "serif",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami membantu tim kreatif untuk mengembangkan gagasan baru."
+    },
+    "errors": []
+  },
+  "review_kind": "programmatic_contract",
+  "limits": [
+    "Controlled prompt patterns are supported; arbitrary wording is not established",
+    "Only explicitly extracted facts are checked; no human/browser quality approval",
+    "No JSON repair or fallback target"
+  ]
+}

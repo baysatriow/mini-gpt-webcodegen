@@ -55,7 +55,15 @@ def main():
             'synthetic_manifest_sha256': parent_state['config']['lineage']['synthetic_manifest_sha256'],
             'run_id': parent_state['run_id']}
     validate_initial_checkpoint(parent_state, cfg, ROOT, summary)
-    train = DataLoader(CurriculumDataset(manifest, 'train'), batch_sampler=ResumableBatchSampler(manifest['counts']['train']['rows'], cfg['batch_size'], cfg['seed']), num_workers=0)
+    weights_path = None
+    if 'name_loss_weight' in cfg:
+        weights = json.loads((directory / 'name_weights.json').read_text(encoding='utf-8'))
+        weights_path = ROOT / weights['path']
+        if (weights['name_weight'] != cfg['name_loss_weight'] or sha256_file(weights_path) != weights['sha256']
+                or weights['train_sha256'] != manifest['files']['train']['rows']['sha256']):
+            raise ValueError('Name-weight objective data changed')
+        cfg['lineage']['name_loss_weights'] = weights
+    train = DataLoader(CurriculumDataset(manifest, 'train', weights_path), batch_sampler=ResumableBatchSampler(manifest['counts']['train']['rows'], cfg['batch_size'], cfg['seed']), num_workers=0)
     development = DataLoader(Subset(CurriculumDataset(manifest, 'validation'), indices), batch_size=cfg['batch_size'], num_workers=0)
     run_id = next_run_id()
     runtime = ROOT / f'configs/.{run_id}.json'

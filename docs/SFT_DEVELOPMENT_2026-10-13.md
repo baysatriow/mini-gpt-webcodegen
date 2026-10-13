@@ -61,3 +61,19 @@ V4 menambahkan latihan copy train-only dari vocabulary BPE yang sebelumnya dilat
 Continuation memulai dari best validation TRAIN-011 milik proyek sendiri, dengan optimizer baru dan schedule 4.800 update, LR 1e-4 ke 1e-5, warmup 120. Arsitektur 14,19 juta parameter tetap. Initial weights parent SFT sintetis disimpan sebagai curriculum_parent terpisah; pretraining_parent asli tetap phase pretrain dengan SHA/fingerprint yang sama. Jalur ini hanya menerima checkpoint synthetic_curriculum proyek dengan ancestry/tokenizer/corpus/model yang cocok. Gate production reviewed tetap menolak checkpoint sintetis.
 
 Final tidak dibuka saat v3 gagal development. Threshold dan file suite tetap, tidak menurunkan kriteria atau memilih kasus final yang menguntungkan. Counter update v4 adalah tahap baru, bukan optimizer resume v3; jumlah token/waktu tiap tahap dilaporkan terpisah.
+
+## Keputusan mengukur final v4
+
+RUN-133 menunjukkan development v4 tetap20/24exact,24/24schema, title/sections20/24 dan semua theme/style/interactions24/24. Penambahan exposure dua contoh token sta belum membuktikan copy keluarga nama tersebut berhasil. Model tidak disebut siap untuk semua nama.
+
+Sesudah budget v4 selesai, suite final48 yang sudah dikunci tetap diukur, dengan best validation yang sudah dipilih. Ini mengakhiri eksperimen dan mengukur batasnya, bukan mensyaratkan seluruh development sempurna atau menurunkan threshold final. Kriteria95%/90% tidak berubah; tidak mengganti keluarga final atau memilih ulang checkpoint dari final. Hasil development yang gagal tetap dilaporkan walaupun final nantinya lulus. Model v4 tidak ditune kembali dari isi/hasil final tersebut.
+
+## Objective penyalinan nama v5
+
+V4 final43/48exact (89,58%) dan48/48schema, belum melewati90%. Kelima kesalahan dicatat tanpa repair; suite ini sudah dibaca dan menjadi hasil historis. Kriteria tidak dibulatkan atau diturunkan agar lulus.
+
+Eksperimen berikutnya menguji hipotesis yang berasal dari kegagalan development: token nama yang sedikit dapat kalah dari ratusan token struktur JSON dalam loss rata-rata. V5 mempertahankan byte train/validation v4, tetapi memberi bobot16 pada token yang beririsan dengan nilai literal nama di target train. Token target lainnya/EOS berbobot1; prompt/padding0. Objective train adalah sum(weight*CE)/sum(weight) atas seluruh accumulation batches. Label tetap next-token, tidak digeser lagi. Offset JSON dan IDs label dicocokkan untuk19.068rows;475.524posisi nama berbobot16. Cache/hash objective dicatat di lineage/config.
+
+Validation/test memakai ordinary CE dan dataset tanpa loss_weights. Best dipilih dari seluruh1.440validationrows,360batches; bukan hanya subset128. Learning rate1e-4 ke1e-5, warmup90, budget3.600update ditetapkan sebelum final baru. Arsitektur dan BPE tetap, continuation dari checkpoint best validation TRAIN-012 yang dipilih sebelum membaca final v4, optimizer baru.
+
+Final v5 memakai240nama baru yang dibangun dengan seed8675309, tidak beririsan dengan nama train/validation maupun test sebelumnya. Resep/subword tetap bersama. Final48 dikunci sebelum weighted training, threshold sama95%/90%. Tidak memindahkan target test lama ke train. Tidak menggunakan perbedaan nama pada final v4 sebagai materi train.

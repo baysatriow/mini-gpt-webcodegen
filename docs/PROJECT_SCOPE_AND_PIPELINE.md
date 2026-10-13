@@ -148,4 +148,6 @@ Kontrak data, model, training, dan evaluator telah diimplementasikan. PageExampl
 
 ## Status
 
+Pembaruan AI-011: CLI menghasilkan dua research demo yang sesuai prompt, plain CSS dan Tailwind/JavaScript. [Hasil terbaru](../reports/OUTPUT_DEVELOPMENT_2026-10-13.md) membedakan output diterima per request dengan overall gate43/48yang gagal. UI generator bebas/browser acceptance belum tersedia. Tailwind dikompilasi lokal tanpa CDN. Paragraf berikut mencatat fase baseline sebelumnya.
+
 Planning sudah disetujui pengguna. Download subset dan pipeline data telah dijalankan; BPE ditrain baru hanya pada train partition. Model dan pretraining baseline 1.200 update selesai, termasuk resume pada GPU dan evaluasi token test penuh. Loss test 1,071 / perplexity 2,918, tetapi 4 probe eksploratif menghasilkan 0 PageSpec JSON valid. SFT produksi menunggu anotasi Indonesia reviewed, dan aplikasi belum dibuat. Gerbang needs-data dijelaskan pada [laporan training](../reports/PIPELINE_TRAINING_SUMMARY.md). Urutan implementasi ada di [rencana implementasi](superpowers/plans/2026-10-12-pipeline-data-model-training.md), command data di [panduan pipeline](PIPELINE_DATA_GUIDE.md), dan training di [panduan training](TRAINING_GUIDE.md).

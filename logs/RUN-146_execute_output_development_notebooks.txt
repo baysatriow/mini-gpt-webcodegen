@@ -1,0 +1,20 @@
+RUN-146 | 2026-10-13T09:55:58.035023+07:00 | execute_output_development_notebooks
+Command: .venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place
+Commit: 0b2de4a6377a87069f2a684253554715217a5187
+
+F:\Generative_AI\Vibe_Coding_Proyek_1\.venv\Lib\site-packages\zmq\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.
+  self._get_loop()
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+{"notebook": "01_data_dan_tokenisasi.ipynb", "kernel": "mini-gpt-webcodegen", "code_cells": 7, "error_outputs": 0, "saved_to": "notebooks\\01_data_dan_tokenisasi.ipynb"}
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+{"notebook": "02_model_dan_training.ipynb", "kernel": "mini-gpt-webcodegen", "code_cells": 10, "error_outputs": 0, "saved_to": "notebooks\\02_model_dan_training.ipynb"}
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+{"notebook": "03_evaluasi_dan_hasil.ipynb", "kernel": "mini-gpt-webcodegen", "code_cells": 6, "error_outputs": 0, "saved_to": "notebooks\\03_evaluasi_dan_hasil.ipynb"}
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+{"notebook": "04_kurasi_dan_sft.ipynb", "kernel": "mini-gpt-webcodegen", "code_cells": 9, "error_outputs": 0, "saved_to": "notebooks\\04_kurasi_dan_sft.ipynb"}
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+{"notebook": "05_sft_pilot_dan_evaluasi.ipynb", "kernel": "mini-gpt-webcodegen", "code_cells": 6, "error_outputs": 0, "saved_to": "notebooks\\05_sft_pilot_dan_evaluasi.ipynb"}
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+{"notebook": "06_pengembangan_output_pagespec.ipynb", "kernel": "mini-gpt-webcodegen", "code_cells": 9, "error_outputs": 0, "saved_to": "notebooks\\06_pengembangan_output_pagespec.ipynb"}
+
+Exit code: 0

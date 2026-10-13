@@ -1,0 +1,18 @@
+RUN-148 | 2026-10-13T09:56:35.713612+07:00 | validate_exported_website_files
+Command: .venv/Scripts/python.exe .tmp/validate_generated_files.py --gallery-report reports/GENERATED_OUTPUTS_2026-10-13.json --runtime-dir examples/generated/AI-011/studio-cakrawala-v2 --runtime-dir examples/generated/AI-011/studio-cakrawala-tailwind-v1 --report reports/EXPORTED_FILES_VALIDATION_2026-10-13.json
+Commit: 0b2de4a6377a87069f2a684253554715217a5187
+
+{
+  "kind": "actual exported artifact validation",
+  "website_count": 50,
+  "errors": [],
+  "unique_js_syntax_checked": 2,
+  "zip_sha256": "905f854fb8f844f2a5460cf2327da2645894513510804793e608fdf90a126519",
+  "browser_evaluated": false,
+  "limits": [
+    "HTML references, schema/raw fidelity, prompt contract, JS syntax and ZIP contents only",
+    "No JavaScript execution or browser/visual verification"
+  ]
+}
+
+Exit code: 0

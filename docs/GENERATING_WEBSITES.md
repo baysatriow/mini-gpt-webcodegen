@@ -40,7 +40,17 @@ Gunakan checkpoint dengan laporan final sintetis yang lulus dan SHA yang cocok. 
 .\.venv\Scripts\python.exe qa/run_logged.py --label generate_website -- .\.venv\Scripts\python.exe -m qa.generate_website --checkpoint checkpoints/TRAIN_ID/best.pt --evidence reports/training/TRAIN_ID-FINAL_curriculum_evaluation.json --prompt-file examples/prompts/studio_cakrawala.txt --output outputs/generated_websites/my-first-website
 ```
 
-Checkpoint dipilih berdasarkan validation loss. Final dipakai untuk menguji gate yang ditetapkan sebelum training, bukan untuk memperbaiki checkpoint. Gate production human-reviewed tetap menolak checkpoint curriculum sintetis; rute demo CLI ini menyatakan provenance sintetis secara eksplisit.
+Checkpoint dipilih berdasarkan validation loss. Final menguji gate sebelum training, bukan untuk memperbaiki checkpoint. Gate production human-reviewed tetap menolak checkpoint sintetis; rute demo CLI menyatakan provenance tersebut.
+
+### Contoh aktual dalam mode development
+
+TRAIN-012 belum melewati overall quality gate43/48. Untuk penelitian, flag eksplisit `--development` mengizinkan generasi dengan checkpoint yang sudah dievaluasi dan SHA cocok. **Validasi per output tetap wajib**, termasuk nama/props/teks/tema/interaksi. Output salah tetap ditolak, tidak dirender. Flag ini tidak mengubah skor atau status gagal eksperimen, dan tidak memberi persetujuan produksi.
+
+```powershell
+.\.venv\Scripts\python.exe qa/run_logged.py --label research_website -- .\.venv\Scripts\python.exe -m qa.generate_website --checkpoint checkpoints/TRAIN-012/best.pt --evidence reports/training/TRAIN-012-FINAL_curriculum_evaluation.json --development --prompt-file examples/prompts/studio_cakrawala.txt --output outputs/generated_websites/new-cakrawala-run
+```
+
+[Dua snapshot yang diterima](../examples/generated/AI-011/index.html) bisa dibuka tanpa checkpoint. Keduanya menggunakan nama yang tidak ada sebagai title utuh train. Ini demonstrasi yang dipilih, bukan benchmark generalisasi baru; kegagalan Senandika ikut dicatat.
 
 ## Membaca output
 

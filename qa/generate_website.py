@@ -24,13 +24,17 @@ def main():
     parser.add_argument('--evidence', type=Path, required=True)
     parser.add_argument('--prompt-file', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--development', action='store_true',
+                        help='Validated research demo with a measured model that has not passed the overall quality gate')
     args = parser.parse_args()
     args.output = args.output.resolve()
     if args.output.exists(): raise ValueError('Use a new output folder')
     evidence = json.loads(args.evidence.read_text(encoding='utf-8'))
     sha = checkpoint_sha256(args.checkpoint)
-    if evidence['split'] != 'final' or not evidence['contract_gate_passed'] or evidence['checkpoint_sha256'] != sha:
-        raise ValueError('Requires checkpoint with passing locked synthetic contract evaluation')
+    if evidence['split'] != 'final' or evidence['checkpoint_sha256'] != sha:
+        raise ValueError('Requires matching measured locked-final checkpoint evidence')
+    if not evidence['contract_gate_passed'] and not args.development:
+        raise ValueError('Overall model gate failed; research use requires explicit --development and per-output contract validation')
     state = read_checkpoint(args.checkpoint)
     cfg, lineage = state['config'], state['config']['lineage']
     directory = ROOT / cfg['dataset_dir']
@@ -52,6 +56,8 @@ def main():
     contract = assess_prompt_contract(prompt, spec) if spec is not None else {'checked': False, 'errors': ['JSON/schema tidak valid'], 'requested': {}}
     accepted = spec is not None and contract['checked'] and not contract['errors']
     metadata = {'checkpoint_sha256': sha, 'prompt_file_sha256': sha256_file(args.prompt_file),
+        'model_quality_gate_passed': evidence['contract_gate_passed'],
+        'usage': 'validated_development_demo' if args.development else 'controlled_final_passed_demo',
         'evidence_sha256': sha256_file(args.evidence), 'decode_config': config, 'stop_reason': stop,
         'generated_tokens': count, 'parse_status': assessment['parse_status'], 'schema_errors': assessment['schema_errors'],
         'parse_error': assessment['parse_error'], 'status': 'accepted' if accepted else 'rejected',

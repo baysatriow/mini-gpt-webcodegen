@@ -1,5 +1,7 @@
 # Ringkasan Pipeline dan Training Mini GPT
 
+Lanjutan: [pengembangan output AI-011](OUTPUT_DEVELOPMENT_2026-10-13.md), diagnosis, curriculum, kegagalan kualitas model dan dua research demo yang diterima per output.
+
 Snapshot baseline 12 Oktober 2026. Status terbaru: [SFT pilot reviewed 13 Oktober 2026](SFT_PILOT_SUMMARY_2026-10-13.md), 40 update dan JSON valid 0/4. Pernyataan SFT belum dijalankan di bawah ini adalah kondisi historis saat laporan baseline dibuat.
 
 Tanggal: 12 Oktober 2026. **Gerbang aplikasi: needs-data.** Pipeline data, model, loop training, checkpoint/resume, evaluasi token, serta probe generation tersedia. Pretraining aktual telah selesai; SFT belum dijalankan karena anotasi produksi belum direview.

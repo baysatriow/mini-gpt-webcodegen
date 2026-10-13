@@ -105,12 +105,26 @@ def train_one_step(model, batch, optimizer, scaler, phase, *, precision="fp32", 
         raise ValueError("Batch contains no supervised tokens")
     optimizer.zero_grad(set_to_none=True)
     loss_value = 0.0
+    weighted = any('loss_weights' in item for item in batches)
+    if weighted and (phase != 'sft' or not all('loss_weights' in item for item in batches)):
+        raise ValueError('Loss weights require SFT and all accumulation batches')
+    denominator = sum(float(item['loss_weights'].sum()) for item in batches) if weighted else token_count
+    if denominator <= 0 or not math.isfinite(denominator): raise ValueError('Invalid loss-weight denominator')
     for item in batches:
         item = {key: value.to(device) for key, value in item.items()}
         with _autocast(device, precision):
-            total, _ = loss_sum(model(item["input_ids"]), item["labels"])
-            loss = total / token_count
-        loss_value += float(total.detach()) / token_count
+            logits = model(item['input_ids'])
+            if weighted:
+                weights, labels = item['loss_weights'], item['labels']
+                if (weights.shape != labels.shape or not torch.isfinite(weights).all() or (weights < 0).any()
+                        or (weights[labels == -100] != 0).any() or (weights[labels != -100] <= 0).any()):
+                    raise ValueError('Invalid weights or prompt/pad mask')
+                losses = F.cross_entropy(logits.float().reshape(-1, logits.shape[-1]), labels.reshape(-1), ignore_index=-100, reduction='none')
+                total = (losses * weights.float().reshape(-1)).sum()
+                if not torch.isfinite(total): raise FloatingPointError('Nonfinite weighted loss')
+            else: total, _ = loss_sum(logits, item['labels'])
+            loss = total / denominator
+        loss_value += float(total.detach()) / denominator
         if scaler is None:
             loss.backward()
         else:

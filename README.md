@@ -4,7 +4,9 @@ Mini GPT WebCodeGen adalah proyek kuliah untuk membangun model generatif decoder
 
 ## Pengembangan terbaru, 13 Oktober 2026
 
-CLI prompt -> Mini GPT -> validasi PageSpec/kontrak -> renderer HTML/CSS/JavaScript sudah tersedia. Model v2 menghasilkan48/48 final sintetis tepat dan48 website diekspor, tetapi gagal menyalin nama Studio Cakrawala. V3 development20/24 tepat, sehingga final barunya belum dibuka. Continuation v4 sedang memperluas penyalinan subword. Hasil ini belum menyatakan dukungan prompt bebas atau browser acceptance.
+CLI prompt -> Mini GPT -> validasi PageSpec/kontrak -> renderer HTML/CSS/JavaScript sudah menghasilkan dua contoh Studio Cakrawala yang sesuai prompt, CSS biasa dan Tailwind dengan tabs. [Buka contoh hasil](examples/generated/AI-011/index.html) atau [unduh file](examples/generated/AI-011/examples.zip). Raw output/model SHA disertakan; tidak memperbaiki JSON atau mengganti nama setelah decoding.
+
+Model runtime TRAIN-012 masih gagal overall quality gate:48/48schema valid,43/48exact89,58%, target90%. Contoh memakai **mode development** dengan validasi penuh per output, bukan klaim siap produksi. Kafe Senandika salah menjadi Senanka dan ditolak. Eksperimen name-weighted TRAIN-013 tidak meningkatkan validation; beststep0 identik parent. Final v5 belum dibuka. Prompt bebas/browser quality belum terbukti.
 
 Lihat [hasil pengembangan](reports/OUTPUT_DEVELOPMENT_2026-10-13.md), [panduan generasi](docs/GENERATING_WEBSITES.md), dan [diagnosis/data curriculum](docs/SFT_DEVELOPMENT_2026-10-13.md). Dataset sintetis dipisahkan dari12 anotasi human-reviewed; model tetap berasal dari bobot acak proyek. Bagian baseline/pilot di bawah mencatat tahap sebelumnya.
 
@@ -92,7 +94,7 @@ Contoh Mini GPT di panduan memakai kutipan pendek. Proyek ini mengubah domain co
 
 Panduan menyebut training dan fine-tuning. Di proyek ini, model dimulai dari bobot acak. Penyelarasan prompt-ke-JSON melanjutkan training model proyek tersebut dan tidak memakai checkpoint pralatih eksternal.
 
-## Status tahapan
+## Status tahapan sebelum pengembangan output
 
 1. Riset dataset dan environment GPU: selesai dan dicatat.
 2. Scope, teknologi, alur pipeline, training log, dan rencana implementasi: disetujui pengguna.
@@ -105,7 +107,7 @@ Dokumen desain ada di [docs/README.md](docs/README.md), rencana implementasi di 
 
 ## Environment lokal
 
-Lima notebook dengan output aktual tersedia di [panduan notebook](notebooks/README.md): data/tokenisasi, model/training, evaluasi baseline, kurasi, dan [SFT pilot terbaru](notebooks/05_sft_pilot_dan_evaluasi.ipynb). Pilih kernel **Mini GPT WebCodeGen (Python 3.11 CUDA)**. Run All default tidak memulai ulang training; smoke harus diaktifkan secara eksplisit pada notebook model.
+Enam notebook tersedia di [panduan notebook](notebooks/README.md). Status terbaru, diagnosis, corpus sintetis, eksperimen gagal dan dua output website ada pada [notebook06](notebooks/06_pengembangan_output_pagespec.ipynb). Notebook01-05 mempertahankan snapshot historis. Pilih kernel **Mini GPT WebCodeGen (Python 3.11 CUDA)**. Training/generation default tidak berjalan ulang; opsi eksplisit dicatat melalui RUN logger.
 
 Review training menghasilkan lima Important yang diperbaiki. RUN-075 lulus 58 tests. Verified copy baseline memiliki model tensors identik untuk parent SFT berikutnya. Lihat [hasil dan batas review](reports/REVIEW_TRAINING_2026-10-12.md).
 
@@ -116,7 +118,7 @@ Set-Location 'F:\Generative_AI\Vibe_Coding_Proyek_1'
 .\.venv\Scripts\Activate.ps1
 ```
 
-Pretraining, SFT pilot dan evaluasi sudah dijalankan; aplikasi preview belum dibuat.
+Pretraining, pilot dan curriculum sudah dijalankan. CLI serta contoh hasil/unduhan tersedia; UI input generator dan preview sandbox belum dibuat.
 
 ## Menjalankan pipeline data
 

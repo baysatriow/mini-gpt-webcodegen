@@ -1,6 +1,19 @@
 # Pipeline ledger: docs/superpowers/plans/2026-10-12-pipeline-data-model-training.md
 
+Status terbaru: [pengembangan output AI-011](../reports/OUTPUT_DEVELOPMENT_2026-10-13.md). Catatan fase sebelumnya dipertahankan.
+
 Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download dataset setelah pemeriksaan storage.
+
+## AI-011: Dua output website dan batas model
+
+- RUN-103/105/127/128: prefix sesuai, pilot underfit/hafalan, nama belum disalin konsisten, subword sta tidak ada dalam title train v3.
+- TRAIN-007400update fit empat train, validation gagal; TRAIN-008/009 v1 schema24/24exact1/24; TRAIN-010 v2 final48/48exact tetapi Cakrawala menjadi Cahaya.
+- TRAIN-011/012 lexical drills, heldout title families, final43/48exact89,58% gagal90%. Kriteria tidak diturunkan, test tidak dipakai memilih checkpoint. Corpus bukan human-reviewed.
+- TRAIN-013 weighted name tokens16x/full ordinary validation tidak membaik. Beststep0 identik parent77tensors, freshfinalv5 tidak dibuka. Runtime tetap TRAIN-012best.
+- RUN-139/142 dua Cakrawala diterima literalcontract, CSS/menu/form serta Tailwind/serif/hijau/tabs. RUN-141 Senandika salah menjadi Senanka, rejected tanpaHTML. Research --development dicatat quality_gate=false; default dan productionreviewed gate tetap.
+- RUN-144 dua snapshot+ZIP di Git, indexhasil statis. RUN-14850filewebsite schema/raw/link/ARIA/JSsyntax/ZIPCRC/hash valid. Browserblocked, tidak ada JSruntime/visual claim.
+- RUN-149/150 enam notebook48sel tanpaerror, optionalgenerationFalse. Notebook01-05 snapshot historis,06 terbaru. Source/log/config/hasil dipush tanpa Co-Authored-By.
+- Berikutnya: tingkatkan ketepatan nama umum sampai overallgate lulus, evaluasi human/browservisual, baru UIgenerator/preview sandbox. Dua contoh tervalidasi tersedia sekarang, bukan model promptbebas.
 
 - Scope sesi: Task 1 sampai Task 5, pipeline data. Task 6 sampai Task 9 termasuk model dan training, dilaksanakan pada tahap berikutnya.
 - Storage preflight: drive F memiliki 26,92 GiB bebas. Batas raw download 1 GiB; cadangan minimal 15 GiB; jangan ambil seluruh korpus WebSight 317 GB.

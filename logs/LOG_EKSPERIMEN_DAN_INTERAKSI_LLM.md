@@ -14,7 +14,9 @@ Zona waktu pencatatan: Asia/Jakarta
 - Jangan masukkan API key, password, token, atau data pribadi ke log.
 - Jika ada koreksi setelah dicatat, tambahkan catatan koreksi baru yang merujuk ID lama. Jangan menghapus atau mengubah riwayat run.
 
-Ringkasan terbaru AI-010: pengguna menyetujui 12 kandidat pilot v2, preparation SFT 4/4/4 selesai; TRAIN-005 smoke 3 update dan TRAIN-006 pilot 40 update selesai. Validation target loss 7,512 ke 3,739, test loss 3,488 / PPL 32,729, JSON/schema valid 0/4. Lima notebook, 38 sel kode tanpa error, aplikasi needs-more-data-and-model-work. [Interaksi AI-010](interaksi_llm/AI-010_2026-10-13.md), [hasil SFT](../reports/SFT_PILOT_SUMMARY_2026-10-13.md). RUN mengikuti ID tertinggi logs/RUN-*.txt; interaksi berikutnya AI-011.
+Ringkasan terbaru AI-011: pipeline menghasilkan dua Studio Cakrawala sesuai prompt, CSS dan Tailwind/JS, dalam mode research tervalidasi per output. Model keseluruhan gagal43/48exact89,58% vs target90%; Senandika ditolak. Weighted TRAIN-013 tidak meningkatkan validation; beststep0 identik parent. Enam notebook48sel tanpaerror, browser belum diverifikasi. [Interaksi AI-011](interaksi_llm/AI-011_2026-10-13.md), [hasil](../reports/OUTPUT_DEVELOPMENT_2026-10-13.md), [dua website](../examples/generated/AI-011/index.html). RUN mengikuti ID tertinggi logs/RUN-*.txt; interaksi berikutnya AI-012.
+
+Ringkasan fase AI-010: pengguna menyetujui 12 kandidat pilot v2, preparation SFT 4/4/4 selesai; TRAIN-005 smoke 3 update dan TRAIN-006 pilot 40 update selesai. Validation target loss 7,512 ke 3,739, test loss 3,488 / PPL 32,729, JSON/schema valid 0/4. Lima notebook, 38 sel kode tanpa error, aplikasi needs-more-data-and-model-work. [Interaksi AI-010](interaksi_llm/AI-010_2026-10-13.md), [hasil SFT](../reports/SFT_PILOT_SUMMARY_2026-10-13.md). Saat fase tersebut, interaksi berikutnya AI-011.
 
 ---
 
@@ -1627,3 +1629,228 @@ Planning disetujui oleh pengguna melalui permintaan implementasi pipeline dan do
 - **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-131_development_milestone_structure.txt`.
+
+### RUN-132
+
+- **Waktu:** 2026-10-13T09:29:26.311849+07:00 sampai 2026-10-13T09:29:27.037486+07:00.
+- **Tujuan:** audit_copy_training_exposure.
+- **Command:** `.venv/Scripts/python.exe -m qa.audit_curriculum_lexicon --dataset-dir data/processed/curriculum/v4 --name "Kursus Workstaralasa" --name "Studio Cakrawala" --name "Kafe Senandika" --report reports/COPY_LEXICON_AUDIT_V4.json`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-132_audit_copy_training_exposure.txt`.
+
+### RUN-130
+
+- **Waktu:** 2026-10-13T09:22:33.291026+07:00 sampai 2026-10-13T09:31:43.386953+07:00.
+- **Tujuan:** train_copy_vocabulary_continuation.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_curriculum --config configs/training_curriculum_v4.json --initialize-from checkpoints/TRAIN-011/best.pt`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-130_train_copy_vocabulary_continuation.txt`.
+
+### RUN-134
+
+- **Waktu:** 2026-10-13T09:32:03.497474+07:00 sampai 2026-10-13T09:32:03.702876+07:00.
+- **Tujuan:** document_copy_continuation_training.
+- **Command:** `.venv/Scripts/python.exe .tmp/append_training_reports.py TRAIN-012`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-134_document_copy_continuation_training.txt`.
+
+### RUN-133
+
+- **Waktu:** 2026-10-13T09:31:52.033659+07:00 sampai 2026-10-13T09:32:56.428326+07:00.
+- **Tujuan:** copy_vocabulary_development.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-012/best.pt --split validation --report-id TRAIN-012-DEV`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-133_copy_vocabulary_development.txt`.
+
+### RUN-135
+
+- **Waktu:** 2026-10-13T09:38:27.075762+07:00 sampai 2026-10-13T09:40:32.520181+07:00.
+- **Tujuan:** locked_copy_curriculum_final.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-012/best.pt --split final --report-id TRAIN-012-FINAL`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-135_locked_copy_curriculum_final.txt`.
+
+### RUN-136
+
+- **Waktu:** 2026-10-13T09:42:10.481345+07:00 sampai 2026-10-13T09:43:07.601443+07:00.
+- **Tujuan:** prepare_fresh_name_objective_final.
+- **Command:** `.venv/Scripts/python.exe -m src.data.curriculum --revision v5 --serialization appearance_before_sections`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-136_prepare_fresh_name_objective_final.txt`.
+
+### RUN-137
+
+- **Waktu:** 2026-10-13T09:44:02.379319+07:00 sampai 2026-10-13T09:44:13.568636+07:00.
+- **Tujuan:** prepare_train_name_loss_weights.
+- **Command:** `.venv/Scripts/python.exe -m qa.prepare_name_loss_weights --dataset-dir data/processed/curriculum/v5 --name-weight 16`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-137_prepare_train_name_loss_weights.txt`.
+
+### RUN-138
+
+- **Waktu:** 2026-10-13T09:44:56.667794+07:00 sampai 2026-10-13T09:52:15.682509+07:00.
+- **Tujuan:** train_name_copy_objective.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_curriculum --config configs/training_curriculum_v5.json --initialize-from checkpoints/TRAIN-012/best.pt`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-138_train_name_copy_objective.txt`.
+
+### RUN-139
+
+- **Waktu:** 2026-10-13T09:53:04.469948+07:00 sampai 2026-10-13T09:53:12.071792+07:00.
+- **Tujuan:** generate_validated_cakrawala_demo.
+- **Command:** `.venv/Scripts/python.exe -m qa.generate_website --checkpoint checkpoints/TRAIN-012/best.pt --evidence reports/training/TRAIN-012-FINAL_curriculum_evaluation.json --development --prompt-file examples/prompts/studio_cakrawala.txt --output outputs/generated_websites/studio-cakrawala-v2`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-139_generate_validated_cakrawala_demo.txt`.
+
+### RUN-140
+
+- **Waktu:** 2026-10-13T09:53:14.274494+07:00 sampai 2026-10-13T09:53:14.411484+07:00.
+- **Tujuan:** document_name_objective_training.
+- **Command:** `.venv/Scripts/python.exe .tmp/append_training_reports.py TRAIN-013`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-140_document_name_objective_training.txt`.
+
+### RUN-141
+
+- **Waktu:** 2026-10-13T09:53:29.733312+07:00 sampai 2026-10-13T09:53:36.150696+07:00.
+- **Tujuan:** generate_validated_tailwind_demo.
+- **Command:** `.venv/Scripts/python.exe -m qa.generate_website --checkpoint checkpoints/TRAIN-012/best.pt --evidence reports/training/TRAIN-012-FINAL_curriculum_evaluation.json --development --prompt-file examples/prompts/kafe_senandika_tailwind.txt --output outputs/generated_websites/kafe-senandika-v1`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 2.
+- **Output lengkap:** `logs/RUN-141_generate_validated_tailwind_demo.txt`.
+
+### RUN-142
+
+- **Waktu:** 2026-10-13T09:54:27.661972+07:00 sampai 2026-10-13T09:54:34.350550+07:00.
+- **Tujuan:** generate_cakrawala_tailwind_tabs.
+- **Command:** `.venv/Scripts/python.exe -m qa.generate_website --checkpoint checkpoints/TRAIN-012/best.pt --evidence reports/training/TRAIN-012-FINAL_curriculum_evaluation.json --development --prompt-file examples/prompts/studio_cakrawala_tailwind.txt --output outputs/generated_websites/studio-cakrawala-tailwind-v1`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-142_generate_cakrawala_tailwind_tabs.txt`.
+
+### RUN-143
+
+- **Waktu:** 2026-10-13T09:55:13.077113+07:00 sampai 2026-10-13T09:55:15.388976+07:00.
+- **Tujuan:** audit_actual_runtime_contracts.
+- **Command:** `.venv/Scripts/python.exe -m qa.audit_generation_artifacts --evaluation reports/training/TRAIN-012-FINAL_curriculum_evaluation.json --runtime-dir outputs/generated_websites/studio-cakrawala-v2 --runtime-dir outputs/generated_websites/kafe-senandika-v1 --runtime-dir outputs/generated_websites/studio-cakrawala-tailwind-v1 --report reports/PROMPT_CONTRACT_AUDIT_V4.json`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-143_audit_actual_runtime_contracts.txt`.
+
+### RUN-144
+
+- **Waktu:** 2026-10-13T09:55:17.588660+07:00 sampai 2026-10-13T09:55:19.755329+07:00.
+- **Tujuan:** snapshot_accepted_website_examples.
+- **Command:** `.venv/Scripts/python.exe -m qa.snapshot_generated_examples --source outputs/generated_websites/studio-cakrawala-v2 --source outputs/generated_websites/studio-cakrawala-tailwind-v1 --output examples/generated/AI-011 --report reports/EXAMPLE_SNAPSHOTS_2026-10-13.json`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-144_snapshot_accepted_website_examples.txt`.
+
+### RUN-145
+
+- **Waktu:** 2026-10-13T09:55:21.968874+07:00 sampai 2026-10-13T09:55:23.165828+07:00.
+- **Tujuan:** build_output_development_notebook.
+- **Command:** `.venv/Scripts/python.exe .tmp/build_development_notebook.py --runs TRAIN-013 --final-report reports/training/TRAIN-012-FINAL_curriculum_evaluation.json`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-145_build_output_development_notebook.txt`.
+
+### RUN-146
+
+- **Waktu:** 2026-10-13T09:55:58.035023+07:00 sampai 2026-10-13T09:56:22.389110+07:00.
+- **Tujuan:** execute_output_development_notebooks.
+- **Command:** `.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-146_execute_output_development_notebooks.txt`.
+
+### RUN-147
+
+- **Waktu:** 2026-10-13T09:56:31.173712+07:00 sampai 2026-10-13T09:56:33.546418+07:00.
+- **Tujuan:** inspect_name_objective_model_selection.
+- **Command:** `.venv/Scripts/python.exe .tmp/verify_initial_checkpoint_selection.py`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-147_inspect_name_objective_model_selection.txt`.
+
+### RUN-148
+
+- **Waktu:** 2026-10-13T09:56:35.713612+07:00 sampai 2026-10-13T09:56:38.279864+07:00.
+- **Tujuan:** validate_exported_website_files.
+- **Command:** `.venv/Scripts/python.exe .tmp/validate_generated_files.py --gallery-report reports/GENERATED_OUTPUTS_2026-10-13.json --runtime-dir examples/generated/AI-011/studio-cakrawala-v2 --runtime-dir examples/generated/AI-011/studio-cakrawala-tailwind-v1 --report reports/EXPORTED_FILES_VALIDATION_2026-10-13.json`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-148_validate_exported_website_files.txt`.
+
+### RUN-149
+
+- **Waktu:** 2026-10-13T09:58:29.142791+07:00 sampai 2026-10-13T09:58:30.208809+07:00.
+- **Tujuan:** finalize_output_development_notebook.
+- **Command:** `.venv/Scripts/python.exe .tmp/build_development_notebook.py --runs TRAIN-013 --final-report reports/training/TRAIN-012-FINAL_curriculum_evaluation.json`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-149_finalize_output_development_notebook.txt`.
+
+### RUN-150
+
+- **Waktu:** 2026-10-13T09:58:32.405495+07:00 sampai 2026-10-13T09:58:55.687749+07:00.
+- **Tujuan:** rerun_final_output_notebooks.
+- **Command:** `.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-150_rerun_final_output_notebooks.txt`.
+
+### RUN-151
+
+- **Waktu:** 2026-10-13T10:08:00.976466+07:00 sampai 2026-10-13T10:08:02.560839+07:00.
+- **Tujuan:** final_output_delivery_structure.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-151_final_output_delivery_structure.txt`.
+
+### RUN-152
+
+- **Waktu:** 2026-10-13T10:10:12.534510+07:00 sampai 2026-10-13T10:10:12.627674+07:00.
+- **Tujuan:** check_static_results_gallery.
+- **Command:** `.venv/Scripts/python.exe -m .tmp.check_gallery_links`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-152_check_static_results_gallery.txt`.
+
+### RUN-153
+
+- **Waktu:** 2026-10-13T10:10:41.736237+07:00 sampai 2026-10-13T10:10:41.901950+07:00.
+- **Tujuan:** check_static_results_gallery_retry.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_gallery_links.py`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-153_check_static_results_gallery_retry.txt`.
+
+### RUN-154
+
+- **Waktu:** 2026-10-13T10:11:46.548007+07:00 sampai 2026-10-13T10:11:47.062120+07:00.
+- **Tujuan:** final_delivery_recheck.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-154_final_delivery_recheck.txt`.
+
+### RUN-155
+
+- **Waktu:** 2026-10-13T10:13:28.830524+07:00 sampai 2026-10-13T10:13:29.439567+07:00.
+- **Tujuan:** verify_staged_example_checksums.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_staged_snapshot_bytes.py`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-155_verify_staged_example_checksums.txt`.

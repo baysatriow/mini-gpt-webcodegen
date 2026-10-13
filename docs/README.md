@@ -21,6 +21,6 @@ Dokumen di sini menjelaskan ruang lingkup, persyaratan tugas, sumber dataset, en
 
 ## Status
 
-Environment, download subset, pipeline data, Mini GPT, loop training, checkpoint/resume, dan evaluator tersedia. Pretraining baseline dan SFT pilot reviewed selesai; generasi test pilot belum menjadi PageSpec valid. Gerbang needs-more-data-and-model-work, aplikasi web tahap akhir. Raw/processed data, tokenizer dan checkpoint berada di disk lokal. Code, config, manifest, attribution, log, grafik dan summary kecil dilacak Git.
+Environment, pipeline data, Mini GPT dan training/evaluator tersedia. CLI dan dua contoh CSS/Tailwind menghasilkan output diterima validator. Overall model gate belum lulus43/48exact; research per output berbeda dari production readiness. Lihat [hasil terbaru](../reports/OUTPUT_DEVELOPMENT_2026-10-13.md). UI input/preview sandbox tahap akhir. Data/BPE/checkpoint lokal; code, log, laporan dan dua snapshot website di Git.
 
 Sebelum mengambil atau merilis data, periksa lagi revision, lisensi, atribusi, dan ketentuan penggunaan saat itu.

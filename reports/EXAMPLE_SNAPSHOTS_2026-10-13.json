@@ -1,0 +1,36 @@
+{
+  "kind": "accepted runtime generation snapshots",
+  "count": 2,
+  "entries": [
+    {
+      "source": "outputs\\generated_websites\\studio-cakrawala-v2",
+      "destination": "examples\\generated\\AI-011\\studio-cakrawala-v2",
+      "checkpoint_sha256": "791a365463710f73dbfbba767bd8bd17f5b4442e8f6137a92ec8c5888d1a2ed3",
+      "files": {
+        "index.html": "bfbecccb81ee5fbea738d3530196376f664ddbe8a07f058cc50e1e1f1c9dd026",
+        "styles.css": "90d182469753494ae5fe2929ceb806816dca9b147bc7a270c4714333ffbd0d3a",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "e3a933c1bee8664366d1d463fa26d74b6d1e79c4bfdbc35a6529b528bf30ee2c",
+        "raw_output.txt": "3cff0b2f6be19075fb5dd8c4466fc03c7491f19a11cab180b2631ba6c13563dc",
+        "prompt.txt": "1df58b64b2d1228010395ec74b599e047229b37805f17cde4d057760139275a4",
+        "generation.json": "dd9c7593abd04d038c501b469901b0b475907a6bc6dbc0b48ee51aa4d8889e0b"
+      }
+    },
+    {
+      "source": "outputs\\generated_websites\\studio-cakrawala-tailwind-v1",
+      "destination": "examples\\generated\\AI-011\\studio-cakrawala-tailwind-v1",
+      "checkpoint_sha256": "791a365463710f73dbfbba767bd8bd17f5b4442e8f6137a92ec8c5888d1a2ed3",
+      "files": {
+        "index.html": "a3b6126a2fbc26577ce61353356b6aad1f1fcc3ce3e26d0ed78c216c3cbe2dff",
+        "styles.css": "c4562b21102306a884638eadc6082783216d34118645f7b58f7f3aa434e2fdf0",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "0d3f7b4fe54a173dbea2efb159b3d77588bf7808084ca30c7895adf215dba5b0",
+        "raw_output.txt": "3f81a14473de1d4b44b8246445cff8cf161c9e1c5e5c6a6290d81a1254f911aa",
+        "prompt.txt": "b09e17c74fc2add8a39d083d19ce1d6664e2af3254fb6f81d556ede488e016d7",
+        "generation.json": "aaa420e33449468a2add4c97ae7b1d2f5937bd9be4d9e11483a469da0605165a"
+      }
+    }
+  ],
+  "archive_sha256": "c2dacc6acded8d7a939356d17a3874082ca7f071245e48438d0d704ee250cc9f",
+  "browser_evaluated": false
+}

@@ -104,7 +104,7 @@ def make_example(title, recipe, style, color, font, intro, pair, menu, wording):
 
 
 def prepare(revision='v1', serialization='sorted_keys'):
-    if revision not in ('v1', 'v2', 'v3', 'v4'):
+    if revision not in ('v1', 'v2', 'v3', 'v4', 'v5'):
         raise ValueError('Unknown curriculum revision')
     directory = ROOT / 'data/processed/curriculum' / revision
     if directory.exists():
@@ -113,7 +113,7 @@ def prepare(revision='v1', serialization='sorted_keys'):
         raise OSError('Insufficient storage while preserving 15 GiB reserve')
     tokenizer = Tokenizer.from_file(str(ROOT / 'data/tokenizer/tokenizer.json'))
     titles = [' '.join(pair) for pair in itertools.product(PREFIXES, NAMES)]
-    if revision in ('v3', 'v4'):
+    if revision in ('v3', 'v4', 'v5'):
         lexical_rng = random.Random(271828)
         brands = set()
         while len(brands) < 2400:
@@ -123,8 +123,8 @@ def prepare(revision='v1', serialization='sorted_keys'):
                 brands.add(brand)
         titles = [PREFIXES[i % len(PREFIXES)] + ' ' + brand for i, brand in enumerate(sorted(brands))]
     random.Random(42).shuffle(titles)
-    train_count = 1920 if revision in ('v3', 'v4') else 230
-    val_end = 2160 if revision in ('v3', 'v4') else 259
+    train_count = 1920 if revision in ('v3', 'v4', 'v5') else 230
+    val_end = 2160 if revision in ('v3', 'v4', 'v5') else 259
     allocation = {title: 'train' if i < train_count else 'validation' if i < val_end else 'test' for i, title in enumerate(titles)}
     records = {split: [] for split in ('train', 'validation', 'test')}
     rng = random.Random(31415)
@@ -132,11 +132,11 @@ def prepare(revision='v1', serialization='sorted_keys'):
     for title in titles:
         split = allocation[title]
         combinations = list(itertools.product(RECIPES, ('plain_css', 'tailwind'), range(2)))
-        if revision in ('v3', 'v4'): combinations = rng.sample(combinations, 6)
+        if revision in ('v3', 'v4', 'v5'): combinations = rng.sample(combinations, 6)
         for recipe, style, variant in combinations:
             color, font = rng.choice(COLORS), rng.choice(('sans', 'serif', 'mono'))
             intro = rng.choice(INTROS)
-            if revision in ('v3', 'v4') and rng.random() < .8:
+            if revision in ('v3', 'v4', 'v5') and rng.random() < .8:
                 intro = f'Kami {rng.choice(VERBS)} {rng.choice(AUDIENCES)} untuk {rng.choice(PURPOSES)}.'
             row = make_example(title, recipe, style, color, font,
                                intro, rng.choice(PAIRS), bool(variant), rng.randrange(len(OPENERS)))
@@ -146,7 +146,7 @@ def prepare(revision='v1', serialization='sorted_keys'):
             seen.add(row['example_id'])
             records[split].append(row)
     copy_coverage = None
-    if revision == 'v4':
+    if revision in ('v4', 'v5'):
         # Vocabulary comes from pretraining train only, not heldout labels/names.
         eligible = {i for i in range(tokenizer.get_vocab_size())
                     if (piece := tokenizer.decode([i]).strip()).isascii() and piece.isalpha() and len(piece) <= 6}
@@ -180,6 +180,28 @@ def prepare(revision='v1', serialization='sorted_keys'):
                          'eligible_token_ids': sorted(eligible), 'initial_uncovered_count': len(initial_missing),
                          'covered_count': len(eligible & covered), 'unrepresented_token_ids': unrepresented,
                          'added_train_rows': drill_count, 'not_human_reviewed': True}
+    if revision == 'v5':
+        # Previous final is retired after measurement; never recycle its labels into train.
+        old_titles = set(allocation)
+        old_brands = {t.partition(' ')[2] for t in old_titles}
+        fresh_rng = random.Random(8675309)
+        fresh_titles = []
+        while len(fresh_titles) < 240:
+            brand = ''.join(fresh_rng.choices(SYLLABLES, k=fresh_rng.choice((2, 3, 4)))).capitalize()
+            title = PREFIXES[len(fresh_titles) % len(PREFIXES)] + ' ' + brand
+            if (brand not in old_brands and brand not in ('Cakrawala', 'Senandika') and len(brand) <= 18
+                    and title not in fresh_titles): fresh_titles.append(title)
+        allocation = {t: s for t, s in allocation.items() if s != 'test'}
+        records['test'] = []
+        for title in fresh_titles:
+            allocation[title] = 'test'
+            for recipe, style, variant in fresh_rng.sample(list(itertools.product(RECIPES, ('plain_css', 'tailwind'), range(2))), 6):
+                intro = fresh_rng.choice(INTROS)
+                if fresh_rng.random() < .8:
+                    intro = f'Kami {fresh_rng.choice(VERBS)} {fresh_rng.choice(AUDIENCES)} untuk {fresh_rng.choice(PURPOSES)}.'
+                row = make_example(title, recipe, style, fresh_rng.choice(COLORS), fresh_rng.choice(('sans', 'serif', 'mono')),
+                                   intro, fresh_rng.choice(PAIRS), bool(variant), fresh_rng.randrange(len(OPENERS)))
+                row['split'] = 'test'; records['test'].append(row)
     directory.mkdir(parents=True)
     files, counts, coverage, lengths = {}, {}, {}, []
     for split, rows in records.items():
@@ -219,13 +241,18 @@ def prepare(revision='v1', serialization='sorted_keys'):
         'limits': ['Synthetic template transfer only, not arbitrary real-world website generalization',
                    'Not human-reviewed production SFT; existing 12 reviewed rows and all HF manifests remain unchanged',
                    'No factual businesses or real testimonials; no external data license attribution claimed']}
-    if revision == 'v4':
+    if revision in ('v4', 'v5'):
         manifest['copy_vocabulary_coverage'] = copy_coverage
         previous = json.loads((ROOT / 'data/processed/curriculum/v3/manifest.json').read_text(encoding='utf-8'))
-        if (any(previous['files'][s]['rows']['sha256'] != manifest['files'][s]['rows']['sha256'] for s in ('validation', 'test'))
+        if revision == 'v4' and (any(previous['files'][s]['rows']['sha256'] != manifest['files'][s]['rows']['sha256'] for s in ('validation', 'test'))
                 or previous['final_suite']['sha256'] != manifest['final_suite']['sha256']):
             raise ValueError('Copy-vocabulary augmentation must preserve untouched heldout partitions')
         manifest['controlled_change'] = 'add train-only subword copy drills; preserve all base rows and heldout/final files'
+    if revision == 'v5':
+        previous = json.loads((ROOT / 'data/processed/curriculum/v4/manifest.json').read_text(encoding='utf-8'))
+        if any(previous['files'][s]['rows']['sha256'] != manifest['files'][s]['rows']['sha256'] for s in ('train', 'validation')):
+            raise ValueError('Name objective experiment preserves train/validation data')
+        manifest['controlled_change'] = 'train/validation identical to v4; new untouched test brands, seed 8675309; old final retired'
     if revision == 'v2':
         previous = json.loads((DIRECTORY / 'manifest.json').read_text(encoding='utf-8'))
         if (previous['allocation'] != manifest['allocation'] or previous['final_suite']['sha256'] != manifest['final_suite']['sha256']
@@ -252,9 +279,12 @@ def verify_manifest(directory=DIRECTORY):
 
 class CurriculumDataset(Dataset):
     """Masked synthetic labels, explicitly distinct from reviewed PageSpecDataset."""
-    def __init__(self, manifest, split):
+    def __init__(self, manifest, split, name_weights=None):
         self.inputs = np.load(ROOT / manifest['files'][split]['inputs']['path'], mmap_mode='r')
         self.labels = np.load(ROOT / manifest['files'][split]['labels']['path'], mmap_mode='r')
+        self.name_weights = np.load(name_weights, mmap_mode='r') if name_weights is not None else None
+        if self.name_weights is not None and (split != 'train' or self.name_weights.shape != self.labels.shape):
+            raise ValueError('Name weights apply to aligned train labels only')
         if self.inputs.shape != self.labels.shape or self.inputs.shape != (manifest['counts'][split]['rows'], 1024):
             raise ValueError('Invalid curriculum cache shape')
 
@@ -262,13 +292,15 @@ class CurriculumDataset(Dataset):
         return len(self.inputs)
 
     def __getitem__(self, index):
-        return {'input_ids': torch.tensor(self.inputs[index], dtype=torch.long),
+        item = {'input_ids': torch.tensor(self.inputs[index], dtype=torch.long),
                 'labels': torch.tensor(self.labels[index], dtype=torch.long)}
+        if self.name_weights is not None: item['loss_weights'] = torch.tensor(self.name_weights[index], dtype=torch.float32)
+        return item
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--revision', choices=('v1', 'v2', 'v3', 'v4'), default='v1')
+    parser.add_argument('--revision', choices=('v1', 'v2', 'v3', 'v4', 'v5'), default='v1')
     parser.add_argument('--serialization', choices=('sorted_keys', 'appearance_before_sections'), default='sorted_keys')
     args = parser.parse_args()
     prepare(args.revision, args.serialization)

@@ -1,0 +1,49 @@
+{
+  "checkpoint_sha256": "791a365463710f73dbfbba767bd8bd17f5b4442e8f6137a92ec8c5888d1a2ed3",
+  "checkpoint_step": 3600,
+  "schema_sha256": "7a13c15552171245fa0d28876eb6bd9612ece8dddc05a330c793574950e93bb7",
+  "split": "final",
+  "prompt_file_sha256": "9c47fdcc36f6400bfbd7962ccfecc84d6a062d53d490de100689def43a77d486",
+  "token_metrics": {
+    "loss": 0.005048062751694235,
+    "perplexity": 1.005060825687463,
+    "valid_tokens": 626208,
+    "batches": 360
+  },
+  "count": 48,
+  "parseable": 48,
+  "schema_valid": 48,
+  "exact_contract": 43,
+  "schema_valid_rate": 1.0,
+  "exact_contract_rate": 0.8958333333333334,
+  "resolved_links": 48,
+  "exact_field_matches": {
+    "title": 43,
+    "style_mode": 48,
+    "theme": 48,
+    "sections": 43,
+    "interactions": 48
+  },
+  "all_ended_eos": true,
+  "decode_config": {
+    "precision": "bf16",
+    "temperature": 0,
+    "seed": 42,
+    "max_new_tokens": 768
+  },
+  "acceptance_fixed_before_training": {
+    "schema_valid_rate": 0.95,
+    "exact_contract_rate": 0.9,
+    "repair_allowed": false
+  },
+  "contract_gate_passed": false,
+  "review_kind": "programmatic_contract, not human-reviewed production SFT",
+  "outputs_path": "outputs\\metrics\\TRAIN-012-FINAL_curriculum_outputs.json",
+  "outputs_sha256": "874305f44fd12365c23b624f54cc5f9fd6719f093c7c77b7d7e7962e714110f1",
+  "limits": [
+    "Shared synthetic component recipes across partitions; fictional title families held out",
+    "No JSON repair or forced first token",
+    "No browser/manual acceptance",
+    "No claim of arbitrary real-world prompts or unseen layout-family generalization"
+  ]
+}

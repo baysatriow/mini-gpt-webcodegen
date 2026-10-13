@@ -1,0 +1,154 @@
+{
+  "train_sha256": "418dc7e18c4bf932ea8d89a3b5b2771eec440f5ec68186337ec6f90f32374538",
+  "train_title_families": 5694,
+  "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+  "records": [
+    {
+      "name": "Kursus Workstaralasa",
+      "exact_title_in_train": false,
+      "token_exposure": [
+        {
+          "id": 48,
+          "piece": "K",
+          "train_title_occurrences": 4740
+        },
+        {
+          "id": 372,
+          "piece": "ur",
+          "train_title_occurrences": 1932
+        },
+        {
+          "id": 6210,
+          "piece": "sus",
+          "train_title_occurrences": 960
+        },
+        {
+          "id": 3579,
+          "piece": " Work",
+          "train_title_occurrences": 168
+        },
+        {
+          "id": 776,
+          "piece": "sta",
+          "train_title_occurrences": 2
+        },
+        {
+          "id": 303,
+          "piece": "ra",
+          "train_title_occurrences": 210
+        },
+        {
+          "id": 271,
+          "piece": "la",
+          "train_title_occurrences": 918
+        },
+        {
+          "id": 88,
+          "piece": "s",
+          "train_title_occurrences": 1284
+        },
+        {
+          "id": 70,
+          "piece": "a",
+          "train_title_occurrences": 8142
+        }
+      ]
+    },
+    {
+      "name": "Studio Cakrawala",
+      "exact_title_in_train": false,
+      "token_exposure": [
+        {
+          "id": 1856,
+          "piece": "St",
+          "train_title_occurrences": 8526
+        },
+        {
+          "id": 1965,
+          "piece": "udio",
+          "train_title_occurrences": 8526
+        },
+        {
+          "id": 531,
+          "piece": " C",
+          "train_title_occurrences": 822
+        },
+        {
+          "id": 756,
+          "piece": "ak",
+          "train_title_occurrences": 1896
+        },
+        {
+          "id": 8099,
+          "piece": "raw",
+          "train_title_occurrences": 186
+        },
+        {
+          "id": 70,
+          "piece": "a",
+          "train_title_occurrences": 8142
+        },
+        {
+          "id": 271,
+          "piece": "la",
+          "train_title_occurrences": 918
+        }
+      ]
+    },
+    {
+      "name": "Kafe Senandika",
+      "exact_title_in_train": false,
+      "token_exposure": [
+        {
+          "id": 48,
+          "piece": "K",
+          "train_title_occurrences": 4740
+        },
+        {
+          "id": 70,
+          "piece": "a",
+          "train_title_occurrences": 8142
+        },
+        {
+          "id": 729,
+          "piece": "fe",
+          "train_title_occurrences": 954
+        },
+        {
+          "id": 502,
+          "piece": " S",
+          "train_title_occurrences": 756
+        },
+        {
+          "id": 290,
+          "piece": "en",
+          "train_title_occurrences": 1020
+        },
+        {
+          "id": 331,
+          "piece": "an",
+          "train_title_occurrences": 264
+        },
+        {
+          "id": 278,
+          "piece": "di",
+          "train_title_occurrences": 360
+        },
+        {
+          "id": 80,
+          "piece": "k",
+          "train_title_occurrences": 2406
+        },
+        {
+          "id": 70,
+          "piece": "a",
+          "train_title_occurrences": 8142
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Training titles only; exposure is not proof of correct autoregressive copying",
+    "Development probes are not independent final benchmark cases"
+  ]
+}
