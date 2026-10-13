@@ -1,0 +1,932 @@
+{
+  "status": "training_in_progress",
+  "evidence": {
+    "reports/fullpage/AI-018_RENDER_FIXTURES.json": {
+      "sha256": "e53c5297de2d77c17ef105972943a8d18a38a8375c6e8436178f1d4f54058ce5",
+      "report": {
+        "fixtures": [
+          {
+            "genre": "landing_page",
+            "style": "plain_css",
+            "sections": 9,
+            "label": "manual curriculum fixture, not model output",
+            "path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\examples\\generated\\AI-018-manual\\landing_page-plain_css",
+            "files": {
+              "app.js": "882745211f84205339da0fd1688c3e6c2a6a1bb1862d37351defc6e2be523ed2",
+              "asset_attribution.json": "dd87777a523dcb240e818dd9d4a434327acfdedfafc4322ceea782113fb84060",
+              "index.html": "5ebfa50010143f7dcfb0c07a89fd426f42d454f3a33125b801b9c6a5f9f0028a",
+              "page_spec.json": "dab43e65d3f25fb608be2c8cc9e66797fdf4e5a9428d2de32c8b4872f8c25998",
+              "styles.css": "eec8d024979ba40ae5f4dac646be62b047fa7d5240657daeec20a904b0837ee0",
+              "assets/studio-shapes.svg": "35c377b432fb010ac303b983ba30e41b334d1a763c6f17260cf75ed14e32e25d"
+            },
+            "browser_status": "pending"
+          },
+          {
+            "genre": "landing_page",
+            "style": "tailwind",
+            "sections": 9,
+            "label": "manual curriculum fixture, not model output",
+            "path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\examples\\generated\\AI-018-manual\\landing_page-tailwind",
+            "files": {
+              "app.js": "882745211f84205339da0fd1688c3e6c2a6a1bb1862d37351defc6e2be523ed2",
+              "asset_attribution.json": "dd87777a523dcb240e818dd9d4a434327acfdedfafc4322ceea782113fb84060",
+              "index.html": "5ebfa50010143f7dcfb0c07a89fd426f42d454f3a33125b801b9c6a5f9f0028a",
+              "page_spec.json": "c86108b729779b417a9393d3a38ebe55331c546942ffeea1719ffa0582fe1acc",
+              "styles.css": "24991588c2a72ba2eab892335f9134aaa897308f714c28fbc55b7416993ae697",
+              "assets/studio-shapes.svg": "35c377b432fb010ac303b983ba30e41b334d1a763c6f17260cf75ed14e32e25d"
+            },
+            "browser_status": "pending"
+          },
+          {
+            "genre": "company_profile",
+            "style": "plain_css",
+            "sections": 9,
+            "label": "manual curriculum fixture, not model output",
+            "path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\examples\\generated\\AI-018-manual\\company_profile-plain_css",
+            "files": {
+              "app.js": "882745211f84205339da0fd1688c3e6c2a6a1bb1862d37351defc6e2be523ed2",
+              "asset_attribution.json": "f1bd3a2c04363776c675adf3b7df921e5eb6878922e7a975cb2331bf3092b27e",
+              "index.html": "698df6f793603e710fdb54f638766c1d5fbbfe5852cd15257e528c772de4f1eb",
+              "page_spec.json": "0ece41b0ff96959b09577adabd2faffd06cd7962ad2ae836ed08fea6951042e9",
+              "styles.css": "eec8d024979ba40ae5f4dac646be62b047fa7d5240657daeec20a904b0837ee0",
+              "assets/company-shapes.svg": "b4708a3001cb4ba81240ef54f4c75a058e9dc10cac49bed3e4db97f2b56e2a40"
+            },
+            "browser_status": "pending"
+          },
+          {
+            "genre": "company_profile",
+            "style": "tailwind",
+            "sections": 9,
+            "label": "manual curriculum fixture, not model output",
+            "path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\examples\\generated\\AI-018-manual\\company_profile-tailwind",
+            "files": {
+              "app.js": "882745211f84205339da0fd1688c3e6c2a6a1bb1862d37351defc6e2be523ed2",
+              "asset_attribution.json": "f1bd3a2c04363776c675adf3b7df921e5eb6878922e7a975cb2331bf3092b27e",
+              "index.html": "698df6f793603e710fdb54f638766c1d5fbbfe5852cd15257e528c772de4f1eb",
+              "page_spec.json": "1f652296493803f200f6e23b8ee89b0c0b3e441510d5a39c2c95058d6b977f60",
+              "styles.css": "24991588c2a72ba2eab892335f9134aaa897308f714c28fbc55b7416993ae697",
+              "assets/company-shapes.svg": "b4708a3001cb4ba81240ef54f4c75a058e9dc10cac49bed3e4db97f2b56e2a40"
+            },
+            "browser_status": "pending"
+          }
+        ],
+        "local_refs_and_fragments_valid": true,
+        "fact_mismatch_rejected": true,
+        "text_escaped": true,
+        "asset_traversal_rejected": true,
+        "legacy_renderer_unchanged_sha256": "03a6b2c6da832e82a3869c7b3db401535c0b1ceec23d0e646a379925b76f624c",
+        "browser_status": "pending",
+        "viewports_planned": [
+          390,
+          1440
+        ]
+      }
+    },
+    "reports/fullpage/INIT_GENERATION_DIAGNOSIS.json": {
+      "sha256": "bfe7965a49f035b18c1c92c0c15edc98d086423ac2ea7621741d7890227e4270",
+      "report": {
+        "label": "real model output before fullpage training, not an accepted website",
+        "request_id": "page0000-plain_css",
+        "metadata": {
+          "checkpoint_sha256": "27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372",
+          "checkpoint_run_id": "INIT-2048-001",
+          "checkpoint_step": 0,
+          "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+          "config": {
+            "precision": "bf16",
+            "temperature": 0,
+            "seed": 42
+          },
+          "schemas_sha256": {
+            "page.schema.json": "eac9c31ba0e46d64f176d428862b217b9dc7246c35b5f7b499c407a29515cf3f",
+            "plan.schema.json": "cf8ef56b884ae9b3d15e03698a5cffff9a6fc29c0f311f32050a1e627c4f5e35",
+            "request.schema.json": "243dba40b54c02055397af96824f24e06e1a03b0d5e09ca7c7d0385f46e55fd1",
+            "section.schema.json": "099bb0a51e0420c9b46dbf2787368798f8f89346e66c309ac139a5e0b1d48c3f"
+          },
+          "prompt_source_sha256": "4926508d444b79ec4f60f78e05e3aec204651223d945d148b51f4f044a9333c4"
+        },
+        "attempts": [
+          {
+            "raw": "{\":\",\":\":\",\":\":\",\":\":\":\":\",\":\",\":\":\",\":\",\",\":\",\":\":\":\",\",\",\",\":\":\",\":\"s\",\":\"s\",\":\":\",\"s\"s\":\":\"s\"s\":\"s\",\"s\"s\":\":\"s\"s\"s\"s\"s\",\"s\":\":\":\"s\":\"s\"s\"s\":\"s\"s\"s\"s\"s\"s\":\":\"s\"s\":\",\"s\"s\"s\"s\"s\":\"s\",\",\"s\"s\":\":\",\":\"s\"s\"s\",\":\"s\",\"s\"s\",\"s\",\":\":\"s\":\":\",\"s\":\"s\"s\":\"s\",\"s\"s\"s\"s\":\"s\"s\"s\",\"s\":\",\":\"s\"s\":\":\",\"s\"s\"s\"s\",\",\",\",\",\":\":\"s\"s\"s\"s\"s\"s\",\"s\"s\",\":\"s\",\",\"s\":\":\"s\":\"s\",\"s\":\",\":\",\"s\"s\"s\":\"s\"s\",\"s\"s\"s\"s\",\":\",\",\",\":\"s\":\":\",\":\"s\":\":\",\"s\"s\"s\"s\",\",\",\"s\"s\",\"s\":\",\"s\"s\":\",\":\",\"s\"s\",\":\"s\",\"s\"s\":\"s\":\"s\",\",\",\"s\"s\"s\",\"s\",\":\",\"s\"s\"s\"s\",\",\"s\":\"s\"",
+            "stop_reason": "token_limit",
+            "generated_tokens": 512,
+            "prefix_tokens": 1389,
+            "max_new_tokens": 512,
+            "seconds": 2.5594501000014134,
+            "task": "page_plan",
+            "stage": "plan",
+            "retry": false,
+            "errors": [
+              "Missing EOS: token_limit"
+            ]
+          },
+          {
+            "raw": "{\",\":\",\":\":\",\":\",\",\":\":\",\":\",\":\",\":\":\",\",\",\":\":\",\":\",\",\":\",\":\":\":\",\":\":\":\":\":\"s\",\",\",\"s\"s\":\",\":\":\"s\"s\"s\",\"s\":\":\":\"s\":\"s\"s\"s\"s\"s\":\"s\"s\":\"s\"s\":\"s\"s\":\",\"s\"s\"s\"s\"s\":\"s\",\",\"s\"s\":\":\",\":\"s\"s\"s\",\":\"s\",\"s\"s\":\"s\",\":\":\"s\":\":\"s\"s\":\"s\"s\":\"s\"s\"s\"s\",\"s\":\"s\"s\"s\",\"s\":\",\":\"s\"s\"s\":\",\"s\"s\"s\"s\":\",\",\",\"s\":\",\":\"s\"s\"s\"s\"s\",\"s\"s\",\":\"s\",\",\"s\":\":\"s\":\"s\"s\"s\":\",\":\",\"s\"s\"s\":\"s\"s\",\"s\"s\"s\"s\",\":\",\",\",\":\"s\":\":\":\":\"s\"s\":\",\"s\"s\"s\"s\"s\",\",\"s\"s\",\"s\":\"s\"s\":\":\",\":\",\"s\"s\",\":\"s\",\"s\"s\":\",\":\"s\",\"s\",\"s\"s\"s\":\"s\":\":\",\"s\"s\"s\"s\",\",\"s\":\"s\"s\"s\"s\":\",\",\"s\"s\",\"",
+            "stop_reason": "token_limit",
+            "generated_tokens": 512,
+            "prefix_tokens": 1407,
+            "max_new_tokens": 512,
+            "seconds": 2.1109667000127956,
+            "task": "page_plan",
+            "stage": "plan",
+            "retry": true,
+            "errors": [
+              "Missing EOS: token_limit"
+            ]
+          }
+        ],
+        "status": "stage_failed",
+        "seconds": 4.722109900030773,
+        "total_generated_tokens": 1024,
+        "first_attempt_success": false,
+        "browser_status": "pending"
+      }
+    },
+    "reports/fullpage/TRAIN-016_PILOT.json": {
+      "sha256": "2266a457e6e0ad3a2169b92f7b5a1a92e4c28c1bb2ec540873481c1e66a048f5",
+      "report": {
+        "checkpoint_sha256": "5386787f5a93b2be7911f3ef1c36a23a80e907f752d359ccf2ba900326b54f87",
+        "requests_sha256": "bd27cb1de36e615d98c2883584baafcf4fb9c9adaf2c0145a5154bb35eb1e785",
+        "count": 20,
+        "source_sha256": {
+          "src/fullpage/generation.py": "78828a8f8f0e42dc23454fb33f6d9e9073f2560376f5752a93683f5a8fb000b9",
+          "src/fullpage/compose.py": "61680ed195e3ec80121cd1fda0edade00c2ad22f15bf7dcee3c4261450382317",
+          "src/fullpage/contracts.py": "760ca3067f5faa6823693815c1792932d509acae6dfe9934271ebe1cfd7bd119",
+          "src/fullpage/prompts.py": "4926508d444b79ec4f60f78e05e3aec204651223d945d148b51f4f044a9333c4"
+        },
+        "complete": 0,
+        "total": 20,
+        "complete_rate": 0.0,
+        "required_roles": 0,
+        "required_roles_rate": 0.0,
+        "first_attempt_complete": 0,
+        "after_retry_complete": 0,
+        "accepted_facts_links_assets_valid": true,
+        "model_gate": false,
+        "groups": {
+          "landing_page:plain_css": {
+            "total": 5,
+            "complete": 0,
+            "first_attempt": 0
+          },
+          "landing_page:tailwind": {
+            "total": 5,
+            "complete": 0,
+            "first_attempt": 0
+          },
+          "company_profile:plain_css": {
+            "total": 5,
+            "complete": 0,
+            "first_attempt": 0
+          },
+          "company_profile:tailwind": {
+            "total": 5,
+            "complete": 0,
+            "first_attempt": 0
+          }
+        },
+        "failures": {
+          "Invalid JSON/contract": 20
+        },
+        "page_seconds": {
+          "total": 54.801074699964374,
+          "mean": 2.740053734998219
+        },
+        "generation_tokens": 13371,
+        "wall_seconds": 54.82129880000139,
+        "output": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\fullpage\\TRAIN-016-pilot",
+        "browser_status": "pending",
+        "human_review_status": "pending",
+        "results": [
+          {
+            "request_id": "page0240-plain_css",
+            "status": "stage_failed",
+            "seconds": 3.169668799964711
+          },
+          {
+            "request_id": "page0240-tailwind",
+            "status": "stage_failed",
+            "seconds": 2.675512499990873
+          },
+          {
+            "request_id": "page0241-plain_css",
+            "status": "stage_failed",
+            "seconds": 2.3106870999909006
+          },
+          {
+            "request_id": "page0241-tailwind",
+            "status": "stage_failed",
+            "seconds": 2.655453099985607
+          },
+          {
+            "request_id": "page0242-plain_css",
+            "status": "stage_failed",
+            "seconds": 3.1145029999897815
+          },
+          {
+            "request_id": "page0242-tailwind",
+            "status": "stage_failed",
+            "seconds": 2.8447297000093386
+          },
+          {
+            "request_id": "page0243-plain_css",
+            "status": "stage_failed",
+            "seconds": 2.80431109998608
+          },
+          {
+            "request_id": "page0243-tailwind",
+            "status": "stage_failed",
+            "seconds": 2.3361131999990903
+          },
+          {
+            "request_id": "page0244-plain_css",
+            "status": "stage_failed",
+            "seconds": 3.078459299984388
+          },
+          {
+            "request_id": "page0244-tailwind",
+            "status": "stage_failed",
+            "seconds": 2.6863126999814995
+          },
+          {
+            "request_id": "page0245-plain_css",
+            "status": "stage_failed",
+            "seconds": 2.5665893999976106
+          },
+          {
+            "request_id": "page0245-tailwind",
+            "status": "stage_failed",
+            "seconds": 2.508848500030581
+          },
+          {
+            "request_id": "page0246-plain_css",
+            "status": "stage_failed",
+            "seconds": 3.302257900009863
+          },
+          {
+            "request_id": "page0246-tailwind",
+            "status": "stage_failed",
+            "seconds": 2.470400999998674
+          },
+          {
+            "request_id": "page0247-plain_css",
+            "status": "stage_failed",
+            "seconds": 2.6936041000299156
+          },
+          {
+            "request_id": "page0247-tailwind",
+            "status": "stage_failed",
+            "seconds": 2.283375500002876
+          },
+          {
+            "request_id": "page0248-plain_css",
+            "status": "stage_failed",
+            "seconds": 3.0252794999978505
+          },
+          {
+            "request_id": "page0248-tailwind",
+            "status": "stage_failed",
+            "seconds": 2.841641599952709
+          },
+          {
+            "request_id": "page0249-plain_css",
+            "status": "stage_failed",
+            "seconds": 2.771721000026446
+          },
+          {
+            "request_id": "page0249-tailwind",
+            "status": "stage_failed",
+            "seconds": 2.6616057000355795
+          }
+        ],
+        "scope": "pilot",
+        "request_file_sha256": "2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836",
+        "final_used": false
+      }
+    },
+    "reports/training/TRAIN-016.json": {
+      "sha256": "f6e49b806761faf3f509feee40b03080abdfc99565b2aa9d62a526373e097056",
+      "report": {
+        "run_id": "TRAIN-016",
+        "status": "completed",
+        "started_at_utc": "2026-10-13T14:22:02.076755+00:00",
+        "config": {
+          "mode": "sft",
+          "scope": "pilot",
+          "data_origin": "fullpage_curriculum",
+          "human_reviewed": false,
+          "dataset_dir": "data/processed/fullpage/v1",
+          "seed": 42,
+          "block_size": 2048,
+          "tokenizer": "data/tokenizer/tokenizer.json",
+          "model_config_path": "configs/model_fullpage_2048.json",
+          "model_config": {
+            "vocab_size": 8192,
+            "block_size": 2048,
+            "n_layer": 6,
+            "n_head": 6,
+            "n_embd": 384,
+            "dropout": 0.1,
+            "tie_embeddings": true,
+            "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+          },
+          "device": "cuda",
+          "precision": "bf16",
+          "batch_size": 16,
+          "gradient_accumulation": 3,
+          "max_steps": 600,
+          "warmup_steps": 60,
+          "learning_rate": 5e-05,
+          "min_learning_rate": 5e-06,
+          "betas": [
+            0.9,
+            0.95
+          ],
+          "weight_decay": 0.1,
+          "grad_clip": 1,
+          "validation_interval": 100,
+          "validation_batches": null,
+          "checkpoint_interval": 100,
+          "log_interval": 100,
+          "reserve_free_bytes": 16106127360,
+          "initial_checkpoint": "checkpoints/INIT-2048-001/initial.pt",
+          "initial_checkpoint_sha256": "27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372",
+          "performance": {
+            "attention_backend": "sdpa",
+            "fused_adamw": true,
+            "pin_memory": true,
+            "tf32": true,
+            "supervised_only_logits": true,
+            "validation_supervised_only_logits": true,
+            "allocator_config": "expandable_segments:True",
+            "gpu_telemetry": true,
+            "selected_by": "reports/training/FULLPAGE-GPU-002.json"
+          },
+          "selection_rule": "Fixed budget, best full ordinary development CE. Generation development gate required before final. Main initializes independently from INIT2048, not pilot selection.",
+          "lineage": {
+            "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+            "fullpage_manifest_sha256": "86f4b41126478f87018271cb655da062d00119176df978ad9b2886976535b348",
+            "initialization_parent": {
+              "migration_kind": "position_extension",
+              "source_checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+              "source_config_sha256": "9e72eec8798e47f90f17b77a6d99e10037d0273503e5bb104f8b284ad5fb3d98",
+              "source_lineage": {
+                "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+                "pretrain_fingerprint": {
+                  "version": 1,
+                  "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+                  "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+                  "source_revisions": [
+                    {
+                      "id": "vulcan",
+                      "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+                      "license": "mit",
+                      "rows": 5000
+                    },
+                    {
+                      "id": "websight_v01",
+                      "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                      "license": "cc-by-4.0",
+                      "rows": 20000
+                    },
+                    {
+                      "id": "websight_v02",
+                      "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                      "license": "cc-by-4.0",
+                      "rows": 30000
+                    }
+                  ],
+                  "partition_sha256": {
+                    "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+                    "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+                    "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+                  },
+                  "token_cache_sha256": {
+                    "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+                    "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+                    "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+                  },
+                  "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+                },
+                "synthetic_manifest_sha256": "0fb20da53b4e498cbcbadb7aa6296685a319ae323f68cc96e36f1659ba20d08c",
+                "data_sha256": {
+                  "train": "7d0d9f247436ca413f93fcde7b22337de88a29c64150c41998a172058388d2fd",
+                  "validation": "945bde9e48d4e4e274a63e519d13357b201e1c1fa9835af427cb0758031d2800"
+                },
+                "validation_indices_sha256": "9bc32cb1719357ec7de7e859d9c67f3f0bdb69cb6deca4043f46d59d6b552c07",
+                "train_blocks_or_examples": 40158,
+                "validation_blocks_or_examples": 1440,
+                "smoke": false,
+                "human_reviewed": false,
+                "pretraining_parent": {
+                  "checkpoint_sha256": "49e03ebb37f01619de9dc93a55f6828367d84fd34380986bfa15597d9583831c",
+                  "phase": "pretrain",
+                  "global_step": 1200,
+                  "pretrain_fingerprint": {
+                    "version": 1,
+                    "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+                    "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+                    "source_revisions": [
+                      {
+                        "id": "vulcan",
+                        "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+                        "license": "mit",
+                        "rows": 5000
+                      },
+                      {
+                        "id": "websight_v01",
+                        "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                        "license": "cc-by-4.0",
+                        "rows": 20000
+                      },
+                      {
+                        "id": "websight_v02",
+                        "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                        "license": "cc-by-4.0",
+                        "rows": 30000
+                      }
+                    ],
+                    "partition_sha256": {
+                      "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+                      "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+                      "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+                    },
+                    "token_cache_sha256": {
+                      "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+                      "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+                      "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+                    },
+                    "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+                  }
+                },
+                "curriculum_parent": {
+                  "checkpoint_sha256": "791a365463710f73dbfbba767bd8bd17f5b4442e8f6137a92ec8c5888d1a2ed3",
+                  "global_step": 3600,
+                  "synthetic_manifest_sha256": "4875ed584633d9ee59d121e7b9d89e277fe37ec5f249cf4e1b3f189c81fd4673",
+                  "run_id": "TRAIN-012"
+                }
+              },
+              "pretrain_fingerprint": {
+                "version": 1,
+                "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+                "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+                "source_revisions": [
+                  {
+                    "id": "vulcan",
+                    "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+                    "license": "mit",
+                    "rows": 5000
+                  },
+                  {
+                    "id": "websight_v01",
+                    "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                    "license": "cc-by-4.0",
+                    "rows": 20000
+                  },
+                  {
+                    "id": "websight_v02",
+                    "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                    "license": "cc-by-4.0",
+                    "rows": 30000
+                  }
+                ],
+                "partition_sha256": {
+                  "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+                  "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+                  "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+                },
+                "token_cache_sha256": {
+                  "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+                  "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+                  "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+                },
+                "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+              },
+              "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+              "source_positions": 1024,
+              "target_positions": 2048,
+              "new_position_seed": 42,
+              "new_position_distribution": "normal mean0 std0.02",
+              "human_reviewed": false
+            },
+            "schema_sha256": {
+              "page.schema.json": "eac9c31ba0e46d64f176d428862b217b9dc7246c35b5f7b499c407a29515cf3f",
+              "plan.schema.json": "cf8ef56b884ae9b3d15e03698a5cffff9a6fc29c0f311f32050a1e627c4f5e35",
+              "request.schema.json": "243dba40b54c02055397af96824f24e06e1a03b0d5e09ca7c7d0385f46e55fd1",
+              "section.schema.json": "099bb0a51e0420c9b46dbf2787368798f8f89346e66c309ac139a5e0b1d48c3f"
+            },
+            "source_sha256": {
+              "src/training/engine.py": "1b72c225492530d6831f70b5cbfab62a62ade4bbaa56b2b2a9eade0e79d9a26b",
+              "src/models/minigpt.py": "bfa75a3f29ce9cfa2ee4256fd06c6deb08ba1803b94c5fdc7bf273e31f152ccd",
+              "src/fullpage/dataset.py": "5d7e6fdf1c9de27df381a7e137fec4a057d2a34c5e519afc799e84043650b385",
+              "src/fullpage/prompts.py": "4926508d444b79ec4f60f78e05e3aec204651223d945d148b51f4f044a9333c4"
+            },
+            "profile_sha256": "7e03cff933c279470a143f514adce566f17ea2ac7e3ce5edc5b471bf496840dc"
+          }
+        },
+        "config_sha256": "e59aef092d30c8f906988b96b254d3dfca78d174bbb2659dadffe816965d2bf2",
+        "resume_parent": null,
+        "label_alignment": "already shifted; loss consumes labels directly",
+        "global_step": 600,
+        "last_committed_step": 600,
+        "git_commit": "2d50242592c1182b557cee941017ce2d8faf9e04",
+        "parameter_count": 14579712,
+        "model_config": {
+          "vocab_size": 8192,
+          "block_size": 2048,
+          "n_layer": 6,
+          "n_head": 6,
+          "n_embd": 384,
+          "dropout": 0.1,
+          "tie_embeddings": true,
+          "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+        },
+        "device": "cuda",
+        "precision": "bf16",
+        "performance": {
+          "attention_backend": "sdpa",
+          "fused_adamw": true,
+          "pin_memory": true,
+          "tf32": true,
+          "supervised_only_logits": true,
+          "validation_supervised_only_logits": true,
+          "allocator_config": "expandable_segments:True",
+          "gpu_telemetry": true,
+          "selected_by": "reports/training/FULLPAGE-GPU-002.json"
+        },
+        "allocator_config": "expandable_segments:True",
+        "resume_parent_sha256": null,
+        "initial_validation": {
+          "loss": 6.259770864771965,
+          "perplexity": 523.0990659510674,
+          "valid_tokens": 59640,
+          "batches": 15
+        },
+        "final_train_loss": 0.17651811833712314,
+        "total_train_tokens": 7462133,
+        "final_validation": {
+          "loss": 0.15091309064510763,
+          "perplexity": 1.1628955871845912,
+          "valid_tokens": 59640,
+          "batches": 15
+        },
+        "best_validation_loss": 0.15091309064510763,
+        "final_checkpoint_sha256": "670152e678a32a49a7b41bfa340dd789c9a2981d44db04c81b4b57259f7da6b0",
+        "best_checkpoint_sha256": "5386787f5a93b2be7911f3ef1c36a23a80e907f752d359ccf2ba900326b54f87",
+        "best_checkpoint": {
+          "path": "checkpoints\\TRAIN-016\\.versions\\best-30325d6c5f7d4ff48e5fd6d334d46f38.pt",
+          "payload": ".versions\\best-30325d6c5f7d4ff48e5fd6d334d46f38.pt",
+          "sha256": "5386787f5a93b2be7911f3ef1c36a23a80e907f752d359ccf2ba900326b54f87",
+          "global_step": 600,
+          "validation_loss": 0.15091309064510763
+        },
+        "gpu_telemetry": {
+          "sample_count": 222,
+          "interval_seconds": 0.5,
+          "raw_path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\metrics\\TRAIN-016_gpu.jsonl",
+          "errors": [],
+          "memory_scope": "nvidia-smi memory includes other desktop applications",
+          "utilization_pct": {
+            "mean": 82.14864864864865,
+            "max": 99.0,
+            "min": 0.0
+          },
+          "memory_used_mib": {
+            "mean": 6960.747747747748,
+            "max": 7139.0,
+            "min": 3212.0
+          },
+          "power_w": {
+            "mean": 181.13981981981982,
+            "max": 200.49,
+            "min": 28.67
+          },
+          "temperature_c": {
+            "mean": 60.17567567567568,
+            "max": 65.0,
+            "min": 44.0
+          },
+          "sm_clock_mhz": {
+            "mean": 2906.698198198198,
+            "max": 2955.0,
+            "min": 1057.0
+          }
+        },
+        "ended_at_utc": "2026-10-13T14:24:06.656318+00:00",
+        "wall_seconds": 124.5807515999768,
+        "free_bytes_after": 18254815232,
+        "gpu": "NVIDIA GeForce RTX 5070",
+        "peak_allocated_bytes": 3726565376,
+        "peak_reserved_bytes": 4057989120
+      }
+    },
+    "reports/training/TRAIN-016_TASK_LOSS.json": {
+      "sha256": "e165c50ace35aa7a1ddf560b6c9628a9edead4c4550f75744ad96f773db93eef",
+      "report": {
+        "checkpoint_sha256": "5386787f5a93b2be7911f3ef1c36a23a80e907f752d359ccf2ba900326b54f87",
+        "scope": "pilot",
+        "step": 600,
+        "ordinary_ce_by_task": {
+          "page_plan": {
+            "loss": 0.2652617931484201,
+            "valid_tokens": 16132,
+            "rows": 40,
+            "tokens_after_position_1024": 16132,
+            "loss_after_position_1024": 0.2652617931484201
+          },
+          "section_content": {
+            "loss": 0.10851461514508647,
+            "valid_tokens": 43508,
+            "rows": 200,
+            "tokens_after_position_1024": 0,
+            "loss_after_position_1024": null
+          }
+        },
+        "selected_vs_full_projection_max_abs_difference": 0,
+        "projection_ce_equivalent_within_1e_3_per_token": true,
+        "final_data_opened": false,
+        "disk_free_bytes": 18254798848
+      }
+    },
+    "reports/training/TRAIN-017.json": {
+      "sha256": "9e3b48ffb97cd3fe89895d6ad65ab5190c6dfaf4e1eac12d8d858ce1a372d032",
+      "report": {
+        "run_id": "TRAIN-017",
+        "status": "running",
+        "started_at_utc": "2026-10-13T14:27:27.903178+00:00",
+        "config": {
+          "mode": "sft",
+          "scope": "main",
+          "data_origin": "fullpage_curriculum",
+          "human_reviewed": false,
+          "dataset_dir": "data/processed/fullpage/v1",
+          "seed": 42,
+          "block_size": 2048,
+          "tokenizer": "data/tokenizer/tokenizer.json",
+          "model_config_path": "configs/model_fullpage_2048.json",
+          "model_config": {
+            "vocab_size": 8192,
+            "block_size": 2048,
+            "n_layer": 6,
+            "n_head": 6,
+            "n_embd": 384,
+            "dropout": 0.1,
+            "tie_embeddings": true,
+            "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+          },
+          "device": "cuda",
+          "precision": "bf16",
+          "batch_size": 16,
+          "gradient_accumulation": 3,
+          "max_steps": 2400,
+          "warmup_steps": 120,
+          "learning_rate": 5e-05,
+          "min_learning_rate": 5e-06,
+          "betas": [
+            0.9,
+            0.95
+          ],
+          "weight_decay": 0.1,
+          "grad_clip": 1,
+          "validation_interval": 400,
+          "validation_batches": null,
+          "checkpoint_interval": 400,
+          "log_interval": 100,
+          "reserve_free_bytes": 16106127360,
+          "initial_checkpoint": "checkpoints/INIT-2048-001/initial.pt",
+          "initial_checkpoint_sha256": "27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372",
+          "performance": {
+            "attention_backend": "sdpa",
+            "fused_adamw": true,
+            "pin_memory": true,
+            "tf32": true,
+            "supervised_only_logits": true,
+            "validation_supervised_only_logits": true,
+            "allocator_config": "expandable_segments:True",
+            "gpu_telemetry": true,
+            "selected_by": "reports/training/FULLPAGE-GPU-002.json",
+            "best_weights_only": true
+          },
+          "selection_rule": "Fixed budget, best full ordinary development CE. Generation development gate required before final. Main initializes independently from INIT2048, not pilot selection.",
+          "lineage": {
+            "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+            "fullpage_manifest_sha256": "86f4b41126478f87018271cb655da062d00119176df978ad9b2886976535b348",
+            "initialization_parent": {
+              "migration_kind": "position_extension",
+              "source_checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+              "source_config_sha256": "9e72eec8798e47f90f17b77a6d99e10037d0273503e5bb104f8b284ad5fb3d98",
+              "source_lineage": {
+                "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+                "pretrain_fingerprint": {
+                  "version": 1,
+                  "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+                  "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+                  "source_revisions": [
+                    {
+                      "id": "vulcan",
+                      "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+                      "license": "mit",
+                      "rows": 5000
+                    },
+                    {
+                      "id": "websight_v01",
+                      "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                      "license": "cc-by-4.0",
+                      "rows": 20000
+                    },
+                    {
+                      "id": "websight_v02",
+                      "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                      "license": "cc-by-4.0",
+                      "rows": 30000
+                    }
+                  ],
+                  "partition_sha256": {
+                    "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+                    "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+                    "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+                  },
+                  "token_cache_sha256": {
+                    "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+                    "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+                    "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+                  },
+                  "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+                },
+                "synthetic_manifest_sha256": "0fb20da53b4e498cbcbadb7aa6296685a319ae323f68cc96e36f1659ba20d08c",
+                "data_sha256": {
+                  "train": "7d0d9f247436ca413f93fcde7b22337de88a29c64150c41998a172058388d2fd",
+                  "validation": "945bde9e48d4e4e274a63e519d13357b201e1c1fa9835af427cb0758031d2800"
+                },
+                "validation_indices_sha256": "9bc32cb1719357ec7de7e859d9c67f3f0bdb69cb6deca4043f46d59d6b552c07",
+                "train_blocks_or_examples": 40158,
+                "validation_blocks_or_examples": 1440,
+                "smoke": false,
+                "human_reviewed": false,
+                "pretraining_parent": {
+                  "checkpoint_sha256": "49e03ebb37f01619de9dc93a55f6828367d84fd34380986bfa15597d9583831c",
+                  "phase": "pretrain",
+                  "global_step": 1200,
+                  "pretrain_fingerprint": {
+                    "version": 1,
+                    "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+                    "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+                    "source_revisions": [
+                      {
+                        "id": "vulcan",
+                        "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+                        "license": "mit",
+                        "rows": 5000
+                      },
+                      {
+                        "id": "websight_v01",
+                        "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                        "license": "cc-by-4.0",
+                        "rows": 20000
+                      },
+                      {
+                        "id": "websight_v02",
+                        "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                        "license": "cc-by-4.0",
+                        "rows": 30000
+                      }
+                    ],
+                    "partition_sha256": {
+                      "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+                      "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+                      "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+                    },
+                    "token_cache_sha256": {
+                      "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+                      "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+                      "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+                    },
+                    "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+                  }
+                },
+                "curriculum_parent": {
+                  "checkpoint_sha256": "791a365463710f73dbfbba767bd8bd17f5b4442e8f6137a92ec8c5888d1a2ed3",
+                  "global_step": 3600,
+                  "synthetic_manifest_sha256": "4875ed584633d9ee59d121e7b9d89e277fe37ec5f249cf4e1b3f189c81fd4673",
+                  "run_id": "TRAIN-012"
+                }
+              },
+              "pretrain_fingerprint": {
+                "version": 1,
+                "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+                "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+                "source_revisions": [
+                  {
+                    "id": "vulcan",
+                    "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+                    "license": "mit",
+                    "rows": 5000
+                  },
+                  {
+                    "id": "websight_v01",
+                    "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                    "license": "cc-by-4.0",
+                    "rows": 20000
+                  },
+                  {
+                    "id": "websight_v02",
+                    "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                    "license": "cc-by-4.0",
+                    "rows": 30000
+                  }
+                ],
+                "partition_sha256": {
+                  "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+                  "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+                  "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+                },
+                "token_cache_sha256": {
+                  "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+                  "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+                  "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+                },
+                "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+              },
+              "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+              "source_positions": 1024,
+              "target_positions": 2048,
+              "new_position_seed": 42,
+              "new_position_distribution": "normal mean0 std0.02",
+              "human_reviewed": false
+            },
+            "schema_sha256": {
+              "page.schema.json": "eac9c31ba0e46d64f176d428862b217b9dc7246c35b5f7b499c407a29515cf3f",
+              "plan.schema.json": "cf8ef56b884ae9b3d15e03698a5cffff9a6fc29c0f311f32050a1e627c4f5e35",
+              "request.schema.json": "243dba40b54c02055397af96824f24e06e1a03b0d5e09ca7c7d0385f46e55fd1",
+              "section.schema.json": "099bb0a51e0420c9b46dbf2787368798f8f89346e66c309ac139a5e0b1d48c3f"
+            },
+            "source_sha256": {
+              "src/training/engine.py": "a4b1e3a80afb470486f55f3d7031e32eb1b0130e1697049aea263287bea8007c",
+              "src/models/minigpt.py": "bfa75a3f29ce9cfa2ee4256fd06c6deb08ba1803b94c5fdc7bf273e31f152ccd",
+              "src/fullpage/dataset.py": "5d7e6fdf1c9de27df381a7e137fec4a057d2a34c5e519afc799e84043650b385",
+              "src/fullpage/prompts.py": "4926508d444b79ec4f60f78e05e3aec204651223d945d148b51f4f044a9333c4"
+            },
+            "profile_sha256": "7e03cff933c279470a143f514adce566f17ea2ac7e3ce5edc5b471bf496840dc"
+          }
+        },
+        "config_sha256": "31493c7f947774acb863147c043021578d33199a99483bb5f2409c275dcbd810",
+        "resume_parent": null,
+        "label_alignment": "already shifted; loss consumes labels directly",
+        "global_step": 2000,
+        "last_committed_step": 2000,
+        "git_commit": "c61400a9912851dc51bc974b55e449edc243fef4",
+        "parameter_count": 14579712,
+        "model_config": {
+          "vocab_size": 8192,
+          "block_size": 2048,
+          "n_layer": 6,
+          "n_head": 6,
+          "n_embd": 384,
+          "dropout": 0.1,
+          "tie_embeddings": true,
+          "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+        },
+        "device": "cuda",
+        "precision": "bf16",
+        "performance": {
+          "attention_backend": "sdpa",
+          "fused_adamw": true,
+          "pin_memory": true,
+          "tf32": true,
+          "supervised_only_logits": true,
+          "validation_supervised_only_logits": true,
+          "allocator_config": "expandable_segments:True",
+          "gpu_telemetry": true,
+          "selected_by": "reports/training/FULLPAGE-GPU-002.json",
+          "best_weights_only": true
+        },
+        "allocator_config": "expandable_segments:True",
+        "resume_parent_sha256": null,
+        "initial_validation": {
+          "loss": 6.266232563831536,
+          "perplexity": 526.4901188763001,
+          "valid_tokens": 238822,
+          "batches": 60
+        },
+        "final_train_loss": 0.0014854137418200024,
+        "total_train_tokens": 25002409,
+        "final_validation": {
+          "loss": 0.037384785913486464,
+          "perplexity": 1.0380923873254706,
+          "valid_tokens": 238822,
+          "batches": 60
+        }
+      }
+    }
+  },
+  "final_evaluated": false,
+  "human_review_status": "pending",
+  "browser_status": "pending",
+  "ui_implemented": false,
+  "limits": [
+    "Synthetic four-sector curriculum, not arbitrary web instructions.",
+    "Shared component text and templates intentionally repeated.",
+    "Heldout target order is disclosed but request acceptance allows any valid required-role order.",
+    "No human ratings or browser acceptance are invented."
+  ]
+}

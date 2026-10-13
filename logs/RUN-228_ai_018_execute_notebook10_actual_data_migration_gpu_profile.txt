@@ -1,0 +1,17 @@
+RUN-228 | 2026-10-13T21:33:52.999131+07:00 | AI-018 execute notebook10 actual data migration GPU profile
+Command: .venv/Scripts/python.exe -m qa.execute_fullpage_notebooks --only 10 --report reports/fullpage/NOTEBOOK10_EXECUTION.json
+Commit: c61400a9912851dc51bc974b55e449edc243fef4
+
+F:\Generative_AI\Vibe_Coding_Proyek_1\.venv\Lib\site-packages\zmq\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.
+  self._get_loop()
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[
+  {
+    "path": "notebooks\\10_fullpage_data_context_dan_gpu.ipynb",
+    "sha256": "4c9b60817f9e94b8c8aee7c15af6fde248db028054d05558acc27de54ef353f9",
+    "executed_code_cells": 7,
+    "errors": 0
+  }
+]
+
+Exit code: 0

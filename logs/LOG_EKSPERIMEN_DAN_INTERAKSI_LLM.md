@@ -2781,3 +2781,48 @@ print(json.dumps(report,indent=2))"`.
 - **Commit:** `2d50242592c1182b557cee941017ce2d8faf9e04`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-224_ai_018_freeze_main_config_with_per_write_storage_guard.txt`.
+
+### RUN-226
+
+- **Waktu:** 2026-10-13T21:33:10.841400+07:00 sampai 2026-10-13T21:33:21.685709+07:00.
+- **Tujuan:** AI-018 retain train development per-row prompt target hashes.
+- **Command:** `.venv/Scripts/python.exe -m qa.inspect_fullpage_data --report reports/data/FULLPAGE_LOADER_V2.json`.
+- **Commit:** `c61400a9912851dc51bc974b55e449edc243fef4`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-226_ai_018_retain_train_development_per_row_prompt_target_hashes.txt`.
+
+### RUN-227
+
+- **Waktu:** 2026-10-13T21:33:52.330139+07:00 sampai 2026-10-13T21:33:52.861837+07:00.
+- **Tujuan:** AI-018 create two fullpage process notebooks.
+- **Command:** `.venv/Scripts/python.exe -m qa.record_fullpage_progress --notebooks --output reports/fullpage/AI-018_PROGRESS_EARLY.json`.
+- **Commit:** `c61400a9912851dc51bc974b55e449edc243fef4`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-227_ai_018_create_two_fullpage_process_notebooks.txt`.
+
+### RUN-228
+
+- **Waktu:** 2026-10-13T21:33:52.999131+07:00 sampai 2026-10-13T21:33:56.840002+07:00.
+- **Tujuan:** AI-018 execute notebook10 actual data migration GPU profile.
+- **Command:** `.venv/Scripts/python.exe -m qa.execute_fullpage_notebooks --only 10 --report reports/fullpage/NOTEBOOK10_EXECUTION.json`.
+- **Commit:** `c61400a9912851dc51bc974b55e449edc243fef4`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-228_ai_018_execute_notebook10_actual_data_migration_gpu_profile.txt`.
+
+### RUN-225
+
+- **Waktu:** 2026-10-13T21:27:19.325640+07:00 sampai 2026-10-13T21:35:07.073428+07:00.
+- **Tujuan:** TRAIN-017 fullpage main 2400 updates RTX5070.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_fullpage --config configs/fullpage/training-v2.json --run-id TRAIN-017`.
+- **Commit:** `c61400a9912851dc51bc974b55e449edc243fef4`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-225_train_017_fullpage_main_2400_updates_rtx5070.txt`.
+
+### RUN-229
+
+- **Waktu:** 2026-10-13T21:35:43.805036+07:00 sampai 2026-10-13T21:35:48.561463+07:00.
+- **Tujuan:** TRAIN-017 inspect best ordinary task CE and long positions.
+- **Command:** `.venv/Scripts/python.exe -m qa.inspect_fullpage_training --checkpoint checkpoints/TRAIN-017/best.pt --report reports/training/TRAIN-017_TASK_LOSS.json`.
+- **Commit:** `c61400a9912851dc51bc974b55e449edc243fef4`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-229_train_017_inspect_best_ordinary_task_ce_and_long_positions.txt`.

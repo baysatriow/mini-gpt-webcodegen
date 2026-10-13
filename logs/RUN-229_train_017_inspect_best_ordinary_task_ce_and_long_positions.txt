@@ -1,0 +1,31 @@
+RUN-229 | 2026-10-13T21:35:43.805036+07:00 | TRAIN-017 inspect best ordinary task CE and long positions
+Command: .venv/Scripts/python.exe -m qa.inspect_fullpage_training --checkpoint checkpoints/TRAIN-017/best.pt --report reports/training/TRAIN-017_TASK_LOSS.json
+Commit: c61400a9912851dc51bc974b55e449edc243fef4
+
+{
+  "checkpoint_sha256": "a0e8137d08ec081a129d6bb977b159b84d31613dcc8e444cc8ea0fe6735074ff",
+  "scope": "main",
+  "step": 1200,
+  "ordinary_ce_by_task": {
+    "page_plan": {
+      "loss": 0.12299359542599976,
+      "valid_tokens": 64572,
+      "rows": 160,
+      "tokens_after_position_1024": 64572,
+      "loss_after_position_1024": 0.12299359542599976
+    },
+    "section_content": {
+      "loss": 0.002802872869855533,
+      "valid_tokens": 174250,
+      "rows": 800,
+      "tokens_after_position_1024": 0,
+      "loss_after_position_1024": null
+    }
+  },
+  "selected_vs_full_projection_max_abs_difference": 0,
+  "projection_ce_equivalent_within_1e_3_per_token": true,
+  "final_data_opened": false,
+  "disk_free_bytes": 17784012800
+}
+
+Exit code: 0

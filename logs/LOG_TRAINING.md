@@ -474,3 +474,6 @@ Budget600 updates, context2048, plan512/section1536, batch16/accum3, effective48
 
 ### TRAIN-016 hasil
 Completed600,124.5807516detik, beststep600/CE0.1509130906. Checkpoint best5386787f5a93b2be7911f3ef1c36a23a80e907f752d359ccf2ba900326b54f87. Generation pilot0/20. Per-task dan GPU/disk detail terdapat pada reports/training/TRAIN-016*.json serta reports/fullpage/TRAIN-016_PILOT.json. Final tertutup. INIT-independent main2400 akan memakai configs/fullpage/training-v2.json; best weights-only, last full optimizer/scheduler/RNG/sampler.
+
+## TRAIN-017, selesai
+Configs/fullpage/training-v2.json, INIT2048 parent,2400 updates,458.4783864detik. Beststep1200 sha a0e8137d08ec081a129d6bb977b159b84d31613dcc8e444cc8ea0fe6735074ff, bestCE0.0352996924; lastCE0.0377850258. GPU mean88.48/max99%, temperaturemax69C. Per-task CE dan label panjang: reports/training/TRAIN-017_TASK_LOSS.json. Full/selected projection logits identik pada diagnosis. Ordinary CE belum menjadi kualitas halaman; generation development80 best/last sedangdijalankan, final tertutup. Semua checkpoint historis dipertahankan.

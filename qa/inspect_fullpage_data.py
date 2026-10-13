@@ -56,6 +56,12 @@ def main():
               'long_supervised_train_rows': long, 'prompt_labels_masked': masked, 'eos_retained': True,
               'sampler_restored_exactly': True, 'trim_shape': list(batch['input_ids'].shape),
               'rejected_rows': 0, 'pad_labels_masked': True}
+    hash_path = Path(args.report).with_name(Path(args.report).stem + '_ROW_HASHES.json')
+    hashes = {row['example_id']: {'prompt_sha256':hashlib.sha256(row['prompt'].encode()).hexdigest(),
+                                'target_sha256':hashlib.sha256(row['target'].encode()).hexdigest()}
+              for dataset in datasets.values() for row in dataset.rows}
+    write_json(root/hash_path,hashes)
+    output['train_development_row_hashes']={'path':hash_path.as_posix(),'sha256':sha256_file(root/hash_path),'rows':len(hashes)}
     write_json(root / args.report, output); print(json.dumps(output, indent=2))
 
 
