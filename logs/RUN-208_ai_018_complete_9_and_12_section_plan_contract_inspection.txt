@@ -1,0 +1,43 @@
+RUN-208 | 2026-10-13T20:55:45.535000+07:00 | AI-018 complete 9 and 12 section plan contract inspection
+Command: .venv/Scripts/python.exe -m qa.inspect_fullpage_contracts --output reports/analysis/AI-018_CONTRACT_INSPECTION_12.json
+Commit: 44e9435e173bdae00fd7f63f4dc33ed1078ad200
+
+{
+  "scope": "manual_fixture_schema_semantic_codec_budget_inspection",
+  "model_generation": false,
+  "rows": [
+    {
+      "genre": "landing_page",
+      "sections": 9,
+      "plan_tokens_with_eos": 365,
+      "positive_valid": true,
+      "negative_rejections": 6
+    },
+    {
+      "genre": "landing_page",
+      "sections": 12,
+      "plan_tokens_with_eos": 452,
+      "positive_valid": true
+    },
+    {
+      "genre": "company_profile",
+      "sections": 9,
+      "plan_tokens_with_eos": 365,
+      "positive_valid": true,
+      "negative_rejections": 6
+    },
+    {
+      "genre": "company_profile",
+      "sections": 12,
+      "plan_tokens_with_eos": 452,
+      "positive_valid": true
+    }
+  ],
+  "prefix_boundaries": {
+    "512": "accepted",
+    "513": "rejected"
+  },
+  "v1_schema_preserved": true
+}
+
+Exit code: 0

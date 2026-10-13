@@ -1,0 +1,25 @@
+{
+  "scope": "manual_fixture_schema_semantic_codec_budget_inspection",
+  "model_generation": false,
+  "rows": [
+    {
+      "genre": "landing_page",
+      "sections": 9,
+      "plan_tokens_with_eos": 365,
+      "positive_valid": true,
+      "negative_rejections": 6
+    },
+    {
+      "genre": "company_profile",
+      "sections": 9,
+      "plan_tokens_with_eos": 365,
+      "positive_valid": true,
+      "negative_rejections": 6
+    }
+  ],
+  "prefix_boundaries": {
+    "512": "accepted",
+    "513": "rejected"
+  },
+  "v1_schema_preserved": true
+}

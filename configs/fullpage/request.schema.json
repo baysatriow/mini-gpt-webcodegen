@@ -1,0 +1,1172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:mini-gpt-webcodegen:fullpage:request:1",
+  "type": "object",
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+    },
+    "prompt": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "genre": {
+      "enum": [
+        "landing_page",
+        "company_profile"
+      ]
+    },
+    "style_mode": {
+      "enum": [
+        "plain_css",
+        "tailwind"
+      ]
+    },
+    "business_facts": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+              },
+              "kind": {
+                "const": "name"
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+              },
+              "kind": {
+                "const": "description"
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 3000
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+              },
+              "kind": {
+                "const": "value"
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+              },
+              "kind": {
+                "const": "service"
+              },
+              "value": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                  }
+                },
+                "required": [
+                  "title",
+                  "text"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+              },
+              "kind": {
+                "const": "project"
+              },
+              "value": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                  }
+                },
+                "required": [
+                  "title",
+                  "text"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+              },
+              "kind": {
+                "const": "team"
+              },
+              "value": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                  }
+                },
+                "required": [
+                  "title",
+                  "text"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+              },
+              "kind": {
+                "const": "process"
+              },
+              "value": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                  }
+                },
+                "required": [
+                  "title",
+                  "text"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+              },
+              "kind": {
+                "const": "faq"
+              },
+              "value": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                  }
+                },
+                "required": [
+                  "title",
+                  "text"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+              },
+              "kind": {
+                "const": "contact"
+              },
+              "value": {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "href": {
+                    "type": "string",
+                    "maxLength": 2048,
+                    "pattern": "^(https://[^\\s<>]+|mailto:[^\\s<>]+|tel:[+0-9() -]+|#[A-Za-z0-9_:-]*)$"
+                  }
+                },
+                "required": [
+                  "label",
+                  "href"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+              },
+              "kind": {
+                "const": "price"
+              },
+              "value": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "price": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "features": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 180
+                    },
+                    "minItems": 1,
+                    "maxItems": 12
+                  },
+                  "button": {
+                    "$ref": "#/$defs/link"
+                  }
+                },
+                "required": [
+                  "name",
+                  "price",
+                  "features"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+              },
+              "kind": {
+                "const": "testimonial"
+              },
+              "value": {
+                "type": "object",
+                "properties": {
+                  "quote": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1000
+                  },
+                  "author": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  }
+                },
+                "required": [
+                  "quote",
+                  "author"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "minItems": 3,
+      "maxItems": 24
+    },
+    "asset_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+      },
+      "minItems": 0,
+      "maxItems": 12
+    },
+    "fictitious": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "request_id",
+    "prompt",
+    "genre",
+    "style_mode",
+    "business_facts",
+    "asset_ids",
+    "fictitious"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "link": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "href": {
+          "type": "string",
+          "maxLength": 2048,
+          "pattern": "^(https://[^\\s<>]+|mailto:[^\\s<>]+|tel:[+0-9() -]+|#[A-Za-z0-9_:-]*)$"
+        }
+      },
+      "required": [
+        "label",
+        "href"
+      ],
+      "additionalProperties": false
+    },
+    "component": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+            },
+            "type": {
+              "const": "navbar"
+            },
+            "props": {
+              "type": "object",
+              "properties": {
+                "brand": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/link"
+                  },
+                  "minItems": 1,
+                  "maxItems": 12
+                }
+              },
+              "required": [
+                "brand",
+                "links"
+              ],
+              "additionalProperties": false
+            },
+            "role": {
+              "enum": [
+                "navigation",
+                "hero",
+                "about",
+                "services",
+                "benefits",
+                "process",
+                "faq",
+                "values",
+                "portfolio",
+                "team",
+                "pricing",
+                "testimonials",
+                "contact",
+                "footer"
+              ]
+            },
+            "variant": {
+              "enum": [
+                "inline"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "props",
+            "role",
+            "variant"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+            },
+            "type": {
+              "const": "hero"
+            },
+            "props": {
+              "type": "object",
+              "properties": {
+                "heading": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 180
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1000
+                },
+                "button": {
+                  "$ref": "#/$defs/link"
+                },
+                "layout": {
+                  "enum": [
+                    "centered",
+                    "split"
+                  ]
+                },
+                "media": {
+                  "type": "object",
+                  "properties": {
+                    "asset_id": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 180
+                    },
+                    "caption": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 240
+                    }
+                  },
+                  "required": [
+                    "asset_id",
+                    "alt"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "heading"
+              ],
+              "additionalProperties": false
+            },
+            "role": {
+              "enum": [
+                "navigation",
+                "hero",
+                "about",
+                "services",
+                "benefits",
+                "process",
+                "faq",
+                "values",
+                "portfolio",
+                "team",
+                "pricing",
+                "testimonials",
+                "contact",
+                "footer"
+              ]
+            },
+            "variant": {
+              "enum": [
+                "centered",
+                "split"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "props",
+            "role",
+            "variant"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+            },
+            "type": {
+              "const": "feature_grid"
+            },
+            "props": {
+              "type": "object",
+              "properties": {
+                "heading": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 180
+                },
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "heading": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 180
+                      },
+                      "text": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000
+                      },
+                      "link": {
+                        "$ref": "#/$defs/link"
+                      },
+                      "media": {
+                        "type": "object",
+                        "properties": {
+                          "asset_id": {
+                            "type": "string",
+                            "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+                          },
+                          "alt": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 180
+                          },
+                          "caption": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 240
+                          }
+                        },
+                        "required": [
+                          "asset_id",
+                          "alt"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "heading"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "maxItems": 12
+                }
+              },
+              "required": [
+                "heading",
+                "items"
+              ],
+              "additionalProperties": false
+            },
+            "role": {
+              "enum": [
+                "navigation",
+                "hero",
+                "about",
+                "services",
+                "benefits",
+                "process",
+                "faq",
+                "values",
+                "portfolio",
+                "team",
+                "pricing",
+                "testimonials",
+                "contact",
+                "footer"
+              ]
+            },
+            "variant": {
+              "enum": [
+                "cards",
+                "numbered"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "props",
+            "role",
+            "variant"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+            },
+            "type": {
+              "const": "text_section"
+            },
+            "props": {
+              "type": "object",
+              "properties": {
+                "heading": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 180
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 3000
+                },
+                "media": {
+                  "type": "object",
+                  "properties": {
+                    "asset_id": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 180
+                    },
+                    "caption": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 240
+                    }
+                  },
+                  "required": [
+                    "asset_id",
+                    "alt"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "text"
+              ],
+              "additionalProperties": false
+            },
+            "role": {
+              "enum": [
+                "navigation",
+                "hero",
+                "about",
+                "services",
+                "benefits",
+                "process",
+                "faq",
+                "values",
+                "portfolio",
+                "team",
+                "pricing",
+                "testimonials",
+                "contact",
+                "footer"
+              ]
+            },
+            "variant": {
+              "enum": [
+                "prose",
+                "split"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "props",
+            "role",
+            "variant"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+            },
+            "type": {
+              "const": "testimonial"
+            },
+            "props": {
+              "type": "object",
+              "properties": {
+                "heading": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 180
+                },
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "quote": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000
+                      },
+                      "author": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      }
+                    },
+                    "required": [
+                      "quote",
+                      "author"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "maxItems": 12
+                }
+              },
+              "required": [
+                "items"
+              ],
+              "additionalProperties": false
+            },
+            "role": {
+              "enum": [
+                "navigation",
+                "hero",
+                "about",
+                "services",
+                "benefits",
+                "process",
+                "faq",
+                "values",
+                "portfolio",
+                "team",
+                "pricing",
+                "testimonials",
+                "contact",
+                "footer"
+              ]
+            },
+            "variant": {
+              "enum": [
+                "quote"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "props",
+            "role",
+            "variant"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+            },
+            "type": {
+              "const": "pricing_table"
+            },
+            "props": {
+              "type": "object",
+              "properties": {
+                "heading": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 180
+                },
+                "plans": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "price": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "features": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 180
+                        },
+                        "minItems": 1,
+                        "maxItems": 12
+                      },
+                      "button": {
+                        "$ref": "#/$defs/link"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "price",
+                      "features"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "maxItems": 6
+                }
+              },
+              "required": [
+                "heading",
+                "plans"
+              ],
+              "additionalProperties": false
+            },
+            "role": {
+              "enum": [
+                "navigation",
+                "hero",
+                "about",
+                "services",
+                "benefits",
+                "process",
+                "faq",
+                "values",
+                "portfolio",
+                "team",
+                "pricing",
+                "testimonials",
+                "contact",
+                "footer"
+              ]
+            },
+            "variant": {
+              "enum": [
+                "cards"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "props",
+            "role",
+            "variant"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+            },
+            "type": {
+              "const": "contact_form"
+            },
+            "props": {
+              "type": "object",
+              "properties": {
+                "heading": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 180
+                },
+                "fields": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z][A-Za-z0-9_]{0,40}$"
+                      },
+                      "label": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "type": {
+                        "enum": [
+                          "text",
+                          "email",
+                          "tel",
+                          "textarea"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "label",
+                      "type"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "maxItems": 10
+                },
+                "submit_label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                }
+              },
+              "required": [
+                "heading",
+                "fields",
+                "submit_label"
+              ],
+              "additionalProperties": false
+            },
+            "role": {
+              "enum": [
+                "navigation",
+                "hero",
+                "about",
+                "services",
+                "benefits",
+                "process",
+                "faq",
+                "values",
+                "portfolio",
+                "team",
+                "pricing",
+                "testimonials",
+                "contact",
+                "footer"
+              ]
+            },
+            "variant": {
+              "enum": [
+                "panel"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "props",
+            "role",
+            "variant"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+            },
+            "type": {
+              "const": "footer"
+            },
+            "props": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1000
+                },
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/link"
+                  },
+                  "minItems": 1,
+                  "maxItems": 12
+                }
+              },
+              "required": [
+                "text"
+              ],
+              "additionalProperties": false
+            },
+            "role": {
+              "enum": [
+                "navigation",
+                "hero",
+                "about",
+                "services",
+                "benefits",
+                "process",
+                "faq",
+                "values",
+                "portfolio",
+                "team",
+                "pricing",
+                "testimonials",
+                "contact",
+                "footer"
+              ]
+            },
+            "variant": {
+              "enum": [
+                "columns"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "props",
+            "role",
+            "variant"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

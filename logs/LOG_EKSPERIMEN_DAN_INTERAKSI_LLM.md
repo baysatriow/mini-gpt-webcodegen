@@ -2587,3 +2587,36 @@ print('Eight tasks reviewed against ten spec sections and five failure classes. 
 - RUN-203 mengukur format plan objek654/655 vs tuple366/367 token. Format tuple enam field dipilih agar budget plan512 terpenuhi, sementara output isi maksimal1.536 dan konteks2.048.
 - RUN-204/205 self-review memperbaiki nama engine run_training, root eksplisit untuk config nested, sampler subclass untuk exact resume, kejelasan teks dan urutan generator sebelum pilot. Tidak ada implementasi/training/test suite baru.
 - Spesifikasi dilanjutkan atas persetujuan pengguna, rencana tertulis menunggu review dan pemilihan metode eksekusi sesuai writing-plans. Native direkomendasikan karena efisiensi dan interface yang saling bergantung. Branch pengembangan dipertahankan, main tidak diubah.
+
+### RUN-206
+
+- **Waktu:** 2026-10-13T20:53:19.304402+07:00 sampai 2026-10-13T20:53:19.784465+07:00.
+- **Tujuan:** AI-018 create versioned full page request plan section and page schemas.
+- **Command:** `.venv/Scripts/python.exe -m qa.prepare_fullpage_schemas`.
+- **Commit:** `44e9435e173bdae00fd7f63f4dc33ed1078ad200`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-206_ai_018_create_versioned_full_page_request_plan_section_and_page_schema.txt`.
+
+### RUN-207
+
+- **Waktu:** 2026-10-13T20:54:32.232265+07:00 sampai 2026-10-13T20:54:32.919241+07:00.
+- **Tujuan:** AI-018 inspect manual full page contracts codec anchors and actual tokenizer boundaries.
+- **Command:** `.venv/Scripts/python.exe -m qa.inspect_fullpage_contracts`.
+- **Commit:** `44e9435e173bdae00fd7f63f4dc33ed1078ad200`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-207_ai_018_inspect_manual_full_page_contracts_codec_anchors_and_actual_tok.txt`.
+
+### RUN-208
+
+- **Waktu:** 2026-10-13T20:55:45.535000+07:00 sampai 2026-10-13T20:55:46.094907+07:00.
+- **Tujuan:** AI-018 complete 9 and 12 section plan contract inspection.
+- **Command:** `.venv/Scripts/python.exe -m qa.inspect_fullpage_contracts --output reports/analysis/AI-018_CONTRACT_INSPECTION_12.json`.
+- **Commit:** `44e9435e173bdae00fd7f63f4dc33ed1078ad200`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-208_ai_018_complete_9_and_12_section_plan_contract_inspection.txt`.
+
+### AI-018: Eksekusi rencana langsung, Task 1
+
+- Pengguna menyetujui rencana dan metode Native. [Interaksi dan rulings](interaksi_llm/AI-018_2026-10-13.md). Branch feature/pipeline-data-model-training dipertahankan, main tidak diubah.
+- RUN-206/207/208: empat schema baru dan validator/codec/budget dibuat. Fixture plan9/12 bagian valid,365/452token termasuk EOS. Prefix512 diterima dan513 ditolak untuk output1.536; tuple/ID/fact/variant/role/anchor salah ditolak.
+- Ini diagnosis fixture/schema, bukan keluaran model, training atau browser acceptance. Task1 selesai; lanjut migrasi checkpoint. [Report](../reports/analysis/AI-018_CONTRACT_INSPECTION_12.json).
