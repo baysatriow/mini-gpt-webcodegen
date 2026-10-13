@@ -444,3 +444,10 @@ RUN-107 pemeriksaan source: 57 Python / 40 JSON / 44 Markdown / lima notebook / 
 - Tidak ada TRAIN-016 atau perubahan checkpoint dalam tahap ini. RUN-193 membaca distribusi train v6; RUN-194 gagal pada fixture manual; RUN-195 berhasil memperbaiki fixture tanpa mengubah kode produksi.
 - Dua fixture 9 bagian memerlukan 1.498/1.479 total token. Ini analisis panjang, bukan generation atau metrik model. Reviewed manusia tetap 12; final TRAIN-015 sudah consumed.
 - [Usulan arah](../reports/FULL_PAGE_DIRECTION_2026-10-13.md): plan dan task isi bagian, family split baru, development/final baru, notebook serta profiling sebelum menentukan budget training. Free storage sekitar 17,73 GiB dengan reserve 15 GiB.
+
+#### AI-015: Desain konteks 2.048, bukan training baru
+
+- RUN-200 adalah perhitungan analitis token/parameter, tanpa alokasi model GPU atau training. Model baru memerlukan position extension dan weights-only warm start dari model proyek dengan optimizer baru; exact resume lama tidak dipakai untuk config yang berbeda.
+- Kandidat konteks 2.048, budget output plan512/section1.024; opsional full-page1.600 jika eksperimen development khusus disiapkan. Prefix dan budget diperiksa bersama, tanpa pemotongan JSON.
+- [Spesifikasi](../docs/superpowers/specs/2026-10-13-full-page-generation-design.md) memuat profil batch4/8/12/16, length buckets/padding trim, budget disk, pilot data, final baru dan notebook. Angka batch/update belum hasil pengukuran dan tidak dinyatakan sebagai optimum.
+- Tidak ada TRAIN-016, checkpoint baru, data baru atau reviewed manusia baru pada tahap penulisan spesifikasi.

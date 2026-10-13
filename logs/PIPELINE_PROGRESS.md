@@ -143,3 +143,8 @@ Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download da
 - Scope pilihan pengguna: landing page dan company profile. Analisis selesai, implementasi baru belum dimulai.
 - Seluruh train v6 memiliki 3 sampai 5 bagian. Fixture manual 9 bagian valid memerlukan 1.498/1.479 token, melebihi konteks 1.024. RUN-194 gagal validasi fixture, RUN-195 rerun berhasil; keduanya dipertahankan.
 - Usulan: plan halaman, isi per bagian, komposer, renderer dengan variasi layout dan aset lokal. Review arah arsitektur berikutnya sesuai brainstorming. [Laporan](../reports/FULL_PAGE_DIRECTION_2026-10-13.md).
+
+## AI-015: Arah disetujui, spesifikasi tertulis tersedia
+
+- Pengguna menyetujui generasi bertahap dan menanyakan konteks 2.048. Target kandidat 2.048 disertai migrasi posisi, output budget terpisah serta profiling sebelum training.
+- [Spesifikasi](../docs/superpowers/specs/2026-10-13-full-page-generation-design.md) tersedia untuk review; selanjutnya rencana implementasi setelah review. Belum ada implementasi atau training baru.

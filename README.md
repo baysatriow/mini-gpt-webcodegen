@@ -171,3 +171,5 @@ Lihat [notebook SFT](notebooks/05_sft_pilot_dan_evaluasi.ipynb), [hasil lengkap]
 ## Usulan pengembangan halaman lengkap
 
 Prioritas berikutnya adalah landing page dan company profile. [Analisis dan usulan arah AI-014](reports/FULL_PAGE_DIRECTION_2026-10-13.md) membandingkan generasi bertahap, konteks lebih panjang dan template tetap. Rekomendasi: model membuat rencana lalu isi tiap bagian, komposer menyatukan PageSpec, renderer menyediakan variasi layout serta aset lokal. Status masih usulan untuk review, belum kemampuan checkpoint saat ini.
+
+Arah generasi bertahap telah disetujui pengguna. [Spesifikasi halaman lengkap dan konteks 2.048](docs/superpowers/specs/2026-10-13-full-page-generation-design.md) kini tersedia untuk review. Target konteks 2.048 memerlukan migrasi learned positional embedding dan training; batas output diatur terpisah. Model/renderer saat ini belum berubah.

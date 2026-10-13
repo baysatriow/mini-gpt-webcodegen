@@ -1,0 +1,41 @@
+RUN-200 | 2026-10-13T20:26:06.253302+07:00 | AI-015 calculate 2048 context token budgets and position extension
+Command: .venv/Scripts/python.exe -c "import json
+from pathlib import Path
+c=json.loads(Path('configs/model.json').read_text(encoding='utf-8'))
+f=json.loads(Path('reports/analysis/AI-014_FULL_PAGE_SCOPE_VALID.json').read_text(encoding='utf-8'))
+additional=(2048-c['block_size'])*c['n_embd']
+r={'status':'design_calculation_not_gpu_profile','old_context':c['block_size'],'proposed_context':2048,'additional_learned_position_parameters':additional,'additional_fp32_position_weights_mib':additional*4/2**20,'dense_attention_pair_count_ratio_at_equal_batch':(2048/c['block_size'])**2,'training_note':'Position extension is a weights-only project-owned warm start, not an exact optimizer/RNG resume. GPU feasibility requires a separate profile.','fixtures':{}}
+for k,v in f['profiles'].items():
+ r['fixtures'][k]={'total_tokens_with_eos':v['sequence_tokens_with_eos'],'fits_2048_context':v['sequence_tokens_with_eos']<=2048,'target_tokens_with_eos':v['target_tokens']+1,'fits_768_output_budget':v['target_tokens']+1<=768,'fits_1600_output_budget':v['target_tokens']+1<=1600}
+p=Path('reports/analysis/AI-015_CONTEXT_2048_DESIGN.json')
+with p.open('x',encoding='utf-8',newline='\n') as h: json.dump(r,h,ensure_ascii=False,indent=2); h.write('\n')
+print(json.dumps(r,ensure_ascii=False,indent=2))"
+Commit: 76748ad160f81a3ab28bcfb90aad461589f28d2c
+
+{
+  "status": "design_calculation_not_gpu_profile",
+  "old_context": 1024,
+  "proposed_context": 2048,
+  "additional_learned_position_parameters": 393216,
+  "additional_fp32_position_weights_mib": 1.5,
+  "dense_attention_pair_count_ratio_at_equal_batch": 4.0,
+  "training_note": "Position extension is a weights-only project-owned warm start, not an exact optimizer/RNG resume. GPU feasibility requires a separate profile.",
+  "fixtures": {
+    "landing_page": {
+      "total_tokens_with_eos": 1498,
+      "fits_2048_context": true,
+      "target_tokens_with_eos": 1375,
+      "fits_768_output_budget": false,
+      "fits_1600_output_budget": true
+    },
+    "company_profile": {
+      "total_tokens_with_eos": 1479,
+      "fits_2048_context": true,
+      "target_tokens_with_eos": 1358,
+      "fits_768_output_budget": false,
+      "fits_1600_output_budget": true
+    }
+  }
+}
+
+Exit code: 0

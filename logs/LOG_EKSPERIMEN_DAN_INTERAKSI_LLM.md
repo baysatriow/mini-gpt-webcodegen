@@ -2399,3 +2399,51 @@ print(json.dumps({'previous_main':previous_main,'integrated_feature_commit':sour
 - RUN-199: source fbd16ddd85c837bca824980d0559ddb94b228518 digabung ke main lama 7956be40214dcf98fbe3a3d23bda1d0eaf67b3b4 melalui merge commit 0ddfa3d03b03607ea1f9a4a27f45f8471547d125, tanpa konflik. Main sudah dipush; feature diselaraskan ke merge commit dan dipush.
 - Branch feature/pipeline-data-model-training tetap disimpan dan aktif untuk kelanjutan. Log operasi disimpan pada kedua branch setelah integrasi. Tidak menjalankan training atau test suite baru. Pemeriksaan Git memastikan source ancestor main dan diff tanpa whitespace error.
 - Skill finishing-a-development-branch dipakai. Pilihan merge, target main dan pemeliharaan branch mengikuti instruksi langsung pengguna, tanpa menanyakan ulang pilihan integrasi.
+
+### RUN-200
+
+- **Waktu:** 2026-10-13T20:26:06.253302+07:00 sampai 2026-10-13T20:26:06.372934+07:00.
+- **Tujuan:** AI-015 calculate 2048 context token budgets and position extension.
+- **Command:** `.venv/Scripts/python.exe -c "import json
+from pathlib import Path
+c=json.loads(Path('configs/model.json').read_text(encoding='utf-8'))
+f=json.loads(Path('reports/analysis/AI-014_FULL_PAGE_SCOPE_VALID.json').read_text(encoding='utf-8'))
+additional=(2048-c['block_size'])*c['n_embd']
+r={'status':'design_calculation_not_gpu_profile','old_context':c['block_size'],'proposed_context':2048,'additional_learned_position_parameters':additional,'additional_fp32_position_weights_mib':additional*4/2**20,'dense_attention_pair_count_ratio_at_equal_batch':(2048/c['block_size'])**2,'training_note':'Position extension is a weights-only project-owned warm start, not an exact optimizer/RNG resume. GPU feasibility requires a separate profile.','fixtures':{}}
+for k,v in f['profiles'].items():
+ r['fixtures'][k]={'total_tokens_with_eos':v['sequence_tokens_with_eos'],'fits_2048_context':v['sequence_tokens_with_eos']<=2048,'target_tokens_with_eos':v['target_tokens']+1,'fits_768_output_budget':v['target_tokens']+1<=768,'fits_1600_output_budget':v['target_tokens']+1<=1600}
+p=Path('reports/analysis/AI-015_CONTEXT_2048_DESIGN.json')
+with p.open('x',encoding='utf-8',newline='\n') as h: json.dump(r,h,ensure_ascii=False,indent=2); h.write('\n')
+print(json.dumps(r,ensure_ascii=False,indent=2))"`.
+- **Commit:** `76748ad160f81a3ab28bcfb90aad461589f28d2c`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-200_ai_015_calculate_2048_context_token_budgets_and_position_extension.txt`.
+
+### AI-015: Spesifikasi yang efisien untuk halaman lengkap
+
+- Pengguna menyetujui arah generasi bertahap dan meminta konteks 2.048 karena kebutuhan sekitar 1.500 token. [Interaksi](interaksi_llm/AI-015_2026-10-13.md), [spesifikasi](../docs/superpowers/specs/2026-10-13-full-page-generation-design.md).
+- RUN-200 membedakan context window dari output budget: dua fixture manual muat pada 2.048 dengan output 1.600, bukan output 768. Positional embedding tambahan 393.216 parameter/1,5 MiB FP32; empat kali pasangan attention pada panjang maksimum bukan metrik VRAM aktual.
+- Checkpoint membutuhkan migrasi posisi eksplisit dan training, bukan exact resume dengan config berbeda. Rancangan mempertahankan model/tokenizer proyek, lineage dan artefak lama.
+- Spesifikasi tertulis menunggu review sesuai brainstorming, kemudian writing-plans. Belum mengubah kode/model/training/data. Main tetap snapshot integrasi sementara, pengembangan di feature/pipeline-data-model-training.
+
+### RUN-201
+
+- **Waktu:** 2026-10-13T20:30:32.520260+07:00 sampai 2026-10-13T20:30:32.648528+07:00.
+- **Tujuan:** AI-015 written specification self review and calculation consistency.
+- **Command:** `.venv/Scripts/python.exe -c "import json,re
+from pathlib import Path
+p=Path('docs/superpowers/specs/2026-10-13-full-page-generation-design.md')
+s=p.read_text(encoding='utf-8')
+assert chr(8212) not in s
+assert not re.search(r'\b(TODO|TBD|FIXME)\b',s)
+assert all(f'## {i}.' in s for i in range(1,11))
+r=json.loads(Path('reports/analysis/AI-015_CONTEXT_2048_DESIGN.json').read_text(encoding='utf-8'))
+assert r['additional_learned_position_parameters']==393216
+assert all(x['fits_2048_context'] and x['fits_1600_output_budget'] and not x['fits_768_output_budget'] for x in r['fixtures'].values())
+for name in ['README.md','logs/LOG_TRAINING.md','logs/PIPELINE_PROGRESS.md','logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md']:
+ assert p.name in Path(name).read_text(encoding='utf-8')
+assert Path('logs/interaksi_llm/AI-015_2026-10-13.md').exists()
+print('Spec review: 10 sections present, no placeholders/em dash; calculation snapshot and documentation pointers consistent. Manual scope review separates proposal, GPU proof, training, and browser acceptance. No unit tests, model migration, GPU profile or training executed.')"`.
+- **Commit:** `76748ad160f81a3ab28bcfb90aad461589f28d2c`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-201_ai_015_written_specification_self_review_and_calculation_consistency.txt`.

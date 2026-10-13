@@ -1,0 +1,25 @@
+{
+  "status": "design_calculation_not_gpu_profile",
+  "old_context": 1024,
+  "proposed_context": 2048,
+  "additional_learned_position_parameters": 393216,
+  "additional_fp32_position_weights_mib": 1.5,
+  "dense_attention_pair_count_ratio_at_equal_batch": 4.0,
+  "training_note": "Position extension is a weights-only project-owned warm start, not an exact optimizer/RNG resume. GPU feasibility requires a separate profile.",
+  "fixtures": {
+    "landing_page": {
+      "total_tokens_with_eos": 1498,
+      "fits_2048_context": true,
+      "target_tokens_with_eos": 1375,
+      "fits_768_output_budget": false,
+      "fits_1600_output_budget": true
+    },
+    "company_profile": {
+      "total_tokens_with_eos": 1479,
+      "fits_2048_context": true,
+      "target_tokens_with_eos": 1358,
+      "fits_768_output_budget": false,
+      "fits_1600_output_budget": true
+    }
+  }
+}

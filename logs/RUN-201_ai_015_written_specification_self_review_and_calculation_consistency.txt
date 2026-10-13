@@ -1,0 +1,20 @@
+RUN-201 | 2026-10-13T20:30:32.520260+07:00 | AI-015 written specification self review and calculation consistency
+Command: .venv/Scripts/python.exe -c "import json,re
+from pathlib import Path
+p=Path('docs/superpowers/specs/2026-10-13-full-page-generation-design.md')
+s=p.read_text(encoding='utf-8')
+assert chr(8212) not in s
+assert not re.search(r'\b(TODO|TBD|FIXME)\b',s)
+assert all(f'## {i}.' in s for i in range(1,11))
+r=json.loads(Path('reports/analysis/AI-015_CONTEXT_2048_DESIGN.json').read_text(encoding='utf-8'))
+assert r['additional_learned_position_parameters']==393216
+assert all(x['fits_2048_context'] and x['fits_1600_output_budget'] and not x['fits_768_output_budget'] for x in r['fixtures'].values())
+for name in ['README.md','logs/LOG_TRAINING.md','logs/PIPELINE_PROGRESS.md','logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md']:
+ assert p.name in Path(name).read_text(encoding='utf-8')
+assert Path('logs/interaksi_llm/AI-015_2026-10-13.md').exists()
+print('Spec review: 10 sections present, no placeholders/em dash; calculation snapshot and documentation pointers consistent. Manual scope review separates proposal, GPU proof, training, and browser acceptance. No unit tests, model migration, GPU profile or training executed.')"
+Commit: 76748ad160f81a3ab28bcfb90aad461589f28d2c
+
+Spec review: 10 sections present, no placeholders/em dash; calculation snapshot and documentation pointers consistent. Manual scope review separates proposal, GPU proof, training, and browser acceptance. No unit tests, model migration, GPU profile or training executed.
+
+Exit code: 0
