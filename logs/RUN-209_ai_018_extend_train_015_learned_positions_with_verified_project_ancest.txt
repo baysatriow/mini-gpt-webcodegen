@@ -1,0 +1,30 @@
+RUN-209 | 2026-10-13T20:58:41.169701+07:00 | AI-018 extend TRAIN-015 learned positions with verified project ancestry
+Command: .venv/Scripts/python.exe -m qa.extend_context --source checkpoints/TRAIN-015/best.pt --output checkpoints/INIT-2048-001/initial.pt
+Commit: f194e7919d4757e75d945888afc6c8e15e400de9
+
+{
+  "status": "completed",
+  "initialization_kind": "weights_only_position_extension",
+  "source_checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "checkpoint": "checkpoints\\INIT-2048-001\\initial.pt",
+  "checkpoint_sha256": "27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372",
+  "model_config": {
+    "vocab_size": 8192,
+    "block_size": 2048,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.1,
+    "tie_embeddings": true,
+    "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+  },
+  "parameter_count": 14579712,
+  "old_position_rows_identical": true,
+  "tied_embeddings": true,
+  "prefix_logits_max_difference": 0.0,
+  "optimizer_state_reused": false,
+  "new_positions_trained": false,
+  "free_bytes": 18971791360
+}
+
+Exit code: 0

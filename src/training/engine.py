@@ -281,9 +281,9 @@ def _iterator_without_rng_change(loader):
     return iterator
 
 
-def run_training(config_path: Path, train_loader, validation_loader, run_id: str, *, stop_after=None, resume=None):
+def run_training(config_path: Path, train_loader, validation_loader, run_id: str, *, stop_after=None, resume=None, root=None):
     config_path = Path(config_path).resolve()
-    root = config_path.parent.parent
+    root = Path(root).resolve() if root is not None else config_path.parent.parent
     config = json.loads(config_path.read_text(encoding="utf-8"))
     if not re.fullmatch(r"[A-Z0-9_-]{1,80}", run_id):
         raise ValueError("Invalid run ID")
@@ -358,7 +358,11 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
             if checkpoint_sha256(initial_path) != config["initial_checkpoint_sha256"]:
                 raise ValueError("Initial checkpoint checksum changed")
             parent = read_checkpoint(initial_path)
-            validate_initial_checkpoint(parent, config, root)
+            if config.get('data_origin') == 'fullpage_curriculum':
+                from src.fullpage.lineage import validate_fullpage_parent
+                validate_fullpage_parent(parent, config, root)
+            else:
+                validate_initial_checkpoint(parent, config, root)
             load_checkpoint(initial_path, model, None, None, restore_rng=False)
         if resume:
             state = read_checkpoint(Path(resume))

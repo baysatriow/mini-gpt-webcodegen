@@ -462,3 +462,9 @@ RUN-107 pemeriksaan source: 57 Python / 40 JSON / 44 Markdown / lima notebook / 
 - Rencana memakai context2.048/output section1.536/plan512. RUN-203 mengukur fixture plan ringkas366/367 token, bukan output model. Posisi tambahan belum dilatih.
 - [Rencana implementasi](../docs/superpowers/plans/2026-10-13-full-page-generation.md) memuat migrasi weights-only, curriculum baru, loader/sampler exact-resume, profil batch4/8/12/16, pilot600 dan proposal training utama2.400 yang dikunci setelah diagnosis pilot sebelum run. Angka tersebut rencana, bukan hasil.
 - Generator disiapkan sebelum pilot, benchmark final baru belum dijalankan. Tidak ada TRAIN-016, migrasi checkpoint, data baru atau test suite pada tahap penulisan rencana. RUN-204/205 review dokumen/interfaces selesai.
+
+#### INIT-2048-001: Migrasi posisi, belum training
+
+- RUN-209/210 menghasilkan initializationweights-only konteks2.048 dari TRAIN-015best. CheckpointSHA27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372; parameter14.579.712. Baris1.024lama/tensor lainidentik dan prefixlogits selisih0.0.
+- Optimizer/scheduler lama tidakdireuse. Posisi1.024baru randomnormal0/std0.02 seed42, belum dilatih. Load dan ancestrymatch diperiksa, modelconfigmismatch ditolak. Freebytes18.971.791.360 setelahmigrasi, reserve15GiB dipertahankan.
+- [Migration report](../reports/training/INIT-2048-001.json), [load inspection](../reports/training/INIT-2048-001_LOAD_INSPECTION.json). Ini bukan run training atau klaim halaman lengkap.

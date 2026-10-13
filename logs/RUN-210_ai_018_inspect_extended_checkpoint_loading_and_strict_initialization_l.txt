@@ -1,0 +1,31 @@
+RUN-210 | 2026-10-13T20:59:27.812820+07:00 | AI-018 inspect extended checkpoint loading and strict initialization lineage
+Command: .venv/Scripts/python.exe -c "import json
+from pathlib import Path
+from src.training.engine import read_checkpoint,checkpoint_sha256,load_checkpoint
+from src.fullpage.lineage import validate_fullpage_parent
+from src.models.minigpt import MiniGPT
+root=Path.cwd(); path=root/'checkpoints/INIT-2048-001/initial.pt'; parent=read_checkpoint(path)
+config={'model_config':parent['model_config'],'data_origin':'fullpage_curriculum','human_reviewed':False,'lineage':{'tokenizer_sha256':parent['config']['lineage']['tokenizer_sha256'],'initialization_parent':parent['config']['lineage']}}
+validate_fullpage_parent(parent,config,root)
+bad={**config,'model_config':{**config['model_config'],'n_layer':7}}
+try: validate_fullpage_parent(parent,bad,root)
+except ValueError: rejected=True
+else: rejected=False
+if not rejected: raise ValueError('Architecture mismatch accepted')
+model=MiniGPT(parent['model_config']); load_checkpoint(path,model,None,None,restore_rng=False)
+report={'status':'initialization_load_and_lineage_checked','checkpoint_sha256':checkpoint_sha256(path),'mismatched_model_rejected':rejected,'state_has_optimizer': 'optimizer' in parent,'positions':model.position_embedding.num_embeddings,'new_positions_trained':False}
+output=root/'reports/training/INIT-2048-001_LOAD_INSPECTION.json'
+with output.open('x',encoding='utf-8',newline='\n') as h: json.dump(report,h,indent=2);h.write('\n')
+print(json.dumps(report,indent=2))"
+Commit: f194e7919d4757e75d945888afc6c8e15e400de9
+
+{
+  "status": "initialization_load_and_lineage_checked",
+  "checkpoint_sha256": "27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372",
+  "mismatched_model_rejected": true,
+  "state_has_optimizer": false,
+  "positions": 2048,
+  "new_positions_trained": false
+}
+
+Exit code: 0

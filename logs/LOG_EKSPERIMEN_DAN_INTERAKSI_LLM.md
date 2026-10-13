@@ -2620,3 +2620,38 @@ print('Eight tasks reviewed against ten spec sections and five failure classes. 
 - Pengguna menyetujui rencana dan metode Native. [Interaksi dan rulings](interaksi_llm/AI-018_2026-10-13.md). Branch feature/pipeline-data-model-training dipertahankan, main tidak diubah.
 - RUN-206/207/208: empat schema baru dan validator/codec/budget dibuat. Fixture plan9/12 bagian valid,365/452token termasuk EOS. Prefix512 diterima dan513 ditolak untuk output1.536; tuple/ID/fact/variant/role/anchor salah ditolak.
 - Ini diagnosis fixture/schema, bukan keluaran model, training atau browser acceptance. Task1 selesai; lanjut migrasi checkpoint. [Report](../reports/analysis/AI-018_CONTRACT_INSPECTION_12.json).
+
+### RUN-209
+
+- **Waktu:** 2026-10-13T20:58:41.169701+07:00 sampai 2026-10-13T20:58:48.422991+07:00.
+- **Tujuan:** AI-018 extend TRAIN-015 learned positions with verified project ancestry.
+- **Command:** `.venv/Scripts/python.exe -m qa.extend_context --source checkpoints/TRAIN-015/best.pt --output checkpoints/INIT-2048-001/initial.pt`.
+- **Commit:** `f194e7919d4757e75d945888afc6c8e15e400de9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-209_ai_018_extend_train_015_learned_positions_with_verified_project_ancest.txt`.
+
+### RUN-210
+
+- **Waktu:** 2026-10-13T20:59:27.812820+07:00 sampai 2026-10-13T20:59:30.285625+07:00.
+- **Tujuan:** AI-018 inspect extended checkpoint loading and strict initialization lineage.
+- **Command:** `.venv/Scripts/python.exe -c "import json
+from pathlib import Path
+from src.training.engine import read_checkpoint,checkpoint_sha256,load_checkpoint
+from src.fullpage.lineage import validate_fullpage_parent
+from src.models.minigpt import MiniGPT
+root=Path.cwd(); path=root/'checkpoints/INIT-2048-001/initial.pt'; parent=read_checkpoint(path)
+config={'model_config':parent['model_config'],'data_origin':'fullpage_curriculum','human_reviewed':False,'lineage':{'tokenizer_sha256':parent['config']['lineage']['tokenizer_sha256'],'initialization_parent':parent['config']['lineage']}}
+validate_fullpage_parent(parent,config,root)
+bad={**config,'model_config':{**config['model_config'],'n_layer':7}}
+try: validate_fullpage_parent(parent,bad,root)
+except ValueError: rejected=True
+else: rejected=False
+if not rejected: raise ValueError('Architecture mismatch accepted')
+model=MiniGPT(parent['model_config']); load_checkpoint(path,model,None,None,restore_rng=False)
+report={'status':'initialization_load_and_lineage_checked','checkpoint_sha256':checkpoint_sha256(path),'mismatched_model_rejected':rejected,'state_has_optimizer': 'optimizer' in parent,'positions':model.position_embedding.num_embeddings,'new_positions_trained':False}
+output=root/'reports/training/INIT-2048-001_LOAD_INSPECTION.json'
+with output.open('x',encoding='utf-8',newline='\n') as h: json.dump(report,h,indent=2);h.write('\n')
+print(json.dumps(report,indent=2))"`.
+- **Commit:** `f194e7919d4757e75d945888afc6c8e15e400de9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-210_ai_018_inspect_extended_checkpoint_loading_and_strict_initialization_l.txt`.

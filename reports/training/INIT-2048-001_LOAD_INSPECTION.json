@@ -1,0 +1,8 @@
+{
+  "status": "initialization_load_and_lineage_checked",
+  "checkpoint_sha256": "27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372",
+  "mismatched_model_rejected": true,
+  "state_has_optimizer": false,
+  "positions": 2048,
+  "new_positions_trained": false
+}
