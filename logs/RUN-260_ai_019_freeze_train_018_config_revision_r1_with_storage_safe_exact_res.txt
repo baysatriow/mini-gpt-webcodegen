@@ -1,0 +1,13 @@
+RUN-260 | 2026-10-14T01:00:34.011541+07:00 | AI-019 freeze TRAIN-018 config revision r1 with storage-safe exact-resume source hashes
+Command: .venv/Scripts/python.exe -m qa.configure_fullpage_training --scope main --profile reports/training/FULLPAGE-GPU-003.json --dataset-dir data/processed/fullpage/v2 --plan-probability 0.7 --max-steps 3600 --warmup-steps 180 --validation-interval 600 --checkpoint-interval 600 --storage-phase-id fullpage-improvement-v2 --selection-rule "Compare only generation checkpoints at updates 1800 and 3600 by development complete-page count, required roles, first-attempt completeness, ordinary validation CE, then earlier update; development gate is at least 95 percent and final remains closed until it passes." --output configs/fullpage/training-improvement-v2-r1.json
+Commit: e52bf140ce106abf15ab0264e7cc9c50bb81f6ef
+
+{
+  "scope": "main",
+  "batch_size": 16,
+  "gradient_accumulation": 3,
+  "max_steps": 3600,
+  "learning_rate": 5e-05
+}
+
+Exit code: 0

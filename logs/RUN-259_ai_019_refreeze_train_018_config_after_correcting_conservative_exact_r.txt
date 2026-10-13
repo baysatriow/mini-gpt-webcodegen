@@ -1,0 +1,22 @@
+RUN-259 | 2026-10-14T01:00:18.808583+07:00 | AI-019 refreeze TRAIN-018 config after correcting conservative exact-resume checkpoint reserve estimate
+Command: .venv/Scripts/python.exe -m qa.configure_fullpage_training --scope main --profile reports/training/FULLPAGE-GPU-003.json --dataset-dir data/processed/fullpage/v2 --plan-probability 0.7 --max-steps 3600 --warmup-steps 180 --validation-interval 600 --checkpoint-interval 600 --storage-phase-id fullpage-improvement-v2 --selection-rule "Compare only generation checkpoints at updates 1800 and 3600 by development complete-page count, required roles, first-attempt completeness, ordinary validation CE, then earlier update; development gate is at least 95 percent and final remains closed until it passes." --output configs/fullpage/training-improvement-v2.json
+Commit: e52bf140ce106abf15ab0264e7cc9c50bb81f6ef
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\configure_fullpage_training.py", line 47, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\configure_fullpage_training.py", line 44, in main
+    write_json(root/args.output,config); print(json.dumps({k:config[k] for k in ('scope','batch_size','gradient_accumulation','max_steps','learning_rate')},indent=2))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\fullpage\curriculum.py", line 28, in write_json
+    with path.open('x', encoding='utf-8', newline='\n') as handle:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileExistsError: [Errno 17] File exists: 'F:\\Generative_AI\\Vibe_Coding_Proyek_1\\configs\\fullpage\\training-improvement-v2.json'
+
+Exit code: 1

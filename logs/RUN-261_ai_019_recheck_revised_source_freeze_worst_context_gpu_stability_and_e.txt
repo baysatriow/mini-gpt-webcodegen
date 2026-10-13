@@ -1,0 +1,45 @@
+RUN-261 | 2026-10-14T01:00:53.283050+07:00 | AI-019 recheck revised source freeze worst-context GPU stability and exact-resume disk reserve
+Command: .venv/Scripts/python.exe -c "import ast,json,shutil,torch
+from pathlib import Path
+from src.data.sources import sha256_file
+from src.training.engine import checkpoint_sha256,read_checkpoint
+root=Path.cwd(); source_files=['src/training/engine.py','qa/profile_fullpage_training.py','qa/configure_fullpage_training.py','qa/evaluate_fullpage.py','qa/snapshot_fullpage_checkpoint.py','qa/select_fullpage_improvement.py']
+for relative in source_files: ast.parse((root/relative).read_text(encoding='utf-8'),filename=relative)
+config_path=root/'configs/fullpage/training-improvement-v2-r1.json'; cfg=json.loads(config_path.read_text(encoding='utf-8')); profile=json.loads((root/'reports/training/FULLPAGE-GPU-003.json').read_text(encoding='utf-8')); worst=json.loads((root/'reports/training/FULLPAGE-GPU-001.json').read_text(encoding='utf-8'))
+if profile['selected']['batch']!=16 or profile['selected']['accumulation']!=3 or any(row['status']!='stable' for row in profile['results']): raise ValueError('New GPU profile is not stable')
+if not any(row['batch']==16 and row['status']=='stable' for row in worst['results']): raise ValueError('Batch16 lacks old 2048-token worst-context headroom')
+if profile['plan_probability']!=.7 or profile['dataset_dir']!='data/processed/fullpage/v2': raise ValueError('Profile does not match approved data sampler')
+manifest=root/cfg['dataset_dir']/'manifest.json'
+if sha256_file(manifest)!=cfg['lineage']['fullpage_manifest_sha256'] or sha256_file(root/'reports/training/FULLPAGE-GPU-003.json')!=cfg['lineage']['profile_sha256']: raise ValueError('Frozen lineage hash mismatch')
+for relative,digest in cfg['lineage']['source_sha256'].items():
+ if sha256_file(root/relative)!=digest: raise ValueError('Source hash mismatch '+relative)
+old=json.loads((root/'data/processed/fullpage/v1/manifest.json').read_text(encoding='utf-8')); new=json.loads(manifest.read_text(encoding='utf-8'))
+for name in ('validation.jsonl','validation.requests.jsonl','test.jsonl','test.requests.jsonl'):
+ if old['files'][name]['sha256']!=new['files'][name]['sha256']: raise ValueError('Heldout data changed '+name)
+initial=read_checkpoint(root/cfg['initial_checkpoint'])
+if checkpoint_sha256(root/cfg['initial_checkpoint'])!=cfg['initial_checkpoint_sha256']: raise ValueError('INIT2048 checkpoint hash mismatch')
+unique={tensor.data_ptr():tensor for tensor in initial['model'].values()}; model_bytes=sum(t.numel()*t.element_size() for t in unique.values()); estimate=model_bytes*8+128*1024**2
+free=shutil.disk_usage(root).free
+if free < cfg['reserve_free_bytes']+estimate: raise OSError('Storage reserve insufficient before training')
+if cfg['selection_rule'].find('1800 and 3600')<0: raise ValueError('Frozen comparison steps missing')
+print(json.dumps({'config':str(config_path.relative_to(root)),'config_sha256':sha256_file(config_path),'training_source_hashes_valid':True,'gpu_batch16_stable_at_worst_context':True,'actual_plan_ratio':profile['plan_probability'],'selected_batch':profile['selected']['batch'],'accumulation':profile['selected']['accumulation'],'expected_checkpoint_reserve_gib':round(estimate/2**30,3),'disk_free_gib':round(free/2**30,3),'disk_free_after_reserve_and_estimate_gib':round((free-cfg['reserve_free_bytes']-estimate)/2**30,3),'final_benchmark_claimed':(root/'data/evaluation/fullpage/final_consumption.json').exists(),'heldout_hashes_unchanged':True,'source_syntax_ok':True},indent=2))
+if (root/'data/evaluation/fullpage/final_consumption.json').exists(): raise ValueError('Final should remain unclaimed')"
+Commit: e52bf140ce106abf15ab0264e7cc9c50bb81f6ef
+
+{
+  "config": "configs\\fullpage\\training-improvement-v2-r1.json",
+  "config_sha256": "d6476a9ee322255f8d0863074543946bd6fd80692cb87370dd8c795fa8d2936f",
+  "training_source_hashes_valid": true,
+  "gpu_batch16_stable_at_worst_context": true,
+  "actual_plan_ratio": 0.7,
+  "selected_batch": 16,
+  "accumulation": 3,
+  "expected_checkpoint_reserve_gib": 0.56,
+  "disk_free_gib": 16.457,
+  "disk_free_after_reserve_and_estimate_gib": 0.897,
+  "final_benchmark_claimed": false,
+  "heldout_hashes_unchanged": true,
+  "source_syntax_ok": true
+}
+
+Exit code: 0

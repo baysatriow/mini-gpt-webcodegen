@@ -1,0 +1,98 @@
+RUN-258 | 2026-10-14T00:58:30.672409+07:00 | AI-019 verify profile source syntax TRAIN-018 frozen lineage reserve and protected outputs before training
+Command: .venv/Scripts/python.exe -c "import ast,json,shutil
+from pathlib import Path
+from src.data.sources import sha256_file
+from src.training.engine import checkpoint_sha256,read_checkpoint
+root=Path.cwd(); sources=['qa/profile_fullpage_training.py','qa/configure_fullpage_training.py','qa/evaluate_fullpage.py','qa/snapshot_fullpage_checkpoint.py','qa/select_fullpage_improvement.py']
+for name in sources: ast.parse((root/name).read_text(encoding='utf-8'),filename=name)
+config_path=root/'configs/fullpage/training-improvement-v2.json'; cfg=json.loads(config_path.read_text(encoding='utf-8')); profile=json.loads((root/'reports/training/FULLPAGE-GPU-003.json').read_text(encoding='utf-8'))
+if profile['selected']['batch']!=16 or profile['selected']['accumulation']!=3 or any(row['status']!='stable' for row in profile['results']): raise ValueError('GPU profile was not fully stable')
+if (cfg['dataset_dir']!='data/processed/fullpage/v2' or cfg['plan_batch_probability']!=.7 or cfg['max_steps']!=3600 or cfg['warmup_steps']!=180 or cfg['validation_interval']!=600 or cfg['checkpoint_interval']!=600 or cfg['storage_phase_id']!='fullpage-improvement-v2'): raise ValueError('Frozen experiment config mismatch')
+manifest=root/cfg['dataset_dir']/'manifest.json'
+if sha256_file(manifest)!=cfg['lineage']['fullpage_manifest_sha256'] or sha256_file(root/'reports/training/FULLPAGE-GPU-003.json')!=cfg['lineage']['profile_sha256']: raise ValueError('Config lineage hash mismatch')
+for path,digest in cfg['lineage']['source_sha256'].items():
+ if sha256_file(root/path)!=digest: raise ValueError('Training source hash mismatch '+path)
+old=json.loads((root/'data/processed/fullpage/v1/manifest.json').read_text(encoding='utf-8')); new=json.loads(manifest.read_text(encoding='utf-8'))
+for name in ('validation.jsonl','validation.requests.jsonl','test.jsonl','test.requests.jsonl'):
+ if old['files'][name]['sha256']!=new['files'][name]['sha256']: raise ValueError('Heldout split differs '+name)
+initial=read_checkpoint(root/cfg['initial_checkpoint'])
+if checkpoint_sha256(root/cfg['initial_checkpoint'])!=cfg['initial_checkpoint_sha256']: raise ValueError('INIT2048 hash mismatch')
+parameter_count=sum(t.numel() for t in initial['model'].values()); estimate=parameter_count*12*6+64*1024**2; free=shutil.disk_usage(root).free
+if free < cfg['reserve_free_bytes']+estimate: raise OSError('Checkpoint reserve is insufficient')
+for relative in ('checkpoints/TRAIN-018','checkpoints/TRAIN-019','reports/training/TRAIN-018.json','reports/training/TRAIN-019.json','reports/fullpage/AI-019_DEVELOPMENT_SELECTION.json','reports/fullpage/AI-019_LOCKED_CANDIDATE.json','data/evaluation/fullpage/final_consumption.json'):
+ if (root/relative).exists(): raise FileExistsError('Protected experiment destination already exists: '+relative)
+print(json.dumps({'syntax_files':len(sources),'profile_selected':profile['selected'],'config_sha256':sha256_file(config_path),'manifest_sha256':sha256_file(manifest),'init_sha256':checkpoint_sha256(root/cfg['initial_checkpoint']),'model_parameters':parameter_count,'estimated_checkpoint_bytes':estimate,'disk_free_gib':round(free/2**30,2),'reserve_gib':cfg['reserve_free_bytes']/2**30,'heldout_bytes_unchanged':True,'final_claim_absent':True,'new_run_destinations_clear':True},indent=2))"
+Commit: e52bf140ce106abf15ab0264e7cc9c50bb81f6ef
+
+{
+  "syntax_files": 5,
+  "profile_selected": {
+    "batch": 16,
+    "accumulation": 3,
+    "effective_batch": 48,
+    "length": "trimmed representative tasks",
+    "dataset_dir": "data/processed/fullpage/v2",
+    "plan_probability": 0.7,
+    "real_target_tokens": 415,
+    "warmup_updates": 6,
+    "measured_updates": 20,
+    "status": "stable",
+    "seconds": 5.909853100019973,
+    "valid_tokens": 325392,
+    "tokens_per_second": 55059.236582191916,
+    "peak_allocated_bytes": 3761496576,
+    "peak_reserved_bytes": 4078960640,
+    "free_device_bytes": 7437549568,
+    "total_device_bytes": 12820480000,
+    "last_step": {
+      "loss": 2.505481941482028,
+      "grad_norm": 1.6610326766967773,
+      "valid_tokens": 15413
+    },
+    "gpu": "NVIDIA GeForce RTX 5070",
+    "telemetry": {
+      "sample_count": 15,
+      "interval_seconds": 0.5,
+      "raw_path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\metrics\\FULLPAGE-GPU-003-B16_gpu.jsonl",
+      "errors": [],
+      "memory_scope": "nvidia-smi memory includes other desktop applications",
+      "utilization_pct": {
+        "mean": 81.66666666666667,
+        "max": 99.0,
+        "min": 0.0
+      },
+      "memory_used_mib": {
+        "mean": 6928.4,
+        "max": 7290.0,
+        "min": 3592.0
+      },
+      "power_w": {
+        "mean": 159.75733333333332,
+        "max": 189.97,
+        "min": 34.75
+      },
+      "temperature_c": {
+        "mean": 55.46666666666667,
+        "max": 60.0,
+        "min": 44.0
+      },
+      "sm_clock_mhz": {
+        "mean": 2892.0666666666666,
+        "max": 2940.0,
+        "min": 2602.0
+      }
+    }
+  },
+  "config_sha256": "350dcb64d3faea5fea24c83cd4e53f862905e1844254ab15212222b0b555ce80",
+  "manifest_sha256": "b26f1714fa186081dec30c6f7c8ace478287601e0fc2bb318ae6f3601dbfd86d",
+  "init_sha256": "27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372",
+  "model_parameters": 17725440,
+  "estimated_checkpoint_bytes": 1343340544,
+  "disk_free_gib": 16.46,
+  "reserve_gib": 15.0,
+  "heldout_bytes_unchanged": true,
+  "final_claim_absent": true,
+  "new_run_destinations_clear": true
+}
+
+Exit code: 0

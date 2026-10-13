@@ -1,0 +1,52 @@
+RUN-254 | 2026-10-14T00:51:26.687184+07:00 | AI-019 diagnose frozen fullpage v2 integrity sampler ratio heldout hashes and RTX 5070 readiness
+Command: .venv/Scripts/python.exe -c "import collections,hashlib,json,shutil,torch
+from pathlib import Path
+from tokenizers import Tokenizer
+from src.fullpage.dataset import TaskDataset,TaskBatchSampler
+from src.data.sources import sha256_file
+root=Path.cwd(); v1=root/'data/processed/fullpage/v1'; v2=root/'data/processed/fullpage/v2'
+old=json.loads((v1/'manifest.json').read_text(encoding='utf-8')); new=json.loads((v2/'manifest.json').read_text(encoding='utf-8'))
+for name,info in new['files'].items():
+ path=v2/name
+ if path.stat().st_size != info['bytes'] or sha256_file(path) != info['sha256']: raise ValueError('V2 source integrity mismatch: '+name)
+for name in ('validation.jsonl','validation.requests.jsonl','test.jsonl','test.requests.jsonl'):
+ if old['files'][name]['sha256'] != new['files'][name]['sha256']: raise ValueError('Heldout lineage changed: '+name)
+tokenizer=Tokenizer.from_file(str(root/'data/tokenizer/tokenizer.json'))
+train=TaskDataset(v2/'train.jsonl',tokenizer); validation=TaskDataset(v2/'validation.jsonl',tokenizer)
+sampler=TaskBatchSampler(train.lengths,train.task_kinds,16,42,plan_probability=.7)
+batches=sampler.batches(0); batch_counts=collections.Counter(train.task_kinds[b[0]] for b in batches)
+if any(any(train.task_kinds[i] != train.task_kinds[b[0]] for i in b) for b in batches): raise ValueError('A batch mixes plan and section tasks')
+requests=[json.loads(line) for line in (v2/'train.requests.jsonl').open(encoding='utf-8')]
+free,total=torch.cuda.mem_get_info() if torch.cuda.is_available() else (0,0)
+report={'v2_manifest_sha256':sha256_file(v2/'manifest.json'),'train_tasks':len(train),'train_task_counts':dict(collections.Counter(train.task_kinds)),'train_families':len({r['family_id'] for r in train.rows}),'train_requests':len(requests),'train_request_families':len({r['family_id'] for r in requests}),'validation_tasks':len(validation),'validation_family_count':len({r['family_id'] for r in validation.rows}),'task_sequence_max':max(train.lengths),'actual_plan_batch_probability':.7,'epoch_plan_batches':batch_counts['page_plan'],'epoch_section_batches':batch_counts['section_content'],'epoch_total_batches':len(batches),'heldout_jsonl_hashes_unchanged':True,'final_request_content_opened':False,'cuda_available':torch.cuda.is_available(),'gpu':torch.cuda.get_device_name() if torch.cuda.is_available() else None,'cuda_free_gib':round(free/2**30,2),'cuda_total_gib':round(total/2**30,2),'disk_free_gib':round(shutil.disk_usage(root).free/2**30,2)}
+print(json.dumps(report,indent=2))
+if not torch.cuda.is_available(): raise RuntimeError('CUDA unavailable')"
+Commit: e52bf140ce106abf15ab0264e7cc9c50bb81f6ef
+
+{
+  "v2_manifest_sha256": "b26f1714fa186081dec30c6f7c8ace478287601e0fc2bb318ae6f3601dbfd86d",
+  "train_tasks": 17280,
+  "train_task_counts": {
+    "page_plan": 4800,
+    "section_content": 12480
+  },
+  "train_families": 240,
+  "train_requests": 2400,
+  "train_request_families": 240,
+  "validation_tasks": 960,
+  "validation_family_count": 40,
+  "task_sequence_max": 1852,
+  "actual_plan_batch_probability": 0.7,
+  "epoch_plan_batches": 757,
+  "epoch_section_batches": 323,
+  "epoch_total_batches": 1080,
+  "heldout_jsonl_hashes_unchanged": true,
+  "final_request_content_opened": false,
+  "cuda_available": true,
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "cuda_free_gib": 10.78,
+  "cuda_total_gib": 11.94,
+  "disk_free_gib": 16.48
+}
+
+Exit code: 0

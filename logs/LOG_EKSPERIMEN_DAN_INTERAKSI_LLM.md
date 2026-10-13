@@ -3115,3 +3115,151 @@ print(json.dumps({'download_exists':path.is_file(),'sha256':actual,'records':len
 - **Commit:** `faf3136dc317d6f7cc9d47b3b377dae86df65288`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-252_ai_019_verify_webmc_downloaded_bytes_match_inspected_source_and_delive.txt`.
+
+### RUN-253
+
+- **Waktu:** 2026-10-14T00:50:48.223929+07:00 sampai 2026-10-14T00:50:48.785863+07:00.
+- **Tujuan:** record failed repository discovery lookup for absent qa/run_fullpage.py during AI-019 planning.
+- **Command:** `powershell -NoProfile -Command "Get-Content qa/run_fullpage.py -TotalCount 260"`.
+- **Commit:** `e52bf140ce106abf15ab0264e7cc9c50bb81f6ef`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-253_record_failed_repository_discovery_lookup_for_absent_qa_run_fullpage_p.txt`.
+
+### RUN-254
+
+- **Waktu:** 2026-10-14T00:51:26.687184+07:00 sampai 2026-10-14T00:51:51.224990+07:00.
+- **Tujuan:** AI-019 diagnose frozen fullpage v2 integrity sampler ratio heldout hashes and RTX 5070 readiness.
+- **Command:** `.venv/Scripts/python.exe -c "import collections,hashlib,json,shutil,torch
+from pathlib import Path
+from tokenizers import Tokenizer
+from src.fullpage.dataset import TaskDataset,TaskBatchSampler
+from src.data.sources import sha256_file
+root=Path.cwd(); v1=root/'data/processed/fullpage/v1'; v2=root/'data/processed/fullpage/v2'
+old=json.loads((v1/'manifest.json').read_text(encoding='utf-8')); new=json.loads((v2/'manifest.json').read_text(encoding='utf-8'))
+for name,info in new['files'].items():
+ path=v2/name
+ if path.stat().st_size != info['bytes'] or sha256_file(path) != info['sha256']: raise ValueError('V2 source integrity mismatch: '+name)
+for name in ('validation.jsonl','validation.requests.jsonl','test.jsonl','test.requests.jsonl'):
+ if old['files'][name]['sha256'] != new['files'][name]['sha256']: raise ValueError('Heldout lineage changed: '+name)
+tokenizer=Tokenizer.from_file(str(root/'data/tokenizer/tokenizer.json'))
+train=TaskDataset(v2/'train.jsonl',tokenizer); validation=TaskDataset(v2/'validation.jsonl',tokenizer)
+sampler=TaskBatchSampler(train.lengths,train.task_kinds,16,42,plan_probability=.7)
+batches=sampler.batches(0); batch_counts=collections.Counter(train.task_kinds[b[0]] for b in batches)
+if any(any(train.task_kinds[i] != train.task_kinds[b[0]] for i in b) for b in batches): raise ValueError('A batch mixes plan and section tasks')
+requests=[json.loads(line) for line in (v2/'train.requests.jsonl').open(encoding='utf-8')]
+free,total=torch.cuda.mem_get_info() if torch.cuda.is_available() else (0,0)
+report={'v2_manifest_sha256':sha256_file(v2/'manifest.json'),'train_tasks':len(train),'train_task_counts':dict(collections.Counter(train.task_kinds)),'train_families':len({r['family_id'] for r in train.rows}),'train_requests':len(requests),'train_request_families':len({r['family_id'] for r in requests}),'validation_tasks':len(validation),'validation_family_count':len({r['family_id'] for r in validation.rows}),'task_sequence_max':max(train.lengths),'actual_plan_batch_probability':.7,'epoch_plan_batches':batch_counts['page_plan'],'epoch_section_batches':batch_counts['section_content'],'epoch_total_batches':len(batches),'heldout_jsonl_hashes_unchanged':True,'final_request_content_opened':False,'cuda_available':torch.cuda.is_available(),'gpu':torch.cuda.get_device_name() if torch.cuda.is_available() else None,'cuda_free_gib':round(free/2**30,2),'cuda_total_gib':round(total/2**30,2),'disk_free_gib':round(shutil.disk_usage(root).free/2**30,2)}
+print(json.dumps(report,indent=2))
+if not torch.cuda.is_available(): raise RuntimeError('CUDA unavailable')"`.
+- **Commit:** `e52bf140ce106abf15ab0264e7cc9c50bb81f6ef`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-254_ai_019_diagnose_frozen_fullpage_v2_integrity_sampler_ratio_heldout_has.txt`.
+
+### RUN-255
+
+- **Waktu:** 2026-10-14T00:51:59.690755+07:00 sampai 2026-10-14T00:54:14.631482+07:00.
+- **Tujuan:** AI-019 profile RTX 5070 on fullpage v2 representative tasks with 70 percent plans.
+- **Command:** `.venv/Scripts/python.exe -m qa.profile_fullpage_training --report-id FULLPAGE-GPU-003 --dataset-dir data/processed/fullpage/v2 --plan-probability 0.7 --representative`.
+- **Commit:** `e52bf140ce106abf15ab0264e7cc9c50bb81f6ef`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-255_ai_019_profile_rtx_5070_on_fullpage_v2_representative_tasks_with_70_pe.txt`.
+
+### RUN-256
+
+- **Waktu:** 2026-10-14T00:54:54.257939+07:00 sampai 2026-10-14T00:54:56.615702+07:00.
+- **Tujuan:** AI-019 freeze TRAIN-018 config from selected 70 percent plan RTX profile and pinned v2 data.
+- **Command:** `.venv/Scripts/python.exe -m qa.configure_fullpage_training --scope main --profile reports/training/FULLPAGE-GPU-003.json --dataset-dir data/processed/fullpage/v2 --plan-probability 0.7 --max-steps 3600 --warmup-steps 180 --validation-interval 600 --checkpoint-interval 600 --storage-phase-id fullpage-improvement-v2 --selection-rule "Compare only generation checkpoints at updates 1800 and 3600 by development complete-page count, required roles, first-attempt completeness, ordinary validation CE, then earlier update; development gate is at least 95 percent and final remains closed until it passes." --output configs/fullpage/training-improvement-v2.json`.
+- **Commit:** `e52bf140ce106abf15ab0264e7cc9c50bb81f6ef`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-256_ai_019_freeze_train_018_config_from_selected_70_percent_plan_rtx_profi.txt`.
+
+### RUN-257
+
+- **Waktu:** 2026-10-14T00:55:57.234864+07:00 sampai 2026-10-14T00:55:57.285870+07:00.
+- **Tujuan:** record failed regex search during AI-019 exact resume source inspection.
+- **Command:** `rg -n (?: src/training/engine.py`.
+- **Commit:** `e52bf140ce106abf15ab0264e7cc9c50bb81f6ef`.
+- **Hasil:** exit 2.
+- **Output lengkap:** `logs/RUN-257_record_failed_regex_search_during_ai_019_exact_resume_source_inspectio.txt`.
+
+### RUN-258
+
+- **Waktu:** 2026-10-14T00:58:30.672409+07:00 sampai 2026-10-14T00:58:34.533909+07:00.
+- **Tujuan:** AI-019 verify profile source syntax TRAIN-018 frozen lineage reserve and protected outputs before training.
+- **Command:** `.venv/Scripts/python.exe -c "import ast,json,shutil
+from pathlib import Path
+from src.data.sources import sha256_file
+from src.training.engine import checkpoint_sha256,read_checkpoint
+root=Path.cwd(); sources=['qa/profile_fullpage_training.py','qa/configure_fullpage_training.py','qa/evaluate_fullpage.py','qa/snapshot_fullpage_checkpoint.py','qa/select_fullpage_improvement.py']
+for name in sources: ast.parse((root/name).read_text(encoding='utf-8'),filename=name)
+config_path=root/'configs/fullpage/training-improvement-v2.json'; cfg=json.loads(config_path.read_text(encoding='utf-8')); profile=json.loads((root/'reports/training/FULLPAGE-GPU-003.json').read_text(encoding='utf-8'))
+if profile['selected']['batch']!=16 or profile['selected']['accumulation']!=3 or any(row['status']!='stable' for row in profile['results']): raise ValueError('GPU profile was not fully stable')
+if (cfg['dataset_dir']!='data/processed/fullpage/v2' or cfg['plan_batch_probability']!=.7 or cfg['max_steps']!=3600 or cfg['warmup_steps']!=180 or cfg['validation_interval']!=600 or cfg['checkpoint_interval']!=600 or cfg['storage_phase_id']!='fullpage-improvement-v2'): raise ValueError('Frozen experiment config mismatch')
+manifest=root/cfg['dataset_dir']/'manifest.json'
+if sha256_file(manifest)!=cfg['lineage']['fullpage_manifest_sha256'] or sha256_file(root/'reports/training/FULLPAGE-GPU-003.json')!=cfg['lineage']['profile_sha256']: raise ValueError('Config lineage hash mismatch')
+for path,digest in cfg['lineage']['source_sha256'].items():
+ if sha256_file(root/path)!=digest: raise ValueError('Training source hash mismatch '+path)
+old=json.loads((root/'data/processed/fullpage/v1/manifest.json').read_text(encoding='utf-8')); new=json.loads(manifest.read_text(encoding='utf-8'))
+for name in ('validation.jsonl','validation.requests.jsonl','test.jsonl','test.requests.jsonl'):
+ if old['files'][name]['sha256']!=new['files'][name]['sha256']: raise ValueError('Heldout split differs '+name)
+initial=read_checkpoint(root/cfg['initial_checkpoint'])
+if checkpoint_sha256(root/cfg['initial_checkpoint'])!=cfg['initial_checkpoint_sha256']: raise ValueError('INIT2048 hash mismatch')
+parameter_count=sum(t.numel() for t in initial['model'].values()); estimate=parameter_count*12*6+64*1024**2; free=shutil.disk_usage(root).free
+if free < cfg['reserve_free_bytes']+estimate: raise OSError('Checkpoint reserve is insufficient')
+for relative in ('checkpoints/TRAIN-018','checkpoints/TRAIN-019','reports/training/TRAIN-018.json','reports/training/TRAIN-019.json','reports/fullpage/AI-019_DEVELOPMENT_SELECTION.json','reports/fullpage/AI-019_LOCKED_CANDIDATE.json','data/evaluation/fullpage/final_consumption.json'):
+ if (root/relative).exists(): raise FileExistsError('Protected experiment destination already exists: '+relative)
+print(json.dumps({'syntax_files':len(sources),'profile_selected':profile['selected'],'config_sha256':sha256_file(config_path),'manifest_sha256':sha256_file(manifest),'init_sha256':checkpoint_sha256(root/cfg['initial_checkpoint']),'model_parameters':parameter_count,'estimated_checkpoint_bytes':estimate,'disk_free_gib':round(free/2**30,2),'reserve_gib':cfg['reserve_free_bytes']/2**30,'heldout_bytes_unchanged':True,'final_claim_absent':True,'new_run_destinations_clear':True},indent=2))"`.
+- **Commit:** `e52bf140ce106abf15ab0264e7cc9c50bb81f6ef`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-258_ai_019_verify_profile_source_syntax_train_018_frozen_lineage_reserve_a.txt`.
+
+### RUN-259
+
+- **Waktu:** 2026-10-14T01:00:18.808583+07:00 sampai 2026-10-14T01:00:22.326759+07:00.
+- **Tujuan:** AI-019 refreeze TRAIN-018 config after correcting conservative exact-resume checkpoint reserve estimate.
+- **Command:** `.venv/Scripts/python.exe -m qa.configure_fullpage_training --scope main --profile reports/training/FULLPAGE-GPU-003.json --dataset-dir data/processed/fullpage/v2 --plan-probability 0.7 --max-steps 3600 --warmup-steps 180 --validation-interval 600 --checkpoint-interval 600 --storage-phase-id fullpage-improvement-v2 --selection-rule "Compare only generation checkpoints at updates 1800 and 3600 by development complete-page count, required roles, first-attempt completeness, ordinary validation CE, then earlier update; development gate is at least 95 percent and final remains closed until it passes." --output configs/fullpage/training-improvement-v2.json`.
+- **Commit:** `e52bf140ce106abf15ab0264e7cc9c50bb81f6ef`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-259_ai_019_refreeze_train_018_config_after_correcting_conservative_exact_r.txt`.
+
+### RUN-260
+
+- **Waktu:** 2026-10-14T01:00:34.011541+07:00 sampai 2026-10-14T01:00:36.394424+07:00.
+- **Tujuan:** AI-019 freeze TRAIN-018 config revision r1 with storage-safe exact-resume source hashes.
+- **Command:** `.venv/Scripts/python.exe -m qa.configure_fullpage_training --scope main --profile reports/training/FULLPAGE-GPU-003.json --dataset-dir data/processed/fullpage/v2 --plan-probability 0.7 --max-steps 3600 --warmup-steps 180 --validation-interval 600 --checkpoint-interval 600 --storage-phase-id fullpage-improvement-v2 --selection-rule "Compare only generation checkpoints at updates 1800 and 3600 by development complete-page count, required roles, first-attempt completeness, ordinary validation CE, then earlier update; development gate is at least 95 percent and final remains closed until it passes." --output configs/fullpage/training-improvement-v2-r1.json`.
+- **Commit:** `e52bf140ce106abf15ab0264e7cc9c50bb81f6ef`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-260_ai_019_freeze_train_018_config_revision_r1_with_storage_safe_exact_res.txt`.
+
+### RUN-261
+
+- **Waktu:** 2026-10-14T01:00:53.283050+07:00 sampai 2026-10-14T01:00:55.327810+07:00.
+- **Tujuan:** AI-019 recheck revised source freeze worst-context GPU stability and exact-resume disk reserve.
+- **Command:** `.venv/Scripts/python.exe -c "import ast,json,shutil,torch
+from pathlib import Path
+from src.data.sources import sha256_file
+from src.training.engine import checkpoint_sha256,read_checkpoint
+root=Path.cwd(); source_files=['src/training/engine.py','qa/profile_fullpage_training.py','qa/configure_fullpage_training.py','qa/evaluate_fullpage.py','qa/snapshot_fullpage_checkpoint.py','qa/select_fullpage_improvement.py']
+for relative in source_files: ast.parse((root/relative).read_text(encoding='utf-8'),filename=relative)
+config_path=root/'configs/fullpage/training-improvement-v2-r1.json'; cfg=json.loads(config_path.read_text(encoding='utf-8')); profile=json.loads((root/'reports/training/FULLPAGE-GPU-003.json').read_text(encoding='utf-8')); worst=json.loads((root/'reports/training/FULLPAGE-GPU-001.json').read_text(encoding='utf-8'))
+if profile['selected']['batch']!=16 or profile['selected']['accumulation']!=3 or any(row['status']!='stable' for row in profile['results']): raise ValueError('New GPU profile is not stable')
+if not any(row['batch']==16 and row['status']=='stable' for row in worst['results']): raise ValueError('Batch16 lacks old 2048-token worst-context headroom')
+if profile['plan_probability']!=.7 or profile['dataset_dir']!='data/processed/fullpage/v2': raise ValueError('Profile does not match approved data sampler')
+manifest=root/cfg['dataset_dir']/'manifest.json'
+if sha256_file(manifest)!=cfg['lineage']['fullpage_manifest_sha256'] or sha256_file(root/'reports/training/FULLPAGE-GPU-003.json')!=cfg['lineage']['profile_sha256']: raise ValueError('Frozen lineage hash mismatch')
+for relative,digest in cfg['lineage']['source_sha256'].items():
+ if sha256_file(root/relative)!=digest: raise ValueError('Source hash mismatch '+relative)
+old=json.loads((root/'data/processed/fullpage/v1/manifest.json').read_text(encoding='utf-8')); new=json.loads(manifest.read_text(encoding='utf-8'))
+for name in ('validation.jsonl','validation.requests.jsonl','test.jsonl','test.requests.jsonl'):
+ if old['files'][name]['sha256']!=new['files'][name]['sha256']: raise ValueError('Heldout data changed '+name)
+initial=read_checkpoint(root/cfg['initial_checkpoint'])
+if checkpoint_sha256(root/cfg['initial_checkpoint'])!=cfg['initial_checkpoint_sha256']: raise ValueError('INIT2048 checkpoint hash mismatch')
+unique={tensor.data_ptr():tensor for tensor in initial['model'].values()}; model_bytes=sum(t.numel()*t.element_size() for t in unique.values()); estimate=model_bytes*8+128*1024**2
+free=shutil.disk_usage(root).free
+if free < cfg['reserve_free_bytes']+estimate: raise OSError('Storage reserve insufficient before training')
+if cfg['selection_rule'].find('1800 and 3600')<0: raise ValueError('Frozen comparison steps missing')
+print(json.dumps({'config':str(config_path.relative_to(root)),'config_sha256':sha256_file(config_path),'training_source_hashes_valid':True,'gpu_batch16_stable_at_worst_context':True,'actual_plan_ratio':profile['plan_probability'],'selected_batch':profile['selected']['batch'],'accumulation':profile['selected']['accumulation'],'expected_checkpoint_reserve_gib':round(estimate/2**30,3),'disk_free_gib':round(free/2**30,3),'disk_free_after_reserve_and_estimate_gib':round((free-cfg['reserve_free_bytes']-estimate)/2**30,3),'final_benchmark_claimed':(root/'data/evaluation/fullpage/final_consumption.json').exists(),'heldout_hashes_unchanged':True,'source_syntax_ok':True},indent=2))
+if (root/'data/evaluation/fullpage/final_consumption.json').exists(): raise ValueError('Final should remain unclaimed')"`.
+- **Commit:** `e52bf140ce106abf15ab0264e7cc9c50bb81f6ef`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-261_ai_019_recheck_revised_source_freeze_worst_context_gpu_stability_and_e.txt`.

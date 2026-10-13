@@ -359,7 +359,14 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
         if performance.get("gpu_telemetry", False):
             from src.training.performance import GpuMonitor
             monitor = GpuMonitor(root / f"outputs/metrics/{run_id}_gpu.jsonl").start()
-        estimated_checkpoint_bytes = model.parameter_count() * 12 * 6 + 64 * 1024**2
+        if config.get('data_origin') == 'fullpage_curriculum':
+            # Reserve for current and previous atomic generations of last and best.
+            unique_tensors = {tensor.data_ptr(): tensor for tensor in model.state_dict().values()}
+            model_bytes = sum(tensor.numel() * tensor.element_size() for tensor in unique_tensors.values())
+            retained_generations = 8 if performance.get('best_weights_only', False) else 12
+            estimated_checkpoint_bytes = model_bytes * retained_generations + 128 * 1024**2
+        else:
+            estimated_checkpoint_bytes = model.parameter_count() * 12 * 6 + 64 * 1024**2
         if shutil.disk_usage(root).free < config["reserve_free_bytes"] + estimated_checkpoint_bytes:
             raise OSError("Insufficient storage for last/best checkpoints while preserving reserve")
         optimizer_options = {"fused": True} if performance.get("fused_adamw", False) else {}

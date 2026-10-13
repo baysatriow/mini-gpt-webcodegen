@@ -1,0 +1,10 @@
+RUN-257 | 2026-10-14T00:55:57.234864+07:00 | record failed regex search during AI-019 exact resume source inspection
+Command: rg -n (?: src/training/engine.py
+Commit: e52bf140ce106abf15ab0264e7cc9c50bb81f6ef
+
+rg: regex parse error:
+    (?:(?:)
+    ^
+error: unclosed group
+
+Exit code: 2
