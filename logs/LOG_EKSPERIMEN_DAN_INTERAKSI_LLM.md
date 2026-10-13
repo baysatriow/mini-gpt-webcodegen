@@ -3096,3 +3096,22 @@ if errors: raise ValueError('WebMC records failed structural inspection')"`.
 - **Commit:** `6d0b3b0148627c52cdffd0f390ad13aa5a2a3224`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-251_ai_019_inspect_all600_webmc_records_schema_duplicates_answers_token_le.txt`.
+
+### RUN-252
+
+- **Waktu:** 2026-10-14T00:46:03.861997+07:00 sampai 2026-10-14T00:46:04.065855+07:00.
+- **Tujuan:** AI-019 verify WebMC downloaded bytes match inspected source and delivery commit.
+- **Command:** `.venv/Scripts/python.exe -c "import hashlib,json,subprocess
+from pathlib import Path
+root=Path.cwd()
+meta=json.loads((root/'reports/data/WEBMC_DOWNLOAD_INSPECTION_V1.json').read_text(encoding='utf-8'))
+report=json.loads((root/'reports/data/WEBMC_CONTENT_INSPECTION_V1.json').read_text(encoding='utf-8'))
+path=root/meta['output']/'WebMC.json'
+rows=json.loads(path.read_text(encoding='utf-8'))
+actual=hashlib.sha256(path.read_bytes()).hexdigest()
+if actual != report['source_sha256']: raise ValueError('Downloaded data hash differs from inspected data')
+if len(rows) != 600: raise ValueError('Unexpected record count')
+print(json.dumps({'download_exists':path.is_file(),'sha256':actual,'records':len(rows),'inspection_schema_valid':report['schema_valid'],'inspection_exact_duplicates':report['duplicate_exact_rows'],'training_integration':report['pipeline_integration'],'current_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'local_upstream':subprocess.check_output(['git','rev-parse','@{upstream}'],text=True).strip()},indent=2))"`.
+- **Commit:** `faf3136dc317d6f7cc9d47b3b377dae86df65288`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-252_ai_019_verify_webmc_downloaded_bytes_match_inspected_source_and_delive.txt`.

@@ -1,0 +1,26 @@
+RUN-252 | 2026-10-14T00:46:03.861997+07:00 | AI-019 verify WebMC downloaded bytes match inspected source and delivery commit
+Command: .venv/Scripts/python.exe -c "import hashlib,json,subprocess
+from pathlib import Path
+root=Path.cwd()
+meta=json.loads((root/'reports/data/WEBMC_DOWNLOAD_INSPECTION_V1.json').read_text(encoding='utf-8'))
+report=json.loads((root/'reports/data/WEBMC_CONTENT_INSPECTION_V1.json').read_text(encoding='utf-8'))
+path=root/meta['output']/'WebMC.json'
+rows=json.loads(path.read_text(encoding='utf-8'))
+actual=hashlib.sha256(path.read_bytes()).hexdigest()
+if actual != report['source_sha256']: raise ValueError('Downloaded data hash differs from inspected data')
+if len(rows) != 600: raise ValueError('Unexpected record count')
+print(json.dumps({'download_exists':path.is_file(),'sha256':actual,'records':len(rows),'inspection_schema_valid':report['schema_valid'],'inspection_exact_duplicates':report['duplicate_exact_rows'],'training_integration':report['pipeline_integration'],'current_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'local_upstream':subprocess.check_output(['git','rev-parse','@{upstream}'],text=True).strip()},indent=2))"
+Commit: faf3136dc317d6f7cc9d47b3b377dae86df65288
+
+{
+  "download_exists": true,
+  "sha256": "e6bc8d57bedb3ca5120958450b026436741f463ba979ef856c6f600b38a9e9b7",
+  "records": 600,
+  "inspection_schema_valid": true,
+  "inspection_exact_duplicates": 0,
+  "training_integration": "not added",
+  "current_commit": "faf3136dc317d6f7cc9d47b3b377dae86df65288",
+  "local_upstream": "faf3136dc317d6f7cc9d47b3b377dae86df65288"
+}
+
+Exit code: 0
