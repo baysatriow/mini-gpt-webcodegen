@@ -1,0 +1,392 @@
+{
+  "checkpoint_sha256": "d844ff769bb81861cd0076a8ccb1f0c02ed6cc62aadbc2c1dcbcc7e9e00f344c",
+  "step": 400,
+  "scope": "train and validation only; no pilot test used for development",
+  "records": [
+    {
+      "example_id": "8ae479b15e77f32bae9b30fcc18c24666e1510c19a3dc699970a10db624fea6e",
+      "split": "train",
+      "prefix_ids_match": true,
+      "prefix_logits_max_abs_diff": 0.03125,
+      "target_first_token": "{",
+      "first_prediction": "{",
+      "first_top8": [
+        {
+          "token": "{",
+          "logit": 14.125
+        },
+        {
+          "token": " {",
+          "logit": 5.5
+        },
+        {
+          "token": "_",
+          "logit": 5.34375
+        },
+        {
+          "token": " ",
+          "logit": 4.40625
+        },
+        {
+          "token": ",",
+          "logit": 4.21875
+        },
+        {
+          "token": "]",
+          "logit": 3.8125
+        },
+        {
+          "token": " h",
+          "logit": 3.734375
+        },
+        {
+          "token": "ctions",
+          "logit": 3.484375
+        }
+      ],
+      "teacher_forced_correct": 434,
+      "target_tokens": 434,
+      "parse_status": "passed",
+      "schema_valid": true,
+      "stop_reason": "eos",
+      "generated_tokens": 433
+    },
+    {
+      "example_id": "bac52e7ea6f1111483ef55e5a303d2089be5d048afb0acc0db358c4369657497",
+      "split": "train",
+      "prefix_ids_match": true,
+      "prefix_logits_max_abs_diff": 0.03125,
+      "target_first_token": "{",
+      "first_prediction": "{",
+      "first_top8": [
+        {
+          "token": "{",
+          "logit": 14.1875
+        },
+        {
+          "token": " {",
+          "logit": 5.71875
+        },
+        {
+          "token": "_",
+          "logit": 5.5625
+        },
+        {
+          "token": ",",
+          "logit": 4.5
+        },
+        {
+          "token": " ",
+          "logit": 4.25
+        },
+        {
+          "token": " h",
+          "logit": 3.609375
+        },
+        {
+          "token": "[",
+          "logit": 3.484375
+        },
+        {
+          "token": ":",
+          "logit": 3.40625
+        }
+      ],
+      "teacher_forced_correct": 199,
+      "target_tokens": 199,
+      "parse_status": "passed",
+      "schema_valid": true,
+      "stop_reason": "eos",
+      "generated_tokens": 198
+    },
+    {
+      "example_id": "cac70568e2050b46d4b68a804873dcdee05d767ca65b7c7bca2d5f6ef418e922",
+      "split": "train",
+      "prefix_ids_match": true,
+      "prefix_logits_max_abs_diff": 0.03125,
+      "target_first_token": "{",
+      "first_prediction": "{",
+      "first_top8": [
+        {
+          "token": "{",
+          "logit": 14.25
+        },
+        {
+          "token": " {",
+          "logit": 5.28125
+        },
+        {
+          "token": "_",
+          "logit": 5.03125
+        },
+        {
+          "token": ",",
+          "logit": 4.59375
+        },
+        {
+          "token": "]",
+          "logit": 3.9375
+        },
+        {
+          "token": "[",
+          "logit": 3.6875
+        },
+        {
+          "token": " ",
+          "logit": 3.671875
+        },
+        {
+          "token": " h",
+          "logit": 3.609375
+        }
+      ],
+      "teacher_forced_correct": 481,
+      "target_tokens": 481,
+      "parse_status": "passed",
+      "schema_valid": true,
+      "stop_reason": "eos",
+      "generated_tokens": 480
+    },
+    {
+      "example_id": "eaaa2f9ab31db8592ff78f578ac41615261c7bb1ee48d0147b64ae7fe15bac47",
+      "split": "train",
+      "prefix_ids_match": true,
+      "prefix_logits_max_abs_diff": 0.03125,
+      "target_first_token": "{",
+      "first_prediction": "{",
+      "first_top8": [
+        {
+          "token": "{",
+          "logit": 14.125
+        },
+        {
+          "token": "_",
+          "logit": 5.6875
+        },
+        {
+          "token": " {",
+          "logit": 5.375
+        },
+        {
+          "token": " ",
+          "logit": 4.125
+        },
+        {
+          "token": ",",
+          "logit": 4.0625
+        },
+        {
+          "token": " h",
+          "logit": 3.59375
+        },
+        {
+          "token": "ctions",
+          "logit": 3.515625
+        },
+        {
+          "token": "[",
+          "logit": 3.296875
+        }
+      ],
+      "teacher_forced_correct": 287,
+      "target_tokens": 287,
+      "parse_status": "passed",
+      "schema_valid": true,
+      "stop_reason": "eos",
+      "generated_tokens": 286
+    },
+    {
+      "example_id": "2f111972cf5a8e689c54ad739955a2db627f3e7c823727a2d89b399dd4f2fb07",
+      "split": "validation",
+      "prefix_ids_match": true,
+      "prefix_logits_max_abs_diff": 0.03125,
+      "target_first_token": "{",
+      "first_prediction": "{",
+      "first_top8": [
+        {
+          "token": "{",
+          "logit": 13.8125
+        },
+        {
+          "token": "_",
+          "logit": 6.9375
+        },
+        {
+          "token": " {",
+          "logit": 5.65625
+        },
+        {
+          "token": ",",
+          "logit": 5.03125
+        },
+        {
+          "token": " ",
+          "logit": 4.65625
+        },
+        {
+          "token": " h",
+          "logit": 4.09375
+        },
+        {
+          "token": " a",
+          "logit": 3.40625
+        },
+        {
+          "token": ":",
+          "logit": 3.359375
+        }
+      ],
+      "teacher_forced_correct": 134,
+      "target_tokens": 231,
+      "parse_status": "failed",
+      "schema_valid": false,
+      "stop_reason": "eos",
+      "generated_tokens": 193
+    },
+    {
+      "example_id": "94458477f621a49a94233856afcc66160dc418088ab2577414c88c935a981f8d",
+      "split": "validation",
+      "prefix_ids_match": true,
+      "prefix_logits_max_abs_diff": 0.03125,
+      "target_first_token": "{",
+      "first_prediction": "{",
+      "first_top8": [
+        {
+          "token": "{",
+          "logit": 13.9375
+        },
+        {
+          "token": "_",
+          "logit": 6.125
+        },
+        {
+          "token": " {",
+          "logit": 5.34375
+        },
+        {
+          "token": ",",
+          "logit": 4.9375
+        },
+        {
+          "token": " ",
+          "logit": 4.4375
+        },
+        {
+          "token": " h",
+          "logit": 3.734375
+        },
+        {
+          "token": "]",
+          "logit": 3.5625
+        },
+        {
+          "token": " c",
+          "logit": 3.40625
+        }
+      ],
+      "teacher_forced_correct": 223,
+      "target_tokens": 481,
+      "parse_status": "failed",
+      "schema_valid": false,
+      "stop_reason": "eos",
+      "generated_tokens": 434
+    },
+    {
+      "example_id": "9f4be9409dcd1563564691e43fd3505e5da62d5c30bb38808d7b5d62b1a0e91a",
+      "split": "validation",
+      "prefix_ids_match": true,
+      "prefix_logits_max_abs_diff": 0.03125,
+      "target_first_token": "{",
+      "first_prediction": "{",
+      "first_top8": [
+        {
+          "token": "{",
+          "logit": 14.0
+        },
+        {
+          "token": "_",
+          "logit": 6.03125
+        },
+        {
+          "token": " {",
+          "logit": 5.53125
+        },
+        {
+          "token": ",",
+          "logit": 4.78125
+        },
+        {
+          "token": " ",
+          "logit": 4.03125
+        },
+        {
+          "token": ":",
+          "logit": 3.46875
+        },
+        {
+          "token": "ctions",
+          "logit": 3.453125
+        },
+        {
+          "token": "]",
+          "logit": 3.375
+        }
+      ],
+      "teacher_forced_correct": 215,
+      "target_tokens": 418,
+      "parse_status": "failed",
+      "schema_valid": false,
+      "stop_reason": "eos",
+      "generated_tokens": 281
+    },
+    {
+      "example_id": "d7f0396af6446338be51464e45cf63c41835b4130f87a7c09458f9c17eed5da1",
+      "split": "validation",
+      "prefix_ids_match": true,
+      "prefix_logits_max_abs_diff": 0.03125,
+      "target_first_token": "{",
+      "first_prediction": "{",
+      "first_top8": [
+        {
+          "token": "{",
+          "logit": 13.9375
+        },
+        {
+          "token": " {",
+          "logit": 5.84375
+        },
+        {
+          "token": "_",
+          "logit": 5.65625
+        },
+        {
+          "token": ",",
+          "logit": 4.6875
+        },
+        {
+          "token": " ",
+          "logit": 4.1875
+        },
+        {
+          "token": " h",
+          "logit": 3.890625
+        },
+        {
+          "token": "ctions",
+          "logit": 3.765625
+        },
+        {
+          "token": ":",
+          "logit": 3.59375
+        }
+      ],
+      "teacher_forced_correct": 151,
+      "target_tokens": 274,
+      "parse_status": "failed",
+      "schema_valid": false,
+      "stop_reason": "eos",
+      "generated_tokens": 476
+    }
+  ],
+  "hypothesis": "40 updates are insufficient for learning JSON target boundaries; check train fitting before expansion"
+}

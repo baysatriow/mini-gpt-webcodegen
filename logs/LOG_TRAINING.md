@@ -283,3 +283,17 @@ RUN-098 menulis notebook05/grafik/profil dari log aktual. RUN-099 lima notebook,
 [Ringkasan terbaru](../reports/SFT_PILOT_SUMMARY_2026-10-13.md), [ekspor interaksi AI-010](interaksi_llm/AI-010_2026-10-13.md).
 
 RUN-100 mendokumentasikan hasil; RUN-101 syntax/format/link memeriksa 53 Python, 35 JSON, 42 Markdown dan lima notebook / 38 sel tanpa temuan. GitHub private dan ignore artifact lokal dikonfirmasi. Blank line tambahan pada akhir dua log diperbaiki sebelum commit; isi riwayat RUN tetap dipertahankan.
+
+## AI-011: Diagnosis fit dan perluasan latihan
+
+RUN-103 memeriksa train/validation dari TRAIN-006 saja. Prefix training/generation identik, target awal `{` belum dipilih konsisten. Selisih logits prefix/penuh maksimum 0,03125 pada BF16 dicatat; tidak ada dugaan mismatch format yang terbukti.
+
+RUN-104 / **TRAIN-007**: config kandidat `training_sft.json` asli, 400 update dari parent TRAIN-004-VERIFIED yang sama, optimizer/schedule baru, seed 42, BF16, context 1.024, batch 2 x accumulation 4, warmup 20, LR 1e-4 ke 1e-5, betas 0,9/0,95, decay 0,1, clipping 1. Initial validation target loss 7,511530; best validation 3,547173 step 50; final validation 4,248309 / PPL 69,986935; final train loss 0,003838. Empat train diulang kuat, 1.120.800 target labels termasuk pengulangan.
+
+RUN-105 memakai **last** step 400 untuk diagnosis hafalan, bukan memilih model final. Empat train JSON valid dengan EOS, teacher-forced token accuracy sempurna. Validation bukan target fit train; raw/metadata ada di [diagnostic](../reports/training/TRAIN-007-LAST-DEV_diagnostic.json). Tidak membaca ulang pilot test. Kesimpulan: mampu mempelajari format, corpus empat train membatasi transfer. Tidak mengklaim generalisasi.
+
+Report [TRAIN-007](../reports/training/TRAIN-007.json) mencatat config/lineage/hashes/waktu/GPU/storage secara penuh; log command RUN-104, metrics/checkpoint lokal terpisah. Parent, corpus reviewed 4/4/4, tokenizer dan assignment sama dengan AI-010.
+
+RUN-106 curriculum sintetis terpisah: 13.824 programmatic_contract, split 11.040 / 1.392 / 1.392, keluarga nama 230 / 29 / 29. Delapan section/enam interaction tercakup, maksimum 856 token, semua schema valid. Tidak mengubah review manusia atau corpus HF. Final 48 prompt dikunci sebelum training, kriteria schema >=95% / exact target >=90%, tanpa repair. Config 2.400 update dengan parent pretraining proyek; hasil berikutnya dicatat setelah eksekusi.
+
+RUN-107 pemeriksaan source: 57 Python / 40 JSON / 44 Markdown / lima notebook / 38 sel, tanpa temuan format/syntax/link. Bukan hasil eksekusi training curriculum atau suite unit baru. [Interaksi AI-011](interaksi_llm/AI-011_2026-10-13.md).

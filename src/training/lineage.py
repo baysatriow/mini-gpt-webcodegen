@@ -62,6 +62,8 @@ def validate_initial_checkpoint(parent, config, root, summary=None):
 
 
 def verify_checkpoint_lineage(state, root, summary):
+    if state["config"].get("data_origin") == "synthetic_curriculum":
+        raise ValueError("Synthetic curriculum is not human-reviewed production SFT; use its explicit evaluator")
     current = pretrain_descriptor(root, summary)
     lineage = state["config"]["lineage"]
     if _parent_descriptor(state, root, summary) != current:

@@ -1375,3 +1375,48 @@ Planning disetujui oleh pengguna melalui permintaan implementasi pipeline dan do
 - **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-102_sft_pilot_final_delivery.txt`.
+
+### RUN-103
+
+- **Waktu:** 2026-10-13T08:14:45.105184+07:00 sampai 2026-10-13T08:15:24.238804+07:00.
+- **Tujuan:** diagnose_sft_boundaries.
+- **Command:** `.venv/Scripts/python.exe -m qa.diagnose_sft_generation --checkpoint checkpoints/TRAIN-006/best.pt --report-id TRAIN-006-DEV`.
+- **Commit:** `eb7b21288a903587cdd5e82e48199456453a3ff8`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-103_diagnose_sft_boundaries.txt`.
+
+### RUN-104
+
+- **Waktu:** 2026-10-13T08:15:42.261930+07:00 sampai 2026-10-13T08:16:42.445894+07:00.
+- **Tujuan:** sft_fit_approved_corpus.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_minigpt --config configs/training_sft.json --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt`.
+- **Commit:** `eb7b21288a903587cdd5e82e48199456453a3ff8`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-104_sft_fit_approved_corpus.txt`.
+
+### RUN-105
+
+- **Waktu:** 2026-10-13T08:17:02.837685+07:00 sampai 2026-10-13T08:17:21.902461+07:00.
+- **Tujuan:** diagnose_sft_fit_last.
+- **Command:** `.venv/Scripts/python.exe -m qa.diagnose_sft_generation --checkpoint checkpoints/TRAIN-007/last.pt --report-id TRAIN-007-LAST-DEV`.
+- **Commit:** `eb7b21288a903587cdd5e82e48199456453a3ff8`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-105_diagnose_sft_fit_last.txt`.
+
+### RUN-106
+
+- **Waktu:** 2026-10-13T08:20:21.137088+07:00 sampai 2026-10-13T08:20:53.432272+07:00.
+- **Tujuan:** prepare_synthetic_curriculum.
+- **Command:** `.venv/Scripts/python.exe -m src.data.curriculum`.
+- **Commit:** `eb7b21288a903587cdd5e82e48199456453a3ff8`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-106_prepare_synthetic_curriculum.txt`.
+
+### RUN-107
+
+- **Waktu:** 2026-10-13T08:22:48.663830+07:00 sampai 2026-10-13T08:22:49.167529+07:00.
+- **Tujuan:** curriculum_source_delivery.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `eb7b21288a903587cdd5e82e48199456453a3ff8`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-107_curriculum_source_delivery.txt`.
