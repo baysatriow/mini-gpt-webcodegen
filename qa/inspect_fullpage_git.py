@@ -25,7 +25,9 @@ def main():
         if not repository['isPrivate']: raise ValueError('Repository is not private')
         body=git(root,'log','-1','--format=%B').decode()
         if 'co-authored-by' in body.lower(): raise ValueError('Unexpected co-author footer')
-        result.update(head=head,remote_head=remote,repository=repository,no_coauthor_footer=True)
+        if git(root,'diff','d5dd703',head,'--name-only','--','examples/generated/AI-013','src/rendering/renderer.py').strip():
+            raise ValueError('Historical runtime/gallery changed in published delivery')
+        result.update(head=head,remote_head=remote,repository=repository,no_coauthor_footer=True,historical_runtime_gallery_unchanged=True)
     else:
         paths=git(root,'diff','--cached','--name-only','-z').decode().split('\0')[:-1]
         output=subprocess.run(['git','cat-file','--batch'],cwd=root,input=''.join(':'+n+'\n' for n in paths).encode(),check=True,capture_output=True).stdout
@@ -41,7 +43,7 @@ def main():
             for name,digest in report['revalidation']['source_sha256'].items():
                 if hashlib.sha256(git(root,'show',':'+name)).hexdigest()!=digest: raise ValueError('Staged revalidation source hash differs')
         git(root,'diff','--cached','--check')
-        if git(root,'diff','--cached','--name-only','--','examples/generated/AI-013','src/runtime/renderer.py').strip(): raise ValueError('Historical runtime/gallery changed')
+        if git(root,'diff','--cached','--name-only','--','examples/generated/AI-013','src/rendering/renderer.py').strip(): raise ValueError('Historical runtime/gallery changed')
         result.update(staged_files=len(paths),evidence_bytes_identical=True,log_newline_normalizations=normalized_logs,
                       staged_revalidation_sources_match=True,historical_runtime_gallery_unchanged=True,diff_check=True)
     write_json(root/args.report,result); print(json.dumps(result,indent=2))

@@ -1,0 +1,12 @@
+{
+  "branch": "feature/pipeline-data-model-training",
+  "head": "5270072201f1fb1725c61092844ceb28a8554f56",
+  "remote_head": "5270072201f1fb1725c61092844ceb28a8554f56",
+  "repository": {
+    "isPrivate": true,
+    "nameWithOwner": "baysatriow/mini-gpt-webcodegen",
+    "url": "https://github.com/baysatriow/mini-gpt-webcodegen"
+  },
+  "no_coauthor_footer": true,
+  "historical_runtime_gallery_unchanged": true
+}

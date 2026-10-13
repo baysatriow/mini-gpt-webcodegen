@@ -1,0 +1,18 @@
+RUN-245 | 2026-10-14T00:14:30.263318+07:00 | AI-018 verify published GitHub revision privacy and historical renderer path
+Command: .venv/Scripts/python.exe -m qa.inspect_fullpage_git --remote --report reports/fullpage/AI-018_REMOTE_GIT_INSPECTION.json
+Commit: 5270072201f1fb1725c61092844ceb28a8554f56
+
+{
+  "branch": "feature/pipeline-data-model-training",
+  "head": "5270072201f1fb1725c61092844ceb28a8554f56",
+  "remote_head": "5270072201f1fb1725c61092844ceb28a8554f56",
+  "repository": {
+    "isPrivate": true,
+    "nameWithOwner": "baysatriow/mini-gpt-webcodegen",
+    "url": "https://github.com/baysatriow/mini-gpt-webcodegen"
+  },
+  "no_coauthor_footer": true,
+  "historical_runtime_gallery_unchanged": true
+}
+
+Exit code: 0
