@@ -1,0 +1,19 @@
+RUN-248 | 2026-10-14T00:31:30.660453+07:00 | AI-019 correct diagnosis stage labels for revoked acceptance without raw changes
+Command: .venv/Scripts/python.exe -c "import collections, hashlib, json
+from pathlib import Path
+root=Path.cwd(); path=root/'reports/analysis/AI-019_DEVELOPMENT_FAILURE_MAP.json'
+data=json.loads(path.read_text(encoding='utf-8'))
+for checkpoint in data['checkpoints'].values():
+ for row in checkpoint['failure_rows']:
+  if row['category']=='name_fact_revalidation': row['stage']='revalidation'
+ checkpoint['failed_stage_counts']=dict(collections.Counter(r['stage'] for r in checkpoint['failure_rows']))
+data['correction']={'source_report_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'reason':'Stage of revoked acceptance must be revalidation, not a previously failed retry in an otherwise accepted raw generation. Counts/categories unchanged.'}
+with (root/'reports/analysis/AI-019_DEVELOPMENT_FAILURE_MAP_V2.json').open('x',encoding='utf-8',newline='\n') as h: json.dump(data,h,ensure_ascii=False,indent=2); h.write('\n')
+print({k:v['failed_stage_counts'] for k,v in data['checkpoints'].items()})
+print('Final opened:',data['final_opened'])"
+Commit: dc166e74ec57434f1d7fdabf0f3da6c058e21702
+
+{'BEST': {'plan': 25, 'about': 6, 'main': 8, 'revalidation': 2}, 'LAST': {'plan': 21, 'about': 1}}
+Final opened: False
+
+Exit code: 0

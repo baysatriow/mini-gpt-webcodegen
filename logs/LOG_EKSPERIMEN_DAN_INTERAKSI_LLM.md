@@ -2978,3 +2978,75 @@ print(json.dumps(report,indent=2))"`.
 - **Hasil:** automatic approval review menolak command, "blocked by policy"; proses tidak dimulai. Folder tidak dihapus, tidak ada workaround.
 - **Commit sebelum percobaan:** cffe1ed.
 - **Bukti dan keputusan:** logs/interaksi_llm/AI-018_2026-10-13.md; scratch tetap lokal, archive tetap di Git. Pemeriksaan Git diulang sebagai read-only, tidak menjalankan ulang cleanup.
+
+### RUN-247
+
+- **Waktu:** 2026-10-14T00:31:02.756346+07:00 sampai 2026-10-14T00:31:02.910581+07:00.
+- **Tujuan:** AI-019 map development failures from saved best last outputs without training or final.
+- **Command:** `.venv/Scripts/python.exe -c "import collections, hashlib, json, shutil
+from pathlib import Path
+root=Path.cwd()
+def digest(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+summary={'scope':'development-only saved-output diagnosis','final_opened':False,'generation_or_training_run':False,'inputs':{},'checkpoints':{}}
+for name in ('BEST','LAST'):
+ path=root/f'reports/fullpage/TRAIN-017_DEVELOPMENT_{name}_V2.json'; report=json.loads(path.read_text(encoding='utf-8')); summary['inputs'][str(path.relative_to(root))]=digest(path)
+ stages=collections.Counter(); categories=collections.Counter(); malformed=collections.Counter(); rows=[]
+ for row in report['results']:
+  if row['status']=='accepted': continue
+  source=sorted((Path(report['output'])/row['request_id']).glob('attempt-*/result.json'))[-1]
+  raw=json.loads(source.read_text(encoding='utf-8')); attempts=[a for a in raw['attempts'] if a.get('errors')]
+  failed=attempts[-1] if attempts else {}; stage=failed.get('stage','revalidation' if row['status']=='revalidation_failed' else 'composer')
+  stages[stage]+=1; errors=failed.get('errors',row.get('revalidation_errors',raw.get('errors',[]))); parsed=None; bad=[]
+  try: parsed=json.loads(failed.get('raw',''))
+  except (ValueError,TypeError): pass
+  if stage=='plan':
+   if isinstance(parsed,dict):
+    for descriptor in parsed.get('sections',[]):
+     if isinstance(descriptor,list) and len(descriptor)!=6:
+      bad.append(descriptor); malformed[str(descriptor[0]) if descriptor else 'empty']+=1
+   if bad: category='plan_tuple_field_missing'
+   elif any('identity/style' in e for e in errors): category='plan_business_identity_or_style'
+   elif failed.get('stop_reason')!='eos': category='plan_no_eos'
+   else: category='plan_other_contract'
+  elif row['status']=='revalidation_failed': category='name_fact_revalidation'
+  elif any('fact text mismatch' in e for e in errors): category='section_fact_text'
+  elif any('media asset' in e for e in errors): category='section_asset_reference'
+  else: category='section_other_contract'
+  categories[category]+=1
+  rows.append({'request_id':row['request_id'],'stage':stage,'category':category,'errors':errors,'malformed_descriptors':bad,'source_result_sha256':digest(source)})
+ summary['checkpoints'][name]={'checkpoint_sha256':report['checkpoint_sha256'],'complete':report['complete'],'total':report['total'],'failed':len(rows),'failed_stage_counts':dict(stages),'page_failure_categories':dict(categories),'malformed_descriptor_counts':dict(malformed),'groups':report['groups'],'failure_rows':rows}
+loss_path=root/'reports/training/TRAIN-017_TASK_LOSS.json'; summary['inputs'][str(loss_path.relative_to(root))]=digest(loss_path)
+summary['task_loss_report']=json.loads(loss_path.read_text(encoding='utf-8'))
+summary['sampler_observed_policy']={'plan_batch_probability':0.3,'section_batch_probability':0.7,'source_sha256':digest(root/'src/fullpage/dataset.py')}
+summary['storage_free_bytes']=shutil.disk_usage(root).free
+out=root/'reports/analysis/AI-019_DEVELOPMENT_FAILURE_MAP.json'
+with out.open('x',encoding='utf-8',newline='\n') as h: json.dump(summary,h,ensure_ascii=False,indent=2); h.write('\n')
+print(json.dumps({'checkpoints':{k:{a:b for a,b in v.items() if a not in ('failure_rows','groups')} for k,v in summary['checkpoints'].items()},'storage_free_gib':summary['storage_free_bytes']/2**30,'final_opened':False},indent=2))"`.
+- **Commit:** `dc166e74ec57434f1d7fdabf0f3da6c058e21702`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-247_ai_019_map_development_failures_from_saved_best_last_outputs_without_t.txt`.
+
+### RUN-248
+
+- **Waktu:** 2026-10-14T00:31:30.660453+07:00 sampai 2026-10-14T00:31:30.782356+07:00.
+- **Tujuan:** AI-019 correct diagnosis stage labels for revoked acceptance without raw changes.
+- **Command:** `.venv/Scripts/python.exe -c "import collections, hashlib, json
+from pathlib import Path
+root=Path.cwd(); path=root/'reports/analysis/AI-019_DEVELOPMENT_FAILURE_MAP.json'
+data=json.loads(path.read_text(encoding='utf-8'))
+for checkpoint in data['checkpoints'].values():
+ for row in checkpoint['failure_rows']:
+  if row['category']=='name_fact_revalidation': row['stage']='revalidation'
+ checkpoint['failed_stage_counts']=dict(collections.Counter(r['stage'] for r in checkpoint['failure_rows']))
+data['correction']={'source_report_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'reason':'Stage of revoked acceptance must be revalidation, not a previously failed retry in an otherwise accepted raw generation. Counts/categories unchanged.'}
+with (root/'reports/analysis/AI-019_DEVELOPMENT_FAILURE_MAP_V2.json').open('x',encoding='utf-8',newline='\n') as h: json.dump(data,h,ensure_ascii=False,indent=2); h.write('\n')
+print({k:v['failed_stage_counts'] for k,v in data['checkpoints'].items()})
+print('Final opened:',data['final_opened'])"`.
+- **Commit:** `dc166e74ec57434f1d7fdabf0f3da6c058e21702`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-248_ai_019_correct_diagnosis_stage_labels_for_revoked_acceptance_without_r.txt`.
+
+### AI-019
+
+- Pengguna meminta improvement95% dan insight dataset. Desain bounded telah disetujui: plan70%,train-only augmentation,INIT2048,3600steps dan dua kandidat1800/3600.
+- Diagnosis RUN-247/248 dan hasil local manifest/primary dataset research tercatat di logs/interaksi_llm/AI-019_2026-10-14.md. Tidak membuka final atau download tambahan pada research.

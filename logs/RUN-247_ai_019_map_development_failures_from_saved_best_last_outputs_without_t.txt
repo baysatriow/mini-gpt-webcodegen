@@ -1,0 +1,92 @@
+RUN-247 | 2026-10-14T00:31:02.756346+07:00 | AI-019 map development failures from saved best last outputs without training or final
+Command: .venv/Scripts/python.exe -c "import collections, hashlib, json, shutil
+from pathlib import Path
+root=Path.cwd()
+def digest(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+summary={'scope':'development-only saved-output diagnosis','final_opened':False,'generation_or_training_run':False,'inputs':{},'checkpoints':{}}
+for name in ('BEST','LAST'):
+ path=root/f'reports/fullpage/TRAIN-017_DEVELOPMENT_{name}_V2.json'; report=json.loads(path.read_text(encoding='utf-8')); summary['inputs'][str(path.relative_to(root))]=digest(path)
+ stages=collections.Counter(); categories=collections.Counter(); malformed=collections.Counter(); rows=[]
+ for row in report['results']:
+  if row['status']=='accepted': continue
+  source=sorted((Path(report['output'])/row['request_id']).glob('attempt-*/result.json'))[-1]
+  raw=json.loads(source.read_text(encoding='utf-8')); attempts=[a for a in raw['attempts'] if a.get('errors')]
+  failed=attempts[-1] if attempts else {}; stage=failed.get('stage','revalidation' if row['status']=='revalidation_failed' else 'composer')
+  stages[stage]+=1; errors=failed.get('errors',row.get('revalidation_errors',raw.get('errors',[]))); parsed=None; bad=[]
+  try: parsed=json.loads(failed.get('raw',''))
+  except (ValueError,TypeError): pass
+  if stage=='plan':
+   if isinstance(parsed,dict):
+    for descriptor in parsed.get('sections',[]):
+     if isinstance(descriptor,list) and len(descriptor)!=6:
+      bad.append(descriptor); malformed[str(descriptor[0]) if descriptor else 'empty']+=1
+   if bad: category='plan_tuple_field_missing'
+   elif any('identity/style' in e for e in errors): category='plan_business_identity_or_style'
+   elif failed.get('stop_reason')!='eos': category='plan_no_eos'
+   else: category='plan_other_contract'
+  elif row['status']=='revalidation_failed': category='name_fact_revalidation'
+  elif any('fact text mismatch' in e for e in errors): category='section_fact_text'
+  elif any('media asset' in e for e in errors): category='section_asset_reference'
+  else: category='section_other_contract'
+  categories[category]+=1
+  rows.append({'request_id':row['request_id'],'stage':stage,'category':category,'errors':errors,'malformed_descriptors':bad,'source_result_sha256':digest(source)})
+ summary['checkpoints'][name]={'checkpoint_sha256':report['checkpoint_sha256'],'complete':report['complete'],'total':report['total'],'failed':len(rows),'failed_stage_counts':dict(stages),'page_failure_categories':dict(categories),'malformed_descriptor_counts':dict(malformed),'groups':report['groups'],'failure_rows':rows}
+loss_path=root/'reports/training/TRAIN-017_TASK_LOSS.json'; summary['inputs'][str(loss_path.relative_to(root))]=digest(loss_path)
+summary['task_loss_report']=json.loads(loss_path.read_text(encoding='utf-8'))
+summary['sampler_observed_policy']={'plan_batch_probability':0.3,'section_batch_probability':0.7,'source_sha256':digest(root/'src/fullpage/dataset.py')}
+summary['storage_free_bytes']=shutil.disk_usage(root).free
+out=root/'reports/analysis/AI-019_DEVELOPMENT_FAILURE_MAP.json'
+with out.open('x',encoding='utf-8',newline='\n') as h: json.dump(summary,h,ensure_ascii=False,indent=2); h.write('\n')
+print(json.dumps({'checkpoints':{k:{a:b for a,b in v.items() if a not in ('failure_rows','groups')} for k,v in summary['checkpoints'].items()},'storage_free_gib':summary['storage_free_bytes']/2**30,'final_opened':False},indent=2))"
+Commit: dc166e74ec57434f1d7fdabf0f3da6c058e21702
+
+{
+  "checkpoints": {
+    "BEST": {
+      "checkpoint_sha256": "a0e8137d08ec081a129d6bb977b159b84d31613dcc8e444cc8ea0fe6735074ff",
+      "complete": 39,
+      "total": 80,
+      "failed": 41,
+      "failed_stage_counts": {
+        "plan": 25,
+        "about": 6,
+        "main": 8,
+        "footer": 2
+      },
+      "page_failure_categories": {
+        "plan_tuple_field_missing": 17,
+        "section_other_contract": 4,
+        "section_asset_reference": 6,
+        "section_fact_text": 4,
+        "plan_business_identity_or_style": 8,
+        "name_fact_revalidation": 2
+      },
+      "malformed_descriptor_counts": {
+        "main": 2,
+        "footer": 17
+      }
+    },
+    "LAST": {
+      "checkpoint_sha256": "db5beb3cd728af08cbef26ee2768bb4f1671e1c90bfb5adcf2427724f9cbaefe",
+      "complete": 58,
+      "total": 80,
+      "failed": 22,
+      "failed_stage_counts": {
+        "plan": 21,
+        "about": 1
+      },
+      "page_failure_categories": {
+        "plan_tuple_field_missing": 11,
+        "plan_business_identity_or_style": 10,
+        "section_fact_text": 1
+      },
+      "malformed_descriptor_counts": {
+        "footer": 11
+      }
+    }
+  },
+  "storage_free_gib": 16.525394439697266,
+  "final_opened": false
+}
+
+Exit code: 0

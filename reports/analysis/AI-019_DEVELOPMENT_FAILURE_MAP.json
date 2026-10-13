@@ -1,0 +1,1127 @@
+{
+  "scope": "development-only saved-output diagnosis",
+  "final_opened": false,
+  "generation_or_training_run": false,
+  "inputs": {
+    "reports\\fullpage\\TRAIN-017_DEVELOPMENT_BEST_V2.json": "10ba752b4e046e96136edd18fb78df020a3f507a68db7b366c5b629ab42b0d4b",
+    "reports\\fullpage\\TRAIN-017_DEVELOPMENT_LAST_V2.json": "b953ff3347c73866d6a7c133d950f9e7859ba80ddce4dd453bb5aea8f5649738",
+    "reports\\training\\TRAIN-017_TASK_LOSS.json": "edd1844e5de5905c47013d50fe466ac7eb60c221cf8d53a4237de5ed5d0d2374"
+  },
+  "checkpoints": {
+    "BEST": {
+      "checkpoint_sha256": "a0e8137d08ec081a129d6bb977b159b84d31613dcc8e444cc8ea0fe6735074ff",
+      "complete": 39,
+      "total": 80,
+      "failed": 41,
+      "failed_stage_counts": {
+        "plan": 25,
+        "about": 6,
+        "main": 8,
+        "footer": 2
+      },
+      "page_failure_categories": {
+        "plan_tuple_field_missing": 17,
+        "section_other_contract": 4,
+        "section_asset_reference": 6,
+        "section_fact_text": 4,
+        "plan_business_identity_or_style": 8,
+        "name_fact_revalidation": 2
+      },
+      "malformed_descriptor_counts": {
+        "main": 2,
+        "footer": 17
+      },
+      "groups": {
+        "landing_page:plain_css": {
+          "total": 20,
+          "complete": 10,
+          "first_attempt": 10
+        },
+        "landing_page:tailwind": {
+          "total": 20,
+          "complete": 10,
+          "first_attempt": 10
+        },
+        "company_profile:plain_css": {
+          "total": 20,
+          "complete": 10,
+          "first_attempt": 6
+        },
+        "company_profile:tailwind": {
+          "total": 20,
+          "complete": 9,
+          "first_attempt": 7
+        }
+      },
+      "failure_rows": [
+        {
+          "request_id": "page0240-plain_css",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 1, 2]: 'centered' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 1, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 1]: ['main', 'hero', 'centered', ['name'], ['studio-shapes']] is too short",
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "main",
+              "hero",
+              "centered",
+              [
+                "name"
+              ],
+              [
+                "studio-shapes"
+              ]
+            ],
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "cd7c77f5f99e41f00d87fa336c1ed515ccaf1cf05551b50ecbdc1f7f83e11932"
+        },
+        {
+          "request_id": "page0242-plain_css",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "3458bcc6366b3aabc0add971e8deb2e0a088eff04b678d7b79e4debf1375669e"
+        },
+        {
+          "request_id": "page0242-tailwind",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "bede2e391a238536afdefb19fa51b22b27119f32585589a7587b339465989c84"
+        },
+        {
+          "request_id": "page0243-plain_css",
+          "stage": "about",
+          "category": "section_other_contract",
+          "errors": [
+            "section:[]: {'id': 'about', 'props': {'heading': 'Tentang Kafe Matakara adalah usaha demo fiktif di bidang minuman dan ruang berkumpul. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas.'}, 'role': 'about', 'type': 'text_section', 'variant': 'prose'} is not valid under any of the given schemas"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "5df127d87386a9d38ca06592434e866a9d5a550923865a0d67dc32a5524cdeeb"
+        },
+        {
+          "request_id": "page0243-tailwind",
+          "stage": "about",
+          "category": "section_other_contract",
+          "errors": [
+            "section:[]: {'id': 'about', 'props': {'heading': 'Tentang Kafe Matakara adalah usaha demo fiktif di bidang minuman dan ruang berkumpul. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas.'}, 'role': 'about', 'type': 'text_section', 'variant': 'prose'} is not valid under any of the given schemas"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "3a42f5c703c564e72e94a476016f8d4481ae424880374c9c9f487e8edf1a0c8e"
+        },
+        {
+          "request_id": "page0244-plain_css",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "2476491239edaedc46f05496a47a37fa42cf9c4dc6e40e57cdb1bd188677a6dc"
+        },
+        {
+          "request_id": "page0244-tailwind",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "6946b54477ee87b521d3e9d4ef25e3fe38afa5b55cc121309908c1fd7126661c"
+        },
+        {
+          "request_id": "page0245-plain_css",
+          "stage": "main",
+          "category": "section_asset_reference",
+          "errors": [
+            "Unplanned media asset"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "c0c044a541bbc890dc7c9e09ff9a1fa6b5f3534c137289ce2ed51ee973afc8dd"
+        },
+        {
+          "request_id": "page0245-tailwind",
+          "stage": "main",
+          "category": "section_asset_reference",
+          "errors": [
+            "Unplanned media asset"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "a01507f6dd6d7f515dea1ce3c1547bfb91f0dda2926f2ab84219d7ba0709ab8e"
+        },
+        {
+          "request_id": "page0247-plain_css",
+          "stage": "about",
+          "category": "section_fact_text",
+          "errors": [
+            "Required fact text mismatch: about"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "716131f88ef50271976170987e914ee5668e99eb3c6e5ecf97eaca708603f1d6"
+        },
+        {
+          "request_id": "page0247-tailwind",
+          "stage": "about",
+          "category": "section_fact_text",
+          "errors": [
+            "Required fact text mismatch: about"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "4715dadd28d4e9de0d7a6a54a9d640a4756eaa22aa06f252a76b608b5a94db36"
+        },
+        {
+          "request_id": "page0248-plain_css",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "2acffaa2b11a864be2d32251fa551b72ae2f10cfe951867a9101ba1ea00723dc"
+        },
+        {
+          "request_id": "page0248-tailwind",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "ee1502f743fde00ad3f97736ffbb2a515a898365a686cac855d805c3614e5c45"
+        },
+        {
+          "request_id": "page0249-plain_css",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "e17d3b5140c598e6b0a8a425216bd2c3bf399d8e9cebfb2a3d26e2b99888a994"
+        },
+        {
+          "request_id": "page0249-tailwind",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "57a1f07160ad3dff689872e9473723efe6b24d8eaefbc45a7c1171e3dc8312eb"
+        },
+        {
+          "request_id": "page0252-plain_css",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "c47408f801c64d5c896f7b40b9b48dcbd445d139d8fca8165eb3c50c86446f8e"
+        },
+        {
+          "request_id": "page0252-tailwind",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "1ad6576e33b4a494543eddfa26d358cd688a5055da895e22324a343d8053a29c"
+        },
+        {
+          "request_id": "page0253-plain_css",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "7e65c698f0fb1743d9cfd32407e5508e5cac5d6b04bcc94825bf30bb0d159e8e"
+        },
+        {
+          "request_id": "page0253-tailwind",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "c08ad8c2391c1de1381c8dc71263824da50417da216a65c93fdb7532348f066d"
+        },
+        {
+          "request_id": "page0254-tailwind",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "6df77bd62b76e79e52a0535d9c6bbd8b9e9a77d85ea7d0acea1555f7aec93f4d"
+        },
+        {
+          "request_id": "page0255-plain_css",
+          "stage": "about",
+          "category": "section_fact_text",
+          "errors": [
+            "Required fact text mismatch: about"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "3fb561767642197f84265a8ec8697529090dc7cfcf6743906939b66339708dd7"
+        },
+        {
+          "request_id": "page0255-tailwind",
+          "stage": "about",
+          "category": "section_fact_text",
+          "errors": [
+            "Required fact text mismatch: about"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "8915aa756c24c8fa5d9189502aa209e5d674f0bccd445aaeba73f7d8ed99b4c2"
+        },
+        {
+          "request_id": "page0256-plain_css",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 1, 2]: 'centered' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 1, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 1]: ['main', 'hero', 'centered', ['name'], ['studio-shapes']] is too short",
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "main",
+              "hero",
+              "centered",
+              [
+                "name"
+              ],
+              [
+                "studio-shapes"
+              ]
+            ],
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "eba00c5c4a7209afa309f1685b6ff02c5ecd99315c764818a112910b4ccf817e"
+        },
+        {
+          "request_id": "page0256-tailwind",
+          "stage": "main",
+          "category": "section_asset_reference",
+          "errors": [
+            "Unplanned media asset"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "28d1e6b0cafed7ff3647ac3cb62beb0e7fbd6d307213947db91f2a207601ca88"
+        },
+        {
+          "request_id": "page0257-plain_css",
+          "stage": "footer",
+          "category": "name_fact_revalidation",
+          "errors": [
+            "Footer brand fact mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "0df82304f2a849b8cbb58d2578b8abddcb6aaf1d333850e003071b583c64b16c"
+        },
+        {
+          "request_id": "page0257-tailwind",
+          "stage": "footer",
+          "category": "name_fact_revalidation",
+          "errors": [
+            "Footer brand fact mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "403923519b22c61b5e6ec6e47b6fccccacf2179ca797b296449ca71c142d64c0"
+        },
+        {
+          "request_id": "page0258-tailwind",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "7fc34f9d8a4eebbc58f6038467e7d2150733061d477493c259b25a29f3de67d1"
+        },
+        {
+          "request_id": "page0260-plain_css",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "f5360425abed340a184feb339ce4e017ce8916c8e9c370021534e63254f3ad04"
+        },
+        {
+          "request_id": "page0264-plain_css",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "77e982023bfc83d497ff2758ed6a1418a388ee10e021dd8e1cd21e31f5b306a9"
+        },
+        {
+          "request_id": "page0264-tailwind",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "aa1d83c1ec432ed4a34989fcdc54589dae7b0698f37d2d3006becddf4d4bad6e"
+        },
+        {
+          "request_id": "page0267-plain_css",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "90cc6d47f394e031b1d007874e1633d127caee4bfb20ee72f25b8a944efdd73d"
+        },
+        {
+          "request_id": "page0267-tailwind",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "88d3c3c8019432122e00c4158d79e4c7c234f5b7848bcd3f8b2d788a369db8d0"
+        },
+        {
+          "request_id": "page0268-plain_css",
+          "stage": "main",
+          "category": "section_other_contract",
+          "errors": [
+            "Section descriptor identity mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "2235e28eb531baefd3e84dac4ab648a5027f9d2050e8a4bf96f0be8a9ca6facd"
+        },
+        {
+          "request_id": "page0268-tailwind",
+          "stage": "main",
+          "category": "section_other_contract",
+          "errors": [
+            "Section descriptor identity mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "cc79403273f2cc7f72cdd1a59a14fc82ed01b75a97bb69a7da3d67f0926080af"
+        },
+        {
+          "request_id": "page0269-plain_css",
+          "stage": "main",
+          "category": "section_asset_reference",
+          "errors": [
+            "Unplanned media asset"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "3ce10482a943c572c15a57020084c8f3054fb1bedc925f37522ae7c2d0d5b965"
+        },
+        {
+          "request_id": "page0269-tailwind",
+          "stage": "main",
+          "category": "section_asset_reference",
+          "errors": [
+            "Unplanned media asset"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "03ebe10620ae4b148a7cd8dd8c4ddb4850b44bbb75a248d32692f2cbaa1e5757"
+        },
+        {
+          "request_id": "page0271-plain_css",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "4802718cc963ce260ece424d1032114e882a10a378618041cc08f6c14b786879"
+        },
+        {
+          "request_id": "page0271-tailwind",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "6e33dd92c84c9e2695ba4f0aa19ada1f4bb410e72c51232e999e21ad16b921db"
+        },
+        {
+          "request_id": "page0272-plain_css",
+          "stage": "main",
+          "category": "section_asset_reference",
+          "errors": [
+            "Unplanned media asset"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "ce6ccf5d7d1bfdaa0a074cfa2761fbdd72ace4403e9a77fc2f41a848f09e184c"
+        },
+        {
+          "request_id": "page0272-tailwind",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "4752d40ffc1329e13fc8038d8521333d981beb0d7acab7780273ee6b31f16cfa"
+        },
+        {
+          "request_id": "page0273-tailwind",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "ee8f51c03c62b9ed7b1f3c0e830a3b5469f3dad5c257fc4bcb12b9083960ae13"
+        }
+      ]
+    },
+    "LAST": {
+      "checkpoint_sha256": "db5beb3cd728af08cbef26ee2768bb4f1671e1c90bfb5adcf2427724f9cbaefe",
+      "complete": 58,
+      "total": 80,
+      "failed": 22,
+      "failed_stage_counts": {
+        "plan": 21,
+        "about": 1
+      },
+      "page_failure_categories": {
+        "plan_tuple_field_missing": 11,
+        "plan_business_identity_or_style": 10,
+        "section_fact_text": 1
+      },
+      "malformed_descriptor_counts": {
+        "footer": 11
+      },
+      "groups": {
+        "landing_page:plain_css": {
+          "total": 20,
+          "complete": 12,
+          "first_attempt": 11
+        },
+        "landing_page:tailwind": {
+          "total": 20,
+          "complete": 17,
+          "first_attempt": 17
+        },
+        "company_profile:plain_css": {
+          "total": 20,
+          "complete": 14,
+          "first_attempt": 13
+        },
+        "company_profile:tailwind": {
+          "total": 20,
+          "complete": 15,
+          "first_attempt": 10
+        }
+      },
+      "failure_rows": [
+        {
+          "request_id": "page0240-plain_css",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "cff21dc4e4bfcc4b9797230bd869122bf10397d93ea8595061ab8ca40edb5499"
+        },
+        {
+          "request_id": "page0242-plain_css",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "e356012e7e692025043df5fe39dd3c663a53f420af47c1684dac8582314633e0"
+        },
+        {
+          "request_id": "page0244-plain_css",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "06a155187c7e9bec61678ea6b72a7c15be97ed947426c21a1d6232aad2b2fbb0"
+        },
+        {
+          "request_id": "page0247-plain_css",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "ab8370fc1e1a27615199ac5b983a52641a98d8631cd88975d2392ab4c6d58ad2"
+        },
+        {
+          "request_id": "page0247-tailwind",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "e7b05c598606456c5950f88026587c65154ca8ccd6d9d20b825ce73dd95bfd28"
+        },
+        {
+          "request_id": "page0248-plain_css",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "7f3a9f0a5e2972cf17135b0a598c6601ca7e78b757625ea2b169f2df8cd20e81"
+        },
+        {
+          "request_id": "page0249-plain_css",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "e533d4cef54822114c17b7214098e59bf60b16801f2cc40c37187baf8c7e77f6"
+        },
+        {
+          "request_id": "page0249-tailwind",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "e63d78de3c8fdec5b8984a783d0f738792328e04129be31bdf83cc4d7a3eaba4"
+        },
+        {
+          "request_id": "page0253-plain_css",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "3e4ce81a50266a187213830de1638c4f476b46cec78b63af968889c70f52aeab"
+        },
+        {
+          "request_id": "page0253-tailwind",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "cee7437566155472c9d4c5bb340b681f883a389ae441a10cc224d784a9e1c98c"
+        },
+        {
+          "request_id": "page0254-plain_css",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "ec37494fbc94a64833991f5f403e60a6969717f09fffccab631322cdc057430b"
+        },
+        {
+          "request_id": "page0254-tailwind",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "2448a472bfd196ee283259e75d2a6fb4454b74f2eb4b5aae4ba320b63e7eedb5"
+        },
+        {
+          "request_id": "page0256-plain_css",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "fd122bdeed30cc47714deea294ce20cde6d750ad18357501623c83d329107dce"
+        },
+        {
+          "request_id": "page0257-plain_css",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "b3444b9469af53c4656bdd907a5e7c0e7d704fd0488a1b9ea88dd6833f08c838"
+        },
+        {
+          "request_id": "page0257-tailwind",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "2115ec2587352c550cc7fb3169a42b860faf5d93ca4b82897963206de3530728"
+        },
+        {
+          "request_id": "page0258-plain_css",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "762a591caa2d76d9d068d72ac4e98660ddbeba97720613c0cf7541bdce8a0766"
+        },
+        {
+          "request_id": "page0258-tailwind",
+          "stage": "about",
+          "category": "section_fact_text",
+          "errors": [
+            "Required fact text mismatch: about"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "c859046fcb7476827a7685df8dc94ecfe2f67bf4d146819a9b43606f769f7bd0"
+        },
+        {
+          "request_id": "page0264-plain_css",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "aff872a9157c950b389001da916ceec88f23d5e7f9b19ff9a65680a8981403ed"
+        },
+        {
+          "request_id": "page0264-tailwind",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "4ab497372de487db8072481b33c44e75b410cb708eeafbc995369c9e921a8ca8"
+        },
+        {
+          "request_id": "page0271-plain_css",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "07bf027dbb32adf5eaa7a0c42ee5264a99b4f233cb2d118842464db15c8e9966"
+        },
+        {
+          "request_id": "page0271-tailwind",
+          "stage": "plan",
+          "category": "plan_business_identity_or_style",
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "malformed_descriptors": [],
+          "source_result_sha256": "62eff12b8c5a04f094b999322ff8384ad44cb15335a60540c886f179e67633f2"
+        },
+        {
+          "request_id": "page0277-plain_css",
+          "stage": "plan",
+          "category": "plan_tuple_field_missing",
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "malformed_descriptors": [
+            [
+              "footer",
+              "footer",
+              "columns",
+              [
+                "name"
+              ],
+              []
+            ]
+          ],
+          "source_result_sha256": "be881bb4776bda142639995eabd1c5ff31f8f03bdfc1673f05b90a4a9594a6ba"
+        }
+      ]
+    }
+  },
+  "task_loss_report": {
+    "checkpoint_sha256": "a0e8137d08ec081a129d6bb977b159b84d31613dcc8e444cc8ea0fe6735074ff",
+    "scope": "main",
+    "step": 1200,
+    "ordinary_ce_by_task": {
+      "page_plan": {
+        "loss": 0.12299359542599976,
+        "valid_tokens": 64572,
+        "rows": 160,
+        "tokens_after_position_1024": 64572,
+        "loss_after_position_1024": 0.12299359542599976
+      },
+      "section_content": {
+        "loss": 0.002802872869855533,
+        "valid_tokens": 174250,
+        "rows": 800,
+        "tokens_after_position_1024": 0,
+        "loss_after_position_1024": null
+      }
+    },
+    "selected_vs_full_projection_max_abs_difference": 0,
+    "projection_ce_equivalent_within_1e_3_per_token": true,
+    "final_data_opened": false,
+    "disk_free_bytes": 17784012800
+  },
+  "sampler_observed_policy": {
+    "plan_batch_probability": 0.3,
+    "section_batch_probability": 0.7,
+    "source_sha256": "5d7e6fdf1c9de27df381a7e137fec4a057d2a34c5e519afc799e84043650b385"
+  },
+  "storage_free_bytes": 17744007168
+}
