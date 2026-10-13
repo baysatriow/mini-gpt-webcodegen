@@ -1,0 +1,22 @@
+RUN-295 | 2026-10-14T02:27:59.563898+07:00 | prepare train-only targeted identity and facts curriculum v3 after budget fix
+Command: .venv\Scripts\python.exe -m qa.prepare_fullpage_v3
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+{
+  "version": "fullpage-v3",
+  "source_manifest_sha256": "b26f1714fa186081dec30c6f7c8ace478287601e0fc2bb318ae6f3601dbfd86d",
+  "manifest_sha256": "823d09401a92093d2e6dc463753074e9775d9591ce044185c3442adb07eeb8a6",
+  "train_families": 240,
+  "new_pages": 960,
+  "new_name_aliases": 480,
+  "new_tasks": {
+    "page_plan": 960,
+    "section_content": 4800
+  },
+  "train_task_rows": 23040,
+  "max_total_tokens": 1932,
+  "validation_unchanged": true,
+  "final_parsed": false
+}
+
+Exit code: 0

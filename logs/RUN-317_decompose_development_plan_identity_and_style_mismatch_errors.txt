@@ -1,0 +1,239 @@
+RUN-317 | 2026-10-14T03:18:17.499990+07:00 | decompose development plan identity and style mismatch errors
+Command: .venv\Scripts\python.exe -c exec(bytes.fromhex('696d706f7274206a736f6e2c636f6c6c656374696f6e730a66726f6d20706174686c696220696d706f727420506174680a66726f6d207372632e66756c6c706167652e73657269616c697a6174696f6e20696d706f7274206465636f64655f706c616e0a726f6f743d506174682e63776428293b2064617461736574733d506174682827646174612f70726f6365737365642f66756c6c706167652f763327290a6964656e746974793d636f6c6c656374696f6e732e436f756e74657228293b206578616d706c65733d5b5d0a666f722072756e5f69642c666f6c64657220696e205b2827545241494e2d303230272c27545241494e2d3032302d73746570313830302d646576656c6f706d656e7427292c2827545241494e2d303231272c27545241494e2d3032312d73746570333630302d646576656c6f706d656e7427295d3a0a20202020636f756e74733d636f6c6c656374696f6e732e436f756e74657228293b2073616d706c65733d5b5d0a20202020626173653d726f6f742f276f7574707574732f66756c6c706167652f7633272f666f6c6465720a20202020666f72207061676520696e20736f72746564287020666f72207020696e20626173652e69746572646972282920696620702e69735f6469722829293a0a202020202020202072756e3d706167652f27617474656d70742d3031270a20202020202020207265713d6a736f6e2e6c6f616473282872756e2f27726571756573742e6a736f6e27292e726561645f746578742829290a20202020202020206e616d653d6e65787428665b2776616c7565275d20666f72206620696e207265715b27627573696e6573735f6661637473275d20696620665b276b696e64275d3d3d276e616d6527290a2020202020202020666f7220617474656d707420696e2072756e2e676c6f622827617474656d70742d2a2e6a736f6e27293a0a202020202020202020202020726f773d6a736f6e2e6c6f61647328617474656d70742e726561645f746578742829290a202020202020202020202020696620726f772e676574282773746167652729213d27706c616e27206f72206e6f7420726f772e676574282772617727293a20636f6e74696e75650a20202020202020202020202069662027506c616e2072657175657374206964656e746974792f7374796c65206d69736d6174636827206e6f7420696e20726f772e67657428276572726f7273272c5b5d293a20636f6e74696e75650a20202020202020202020202076616c75653d6465636f64655f706c616e286a736f6e2e6c6f61647328726f775b27726177275d29290a2020202020202020202020206d69736d6174636865733d5b5d0a202020202020202020202020666f72206669656c642c657870656374656420696e205b28277469746c65272c6e616d65292c282767656e7265272c7265715b2767656e7265275d292c28277374796c655f6d6f6465272c7265715b277374796c655f6d6f6465275d295d3a0a2020202020202020202020202020202069662076616c75652e676574286669656c6429213d65787065637465643a0a2020202020202020202020202020202020202020636f756e74735b6669656c645d2b3d313b206d69736d6174636865732e617070656e64287b276669656c64273a6669656c642c276578706563746564273a65787065637465642c2761637475616c273a76616c75652e676574286669656c64297d290a2020202020202020202020206966206c656e2873616d706c6573293c31303a2073616d706c65732e617070656e64287b2772756e273a72756e5f69642c27726571756573745f6964273a7265715b27726571756573745f6964275d2c276d69736d617463686573273a6d69736d6174636865737d290a202020206964656e746974795b72756e5f69645d3d6469637428636f756e7473293b206578616d706c65732e657874656e642873616d706c6573290a7072696e74286a736f6e2e64756d7073287b276964656e746974795f6d69736d617463685f6669656c645f636f756e7473273a6964656e746974792c276578616d706c6573273a6578616d706c65732c2766696e616c5f72656164273a46616c73657d2c656e737572655f61736369693d46616c73652c696e64656e743d322929'))
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+{
+  "identity_mismatch_field_counts": {
+    "TRAIN-020": {
+      "title": 15
+    },
+    "TRAIN-021": {
+      "title": 15
+    }
+  },
+  "examples": [
+    {
+      "run": "TRAIN-020",
+      "request_id": "page0242-plain_css",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Kafe Bayalaya",
+          "actual": "Kafe Baya"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-020",
+      "request_id": "page0242-plain_css",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Kafe Bayalaya",
+          "actual": "Kafe Baya"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-020",
+      "request_id": "page0242-tailwind",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Kafe Bayalaya",
+          "actual": "Kafe Baya"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-020",
+      "request_id": "page0249-plain_css",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Studio Mapurana",
+          "actual": "Studioradiusurana"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-020",
+      "request_id": "page0249-plain_css",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Studio Mapurana",
+          "actual": "Studioradiusurana"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-020",
+      "request_id": "page0249-tailwind",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Studio Mapurana",
+          "actual": "Studioradiusurana"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-020",
+      "request_id": "page0249-tailwind",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Studio Mapurana",
+          "actual": "Studioradiusurana"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-020",
+      "request_id": "page0253-plain_css",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Kursus Raramapu",
+          "actual": "Kursus Raraautou"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-020",
+      "request_id": "page0253-plain_css",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Kursus Raramapu",
+          "actual": "Kursus Raraautou"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-020",
+      "request_id": "page0253-tailwind",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Kursus Raramapu",
+          "actual": "Kursus Raraautou"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-021",
+      "request_id": "page0242-plain_css",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Kafe Bayalaya",
+          "actual": "Kafe Baya"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-021",
+      "request_id": "page0242-tailwind",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Kafe Bayalaya",
+          "actual": "Kafe Baya"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-021",
+      "request_id": "page0242-tailwind",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Kafe Bayalaya",
+          "actual": "Kafe Baya"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-021",
+      "request_id": "page0249-plain_css",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Studio Mapurana",
+          "actual": "Studio Studioarcurana"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-021",
+      "request_id": "page0249-plain_css",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Studio Mapurana",
+          "actual": "Studio Studioarcurana"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-021",
+      "request_id": "page0249-tailwind",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Studio Mapurana",
+          "actual": "Studio Studioarcurana"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-021",
+      "request_id": "page0249-tailwind",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Studio Mapurana",
+          "actual": "Studio Studioarcurana"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-021",
+      "request_id": "page0253-plain_css",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Kursus Raramapu",
+          "actual": "Kursus Raraautou"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-021",
+      "request_id": "page0253-plain_css",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Kursus Raramapu",
+          "actual": "Kursus Raraautou"
+        }
+      ]
+    },
+    {
+      "run": "TRAIN-021",
+      "request_id": "page0253-tailwind",
+      "mismatches": [
+        {
+          "field": "title",
+          "expected": "Kursus Raramapu",
+          "actual": "Kursus Raraautou"
+        }
+      ]
+    }
+  ],
+  "final_read": false
+}
+
+Exit code: 0

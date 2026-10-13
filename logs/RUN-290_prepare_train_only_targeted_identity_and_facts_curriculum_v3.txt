@@ -1,0 +1,20 @@
+RUN-290 | 2026-10-14T02:26:10.265666+07:00 | prepare train-only targeted identity and facts curriculum v3
+Command: .venv\Scripts\python.exe -m qa.prepare_fullpage_v3
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\prepare_fullpage_v3.py", line 254, in <module>
+    main()
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\prepare_fullpage_v3.py", line 249, in main
+    result = prepare(root / args.source, root / args.output, root / args.report)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\prepare_fullpage_v3.py", line 145, in prepare
+    budget = check_budget(tokenizer, prompt, OUTPUT_BUDGETS[task])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\fullpage\serialization.py", line 41, in check_budget
+    raise ValueError(f'Budget overflow: prefix={prefix}, output={output_budget}, context={block_size}')
+ValueError: Budget overflow: prefix=518, output=1536, context=2048
+
+Exit code: 1

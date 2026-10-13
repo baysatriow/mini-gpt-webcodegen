@@ -1,0 +1,77 @@
+RUN-304 | 2026-10-14T02:54:20.135208+07:00 | locate TRAIN-020 development generation artifacts for error audit
+Command: .venv\Scripts\python.exe -c exec(bytes.fromhex('696d706f7274206a736f6e0a66726f6d20706174686c696220696d706f727420506174680a726f6f743d506174682e63776428290a6f75743d726f6f742f276f7574707574732f66756c6c706167652f76332f545241494e2d3032302d73746570313830302d646576656c6f706d656e74270a7072696e74286a736f6e2e64756d7073287b27637764273a73747228726f6f74292c276f7574707574273a737472286f7574292c27657869737473273a6f75742e65786973747328292c2769735f646972273a6f75742e69735f64697228292c276368696c6472656e273a5b7b276e616d65273a702e6e616d652c2769735f646972273a702e69735f64697228292c2769735f66696c65273a702e69735f66696c6528297d20666f72207020696e206c697374286f75742e697465726469722829295b3a31325d5d206966206f75742e657869737473282920656c7365204e6f6e652c276e6561726279273a5b73747228702e72656c61746976655f746f28726f6f74292920666f72207020696e2028726f6f742f276f75747075747327292e72676c6f622827545241494e2d3032302d73746570313830302d646576656c6f706d656e7427295d7d202c696e64656e743d322929'))
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+{
+  "cwd": "F:\\Generative_AI\\Vibe_Coding_Proyek_1",
+  "output": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\fullpage\\v3\\TRAIN-020-step1800-development",
+  "exists": true,
+  "is_dir": true,
+  "children": [
+    {
+      "name": "identity.json",
+      "is_dir": false,
+      "is_file": true
+    },
+    {
+      "name": "page0240-plain_css",
+      "is_dir": true,
+      "is_file": false
+    },
+    {
+      "name": "page0240-tailwind",
+      "is_dir": true,
+      "is_file": false
+    },
+    {
+      "name": "page0241-plain_css",
+      "is_dir": true,
+      "is_file": false
+    },
+    {
+      "name": "page0241-tailwind",
+      "is_dir": true,
+      "is_file": false
+    },
+    {
+      "name": "page0242-plain_css",
+      "is_dir": true,
+      "is_file": false
+    },
+    {
+      "name": "page0242-tailwind",
+      "is_dir": true,
+      "is_file": false
+    },
+    {
+      "name": "page0243-plain_css",
+      "is_dir": true,
+      "is_file": false
+    },
+    {
+      "name": "page0243-tailwind",
+      "is_dir": true,
+      "is_file": false
+    },
+    {
+      "name": "page0244-plain_css",
+      "is_dir": true,
+      "is_file": false
+    },
+    {
+      "name": "page0244-tailwind",
+      "is_dir": true,
+      "is_file": false
+    },
+    {
+      "name": "page0245-plain_css",
+      "is_dir": true,
+      "is_file": false
+    }
+  ],
+  "nearby": [
+    "outputs\\fullpage\\v3\\TRAIN-020-step1800-development"
+  ]
+}
+
+Exit code: 0

@@ -1,0 +1,6 @@
+RUN-284 | 2026-10-14T02:23:42.724028+07:00 | compile v3 prompt and data preparation sources after fix
+Command: .venv\Scripts\python.exe -m py_compile src/fullpage/prompts.py qa/prepare_fullpage_v3.py
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+
+Exit code: 0

@@ -1003,3 +1003,51 @@ Configs/fullpage/training-v2.json, INIT2048 parent,2400 updates,458.4783864detik
 - RUN-262 TRAIN-018, RUN-263 snapshot1800, RUN-264 exact resume preflight, RUN-265 TRAIN-019, RUN-266 snapshot3600, RUN-267/268 development, RUN-269/270 diagnosis kegagalan, RUN-271 selection, RUN-272 audit metrik, RUN-274 notebook.
 - Persiapan dan konfigurasi di-commit serta di-push sebelum training pada `c829f02`. Semua percobaan gagal, termasuk pencarian yang tidak valid dan penolakan overwrite config, tetap ada pada canonical RUN ledger.
 - Koreksi diagnosis: klasifikasi fact/content dari RUN-270 bersifat kasar. RUN-277 membaca pesan validator mentah pada lima keluarga gagal. Tiga mengalami plan identity/style mismatch, satu navbar brand fact mismatch, dan satu FAQ mengalami required fact item mismatch serta unprovided structured item. RUN-275 mencatat bug kecil pada wrapper verifikasi notebook, RUN-276 memverifikasi semua code cells tersimpan tanpa error, dan RUN-278 memperjelas failure grouping pada notebook.
+
+## TRAIN-020/021, fullpage v3 targeted identity and facts, 14 Oktober 2026
+
+### Tujuan, data, dan kontrak
+
+- Tujuan eksperimen: memperbaiki hasil baseline TRAIN-019 yang mencapai 70/80 halaman development, dengan gate 95 persen atau minimal 76/80. V3 menguji instruksi copy identitas secara tepat dan penggunaan fakta yang tersedia.
+- `src/fullpage/prompts.py` memperkuat instruksi plan dan section. Validator, schema, renderer dan retry tidak diubah. Context tetap 2.048 token, output plan 512 token, output section 1.536 token.
+- V3 dibuat dari keluarga train yang sama. Penambahan terdiri atas 960 halaman sintetis, 480 alias nama, 240 keluarga, 960 task plan, 4.800 task section, total 5.760 task tambahan. Task train keseluruhan 23.040. Manifest v3 SHA-256 `823d09401a92093d2e6dc463753074e9775d9591ce044185c3442adb07eeb8a6`.
+- Validation dan test v3 tetap checksum-identik dengan v2. Development tetap 80 request. File final disalin tanpa diparse dan tidak digunakan untuk evaluasi maupun seleksi. Data sintetis belum ditinjau manusia.
+- Klarifikasi sampler: laporan baseline TRAIN-019 menunjukkan `plan_batch_probability=0.7`, sama dengan v3. Perlakuan v3 adalah augmentation dan distribusi contoh role, bukan perubahan rasio sampler. Perbandingan awal yang memakai lokasi laporan keliru tetap dipertahankan; koreksi berbasis laporan resmi dicatat pada RUN-315 dan laporan selection.
+
+### Profil perangkat dan konfigurasi
+
+- Profil dilakukan langsung pada NVIDIA GeForce RTX 5070. Batch 4, 8, 12, dan 16 stabil dengan effective batch 48. Batch 8 plus akumulasi 6 dipilih karena throughput terukur tertinggi, 53.546 target token per detik, peak reserved 2.292.187.136 byte, dengan sisa memori perangkat 9.224.323.072 byte pada sampel profil.
+- Config `configs/fullpage/training-improvement-v3.json`: 3.600 update, warmup 180, learning rate awal 5e-5 dan minimum 5e-6, BF16, SDPA, fused AdamW, TF32, microbatch 8, accumulation 6, validasi dan checkpoint tiap 600 update. Fresh init memakai `checkpoints/INIT-2048-001/initial.pt`, SHA-256 `27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372`.
+
+### Hasil training
+
+| Run | Global update | Status | Wall time | Target token kumulatif | Validation CE akhir | Peak reserved | Snapshot generasi SHA-256 |
+| --- | ---: | --- | ---: | ---: | ---: | ---: | --- |
+| TRAIN-020 | 1.800 | stopped_at_limit | 568,70 detik | 29.424.126 | 0,005813 | 2.292.187.136 byte | `0204941c5700d2f757c8a92537a2ffa7059d8e0ee4189338096a8991594032cf` |
+| TRAIN-021 | 3.600 | completed | 557,89 detik | 58.756.012 | 0,007596 | 2.313.158.656 byte | `74ada927f75cb46ad6b4bc21ca2f3c5e725f76aee0d1e83902e832b1ba4e39a3` |
+
+TRAIN-021 melanjutkan checkpoint lengkap TRAIN-020 secara persis, termasuk state optimizer, scheduler, sampler, dan RNG. Snapshot generasi weights-only terpisah dari checkpoint resume. Checkpoint akhir, parent lineage, konfigurasi, manifest, tokenizer, prompt dan renderer diikat oleh laporan run/evaluasi.
+
+### Hasil generation development
+
+| Kandidat | Halaman lengkap | First attempt lengkap | Required roles | Validation CE | Gate |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Baseline TRAIN-019 step 3600 | 70/80 | Lihat laporan baseline | 70/80 | 0,007519 | Belum mencapai 76/80 |
+| TRAIN-020 step 1800 | 0/80 | 0/80 | 0/80 | 0,005813 | Gagal |
+| TRAIN-021 step 3600 | 0/80 | 0/80 | 0/80 | 0,007596 | Gagal |
+
+- TRAIN-020 mencatat 64 halaman dengan invalid JSON/contract; audit attempt mengaitkan error utama pada role `process`: 128 percobaan yang mengenai 64 halaman. Plan identity mismatch muncul 15 kali pada 8 halaman. Plan schema juga menghasilkan field `columns` yang tidak dikenal dan descriptor yang tidak cocok.
+- TRAIN-021 mencatat 72 halaman dengan invalid JSON/contract; role `process` mengalami 144 percobaan pada 72 halaman. Plan identity mismatch 15 percobaan pada 8 halaman; mismatch brand section juga muncul.
+- Model gate false pada kedua kandidat. Selection berbasis jumlah halaman memilih TRAIN-020 hanya sebagai kandidat observasi terbaik, bukan checkpoint yang layak dipromosikan. Perbedaan CE tidak membuatnya lolos acceptance.
+- Komposisi role menunjukkan `process` berjumlah 480 contoh pada v2 dan v3. V3 menambah navigation 480 hingga total 1.440, services 960 hingga total 1.440, FAQ 480 hingga total 720, portfolio 480 hingga total 720 dan footer 960 hingga total 3.360. Perbandingan ini belum membuktikan kausalitas atas error process.
+- Final tetap belum dibuka. Browser review false, human review false. Belum ada klaim kualitas visual, produksi, atau generalisasi prompt nyata.
+
+### Artefak dan bukti
+
+- Notebook [13](../notebooks/13_fullpage_v3_targeted_training.ipynb) dibuat dan dieksekusi, 20 sel, tidak mengizinkan error sel. Ia membaca laporan tersimpan dan tidak menjalankan ulang training.
+- Dataset summary `reports/data/FULLPAGE_CURRICULUM_V3.json`; GPU profile `reports/training/FULLPAGE-GPU-004.json`; config `configs/fullpage/training-improvement-v3.json`.
+- Training/evaluasi `reports/training/TRAIN-020.json`, `TRAIN-021.json`, `TRAIN-020_DEVELOPMENT.json`, `TRAIN-021_DEVELOPMENT.json`; pemilihan `reports/training/AI-020_DEVELOPMENT_SELECTION.json`.
+- RUN-295 persiapan data; RUN-297 profile; RUN-298 freeze config; RUN-300 train 1800; RUN-301 snapshot; RUN-302 evaluasi 1800; RUN-308 exact resume; RUN-309 snapshot; RUN-310 evaluasi 3600; RUN-315 koreksi rasio sampler; RUN-316 distribusi role; RUN-317 mismatch identitas; RUN-320 selection; RUN-325 notebook.
+- Debugging tercatat tanpa menghapus run gagal: RUN-282 compile error diperbaiki RUN-284; RUN-287 masalah utilitas hash dituntaskan dengan verifikasi RUN-288/289; RUN-290 context overflow ditangani dengan instruksi fakta yang lebih ringkas; RUN-303 salah tingkat folder dikoreksi oleh audit RUN-306/311; RUN-312 salah lokasi laporan rasio dikoreksi setelah audit RUN-313/315.
+
+Status: pipeline dan rekam training tersedia, tetapi target 95 persen belum tercapai. Sebelum eksperimen training lain, gunakan error utama pada `process` dan title copy untuk menyusun rancangan train-only yang bisa direview. Pertahankan semua partisi, validator strict, reserve storage, dan final benchmark tertutup.

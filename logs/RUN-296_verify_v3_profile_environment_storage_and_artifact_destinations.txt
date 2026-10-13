@@ -1,0 +1,17 @@
+RUN-296 | 2026-10-14T02:28:50.435333+07:00 | verify v3 profile environment storage and artifact destinations
+Command: .venv\Scripts\python.exe -c "import json,shutil,torch; from pathlib import Path; root=Path.cwd(); names=['reports/training/FULLPAGE-GPU-004.json','reports/training/FULLPAGE-GPU-004-B4.json','reports/training/FULLPAGE-GPU-004-B8.json','reports/training/FULLPAGE-GPU-004-B12.json','reports/training/FULLPAGE-GPU-004-B16.json','configs/fullpage/training-improvement-v3.json']; free=shutil.disk_usage(root).free; ok=torch.cuda.is_available(); dev=torch.cuda.get_device_name() if ok else None; mem=torch.cuda.mem_get_info() if ok else None; print(json.dumps({'torch':torch.__version__,'cuda_available':ok,'gpu':dev,'gpu_free_total_bytes':mem,'F_free_GiB':round(free/2**30,3),'artifact_collisions':[n for n in names if (root/n).exists()]},indent=2))"
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+{
+  "torch": "2.14.1+cu130",
+  "cuda_available": true,
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "gpu_free_total_bytes": [
+    11571036160,
+    12820480000
+  ],
+  "F_free_GiB": 17.201,
+  "artifact_collisions": []
+}
+
+Exit code: 0

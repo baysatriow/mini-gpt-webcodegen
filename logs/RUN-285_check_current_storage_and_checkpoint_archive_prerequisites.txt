@@ -1,0 +1,37 @@
+RUN-285 | 2026-10-14T02:23:53.620146+07:00 | check current storage and checkpoint archive prerequisites
+Command: .venv\Scripts\python.exe -c "import json,shutil; from pathlib import Path; root=Path.cwd(); drives={d:shutil.disk_usage(d+':\\') for d in ['F','E']}; dirs=['checkpoints/TRAIN-005','checkpoints/TRAIN-006','checkpoints/TRAIN-007']; items=[]; [items.append({'path':p,'exists':(root/p).exists(),'bytes':sum(x.stat().st_size for x in (root/p).rglob('*') if x.is_file()) if (root/p).exists() else 0}) for p in dirs]; archive=Path('E:/GenerativeAI_Archive/Vibe_Coding_Proyek_1/checkpoints'); print(json.dumps({'disks':{d:{'free_bytes':v.free,'free_gib':round(v.free/2**30,3)} for d,v in drives.items()},'checkpoints':items,'archive_root':str(archive),'archive_root_exists':archive.exists()},indent=2))"
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+{
+  "disks": {
+    "F": {
+      "free_bytes": 16595345408,
+      "free_gib": 15.456
+    },
+    "E": {
+      "free_bytes": 722296786944,
+      "free_gib": 672.691
+    }
+  },
+  "checkpoints": [
+    {
+      "path": "checkpoints/TRAIN-005",
+      "exists": true,
+      "bytes": 681426262
+    },
+    {
+      "path": "checkpoints/TRAIN-006",
+      "exists": true,
+      "bytes": 681426274
+    },
+    {
+      "path": "checkpoints/TRAIN-007",
+      "exists": true,
+      "bytes": 567870010
+    }
+  ],
+  "archive_root": "E:\\GenerativeAI_Archive\\Vibe_Coding_Proyek_1\\checkpoints",
+  "archive_root_exists": false
+}
+
+Exit code: 0

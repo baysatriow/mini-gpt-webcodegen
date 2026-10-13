@@ -1,0 +1,30 @@
+RUN-320 | 2026-10-14T03:20:36.269299+07:00 | select and report v3 development checkpoints without final data
+Command: .venv\Scripts\python.exe -m qa.select_fullpage_v3
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+{
+  "report": "reports/training/AI-020_DEVELOPMENT_SELECTION.json",
+  "baseline": [
+    70,
+    80
+  ],
+  "candidates": [
+    [
+      "TRAIN-020",
+      0,
+      80,
+      0.005813057103118588
+    ],
+    [
+      "TRAIN-021",
+      0,
+      80,
+      0.007596462011125639
+    ]
+  ],
+  "best_observed": "TRAIN-020",
+  "promotable_candidate": null,
+  "final_opened": false
+}
+
+Exit code: 0

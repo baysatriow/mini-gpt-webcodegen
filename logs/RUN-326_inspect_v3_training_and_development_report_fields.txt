@@ -1,0 +1,1585 @@
+RUN-326 | 2026-10-14T03:23:56.711835+07:00 | inspect_v3_training_and_development_report_fields
+Command: .venv\Scripts\python.exe -c "import json; from pathlib import Path; files=['reports/training/TRAIN-020.json','reports/training/TRAIN-021.json','reports/training/TRAIN-020_DEVELOPMENT.json','reports/training/TRAIN-021_DEVELOPMENT.json','reports/training/AI-020_DEVELOPMENT_SELECTION.json','reports/data/FULLPAGE_CURRICULUM_V3.json','reports/training/FULLPAGE-GPU-004.json']; [(print('\\n###',f),print(json.dumps({k:v for k,v in json.loads(Path(f).read_text(encoding='utf-8')).items() if k in ['run_id','status','global_step','steps','elapsed_seconds','final_validation','development_complete','development_total','development_ce','model_gate','final_used','dataset','augmentation','task_counts','config','profile_id','results','target','baseline','candidates','promotable_candidate','final_opened']},ensure_ascii=False,indent=2)[:9000])) for f in files]"
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+\n### reports/training/TRAIN-020.json
+{
+  "run_id": "TRAIN-020",
+  "status": "stopped_at_limit",
+  "config": {
+    "mode": "sft",
+    "scope": "main",
+    "data_origin": "fullpage_curriculum",
+    "human_reviewed": false,
+    "dataset_dir": "data/processed/fullpage/v3",
+    "plan_batch_probability": 0.7,
+    "seed": 42,
+    "block_size": 2048,
+    "tokenizer": "data/tokenizer/tokenizer.json",
+    "model_config_path": "configs/model_fullpage_2048.json",
+    "model_config": {
+      "vocab_size": 8192,
+      "block_size": 2048,
+      "n_layer": 6,
+      "n_head": 6,
+      "n_embd": 384,
+      "dropout": 0.1,
+      "tie_embeddings": true,
+      "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+    },
+    "device": "cuda",
+    "precision": "bf16",
+    "batch_size": 8,
+    "gradient_accumulation": 6,
+    "max_steps": 3600,
+    "warmup_steps": 180,
+    "learning_rate": 5e-05,
+    "min_learning_rate": 5e-06,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "weight_decay": 0.1,
+    "grad_clip": 1,
+    "validation_interval": 600,
+    "validation_batches": null,
+    "checkpoint_interval": 600,
+    "log_interval": 100,
+    "reserve_free_bytes": 16106127360,
+    "initial_checkpoint": "checkpoints/INIT-2048-001/initial.pt",
+    "initial_checkpoint_sha256": "27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372",
+    "performance": {
+      "attention_backend": "sdpa",
+      "fused_adamw": true,
+      "pin_memory": true,
+      "tf32": true,
+      "supervised_only_logits": true,
+      "validation_supervised_only_logits": true,
+      "allocator_config": "expandable_segments:True",
+      "gpu_telemetry": true,
+      "selected_by": "reports/training/FULLPAGE-GPU-004.json",
+      "best_weights_only": true
+    },
+    "selection_rule": "Fixed 3600-update budget; evaluate development at 1800 and 3600; select the best exact development page contract count, with CE as supporting evidence; never open final.",
+    "lineage": {
+      "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+      "fullpage_manifest_sha256": "823d09401a92093d2e6dc463753074e9775d9591ce044185c3442adb07eeb8a6",
+      "initialization_parent": {
+        "migration_kind": "position_extension",
+        "source_checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+        "source_config_sha256": "9e72eec8798e47f90f17b77a6d99e10037d0273503e5bb104f8b284ad5fb3d98",
+        "source_lineage": {
+          "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+          "pretrain_fingerprint": {
+            "version": 1,
+            "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+            "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+            "source_revisions": [
+              {
+                "id": "vulcan",
+                "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+                "license": "mit",
+                "rows": 5000
+              },
+              {
+                "id": "websight_v01",
+                "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                "license": "cc-by-4.0",
+                "rows": 20000
+              },
+              {
+                "id": "websight_v02",
+                "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                "license": "cc-by-4.0",
+                "rows": 30000
+              }
+            ],
+            "partition_sha256": {
+              "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+              "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+              "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+            },
+            "token_cache_sha256": {
+              "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+              "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+              "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+            },
+            "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+          },
+          "synthetic_manifest_sha256": "0fb20da53b4e498cbcbadb7aa6296685a319ae323f68cc96e36f1659ba20d08c",
+          "data_sha256": {
+            "train": "7d0d9f247436ca413f93fcde7b22337de88a29c64150c41998a172058388d2fd",
+            "validation": "945bde9e48d4e4e274a63e519d13357b201e1c1fa9835af427cb0758031d2800"
+          },
+          "validation_indices_sha256": "9bc32cb1719357ec7de7e859d9c67f3f0bdb69cb6deca4043f46d59d6b552c07",
+          "train_blocks_or_examples": 40158,
+          "validation_blocks_or_examples": 1440,
+          "smoke": false,
+          "human_reviewed": false,
+          "pretraining_parent": {
+            "checkpoint_sha256": "49e03ebb37f01619de9dc93a55f6828367d84fd34380986bfa15597d9583831c",
+            "phase": "pretrain",
+            "global_step": 1200,
+            "pretrain_fingerprint": {
+              "version": 1,
+              "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+              "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+              "source_revisions": [
+                {
+                  "id": "vulcan",
+                  "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+                  "license": "mit",
+                  "rows": 5000
+                },
+                {
+                  "id": "websight_v01",
+                  "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                  "license": "cc-by-4.0",
+                  "rows": 20000
+                },
+                {
+                  "id": "websight_v02",
+                  "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                  "license": "cc-by-4.0",
+                  "rows": 30000
+                }
+              ],
+              "partition_sha256": {
+                "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+                "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+                "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+              },
+              "token_cache_sha256": {
+                "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+                "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+                "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+              },
+              "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+            }
+          },
+          "curriculum_parent": {
+            "checkpoint_sha256": "791a365463710f73dbfbba767bd8bd17f5b4442e8f6137a92ec8c5888d1a2ed3",
+            "global_step": 3600,
+            "synthetic_manifest_sha256": "4875ed584633d9ee59d121e7b9d89e277fe37ec5f249cf4e1b3f189c81fd4673",
+            "run_id": "TRAIN-012"
+          }
+        },
+        "pretrain_fingerprint": {
+          "version": 1,
+          "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+          "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+          "source_revisions": [
+            {
+              "id": "vulcan",
+              "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+              "license": "mit",
+              "rows": 5000
+            },
+            {
+              "id": "websight_v01",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 20000
+            },
+            {
+              "id": "websight_v02",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 30000
+            }
+          ],
+          "partition_sha256": {
+            "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+            "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+            "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+          },
+          "token_cache_sha256": {
+            "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+            "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+            "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+          },
+          "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+        },
+        "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+        "source_positions": 1024,
+        "target_positions": 2048,
+        "new_position_seed": 42,
+        "new_position_distribution": "normal mean0 std0.02
+\n### reports/training/TRAIN-021.json
+{
+  "run_id": "TRAIN-021",
+  "status": "completed",
+  "config": {
+    "mode": "sft",
+    "scope": "main",
+    "data_origin": "fullpage_curriculum",
+    "human_reviewed": false,
+    "dataset_dir": "data/processed/fullpage/v3",
+    "plan_batch_probability": 0.7,
+    "seed": 42,
+    "block_size": 2048,
+    "tokenizer": "data/tokenizer/tokenizer.json",
+    "model_config_path": "configs/model_fullpage_2048.json",
+    "model_config": {
+      "vocab_size": 8192,
+      "block_size": 2048,
+      "n_layer": 6,
+      "n_head": 6,
+      "n_embd": 384,
+      "dropout": 0.1,
+      "tie_embeddings": true,
+      "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+    },
+    "device": "cuda",
+    "precision": "bf16",
+    "batch_size": 8,
+    "gradient_accumulation": 6,
+    "max_steps": 3600,
+    "warmup_steps": 180,
+    "learning_rate": 5e-05,
+    "min_learning_rate": 5e-06,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "weight_decay": 0.1,
+    "grad_clip": 1,
+    "validation_interval": 600,
+    "validation_batches": null,
+    "checkpoint_interval": 600,
+    "log_interval": 100,
+    "reserve_free_bytes": 16106127360,
+    "initial_checkpoint": "checkpoints/INIT-2048-001/initial.pt",
+    "initial_checkpoint_sha256": "27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372",
+    "performance": {
+      "attention_backend": "sdpa",
+      "fused_adamw": true,
+      "pin_memory": true,
+      "tf32": true,
+      "supervised_only_logits": true,
+      "validation_supervised_only_logits": true,
+      "allocator_config": "expandable_segments:True",
+      "gpu_telemetry": true,
+      "selected_by": "reports/training/FULLPAGE-GPU-004.json",
+      "best_weights_only": true
+    },
+    "selection_rule": "Fixed 3600-update budget; evaluate development at 1800 and 3600; select the best exact development page contract count, with CE as supporting evidence; never open final.",
+    "lineage": {
+      "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+      "fullpage_manifest_sha256": "823d09401a92093d2e6dc463753074e9775d9591ce044185c3442adb07eeb8a6",
+      "initialization_parent": {
+        "migration_kind": "position_extension",
+        "source_checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+        "source_config_sha256": "9e72eec8798e47f90f17b77a6d99e10037d0273503e5bb104f8b284ad5fb3d98",
+        "source_lineage": {
+          "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+          "pretrain_fingerprint": {
+            "version": 1,
+            "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+            "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+            "source_revisions": [
+              {
+                "id": "vulcan",
+                "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+                "license": "mit",
+                "rows": 5000
+              },
+              {
+                "id": "websight_v01",
+                "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                "license": "cc-by-4.0",
+                "rows": 20000
+              },
+              {
+                "id": "websight_v02",
+                "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                "license": "cc-by-4.0",
+                "rows": 30000
+              }
+            ],
+            "partition_sha256": {
+              "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+              "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+              "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+            },
+            "token_cache_sha256": {
+              "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+              "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+              "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+            },
+            "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+          },
+          "synthetic_manifest_sha256": "0fb20da53b4e498cbcbadb7aa6296685a319ae323f68cc96e36f1659ba20d08c",
+          "data_sha256": {
+            "train": "7d0d9f247436ca413f93fcde7b22337de88a29c64150c41998a172058388d2fd",
+            "validation": "945bde9e48d4e4e274a63e519d13357b201e1c1fa9835af427cb0758031d2800"
+          },
+          "validation_indices_sha256": "9bc32cb1719357ec7de7e859d9c67f3f0bdb69cb6deca4043f46d59d6b552c07",
+          "train_blocks_or_examples": 40158,
+          "validation_blocks_or_examples": 1440,
+          "smoke": false,
+          "human_reviewed": false,
+          "pretraining_parent": {
+            "checkpoint_sha256": "49e03ebb37f01619de9dc93a55f6828367d84fd34380986bfa15597d9583831c",
+            "phase": "pretrain",
+            "global_step": 1200,
+            "pretrain_fingerprint": {
+              "version": 1,
+              "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+              "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+              "source_revisions": [
+                {
+                  "id": "vulcan",
+                  "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+                  "license": "mit",
+                  "rows": 5000
+                },
+                {
+                  "id": "websight_v01",
+                  "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                  "license": "cc-by-4.0",
+                  "rows": 20000
+                },
+                {
+                  "id": "websight_v02",
+                  "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                  "license": "cc-by-4.0",
+                  "rows": 30000
+                }
+              ],
+              "partition_sha256": {
+                "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+                "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+                "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+              },
+              "token_cache_sha256": {
+                "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+                "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+                "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+              },
+              "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+            }
+          },
+          "curriculum_parent": {
+            "checkpoint_sha256": "791a365463710f73dbfbba767bd8bd17f5b4442e8f6137a92ec8c5888d1a2ed3",
+            "global_step": 3600,
+            "synthetic_manifest_sha256": "4875ed584633d9ee59d121e7b9d89e277fe37ec5f249cf4e1b3f189c81fd4673",
+            "run_id": "TRAIN-012"
+          }
+        },
+        "pretrain_fingerprint": {
+          "version": 1,
+          "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+          "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+          "source_revisions": [
+            {
+              "id": "vulcan",
+              "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+              "license": "mit",
+              "rows": 5000
+            },
+            {
+              "id": "websight_v01",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 20000
+            },
+            {
+              "id": "websight_v02",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 30000
+            }
+          ],
+          "partition_sha256": {
+            "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+            "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+            "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+          },
+          "token_cache_sha256": {
+            "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+            "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+            "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+          },
+          "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+        },
+        "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+        "source_positions": 1024,
+        "target_positions": 2048,
+        "new_position_seed": 42,
+        "new_position_distribution": "normal mean0 std0.02",
+    
+\n### reports/training/TRAIN-020_DEVELOPMENT.json
+{
+  "model_gate": false,
+  "results": [
+    {
+      "request_id": "page0240-plain_css",
+      "status": "stage_failed",
+      "seconds": 9.462509899982251
+    },
+    {
+      "request_id": "page0240-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.0537713000085205
+    },
+    {
+      "request_id": "page0241-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.593226700031664
+    },
+    {
+      "request_id": "page0241-tailwind",
+      "status": "stage_failed",
+      "seconds": 5.847418999997899
+    },
+    {
+      "request_id": "page0242-plain_css",
+      "status": "stage_failed",
+      "seconds": 3.277826300007291
+    },
+    {
+      "request_id": "page0242-tailwind",
+      "status": "stage_failed",
+      "seconds": 3.322205699980259
+    },
+    {
+      "request_id": "page0243-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.582122499996331
+    },
+    {
+      "request_id": "page0243-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.845094699994661
+    },
+    {
+      "request_id": "page0244-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.477889699977823
+    },
+    {
+      "request_id": "page0244-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.740799200022593
+    },
+    {
+      "request_id": "page0245-plain_css",
+      "status": "stage_failed",
+      "seconds": 5.150689399975818
+    },
+    {
+      "request_id": "page0245-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.96515449997969
+    },
+    {
+      "request_id": "page0246-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.009338800038677
+    },
+    {
+      "request_id": "page0246-tailwind",
+      "status": "stage_failed",
+      "seconds": 10.247462300001644
+    },
+    {
+      "request_id": "page0247-plain_css",
+      "status": "stage_failed",
+      "seconds": 10.978509499982465
+    },
+    {
+      "request_id": "page0247-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.625333899981342
+    },
+    {
+      "request_id": "page0248-plain_css",
+      "status": "stage_failed",
+      "seconds": 9.22839639999438
+    },
+    {
+      "request_id": "page0248-tailwind",
+      "status": "stage_failed",
+      "seconds": 9.74515039997641
+    },
+    {
+      "request_id": "page0249-plain_css",
+      "status": "stage_failed",
+      "seconds": 3.7042231000377797
+    },
+    {
+      "request_id": "page0249-tailwind",
+      "status": "stage_failed",
+      "seconds": 3.3317371999728493
+    },
+    {
+      "request_id": "page0250-plain_css",
+      "status": "stage_failed",
+      "seconds": 8.148779199982528
+    },
+    {
+      "request_id": "page0250-tailwind",
+      "status": "stage_failed",
+      "seconds": 8.36475770000834
+    },
+    {
+      "request_id": "page0251-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.73131469998043
+    },
+    {
+      "request_id": "page0251-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.879742300021462
+    },
+    {
+      "request_id": "page0252-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.348492599965539
+    },
+    {
+      "request_id": "page0252-tailwind",
+      "status": "stage_failed",
+      "seconds": 10.383661999949254
+    },
+    {
+      "request_id": "page0253-plain_css",
+      "status": "stage_failed",
+      "seconds": 3.682051300012972
+    },
+    {
+      "request_id": "page0253-tailwind",
+      "status": "stage_failed",
+      "seconds": 3.1631003000074998
+    },
+    {
+      "request_id": "page0254-plain_css",
+      "status": "stage_failed",
+      "seconds": 8.642127999977674
+    },
+    {
+      "request_id": "page0254-tailwind",
+      "status": "stage_failed",
+      "seconds": 9.909137799986638
+    },
+    {
+      "request_id": "page0255-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.840436699974816
+    },
+    {
+      "request_id": "page0255-tailwind",
+      "status": "stage_failed",
+      "seconds": 8.822112999972887
+    },
+    {
+      "request_id": "page0256-plain_css",
+      "status": "stage_failed",
+      "seconds": 9.986435400031041
+    },
+    {
+      "request_id": "page0256-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.747928500000853
+    },
+    {
+      "request_id": "page0257-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.003425500006415
+    },
+    {
+      "request_id": "page0257-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.815637500025332
+    },
+    {
+      "request_id": "page0258-plain_css",
+      "status": "stage_failed",
+      "seconds": 8.339664099970832
+    },
+    {
+      "request_id": "page0258-tailwind",
+      "status": "stage_failed",
+      "seconds": 8.200137300009374
+    },
+    {
+      "request_id": "page0259-plain_css",
+      "status": "stage_failed",
+      "seconds": 8.645635799970478
+    },
+    {
+      "request_id": "page0259-tailwind",
+      "status": "stage_failed",
+      "seconds": 8.733615999983158
+    },
+    {
+      "request_id": "page0260-plain_css",
+      "status": "stage_failed",
+      "seconds": 3.378886300022714
+    },
+    {
+      "request_id": "page0260-tailwind",
+      "status": "stage_failed",
+      "seconds": 8.899160699977074
+    },
+    {
+      "request_id": "page0261-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.7001325999735855
+    },
+    {
+      "request_id": "page0261-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.832818299997598
+    },
+    {
+      "request_id": "page0262-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.567651499994099
+    },
+    {
+      "request_id": "page0262-tailwind",
+      "status": "stage_failed",
+      "seconds": 9.659351000038441
+    },
+    {
+      "request_id": "page0263-plain_css",
+      "status": "stage_failed",
+      "seconds": 5.1578637000056915
+    },
+    {
+      "request_id": "page0263-tailwind",
+      "status": "stage_failed",
+      "seconds": 5.053384400031064
+    },
+    {
+      "request_id": "page0264-plain_css",
+      "status": "stage_failed",
+      "seconds": 8.570673100010026
+    },
+    {
+      "request_id": "page0264-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.031362399982754
+    },
+    {
+      "request_id": "page0265-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.034139900002629
+    },
+    {
+      "request_id": "page0265-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.057996000046842
+    },
+    {
+      "request_id": "page0266-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.114939099992625
+    },
+    {
+      "request_id": "page0266-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.3205468999804
+    },
+    {
+      "request_id": "page0267-plain_css",
+      "status": "stage_failed",
+      "seconds": 3.6700540999881923
+    },
+    {
+      "request_id": "page0267-tailwind",
+      "status": "stage_failed",
+      "seconds": 3.7079872000031173
+    },
+    {
+      "request_id": "page0268-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.216558800020721
+    },
+    {
+      "request_id": "page0268-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.757207999995444
+    },
+    {
+      "request_id": "page0269-plain_css",
+      "status": "stage_failed",
+      "seconds": 3.6636817999533378
+    },
+    {
+      "request_id": "page0269-tailwind",
+      "status": "stage_failed",
+      "seconds": 3.3922419999726117
+    },
+    {
+      "request_id": "page0270-plain_css",
+      "status": "stage_failed",
+      "seconds": 2.673130900016986
+    },
+    {
+      "request_id": "page0270-tailwind",
+      "status": "stage_failed",
+      "seconds": 8.036140299984254
+    },
+    {
+      "request_id": "page0271-plain_css",
+      "status": "stage_failed",
+      "seconds": 3.002395899966359
+    },
+    {
+      "request_id": "page0271-tailwind",
+      "status": "stage_failed",
+      "seconds": 3.202267699991353
+    },
+    {
+      "request_id": "page0272-plain_css",
+      "status": "stage_failed",
+      "seconds": 12.577521400002297
+    },
+    {
+      "request_id": "page0272-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.75789419998182
+    },
+    {
+      "request_id": "page0273-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.972885499999393
+    },
+    {
+      "request_id": "page0273-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.657961899996735
+    },
+    {
+      "request_id": "page0274-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.8570290000061505
+    },
+    {
+      "request_id": "page0274-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.47601109999232
+    },
+    {
+      "request_id": "page0275-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.031711500021629
+    },
+    {
+      "request_id": "page0275-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.40828390000388
+    },
+    {
+      "request_id": "page0276-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.496559499995783
+    },
+    {
+      "request_id": "page0276-tailwind",
+      "status": "stage_failed",
+      
+\n### reports/training/TRAIN-021_DEVELOPMENT.json
+{
+  "model_gate": false,
+  "results": [
+    {
+      "request_id": "page0240-plain_css",
+      "status": "stage_failed",
+      "seconds": 8.481073600007221
+    },
+    {
+      "request_id": "page0240-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.740784500027075
+    },
+    {
+      "request_id": "page0241-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.762325400020927
+    },
+    {
+      "request_id": "page0241-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.675210600020364
+    },
+    {
+      "request_id": "page0242-plain_css",
+      "status": "stage_failed",
+      "seconds": 3.4599612000165507
+    },
+    {
+      "request_id": "page0242-tailwind",
+      "status": "stage_failed",
+      "seconds": 2.6334760000463575
+    },
+    {
+      "request_id": "page0243-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.313214400026482
+    },
+    {
+      "request_id": "page0243-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.63188950001495
+    },
+    {
+      "request_id": "page0244-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.705131699971389
+    },
+    {
+      "request_id": "page0244-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.738016599963885
+    },
+    {
+      "request_id": "page0245-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.4463348999852315
+    },
+    {
+      "request_id": "page0245-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.441609300032724
+    },
+    {
+      "request_id": "page0246-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.284736400004476
+    },
+    {
+      "request_id": "page0246-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.872267100028694
+    },
+    {
+      "request_id": "page0247-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.21206930000335
+    },
+    {
+      "request_id": "page0247-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.384731400001328
+    },
+    {
+      "request_id": "page0248-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.611878900032025
+    },
+    {
+      "request_id": "page0248-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.706704999960493
+    },
+    {
+      "request_id": "page0249-plain_css",
+      "status": "stage_failed",
+      "seconds": 2.572686000028625
+    },
+    {
+      "request_id": "page0249-tailwind",
+      "status": "stage_failed",
+      "seconds": 2.8677331000217237
+    },
+    {
+      "request_id": "page0250-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.9950841999961995
+    },
+    {
+      "request_id": "page0250-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.112426999956369
+    },
+    {
+      "request_id": "page0251-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.2962579999584705
+    },
+    {
+      "request_id": "page0251-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.711912200029474
+    },
+    {
+      "request_id": "page0252-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.828982000006363
+    },
+    {
+      "request_id": "page0252-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.383016699983273
+    },
+    {
+      "request_id": "page0253-plain_css",
+      "status": "stage_failed",
+      "seconds": 2.607084900024347
+    },
+    {
+      "request_id": "page0253-tailwind",
+      "status": "stage_failed",
+      "seconds": 2.5758911999873817
+    },
+    {
+      "request_id": "page0254-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.559034000034444
+    },
+    {
+      "request_id": "page0254-tailwind",
+      "status": "stage_failed",
+      "seconds": 8.400849899975583
+    },
+    {
+      "request_id": "page0255-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.978239300020505
+    },
+    {
+      "request_id": "page0255-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.994643500016537
+    },
+    {
+      "request_id": "page0256-plain_css",
+      "status": "stage_failed",
+      "seconds": 8.161793000006583
+    },
+    {
+      "request_id": "page0256-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.215502100007143
+    },
+    {
+      "request_id": "page0257-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.8417230999912135
+    },
+    {
+      "request_id": "page0257-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.9026169999851845
+    },
+    {
+      "request_id": "page0258-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.227768499986269
+    },
+    {
+      "request_id": "page0258-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.893620899994858
+    },
+    {
+      "request_id": "page0259-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.691918299999088
+    },
+    {
+      "request_id": "page0259-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.7241877999622375
+    },
+    {
+      "request_id": "page0260-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.1882096999906935
+    },
+    {
+      "request_id": "page0260-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.579352700035088
+    },
+    {
+      "request_id": "page0261-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.438176699972246
+    },
+    {
+      "request_id": "page0261-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.320024200016633
+    },
+    {
+      "request_id": "page0262-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.917279500048608
+    },
+    {
+      "request_id": "page0262-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.543903700017836
+    },
+    {
+      "request_id": "page0263-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.988232500036247
+    },
+    {
+      "request_id": "page0263-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.514048100041691
+    },
+    {
+      "request_id": "page0264-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.077383600000758
+    },
+    {
+      "request_id": "page0264-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.852422399970237
+    },
+    {
+      "request_id": "page0265-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.459963700035587
+    },
+    {
+      "request_id": "page0265-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.455646500049625
+    },
+    {
+      "request_id": "page0266-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.856304899964016
+    },
+    {
+      "request_id": "page0266-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.8981188999605365
+    },
+    {
+      "request_id": "page0267-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.54234429995995
+    },
+    {
+      "request_id": "page0267-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.486613000044599
+    },
+    {
+      "request_id": "page0268-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.13951339997584
+    },
+    {
+      "request_id": "page0268-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.647565899998881
+    },
+    {
+      "request_id": "page0269-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.348101299954578
+    },
+    {
+      "request_id": "page0269-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.318952200002968
+    },
+    {
+      "request_id": "page0270-plain_css",
+      "status": "stage_failed",
+      "seconds": 6.799936999974307
+    },
+    {
+      "request_id": "page0270-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.307550699973945
+    },
+    {
+      "request_id": "page0271-plain_css",
+      "status": "stage_failed",
+      "seconds": 2.8131343999993987
+    },
+    {
+      "request_id": "page0271-tailwind",
+      "status": "stage_failed",
+      "seconds": 2.873423500044737
+    },
+    {
+      "request_id": "page0272-plain_css",
+      "status": "stage_failed",
+      "seconds": 8.309628400020301
+    },
+    {
+      "request_id": "page0272-tailwind",
+      "status": "stage_failed",
+      "seconds": 7.100506899994798
+    },
+    {
+      "request_id": "page0273-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.027788100007456
+    },
+    {
+      "request_id": "page0273-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.334954300022218
+    },
+    {
+      "request_id": "page0274-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.137357600033283
+    },
+    {
+      "request_id": "page0274-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.800036099972203
+    },
+    {
+      "request_id": "page0275-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.1441414000000805
+    },
+    {
+      "request_id": "page0275-tailwind",
+      "status": "stage_failed",
+      "seconds": 6.3418226999929175
+    },
+    {
+      "request_id": "page0276-plain_css",
+      "status": "stage_failed",
+      "seconds": 7.429769099981058
+    },
+    {
+      "request_id": "page0276-tailwind",
+      "status": "stage_failed",
+
+\n### reports/training/AI-020_DEVELOPMENT_SELECTION.json
+{
+  "baseline": {
+    "run_id": "TRAIN-019",
+    "step": 3600,
+    "plan_batch_probability": 0.7,
+    "development_complete": 70,
+    "development_total": 80,
+    "development_ce": 0.0075190683748171585
+  },
+  "candidates": [
+    {
+      "run_id": "TRAIN-020",
+      "step": 1800,
+      "checkpoint": "checkpoints/FULLPAGE-V3/TRAIN-020-step1800.pt",
+      "checkpoint_sha256": "0204941c5700d2f757c8a92537a2ffa7059d8e0ee4189338096a8991594032cf",
+      "training_status": "stopped_at_limit",
+      "development_complete": 0,
+      "development_total": 80,
+      "required_roles": 0,
+      "model_gate": false,
+      "development_ce": 0.005813057103118588,
+      "page_status_counts": {
+        "stage_failed": 80
+      },
+      "top_generation_errors": [
+        {
+          "task": "section_content",
+          "stage": "process",
+          "error": "Invalid JSON/contract: Expecting ',' delimiter: line 1 column 14 (char 13)",
+          "attempts": 128,
+          "affected_pages": 64
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "Plan request identity/style mismatch",
+          "attempts": 15,
+          "affected_pages": 8
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+          "attempts": 13,
+          "affected_pages": 11
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+          "attempts": 13,
+          "affected_pages": 11
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short",
+          "attempts": 13,
+          "affected_pages": 11
+        },
+        {
+          "task": "section_content",
+          "stage": "about",
+          "error": "Required fact text mismatch: about",
+          "attempts": 4,
+          "affected_pages": 2
+        },
+        {
+          "task": "section_content",
+          "stage": "about",
+          "error": "section:[]: {'id': 'about', 'props': {'heading': 'Tentang Kursus Kawinumi adalah usaha demo fiktif di bidang pendampingan belajar. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas.'}, 'role': 'about', 'type': 'text_section', 'variant': 'prose'} is not valid under any of the given schemas",
+          "attempts": 4,
+          "affected_pages": 2
+        },
+        {
+          "task": "section_content",
+          "stage": "about",
+          "error": "section:[]: {'id': 'about', 'props': {'heading': 'Tentang Toko Manalami adalah usaha demo fiktif di bidang produk kebutuhan harian. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas.'}, 'role': 'about', 'type': 'text_section', 'variant': 'prose'} is not valid under any of the given schemas",
+          "attempts": 4,
+          "affected_pages": 2
+        },
+        {
+          "task": "section_content",
+          "stage": "main",
+          "error": "Hero brand fact mismatch",
+          "attempts": 2,
+          "affected_pages": 2
+        }
+      ]
+    },
+    {
+      "run_id": "TRAIN-021",
+      "step": 3600,
+      "checkpoint": "checkpoints/FULLPAGE-V3/TRAIN-021-step3600.pt",
+      "checkpoint_sha256": "74ada927f75cb46ad6b4bc21ca2f3c5e725f76aee0d1e83902e832b1ba4e39a3",
+      "training_status": "completed",
+      "development_complete": 0,
+      "development_total": 80,
+      "required_roles": 0,
+      "model_gate": false,
+      "development_ce": 0.007596462011125639,
+      "page_status_counts": {
+        "stage_failed": 80
+      },
+      "top_generation_errors": [
+        {
+          "task": "section_content",
+          "stage": "process",
+          "error": "Invalid JSON/contract: Expecting ',' delimiter: line 1 column 14 (char 13)",
+          "attempts": 144,
+          "affected_pages": 72
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "Plan request identity/style mismatch",
+          "attempts": 15,
+          "affected_pages": 8
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+          "attempts": 6,
+          "affected_pages": 6
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+          "attempts": 6,
+          "affected_pages": 6
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short",
+          "attempts": 6,
+          "affected_pages": 6
+        },
+        {
+          "task": "section_content",
+          "stage": "main",
+          "error": "Hero brand fact mismatch",
+          "attempts": 2,
+          "affected_pages": 2
+        },
+        {
+          "task": "section_content",
+          "stage": "nav",
+          "error": "Brand fact mismatch",
+          "attempts": 2,
+          "affected_pages": 1
+        }
+      ]
+    }
+  ],
+  "promotable_candidate": null,
+  "target": {
+    "minimum_complete_pages": 76,
+    "pages": 80,
+    "rate": 0.95
+  },
+  "final_opened": false,
+  "final_used": false
+}
+\n### reports/data/FULLPAGE_CURRICULUM_V3.json
+{
+  "task_counts": {
+    "train": 23040,
+    "validation": 960,
+    "test": 800
+  },
+  "augmentation": {
+    "train_pages_added": 960,
+    "train_pages_total": 3360,
+    "train_families": 240,
+    "independent_families_added": 0,
+    "new_name_aliases": 480,
+    "added_tasks": {
+      "page_plan": 960,
+      "section_content": 4800
+    },
+    "development_names_in_train": false,
+    "development_requests_unchanged": true,
+    "final_parsed": false,
+    "human_reviewed": false,
+    "policy": "Two three-word aliases per existing train family and style; final files copied and hashed but never parsed.",
+    "source_sha256": "d04001eab65bd839647755c0f64dd6b8106a710f689f945cd1d8ea1e49ecb26a",
+    "prompt_sha256": "c0f3255de7607e6438b36975eb96afbf48837922cd146f63093f0e72c0bdf263"
+  }
+}
+\n### reports/training/FULLPAGE-GPU-004.json
+{
+  "results": [
+    {
+      "batch": 4,
+      "accumulation": 12,
+      "effective_batch": 48,
+      "length": "trimmed representative tasks",
+      "dataset_dir": "data/processed/fullpage/v3",
+      "plan_probability": 0.7,
+      "real_target_tokens": 416,
+      "warmup_updates": 6,
+      "measured_updates": 20,
+      "status": "stable",
+      "seconds": 6.742289799964055,
+      "valid_tokens": 323068,
+      "tokens_per_second": 47916.65881845102,
+      "peak_allocated_bytes": 1234934784,
+      "peak_reserved_bytes": 1352663040,
+      "free_device_bytes": 10163847168,
+      "total_device_bytes": 12820480000,
+      "last_step": {
+        "loss": 2.5049149977177096,
+        "grad_norm": 1.4303520917892456,
+        "valid_tokens": 13487
+      },
+      "gpu": "NVIDIA GeForce RTX 5070",
+      "telemetry": {
+        "sample_count": 18,
+        "interval_seconds": 0.5,
+        "raw_path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\metrics\\FULLPAGE-GPU-004-B4_gpu.jsonl",
+        "errors": [],
+        "memory_scope": "nvidia-smi memory includes other desktop applications",
+        "utilization_pct": {
+          "mean": 66.94444444444444,
+          "max": 92.0,
+          "min": 0.0
+        },
+        "memory_used_mib": {
+          "mean": 4263.388888888889,
+          "max": 4368.0,
+          "min": 3249.0
+        },
+        "power_w": {
+          "mean": 139.87055555555554,
+          "max": 177.92,
+          "min": 34.46
+        },
+        "temperature_c": {
+          "mean": 51.833333333333336,
+          "max": 57.0,
+          "min": 41.0
+        },
+        "sm_clock_mhz": {
+          "mean": 2875.0555555555557,
+          "max": 2947.0,
+          "min": 2542.0
+        }
+      }
+    },
+    {
+      "batch": 8,
+      "accumulation": 6,
+      "effective_batch": 48,
+      "length": "trimmed representative tasks",
+      "dataset_dir": "data/processed/fullpage/v3",
+      "plan_probability": 0.7,
+      "real_target_tokens": 416,
+      "warmup_updates": 6,
+      "measured_updates": 20,
+      "status": "stable",
+      "seconds": 5.891318800044246,
+      "valid_tokens": 315457,
+      "tokens_per_second": 53546.07528583088,
+      "peak_allocated_bytes": 2111827968,
+      "peak_reserved_bytes": 2292187136,
+      "free_device_bytes": 9224323072,
+      "total_device_bytes": 12820480000,
+      "last_step": {
+        "loss": 2.5332391824497495,
+        "grad_norm": 1.600062608718872,
+        "valid_tokens": 15485
+      },
+      "gpu": "NVIDIA GeForce RTX 5070",
+      "telemetry": {
+        "sample_count": 15,
+        "interval_seconds": 0.5,
+        "raw_path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\metrics\\FULLPAGE-GPU-004-B8_gpu.jsonl",
+        "errors": [],
+        "memory_scope": "nvidia-smi memory includes other desktop applications",
+        "utilization_pct": {
+          "mean": 76.0,
+          "max": 98.0,
+          "min": 0.0
+        },
+        "memory_used_mib": {
+          "mean": 5112.733333333334,
+          "max": 5284.0,
+          "min": 3251.0
+        },
+        "power_w": {
+          "mean": 153.59666666666666,
+          "max": 187.44,
+          "min": 34.97
+        },
+        "temperature_c": {
+          "mean": 54.266666666666666,
+          "max": 58.0,
+          "min": 43.0
+        },
+        "sm_clock_mhz": {
+          "mean": 2881.0666666666666,
+          "max": 2932.0,
+          "min": 2550.0
+        }
+      }
+    },
+    {
+      "batch": 12,
+      "accumulation": 4,
+      "effective_batch": 48,
+      "length": "trimmed representative tasks",
+      "dataset_dir": "data/processed/fullpage/v3",
+      "plan_probability": 0.7,
+      "real_target_tokens": 416,
+      "warmup_updates": 6,
+      "measured_updates": 20,
+      "status": "stable",
+      "seconds": 6.078662299958523,
+      "valid_tokens": 323583,
+      "tokens_per_second": 53232.60020583935,
+      "peak_allocated_bytes": 2993351168,
+      "peak_reserved_bytes": 3217031168,
+      "free_device_bytes": 8299479040,
+      "total_device_bytes": 12820480000,
+      "last_step": {
+        "loss": 2.53326061109117,
+        "grad_norm": 3.076570749282837,
+        "valid_tokens": 19502
+      },
+      "gpu": "NVIDIA GeForce RTX 5070",
+      "telemetry": {
+        "sample_count": 16,
+        "interval_seconds": 0.5,
+        "raw_path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\metrics\\FULLPAGE-GPU-004-B12_gpu.jsonl",
+        "errors": [],
+        "memory_scope": "nvidia-smi memory includes other desktop applications",
+        "utilization_pct": {
+          "mean": 73.4375,
+          "max": 98.0,
+          "min": 4.0
+        },
+        "memory_used_mib": {
+          "mean": 5934.6875,
+          "max": 6146.0,
+          "min": 3228.0
+        },
+        "power_w": {
+          "mean": 157.79625,
+          "max": 188.72,
+          "min": 35.72
+        },
+        "temperature_c": {
+          "mean": 55.25,
+          "max": 59.0,
+          "min": 45.0
+        },
+        "sm_clock_mhz": {
+          "mean": 2899.3125,
+          "max": 2940.0,
+          "min": 2655.0
+        }
+      }
+    },
+    {
+      "batch": 16,
+      "accumulation": 3,
+      "effective_batch": 48,
+      "length": "trimmed representative tasks",
+      "dataset_dir": "data/processed/fullpage/v3",
+      "plan_probability": 0.7,
+      "real_target_tokens": 416,
+      "warmup_updates": 6,
+      "measured_updates": 20,
+      "status": "stable",
+      "seconds": 6.227953699999489,
+      "valid_tokens": 326731,
+      "tokens_per_second": 52462.01493116861,
+      "peak_allocated_bytes": 3872957440,
+      "peak_reserved_bytes": 4183818240,
+      "free_device_bytes": 7332691968,
+      "total_device_bytes": 12820480000,
+      "last_step": {
+        "loss": 2.5282391195878886,
+        "grad_norm": 1.5674291849136353,
+        "valid_tokens": 15642
+      },
+      "gpu": "NVIDIA GeForce RTX 5070",
+      "telemetry": {
+        "sample_count": 16,
+        "interval_seconds": 0.5,
+        "raw_path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\metrics\\FULLPAGE-GPU-004-B16_gpu.jsonl",
+        "errors": [],
+        "memory_scope": "nvidia-smi memory includes other desktop applications",
+        "utilization_pct": {
+          "mean": 75.5,
+          "max": 99.0,
+          "min": 0.0
+        },
+        "memory_used_mib": {
+          "mean": 6801.3125,
+          "max": 7096.0,
+          "min": 3297.0
+        },
+        "power_w": {
+          "mean": 156.016875,
+          "max": 189.63,
+          "min": 36.41
+        },
+        "temperature_c": {
+          "mean": 54.125,
+          "max": 58.0,
+          "min": 44.0
+        },
+        "sm_clock_mhz": {
+          "mean": 2896.875,
+          "max": 2932.0,
+          "min": 2610.0
+        }
+      }
+    }
+  ]
+}
+
+Exit code: 0

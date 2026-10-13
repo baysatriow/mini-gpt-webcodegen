@@ -1,0 +1,7 @@
+RUN-313 | 2026-10-14T03:16:54.740179+07:00 | locate historical TRAIN-019 report filenames
+Command: .venv\Scripts\python.exe -c "from pathlib import Path; root=Path('reports/training'); print('\\n'.join(sorted(str(p) for p in root.glob('*TRAIN-019*'))))"
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+reports\training\TRAIN-019.json
+
+Exit code: 0

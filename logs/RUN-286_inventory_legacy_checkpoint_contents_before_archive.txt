@@ -1,0 +1,245 @@
+RUN-286 | 2026-10-14T02:24:09.797052+07:00 | inventory legacy checkpoint contents before archive
+Command: .venv\Scripts\python.exe -c "import hashlib,json; from pathlib import Path; root=Path.cwd(); names=['TRAIN-005','TRAIN-006','TRAIN-007']; out={}; [(out.setdefault(n,[]), out[n].extend({'relative':p.relative_to(root/'checkpoints'/n).as_posix(),'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'is_symlink':p.is_symlink(),'is_dir':p.is_dir()} for p in (root/'checkpoints'/n).rglob('*') if p.is_file())) for n in names]; print(json.dumps(out,indent=2))"
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+{
+  "TRAIN-005": [
+    {
+      "relative": "best.pt",
+      "bytes": 199,
+      "sha256": "16de121157a00cc637b69bc11442ca1c41532ce0ad8f1ef11f01dc6475b3b78f",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": "config.json",
+      "bytes": 5675,
+      "sha256": "981d9dd77a895aba84e4307003c381a674b2e9a3924fb96b6fc64a27b0a24821",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": "last.pt",
+      "bytes": 252,
+      "sha256": "0e391bf2ac02277ded11dc83de9653e6c4f965aa380affff68d8a3d97c50f8aa",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/best-07761f8e6ce7493c9ab279ccb47a0d2c.json",
+      "bytes": 4321,
+      "sha256": "5a55781484a565396fdb1b6f64421546a9b502ded2d2b5814cc3a4dec5cf529d",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/best-07761f8e6ce7493c9ab279ccb47a0d2c.pt",
+      "bytes": 170350553,
+      "sha256": "5775435063dda891dcfaa68f2be2d96c4ef31aea665f8e11e53c1e6311f82117",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/best-7bfd77a3c6a249d3ad66b885508a72f8.json",
+      "bytes": 4321,
+      "sha256": "8b9fd673bbf8981fe2d762703b0cf3224024e133bd6742d18576fcfe86df3799",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/best-7bfd77a3c6a249d3ad66b885508a72f8.pt",
+      "bytes": 170350553,
+      "sha256": "0640f99033865578cc3c9a96330c129fd15c9c597e880891f0538ed89431a54d",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/last-75dd3cc6d19246039a8a8b2e59168c0b.json",
+      "bytes": 4321,
+      "sha256": "2eb969d28156628a26479e5e261e710a9293c32bba9f757cde7ad6d80c82336a",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/last-75dd3cc6d19246039a8a8b2e59168c0b.pt",
+      "bytes": 170350873,
+      "sha256": "380d4b6cf6c2d398a6eda18f149d3c0b898a32321b8fea367ac29275bc6a50a1",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/last-fbecdac1c7c24398ae254e100af7e02d.json",
+      "bytes": 4321,
+      "sha256": "63534c976b1889c9008db38c851772fa5babd1689e10ba6ec0a4af5f3369972b",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/last-fbecdac1c7c24398ae254e100af7e02d.pt",
+      "bytes": 170350873,
+      "sha256": "82d2e387f0b36d29a414175544973def50082c176600ffedc3ed4546fbd6e21d",
+      "is_symlink": false,
+      "is_dir": false
+    }
+  ],
+  "TRAIN-006": [
+    {
+      "relative": "best.pt",
+      "bytes": 199,
+      "sha256": "f4ec46670e19f8c51185b6838c8fa48a1bab3fd2ebf65bbb45678c2efe9f16a2",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": "config.json",
+      "bytes": 5679,
+      "sha256": "121c2fd14282faa3995820139384420db225735463685b179a1f4e327c3a07e8",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": "last.pt",
+      "bytes": 252,
+      "sha256": "d39e6bad20e4eebb376f9157637f1fa8906dea051bcbc572fbe614714ffad699",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/best-0f530fcda88f4fd590e3e19ac9539366.json",
+      "bytes": 4323,
+      "sha256": "7225a736dc51e7f2ea6ff991de79cf715a5917e87f989c93388579cfd9d5ddac",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/best-0f530fcda88f4fd590e3e19ac9539366.pt",
+      "bytes": 170350553,
+      "sha256": "d9d54dd6e0cf1b8233e1ca8e3a190ab9433bf746ee8cd69d600916835e897b83",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/best-9a9b1f83a0fa412bb252bf491c46e13e.json",
+      "bytes": 4323,
+      "sha256": "64b44d50a094385afd96f57bc0d70a27f2769b922b2dccaee995dd50fbbe188a",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/best-9a9b1f83a0fa412bb252bf491c46e13e.pt",
+      "bytes": 170350553,
+      "sha256": "74705520f6f6c543dc8d9908057769fdf81f478159efb44b6e3966ca847c5540",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/last-123919bcb7fc42e0b1c30ad150e4243e.json",
+      "bytes": 4323,
+      "sha256": "335383ebeff144470c7ab461d6d5644e80606fde1eda59f55bd00af916fbb36a",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/last-123919bcb7fc42e0b1c30ad150e4243e.pt",
+      "bytes": 170350873,
+      "sha256": "a2a76fb7b0f110778b08cdf54b9dce75c0398ed0a1abcc57bf5addadfcca326a",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/last-3ea679bd4901479797c796c1787591c9.json",
+      "bytes": 4323,
+      "sha256": "e35169a9a88dc99307ac8d04911b4f4f1fdb513c6801d8280cdf3e0f84c8482c",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/last-3ea679bd4901479797c796c1787591c9.pt",
+      "bytes": 170350873,
+      "sha256": "00345d9721b870bb1a8a23ad8b9b5fcf249e938532b7e65c7a02708bff5b6b27",
+      "is_symlink": false,
+      "is_dir": false
+    }
+  ],
+  "TRAIN-007": [
+    {
+      "relative": "best.pt",
+      "bytes": 199,
+      "sha256": "f7aca234322a3a534f2744b1d8130715b30348791ee903056875c47889df047d",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": "config.json",
+      "bytes": 5546,
+      "sha256": "11ac6999624b1a10bffd3872872523610022a9699e5d3e1af8d9e5f10494f418",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": "last.pt",
+      "bytes": 252,
+      "sha256": "0d1dde769597384a53e68ccd207cedc36e0f77e780a79c546732b1591898d2ef",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/best-73c2ed86bab542eab8df9d87b0233892.json",
+      "bytes": 4323,
+      "sha256": "ab747d1bbabd3b618d0c436673ec8269909a53bfdaf4df8c9bd91cf2e45fa3e8",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/best-73c2ed86bab542eab8df9d87b0233892.pt",
+      "bytes": 170350425,
+      "sha256": "be882b8611066830a83145f892a77f99cb7d49782004e0827c9f0f4c7660eaaa",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/best-7b2e90a76cae4c0098c3c3e04c3330b8.json",
+      "bytes": 4321,
+      "sha256": "76fbb65d356dfe93fd27e3262f867f89e432493c426380074e2496edf133559f",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/best-7b2e90a76cae4c0098c3c3e04c3330b8.pt",
+      "bytes": 56794806,
+      "sha256": "f3e90c176b2c3ebf4790fd961574f3c994799bbd0dfe02e691d8ed034f59c2bf",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/last-32225d117b024c07bf2b8b2316dff3f6.json",
+      "bytes": 4324,
+      "sha256": "0d751e4714a07e885da3c021bd6df18cbed065319db9adc289d45493168890b2",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/last-32225d117b024c07bf2b8b2316dff3f6.pt",
+      "bytes": 170350745,
+      "sha256": "d844ff769bb81861cd0076a8ccb1f0c02ed6cc62aadbc2c1dcbcc7e9e00f344c",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/last-ff11bc29805f4a80b4878aaeea6fb4c2.json",
+      "bytes": 4324,
+      "sha256": "5282aa65d76e1575deb88244a270db8d828b4713a666fc88465fc9c000eac688",
+      "is_symlink": false,
+      "is_dir": false
+    },
+    {
+      "relative": ".versions/last-ff11bc29805f4a80b4878aaeea6fb4c2.pt",
+      "bytes": 170350745,
+      "sha256": "5ca6456db7d612e5d8bce864cc5613f06cc07cc13aef1cfc815fdcfed364d88c",
+      "is_symlink": false,
+      "is_dir": false
+    }
+  ]
+}
+
+Exit code: 0

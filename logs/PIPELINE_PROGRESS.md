@@ -180,3 +180,15 @@ RUN-241 notebook11 selesai8 cells; notebook10 SHA tetap7 cells. RUN-243 bytes ZI
 ### Koreksi diagnosis error RUN-277
 
 Pemeriksaan pesan validator mentah mengonfirmasi tiga keluarga mengalami plan identity/style mismatch, satu navbar brand mismatch, dan satu FAQ berisi item yang tidak didukung business fact. CSS biasa dan Tailwind pada keluarga gagal mendapat hasil sama, jadi pola masalahnya ada di konten/model bersama, bukan renderer style. RUN-278 memperjelas kategori ini di notebook12. RUN-275 adalah kesalahan variabel pada wrapper verifikasi setelah notebook berjalan, bukan kegagalan cell; RUN-276 mengonfirmasi keenam code cell tersimpan tanpa error.
+
+## AI-020: Eksperimen fullpage-v3, 14 Oktober 2026
+
+- Kurikulum v3 menambahkan 960 halaman sintetis, 480 alias nama, dan 5.760 task ke train dari 240 keluarga yang sama. Validation/test tetap sama checksum; data belum ditinjau manusia.
+- RTX 5070 profile memilih microbatch 8, accumulation 6, effective batch 48. TRAIN-020 mencapai step 1800 dan TRAIN-021 exact-resume mencapai step 3600.
+- Pada 80 prompt development, kedua checkpoint memberikan 0 halaman lengkap. Cross entropy masing-masing 0,005813 dan 0,007596, tetapi keduanya gagal kontrak halaman. Baseline TRAIN-019 tetap 70/80; gate 95 persen memerlukan 76/80.
+- Error dominan adalah JSON rusak pada role `process`. Jumlah baris role ini tetap 480 pada v2 dan v3, sementara role navigation, services, FAQ, portfolio dan footer ditambah. Ini hipotesis untuk eksperimen berikutnya, bukan bukti sebab-akibat.
+- Perbandingan laporan membuktikan sampler baseline dan v3 sama-sama memakai plan 70 persen. Jadi perlakuan v3 adalah distribusi augmentation, bukan perubahan rasio. Koreksi dicatat dalam notebook 13 dan selection report.
+- Tidak ada kandidat yang dipromosikan. Final tetap tertutup, tidak ada review browser atau manusia. [Notebook 13](../notebooks/13_fullpage_v3_targeted_training.ipynb), [training log](../logs/LOG_TRAINING.md), [AI-020](../logs/interaksi_llm/AI-020_2026-10-14.md).
+- Sebelum training baru, rancangan perlu memprioritaskan contoh section `process` yang valid dan copy title persis, dengan data train-only dan evaluation development beku. Minta review desain sebelum mengubah strategi training.
+
+CodeGraph index lokal tersedia dan telah disinkronkan setelah perubahan source v3 pada RUN-318, RUN-321, dan RUN-323.

@@ -1,0 +1,10 @@
+RUN-282 | 2026-10-14T02:22:33.802437+07:00 | Compile v3 prompt and data preparation sources
+Command: .venv/Scripts/python.exe -m py_compile src/fullpage/prompts.py qa/prepare_fullpage_v3.py
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+  File "qa/prepare_fullpage_v3.py", line 247
+    global ROOT
+    ^^^^^^^^^^^
+SyntaxError: name 'ROOT' is used prior to global declaration
+
+Exit code: 1

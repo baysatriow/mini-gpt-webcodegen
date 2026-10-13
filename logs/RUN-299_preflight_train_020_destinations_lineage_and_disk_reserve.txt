@@ -1,0 +1,24 @@
+RUN-299 | 2026-10-14T02:32:45.349044+07:00 | preflight TRAIN-020 destinations lineage and disk reserve
+Command: .venv\Scripts\python.exe -c "import json,hashlib,shutil; from pathlib import Path; root=Path.cwd(); cfg=json.loads((root/'configs/fullpage/training-improvement-v3.json').read_text()); targets=['checkpoints/TRAIN-020','reports/training/TRAIN-020.json','outputs/metrics/TRAIN-020.jsonl','outputs/metrics/TRAIN-020_gpu.jsonl','logs/training/TRAIN-020.log']; used=0; phases=[]; [(phases.append(str(d)),None) for d in (root/'checkpoints').iterdir() if (d/'config.json').is_file() and json.loads((d/'config.json').read_text()).get('storage_phase_id')==cfg.get('storage_phase_id')]; used=sum(p.stat().st_size for name in phases for p in (Path(name).rglob('*')) if p.is_file()); initial=root/cfg['initial_checkpoint']; print(json.dumps({'free_GiB':round(shutil.disk_usage(root).free/2**30,3),'reserve_GiB':round(cfg['reserve_free_bytes']/2**30,3),'phase_id':cfg['storage_phase_id'],'phase_dirs':phases,'phase_artifact_bytes':used,'target_collisions':[x for x in targets if (root/x).exists()],'config':{k:cfg[k] for k in ['batch_size','gradient_accumulation','max_steps','plan_batch_probability','validation_interval','checkpoint_interval']},'initial_checkpoint_sha256':hashlib.sha256(initial.read_bytes()).hexdigest(),'dataset_manifest_sha256':cfg['lineage']['fullpage_manifest_sha256']},indent=2))"
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+{
+  "free_GiB": 17.201,
+  "reserve_GiB": 15.0,
+  "phase_id": "fullpage-improvement-v3",
+  "phase_dirs": [],
+  "phase_artifact_bytes": 0,
+  "target_collisions": [],
+  "config": {
+    "batch_size": 8,
+    "gradient_accumulation": 6,
+    "max_steps": 3600,
+    "plan_batch_probability": 0.7,
+    "validation_interval": 600,
+    "checkpoint_interval": 600
+  },
+  "initial_checkpoint_sha256": "6ceed6b83659271d7c5e00e1f5ca7493571c588f44f31c89d6e0754f6dd6da54",
+  "dataset_manifest_sha256": "823d09401a92093d2e6dc463753074e9775d9591ce044185c3442adb07eeb8a6"
+}
+
+Exit code: 0

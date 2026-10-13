@@ -1,0 +1,463 @@
+RUN-306 | 2026-10-14T02:54:58.666692+07:00 | audit nested TRAIN-020 page attempts and exact validator failures
+Command: .venv\Scripts\python.exe -c exec(bytes.fromhex('696d706f7274206a736f6e2c636f6c6c656374696f6e730a66726f6d20706174686c696220696d706f727420506174680a726f6f743d506174682e63776428293b206f75743d726f6f742f276f7574707574732f66756c6c706167652f76332f545241494e2d3032302d73746570313830302d646576656c6f706d656e74270a726f77733d5b5d3b206572726f72733d636f6c6c656374696f6e732e436f756e74657228293b2073746167655f636f756e74733d636f6c6c656374696f6e732e436f756e74657228293b2066697273743d5b5d0a666f72207061676520696e20736f72746564287020666f72207020696e206f75742e69746572646972282920696620702e69735f6469722829293a0a20202020617474656d7074735f646972733d736f72746564287020666f72207020696e20706167652e676c6f622827617474656d70742d2a272920696620702e69735f6469722829290a202020206966206e6f7420617474656d7074735f646972733a20636f6e74696e75650a2020202072756e3d617474656d7074735f646972735b2d315d3b20726573756c745f706174683d72756e2f27726573756c742e6a736f6e270a202020206966206e6f7420726573756c745f706174682e69735f66696c6528293a20636f6e74696e75650a20202020726573756c743d6a736f6e2e6c6f61647328726573756c745f706174682e726561645f7465787428656e636f64696e673d277574662d382729293b20726f77732e617070656e6428726573756c745b27737461747573275d293b20617474656d7074733d5b5d0a20202020666f72207061746820696e20736f727465642872756e2e676c6f622827617474656d70742d2a2e6a736f6e2729293a0a20202020202020206974656d3d6a736f6e2e6c6f61647328706174682e726561645f7465787428656e636f64696e673d277574662d382729290a202020202020202073746167655f636f756e74735b286974656d2e67657428277461736b27292c6974656d2e6765742827737461676527292c6974656d2e676574282773746f705f726561736f6e2729295d2b3d310a2020202020202020666f72206572726f7220696e206974656d2e67657428276572726f7273272c5b5d293a206572726f72735b286974656d2e67657428277461736b27292c6974656d2e6765742827737461676527292c6572726f72295d2b3d310a2020202020202020617474656d7074732e617070656e64287b277461736b273a6974656d2e67657428277461736b27292c277374616765273a6974656d2e6765742827737461676527292c277265747279273a6974656d2e6765742827726574727927292c2773746f705f726561736f6e273a6974656d2e676574282773746f705f726561736f6e27292c2767656e6572617465645f746f6b656e73273a6974656d2e676574282767656e6572617465645f746f6b656e7327292c276572726f7273273a6974656d2e67657428276572726f727327292c277261775f707265666978273a6974656d2e6765742827726177272c2727295b3a3234305d7d290a202020206966206c656e286669727374293c363a2066697273742e617070656e64287b27726571756573745f6964273a726573756c742e6765742827726571756573745f696427292c27737461747573273a726573756c745b27737461747573275d2c27617474656d707473273a617474656d7074737d290a7072696e74286a736f6e2e64756d7073287b277061676573273a6c656e28726f7773292c277374617475735f636f756e7473273a6469637428636f6c6c656374696f6e732e436f756e74657228726f777329292c27617474656d70745f636f756e7473273a7b737472286b293a7620666f72206b2c7620696e2073746167655f636f756e74732e6974656d7328297d2c27746f705f6572726f7273273a5b7b277461736b273a6b5b305d2c277374616765273a6b5b315d2c276572726f72273a6b5b325d2c27636f756e74273a767d20666f72206b2c7620696e206572726f72732e6d6f73745f636f6d6d6f6e283135295d2c2766697273745f736978273a66697273747d2c656e737572655f61736369693d46616c73652c696e64656e743d322929'))
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+{
+  "pages": 80,
+  "status_counts": {
+    "stage_failed": 80
+  },
+  "attempt_counts": {
+    "('page_plan', 'plan', 'eos')": 98,
+    "('section_content', 'nav', 'eos')": 70,
+    "('section_content', 'main', 'eos')": 72,
+    "('section_content', 'about', 'eos')": 76,
+    "('section_content', 'services', 'eos')": 57,
+    "('section_content', 'benefits', 'eos')": 34,
+    "('section_content', 'process', 'eos')": 128,
+    "('section_content', 'values', 'eos')": 30,
+    "('section_content', 'portfolio', 'eos')": 1,
+    "('section_content', 'contact', 'eos')": 1
+  },
+  "top_errors": [
+    {
+      "task": "section_content",
+      "stage": "process",
+      "error": "Invalid JSON/contract: Expecting ',' delimiter: line 1 column 14 (char 13)",
+      "count": 128
+    },
+    {
+      "task": "page_plan",
+      "stage": "plan",
+      "error": "Plan request identity/style mismatch",
+      "count": 15
+    },
+    {
+      "task": "page_plan",
+      "stage": "plan",
+      "error": "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+      "count": 13
+    },
+    {
+      "task": "page_plan",
+      "stage": "plan",
+      "error": "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+      "count": 13
+    },
+    {
+      "task": "page_plan",
+      "stage": "plan",
+      "error": "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short",
+      "count": 13
+    },
+    {
+      "task": "section_content",
+      "stage": "about",
+      "error": "Required fact text mismatch: about",
+      "count": 4
+    },
+    {
+      "task": "section_content",
+      "stage": "about",
+      "error": "section:[]: {'id': 'about', 'props': {'heading': 'Tentang Kursus Kawinumi adalah usaha demo fiktif di bidang pendampingan belajar. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas.'}, 'role': 'about', 'type': 'text_section', 'variant': 'prose'} is not valid under any of the given schemas",
+      "count": 4
+    },
+    {
+      "task": "section_content",
+      "stage": "about",
+      "error": "section:[]: {'id': 'about', 'props': {'heading': 'Tentang Toko Manalami adalah usaha demo fiktif di bidang produk kebutuhan harian. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas.'}, 'role': 'about', 'type': 'text_section', 'variant': 'prose'} is not valid under any of the given schemas",
+      "count": 4
+    },
+    {
+      "task": "section_content",
+      "stage": "main",
+      "error": "Hero brand fact mismatch",
+      "count": 2
+    }
+  ],
+  "first_six": [
+    {
+      "request_id": "page0240-plain_css",
+      "status": "stage_failed",
+      "attempts": [
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 404,
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "raw_prefix": "{\"genre\":\"landing_page\",\"language\":\"id\",\"schema_version\":\"1.0\",\"sections\":[[\"nav\",\"navbar\",\"navigation\",\"inline\",[\"name\"],[]],[\"main\",\"hero\",\"hero\",\"split\",[\"name\"],[\"studio-shapes\"]],[\"about\",\"text_section\",\"about\",\"prose\",[\"about\"],[]],[\""
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "retry": true,
+          "stop_reason": "eos",
+          "generated_tokens": 408,
+          "errors": [],
+          "raw_prefix": "{\"genre\":\"landing_page\",\"language\":\"id\",\"schema_version\":\"1.0\",\"sections\":[[\"nav\",\"navbar\",\"navigation\",\"inline\",[\"name\"],[]],[\"main\",\"hero\",\"hero\",\"split\",[\"name\"],[\"studio-shapes\"]],[\"about\",\"text_section\",\"about\",\"prose\",[\"about\"],[]],[\""
+        },
+        {
+          "task": "section_content",
+          "stage": "nav",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 128,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"nav\",\"props\":{\"brand\":\"Studio Wiritana\",\"links\":[{\"href\":\"#about\",\"label\":\"Tentang\"},{\"href\":\"#services\",\"label\":\"Layanan\"},{\"href\":\"#contact\",\"label\":\"Kontak\"}]},\"role\":\"navigation\",\"type\":\"navbar\",\"variant\":\"inline\"}"
+        },
+        {
+          "task": "section_content",
+          "stage": "main",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 186,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"main\",\"props\":{\"button\":{\"href\":\"#contact\",\"label\":\"Diskusikan kebutuhan\"},\"heading\":\"Studio Wiritana\",\"layout\":\"split\",\"media\":{\"alt\":\"Ilustrasi usaha demo fiktif\",\"asset_id\":\"studio-shapes\"},\"text\":\"Kenali layanan desain dan komuni"
+        },
+        {
+          "task": "section_content",
+          "stage": "about",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 160,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"about\",\"props\":{\"heading\":\"Tentang Studio Wiritana\",\"text\":\"Studio Wiritana adalah usaha demo fiktif di bidang desain dan komunikasi. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi denga"
+        },
+        {
+          "task": "section_content",
+          "stage": "services",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 345,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"services\",\"props\":{\"heading\":\"Layanan utama\",\"items\":[{\"heading\":\"Desain identitas\",\"text\":\"Desain identitas disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipa"
+        },
+        {
+          "task": "section_content",
+          "stage": "benefits",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 198,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"benefits\",\"props\":{\"heading\":\"Mengapa memilih kami\",\"items\":[{\"heading\":\"Komunikasi terbuka\",\"text\":\"Kami mengutamakan komunikasi terbuka, informasi yang mudah dipahami dan proses yang disepakati bersama.\"},{\"heading\":\"Kebutuhan yang"
+        },
+        {
+          "task": "section_content",
+          "stage": "process",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 231,
+          "errors": [
+            "Invalid JSON/contract: Expecting ',' delimiter: line 1 column 14 (char 13)"
+          ],
+          "raw_prefix": "{\"id\":\"props\":{\"heading\":\"Cara memulai\",\"items\":[{\"heading\":\"Sampaikan kebutuhan\",\"text\":\"Ceritakan kebutuhan melalui formulir konsultasi. Informasi awal membantu kami memahami tujuan Anda.\"},{\"heading\":\"Bah layanan dapat disesuai komunikan"
+        },
+        {
+          "task": "section_content",
+          "stage": "process",
+          "retry": true,
+          "stop_reason": "eos",
+          "generated_tokens": 249,
+          "errors": [
+            "Invalid JSON/contract: Expecting ',' delimiter: line 1 column 14 (char 13)"
+          ],
+          "raw_prefix": "{\"id\":\"props\":{\"heading\":\"Cara memulai\",\"items\":[{\"heading\":\"Sampaikan kebutuhan\",\"text\":\"Ceritakan kebutuhan melalui formulir konsultasi. Informasi awal membantu kami memahami tujuan Anda.\"},{\"heading\":\"Bah layanan dapat ditentukan dan mat"
+        }
+      ]
+    },
+    {
+      "request_id": "page0240-tailwind",
+      "status": "stage_failed",
+      "attempts": [
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 404,
+          "errors": [],
+          "raw_prefix": "{\"genre\":\"landing_page\",\"language\":\"id\",\"schema_version\":\"1.0\",\"sections\":[[\"nav\",\"navbar\",\"navigation\",\"inline\",[\"name\"],[]],[\"main\",\"hero\",\"hero\",\"split\",[\"name\"],[\"studio-shapes\"]],[\"about\",\"text_section\",\"about\",\"prose\",[\"about\"],[]],[\""
+        },
+        {
+          "task": "section_content",
+          "stage": "nav",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 128,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"nav\",\"props\":{\"brand\":\"Studio Wiritana\",\"links\":[{\"href\":\"#about\",\"label\":\"Tentang\"},{\"href\":\"#services\",\"label\":\"Layanan\"},{\"href\":\"#contact\",\"label\":\"Kontak\"}]},\"role\":\"navigation\",\"type\":\"navbar\",\"variant\":\"inline\"}"
+        },
+        {
+          "task": "section_content",
+          "stage": "main",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 186,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"main\",\"props\":{\"button\":{\"href\":\"#contact\",\"label\":\"Diskusikan kebutuhan\"},\"heading\":\"Studio Wiritana\",\"layout\":\"split\",\"media\":{\"alt\":\"Ilustrasi usaha demo fiktif\",\"asset_id\":\"studio-shapes\"},\"text\":\"Kenali layanan desain dan komuni"
+        },
+        {
+          "task": "section_content",
+          "stage": "about",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 160,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"about\",\"props\":{\"heading\":\"Tentang Studio Wiritana\",\"text\":\"Studio Wiritana adalah usaha demo fiktif di bidang desain dan komunikasi. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi denga"
+        },
+        {
+          "task": "section_content",
+          "stage": "services",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 345,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"services\",\"props\":{\"heading\":\"Layanan utama\",\"items\":[{\"heading\":\"Desain identitas\",\"text\":\"Desain identitas disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipa"
+        },
+        {
+          "task": "section_content",
+          "stage": "benefits",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 198,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"benefits\",\"props\":{\"heading\":\"Mengapa memilih kami\",\"items\":[{\"heading\":\"Komunikasi terbuka\",\"text\":\"Kami mengutamakan komunikasi terbuka, informasi yang mudah dipahami dan proses yang disepakati bersama.\"},{\"heading\":\"Kebutuhan yang"
+        },
+        {
+          "task": "section_content",
+          "stage": "process",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 231,
+          "errors": [
+            "Invalid JSON/contract: Expecting ',' delimiter: line 1 column 14 (char 13)"
+          ],
+          "raw_prefix": "{\"id\":\"props\":{\"heading\":\"Cara memulai\",\"items\":[{\"heading\":\"Sampaikan kebutuhan\",\"text\":\"Ceritakan kebutuhan melalui formulir konsultasi. Informasi awal membantu kami memahami tujuan Anda.\"},{\"heading\":\"Bah layanan dapat disesuai komunikan"
+        },
+        {
+          "task": "section_content",
+          "stage": "process",
+          "retry": true,
+          "stop_reason": "eos",
+          "generated_tokens": 249,
+          "errors": [
+            "Invalid JSON/contract: Expecting ',' delimiter: line 1 column 14 (char 13)"
+          ],
+          "raw_prefix": "{\"id\":\"props\":{\"heading\":\"Cara memulai\",\"items\":[{\"heading\":\"Sampaikan kebutuhan\",\"text\":\"Ceritakan kebutuhan melalui formulir konsultasi. Informasi awal membantu kami memahami tujuan Anda.\"},{\"heading\":\"Bah layanan dapat ditentukan dan mat"
+        }
+      ]
+    },
+    {
+      "request_id": "page0241-plain_css",
+      "status": "stage_failed",
+      "attempts": [
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 401,
+          "errors": [],
+          "raw_prefix": "{\"genre\":\"company_profile\",\"language\":\"id\",\"schema_version\":\"1.0\",\"sections\":[[\"nav\",\"navbar\",\"navigation\",\"inline\",[\"name\"],[]],[\"main\",\"hero\",\"hero\",\"split\",[\"name\"],[\"company-shapes\"]],[\"values\",\"text_section\",\"values\",\"prose\",[\"values\"]"
+        },
+        {
+          "task": "section_content",
+          "stage": "nav",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 127,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"nav\",\"props\":{\"brand\":\"Studio Natasati\",\"links\":[{\"href\":\"#about\",\"label\":\"Tentang\"},{\"href\":\"#services\",\"label\":\"Layanan\"},{\"href\":\"#contact\",\"label\":\"Kontak\"}]},\"role\":\"navigation\",\"type\":\"navbar\",\"variant\":\"inline\"}"
+        },
+        {
+          "task": "section_content",
+          "stage": "main",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 185,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"main\",\"props\":{\"button\":{\"href\":\"#contact\",\"label\":\"Diskusikan kebutuhan\"},\"heading\":\"Studio Natasati\",\"layout\":\"split\",\"media\":{\"alt\":\"Ilustrasi usaha demo fiktif\",\"asset_id\":\"company-shapes\"},\"text\":\"Kenali layanan desain dan komun"
+        },
+        {
+          "task": "section_content",
+          "stage": "values",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 121,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"values\",\"props\":{\"heading\":\"Visi dan nilai\",\"text\":\"Kami mengutamakan komunikasi terbuka, informasi yang mudah dipahami dan proses yang disepakati bersama.\"},\"role\":\"values\",\"type\":\"text_section\",\"variant\":\"prose\"}"
+        },
+        {
+          "task": "section_content",
+          "stage": "about",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 158,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"about\",\"props\":{\"heading\":\"Tentang Studio Natasati\",\"text\":\"Studio Natasati adalah usaha demo fiktif di bidang desain dan komunikasi. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi denga"
+        },
+        {
+          "task": "section_content",
+          "stage": "process",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 304,
+          "errors": [
+            "Invalid JSON/contract: Expecting ',' delimiter: line 1 column 14 (char 13)"
+          ],
+          "raw_prefix": "{\"id\":\"props\":{\"heading\":\"Cara memulai\",\"items\":[{\"heading\":\"Sampaikan kebutuhan\",\"text\":\"Ceritakan kebutuhan melalui formulir konsultasi. Informasi awal membantu kami memahami tujuan Anda.\"},{\"heading\":\"Bahas pilihan\",\"text\":\"Kami membahas"
+        },
+        {
+          "task": "section_content",
+          "stage": "process",
+          "retry": true,
+          "stop_reason": "eos",
+          "generated_tokens": 309,
+          "errors": [
+            "Invalid JSON/contract: Expecting ',' delimiter: line 1 column 14 (char 13)"
+          ],
+          "raw_prefix": "{\"id\":\"props\":{\"heading\":\"Cara memulai\",\"items\":[{\"heading\":\"Sampaikan kebutuhan\",\"text\":\"Ceritakan kebutuhan melalui formulir konsultasi. Informasi awal membantu kami memahami tujuan Anda.\"},{\"heading\":\"Bah layanan dapat ditentukan dan mat"
+        }
+      ]
+    },
+    {
+      "request_id": "page0241-tailwind",
+      "status": "stage_failed",
+      "attempts": [
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 397,
+          "errors": [],
+          "raw_prefix": "{\"genre\":\"company_profile\",\"language\":\"id\",\"schema_version\":\"1.0\",\"sections\":[[\"nav\",\"navbar\",\"navigation\",\"inline\",[\"name\"],[]],[\"main\",\"hero\",\"hero\",\"split\",[\"name\"],[\"company-shapes\"]],[\"values\",\"text_section\",\"values\",\"prose\",[\"values\"]"
+        },
+        {
+          "task": "section_content",
+          "stage": "nav",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 127,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"nav\",\"props\":{\"brand\":\"Studio Natasati\",\"links\":[{\"href\":\"#about\",\"label\":\"Tentang\"},{\"href\":\"#services\",\"label\":\"Layanan\"},{\"href\":\"#contact\",\"label\":\"Kontak\"}]},\"role\":\"navigation\",\"type\":\"navbar\",\"variant\":\"inline\"}"
+        },
+        {
+          "task": "section_content",
+          "stage": "main",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 185,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"main\",\"props\":{\"button\":{\"href\":\"#contact\",\"label\":\"Diskusikan kebutuhan\"},\"heading\":\"Studio Natasati\",\"layout\":\"split\",\"media\":{\"alt\":\"Ilustrasi usaha demo fiktif\",\"asset_id\":\"company-shapes\"},\"text\":\"Kenali layanan desain dan komun"
+        },
+        {
+          "task": "section_content",
+          "stage": "values",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 121,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"values\",\"props\":{\"heading\":\"Visi dan nilai\",\"text\":\"Kami mengutamakan komunikasi terbuka, informasi yang mudah dipahami dan proses yang disepakati bersama.\"},\"role\":\"values\",\"type\":\"text_section\",\"variant\":\"prose\"}"
+        },
+        {
+          "task": "section_content",
+          "stage": "about",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 158,
+          "errors": [],
+          "raw_prefix": "{\"id\":\"about\",\"props\":{\"heading\":\"Tentang Studio Natasati\",\"text\":\"Studio Natasati adalah usaha demo fiktif di bidang desain dan komunikasi. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi denga"
+        },
+        {
+          "task": "section_content",
+          "stage": "process",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 304,
+          "errors": [
+            "Invalid JSON/contract: Expecting ',' delimiter: line 1 column 14 (char 13)"
+          ],
+          "raw_prefix": "{\"id\":\"props\":{\"heading\":\"Cara memulai\",\"items\":[{\"heading\":\"Sampaikan kebutuhan\",\"text\":\"Ceritakan kebutuhan melalui formulir konsultasi. Informasi awal membantu kami memahami tujuan Anda.\"},{\"heading\":\"Bahas pilihan\",\"text\":\"Kami membahas"
+        },
+        {
+          "task": "section_content",
+          "stage": "process",
+          "retry": true,
+          "stop_reason": "eos",
+          "generated_tokens": 309,
+          "errors": [
+            "Invalid JSON/contract: Expecting ',' delimiter: line 1 column 14 (char 13)"
+          ],
+          "raw_prefix": "{\"id\":\"props\":{\"heading\":\"Cara memulai\",\"items\":[{\"heading\":\"Sampaikan kebutuhan\",\"text\":\"Ceritakan kebutuhan melalui formulir konsultasi. Informasi awal membantu kami memahami tujuan Anda.\"},{\"heading\":\"Bah layanan dapat ditentukan dan mat"
+        }
+      ]
+    },
+    {
+      "request_id": "page0242-plain_css",
+      "status": "stage_failed",
+      "attempts": [
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 407,
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "raw_prefix": "{\"genre\":\"landing_page\",\"language\":\"id\",\"schema_version\":\"1.0\",\"sections\":[[\"nav\",\"navbar\",\"navigation\",\"inline\",[\"name\"],[]],[\"main\",\"hero\",\"hero\",\"split\",[\"name\"],[\"studio-shapes\"]],[\"about\",\"text_section\",\"about\",\"prose\",[\"about\"],[]],[\""
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "retry": true,
+          "stop_reason": "eos",
+          "generated_tokens": 407,
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "raw_prefix": "{\"genre\":\"landing_page\",\"language\":\"id\",\"schema_version\":\"1.0\",\"sections\":[[\"nav\",\"navbar\",\"navigation\",\"inline\",[\"name\"],[]],[\"main\",\"hero\",\"hero\",\"split\",[\"name\"],[\"studio-shapes\"]],[\"about\",\"text_section\",\"about\",\"prose\",[\"about\"],[]],[\""
+        }
+      ]
+    },
+    {
+      "request_id": "page0242-tailwind",
+      "status": "stage_failed",
+      "attempts": [
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "retry": false,
+          "stop_reason": "eos",
+          "generated_tokens": 399,
+          "errors": [
+            "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+            "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+            "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+          ],
+          "raw_prefix": "{\"genre\":\"landing_page\",\"language\":\"id\",\"schema_version\":\"1.0\",\"sections\":[[\"nav\",\"navbar\",\"navigation\",\"inline\",[\"name\"],[]],[\"main\",\"hero\",\"hero\",\"centered\",[\"name\"],[\"studio-shapes\"]],[\"about\",\"text_section\",\"about\",\"prose\",[\"about\"],[]]"
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "retry": true,
+          "stop_reason": "eos",
+          "generated_tokens": 403,
+          "errors": [
+            "Plan request identity/style mismatch"
+          ],
+          "raw_prefix": "{\"genre\":\"landing_page\",\"language\":\"id\",\"schema_version\":\"1.0\",\"sections\":[[\"nav\",\"navbar\",\"navigation\",\"inline\",[\"name\"],[]],[\"main\",\"hero\",\"hero\",\"centered\",[\"name\"],[\"studio-shapes\"]],[\"about\",\"text_section\",\"about\",\"prose\",[\"about\"],[]]"
+        }
+      ]
+    }
+  ]
+}
+
+Exit code: 0

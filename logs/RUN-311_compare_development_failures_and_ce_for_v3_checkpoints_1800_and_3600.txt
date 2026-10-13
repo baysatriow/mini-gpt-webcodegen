@@ -1,0 +1,165 @@
+RUN-311 | 2026-10-14T03:15:29.302911+07:00 | compare development failures and CE for v3 checkpoints 1800 and 3600
+Command: .venv\Scripts\python.exe -c exec(bytes.fromhex('696d706f7274206a736f6e2c636f6c6c656374696f6e730a66726f6d20706174686c696220696d706f727420506174680a726f6f743d506174682e63776428290a72756e733d5b0a2827545241494e2d303230272c726f6f742f276f7574707574732f66756c6c706167652f76332f545241494e2d3032302d73746570313830302d646576656c6f706d656e74272c726f6f742f277265706f7274732f747261696e696e672f545241494e2d3032305f444556454c4f504d454e542e6a736f6e272c726f6f742f277265706f7274732f747261696e696e672f545241494e2d3032302e6a736f6e27292c0a2827545241494e2d303231272c726f6f742f276f7574707574732f66756c6c706167652f76332f545241494e2d3032312d73746570333630302d646576656c6f706d656e74272c726f6f742f277265706f7274732f747261696e696e672f545241494e2d3032315f444556454c4f504d454e542e6a736f6e272c726f6f742f277265706f7274732f747261696e696e672f545241494e2d3032312e6a736f6e27295d0a6f75743d5b5d0a666f722072756e5f69642c6469726563746f72792c7265706f72745f706174682c73756d6d6172795f7061746820696e2072756e733a0a202020207265706f72743d6a736f6e2e6c6f616473287265706f72745f706174682e726561645f746578742829293b2073756d6d6172793d6a736f6e2e6c6f6164732873756d6d6172795f706174682e726561645f746578742829290a2020202073746174757365733d636f6c6c656374696f6e732e436f756e74657228293b206572726f72733d636f6c6c656374696f6e732e436f756e74657228293b207374616765733d636f6c6c656374696f6e732e436f756e74657228290a20202020666f72207061676520696e20736f72746564287020666f72207020696e206469726563746f72792e69746572646972282920696620702e69735f6469722829293a0a2020202020202020617474656d7074735f646972733d736f72746564287020666f72207020696e20706167652e676c6f622827617474656d70742d2a272920696620702e69735f6469722829290a20202020202020206966206e6f7420617474656d7074735f646972733a20636f6e74696e75650a2020202020202020617474656d70745f6469723d617474656d7074735f646972735b2d315d3b20726573756c745f706174683d617474656d70745f6469722f27726573756c742e6a736f6e270a2020202020202020696620726573756c745f706174682e69735f66696c6528293a2073746174757365735b6a736f6e2e6c6f61647328726573756c745f706174682e726561645f746578742829295b27737461747573275d5d2b3d310a2020202020202020666f72207061746820696e20617474656d70745f6469722e676c6f622827617474656d70742d2a2e6a736f6e27293a0a2020202020202020202020206974656d3d6a736f6e2e6c6f61647328706174682e726561645f746578742829290a2020202020202020202020207374616765735b286974656d2e67657428277461736b27292c6974656d2e676574282773746167652729295d2b3d310a202020202020202020202020666f72206572726f7220696e206974656d2e67657428276572726f7273272c5b5d293a206572726f72735b286974656d2e67657428277461736b27292c6974656d2e6765742827737461676527292c6572726f72295d2b3d310a202020206f75742e617070656e64287b2772756e5f6964273a72756e5f69642c2773636f7065273a7265706f72745b2773636f7065275d2c27746f74616c273a7265706f72745b27746f74616c275d2c27636f6d706c657465273a7265706f72745b27636f6d706c657465275d2c2772657175697265645f726f6c6573273a7265706f72745b2772657175697265645f726f6c6573275d2c276d6f64656c5f67617465273a7265706f72745b276d6f64656c5f67617465275d2c27646576656c6f706d656e745f6365273a73756d6d6172795b2766696e616c5f76616c69646174696f6e275d5b276c6f7373275d2c2773746570273a73756d6d6172795b27676c6f62616c5f73746570275d2c27747261696e696e675f737461747573273a73756d6d6172795b27737461747573275d2c27706167655f7374617475735f636f756e7473273a64696374287374617475736573292c27617474656d70745f636f756e7473273a7b737472286b293a7620666f72206b2c7620696e207374616765732e6974656d7328297d2c27746f705f6572726f7273273a5b7b277461736b273a6b5b305d2c277374616765273a6b5b315d2c276572726f72273a6b5b325d2c27636f756e74273a767d20666f72206b2c7620696e206572726f72732e6d6f73745f636f6d6d6f6e283132295d2c2773616d706c655f70616765273a6a736f6e2e6c6f61647328286469726563746f72792f2770616765303234302d706c61696e5f637373272f27617474656d70742d3031272f27726573756c742e6a736f6e27292e726561645f746578742829295b27726571756573745f6964275d7d290a7072696e74286a736f6e2e64756d7073287b2772756e73273a6f75742c2766696e616c5f75736564273a46616c73652c2766696e616c5f6f70656e6564273a46616c73657d2c656e737572655f61736369693d46616c73652c696e64656e743d322929'))
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+{
+  "runs": [
+    {
+      "run_id": "TRAIN-020",
+      "scope": "development",
+      "total": 80,
+      "complete": 0,
+      "required_roles": 0,
+      "model_gate": false,
+      "development_ce": 0.005813057103118588,
+      "step": 1800,
+      "training_status": "stopped_at_limit",
+      "page_status_counts": {
+        "stage_failed": 80
+      },
+      "attempt_counts": {
+        "('page_plan', 'plan')": 98,
+        "('section_content', 'nav')": 70,
+        "('section_content', 'main')": 72,
+        "('section_content', 'about')": 76,
+        "('section_content', 'services')": 57,
+        "('section_content', 'benefits')": 34,
+        "('section_content', 'process')": 128,
+        "('section_content', 'values')": 30,
+        "('section_content', 'portfolio')": 1,
+        "('section_content', 'contact')": 1
+      },
+      "top_errors": [
+        {
+          "task": "section_content",
+          "stage": "process",
+          "error": "Invalid JSON/contract: Expecting ',' delimiter: line 1 column 14 (char 13)",
+          "count": 128
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "Plan request identity/style mismatch",
+          "count": 15
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+          "count": 13
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+          "count": 13
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short",
+          "count": 13
+        },
+        {
+          "task": "section_content",
+          "stage": "about",
+          "error": "Required fact text mismatch: about",
+          "count": 4
+        },
+        {
+          "task": "section_content",
+          "stage": "about",
+          "error": "section:[]: {'id': 'about', 'props': {'heading': 'Tentang Kursus Kawinumi adalah usaha demo fiktif di bidang pendampingan belajar. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas.'}, 'role': 'about', 'type': 'text_section', 'variant': 'prose'} is not valid under any of the given schemas",
+          "count": 4
+        },
+        {
+          "task": "section_content",
+          "stage": "about",
+          "error": "section:[]: {'id': 'about', 'props': {'heading': 'Tentang Toko Manalami adalah usaha demo fiktif di bidang produk kebutuhan harian. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas.'}, 'role': 'about', 'type': 'text_section', 'variant': 'prose'} is not valid under any of the given schemas",
+          "count": 4
+        },
+        {
+          "task": "section_content",
+          "stage": "main",
+          "error": "Hero brand fact mismatch",
+          "count": 2
+        }
+      ],
+      "sample_page": "page0240-plain_css"
+    },
+    {
+      "run_id": "TRAIN-021",
+      "scope": "development",
+      "total": 80,
+      "complete": 0,
+      "required_roles": 0,
+      "model_gate": false,
+      "development_ce": 0.007596462011125639,
+      "step": 3600,
+      "training_status": "completed",
+      "page_status_counts": {
+        "stage_failed": 80
+      },
+      "attempt_counts": {
+        "('page_plan', 'plan')": 94,
+        "('section_content', 'nav')": 74,
+        "('section_content', 'main')": 74,
+        "('section_content', 'about')": 72,
+        "('section_content', 'services')": 72,
+        "('section_content', 'benefits')": 38,
+        "('section_content', 'process')": 144,
+        "('section_content', 'values')": 34,
+        "('section_content', 'contact')": 1
+      },
+      "top_errors": [
+        {
+          "task": "section_content",
+          "stage": "process",
+          "error": "Invalid JSON/contract: Expecting ',' delimiter: line 1 column 14 (char 13)",
+          "count": 144
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "Plan request identity/style mismatch",
+          "count": 15
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+          "count": 6
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+          "count": 6
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short",
+          "count": 6
+        },
+        {
+          "task": "section_content",
+          "stage": "nav",
+          "error": "Brand fact mismatch",
+          "count": 2
+        },
+        {
+          "task": "section_content",
+          "stage": "main",
+          "error": "Hero brand fact mismatch",
+          "count": 2
+        }
+      ],
+      "sample_page": "page0240-plain_css"
+    }
+  ],
+  "final_used": false,
+  "final_opened": false
+}
+
+Exit code: 0

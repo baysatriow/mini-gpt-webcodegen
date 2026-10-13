@@ -1,0 +1,7 @@
+RUN-314 | 2026-10-14T03:17:01.813334+07:00 | search report and output artifacts for TRAIN-019 evaluation evidence
+Command: .venv\Scripts\python.exe -c "from pathlib import Path; roots=[Path('reports'),Path('outputs')]; hits=[str(p) for base in roots for p in base.rglob('*') if p.is_file() and 'TRAIN-019' in p.name]; print('\\n'.join(hits))"
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+reports\fullpage\TRAIN-019_DEVELOPMENT.json\nreports\training\TRAIN-019.json\noutputs\metrics\TRAIN-019.jsonl\noutputs\metrics\TRAIN-019_gpu.jsonl
+
+Exit code: 0

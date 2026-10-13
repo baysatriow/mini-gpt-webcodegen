@@ -1,0 +1,111 @@
+RUN-297 | 2026-10-14T02:29:01.302519+07:00 | profile RTX 5070 on v3 with 70 percent plan batches
+Command: .venv\Scripts\python.exe -m qa.profile_fullpage_training --report-id FULLPAGE-GPU-004 --dataset-dir data/processed/fullpage/v3 --plan-probability 0.7 --representative
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+{
+  "batch": 4,
+  "accumulation": 12,
+  "effective_batch": 48,
+  "length": "trimmed representative tasks",
+  "dataset_dir": "data/processed/fullpage/v3",
+  "plan_probability": 0.7,
+  "real_target_tokens": 416,
+  "warmup_updates": 6,
+  "measured_updates": 20,
+  "status": "stable",
+  "seconds": 6.742289799964055,
+  "valid_tokens": 323068,
+  "tokens_per_second": 47916.65881845102,
+  "peak_allocated_bytes": 1234934784,
+  "peak_reserved_bytes": 1352663040,
+  "free_device_bytes": 10163847168,
+  "total_device_bytes": 12820480000,
+  "last_step": {
+    "loss": 2.5049149977177096,
+    "grad_norm": 1.4303520917892456,
+    "valid_tokens": 13487
+  },
+  "gpu": "NVIDIA GeForce RTX 5070"
+}
+{
+  "batch": 8,
+  "accumulation": 6,
+  "effective_batch": 48,
+  "length": "trimmed representative tasks",
+  "dataset_dir": "data/processed/fullpage/v3",
+  "plan_probability": 0.7,
+  "real_target_tokens": 416,
+  "warmup_updates": 6,
+  "measured_updates": 20,
+  "status": "stable",
+  "seconds": 5.891318800044246,
+  "valid_tokens": 315457,
+  "tokens_per_second": 53546.07528583088,
+  "peak_allocated_bytes": 2111827968,
+  "peak_reserved_bytes": 2292187136,
+  "free_device_bytes": 9224323072,
+  "total_device_bytes": 12820480000,
+  "last_step": {
+    "loss": 2.5332391824497495,
+    "grad_norm": 1.600062608718872,
+    "valid_tokens": 15485
+  },
+  "gpu": "NVIDIA GeForce RTX 5070"
+}
+{
+  "batch": 12,
+  "accumulation": 4,
+  "effective_batch": 48,
+  "length": "trimmed representative tasks",
+  "dataset_dir": "data/processed/fullpage/v3",
+  "plan_probability": 0.7,
+  "real_target_tokens": 416,
+  "warmup_updates": 6,
+  "measured_updates": 20,
+  "status": "stable",
+  "seconds": 6.078662299958523,
+  "valid_tokens": 323583,
+  "tokens_per_second": 53232.60020583935,
+  "peak_allocated_bytes": 2993351168,
+  "peak_reserved_bytes": 3217031168,
+  "free_device_bytes": 8299479040,
+  "total_device_bytes": 12820480000,
+  "last_step": {
+    "loss": 2.53326061109117,
+    "grad_norm": 3.076570749282837,
+    "valid_tokens": 19502
+  },
+  "gpu": "NVIDIA GeForce RTX 5070"
+}
+{
+  "batch": 16,
+  "accumulation": 3,
+  "effective_batch": 48,
+  "length": "trimmed representative tasks",
+  "dataset_dir": "data/processed/fullpage/v3",
+  "plan_probability": 0.7,
+  "real_target_tokens": 416,
+  "warmup_updates": 6,
+  "measured_updates": 20,
+  "status": "stable",
+  "seconds": 6.227953699999489,
+  "valid_tokens": 326731,
+  "tokens_per_second": 52462.01493116861,
+  "peak_allocated_bytes": 3872957440,
+  "peak_reserved_bytes": 4183818240,
+  "free_device_bytes": 7332691968,
+  "total_device_bytes": 12820480000,
+  "last_step": {
+    "loss": 2.5282391195878886,
+    "grad_norm": 1.5674291849136353,
+    "valid_tokens": 15642
+  },
+  "gpu": "NVIDIA GeForce RTX 5070"
+}
+{
+  "selected_batch": 8,
+  "accumulation": 6,
+  "tokens_per_second": 53546.07528583088
+}
+
+Exit code: 0

@@ -1,0 +1,13 @@
+RUN-298 | 2026-10-14T02:31:54.717120+07:00 | freeze fullpage v3 training configuration after GPU profile
+Command: .venv\Scripts\python.exe -m qa.configure_fullpage_training --scope main --profile reports/training/FULLPAGE-GPU-004.json --output configs/fullpage/training-improvement-v3.json --dataset-dir data/processed/fullpage/v3 --plan-probability 0.7 --max-steps 3600 --warmup-steps 180 --validation-interval 600 --checkpoint-interval 600 --storage-phase-id fullpage-improvement-v3 --selection-rule "Fixed 3600-update budget; evaluate development at 1800 and 3600; select the best exact development page contract count, with CE as supporting evidence; never open final."
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+{
+  "scope": "main",
+  "batch_size": 8,
+  "gradient_accumulation": 6,
+  "max_steps": 3600,
+  "learning_rate": 5e-05
+}
+
+Exit code: 0

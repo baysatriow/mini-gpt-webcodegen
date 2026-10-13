@@ -1,0 +1,18 @@
+RUN-293 | 2026-10-14T02:27:48.461010+07:00 | sync CodeGraph after compact fact instruction update
+Command: cmd.exe /c codegraph sync .
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+T  Syncing CodeGraph
+|
+Scanning files...
+Parsing code...
+Resolving refs...
+|
+*  Synced 1 changed files
+|
+•  Modified: 1 - 5 nodes in 604ms
+|
+—  Done
+
+
+Exit code: 0

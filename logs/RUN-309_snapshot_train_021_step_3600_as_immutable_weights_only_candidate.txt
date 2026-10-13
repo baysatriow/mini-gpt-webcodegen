@@ -1,0 +1,17 @@
+RUN-309 | 2026-10-14T03:06:04.197001+07:00 | snapshot TRAIN-021 step 3600 as immutable weights only candidate
+Command: .venv\Scripts\python.exe -m qa.snapshot_fullpage_checkpoint --source checkpoints/TRAIN-021/last.pt --destination checkpoints/FULLPAGE-V3/TRAIN-021-step3600.pt --run-id TRAIN-021 --step 3600
+Commit: 4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1
+
+{
+  "source": "checkpoints/TRAIN-021/last.pt",
+  "source_sha256": "d9254dff634c5e05543b2f90b949ae66eb66c832b6b5e56e55ebb3e18e1a76f4",
+  "destination": "checkpoints/FULLPAGE-V3/TRAIN-021-step3600.pt",
+  "destination_sha256": "74ada927f75cb46ad6b4bc21ca2f3c5e725f76aee0d1e83902e832b1ba4e39a3",
+  "destination_file_sha256": "329039535a667adafbdd7d54e3c2e664407e1c7f6952b64c7d28b8ec4fbe05be",
+  "run_id": "TRAIN-021",
+  "global_step": 3600,
+  "weights_only": true,
+  "dataset_manifest_sha256": "823d09401a92093d2e6dc463753074e9775d9591ce044185c3442adb07eeb8a6"
+}
+
+Exit code: 0
