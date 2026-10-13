@@ -1,0 +1,6 @@
+RUN-279 | 2026-10-14T02:13:25.534812+07:00 | Initialize CodeGraph repository index
+Command: codegraph init -y .
+Commit: 605952a827b39a2bcd172f277291dfb2079849f4
+
+
+Wrapper failure: qa.run_logged could not launch the Windows .cmd shim directly (WinError 2). CodeGraph initialization did not start. Timestamp: 2026-10-14T02:14:01.055+07:00

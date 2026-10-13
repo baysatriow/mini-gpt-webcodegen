@@ -25,3 +25,4 @@ data/processed/
 qa/docx_render/
 docs/referensi/
 docs/CATATAN_LOKASI_FILE_LAMA.txt
+.codegraph/

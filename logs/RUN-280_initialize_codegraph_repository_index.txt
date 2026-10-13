@@ -1,0 +1,21 @@
+RUN-280 | 2026-10-14T02:14:03.564183+07:00 | Initialize CodeGraph repository index
+Command: cmd.exe /c codegraph init -y .
+Commit: 605952a827b39a2bcd172f277291dfb2079849f4
+
+T  Initializing CodeGraph
+|
+*  Initialized in F:\Generative_AI\Vibe_Coding_Proyek_1
+|
+Scanning files...
+Parsing code...
+Resolving refs...
+Linking dynamic dispatch...
+|
+*  Indexed 367 files
+|
+•  2,023 nodes, 4,512 edges in 946ms
+|
+—  Done
+
+
+Exit code: 0

@@ -3543,3 +3543,21 @@ print({'notebook':str(path.relative_to(root)),'code_cells':sum(c.cell_type=='cod
 - **Commit:** `c829f024f66b0d343921f3fc872e3c6352f08769`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-278_ai_019_refine_notebook_failure_map_using_exact_captured_validator_mess.txt`.
+
+### RUN-279
+
+- **Waktu:** 2026-10-14T02:14:01.055+07:00.
+- **Tujuan:** Initialize CodeGraph repository index.
+- **Command:** .venv/Scripts/python.exe -m qa.run_logged --label 'Initialize CodeGraph repository index' -- codegraph init -y ..
+- **Hasil:** exit 1 before child process launch. Windows CreateProcess could not execute the .cmd shim directly; CodeGraph did not run and created no project index.
+- **Catatan:** Rerun will invoke the same CLI through cmd.exe and receive a new RUN ID.
+- **Output lengkap:** logs/RUN-279_initialize_codegraph_repository_index.txt.
+
+### RUN-280
+
+- **Waktu:** 2026-10-14T02:14:03.564183+07:00 sampai 2026-10-14T02:14:07.390726+07:00.
+- **Tujuan:** Initialize CodeGraph repository index.
+- **Command:** `cmd.exe /c codegraph init -y .`.
+- **Commit:** `605952a827b39a2bcd172f277291dfb2079849f4`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-280_initialize_codegraph_repository_index.txt`.
