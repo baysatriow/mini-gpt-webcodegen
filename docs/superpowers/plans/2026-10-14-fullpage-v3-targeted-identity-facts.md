@@ -100,4 +100,4 @@
 
 - [x] Record the exact prompt/data changes, source and manifest hashes, GPU profile, training lineage, per-run metrics, development counts, storage actions, and final-closed state.
 - [x] Execute the notebook so it displays the v3 manifest, profile, training summaries, development comparison, and failure categories from saved reports.
-- [ ] Run `git diff --check`, verify the CodeGraph index is current, verify final remains unopened, then commit and push without `Co-Authored-By`.
+- [x] Run `git diff --check`, verify the CodeGraph index is current, verify final remains unopened, then commit and push without `Co-Authored-By`.

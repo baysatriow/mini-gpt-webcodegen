@@ -192,3 +192,5 @@ Pemeriksaan pesan validator mentah mengonfirmasi tiga keluarga mengalami plan id
 - Sebelum training baru, rancangan perlu memprioritaskan contoh section `process` yang valid dan copy title persis, dengan data train-only dan evaluation development beku. Minta review desain sebelum mengubah strategi training.
 
 CodeGraph index lokal tersedia dan telah disinkronkan setelah perubahan source v3 pada RUN-318, RUN-321, dan RUN-323.
+
+Paket v3, notebook, dan rekam eksperimen dipush ke branch `feature/pipeline-data-model-training` pada commit `8be8a53`.
