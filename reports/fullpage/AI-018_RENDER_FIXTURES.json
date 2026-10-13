@@ -1,0 +1,78 @@
+{
+  "fixtures": [
+    {
+      "genre": "landing_page",
+      "style": "plain_css",
+      "sections": 9,
+      "label": "manual curriculum fixture, not model output",
+      "path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\examples\\generated\\AI-018-manual\\landing_page-plain_css",
+      "files": {
+        "app.js": "882745211f84205339da0fd1688c3e6c2a6a1bb1862d37351defc6e2be523ed2",
+        "asset_attribution.json": "dd87777a523dcb240e818dd9d4a434327acfdedfafc4322ceea782113fb84060",
+        "index.html": "5ebfa50010143f7dcfb0c07a89fd426f42d454f3a33125b801b9c6a5f9f0028a",
+        "page_spec.json": "dab43e65d3f25fb608be2c8cc9e66797fdf4e5a9428d2de32c8b4872f8c25998",
+        "styles.css": "eec8d024979ba40ae5f4dac646be62b047fa7d5240657daeec20a904b0837ee0",
+        "assets/studio-shapes.svg": "35c377b432fb010ac303b983ba30e41b334d1a763c6f17260cf75ed14e32e25d"
+      },
+      "browser_status": "pending"
+    },
+    {
+      "genre": "landing_page",
+      "style": "tailwind",
+      "sections": 9,
+      "label": "manual curriculum fixture, not model output",
+      "path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\examples\\generated\\AI-018-manual\\landing_page-tailwind",
+      "files": {
+        "app.js": "882745211f84205339da0fd1688c3e6c2a6a1bb1862d37351defc6e2be523ed2",
+        "asset_attribution.json": "dd87777a523dcb240e818dd9d4a434327acfdedfafc4322ceea782113fb84060",
+        "index.html": "5ebfa50010143f7dcfb0c07a89fd426f42d454f3a33125b801b9c6a5f9f0028a",
+        "page_spec.json": "c86108b729779b417a9393d3a38ebe55331c546942ffeea1719ffa0582fe1acc",
+        "styles.css": "24991588c2a72ba2eab892335f9134aaa897308f714c28fbc55b7416993ae697",
+        "assets/studio-shapes.svg": "35c377b432fb010ac303b983ba30e41b334d1a763c6f17260cf75ed14e32e25d"
+      },
+      "browser_status": "pending"
+    },
+    {
+      "genre": "company_profile",
+      "style": "plain_css",
+      "sections": 9,
+      "label": "manual curriculum fixture, not model output",
+      "path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\examples\\generated\\AI-018-manual\\company_profile-plain_css",
+      "files": {
+        "app.js": "882745211f84205339da0fd1688c3e6c2a6a1bb1862d37351defc6e2be523ed2",
+        "asset_attribution.json": "f1bd3a2c04363776c675adf3b7df921e5eb6878922e7a975cb2331bf3092b27e",
+        "index.html": "698df6f793603e710fdb54f638766c1d5fbbfe5852cd15257e528c772de4f1eb",
+        "page_spec.json": "0ece41b0ff96959b09577adabd2faffd06cd7962ad2ae836ed08fea6951042e9",
+        "styles.css": "eec8d024979ba40ae5f4dac646be62b047fa7d5240657daeec20a904b0837ee0",
+        "assets/company-shapes.svg": "b4708a3001cb4ba81240ef54f4c75a058e9dc10cac49bed3e4db97f2b56e2a40"
+      },
+      "browser_status": "pending"
+    },
+    {
+      "genre": "company_profile",
+      "style": "tailwind",
+      "sections": 9,
+      "label": "manual curriculum fixture, not model output",
+      "path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\examples\\generated\\AI-018-manual\\company_profile-tailwind",
+      "files": {
+        "app.js": "882745211f84205339da0fd1688c3e6c2a6a1bb1862d37351defc6e2be523ed2",
+        "asset_attribution.json": "f1bd3a2c04363776c675adf3b7df921e5eb6878922e7a975cb2331bf3092b27e",
+        "index.html": "698df6f793603e710fdb54f638766c1d5fbbfe5852cd15257e528c772de4f1eb",
+        "page_spec.json": "1f652296493803f200f6e23b8ee89b0c0b3e441510d5a39c2c95058d6b977f60",
+        "styles.css": "24991588c2a72ba2eab892335f9134aaa897308f714c28fbc55b7416993ae697",
+        "assets/company-shapes.svg": "b4708a3001cb4ba81240ef54f4c75a058e9dc10cac49bed3e4db97f2b56e2a40"
+      },
+      "browser_status": "pending"
+    }
+  ],
+  "local_refs_and_fragments_valid": true,
+  "fact_mismatch_rejected": true,
+  "text_escaped": true,
+  "asset_traversal_rejected": true,
+  "legacy_renderer_unchanged_sha256": "03a6b2c6da832e82a3869c7b3db401535c0b1ceec23d0e646a379925b76f624c",
+  "browser_status": "pending",
+  "viewports_planned": [
+    390,
+    1440
+  ]
+}

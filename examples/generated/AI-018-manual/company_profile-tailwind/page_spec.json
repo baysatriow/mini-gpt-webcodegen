@@ -1,0 +1,199 @@
+{
+  "schema_version": "2.0",
+  "genre": "company_profile",
+  "title": "Kafe Fixture",
+  "language": "id",
+  "style_mode": "tailwind",
+  "theme": {
+    "primary": "#2563eb",
+    "background": "#ffffff",
+    "text": "#111827",
+    "font": "sans"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "type": "navbar",
+      "role": "navigation",
+      "variant": "inline",
+      "props": {
+        "brand": "Kafe Fixture",
+        "links": [
+          {
+            "label": "Tentang",
+            "href": "#about"
+          },
+          {
+            "label": "Layanan",
+            "href": "#services"
+          },
+          {
+            "label": "Kontak",
+            "href": "#contact"
+          }
+        ]
+      }
+    },
+    {
+      "id": "main",
+      "type": "hero",
+      "role": "hero",
+      "variant": "split",
+      "props": {
+        "heading": "Kafe Fixture",
+        "text": "Kenali layanan desain dan komunikasi dan diskusikan kebutuhan Anda. Demo fiktif.",
+        "layout": "split",
+        "button": {
+          "label": "Diskusikan kebutuhan",
+          "href": "#contact"
+        },
+        "media": {
+          "asset_id": "company-shapes",
+          "alt": "Ilustrasi usaha demo fiktif"
+        }
+      }
+    },
+    {
+      "id": "about",
+      "type": "text_section",
+      "role": "about",
+      "variant": "prose",
+      "props": {
+        "heading": "Tentang Kafe Fixture",
+        "text": "Kafe Fixture adalah usaha demo fiktif di bidang desain dan komunikasi. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas."
+      }
+    },
+    {
+      "id": "services",
+      "type": "feature_grid",
+      "role": "services",
+      "variant": "cards",
+      "props": {
+        "heading": "Layanan utama",
+        "items": [
+          {
+            "heading": "Desain identitas",
+            "text": "Desain identitas disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami."
+          },
+          {
+            "heading": "Konten usaha",
+            "text": "Konten usaha disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami."
+          },
+          {
+            "heading": "Halaman informasi",
+            "text": "Halaman informasi disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami."
+          }
+        ]
+      }
+    },
+    {
+      "id": "values",
+      "type": "text_section",
+      "role": "values",
+      "variant": "prose",
+      "props": {
+        "heading": "Visi dan nilai",
+        "text": "Kami mengutamakan komunikasi terbuka, informasi yang mudah dipahami dan proses yang disepakati bersama."
+      }
+    },
+    {
+      "id": "process",
+      "type": "feature_grid",
+      "role": "process",
+      "variant": "numbered",
+      "props": {
+        "heading": "Cara memulai",
+        "items": [
+          {
+            "heading": "Sampaikan kebutuhan",
+            "text": "Ceritakan kebutuhan melalui formulir konsultasi. Informasi awal membantu kami memahami tujuan Anda."
+          },
+          {
+            "heading": "Bahas pilihan",
+            "text": "Kami membahas pilihan layanan dan materi yang tersedia. Lingkup pekerjaan ditentukan bersama sebelum memulai."
+          },
+          {
+            "heading": "Mulai bersama",
+            "text": "Lanjutkan proses sesuai kesepakatan. Penyesuaian dibahas melalui komunikasi yang jelas selama pengerjaan."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio",
+      "type": "feature_grid",
+      "role": "portfolio",
+      "variant": "cards",
+      "props": {
+        "heading": "Ilustrasi proyek fiktif",
+        "items": [
+          {
+            "heading": "Profil usaha demo",
+            "text": "Ilustrasi fiktif untuk menjelaskan identitas, layanan dan alur kontak sebuah usaha."
+          },
+          {
+            "heading": "Informasi layanan demo",
+            "text": "Ilustrasi fiktif yang membantu pembaca memahami pilihan layanan. Bukan klaim proyek klien nyata."
+          }
+        ]
+      }
+    },
+    {
+      "id": "contact",
+      "type": "contact_form",
+      "role": "contact",
+      "variant": "panel",
+      "props": {
+        "heading": "Diskusikan kebutuhan Anda",
+        "fields": [
+          {
+            "name": "name",
+            "label": "Nama",
+            "type": "text"
+          },
+          {
+            "name": "email",
+            "label": "Email",
+            "type": "email"
+          },
+          {
+            "name": "message",
+            "label": "Pesan",
+            "type": "textarea"
+          }
+        ],
+        "submit_label": "Kirim"
+      }
+    },
+    {
+      "id": "footer",
+      "type": "footer",
+      "role": "footer",
+      "variant": "columns",
+      "props": {
+        "text": "Kafe Fixture",
+        "links": [
+          {
+            "label": "Tentang",
+            "href": "#about"
+          },
+          {
+            "label": "Kontak",
+            "href": "#contact"
+          }
+        ]
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "type": "menu_toggle",
+      "target_id": "nav"
+    },
+    {
+      "type": "form_validate",
+      "target_id": "contact"
+    }
+  ],
+  "fictitious": true
+}
