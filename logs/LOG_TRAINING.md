@@ -451,3 +451,8 @@ RUN-107 pemeriksaan source: 57 Python / 40 JSON / 44 Markdown / lima notebook / 
 - Kandidat konteks 2.048, budget output plan512/section1.024; opsional full-page1.600 jika eksperimen development khusus disiapkan. Prefix dan budget diperiksa bersama, tanpa pemotongan JSON.
 - [Spesifikasi](../docs/superpowers/specs/2026-10-13-full-page-generation-design.md) memuat profil batch4/8/12/16, length buckets/padding trim, budget disk, pilot data, final baru dan notebook. Angka batch/update belum hasil pengukuran dan tidak dinyatakan sebagai optimum.
 - Tidak ada TRAIN-016, checkpoint baru, data baru atau reviewed manusia baru pada tahap penulisan spesifikasi.
+
+#### AI-016: Revisi budget keluaran sebelum implementasi
+
+- Keputusan pengguna: context2.048/output maksimum1.536; plan tetap512. Dengan output penuh, prefix dan penanda maksimum512. Menggantikan usulan full-page1.600 dan section1.024 pada desain AI-015.
+- Tidak ada training/checkpoint/profil GPU baru. Spesifikasi dan perhitungan budget diperbarui, bukan konfigurasi runtime historis. [Spesifikasi](../docs/superpowers/specs/2026-10-13-full-page-generation-design.md).

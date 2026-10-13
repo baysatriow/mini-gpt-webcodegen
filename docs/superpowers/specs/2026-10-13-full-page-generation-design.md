@@ -23,12 +23,14 @@ Konteks memuat prompt, penanda dan keluaran. Batas output terpisah dari konteks:
 | Tugas | Konteks maksimum | Budget generasi maksimum, termasuk kesempatan EOS |
 | --- | ---: | ---: |
 | Rencana halaman | 2.048 | 512 |
-| Isi satu bagian | 2.048 | 1.024 |
-| Perbandingan satu JSON halaman lengkap, eksperimen development opsional | 2.048 | 1.600 |
+| Isi satu bagian | 2.048 | 1.536 |
+| Perbandingan satu JSON halaman lengkap, eksperimen development opsional | 2.048 | 1.536 |
 
 Untuk setiap panggilan, prefix mencakup tiga penanda yang digunakan generator. Budget harus memenuhi prefix_tokens + max_new_tokens <= block_size. Input yang terlalu panjang ditolak dengan keterangan kebutuhan token; jangan memangkas fakta atau JSON diam-diam. Data juga harus memenuhi budget per task, bukan hanya muat pada training. Padding bukan bagian dari panjang sebenarnya.
 
-Dua fixture manual AI-014 membutuhkan total 1.498/1.479 token dan target dengan EOS 1.375/1.358. Keduanya muat di 2.048 serta budget output 1.600, tetapi tidak di budget 768. Itu tidak menjamin semua halaman baru muat, atau checkpoint sekarang langsung dapat menghasilkannya. Generasi bertahap menjadi runtime utama; output gabungan dapat melampaui satu konteks karena komposer tidak memerlukan panggilan model tambahan.
+Dua fixture manual AI-014 membutuhkan total 1.498/1.479 token dan target dengan EOS 1.375/1.358. Keduanya muat di 2.048 serta budget output 1.536, tetapi tidak di budget 768. Itu tidak menjamin semua halaman baru muat, atau checkpoint sekarang langsung dapat menghasilkannya. Generasi bertahap menjadi runtime utama; output gabungan dapat melampaui satu konteks karena komposer tidak memerlukan panggilan model tambahan.
+
+Keputusan pengguna AI-016 menetapkan maksimum output 1.536, menggantikan usulan 1.600. Dengan budget penuh tersebut, prefix termasuk penanda dibatasi maksimum 512 token. Task rencana tetap memakai budget 512 karena isinya ringkas. EOS boleh menghentikan generasi lebih awal; model tidak diwajibkan mengisi seluruh budget. Jika prefix task isi melebihi 512 token, sistem melaporkan kebutuhan token sebelum generasi, sehingga tidak menurunkan budget atau memangkas informasi diam-diam.
 
 Perbandingan satu JSON hanya dilakukan jika data task dan budget eksperimennya ditetapkan lebih dahulu. Tidak menambah task itu ke MVP secara otomatis.
 

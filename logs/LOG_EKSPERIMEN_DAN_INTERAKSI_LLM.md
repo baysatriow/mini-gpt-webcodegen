@@ -2447,3 +2447,33 @@ print('Spec review: 10 sections present, no placeholders/em dash; calculation sn
 - **Commit:** `76748ad160f81a3ab28bcfb90aad461589f28d2c`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-201_ai_015_written_specification_self_review_and_calculation_consistency.txt`.
+
+### AI-016: Maksimum keluaran 1.536 token
+
+- Pengguna menetapkan output 1.536 token. [Rincian](interaksi_llm/AI-016_2026-10-13.md), [spesifikasi terbaru](../docs/superpowers/specs/2026-10-13-full-page-generation-design.md).
+- Konteks 2.048, output task isi maksimal 1.536, prefix maksimal 512 termasuk penanda. Task rencana tetap budget 512, EOS dapat berhenti lebih awal. Usulan output 1.600 pada AI-015 menjadi riwayat.
+- Dua target fixture manual dengan EOS 1.375/1.358 masih muat. Runtime/model/config evaluasi lama belum berubah; keputusan ini berlaku untuk implementasi pipeline baru.
+
+### RUN-202
+
+- **Waktu:** 2026-10-13T20:35:16.844450+07:00 sampai 2026-10-13T20:35:16.978113+07:00.
+- **Tujuan:** AI-016 confirm 1536 output design budget with 2048 context.
+- **Command:** `.venv/Scripts/python.exe -c "import json
+from pathlib import Path
+fixture=json.loads(Path('reports/analysis/AI-014_FULL_PAGE_SCOPE_VALID.json').read_text(encoding='utf-8'))
+report={'status':'design_budget_check_not_runtime_generation','context_tokens':2048,'max_output_tokens':1536,'max_prefix_tokens_including_markers':512,'plan_output_tokens':512,'fixtures':{}}
+for name,p in fixture['profiles'].items():
+ count=p['target_tokens']+1
+ report['fixtures'][name]={'target_tokens_with_eos':count,'output_headroom':1536-count,'fits_output_budget':count<=1536,'fits_context':p['prefix_tokens']+count<=2048}
+assert all(p['fits_output_budget'] and p['fits_context'] for p in report['fixtures'].values())
+spec=Path('docs/superpowers/specs/2026-10-13-full-page-generation-design.md').read_text(encoding='utf-8')
+assert '| Isi satu bagian | 2.048 | 1.536 |' in spec
+assert '| Perbandingan satu JSON halaman lengkap, eksperimen development opsional | 2.048 | 1.536 |' in spec
+assert chr(8212) not in spec
+path=Path('reports/analysis/AI-016_OUTPUT_1536_DESIGN.json')
+with path.open('x',encoding='utf-8',newline='\n') as f: json.dump(report,f,indent=2); f.write('\n')
+print(json.dumps(report,indent=2))
+print('Historical model and evaluator configuration preserved. No generation, training, GPU profiling or test suite executed.')"`.
+- **Commit:** `379920e99a83e955f70499d8bc7272fc7737acf9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-202_ai_016_confirm_1536_output_design_budget_with_2048_context.txt`.

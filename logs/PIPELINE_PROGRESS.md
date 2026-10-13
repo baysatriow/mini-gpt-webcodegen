@@ -148,3 +148,7 @@ Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download da
 
 - Pengguna menyetujui generasi bertahap dan menanyakan konteks 2.048. Target kandidat 2.048 disertai migrasi posisi, output budget terpisah serta profiling sebelum training.
 - [Spesifikasi](../docs/superpowers/specs/2026-10-13-full-page-generation-design.md) tersedia untuk review; selanjutnya rencana implementasi setelah review. Belum ada implementasi atau training baru.
+
+## AI-016: Output maksimum 1.536 ditetapkan
+
+- Spesifikasi pipeline baru memakai context2.048 dan output task isi1.536, prefix maksimum512 termasuk penanda. Task plan512. Belum mengubah runtime/checkpoint lama atau menjalankan training.

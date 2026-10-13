@@ -1,0 +1,21 @@
+{
+  "status": "design_budget_check_not_runtime_generation",
+  "context_tokens": 2048,
+  "max_output_tokens": 1536,
+  "max_prefix_tokens_including_markers": 512,
+  "plan_output_tokens": 512,
+  "fixtures": {
+    "landing_page": {
+      "target_tokens_with_eos": 1375,
+      "output_headroom": 161,
+      "fits_output_budget": true,
+      "fits_context": true
+    },
+    "company_profile": {
+      "target_tokens_with_eos": 1358,
+      "output_headroom": 178,
+      "fits_output_budget": true,
+      "fits_context": true
+    }
+  }
+}
