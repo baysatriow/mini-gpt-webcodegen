@@ -1,0 +1,164 @@
+{
+  "request_id": "page0269-plain_css",
+  "metadata": {
+    "checkpoint_sha256": "db5beb3cd728af08cbef26ee2768bb4f1671e1c90bfb5adcf2427724f9cbaefe",
+    "checkpoint_run_id": "TRAIN-017",
+    "checkpoint_step": 2400,
+    "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+    "config": {
+      "precision": "bf16",
+      "temperature": 0,
+      "seed": 42
+    },
+    "schemas_sha256": {
+      "page.schema.json": "eac9c31ba0e46d64f176d428862b217b9dc7246c35b5f7b499c407a29515cf3f",
+      "plan.schema.json": "cf8ef56b884ae9b3d15e03698a5cffff9a6fc29c0f311f32050a1e627c4f5e35",
+      "request.schema.json": "243dba40b54c02055397af96824f24e06e1a03b0d5e09ca7c7d0385f46e55fd1",
+      "section.schema.json": "099bb0a51e0420c9b46dbf2787368798f8f89346e66c309ac139a5e0b1d48c3f"
+    },
+    "prompt_source_sha256": "4926508d444b79ec4f60f78e05e3aec204651223d945d148b51f4f044a9333c4"
+  },
+  "attempts": [
+    {
+      "raw": "{\"genre\":\"company_profile\",\"language\":\"id\",\"schema_version\":\"1.0\",\"sections\":[[\"nav\",\"navbar\",\"navigation\",\"inline\",[\"name\"],[]],[\"main\",\"hero\",\"hero\",\"split\",[\"name\"],[\"company-shapes\"]],[\"about\",\"text_section\",\"about\",\"prose\",[\"about\"],[]],[\"services\",\"feature_grid\",\"services\",\"cards\",[\"srv0\",\"srv1\",\"srv2\"],[]],[\"values\",\"text_section\",\"values\",\"prose\",[\"values\"],[]],[\"process\",\"feature_grid\",\"process\",\"numbered\",[\"step0\",\"step1\",\"step2\"],[]],[\"portfolio\",\"feature_grid\",\"portfolio\",\"cards\",[\"project0\",\"project1\"],[]],[\"contact\",\"contact_form\",\"contact\",\"panel\",[],[]],[\"footer\",\"footer\",\"footer\",\"columns\",[\"name\"],[]]],\"style_mode\":\"plain_css\",\"theme\":{\"background\":\"#ffffff\",\"font\":\"sans\",\"primary\":\"#2563eb\",\"text\":\"#111827\"},\"title\":\"Kursus Kawinumi\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 403,
+      "prefix_tokens": 1237,
+      "max_new_tokens": 512,
+      "seconds": 1.590362900053151,
+      "task": "page_plan",
+      "stage": "plan",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"nav\",\"props\":{\"brand\":\"Kursus Kawinumi\",\"links\":[{\"href\":\"#about\",\"label\":\"Tentang\"},{\"href\":\"#services\",\"label\":\"Layanan\"},{\"href\":\"#contact\",\"label\":\"Kontak\"}]},\"role\":\"navigation\",\"type\":\"navbar\",\"variant\":\"inline\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 129,
+      "prefix_tokens": 207,
+      "max_new_tokens": 1536,
+      "seconds": 0.4817170999594964,
+      "task": "section_content",
+      "stage": "nav",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"main\",\"props\":{\"button\":{\"href\":\"#contact\",\"label\":\"Diskusikan kebutuhan\"},\"heading\":\"Kursus Kawinumi\",\"layout\":\"split\",\"media\":{\"alt\":\"Ilustrasi usaha demo fiktif\",\"asset_id\":\"company-shapes\"},\"text\":\"Kenali layanan pendampingan belajar dan diskusikan kebutuhan Anda. Demo fiktif.\"},\"role\":\"hero\",\"type\":\"hero\",\"variant\":\"split\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 186,
+      "prefix_tokens": 211,
+      "max_new_tokens": 1536,
+      "seconds": 0.7691463000373915,
+      "task": "section_content",
+      "stage": "main",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"about\",\"props\":{\"heading\":\"Tentang Kursus Kawinumi\",\"text\":\"Kursus Kawinumi adalah usaha demo fiktif di bidang pendampingan belajar. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas.\"},\"role\":\"about\",\"type\":\"text_section\",\"variant\":\"prose\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 162,
+      "prefix_tokens": 211,
+      "max_new_tokens": 1536,
+      "seconds": 0.7527391000185162,
+      "task": "section_content",
+      "stage": "about",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"services\",\"props\":{\"heading\":\"Layanan utama\",\"items\":[{\"heading\":\"Kelas dasar\",\"text\":\"Kelas dasar disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.\"},{\"heading\":\"Kelas lanjutan\",\"text\":\"Kelas lanjutan disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.\"},{\"heading\":\"Pendampingan\",\"text\":\"Pendampingan disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.\"}]},\"role\":\"services\",\"type\":\"feature_grid\",\"variant\":\"cards\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 349,
+      "prefix_tokens": 472,
+      "max_new_tokens": 1536,
+      "seconds": 1.4094564999686554,
+      "task": "section_content",
+      "stage": "services",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"values\",\"props\":{\"heading\":\"Visi dan nilai\",\"text\":\"Kami mengutamakan komunikasi terbuka, informasi yang mudah dipahami dan proses yang disepakati bersama.\"},\"role\":\"values\",\"type\":\"text_section\",\"variant\":\"prose\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 121,
+      "prefix_tokens": 173,
+      "max_new_tokens": 1536,
+      "seconds": 0.49992099998053163,
+      "task": "section_content",
+      "stage": "values",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"process\",\"props\":{\"heading\":\"Cara memulai\",\"items\":[{\"heading\":\"Sampaikan kebutuhan\",\"text\":\"Ceritakan kebutuhan melalui formulir konsultasi. Informasi awal membantu kami memahami tujuan Anda.\"},{\"heading\":\"Bahas pilihan\",\"text\":\"Kami membahas pilihan layanan dan materi yang tersedia. Lingkup pekerjaan ditentukan bersama sebelum memulai.\"},{\"heading\":\"Mulai bersama\",\"text\":\"Lanjutkan proses sesuai kesepakatan. Penyesuaian dibahas melalui komunikasi yang jelas selama pengerjaan.\"}]},\"role\":\"process\",\"type\":\"feature_grid\",\"variant\":\"numbered\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 300,
+      "prefix_tokens": 422,
+      "max_new_tokens": 1536,
+      "seconds": 1.2236952999955975,
+      "task": "section_content",
+      "stage": "process",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"portfolio\",\"props\":{\"heading\":\"Ilustrasi proyek fiktif\",\"items\":[{\"heading\":\"Profil usaha demo\",\"text\":\"Ilustrasi fiktif untuk menjelaskan identitas, layanan dan alur kontak sebuah usaha.\"},{\"heading\":\"Informasi layanan demo\",\"text\":\"Ilustrasi fiktif yang membantu pembaca memahami pilihan layanan. Bukan klaim proyek klien nyata.\"}]},\"role\":\"portfolio\",\"type\":\"feature_grid\",\"variant\":\"cards\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 204,
+      "prefix_tokens": 282,
+      "max_new_tokens": 1536,
+      "seconds": 0.8109126000199467,
+      "task": "section_content",
+      "stage": "portfolio",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"contact\",\"props\":{\"fields\":[{\"label\":\"Nama\",\"name\":\"name\",\"type\":\"text\"},{\"label\":\"Email\",\"name\":\"email\",\"type\":\"email\"},{\"label\":\"Pesan\",\"name\":\"message\",\"type\":\"textarea\"}],\"heading\":\"Diskusikan kebutuhan Anda\",\"submit_label\":\"Kirim\"},\"role\":\"contact\",\"type\":\"contact_form\",\"variant\":\"panel\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 169,
+      "prefix_tokens": 94,
+      "max_new_tokens": 1536,
+      "seconds": 0.7051520000095479,
+      "task": "section_content",
+      "stage": "contact",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"footer\",\"props\":{\"links\":[{\"href\":\"#about\",\"label\":\"Tentang\"},{\"href\":\"#contact\",\"label\":\"Kontak\"}],\"text\":\"Kursus Kawinumi\"},\"role\":\"footer\",\"type\":\"footer\",\"variant\":\"columns\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 107,
+      "prefix_tokens": 207,
+      "max_new_tokens": 1536,
+      "seconds": 0.43800339999143034,
+      "task": "section_content",
+      "stage": "footer",
+      "retry": false,
+      "errors": []
+    }
+  ],
+  "status": "accepted",
+  "export": {
+    "path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\fullpage\\TRAIN-017-development-last\\page0269-plain_css\\attempt-01\\website",
+    "files": {
+      "app.js": "882745211f84205339da0fd1688c3e6c2a6a1bb1862d37351defc6e2be523ed2",
+      "asset_attribution.json": "f1bd3a2c04363776c675adf3b7df921e5eb6878922e7a975cb2331bf3092b27e",
+      "index.html": "e663b3189948f408ff2086f6753da2d957178e8b9d1d237f59783047de25fc21",
+      "page_spec.json": "3ead0f25f5dd960b5d7d75a0013408cc4f973e17a5151a2e95ad34605b1b9df7",
+      "styles.css": "eec8d024979ba40ae5f4dac646be62b047fa7d5240657daeec20a904b0837ee0",
+      "assets/company-shapes.svg": "b4708a3001cb4ba81240ef54f4c75a058e9dc10cac49bed3e4db97f2b56e2a40"
+    },
+    "browser_status": "pending"
+  },
+  "sections": 9,
+  "required_roles": true,
+  "facts_valid": true,
+  "links_assets_valid": true,
+  "seconds": 8.739138200005982,
+  "total_generated_tokens": 2130,
+  "first_attempt_success": true,
+  "browser_status": "pending"
+}

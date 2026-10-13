@@ -1,0 +1,17 @@
+RUN-236 | 2026-10-14T00:05:28.460450+07:00 | TRAIN-017 revalidate saved best development outputs review v2
+Command: .venv/Scripts/python.exe -m qa.revalidate_fullpage_evaluation --original reports/fullpage/TRAIN-017_DEVELOPMENT_BEST.json --report reports/fullpage/TRAIN-017_DEVELOPMENT_BEST_V2.json
+Commit: d5dd7035456904e0338b0ea1d29a9e442318a7e7
+
+{
+  "complete": 39,
+  "total": 80,
+  "revoked": [
+    "page0257-plain_css",
+    "page0257-tailwind"
+  ],
+  "model_gate": false,
+  "generation_repeated": false,
+  "final_opened": false
+}
+
+Exit code: 0

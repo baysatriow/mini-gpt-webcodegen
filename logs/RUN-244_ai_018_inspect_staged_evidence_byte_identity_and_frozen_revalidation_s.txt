@@ -1,0 +1,15 @@
+RUN-244 | 2026-10-14T00:13:10.081302+07:00 | AI-018 inspect staged evidence byte identity and frozen revalidation source hashes
+Command: .venv/Scripts/python.exe -m qa.inspect_fullpage_git --report reports/fullpage/AI-018_STAGED_GIT_INSPECTION.json
+Commit: d5dd7035456904e0338b0ea1d29a9e442318a7e7
+
+{
+  "branch": "feature/pipeline-data-model-training",
+  "staged_files": 1923,
+  "evidence_bytes_identical": true,
+  "log_newline_normalizations": 18,
+  "staged_revalidation_sources_match": true,
+  "historical_runtime_gallery_unchanged": true,
+  "diff_check": true
+}
+
+Exit code: 0

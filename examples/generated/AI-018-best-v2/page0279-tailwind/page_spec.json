@@ -1,0 +1,199 @@
+{
+  "schema_version": "2.0",
+  "genre": "company_profile",
+  "title": "Toko Tisakana",
+  "language": "id",
+  "style_mode": "tailwind",
+  "theme": {
+    "background": "#ffffff",
+    "font": "sans",
+    "primary": "#2563eb",
+    "text": "#111827"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "props": {
+        "brand": "Toko Tisakana",
+        "links": [
+          {
+            "href": "#about",
+            "label": "Tentang"
+          },
+          {
+            "href": "#services",
+            "label": "Layanan"
+          },
+          {
+            "href": "#contact",
+            "label": "Kontak"
+          }
+        ]
+      },
+      "role": "navigation",
+      "type": "navbar",
+      "variant": "inline"
+    },
+    {
+      "id": "main",
+      "props": {
+        "button": {
+          "href": "#contact",
+          "label": "Diskusikan kebutuhan"
+        },
+        "heading": "Toko Tisakana",
+        "layout": "centered",
+        "media": {
+          "alt": "Ilustrasi usaha demo fiktif",
+          "asset_id": "company-shapes"
+        },
+        "text": "Kenali layanan produk kebutuhan harian dan diskusikan kebutuhan Anda. Demo fiktif."
+      },
+      "role": "hero",
+      "type": "hero",
+      "variant": "centered"
+    },
+    {
+      "id": "about",
+      "props": {
+        "heading": "Tentang Toko Tisakana",
+        "text": "Toko Tisakana adalah usaha demo fiktif di bidang produk kebutuhan harian. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas."
+      },
+      "role": "about",
+      "type": "text_section",
+      "variant": "prose"
+    },
+    {
+      "id": "services",
+      "props": {
+        "heading": "Layanan utama",
+        "items": [
+          {
+            "heading": "Pilihan produk",
+            "text": "Pilihan produk disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami."
+          },
+          {
+            "heading": "Konsultasi produk",
+            "text": "Konsultasi produk disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami."
+          },
+          {
+            "heading": "Pemesanan",
+            "text": "Pemesanan disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami."
+          }
+        ]
+      },
+      "role": "services",
+      "type": "feature_grid",
+      "variant": "cards"
+    },
+    {
+      "id": "values",
+      "props": {
+        "heading": "Visi dan nilai",
+        "text": "Kami mengutamakan komunikasi terbuka, informasi yang mudah dipahami dan proses yang disepakati bersama."
+      },
+      "role": "values",
+      "type": "text_section",
+      "variant": "prose"
+    },
+    {
+      "id": "process",
+      "props": {
+        "heading": "Cara memulai",
+        "items": [
+          {
+            "heading": "Sampaikan kebutuhan",
+            "text": "Ceritakan kebutuhan melalui formulir konsultasi. Informasi awal membantu kami memahami tujuan Anda."
+          },
+          {
+            "heading": "Bahas pilihan",
+            "text": "Kami membahas pilihan layanan dan materi yang tersedia. Lingkup pekerjaan ditentukan bersama sebelum memulai."
+          },
+          {
+            "heading": "Mulai bersama",
+            "text": "Lanjutkan proses sesuai kesepakatan. Penyesuaian dibahas melalui komunikasi yang jelas selama pengerjaan."
+          }
+        ]
+      },
+      "role": "process",
+      "type": "feature_grid",
+      "variant": "numbered"
+    },
+    {
+      "id": "portfolio",
+      "props": {
+        "heading": "Ilustrasi proyek fiktif",
+        "items": [
+          {
+            "heading": "Profil usaha demo",
+            "text": "Ilustrasi fiktif untuk menjelaskan identitas, layanan dan alur kontak sebuah usaha."
+          },
+          {
+            "heading": "Informasi layanan demo",
+            "text": "Ilustrasi fiktif yang membantu pembaca memahami pilihan layanan. Bukan klaim proyek klien nyata."
+          }
+        ]
+      },
+      "role": "portfolio",
+      "type": "feature_grid",
+      "variant": "cards"
+    },
+    {
+      "id": "contact",
+      "props": {
+        "fields": [
+          {
+            "label": "Nama",
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "label": "Email",
+            "name": "email",
+            "type": "email"
+          },
+          {
+            "label": "Pesan",
+            "name": "message",
+            "type": "textarea"
+          }
+        ],
+        "heading": "Diskusikan kebutuhan Anda",
+        "submit_label": "Kirim"
+      },
+      "role": "contact",
+      "type": "contact_form",
+      "variant": "panel"
+    },
+    {
+      "id": "footer",
+      "props": {
+        "links": [
+          {
+            "href": "#about",
+            "label": "Tentang"
+          },
+          {
+            "href": "#contact",
+            "label": "Kontak"
+          }
+        ],
+        "text": "Toko Tisakana"
+      },
+      "role": "footer",
+      "type": "footer",
+      "variant": "columns"
+    }
+  ],
+  "interactions": [
+    {
+      "type": "menu_toggle",
+      "target_id": "nav"
+    },
+    {
+      "type": "form_validate",
+      "target_id": "contact"
+    }
+  ],
+  "fictitious": true
+}

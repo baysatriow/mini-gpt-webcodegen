@@ -2,6 +2,14 @@
 
 Mini GPT WebCodeGen adalah proyek kuliah untuk membangun model generatif decoder-only dari bobot acak yang menghasilkan rancangan website. Model menulis spesifikasi halaman berbentuk JSON, aplikasi memvalidasinya, lalu renderer tahap akhir membuat HTML, CSS, dan JavaScript untuk preview serta unduhan.
 
+## Halaman utuh, AI-018
+
+Generasi bertahap sudah diimplementasikan: request terstruktur → plan512 → isi section1536 → validasi fakta/komposer → HTML/CSS biasa atau Tailwind/JavaScript lokal. Context2048. TRAIN-016600 dan TRAIN-0172400 updates selesai di RTX5070 dengan batch16/accum3.
+
+**Model belum mencapai gerbang95%.** Development best39/80 (48.75%), last58/80 (72.50%). Semua accepted menjadi halaman lengkap sembilan bagian, tetapi final baru tetap tertutup. Runtime historis v1 tidak diubah. UI, review manusia dan penerimaan browser masih pending.
+
+Lihat [gallery last58 untuk diagnosis](examples/generated/AI-018-last-v2/index.html), [gallery best39](examples/generated/AI-018-best-v2/index.html), [notebook10](notebooks/10_fullpage_data_context_dan_gpu.ipynb), [notebook11](notebooks/11_fullpage_training_dan_generation.ipynb) dan [laporan lengkap](reports/FULL_PAGE_PROGRESS_2026-10-13.md). Data baru sintetis empat sektor; ini belum membuktikan semua prompt/layout bebas.
+
 ## Pengembangan terbaru, 13 Oktober 2026
 
 **TRAIN-015 memenuhi gerbang kontrak terkontrol:** development 24/24 sesuai persis, final 48/48 JSON valid dan 44/48 sesuai persis (91,67%). Kandidat dipilih sebelum satu evaluasi final. Empat kesalahan tetap disimpan. Benchmark ini memakai recipe sintetis bersama dengan nama yang dipisahkan antar partition, sehingga belum membuktikan kemampuan prompt bebas atau layout baru.

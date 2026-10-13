@@ -1,0 +1,12 @@
+{
+  "kernel": "mini-gpt-webcodegen",
+  "training_started_by_notebook": false,
+  "notebooks": [
+    {
+      "path": "notebooks\\11_fullpage_training_dan_generation.ipynb",
+      "sha256": "62b6fd250dbf3331367db93fac20492bb210c0146efd879e5adaff7b22621756",
+      "executed_code_cells": 8,
+      "errors": 0
+    }
+  ]
+}

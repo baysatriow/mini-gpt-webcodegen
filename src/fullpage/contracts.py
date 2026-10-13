@@ -1,5 +1,6 @@
 """Closed schemas plus semantic checks for page tasks; never repair outputs."""
 import json
+import re
 from functools import lru_cache
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -10,6 +11,11 @@ from .schema_definitions import REQUIRED_ROLES, ROLE_TYPES, VARIANTS
 from .serialization import canonical, decode_plan
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+def contains_name(text, name):
+    """Preserve the complete literal name, including its final word boundary."""
+    return isinstance(text, str) and isinstance(name, str) and bool(re.search(r'(?<!\w)' + re.escape(name) + r'(?!\w)', text))
 
 
 @lru_cache(maxsize=4)
@@ -117,7 +123,9 @@ def validate_section(section, descriptor, request, catalog):
     name = next((f['value'] for f in request['business_facts'] if f['kind'] == 'name'), None)
     if section['type'] == 'navbar' and section['props']['brand'] != name:
         errors.append('Brand fact mismatch')
-    if section['type'] == 'footer' and name not in section['props']['text']:
+    if section['type'] == 'hero' and not contains_name(section['props']['heading'], name):
+        errors.append('Hero brand fact mismatch')
+    if section['type'] == 'footer' and not contains_name(section['props']['text'], name):
         errors.append('Footer brand fact mismatch')
     return errors + unsafe_links(section)
 

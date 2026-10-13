@@ -1,0 +1,38 @@
+{
+  "galleries": [
+    {
+      "name": "AI-018-best-v2",
+      "pages": 39,
+      "complete_rate": 0.4875,
+      "model_gate": false
+    },
+    {
+      "name": "AI-018-last-v2",
+      "pages": 58,
+      "complete_rate": 0.725,
+      "model_gate": false
+    }
+  ],
+  "files_and_zip_bytes_verified": 972,
+  "html_files_static_links_checked": 99,
+  "notebooks": [
+    {
+      "name": "10_fullpage_data_context_dan_gpu.ipynb",
+      "executed_cells": 7,
+      "sha256": "4c9b60817f9e94b8c8aee7c15af6fde248db028054d05558acc27de54ef353f9"
+    },
+    {
+      "name": "11_fullpage_training_dan_generation.ipynb",
+      "executed_cells": 8,
+      "sha256": "62b6fd250dbf3331367db93fac20492bb210c0146efd879e5adaff7b22621756"
+    }
+  ],
+  "document_links_checked": true,
+  "changed_python_syntax_checked": true,
+  "final_claimed": false,
+  "model_runtime_activated": false,
+  "browser_status": "pending",
+  "human_review_status": "pending",
+  "unit_suite_run": false,
+  "storage_free_bytes": 17750179840
+}

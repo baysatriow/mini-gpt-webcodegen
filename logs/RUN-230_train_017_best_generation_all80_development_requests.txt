@@ -1,0 +1,92 @@
+RUN-230 | 2026-10-13T21:35:48.692969+07:00 | TRAIN-017 best generation all80 development requests
+Command: .venv/Scripts/python.exe -m qa.evaluate_fullpage --scope development --checkpoint checkpoints/TRAIN-017/best.pt --output outputs/fullpage/TRAIN-017-development-best --report reports/fullpage/TRAIN-017_DEVELOPMENT_BEST.json
+Commit: c61400a9912851dc51bc974b55e449edc243fef4
+
+{"page": 1, "of": 80, "request_id": "page0240-plain_css", "status": "stage_failed", "seconds": 3.429}
+{"page": 2, "of": 80, "request_id": "page0240-tailwind", "status": "accepted", "seconds": 10.265}
+{"page": 3, "of": 80, "request_id": "page0241-plain_css", "status": "accepted", "seconds": 9.611}
+{"page": 4, "of": 80, "request_id": "page0241-tailwind", "status": "accepted", "seconds": 10.515}
+{"page": 5, "of": 80, "request_id": "page0242-plain_css", "status": "stage_failed", "seconds": 3.039}
+{"page": 6, "of": 80, "request_id": "page0242-tailwind", "status": "stage_failed", "seconds": 2.679}
+{"page": 7, "of": 80, "request_id": "page0243-plain_css", "status": "stage_failed", "seconds": 4.74}
+{"page": 8, "of": 80, "request_id": "page0243-tailwind", "status": "stage_failed", "seconds": 4.627}
+{"page": 9, "of": 80, "request_id": "page0244-plain_css", "status": "stage_failed", "seconds": 2.714}
+{"page": 10, "of": 80, "request_id": "page0244-tailwind", "status": "stage_failed", "seconds": 2.888}
+{"page": 11, "of": 80, "request_id": "page0245-plain_css", "status": "stage_failed", "seconds": 3.824}
+{"page": 12, "of": 80, "request_id": "page0245-tailwind", "status": "stage_failed", "seconds": 3.044}
+{"page": 13, "of": 80, "request_id": "page0246-plain_css", "status": "accepted", "seconds": 9.153}
+{"page": 14, "of": 80, "request_id": "page0246-tailwind", "status": "accepted", "seconds": 8.537}
+{"page": 15, "of": 80, "request_id": "page0247-plain_css", "status": "stage_failed", "seconds": 3.885}
+{"page": 16, "of": 80, "request_id": "page0247-tailwind", "status": "stage_failed", "seconds": 3.682}
+{"page": 17, "of": 80, "request_id": "page0248-plain_css", "status": "stage_failed", "seconds": 2.799}
+{"page": 18, "of": 80, "request_id": "page0248-tailwind", "status": "stage_failed", "seconds": 2.766}
+{"page": 19, "of": 80, "request_id": "page0249-plain_css", "status": "stage_failed", "seconds": 3.024}
+{"page": 20, "of": 80, "request_id": "page0249-tailwind", "status": "stage_failed", "seconds": 3.0}
+{"page": 21, "of": 80, "request_id": "page0250-plain_css", "status": "accepted", "seconds": 9.825}
+{"page": 22, "of": 80, "request_id": "page0250-tailwind", "status": "accepted", "seconds": 8.954}
+{"page": 23, "of": 80, "request_id": "page0251-plain_css", "status": "accepted", "seconds": 8.078}
+{"page": 24, "of": 80, "request_id": "page0251-tailwind", "status": "accepted", "seconds": 9.053}
+{"page": 25, "of": 80, "request_id": "page0252-plain_css", "status": "stage_failed", "seconds": 3.733}
+{"page": 26, "of": 80, "request_id": "page0252-tailwind", "status": "stage_failed", "seconds": 3.399}
+{"page": 27, "of": 80, "request_id": "page0253-plain_css", "status": "stage_failed", "seconds": 3.412}
+{"page": 28, "of": 80, "request_id": "page0253-tailwind", "status": "stage_failed", "seconds": 3.254}
+{"page": 29, "of": 80, "request_id": "page0254-plain_css", "status": "accepted", "seconds": 10.11}
+{"page": 30, "of": 80, "request_id": "page0254-tailwind", "status": "stage_failed", "seconds": 3.601}
+{"page": 31, "of": 80, "request_id": "page0255-plain_css", "status": "stage_failed", "seconds": 4.754}
+{"page": 32, "of": 80, "request_id": "page0255-tailwind", "status": "stage_failed", "seconds": 4.446}
+{"page": 33, "of": 80, "request_id": "page0256-plain_css", "status": "stage_failed", "seconds": 2.973}
+{"page": 34, "of": 80, "request_id": "page0256-tailwind", "status": "stage_failed", "seconds": 3.554}
+{"page": 35, "of": 80, "request_id": "page0257-plain_css", "status": "accepted", "seconds": 11.009}
+{"page": 36, "of": 80, "request_id": "page0257-tailwind", "status": "accepted", "seconds": 10.361}
+{"page": 37, "of": 80, "request_id": "page0258-plain_css", "status": "accepted", "seconds": 10.919}
+{"page": 38, "of": 80, "request_id": "page0258-tailwind", "status": "stage_failed", "seconds": 3.626}
+{"page": 39, "of": 80, "request_id": "page0259-plain_css", "status": "accepted", "seconds": 10.054}
+{"page": 40, "of": 80, "request_id": "page0259-tailwind", "status": "accepted", "seconds": 9.852}
+{"page": 41, "of": 80, "request_id": "page0260-plain_css", "status": "stage_failed", "seconds": 3.562}
+{"page": 42, "of": 80, "request_id": "page0260-tailwind", "status": "accepted", "seconds": 11.734}
+{"page": 43, "of": 80, "request_id": "page0261-plain_css", "status": "accepted", "seconds": 10.178}
+{"page": 44, "of": 80, "request_id": "page0261-tailwind", "status": "accepted", "seconds": 9.698}
+{"page": 45, "of": 80, "request_id": "page0262-plain_css", "status": "accepted", "seconds": 10.436}
+{"page": 46, "of": 80, "request_id": "page0262-tailwind", "status": "accepted", "seconds": 10.315}
+{"page": 47, "of": 80, "request_id": "page0263-plain_css", "status": "accepted", "seconds": 9.324}
+{"page": 48, "of": 80, "request_id": "page0263-tailwind", "status": "accepted", "seconds": 9.716}
+{"page": 49, "of": 80, "request_id": "page0264-plain_css", "status": "stage_failed", "seconds": 3.302}
+{"page": 50, "of": 80, "request_id": "page0264-tailwind", "status": "stage_failed", "seconds": 3.735}
+{"page": 51, "of": 80, "request_id": "page0265-plain_css", "status": "accepted", "seconds": 11.548}
+{"page": 52, "of": 80, "request_id": "page0265-tailwind", "status": "accepted", "seconds": 9.858}
+{"page": 53, "of": 80, "request_id": "page0266-plain_css", "status": "accepted", "seconds": 10.068}
+{"page": 54, "of": 80, "request_id": "page0266-tailwind", "status": "accepted", "seconds": 10.777}
+{"page": 55, "of": 80, "request_id": "page0267-plain_css", "status": "stage_failed", "seconds": 3.66}
+{"page": 56, "of": 80, "request_id": "page0267-tailwind", "status": "stage_failed", "seconds": 3.568}
+{"page": 57, "of": 80, "request_id": "page0268-plain_css", "status": "stage_failed", "seconds": 4.242}
+{"page": 58, "of": 80, "request_id": "page0268-tailwind", "status": "stage_failed", "seconds": 4.075}
+{"page": 59, "of": 80, "request_id": "page0269-plain_css", "status": "stage_failed", "seconds": 3.878}
+{"page": 60, "of": 80, "request_id": "page0269-tailwind", "status": "stage_failed", "seconds": 4.857}
+{"page": 61, "of": 80, "request_id": "page0270-plain_css", "status": "accepted", "seconds": 11.613}
+{"page": 62, "of": 80, "request_id": "page0270-tailwind", "status": "accepted", "seconds": 11.161}
+{"page": 63, "of": 80, "request_id": "page0271-plain_css", "status": "stage_failed", "seconds": 4.437}
+{"page": 64, "of": 80, "request_id": "page0271-tailwind", "status": "stage_failed", "seconds": 3.788}
+{"page": 65, "of": 80, "request_id": "page0272-plain_css", "status": "stage_failed", "seconds": 5.982}
+{"page": 66, "of": 80, "request_id": "page0272-tailwind", "status": "stage_failed", "seconds": 3.856}
+{"page": 67, "of": 80, "request_id": "page0273-plain_css", "status": "accepted", "seconds": 11.917}
+{"page": 68, "of": 80, "request_id": "page0273-tailwind", "status": "stage_failed", "seconds": 3.473}
+{"page": 69, "of": 80, "request_id": "page0274-plain_css", "status": "accepted", "seconds": 10.432}
+{"page": 70, "of": 80, "request_id": "page0274-tailwind", "status": "accepted", "seconds": 11.293}
+{"page": 71, "of": 80, "request_id": "page0275-plain_css", "status": "accepted", "seconds": 11.654}
+{"page": 72, "of": 80, "request_id": "page0275-tailwind", "status": "accepted", "seconds": 10.607}
+{"page": 73, "of": 80, "request_id": "page0276-plain_css", "status": "accepted", "seconds": 10.256}
+{"page": 74, "of": 80, "request_id": "page0276-tailwind", "status": "accepted", "seconds": 11.129}
+{"page": 75, "of": 80, "request_id": "page0277-plain_css", "status": "accepted", "seconds": 11.203}
+{"page": 76, "of": 80, "request_id": "page0277-tailwind", "status": "accepted", "seconds": 9.946}
+{"page": 77, "of": 80, "request_id": "page0278-plain_css", "status": "accepted", "seconds": 10.947}
+{"page": 78, "of": 80, "request_id": "page0278-tailwind", "status": "accepted", "seconds": 11.099}
+{"page": 79, "of": 80, "request_id": "page0279-plain_css", "status": "accepted", "seconds": 10.207}
+{"page": 80, "of": 80, "request_id": "page0279-tailwind", "status": "accepted", "seconds": 10.373}
+{
+  "scope": "development",
+  "complete": 41,
+  "total": 80,
+  "model_gate": false
+}
+
+Exit code: 0

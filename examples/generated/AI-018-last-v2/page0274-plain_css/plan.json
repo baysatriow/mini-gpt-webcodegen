@@ -1,0 +1,111 @@
+{
+  "genre": "landing_page",
+  "language": "id",
+  "schema_version": "1.0",
+  "sections": [
+    {
+      "id": "nav",
+      "type": "navbar",
+      "role": "navigation",
+      "variant": "inline",
+      "fact_ids": [
+        "name"
+      ],
+      "asset_ids": []
+    },
+    {
+      "id": "main",
+      "type": "hero",
+      "role": "hero",
+      "variant": "centered",
+      "fact_ids": [
+        "name"
+      ],
+      "asset_ids": [
+        "studio-shapes"
+      ]
+    },
+    {
+      "id": "about",
+      "type": "text_section",
+      "role": "about",
+      "variant": "prose",
+      "fact_ids": [
+        "about"
+      ],
+      "asset_ids": []
+    },
+    {
+      "id": "services",
+      "type": "feature_grid",
+      "role": "services",
+      "variant": "cards",
+      "fact_ids": [
+        "srv0",
+        "srv1",
+        "srv2"
+      ],
+      "asset_ids": []
+    },
+    {
+      "id": "benefits",
+      "type": "feature_grid",
+      "role": "benefits",
+      "variant": "cards",
+      "fact_ids": [
+        "values"
+      ],
+      "asset_ids": []
+    },
+    {
+      "id": "process",
+      "type": "feature_grid",
+      "role": "process",
+      "variant": "numbered",
+      "fact_ids": [
+        "step0",
+        "step1",
+        "step2"
+      ],
+      "asset_ids": []
+    },
+    {
+      "id": "faq",
+      "type": "feature_grid",
+      "role": "faq",
+      "variant": "cards",
+      "fact_ids": [
+        "faq0",
+        "faq1",
+        "faq2"
+      ],
+      "asset_ids": []
+    },
+    {
+      "id": "contact",
+      "type": "contact_form",
+      "role": "contact",
+      "variant": "panel",
+      "fact_ids": [],
+      "asset_ids": []
+    },
+    {
+      "id": "footer",
+      "type": "footer",
+      "role": "footer",
+      "variant": "columns",
+      "fact_ids": [
+        "name"
+      ],
+      "asset_ids": []
+    }
+  ],
+  "style_mode": "plain_css",
+  "theme": {
+    "background": "#ffffff",
+    "font": "sans",
+    "primary": "#2563eb",
+    "text": "#111827"
+  },
+  "title": "Kafe Rarawiba"
+}

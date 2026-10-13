@@ -1,0 +1,110 @@
+{
+  "genre": "company_profile",
+  "language": "id",
+  "schema_version": "1.0",
+  "sections": [
+    {
+      "id": "nav",
+      "type": "navbar",
+      "role": "navigation",
+      "variant": "inline",
+      "fact_ids": [
+        "name"
+      ],
+      "asset_ids": []
+    },
+    {
+      "id": "main",
+      "type": "hero",
+      "role": "hero",
+      "variant": "centered",
+      "fact_ids": [
+        "name"
+      ],
+      "asset_ids": [
+        "company-shapes"
+      ]
+    },
+    {
+      "id": "about",
+      "type": "text_section",
+      "role": "about",
+      "variant": "prose",
+      "fact_ids": [
+        "about"
+      ],
+      "asset_ids": []
+    },
+    {
+      "id": "services",
+      "type": "feature_grid",
+      "role": "services",
+      "variant": "cards",
+      "fact_ids": [
+        "srv0",
+        "srv1",
+        "srv2"
+      ],
+      "asset_ids": []
+    },
+    {
+      "id": "values",
+      "type": "text_section",
+      "role": "values",
+      "variant": "prose",
+      "fact_ids": [
+        "values"
+      ],
+      "asset_ids": []
+    },
+    {
+      "id": "process",
+      "type": "feature_grid",
+      "role": "process",
+      "variant": "numbered",
+      "fact_ids": [
+        "step0",
+        "step1",
+        "step2"
+      ],
+      "asset_ids": []
+    },
+    {
+      "id": "portfolio",
+      "type": "feature_grid",
+      "role": "portfolio",
+      "variant": "cards",
+      "fact_ids": [
+        "project0",
+        "project1"
+      ],
+      "asset_ids": []
+    },
+    {
+      "id": "contact",
+      "type": "contact_form",
+      "role": "contact",
+      "variant": "panel",
+      "fact_ids": [],
+      "asset_ids": []
+    },
+    {
+      "id": "footer",
+      "type": "footer",
+      "role": "footer",
+      "variant": "columns",
+      "fact_ids": [
+        "name"
+      ],
+      "asset_ids": []
+    }
+  ],
+  "style_mode": "plain_css",
+  "theme": {
+    "background": "#ffffff",
+    "font": "sans",
+    "primary": "#2563eb",
+    "text": "#111827"
+  },
+  "title": "Toko Rimisama"
+}

@@ -1,0 +1,164 @@
+{
+  "request_id": "page0276-plain_css",
+  "metadata": {
+    "checkpoint_sha256": "a0e8137d08ec081a129d6bb977b159b84d31613dcc8e444cc8ea0fe6735074ff",
+    "checkpoint_run_id": "TRAIN-017",
+    "checkpoint_step": 1200,
+    "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+    "config": {
+      "precision": "bf16",
+      "temperature": 0,
+      "seed": 42
+    },
+    "schemas_sha256": {
+      "page.schema.json": "eac9c31ba0e46d64f176d428862b217b9dc7246c35b5f7b499c407a29515cf3f",
+      "plan.schema.json": "cf8ef56b884ae9b3d15e03698a5cffff9a6fc29c0f311f32050a1e627c4f5e35",
+      "request.schema.json": "243dba40b54c02055397af96824f24e06e1a03b0d5e09ca7c7d0385f46e55fd1",
+      "section.schema.json": "099bb0a51e0420c9b46dbf2787368798f8f89346e66c309ac139a5e0b1d48c3f"
+    },
+    "prompt_source_sha256": "4926508d444b79ec4f60f78e05e3aec204651223d945d148b51f4f044a9333c4"
+  },
+  "attempts": [
+    {
+      "raw": "{\"genre\":\"landing_page\",\"language\":\"id\",\"schema_version\":\"1.0\",\"sections\":[[\"nav\",\"navbar\",\"navigation\",\"inline\",[\"name\"],[]],[\"main\",\"hero\",\"hero\",\"split\",[\"name\"],[\"studio-shapes\"]],[\"about\",\"text_section\",\"about\",\"prose\",[\"about\"],[]],[\"services\",\"feature_grid\",\"services\",\"cards\",[\"srv0\",\"srv1\",\"srv2\"],[]],[\"benefits\",\"feature_grid\",\"benefits\",\"cards\",[\"values\"],[]],[\"process\",\"feature_grid\",\"process\",\"numbered\",[\"step0\",\"step1\",\"step2\"],[]],[\"faq\",\"feature_grid\",\"faq\",\"cards\",[\"faq0\",\"faq1\",\"faq2\"],[]],[\"contact\",\"contact_form\",\"contact\",\"panel\",[],[]],[\"footer\",\"footer\",\"footer\",\"columns\",[\"name\"],[]]],\"style_mode\":\"plain_css\",\"theme\":{\"background\":\"#ffffff\",\"font\":\"sans\",\"primary\":\"#2563eb\",\"text\":\"#111827\"},\"title\":\"Kursus Laritiri\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 408,
+      "prefix_tokens": 1394,
+      "max_new_tokens": 512,
+      "seconds": 1.8166018999763764,
+      "task": "page_plan",
+      "stage": "plan",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"nav\",\"props\":{\"brand\":\"Kursus Laritiri\",\"links\":[{\"href\":\"#about\",\"label\":\"Tentang\"},{\"href\":\"#services\",\"label\":\"Layanan\"},{\"href\":\"#contact\",\"label\":\"Kontak\"}]},\"role\":\"navigation\",\"type\":\"navbar\",\"variant\":\"inline\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 128,
+      "prefix_tokens": 205,
+      "max_new_tokens": 1536,
+      "seconds": 0.5665692000184208,
+      "task": "section_content",
+      "stage": "nav",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"main\",\"props\":{\"button\":{\"href\":\"#contact\",\"label\":\"Diskusikan kebutuhan\"},\"heading\":\"Kursus Laritiri\",\"layout\":\"split\",\"media\":{\"alt\":\"Ilustrasi usaha demo fiktif\",\"asset_id\":\"studio-shapes\"},\"text\":\"Kenali layanan pendampingan belajar dan diskusikan kebutuhan Anda. Demo fiktif.\"},\"role\":\"hero\",\"type\":\"hero\",\"variant\":\"split\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 185,
+      "prefix_tokens": 209,
+      "max_new_tokens": 1536,
+      "seconds": 0.8084990999777801,
+      "task": "section_content",
+      "stage": "main",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"about\",\"props\":{\"heading\":\"Tentang Kursus Laritiri\",\"text\":\"Kursus Laritiri adalah usaha demo fiktif di bidang pendampingan belajar. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas.\"},\"role\":\"about\",\"type\":\"text_section\",\"variant\":\"prose\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 160,
+      "prefix_tokens": 209,
+      "max_new_tokens": 1536,
+      "seconds": 0.6908924999879673,
+      "task": "section_content",
+      "stage": "about",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"services\",\"props\":{\"heading\":\"Layanan utama\",\"items\":[{\"heading\":\"Kelas dasar\",\"text\":\"Kelas dasar disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.\"},{\"heading\":\"Kelas lanjutan\",\"text\":\"Kelas lanjutan disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.\"},{\"heading\":\"Pendampingan\",\"text\":\"Pendampingan disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.\"}]},\"role\":\"services\",\"type\":\"feature_grid\",\"variant\":\"cards\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 349,
+      "prefix_tokens": 471,
+      "max_new_tokens": 1536,
+      "seconds": 1.536127100000158,
+      "task": "section_content",
+      "stage": "services",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"benefits\",\"props\":{\"heading\":\"Mengapa memilih kami\",\"items\":[{\"heading\":\"Komunikasi terbuka\",\"text\":\"Kami mengutamakan komunikasi terbuka, informasi yang mudah dipahami dan proses yang disepakati bersama.\"},{\"heading\":\"Kebutuhan yang jelas\",\"text\":\"Bahas pilihan dan tujuan sebelum memulai.\"}]},\"role\":\"benefits\",\"type\":\"feature_grid\",\"variant\":\"cards\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 198,
+      "prefix_tokens": 172,
+      "max_new_tokens": 1536,
+      "seconds": 0.8525580000132322,
+      "task": "section_content",
+      "stage": "benefits",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"process\",\"props\":{\"heading\":\"Cara memulai\",\"items\":[{\"heading\":\"Sampaikan kebutuhan\",\"text\":\"Ceritakan kebutuhan melalui formulir konsultasi. Informasi awal membantu kami memahami tujuan Anda.\"},{\"heading\":\"Bahas pilihan\",\"text\":\"Kami membahas pilihan layanan dan materi yang tersedia. Lingkup pekerjaan ditentukan bersama sebelum memulai.\"},{\"heading\":\"Mulai bersama\",\"text\":\"Lanjutkan proses sesuai kesepakatan. Penyesuaian dibahas melalui komunikasi yang jelas selama pengerjaan.\"}]},\"role\":\"process\",\"type\":\"feature_grid\",\"variant\":\"numbered\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 300,
+      "prefix_tokens": 421,
+      "max_new_tokens": 1536,
+      "seconds": 1.2372880000039004,
+      "task": "section_content",
+      "stage": "process",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"faq\",\"props\":{\"heading\":\"Pertanyaan umum\",\"items\":[{\"heading\":\"Bagaimana cara memulai?\",\"text\":\"Isi formulir konsultasi untuk menyampaikan kebutuhan. Kami membahas informasi dan pilihan layanan sebelum Anda mengambil keputusan.\"},{\"heading\":\"Apakah layanan dapat disesuaikan?\",\"text\":\"Kebutuhan dan materi dibahas terlebih dahulu. Pilihan penyesuaian mengikuti lingkup yang disepakati bersama.\"},{\"heading\":\"Apakah formulir ini mengirim pesan?\",\"text\":\"Ini halaman demo fiktif. Formulir memvalidasi isian secara lokal dan belum mengirim pesan ke layanan eksternal.\"}]},\"role\":\"faq\",\"type\":\"feature_grid\",\"variant\":\"cards\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 336,
+      "prefix_tokens": 445,
+      "max_new_tokens": 1536,
+      "seconds": 1.4644240000052378,
+      "task": "section_content",
+      "stage": "faq",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"contact\",\"props\":{\"fields\":[{\"label\":\"Nama\",\"name\":\"name\",\"type\":\"text\"},{\"label\":\"Email\",\"name\":\"email\",\"type\":\"email\"},{\"label\":\"Pesan\",\"name\":\"message\",\"type\":\"textarea\"}],\"heading\":\"Diskusikan kebutuhan Anda\",\"submit_label\":\"Kirim\"},\"role\":\"contact\",\"type\":\"contact_form\",\"variant\":\"panel\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 169,
+      "prefix_tokens": 93,
+      "max_new_tokens": 1536,
+      "seconds": 0.7504666000022553,
+      "task": "section_content",
+      "stage": "contact",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"footer\",\"props\":{\"links\":[{\"href\":\"#about\",\"label\":\"Tentang\"},{\"href\":\"#contact\",\"label\":\"Kontak\"}],\"text\":\"Kursus Laritiri\"},\"role\":\"footer\",\"type\":\"footer\",\"variant\":\"columns\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 106,
+      "prefix_tokens": 205,
+      "max_new_tokens": 1536,
+      "seconds": 0.46584759996039793,
+      "task": "section_content",
+      "stage": "footer",
+      "retry": false,
+      "errors": []
+    }
+  ],
+  "status": "accepted",
+  "export": {
+    "path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\fullpage\\TRAIN-017-development-best\\page0276-plain_css\\attempt-01\\website",
+    "files": {
+      "app.js": "882745211f84205339da0fd1688c3e6c2a6a1bb1862d37351defc6e2be523ed2",
+      "asset_attribution.json": "dd87777a523dcb240e818dd9d4a434327acfdedfafc4322ceea782113fb84060",
+      "index.html": "96296b0b267b6813868e551d9389225224063382394151085b255bdd7adaa5c7",
+      "page_spec.json": "129e64b387394930d9cb778e3d3f85515629b7b1bd4d8a5e3e62c7fbb9935f2b",
+      "styles.css": "eec8d024979ba40ae5f4dac646be62b047fa7d5240657daeec20a904b0837ee0",
+      "assets/studio-shapes.svg": "35c377b432fb010ac303b983ba30e41b334d1a763c6f17260cf75ed14e32e25d"
+    },
+    "browser_status": "pending"
+  },
+  "sections": 9,
+  "required_roles": true,
+  "facts_valid": true,
+  "links_assets_valid": true,
+  "seconds": 10.256416099960916,
+  "total_generated_tokens": 2339,
+  "first_attempt_success": true,
+  "browser_status": "pending"
+}

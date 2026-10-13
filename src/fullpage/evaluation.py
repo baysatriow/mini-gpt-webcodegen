@@ -11,6 +11,22 @@ from src.data.sources import sha256_file
 from src.training.engine import checkpoint_sha256,read_checkpoint
 
 
+def claim_final_evaluation(path, identity, *, resume=False):
+    """Claim the frozen benchmark once, before opening its requests or generating."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if resume:
+        if not path.is_file() or json.loads(path.read_text(encoding='utf-8')) != identity:
+            raise ValueError('Final resume requires the original persistent identity/output/report')
+        return
+    try:
+        with path.open('x', encoding='utf-8', newline='\n') as handle:
+            json.dump(identity, handle, ensure_ascii=False, indent=2)
+            handle.write('\n')
+    except FileExistsError as error:
+        raise ValueError('Final benchmark already claimed; only matching --resume is permitted') from error
+
+
 def evaluate_requests(requests,*,checkpoint,root,output,resume=False):
     root,output=Path(root),Path(output); checkpoint=Path(checkpoint)
     identity={'checkpoint_sha256':checkpoint_sha256(checkpoint),'requests_sha256':hashlib.sha256(canonical(requests).encode()).hexdigest(),'count':len(requests),

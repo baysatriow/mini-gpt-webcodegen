@@ -1,0 +1,180 @@
+{
+  "request_id": "page0241-tailwind",
+  "metadata": {
+    "checkpoint_sha256": "a0e8137d08ec081a129d6bb977b159b84d31613dcc8e444cc8ea0fe6735074ff",
+    "checkpoint_run_id": "TRAIN-017",
+    "checkpoint_step": 1200,
+    "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+    "config": {
+      "precision": "bf16",
+      "temperature": 0,
+      "seed": 42
+    },
+    "schemas_sha256": {
+      "page.schema.json": "eac9c31ba0e46d64f176d428862b217b9dc7246c35b5f7b499c407a29515cf3f",
+      "plan.schema.json": "cf8ef56b884ae9b3d15e03698a5cffff9a6fc29c0f311f32050a1e627c4f5e35",
+      "request.schema.json": "243dba40b54c02055397af96824f24e06e1a03b0d5e09ca7c7d0385f46e55fd1",
+      "section.schema.json": "099bb0a51e0420c9b46dbf2787368798f8f89346e66c309ac139a5e0b1d48c3f"
+    },
+    "prompt_source_sha256": "4926508d444b79ec4f60f78e05e3aec204651223d945d148b51f4f044a9333c4"
+  },
+  "attempts": [
+    {
+      "raw": "{\"genre\":\"company_profile\",\"language\":\"id\",\"schema_version\":\"1.0\",\"sections\":[[\"nav\",\"navbar\",\"navigation\",\"inline\",[\"name\"],[]],[\"main\",\"hero\",\"hero\",\"split\",[\"name\"],[\"company-shapes\"]],[\"about\",\"text_section\",\"about\",\"prose\",[\"about\"],[]],[\"services\",\"feature_grid\",\"services\",\"cards\",[\"srv0\",\"srv1\",\"srv2\"],[]],[\"values\",\"text_section\",\"values\",\"prose\",[\"values\"],[]],[\"process\",\"feature_grid\",\"process\",\"numbered\",[\"step0\",\"step1\",\"step2\"],[]],[\"portfolio\",\"feature_grid\",\"portfolio\",\"cards\",[\"project0\",\"project1\"],[]],[\"contact\",\"contact_form\",\"contact\",\"panel\",[],[]],[\"footer\",\"footer\",\"columns\",[\"name\"],[]]],\"style_mode\":\"tailwind\",\"theme\":{\"background\":\"#ffffff\",\"font\":\"sans\",\"primary\":\"#2563eb\",\"text\":\"#111827\"},\"title\":\"Studio Natasati\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 393,
+      "prefix_tokens": 1219,
+      "max_new_tokens": 512,
+      "seconds": 1.8483042999869213,
+      "task": "page_plan",
+      "stage": "plan",
+      "retry": false,
+      "errors": [
+        "plan:['sections', 8, 2]: 'columns' is not one of ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'values', 'portfolio', 'team', 'pricing', 'testimonials', 'contact', 'footer']",
+        "plan:['sections', 8, 3]: ['name'] is not one of ['cards', 'centered', 'columns', 'inline', 'numbered', 'panel', 'prose', 'quote', 'split']",
+        "plan:['sections', 8]: ['footer', 'footer', 'columns', ['name'], []] is too short"
+      ]
+    },
+    {
+      "raw": "{\"genre\":\"company_profile\",\"language\":\"id\",\"schema_version\":\"1.0\",\"sections\":[[\"nav\",\"navbar\",\"navigation\",\"inline\",[\"name\"],[]],[\"main\",\"hero\",\"hero\",\"split\",[\"name\"],[\"company-shapes\"]],[\"about\",\"text_section\",\"about\",\"prose\",[\"about\"],[]],[\"services\",\"feature_grid\",\"services\",\"cards\",[\"srv0\",\"srv1\",\"srv2\"],[]],[\"values\",\"text_section\",\"values\",\"prose\",[\"values\"],[]],[\"process\",\"feature_grid\",\"process\",\"numbered\",[\"step0\",\"step1\",\"step2\"],[]],[\"portfolio\",\"feature_grid\",\"portfolio\",\"cards\",[\"project0\",\"project1\"],[]],[\"contact\",\"contact_form\",\"contact\",\"panel\",[],[]],[\"footer\",\"footer\",\"footer\",\"columns\",[\"name\"],[]]],\"style_mode\":\"tailwind\",\"theme\":{\"background\":\"#ffffff\",\"font\":\"sans\",\"primary\":\"#2563eb\",\"text\":\"#111827\"},\"title\":\"Studio Natasati\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 397,
+      "prefix_tokens": 1237,
+      "max_new_tokens": 512,
+      "seconds": 1.786076799966395,
+      "task": "page_plan",
+      "stage": "plan",
+      "retry": true,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"nav\",\"props\":{\"brand\":\"Studio Natasati\",\"links\":[{\"href\":\"#about\",\"label\":\"Tentang\"},{\"href\":\"#services\",\"label\":\"Layanan\"},{\"href\":\"#contact\",\"label\":\"Kontak\"}]},\"role\":\"navigation\",\"type\":\"navbar\",\"variant\":\"inline\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 127,
+      "prefix_tokens": 203,
+      "max_new_tokens": 1536,
+      "seconds": 0.49882000003708526,
+      "task": "section_content",
+      "stage": "nav",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"main\",\"props\":{\"button\":{\"href\":\"#contact\",\"label\":\"Diskusikan kebutuhan\"},\"heading\":\"Studio Natasati\",\"layout\":\"split\",\"media\":{\"alt\":\"Ilustrasi usaha demo fiktif\",\"asset_id\":\"company-shapes\"},\"text\":\"Kenali layanan desain dan komunikasi dan diskusikan kebutuhan Anda. Demo fiktif.\"},\"role\":\"hero\",\"type\":\"hero\",\"variant\":\"split\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 185,
+      "prefix_tokens": 207,
+      "max_new_tokens": 1536,
+      "seconds": 0.7436038000159897,
+      "task": "section_content",
+      "stage": "main",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"about\",\"props\":{\"heading\":\"Tentang Studio Natasati\",\"text\":\"Studio Natasati adalah usaha demo fiktif di bidang desain dan komunikasi. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas.\"},\"role\":\"about\",\"type\":\"text_section\",\"variant\":\"prose\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 158,
+      "prefix_tokens": 208,
+      "max_new_tokens": 1536,
+      "seconds": 0.5403499000240117,
+      "task": "section_content",
+      "stage": "about",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"services\",\"props\":{\"heading\":\"Layanan utama\",\"items\":[{\"heading\":\"Desain identitas\",\"text\":\"Desain identitas disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.\"},{\"heading\":\"Konten usaha\",\"text\":\"Konten usaha disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.\"},{\"heading\":\"Halaman informasi\",\"text\":\"Halaman informasi disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.\"}]},\"role\":\"services\",\"type\":\"feature_grid\",\"variant\":\"cards\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 345,
+      "prefix_tokens": 466,
+      "max_new_tokens": 1536,
+      "seconds": 1.2289000000455417,
+      "task": "section_content",
+      "stage": "services",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"values\",\"props\":{\"heading\":\"Visi dan nilai\",\"text\":\"Kami mengutamakan komunikasi terbuka, informasi yang mudah dipahami dan proses yang disepakati bersama.\"},\"role\":\"values\",\"type\":\"text_section\",\"variant\":\"prose\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 121,
+      "prefix_tokens": 171,
+      "max_new_tokens": 1536,
+      "seconds": 0.4832091000280343,
+      "task": "section_content",
+      "stage": "values",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"process\",\"props\":{\"heading\":\"Cara memulai\",\"items\":[{\"heading\":\"Sampaikan kebutuhan\",\"text\":\"Ceritakan kebutuhan melalui formulir konsultasi. Informasi awal membantu kami memahami tujuan Anda.\"},{\"heading\":\"Bahas pilihan\",\"text\":\"Kami membahas pilihan layanan dan materi yang tersedia. Lingkup pekerjaan ditentukan bersama sebelum memulai.\"},{\"heading\":\"Mulai bersama\",\"text\":\"Lanjutkan proses sesuai kesepakatan. Penyesuaian dibahas melalui komunikasi yang jelas selama pengerjaan.\"}]},\"role\":\"process\",\"type\":\"feature_grid\",\"variant\":\"numbered\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 300,
+      "prefix_tokens": 420,
+      "max_new_tokens": 1536,
+      "seconds": 1.1228228000109084,
+      "task": "section_content",
+      "stage": "process",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"portfolio\",\"props\":{\"heading\":\"Ilustrasi proyek fiktif\",\"items\":[{\"heading\":\"Profil usaha demo\",\"text\":\"Ilustrasi fiktif untuk menjelaskan identitas, layanan dan alur kontak sebuah usaha.\"},{\"heading\":\"Informasi layanan demo\",\"text\":\"Ilustrasi fiktif yang membantu pembaca memahami pilihan layanan. Bukan klaim proyek klien nyata.\"}]},\"role\":\"portfolio\",\"type\":\"feature_grid\",\"variant\":\"cards\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 204,
+      "prefix_tokens": 280,
+      "max_new_tokens": 1536,
+      "seconds": 0.8240946999867447,
+      "task": "section_content",
+      "stage": "portfolio",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"contact\",\"props\":{\"fields\":[{\"label\":\"Nama\",\"name\":\"name\",\"type\":\"text\"},{\"label\":\"Email\",\"name\":\"email\",\"type\":\"email\"},{\"label\":\"Pesan\",\"name\":\"message\",\"type\":\"textarea\"}],\"heading\":\"Diskusikan kebutuhan Anda\",\"submit_label\":\"Kirim\"},\"role\":\"contact\",\"type\":\"contact_form\",\"variant\":\"panel\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 169,
+      "prefix_tokens": 92,
+      "max_new_tokens": 1536,
+      "seconds": 0.7201389000401832,
+      "task": "section_content",
+      "stage": "contact",
+      "retry": false,
+      "errors": []
+    },
+    {
+      "raw": "{\"id\":\"footer\",\"props\":{\"links\":[{\"href\":\"#about\",\"label\":\"Tentang\"},{\"href\":\"#contact\",\"label\":\"Kontak\"}],\"text\":\"Studio Natasati\"},\"role\":\"footer\",\"type\":\"footer\",\"variant\":\"columns\"}",
+      "stop_reason": "eos",
+      "generated_tokens": 105,
+      "prefix_tokens": 203,
+      "max_new_tokens": 1536,
+      "seconds": 0.4457378000370227,
+      "task": "section_content",
+      "stage": "footer",
+      "retry": false,
+      "errors": []
+    }
+  ],
+  "status": "accepted",
+  "export": {
+    "path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\fullpage\\TRAIN-017-development-best\\page0241-tailwind\\attempt-01\\website",
+    "files": {
+      "app.js": "882745211f84205339da0fd1688c3e6c2a6a1bb1862d37351defc6e2be523ed2",
+      "asset_attribution.json": "f1bd3a2c04363776c675adf3b7df921e5eb6878922e7a975cb2331bf3092b27e",
+      "index.html": "c9edfd252d9d8ed759f6324b7478780d008861d4fb11204790ec9387b8bfb72a",
+      "page_spec.json": "0c1dc567ca80232d55108ca48519165354b5eac53d3e72816c5fea752482788a",
+      "styles.css": "24991588c2a72ba2eab892335f9134aaa897308f714c28fbc55b7416993ae697",
+      "assets/company-shapes.svg": "b4708a3001cb4ba81240ef54f4c75a058e9dc10cac49bed3e4db97f2b56e2a40"
+    },
+    "browser_status": "pending"
+  },
+  "sections": 9,
+  "required_roles": true,
+  "facts_valid": true,
+  "links_assets_valid": true,
+  "seconds": 10.514543899975251,
+  "total_generated_tokens": 2504,
+  "first_attempt_success": false,
+  "browser_status": "pending"
+}

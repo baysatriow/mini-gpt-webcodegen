@@ -1,0 +1,22 @@
+{
+  "evaluation_report_sha256": "10ba752b4e046e96136edd18fb78df020a3f507a68db7b366c5b629ab42b0d4b",
+  "validation_revision": "review-v2",
+  "validation": {
+    "request_id": "page0259-plain_css",
+    "status": "accepted",
+    "seconds": 10.054196599987336,
+    "historical_status": "accepted",
+    "revalidation_errors": [],
+    "raw_source_sha256": {
+      "request.json": "95fd3e3c3c6d61253020de8a44a107872ac5b49a7276e6c2727a8da72c2cb094",
+      "plan.json": "10ce19546858c41b34c17581c97972d55d9a25c35dbb7fdaf78c048210288a4f",
+      "result.json": "c625db64033e4144157af591c843bef399e1d5d4ea17f2dbe222cf37a461dae5",
+      "website/page_spec.json": "7fa4453e278ed35299e9298e182b2096f55f2f34d3e0e4f4f56c32406f735af2"
+    },
+    "facts_valid": true,
+    "links_assets_valid": true,
+    "required_roles": true,
+    "first_attempt_success": true
+  },
+  "historical_result_notice": "result.json preserves original acceptance; current authority is revalidation.json"
+}

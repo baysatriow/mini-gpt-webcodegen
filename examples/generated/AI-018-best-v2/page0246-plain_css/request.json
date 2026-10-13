@@ -1,0 +1,99 @@
+{
+  "asset_ids": [
+    "studio-shapes"
+  ],
+  "business_facts": [
+    {
+      "id": "name",
+      "kind": "name",
+      "value": "Toko Miridinu"
+    },
+    {
+      "id": "about",
+      "kind": "description",
+      "value": "Toko Miridinu adalah usaha demo fiktif di bidang produk kebutuhan harian. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas."
+    },
+    {
+      "id": "values",
+      "kind": "value",
+      "value": "Kami mengutamakan komunikasi terbuka, informasi yang mudah dipahami dan proses yang disepakati bersama."
+    },
+    {
+      "id": "srv0",
+      "kind": "service",
+      "value": {
+        "text": "Pilihan produk disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.",
+        "title": "Pilihan produk"
+      }
+    },
+    {
+      "id": "srv1",
+      "kind": "service",
+      "value": {
+        "text": "Konsultasi produk disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.",
+        "title": "Konsultasi produk"
+      }
+    },
+    {
+      "id": "srv2",
+      "kind": "service",
+      "value": {
+        "text": "Pemesanan disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.",
+        "title": "Pemesanan"
+      }
+    },
+    {
+      "id": "step0",
+      "kind": "process",
+      "value": {
+        "text": "Ceritakan kebutuhan melalui formulir konsultasi. Informasi awal membantu kami memahami tujuan Anda.",
+        "title": "Sampaikan kebutuhan"
+      }
+    },
+    {
+      "id": "step1",
+      "kind": "process",
+      "value": {
+        "text": "Kami membahas pilihan layanan dan materi yang tersedia. Lingkup pekerjaan ditentukan bersama sebelum memulai.",
+        "title": "Bahas pilihan"
+      }
+    },
+    {
+      "id": "step2",
+      "kind": "process",
+      "value": {
+        "text": "Lanjutkan proses sesuai kesepakatan. Penyesuaian dibahas melalui komunikasi yang jelas selama pengerjaan.",
+        "title": "Mulai bersama"
+      }
+    },
+    {
+      "id": "faq0",
+      "kind": "faq",
+      "value": {
+        "text": "Isi formulir konsultasi untuk menyampaikan kebutuhan. Kami membahas informasi dan pilihan layanan sebelum Anda mengambil keputusan.",
+        "title": "Bagaimana cara memulai?"
+      }
+    },
+    {
+      "id": "faq1",
+      "kind": "faq",
+      "value": {
+        "text": "Kebutuhan dan materi dibahas terlebih dahulu. Pilihan penyesuaian mengikuti lingkup yang disepakati bersama.",
+        "title": "Apakah layanan dapat disesuaikan?"
+      }
+    },
+    {
+      "id": "faq2",
+      "kind": "faq",
+      "value": {
+        "text": "Ini halaman demo fiktif. Formulir memvalidasi isian secara lokal dan belum mengirim pesan ke layanan eksternal.",
+        "title": "Apakah formulir ini mengirim pesan?"
+      }
+    }
+  ],
+  "fictitious": true,
+  "genre": "landing_page",
+  "prompt": "Buat landing_page lengkap untuk Toko Miridinu. Gunakan aksen #2563eb dan font sans. Ini contoh fiktif, gunakan menu responsif dan kontak lokal.",
+  "request_id": "page0246-plain_css",
+  "style_mode": "plain_css"
+}

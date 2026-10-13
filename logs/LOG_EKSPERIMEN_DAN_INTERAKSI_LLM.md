@@ -2826,3 +2826,138 @@ print(json.dumps(report,indent=2))"`.
 - **Commit:** `c61400a9912851dc51bc974b55e449edc243fef4`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-229_train_017_inspect_best_ordinary_task_ce_and_long_positions.txt`.
+
+### RUN-230
+
+- **Waktu:** 2026-10-13T21:35:48.692969+07:00 sampai 2026-10-13T21:45:18.830652+07:00.
+- **Tujuan:** TRAIN-017 best generation all80 development requests.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_fullpage --scope development --checkpoint checkpoints/TRAIN-017/best.pt --output outputs/fullpage/TRAIN-017-development-best --report reports/fullpage/TRAIN-017_DEVELOPMENT_BEST.json`.
+- **Commit:** `c61400a9912851dc51bc974b55e449edc243fef4`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-230_train_017_best_generation_all80_development_requests.txt`.
+
+### RUN-231
+
+- **Waktu:** 2026-10-13T21:45:18.993795+07:00 sampai 2026-10-13T21:56:06.494755+07:00.
+- **Tujuan:** TRAIN-017 last generation all80 development requests.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_fullpage --scope development --checkpoint checkpoints/TRAIN-017/last.pt --output outputs/fullpage/TRAIN-017-development-last --report reports/fullpage/TRAIN-017_DEVELOPMENT_LAST.json`.
+- **Commit:** `d5dd7035456904e0338b0ea1d29a9e442318a7e7`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-231_train_017_last_generation_all80_development_requests.txt`.
+
+### RUN-232
+
+- **Waktu:** 2026-10-13T23:58:52.540249+07:00 sampai 2026-10-13T23:58:54.829956+07:00.
+- **Tujuan:** AI-018 export41 accepted best development pages and verify ZIP.
+- **Command:** `.venv/Scripts/python.exe -m qa.export_fullpage_gallery --report reports/fullpage/TRAIN-017_DEVELOPMENT_BEST.json --output examples/generated/AI-018-best`.
+- **Commit:** `d5dd7035456904e0338b0ea1d29a9e442318a7e7`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-232_ai_018_export41_accepted_best_development_pages_and_verify_zip.txt`.
+
+### RUN-233
+
+- **Waktu:** 2026-10-13T23:58:54.996217+07:00 sampai 2026-10-13T23:58:57.369329+07:00.
+- **Tujuan:** AI-018 export58 accepted last development pages and verify ZIP.
+- **Command:** `.venv/Scripts/python.exe -m qa.export_fullpage_gallery --report reports/fullpage/TRAIN-017_DEVELOPMENT_LAST.json --output examples/generated/AI-018-last`.
+- **Commit:** `d5dd7035456904e0338b0ea1d29a9e442318a7e7`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-233_ai_018_export58_accepted_last_development_pages_and_verify_zip.txt`.
+
+### RUN-234
+
+- **Waktu:** 2026-10-14T00:03:48.868490+07:00 sampai 2026-10-14T00:03:53.876708+07:00.
+- **Tujuan:** AI-018 reproduce review findings before fix without final or GPU access.
+- **Command:** `.venv/Scripts/python.exe -m qa.diagnose_fullpage_review --expect before --report reports/fullpage/AI-018_REVIEW_BEFORE.json`.
+- **Commit:** `d5dd7035456904e0338b0ea1d29a9e442318a7e7`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-234_ai_018_reproduce_review_findings_before_fix_without_final_or_gpu_acces.txt`.
+
+### RUN-235
+
+- **Waktu:** 2026-10-14T00:04:35.131757+07:00 sampai 2026-10-14T00:04:37.821187+07:00.
+- **Tujuan:** AI-018 verify review corrections with saved output and temporary final claim.
+- **Command:** `.venv/Scripts/python.exe -m qa.diagnose_fullpage_review --expect after --report reports/fullpage/AI-018_REVIEW_AFTER.json`.
+- **Commit:** `d5dd7035456904e0338b0ea1d29a9e442318a7e7`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-235_ai_018_verify_review_corrections_with_saved_output_and_temporary_final.txt`.
+
+### RUN-236
+
+- **Waktu:** 2026-10-14T00:05:28.460450+07:00 sampai 2026-10-14T00:05:29.680461+07:00.
+- **Tujuan:** TRAIN-017 revalidate saved best development outputs review v2.
+- **Command:** `.venv/Scripts/python.exe -m qa.revalidate_fullpage_evaluation --original reports/fullpage/TRAIN-017_DEVELOPMENT_BEST.json --report reports/fullpage/TRAIN-017_DEVELOPMENT_BEST_V2.json`.
+- **Commit:** `d5dd7035456904e0338b0ea1d29a9e442318a7e7`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-236_train_017_revalidate_saved_best_development_outputs_review_v2.txt`.
+
+### RUN-237
+
+- **Waktu:** 2026-10-14T00:05:32.386831+07:00 sampai 2026-10-14T00:05:33.797862+07:00.
+- **Tujuan:** TRAIN-017 revalidate saved last development outputs review v2.
+- **Command:** `.venv/Scripts/python.exe -m qa.revalidate_fullpage_evaluation --original reports/fullpage/TRAIN-017_DEVELOPMENT_LAST.json --report reports/fullpage/TRAIN-017_DEVELOPMENT_LAST_V2.json`.
+- **Commit:** `d5dd7035456904e0338b0ea1d29a9e442318a7e7`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-237_train_017_revalidate_saved_last_development_outputs_review_v2.txt`.
+
+### RUN-238
+
+- **Waktu:** 2026-10-14T00:05:56.730678+07:00 sampai 2026-10-14T00:05:58.647908+07:00.
+- **Tujuan:** AI-018 export39 strictly revalidated best pages gallery v2.
+- **Command:** `.venv/Scripts/python.exe -m qa.export_fullpage_gallery --report reports/fullpage/TRAIN-017_DEVELOPMENT_BEST_V2.json --output examples/generated/AI-018-best-v2`.
+- **Commit:** `d5dd7035456904e0338b0ea1d29a9e442318a7e7`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-238_ai_018_export39_strictly_revalidated_best_pages_gallery_v2.txt`.
+
+### RUN-239
+
+- **Waktu:** 2026-10-14T00:06:01.493737+07:00 sampai 2026-10-14T00:06:04.007939+07:00.
+- **Tujuan:** AI-018 export58 strictly revalidated last pages gallery v2.
+- **Command:** `.venv/Scripts/python.exe -m qa.export_fullpage_gallery --report reports/fullpage/TRAIN-017_DEVELOPMENT_LAST_V2.json --output examples/generated/AI-018-last-v2`.
+- **Commit:** `d5dd7035456904e0338b0ea1d29a9e442318a7e7`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-239_ai_018_export58_strictly_revalidated_last_pages_gallery_v2.txt`.
+
+### RUN-240
+
+- **Waktu:** 2026-10-14T00:09:15.204548+07:00 sampai 2026-10-14T00:09:15.734908+07:00.
+- **Tujuan:** AI-018 publish source bound current V2 progress snapshot.
+- **Command:** `.venv/Scripts/python.exe -m qa.record_fullpage_progress --output reports/fullpage/AI-018_PROGRESS.json`.
+- **Commit:** `d5dd7035456904e0338b0ea1d29a9e442318a7e7`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-240_ai_018_publish_source_bound_current_v2_progress_snapshot.txt`.
+
+### RUN-241
+
+- **Waktu:** 2026-10-14T00:09:18.457273+07:00 sampai 2026-10-14T00:09:22.644224+07:00.
+- **Tujuan:** AI-018 execute notebook11 actual training generation and review V2 outputs.
+- **Command:** `.venv/Scripts/python.exe -m qa.execute_fullpage_notebooks --only 11 --report reports/fullpage/NOTEBOOK11_EXECUTION.json`.
+- **Commit:** `d5dd7035456904e0338b0ea1d29a9e442318a7e7`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-241_ai_018_execute_notebook11_actual_training_generation_and_review_v2_out.txt`.
+
+### RUN-242
+
+- **Waktu:** 2026-10-14T00:09:34.111141+07:00 sampai 2026-10-14T00:09:34.291148+07:00.
+- **Tujuan:** AI-018 document completed training and corrected full page results.
+- **Command:** `.venv/Scripts/python.exe -m qa.finalize_fullpage_documentation`.
+- **Commit:** `d5dd7035456904e0338b0ea1d29a9e442318a7e7`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-242_ai_018_document_completed_training_and_corrected_full_page_results.txt`.
+
+### RUN-243
+
+- **Waktu:** 2026-10-14T00:10:41.981129+07:00 sampai 2026-10-14T00:10:44.336709+07:00.
+- **Tujuan:** AI-018 inspect revalidated gallery ZIP notebook document and raw bytes delivery.
+- **Command:** `.venv/Scripts/python.exe -m qa.inspect_fullpage_delivery --report reports/fullpage/AI-018_DELIVERY_INSPECTION.json`.
+- **Commit:** `d5dd7035456904e0338b0ea1d29a9e442318a7e7`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-243_ai_018_inspect_revalidated_gallery_zip_notebook_document_and_raw_bytes.txt`.
+
+### RUN-244
+
+- **Waktu:** 2026-10-14T00:13:10.081302+07:00 sampai 2026-10-14T00:13:11.607780+07:00.
+- **Tujuan:** AI-018 inspect staged evidence byte identity and frozen revalidation source hashes.
+- **Command:** `.venv/Scripts/python.exe -m qa.inspect_fullpage_git --report reports/fullpage/AI-018_STAGED_GIT_INSPECTION.json`.
+- **Commit:** `d5dd7035456904e0338b0ea1d29a9e442318a7e7`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-244_ai_018_inspect_staged_evidence_byte_identity_and_frozen_revalidation_s.txt`.

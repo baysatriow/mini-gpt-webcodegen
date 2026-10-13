@@ -21,14 +21,22 @@ def main():
         directory=Path(report['output'])/row['request_id']; matches=sorted(directory.glob('attempt-*/result.json'))
         source=matches[-1].parent; result=json.loads(matches[-1].read_text(encoding='utf-8'))
         if result['status']!='accepted' or result['metadata']['checkpoint_sha256']!=report['checkpoint_sha256']: raise ValueError('Gallery source identity changed')
+        if report.get('validation_revision'):
+            for name,digest in row['raw_source_sha256'].items():
+                if sha256_file(source/name)!=digest: raise ValueError('Revalidated raw source changed')
         destination=output/row['request_id']; shutil.copytree(source/'website',destination)
         for name in ('request.json','plan.json','result.json'): shutil.copyfile(source/name,destination/name)
-        selected.append({'request_id':row['request_id'],'path':row['request_id']+'/index.html','model_output':True,'browser_status':'pending'})
+        if report.get('validation_revision'):
+            write_json(destination/'revalidation.json',{'evaluation_report_sha256':sha256_file(report_path),'validation_revision':report['validation_revision'],
+                       'validation':row,'historical_result_notice':'result.json preserves original acceptance; current authority is revalidation.json'})
+        selected.append({'request_id':row['request_id'],'path':row['request_id']+'/index.html','model_output':True,'browser_status':'pending',
+                         'validation_revision':report.get('validation_revision','historical-v1')})
     links=''.join('<li><a href="'+html.escape(v['path'],quote=True)+'">'+html.escape(v['request_id'])+'</a></li>' for v in selected)
     note=f'{len(selected)}/{report["total"]} halaman development diterima. Model gate: {report["model_gate"]}. Review manusia dan browser belum selesai.'
     if report['scope']=='final': note=f'{len(selected)}/{report["total"]} halaman final diterima. Review manusia dan browser belum selesai.'
     (output/'index.html').write_text('<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mini GPT halaman utuh</title><style>body{font:16px/1.7 Arial;margin:40px auto;max-width:900px;padding:20px}li{margin:12px 0}a{color:#2563eb}</style></head><body><h1>Raw model output, halaman utuh</h1><p>'+html.escape(note)+'</p><p>Setiap halaman berasal dari plan dan bagian model yang lolos validator. Formulir adalah demo lokal.</p><ul>'+links+'</ul></body></html>',encoding='utf-8')
     manifest={'evaluation_report_sha256':sha256_file(report_path),'checkpoint_sha256':report['checkpoint_sha256'],'scope':report['scope'],'pages':selected,
+              'validation_revision':report.get('validation_revision','historical-v1'),
               'files':{p.relative_to(output).as_posix():sha256_file(p) for p in output.rglob('*') if p.is_file()},'browser_status':'pending','human_review_status':'pending'}
     write_json(output/'manifest.json',manifest)
     archive=output/'websites.zip'

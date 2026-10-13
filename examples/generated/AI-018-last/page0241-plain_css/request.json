@@ -1,0 +1,91 @@
+{
+  "asset_ids": [
+    "company-shapes"
+  ],
+  "business_facts": [
+    {
+      "id": "name",
+      "kind": "name",
+      "value": "Studio Natasati"
+    },
+    {
+      "id": "about",
+      "kind": "description",
+      "value": "Studio Natasati adalah usaha demo fiktif di bidang desain dan komunikasi. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas."
+    },
+    {
+      "id": "values",
+      "kind": "value",
+      "value": "Kami mengutamakan komunikasi terbuka, informasi yang mudah dipahami dan proses yang disepakati bersama."
+    },
+    {
+      "id": "srv0",
+      "kind": "service",
+      "value": {
+        "text": "Desain identitas disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.",
+        "title": "Desain identitas"
+      }
+    },
+    {
+      "id": "srv1",
+      "kind": "service",
+      "value": {
+        "text": "Konten usaha disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.",
+        "title": "Konten usaha"
+      }
+    },
+    {
+      "id": "srv2",
+      "kind": "service",
+      "value": {
+        "text": "Halaman informasi disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.",
+        "title": "Halaman informasi"
+      }
+    },
+    {
+      "id": "step0",
+      "kind": "process",
+      "value": {
+        "text": "Ceritakan kebutuhan melalui formulir konsultasi. Informasi awal membantu kami memahami tujuan Anda.",
+        "title": "Sampaikan kebutuhan"
+      }
+    },
+    {
+      "id": "step1",
+      "kind": "process",
+      "value": {
+        "text": "Kami membahas pilihan layanan dan materi yang tersedia. Lingkup pekerjaan ditentukan bersama sebelum memulai.",
+        "title": "Bahas pilihan"
+      }
+    },
+    {
+      "id": "step2",
+      "kind": "process",
+      "value": {
+        "text": "Lanjutkan proses sesuai kesepakatan. Penyesuaian dibahas melalui komunikasi yang jelas selama pengerjaan.",
+        "title": "Mulai bersama"
+      }
+    },
+    {
+      "id": "project0",
+      "kind": "project",
+      "value": {
+        "text": "Ilustrasi fiktif untuk menjelaskan identitas, layanan dan alur kontak sebuah usaha.",
+        "title": "Profil usaha demo"
+      }
+    },
+    {
+      "id": "project1",
+      "kind": "project",
+      "value": {
+        "text": "Ilustrasi fiktif yang membantu pembaca memahami pilihan layanan. Bukan klaim proyek klien nyata.",
+        "title": "Informasi layanan demo"
+      }
+    }
+  ],
+  "fictitious": true,
+  "genre": "company_profile",
+  "prompt": "Buat company_profile lengkap untuk Studio Natasati. Gunakan aksen #2563eb dan font sans. Ini contoh fiktif, gunakan menu responsif dan kontak lokal.",
+  "request_id": "page0241-plain_css",
+  "style_mode": "plain_css"
+}

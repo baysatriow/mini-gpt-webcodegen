@@ -1,0 +1,10 @@
+{
+  "company-shapes": {
+    "path": "assets/fullpage/company-shapes.svg",
+    "width": 640,
+    "height": 520,
+    "origin": "project-authored vector illustration",
+    "license": "Project-owned demo asset; permitted for this project and its generated pages",
+    "sha256": "b4708a3001cb4ba81240ef54f4c75a058e9dc10cac49bed3e4db97f2b56e2a40"
+  }
+}

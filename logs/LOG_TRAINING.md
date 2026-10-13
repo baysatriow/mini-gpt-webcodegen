@@ -477,3 +477,488 @@ Completed600,124.5807516detik, beststep600/CE0.1509130906. Checkpoint best538678
 
 ## TRAIN-017, selesai
 Configs/fullpage/training-v2.json, INIT2048 parent,2400 updates,458.4783864detik. Beststep1200 sha a0e8137d08ec081a129d6bb977b159b84d31613dcc8e444cc8ea0fe6735074ff, bestCE0.0352996924; lastCE0.0377850258. GPU mean88.48/max99%, temperaturemax69C. Per-task CE dan label panjang: reports/training/TRAIN-017_TASK_LOSS.json. Full/selected projection logits identik pada diagnosis. Ordinary CE belum menjadi kualitas halaman; generation development80 best/last sedangdijalankan, final tertutup. Semua checkpoint historis dipertahankan.
+
+## TRAIN-016/017, ringkasan komprehensif dan koreksi acceptance, 14 Oktober 2026
+
+### TRAIN-016
+
+- **status:** `"completed"`.
+- **started_at_utc:** `"2026-10-13T14:22:02.076755+00:00"`.
+- **global_step:** `600`.
+- **wall_seconds:** `124.5807515999768`.
+- **initial_validation:** `{"loss": 6.259770864771965, "perplexity": 523.0990659510674, "valid_tokens": 59640, "batches": 15}`.
+- **final_validation:** `{"loss": 0.15091309064510763, "perplexity": 1.1628955871845912, "valid_tokens": 59640, "batches": 15}`.
+- **best_validation_loss:** `0.15091309064510763`.
+- **total_train_tokens:** `7462133`.
+- **final_train_loss:** `0.17651811833712314`.
+- **peak_allocated_bytes:** `3726565376`.
+- **free_bytes_after:** `18254815232`.
+- **best_checkpoint_sha256:** `"5386787f5a93b2be7911f3ef1c36a23a80e907f752d359ccf2ba900326b54f87"`.
+- **gpu_telemetry:** `{"sample_count": 222, "interval_seconds": 0.5, "raw_path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\metrics\\TRAIN-016_gpu.jsonl", "errors": [], "memory_scope": "nvidia-smi memory includes other desktop applications", "utilization_pct": {"mean": 82.14864864864865, "max": 99.0, "min": 0.0}, "memory_used_mib": {"mean": 6960.747747747748, "max": 7139.0, "min": 3212.0}, "power_w": {"mean": 181.13981981981982, "max": 200.49, "min": 28.67}, "temperature_c": {"mean": 60.17567567567568, "max": 65.0, "min": 44.0}, "sm_clock_mhz": {"mean": 2906.698198198198, "max": 2955.0, "min": 1057.0}}`.
+- **Konfigurasi beku:**
+
+```json
+{
+  "mode": "sft",
+  "scope": "pilot",
+  "data_origin": "fullpage_curriculum",
+  "human_reviewed": false,
+  "dataset_dir": "data/processed/fullpage/v1",
+  "seed": 42,
+  "block_size": 2048,
+  "tokenizer": "data/tokenizer/tokenizer.json",
+  "model_config_path": "configs/model_fullpage_2048.json",
+  "model_config": {
+    "vocab_size": 8192,
+    "block_size": 2048,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.1,
+    "tie_embeddings": true,
+    "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+  },
+  "device": "cuda",
+  "precision": "bf16",
+  "batch_size": 16,
+  "gradient_accumulation": 3,
+  "max_steps": 600,
+  "warmup_steps": 60,
+  "learning_rate": 5e-05,
+  "min_learning_rate": 5e-06,
+  "betas": [
+    0.9,
+    0.95
+  ],
+  "weight_decay": 0.1,
+  "grad_clip": 1,
+  "validation_interval": 100,
+  "validation_batches": null,
+  "checkpoint_interval": 100,
+  "log_interval": 100,
+  "reserve_free_bytes": 16106127360,
+  "initial_checkpoint": "checkpoints/INIT-2048-001/initial.pt",
+  "initial_checkpoint_sha256": "27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372",
+  "performance": {
+    "attention_backend": "sdpa",
+    "fused_adamw": true,
+    "pin_memory": true,
+    "tf32": true,
+    "supervised_only_logits": true,
+    "validation_supervised_only_logits": true,
+    "allocator_config": "expandable_segments:True",
+    "gpu_telemetry": true,
+    "selected_by": "reports/training/FULLPAGE-GPU-002.json"
+  },
+  "selection_rule": "Fixed budget, best full ordinary development CE. Generation development gate required before final. Main initializes independently from INIT2048, not pilot selection.",
+  "lineage": {
+    "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+    "fullpage_manifest_sha256": "86f4b41126478f87018271cb655da062d00119176df978ad9b2886976535b348",
+    "initialization_parent": {
+      "migration_kind": "position_extension",
+      "source_checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "source_config_sha256": "9e72eec8798e47f90f17b77a6d99e10037d0273503e5bb104f8b284ad5fb3d98",
+      "source_lineage": {
+        "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+        "pretrain_fingerprint": {
+          "version": 1,
+          "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+          "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+          "source_revisions": [
+            {
+              "id": "vulcan",
+              "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+              "license": "mit",
+              "rows": 5000
+            },
+            {
+              "id": "websight_v01",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 20000
+            },
+            {
+              "id": "websight_v02",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 30000
+            }
+          ],
+          "partition_sha256": {
+            "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+            "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+            "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+          },
+          "token_cache_sha256": {
+            "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+            "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+            "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+          },
+          "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+        },
+        "synthetic_manifest_sha256": "0fb20da53b4e498cbcbadb7aa6296685a319ae323f68cc96e36f1659ba20d08c",
+        "data_sha256": {
+          "train": "7d0d9f247436ca413f93fcde7b22337de88a29c64150c41998a172058388d2fd",
+          "validation": "945bde9e48d4e4e274a63e519d13357b201e1c1fa9835af427cb0758031d2800"
+        },
+        "validation_indices_sha256": "9bc32cb1719357ec7de7e859d9c67f3f0bdb69cb6deca4043f46d59d6b552c07",
+        "train_blocks_or_examples": 40158,
+        "validation_blocks_or_examples": 1440,
+        "smoke": false,
+        "human_reviewed": false,
+        "pretraining_parent": {
+          "checkpoint_sha256": "49e03ebb37f01619de9dc93a55f6828367d84fd34380986bfa15597d9583831c",
+          "phase": "pretrain",
+          "global_step": 1200,
+          "pretrain_fingerprint": {
+            "version": 1,
+            "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+            "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+            "source_revisions": [
+              {
+                "id": "vulcan",
+                "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+                "license": "mit",
+                "rows": 5000
+              },
+              {
+                "id": "websight_v01",
+                "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                "license": "cc-by-4.0",
+                "rows": 20000
+              },
+              {
+                "id": "websight_v02",
+                "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                "license": "cc-by-4.0",
+                "rows": 30000
+              }
+            ],
+            "partition_sha256": {
+              "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+              "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+              "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+            },
+            "token_cache_sha256": {
+              "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+              "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+              "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+            },
+            "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+          }
+        },
+        "curriculum_parent": {
+          "checkpoint_sha256": "791a365463710f73dbfbba767bd8bd17f5b4442e8f6137a92ec8c5888d1a2ed3",
+          "global_step": 3600,
+          "synthetic_manifest_sha256": "4875ed584633d9ee59d121e7b9d89e277fe37ec5f249cf4e1b3f189c81fd4673",
+          "run_id": "TRAIN-012"
+        }
+      },
+      "pretrain_fingerprint": {
+        "version": 1,
+        "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+        "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+        "source_revisions": [
+          {
+            "id": "vulcan",
+            "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+            "license": "mit",
+            "rows": 5000
+          },
+          {
+            "id": "websight_v01",
+            "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+            "license": "cc-by-4.0",
+            "rows": 20000
+          },
+          {
+            "id": "websight_v02",
+            "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+            "license": "cc-by-4.0",
+            "rows": 30000
+          }
+        ],
+        "partition_sha256": {
+          "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+          "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+          "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+        },
+        "token_cache_sha256": {
+          "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+          "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+          "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+        },
+        "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+      },
+      "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+      "source_positions": 1024,
+      "target_positions": 2048,
+      "new_position_seed": 42,
+      "new_position_distribution": "normal mean0 std0.02",
+      "human_reviewed": false
+    },
+    "schema_sha256": {
+      "page.schema.json": "eac9c31ba0e46d64f176d428862b217b9dc7246c35b5f7b499c407a29515cf3f",
+      "plan.schema.json": "cf8ef56b884ae9b3d15e03698a5cffff9a6fc29c0f311f32050a1e627c4f5e35",
+      "request.schema.json": "243dba40b54c02055397af96824f24e06e1a03b0d5e09ca7c7d0385f46e55fd1",
+      "section.schema.json": "099bb0a51e0420c9b46dbf2787368798f8f89346e66c309ac139a5e0b1d48c3f"
+    },
+    "source_sha256": {
+      "src/training/engine.py": "1b72c225492530d6831f70b5cbfab62a62ade4bbaa56b2b2a9eade0e79d9a26b",
+      "src/models/minigpt.py": "bfa75a3f29ce9cfa2ee4256fd06c6deb08ba1803b94c5fdc7bf273e31f152ccd",
+      "src/fullpage/dataset.py": "5d7e6fdf1c9de27df381a7e137fec4a057d2a34c5e519afc799e84043650b385",
+      "src/fullpage/prompts.py": "4926508d444b79ec4f60f78e05e3aec204651223d945d148b51f4f044a9333c4"
+    },
+    "profile_sha256": "7e03cff933c279470a143f514adce566f17ea2ac7e3ce5edc5b471bf496840dc"
+  }
+}
+```
+
+- Sumber lengkap: `reports/training/TRAIN-016.json`, `TRAIN-016_TASK_LOSS.json`, `outputs/metrics/TRAIN-016.jsonl`, `TRAIN-016_gpu.jsonl`. Run completed; tidak ada retraining pada koreksi acceptance. Best ordinary CE, last diagnosis; fullpage best weights-only, exact resume last.
+
+### TRAIN-017
+
+- **status:** `"completed"`.
+- **started_at_utc:** `"2026-10-13T14:27:27.903178+00:00"`.
+- **global_step:** `2400`.
+- **wall_seconds:** `458.47838640003465`.
+- **initial_validation:** `{"loss": 6.266232563831536, "perplexity": 526.4901188763001, "valid_tokens": 238822, "batches": 60}`.
+- **final_validation:** `{"loss": 0.0377850257676812, "perplexity": 1.0385079564293256, "valid_tokens": 238822, "batches": 60}`.
+- **best_validation_loss:** `0.03529969240542512`.
+- **total_train_tokens:** `29930463`.
+- **final_train_loss:** `0.0006886889110274247`.
+- **peak_allocated_bytes:** `3732061184`.
+- **free_bytes_after:** `17784012800`.
+- **best_checkpoint_sha256:** `"a0e8137d08ec081a129d6bb977b159b84d31613dcc8e444cc8ea0fe6735074ff"`.
+- **gpu_telemetry:** `{"sample_count": 818, "interval_seconds": 0.5, "raw_path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\metrics\\TRAIN-017_gpu.jsonl", "errors": [], "memory_scope": "nvidia-smi memory includes other desktop applications", "utilization_pct": {"mean": 88.47555012224939, "max": 99.0, "min": 1.0}, "memory_used_mib": {"mean": 6949.783618581907, "max": 7042.0, "min": 3157.0}, "power_w": {"mean": 194.1331784841076, "max": 212.03, "min": 20.34}, "temperature_c": {"mean": 64.22860635696821, "max": 69.0, "min": 41.0}, "sm_clock_mhz": {"mean": 2909.3581907090465, "max": 2947.0, "min": 780.0}}`.
+- **Konfigurasi beku:**
+
+```json
+{
+  "mode": "sft",
+  "scope": "main",
+  "data_origin": "fullpage_curriculum",
+  "human_reviewed": false,
+  "dataset_dir": "data/processed/fullpage/v1",
+  "seed": 42,
+  "block_size": 2048,
+  "tokenizer": "data/tokenizer/tokenizer.json",
+  "model_config_path": "configs/model_fullpage_2048.json",
+  "model_config": {
+    "vocab_size": 8192,
+    "block_size": 2048,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.1,
+    "tie_embeddings": true,
+    "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+  },
+  "device": "cuda",
+  "precision": "bf16",
+  "batch_size": 16,
+  "gradient_accumulation": 3,
+  "max_steps": 2400,
+  "warmup_steps": 120,
+  "learning_rate": 5e-05,
+  "min_learning_rate": 5e-06,
+  "betas": [
+    0.9,
+    0.95
+  ],
+  "weight_decay": 0.1,
+  "grad_clip": 1,
+  "validation_interval": 400,
+  "validation_batches": null,
+  "checkpoint_interval": 400,
+  "log_interval": 100,
+  "reserve_free_bytes": 16106127360,
+  "initial_checkpoint": "checkpoints/INIT-2048-001/initial.pt",
+  "initial_checkpoint_sha256": "27a68c6a66bdb60fb9a729c9fd718e6eaa10d1b4d7e5f8789576339048ab9372",
+  "performance": {
+    "attention_backend": "sdpa",
+    "fused_adamw": true,
+    "pin_memory": true,
+    "tf32": true,
+    "supervised_only_logits": true,
+    "validation_supervised_only_logits": true,
+    "allocator_config": "expandable_segments:True",
+    "gpu_telemetry": true,
+    "selected_by": "reports/training/FULLPAGE-GPU-002.json",
+    "best_weights_only": true
+  },
+  "selection_rule": "Fixed budget, best full ordinary development CE. Generation development gate required before final. Main initializes independently from INIT2048, not pilot selection.",
+  "lineage": {
+    "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+    "fullpage_manifest_sha256": "86f4b41126478f87018271cb655da062d00119176df978ad9b2886976535b348",
+    "initialization_parent": {
+      "migration_kind": "position_extension",
+      "source_checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "source_config_sha256": "9e72eec8798e47f90f17b77a6d99e10037d0273503e5bb104f8b284ad5fb3d98",
+      "source_lineage": {
+        "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+        "pretrain_fingerprint": {
+          "version": 1,
+          "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+          "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+          "source_revisions": [
+            {
+              "id": "vulcan",
+              "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+              "license": "mit",
+              "rows": 5000
+            },
+            {
+              "id": "websight_v01",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 20000
+            },
+            {
+              "id": "websight_v02",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 30000
+            }
+          ],
+          "partition_sha256": {
+            "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+            "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+            "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+          },
+          "token_cache_sha256": {
+            "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+            "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+            "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+          },
+          "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+        },
+        "synthetic_manifest_sha256": "0fb20da53b4e498cbcbadb7aa6296685a319ae323f68cc96e36f1659ba20d08c",
+        "data_sha256": {
+          "train": "7d0d9f247436ca413f93fcde7b22337de88a29c64150c41998a172058388d2fd",
+          "validation": "945bde9e48d4e4e274a63e519d13357b201e1c1fa9835af427cb0758031d2800"
+        },
+        "validation_indices_sha256": "9bc32cb1719357ec7de7e859d9c67f3f0bdb69cb6deca4043f46d59d6b552c07",
+        "train_blocks_or_examples": 40158,
+        "validation_blocks_or_examples": 1440,
+        "smoke": false,
+        "human_reviewed": false,
+        "pretraining_parent": {
+          "checkpoint_sha256": "49e03ebb37f01619de9dc93a55f6828367d84fd34380986bfa15597d9583831c",
+          "phase": "pretrain",
+          "global_step": 1200,
+          "pretrain_fingerprint": {
+            "version": 1,
+            "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+            "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+            "source_revisions": [
+              {
+                "id": "vulcan",
+                "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+                "license": "mit",
+                "rows": 5000
+              },
+              {
+                "id": "websight_v01",
+                "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                "license": "cc-by-4.0",
+                "rows": 20000
+              },
+              {
+                "id": "websight_v02",
+                "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                "license": "cc-by-4.0",
+                "rows": 30000
+              }
+            ],
+            "partition_sha256": {
+              "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+              "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+              "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+            },
+            "token_cache_sha256": {
+              "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+              "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+              "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+            },
+            "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+          }
+        },
+        "curriculum_parent": {
+          "checkpoint_sha256": "791a365463710f73dbfbba767bd8bd17f5b4442e8f6137a92ec8c5888d1a2ed3",
+          "global_step": 3600,
+          "synthetic_manifest_sha256": "4875ed584633d9ee59d121e7b9d89e277fe37ec5f249cf4e1b3f189c81fd4673",
+          "run_id": "TRAIN-012"
+        }
+      },
+      "pretrain_fingerprint": {
+        "version": 1,
+        "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+        "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+        "source_revisions": [
+          {
+            "id": "vulcan",
+            "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+            "license": "mit",
+            "rows": 5000
+          },
+          {
+            "id": "websight_v01",
+            "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+            "license": "cc-by-4.0",
+            "rows": 20000
+          },
+          {
+            "id": "websight_v02",
+            "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+            "license": "cc-by-4.0",
+            "rows": 30000
+          }
+        ],
+        "partition_sha256": {
+          "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+          "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+          "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+        },
+        "token_cache_sha256": {
+          "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+          "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+          "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+        },
+        "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+      },
+      "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+      "source_positions": 1024,
+      "target_positions": 2048,
+      "new_position_seed": 42,
+      "new_position_distribution": "normal mean0 std0.02",
+      "human_reviewed": false
+    },
+    "schema_sha256": {
+      "page.schema.json": "eac9c31ba0e46d64f176d428862b217b9dc7246c35b5f7b499c407a29515cf3f",
+      "plan.schema.json": "cf8ef56b884ae9b3d15e03698a5cffff9a6fc29c0f311f32050a1e627c4f5e35",
+      "request.schema.json": "243dba40b54c02055397af96824f24e06e1a03b0d5e09ca7c7d0385f46e55fd1",
+      "section.schema.json": "099bb0a51e0420c9b46dbf2787368798f8f89346e66c309ac139a5e0b1d48c3f"
+    },
+    "source_sha256": {
+      "src/training/engine.py": "a4b1e3a80afb470486f55f3d7031e32eb1b0130e1697049aea263287bea8007c",
+      "src/models/minigpt.py": "bfa75a3f29ce9cfa2ee4256fd06c6deb08ba1803b94c5fdc7bf273e31f152ccd",
+      "src/fullpage/dataset.py": "5d7e6fdf1c9de27df381a7e137fec4a057d2a34c5e519afc799e84043650b385",
+      "src/fullpage/prompts.py": "4926508d444b79ec4f60f78e05e3aec204651223d945d148b51f4f044a9333c4"
+    },
+    "profile_sha256": "7e03cff933c279470a143f514adce566f17ea2ac7e3ce5edc5b471bf496840dc"
+  }
+}
+```
+
+- Sumber lengkap: `reports/training/TRAIN-017.json`, `TRAIN-017_TASK_LOSS.json`, `outputs/metrics/TRAIN-017.jsonl`, `TRAIN-017_gpu.jsonl`. Run completed; tidak ada retraining pada koreksi acceptance. Best ordinary CE, last diagnosis; fullpage best weights-only, exact resume last.
+
+### Generation dan keputusan
+
+- Pilot TRAIN-0160/20. MAIN historical BEST41/80 dan LAST58/80 pada RUN-230/231 bukan bukti semua fakta sudah benar.
+- Review menemukan dua hero BEST terpotong. RUN-236/237 validasi ulang tanpa generation: BEST39/80 (48.75%), first attempt33; LAST58/80 (72.50%), first attempt51.
+- Required role coverage accepted BEST39/80, LAST58/80; fact/link/asset checks100% untuk accepted V2. Ini bukan verifikasi semua klaim bahasa alami atau visual.
+- Plan budget512, section1536, context2048, greedy, EOS wajib, maksimal satu retry. Failures awal dan raw attempts tetap tersimpan, tidak diisi renderer/target fallback.
+- Denominator80, gate95% minimal76. Kedua checkpoint gagal; best tidak dikunci, last tidak dipromosikan, final80 belum dibuka, runtime historis tetap. Human review/browser390/1440/UI pending.
+- Data sintetis240/40/40 families, train5760/val960/final800 task rows, family/style lineage tetap; human_reviewed=False. Desain/generalization di luar empat sektor belum terbukti.
+- Report V2 memuat original report SHA, raw inputs/outputs hashes, corrected validator hashes, historical metrics dan revoked IDs. Gallery V2/ZIP diverifikasi pada RUN-238/239. Notebook10/11 menunjukkan proses aktual dan training opt-in.

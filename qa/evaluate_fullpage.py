@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from src.data.normalize import read_jsonl
 from src.data.sources import sha256_file
-from src.fullpage.evaluation import evaluate_requests
+from src.fullpage.evaluation import evaluate_requests, claim_final_evaluation
 from src.fullpage.curriculum import write_json
 from src.training.engine import checkpoint_sha256
 
@@ -20,6 +20,12 @@ def main():
         candidate=json.loads((root/args.candidate).read_text(encoding='utf-8'))
         if candidate['status']!='locked' or candidate['checkpoint_sha256']!=checkpoint_sha256(root/args.checkpoint): raise ValueError('Final candidate mismatch')
         if candidate['benchmark_manifest_sha256']!=sha256_file(root/'data/evaluation/fullpage/manifest.json'): raise ValueError('Final benchmark changed')
+        if (root/args.report).exists(): raise ValueError('Final report already completed; do not evaluate again')
+        identity={'checkpoint_sha256':candidate['checkpoint_sha256'],'candidate_sha256':sha256_file(root/args.candidate),
+                  'benchmark_manifest_sha256':candidate['benchmark_manifest_sha256'],'request_file_sha256':sha256_file(path),
+                  'output':str((root/args.output).resolve()),'report':str((root/args.report).resolve()),
+                  'source_sha256':{name:sha256_file(root/name) for name in ('qa/evaluate_fullpage.py','src/fullpage/evaluation.py','src/fullpage/generation.py','src/fullpage/compose.py','src/fullpage/contracts.py')}}
+        claim_final_evaluation(root/'data/evaluation/fullpage/final_consumption.json',identity,resume=args.resume)
     rows=list(read_jsonl(path))
     if args.scope=='pilot': rows=[r for r in rows if r['family_id'] in manifest['pilot_family_ids']['validation']]
     report=evaluate_requests([r['request'] for r in rows],checkpoint=root/args.checkpoint,root=root,output=root/args.output,resume=args.resume)

@@ -1,0 +1,10 @@
+{
+  "studio-shapes": {
+    "path": "assets/fullpage/studio-shapes.svg",
+    "width": 640,
+    "height": 520,
+    "origin": "project-authored vector illustration",
+    "license": "Project-owned demo asset; permitted for this project and its generated pages",
+    "sha256": "35c377b432fb010ac303b983ba30e41b334d1a763c6f17260cf75ed14e32e25d"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "evaluation_report_sha256": "b953ff3347c73866d6a7c133d950f9e7859ba80ddce4dd453bb5aea8f5649738",
+  "validation_revision": "review-v2",
+  "validation": {
+    "request_id": "page0261-tailwind",
+    "status": "accepted",
+    "seconds": 9.429943399969488,
+    "historical_status": "accepted",
+    "revalidation_errors": [],
+    "raw_source_sha256": {
+      "request.json": "0fd609417dea369c6747955940ade7c10d2c30dfa895884558ee24f59c5fc16f",
+      "plan.json": "f92c919d966697f167c71ff2a594ce882711441152a93162930cc236dfa04cdf",
+      "result.json": "85efcbccac4adc76a7cdca07848d76a39c00305bf83baa0fdca4cc5379b63e5c",
+      "website/page_spec.json": "4fcf3aeafe4346c7e56a04fbf2b5cd2afb50931096757aaa30988f78bad35df3"
+    },
+    "facts_valid": true,
+    "links_assets_valid": true,
+    "required_roles": true,
+    "first_attempt_success": true
+  },
+  "historical_result_notice": "result.json preserves original acceptance; current authority is revalidation.json"
+}

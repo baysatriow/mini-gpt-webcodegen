@@ -1,0 +1,62 @@
+{
+  "phase": "before",
+  "diagnostic_not_unit_suite": true,
+  "final_data_opened": false,
+  "input_sha256": {
+    "request.json": "4122fca0ff39e99e26590ccc8833b7d0ec65cb47c07f81beab9dfe58734936eb",
+    "plan.json": "d59e102f2e3f0029c499d990f06cfa4dd771dbb6e1053fc1b5d5aace3223c212",
+    "website/page_spec.json": "e63e0c7045f508a1f32510bfe08cae2a906628b15794a746bcb37ec4d57199f5"
+  },
+  "source_sha256": {
+    "src/fullpage/compose.py": "61680ed195e3ec80121cd1fda0edade00c2ad22f15bf7dcee3c4261450382317",
+    "src/fullpage/contracts.py": "760ca3067f5faa6823693815c1792932d509acae6dfe9934271ebe1cfd7bd119",
+    "src/fullpage/evaluation.py": "d5be4456ae78fc136807013ed4442ff465cef5e9e783399b275feecab8151548",
+    "qa/evaluate_fullpage.py": "be1156a99dea224227d5a434c10a297522c920ed8d3c542a3815319b8d1bbeea"
+  },
+  "checks": [
+    {
+      "case": "saved_truncated_hero_name",
+      "requested_name": "Studio Pusanupu",
+      "hero_heading": "Studio Pusanu",
+      "errors": [],
+      "rejected": false
+    },
+    {
+      "case": "extra_services_fictitious_False",
+      "errors": [],
+      "rejected": false
+    },
+    {
+      "case": "extra_portfolio_fictitious_False",
+      "errors": [],
+      "rejected": false
+    },
+    {
+      "case": "unprovided_testimonial_fictitious_False",
+      "errors": [],
+      "rejected": false
+    },
+    {
+      "case": "extra_services_fictitious_True",
+      "errors": [],
+      "rejected": false
+    },
+    {
+      "case": "extra_portfolio_fictitious_True",
+      "errors": [],
+      "rejected": false
+    },
+    {
+      "case": "unprovided_testimonial_fictitious_True",
+      "errors": [],
+      "rejected": false
+    },
+    {
+      "case": "single_final_identity_and_matching_resume",
+      "rejected": false,
+      "evidence": "No persistent consumption claim function exists",
+      "actual_final_data_opened": false
+    }
+  ],
+  "matches_expected": true
+}
