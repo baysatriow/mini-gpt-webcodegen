@@ -1,0 +1,22 @@
+{
+  "example_id": "d581bd2ded052f9ba0ecd194dab0b5fc1f9906628e889abdce9ff0ddabe8b56f",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "5b60f67477bf67a2e89a6948cddae69b09a196f2348b3d7065ef7115e4d60367",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Rumah Wavelasica",
+      "style_mode": "plain_css",
+      "primary": "#f59e0b",
+      "font": "mono",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami membantu usaha kecil untuk mengembangkan gagasan baru."
+    },
+    "errors": []
+  }
+}

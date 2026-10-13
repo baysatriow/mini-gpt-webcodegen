@@ -1,0 +1,7 @@
+RUN-180 | 2026-10-13T19:19:19.064901+07:00 | AI-013 record TRAIN-015 development evidence curves comprehensive log notebook08
+Command: .venv/Scripts/python.exe -m qa.summarize_copy_experiment --run-id TRAIN-015
+Commit: 4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9
+
+{"run_id": "TRAIN-015", "summary": "reports\\training\\TRAIN-015_copy_experiment.json", "notebook": "notebooks\\08_kualitas_penyalinan_dan_training.ipynb", "best_exact": 24, "last_exact": 24, "final_evaluated": false}
+
+Exit code: 0

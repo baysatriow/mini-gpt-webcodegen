@@ -1,0 +1,13 @@
+RUN-065 | 2026-10-12T20:37:09.662758+07:00 | evaluation_metrics_green
+Command: .\.venv\Scripts\python.exe -B -m unittest tests.evaluation.test_metrics -v
+Commit: 81130214207dfae301bffe3114753f0b50f1d626
+
+test_bad_json_does_not_abort_other_outputs_and_schema_failures_are_separate (tests.evaluation.test_metrics.EvaluationTests.test_bad_json_does_not_abort_other_outputs_and_schema_failures_are_separate) ... ok
+test_loss_ignores_masked_positions_and_perplexity_is_token_mean (tests.evaluation.test_metrics.EvaluationTests.test_loss_ignores_masked_positions_and_perplexity_is_token_mean) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.030s
+
+OK
+
+Exit code: 0

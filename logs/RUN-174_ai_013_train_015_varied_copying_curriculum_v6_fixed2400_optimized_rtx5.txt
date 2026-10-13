@@ -1,0 +1,28 @@
+RUN-174 | 2026-10-13T19:07:19.362714+07:00 | AI-013 TRAIN-015 varied copying curriculum v6 fixed2400 optimized RTX5070
+Command: .venv/Scripts/python.exe -m qa.train_configured_gpu --config configs/training_copy_contexts.json --initialize-from checkpoints/TRAIN-012/best.pt
+Commit: 4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9
+
+{"allocator_config": "expandable_segments:True", "config": "configs\\training_copy_contexts.json", "scope": "child training process only"}
+{"event": "validation", "step": 0, "loss": 0.005657631831054099, "perplexity": 1.0056736664550927, "valid_tokens": 623706, "batches": 30}
+{"event": "train", "step": 1, "loss": 0.07968894943858586, "grad_norm": 0.47483018040657043, "valid_tokens": 18764, "learning_rate": 4.1666666666666667e-07, "time_unix": 1791893250.1337423, "seconds": 0.68363970000064, "tokens_per_second": 27447.206474378876, "data_cursor": 1}
+{"event": "train", "step": 200, "loss": 0.0596147744837593, "grad_norm": 0.07019708305597305, "valid_tokens": 18145, "learning_rate": 4.986682954550245e-05, "time_unix": 1791893289.848482, "seconds": 0.18931450002128258, "tokens_per_second": 95845.80155223268, "data_cursor": 200}
+{"event": "train", "step": 400, "loss": 0.03198218123567715, "grad_norm": 0.04493115842342377, "valid_tokens": 20291, "learning_rate": 4.835776327311891e-05, "time_unix": 1791893327.9029605, "seconds": 0.19398410001304, "tokens_per_second": 104601.35649589836, "data_cursor": 400}
+{"event": "validation", "step": 400, "loss": 0.0025602717097809626, "perplexity": 1.0025635520042793, "valid_tokens": 623706, "batches": 30}
+{"event": "train", "step": 600, "loss": 0.03722232357486264, "grad_norm": 0.06846795976161957, "valid_tokens": 20020, "learning_rate": 4.5274686765993264e-05, "time_unix": 1791893369.918957, "seconds": 0.19289119995664805, "tokens_per_second": 103789.07904818602, "data_cursor": 600}
+{"event": "train", "step": 800, "loss": 0.0386129933397629, "grad_norm": 0.06555566191673279, "valid_tokens": 18842, "learning_rate": 4.0850261307752356e-05, "time_unix": 1791893408.5411851, "seconds": 0.19593430001987144, "tokens_per_second": 96164.88791441348, "data_cursor": 800}
+{"event": "validation", "step": 800, "loss": 0.0018474664650969857, "perplexity": 1.0018491740826936, "valid_tokens": 623706, "batches": 30}
+{"event": "train", "step": 1000, "loss": 0.025691059969040097, "grad_norm": 0.06119026988744736, "valid_tokens": 19067, "learning_rate": 3.541837173844038e-05, "time_unix": 1791893450.1429305, "seconds": 0.19777590001467615, "tokens_per_second": 96407.09509391748, "data_cursor": 1000}
+{"event": "train", "step": 1200, "loss": 0.03087503415494798, "grad_norm": 0.05144904553890228, "valid_tokens": 20329, "learning_rate": 2.9388930169156255e-05, "time_unix": 1791893487.6142259, "seconds": 0.18671789998188615, "tokens_per_second": 108875.47472402033, "data_cursor": 1200}
+{"event": "validation", "step": 1200, "loss": 0.0016719240230778857, "perplexity": 1.001673322467303, "valid_tokens": 623706, "batches": 30}
+{"event": "train", "step": 1400, "loss": 0.030239295891860155, "grad_norm": 0.047020185738801956, "valid_tokens": 19747, "learning_rate": 2.321694237475522e-05, "time_unix": 1791893528.0377278, "seconds": 0.18453010002849624, "tokens_per_second": 107012.35189787764, "data_cursor": 1400}
+{"event": "train", "step": 1600, "loss": 0.025746229027262754, "grad_norm": 0.04121597856283188, "valid_tokens": 19484, "learning_rate": 1.7368171238336597e-05, "time_unix": 1791893565.8164384, "seconds": 0.18784000002779067, "tokens_per_second": 103726.57579385312, "data_cursor": 1600}
+{"event": "validation", "step": 1600, "loss": 0.0017508699202876754, "perplexity": 1.0017524035879801, "valid_tokens": 623706, "batches": 30}
+{"event": "train", "step": 1800, "loss": 0.02967220534306899, "grad_norm": 0.046287279576063156, "valid_tokens": 20420, "learning_rate": 1.2283988421321583e-05, "time_unix": 1791893606.3980596, "seconds": 0.1852528000017628, "tokens_per_second": 110227.75364154113, "data_cursor": 1800}
+{"event": "train", "step": 2000, "loss": 0.03229202662263166, "grad_norm": 0.04401935636997223, "valid_tokens": 18618, "learning_rate": 8.348066692668852e-06, "time_unix": 1791893643.375993, "seconds": 0.19075820001307875, "tokens_per_second": 97599.998315792, "data_cursor": 2000}
+{"event": "validation", "step": 2000, "loss": 0.0015703910480522178, "perplexity": 1.001571624757792, "valid_tokens": 623706, "batches": 30}
+{"event": "train", "step": 2200, "loss": 0.02767661062421405, "grad_norm": 0.04417968913912773, "valid_tokens": 19284, "learning_rate": 5.857426447275067e-06, "time_unix": 1791893684.0007846, "seconds": 0.1814862999599427, "tokens_per_second": 106255.95432964542, "data_cursor": 2200}
+{"event": "train", "step": 2400, "loss": 0.025576640820549845, "grad_norm": 0.047735683619976044, "valid_tokens": 18927, "learning_rate": 5.000021359078166e-06, "time_unix": 1791893721.9712412, "seconds": 0.17980049998732284, "tokens_per_second": 105266.67056729255, "data_cursor": 2400}
+{"event": "validation", "step": 2400, "loss": 0.0012606918653733105, "perplexity": 1.0012614868714138, "valid_tokens": 623706, "batches": 30}
+{"run_id": "TRAIN-015", "status": "completed", "checkpoint": "checkpoints\\TRAIN-015\\last.pt"}
+
+Exit code: 0

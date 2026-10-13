@@ -1,0 +1,21 @@
+RUN-051 | 2026-10-12T19:01:50.991312+07:00 | prepare_verify_existing_tokenizer
+Command: .\.venv\Scripts\python.exe -B -m src.data.pipeline --config configs/dataset.json
+Commit: 41608790d716e2e9e2682df0203756450d023284
+
+HTML preprocessing: accepted=54996 rejected=4
+Grouped split: {'train': 41639, 'validation': 5016, 'test': 4556}, groups=41434, duplicates=3785
+{
+  "status": "complete",
+  "tokenization": {
+    "status": "complete",
+    "action": "reused"
+  },
+  "sft": {
+    "status": "awaiting_review",
+    "draft_queue_rows": 119,
+    "reviewed_production_rows": 0
+  },
+  "free_bytes_after": 28402167808
+}
+
+Exit code: 0

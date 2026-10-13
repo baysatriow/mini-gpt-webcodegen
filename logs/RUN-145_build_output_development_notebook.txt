@@ -1,0 +1,7 @@
+RUN-145 | 2026-10-13T09:55:21.968874+07:00 | build_output_development_notebook
+Command: .venv/Scripts/python.exe .tmp/build_development_notebook.py --runs TRAIN-013 --final-report reports/training/TRAIN-012-FINAL_curriculum_evaluation.json
+Commit: 0b2de4a6377a87069f2a684253554715217a5187
+
+{"code_cells": 9, "runs": ["TRAIN-013"], "final_report": "reports/training/TRAIN-012-FINAL_curriculum_evaluation.json"}
+
+Exit code: 0

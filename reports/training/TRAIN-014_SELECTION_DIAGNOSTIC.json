@@ -1,0 +1,10 @@
+{
+  "parent": "TRAIN-012/best",
+  "candidate": "TRAIN-014/best",
+  "selected_step": 0,
+  "model_tensors_identical": true,
+  "parameter_tensors": 77,
+  "parent_sha256": "791a365463710f73dbfbba767bd8bd17f5b4442e8f6137a92ec8c5888d1a2ed3",
+  "candidate_sha256": "0c7a4dae3ecc2b4801846727a91928e4ad3166a837cf1c16d158ccf288aaebfe",
+  "decision": "Keep historical runtime when selected model equals parent; no fresh final evaluation solely for a runtime change"
+}

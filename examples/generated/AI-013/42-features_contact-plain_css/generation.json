@@ -1,0 +1,22 @@
+{
+  "example_id": "00dec2b66165ab2f14c2b8302e7ebb6e1f9034cc5bf2d2a80a7b521da86f3777",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "62f3cd0f11e04bfb6f7a311203eb91ceebf45b2952dfd2fa740067382a59b664",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Komunitas Worksi",
+      "style_mode": "plain_css",
+      "primary": "#ef4444",
+      "font": "mono",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami melayani keluarga modern untuk membangun identitas digital."
+    },
+    "errors": []
+  }
+}

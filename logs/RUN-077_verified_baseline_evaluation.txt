@@ -1,0 +1,19 @@
+RUN-077 | 2026-10-12T22:09:38.283645+07:00 | verified_baseline_evaluation
+Command: ./.venv/Scripts/python.exe -m qa.evaluate_minigpt --checkpoint checkpoints/TRAIN-004-VERIFIED/best.pt --report-id TRAIN-004-VERIFIED
+Commit: dd2611001052346617b74856e1da4c609a353a8b
+
+{
+  "report_id": "TRAIN-004-VERIFIED",
+  "token_metrics": {
+    "loss": 1.0709870979895217,
+    "perplexity": 2.9182586860057063,
+    "valid_tokens": 2074051,
+    "batches": 507
+  },
+  "json_parseable": 0,
+  "schema_valid": 0,
+  "probe_count": 4,
+  "application_gate": "needs-data"
+}
+
+Exit code: 0

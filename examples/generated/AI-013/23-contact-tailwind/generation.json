@@ -1,0 +1,22 @@
+{
+  "example_id": "45e64cef03cd954010befccd34569f686f8e910be13ad406b3540cbe8aff77d6",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "ea21dfd8d48674a61f59604481cfee8624ce56133658fbec9f04b3d11d8639f8",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "tailwind",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Galeri Smartbluebosa",
+      "style_mode": "tailwind",
+      "primary": "#f59e0b",
+      "font": "mono",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami melayani mitra usaha untuk menemukan solusi praktis."
+    },
+    "errors": []
+  }
+}

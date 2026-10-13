@@ -1,0 +1,49 @@
+RUN-093 | 2026-10-13T05:25:56.712676+07:00 | record_user_approval_pilot_v2
+Command: .venv/Scripts/python.exe .tmp/approve_pilot_v2.py
+Commit: 09dd290eb3aa08b98f4a75c60c300f64e1d528e3
+
+{
+  "status": "human_approved_package",
+  "approval_text": "aprove lanjut",
+  "scope": "all 12 candidates in pilot-id-v2",
+  "approval_source": "direct human user message in current chat",
+  "reviewer": "user_chat_approval",
+  "client_date": "2026-10-13",
+  "personal_reviewer_name_provided": false,
+  "individual_checklist_provided": false,
+  "approved_rows": 12,
+  "annotation_path": "data\\annotations\\reviewed_pilot_v2.jsonl",
+  "annotation_sha256": "cc1d349231786be7a286ed8ed250405556781cc8d445f236d3bb4a05535dcb38",
+  "package_manifest_sha256": "84fe596d70a0e5cd3f116207e03a67678ef783c93e756085dc7a20328e6a5f30",
+  "packet_sha256": "e2fc1dc85c1ee7f168a5d04ad0c6bdec60fc2f597887c1786767b87910b6d4c5",
+  "review_csv_sha256": "0e82a0b80ddd4d6480ce4755c129e68b36697f975c822b293bda70a26928edbe",
+  "source_row_ids": [
+    "vulcan:19d2a482c78554e59feca0ce2b50fb7835e90c6f:13:4cfed126132b8fb7",
+    "vulcan:19d2a482c78554e59feca0ce2b50fb7835e90c6f:17:9329b3589fa68175",
+    "v0.1:b11f8172f89c992b56ac702319e02c428cca4a4e:13:e4713969338eb09e",
+    "v0.1:b11f8172f89c992b56ac702319e02c428cca4a4e:36:7b169d8362d62b4a",
+    "v0.1:b11f8172f89c992b56ac702319e02c428cca4a4e:6:ef20d52444d11020",
+    "v0.1:b11f8172f89c992b56ac702319e02c428cca4a4e:30:2c208d37b8d6123d",
+    "v0.2:b11f8172f89c992b56ac702319e02c428cca4a4e:2:a8370dd36ab7193a",
+    "v0.2:b11f8172f89c992b56ac702319e02c428cca4a4e:49:187a9980afd73654",
+    "v0.2:b11f8172f89c992b56ac702319e02c428cca4a4e:33:91c670d6fc6cfe3d",
+    "v0.2:b11f8172f89c992b56ac702319e02c428cca4a4e:38:9d7824ac1ec29ce4",
+    "v0.2:b11f8172f89c992b56ac702319e02c428cca4a4e:6:2ae10092e42e01a6",
+    "v0.2:b11f8172f89c992b56ac702319e02c428cca4a4e:16:d29e5509d550204e"
+  ],
+  "environment": {
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "executable": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\.venv\\Scripts\\python.exe",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "gpu": "NVIDIA GeForce RTX 5070",
+    "bf16": true
+  },
+  "free_bytes_before": 27202338816,
+  "limits": [
+    "Package approval is not browser acceptance",
+    "Pilot size does not demonstrate generalization"
+  ]
+}
+
+Exit code: 0

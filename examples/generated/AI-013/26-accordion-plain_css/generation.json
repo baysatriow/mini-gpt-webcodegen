@@ -1,0 +1,22 @@
+{
+  "example_id": "b2a0518db500a87ac3833ca6c635bc41c97fc29f6dab1c7744ebf12c8cb12953",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "aba297db3e73a199767f795728815f20763e4b7f902938677e55d13cd8a0734a",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Komunitas Worksi",
+      "style_mode": "plain_css",
+      "primary": "#10b981",
+      "font": "sans",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Bersama membangun pengalaman terbaik."
+    },
+    "errors": []
+  }
+}

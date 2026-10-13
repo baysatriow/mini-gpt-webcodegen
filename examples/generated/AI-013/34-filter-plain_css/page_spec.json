@@ -1,0 +1,70 @@
+{
+  "interactions": [
+    {
+      "target_id": "nav",
+      "type": "menu_toggle"
+    },
+    {
+      "target_id": "features",
+      "type": "filter"
+    }
+  ],
+  "language": "id",
+  "schema_version": "1.0",
+  "style_mode": "plain_css",
+  "theme": {
+    "background": "#ffffff",
+    "font": "sans",
+    "primary": "#8b5cf6",
+    "text": "#111827"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "props": {
+        "brand": "Dapur Fakamaweb",
+        "links": [
+          {
+            "href": "#main",
+            "label": "Beranda"
+          }
+        ]
+      },
+      "type": "navbar"
+    },
+    {
+      "id": "main",
+      "props": {
+        "heading": "Dapur Fakamaweb",
+        "layout": "centered",
+        "text": "Kami mendukung komunitas lokal untuk memilih produk berkualitas."
+      },
+      "type": "hero"
+    },
+    {
+      "id": "features",
+      "props": {
+        "heading": "Layanan",
+        "items": [
+          {
+            "heading": "Pelatihan",
+            "text": "Informasi pelatihan."
+          },
+          {
+            "heading": "Pendampingan",
+            "text": "Informasi pendampingan."
+          }
+        ]
+      },
+      "type": "feature_grid"
+    },
+    {
+      "id": "footer",
+      "props": {
+        "text": "Dapur Fakamaweb"
+      },
+      "type": "footer"
+    }
+  ],
+  "title": "Dapur Fakamaweb"
+}

@@ -1,0 +1,22 @@
+{
+  "example_id": "8f96d055c1e5e357a29e14a113f1a5db67e8af722b4127314e107931ba7c99e8",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "7821bb82c6a47d5b6fe1efa9a31dfc8aab649af39608f3b867c733bf31acb6ac",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "tailwind",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Pustaka Nostargomi",
+      "style_mode": "tailwind",
+      "primary": "#2563eb",
+      "font": "serif",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami membantu usaha kecil untuk memilih produk berkualitas."
+    },
+    "errors": []
+  }
+}

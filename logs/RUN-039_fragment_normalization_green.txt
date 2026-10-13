@@ -1,0 +1,42 @@
+RUN-039 | 2026-10-12T18:35:28.763399+07:00 | fragment_normalization_green
+Command: .\.venv\Scripts\python.exe -m unittest discover -s tests -v
+Commit: d00d2e418222f04673baf02e7bb328ace143c6d1
+
+test_component_fragment_is_wrapped_with_provenance_not_discarded (data.test_normalize.NormalizeTests.test_component_fragment_is_wrapped_with_provenance_not_discarded) ... ok
+test_invalid_schema_is_rejected (data.test_normalize.NormalizeTests.test_invalid_schema_is_rejected) ... ok
+test_normalizer_writes_only_reviewed_records_and_reject_report (data.test_normalize.NormalizeTests.test_normalizer_writes_only_reviewed_records_and_reject_report) ... ok
+test_palette_variants_share_structural_group (data.test_normalize.NormalizeTests.test_palette_variants_share_structural_group) ... ok
+test_pretrain_keeps_js_as_text_but_filters_non_html (data.test_normalize.NormalizeTests.test_pretrain_keeps_js_as_text_but_filters_non_html) ... ok
+test_rejects_empty_prompt_draft_unknown_source_and_missing_license (data.test_normalize.NormalizeTests.test_rejects_empty_prompt_draft_unknown_source_and_missing_license) ... ok
+test_reviewed_indonesian_annotation_becomes_canonical_example (data.test_normalize.NormalizeTests.test_reviewed_indonesian_annotation_becomes_canonical_example) ... ok
+test_failed_or_missing_manifest_cannot_be_training_input (data.test_pipeline.PipelineTests.test_failed_or_missing_manifest_cannot_be_training_input) ... ok
+test_only_verified_completed_manifest_is_consumed (data.test_pipeline.PipelineTests.test_only_verified_completed_manifest_is_consumed) ... complete fixture: 1 rows, 104 bytes
+ok
+test_plain_css_and_tailwind_are_valid (data.test_schema.SchemaTests.test_plain_css_and_tailwind_are_valid) ... ok
+test_rejects_invalid_theme_and_extra_top_level_fields (data.test_schema.SchemaTests.test_rejects_invalid_theme_and_extra_top_level_fields) ... ok
+test_rejects_unknown_target_duplicate_ids_and_mismatched_interaction (data.test_schema.SchemaTests.test_rejects_unknown_target_duplicate_ids_and_mismatched_interaction) ... ok
+test_rejects_unsupported_style_script_attributes_and_urls (data.test_schema.SchemaTests.test_rejects_unsupported_style_script_attributes_and_urls) ... ok
+test_budget_failure_does_not_promote_partial_to_final (data.test_sources.SourceTests.test_budget_failure_does_not_promote_partial_to_final) ... ok
+test_manifest_atomic_json (data.test_sources.SourceTests.test_manifest_atomic_json) ... ok
+test_projects_columns_at_loader_and_emits_stable_provenance (data.test_sources.SourceTests.test_projects_columns_at_loader_and_emits_stable_provenance) ... ok
+test_reserve_rejects_before_iterating (data.test_sources.SourceTests.test_reserve_rejects_before_iterating) ... ok
+test_short_read_fails_and_completed_download_is_reusable (data.test_sources.SourceTests.test_short_read_fails_and_completed_download_is_reusable) ... complete fixture: 2 rows, 206 bytes
+reuse fixture: 2 rows, SHA-256 verified
+ok
+test_vulcan_uses_pinned_http_stream_without_extra_dependency (data.test_sources.SourceTests.test_vulcan_uses_pinned_http_stream_without_extra_dependency) ... ok
+test_dedup_ignores_source_metadata_but_preserves_distinct_targets (data.test_split.SplitTests.test_dedup_ignores_source_metadata_but_preserves_distinct_targets) ... ok
+test_group_never_crosses_split_and_seed_is_repeatable (data.test_split.SplitTests.test_group_never_crosses_split_and_seed_is_repeatable) ... ok
+test_pretrain_split_manifest_matches_files_and_counts (data.test_split.SplitTests.test_pretrain_split_manifest_matches_files_and_counts) ... ok
+test_too_few_groups_and_invalid_ratios_are_rejected (data.test_split.SplitTests.test_too_few_groups_and_invalid_ratios_are_rejected) ... ok
+test_oversize_json_and_reserved_prompt_are_rejected (data.test_tokenizer_dataset.TokenizerTests.test_oversize_json_and_reserved_prompt_are_rejected) ... ok
+test_pretrain_labels_shift_and_long_documents_are_not_lost (data.test_tokenizer_dataset.TokenizerTests.test_pretrain_labels_shift_and_long_documents_are_not_lost) ... ok
+test_sft_only_target_and_eos_are_supervised (data.test_tokenizer_dataset.TokenizerTests.test_sft_only_target_and_eos_are_supervised) ... ok
+test_train_tokenizer_rejects_validation_rows (data.test_tokenizer_dataset.TokenizerTests.test_train_tokenizer_rejects_validation_rows) ... ok
+test_unicode_code_and_special_token_roundtrip (data.test_tokenizer_dataset.TokenizerTests.test_unicode_code_and_special_token_roundtrip) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.244s
+
+OK
+
+Exit code: 0

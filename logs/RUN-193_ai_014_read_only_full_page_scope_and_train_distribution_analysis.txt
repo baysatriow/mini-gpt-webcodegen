@@ -1,0 +1,32 @@
+RUN-193 | 2026-10-13T20:02:00.846872+07:00 | AI-014 read only full page scope and train distribution analysis
+Command: .venv/Scripts/python.exe -c "import json
+from collections import Counter
+from pathlib import Path
+from tokenizers import Tokenizer
+p=Path('data/processed/curriculum/v6/train.jsonl')
+counts=Counter(); types=Counter(); first=None
+for line in p.open(encoding='utf-8'):
+ r=json.loads(line); first=first or r
+ counts[len(r['target_spec']['sections'])]+=1
+ types.update(s['type'] for s in r['target_spec']['sections'])
+print('section_count_distribution:',dict(sorted(counts.items())))
+print('section_type_distribution:',dict(types))
+print('row_keys:',list(first))
+print('first_prompt:',first['prompt'])
+print('first_target:',json.dumps(first['target_spec'],ensure_ascii=False,separators=(',',':')))
+t=Tokenizer.from_file('data/tokenizer/tokenizer.json')
+print('first_prompt_tokens:',len(t.encode(first['prompt'],add_special_tokens=False).ids))
+print('first_target_tokens:',len(t.encode(json.dumps(first['target_spec'],ensure_ascii=False,separators=(',',':')),add_special_tokens=False).ids))
+print('block_size:1024 max_new_tokens:768')"
+Commit: 219fc9e5985ec4a0181c3a5f4570c042001bfd85
+
+section_count_distribution: {3: 15704, 4: 19000, 5: 5454}
+section_type_distribution: {'navbar': 40158, 'hero': 37460, 'footer': 40158, 'testimonial': 2722, 'feature_grid': 13517, 'pricing_table': 5480, 'contact_form': 8189, 'text_section': 2698}
+row_keys: ['prompt', 'target_spec', 'recipe', 'annotation_status', 'human_reviewed', 'group_id', 'example_id', 'origin', 'split']
+first_prompt: Rancang halaman Indonesia bernama Komunitas Sunpi menggunakan CSS biasa. Aksen #8b5cf6, latar putih, teks #111827 dan font sans. Tampilkan navbar Beranda, hero centered dengan judul nama situs, dan footer nama situs. Teks utama: Kami melayani keluarga modern untuk merencanakan kegiatan bersama. Gunakan menu responsif. Tambahkan modal informasi pada hero.
+first_target: {"schema_version":"1.0","title":"Komunitas Sunpi","language":"id","style_mode":"plain_css","theme":{"primary":"#8b5cf6","background":"#ffffff","text":"#111827","font":"sans"},"sections":[{"id":"nav","type":"navbar","props":{"brand":"Komunitas Sunpi","links":[{"label":"Beranda","href":"#main"}]}},{"id":"main","type":"hero","props":{"heading":"Komunitas Sunpi","text":"Kami melayani keluarga modern untuk merencanakan kegiatan bersama.","layout":"centered"}},{"id":"footer","type":"footer","props":{"text":"Komunitas Sunpi"}}],"interactions":[{"type":"menu_toggle","target_id":"nav"},{"type":"modal","target_id":"main"}]}
+first_prompt_tokens: 166
+first_target_tokens: 367
+block_size:1024 max_new_tokens:768
+
+Exit code: 0

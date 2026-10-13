@@ -1,0 +1,33 @@
+RUN-034 | 2026-10-12T18:25:08.865893+07:00 | split_green
+Command: .\.venv\Scripts\python.exe -m unittest tests.data.test_schema tests.data.test_sources tests.data.test_normalize tests.data.test_split -v
+Commit: e22b0da2bf4810b2678f657343e2fab1c69ab681
+
+test_plain_css_and_tailwind_are_valid (tests.data.test_schema.SchemaTests.test_plain_css_and_tailwind_are_valid) ... ok
+test_rejects_invalid_theme_and_extra_top_level_fields (tests.data.test_schema.SchemaTests.test_rejects_invalid_theme_and_extra_top_level_fields) ... ok
+test_rejects_unknown_target_duplicate_ids_and_mismatched_interaction (tests.data.test_schema.SchemaTests.test_rejects_unknown_target_duplicate_ids_and_mismatched_interaction) ... ok
+test_rejects_unsupported_style_script_attributes_and_urls (tests.data.test_schema.SchemaTests.test_rejects_unsupported_style_script_attributes_and_urls) ... ok
+test_budget_failure_does_not_promote_partial_to_final (tests.data.test_sources.SourceTests.test_budget_failure_does_not_promote_partial_to_final) ... ok
+test_manifest_atomic_json (tests.data.test_sources.SourceTests.test_manifest_atomic_json) ... ok
+test_projects_columns_at_loader_and_emits_stable_provenance (tests.data.test_sources.SourceTests.test_projects_columns_at_loader_and_emits_stable_provenance) ... ok
+test_reserve_rejects_before_iterating (tests.data.test_sources.SourceTests.test_reserve_rejects_before_iterating) ... ok
+test_short_read_fails_and_completed_download_is_reusable (tests.data.test_sources.SourceTests.test_short_read_fails_and_completed_download_is_reusable) ... complete fixture: 2 rows, 206 bytes
+reuse fixture: 2 rows, SHA-256 verified
+ok
+test_vulcan_uses_pinned_http_stream_without_extra_dependency (tests.data.test_sources.SourceTests.test_vulcan_uses_pinned_http_stream_without_extra_dependency) ... ok
+test_invalid_schema_is_rejected (tests.data.test_normalize.NormalizeTests.test_invalid_schema_is_rejected) ... ok
+test_normalizer_writes_only_reviewed_records_and_reject_report (tests.data.test_normalize.NormalizeTests.test_normalizer_writes_only_reviewed_records_and_reject_report) ... ok
+test_palette_variants_share_structural_group (tests.data.test_normalize.NormalizeTests.test_palette_variants_share_structural_group) ... ok
+test_pretrain_keeps_js_as_text_but_filters_non_html (tests.data.test_normalize.NormalizeTests.test_pretrain_keeps_js_as_text_but_filters_non_html) ... ok
+test_rejects_empty_prompt_draft_unknown_source_and_missing_license (tests.data.test_normalize.NormalizeTests.test_rejects_empty_prompt_draft_unknown_source_and_missing_license) ... ok
+test_reviewed_indonesian_annotation_becomes_canonical_example (tests.data.test_normalize.NormalizeTests.test_reviewed_indonesian_annotation_becomes_canonical_example) ... ok
+test_dedup_ignores_source_metadata_but_preserves_distinct_targets (tests.data.test_split.SplitTests.test_dedup_ignores_source_metadata_but_preserves_distinct_targets) ... ok
+test_group_never_crosses_split_and_seed_is_repeatable (tests.data.test_split.SplitTests.test_group_never_crosses_split_and_seed_is_repeatable) ... ok
+test_pretrain_split_manifest_matches_files_and_counts (tests.data.test_split.SplitTests.test_pretrain_split_manifest_matches_files_and_counts) ... ok
+test_too_few_groups_and_invalid_ratios_are_rejected (tests.data.test_split.SplitTests.test_too_few_groups_and_invalid_ratios_are_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.173s
+
+OK
+
+Exit code: 0

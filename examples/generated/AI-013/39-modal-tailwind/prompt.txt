@@ -1,0 +1,1 @@
+Rancang halaman Indonesia bernama Kafe Webtechraw menggunakan Tailwind. Aksen #f59e0b, latar putih, teks #111827 dan font sans. Tampilkan navbar Beranda, hero centered dengan judul nama situs, dan footer nama situs. Teks utama: Kami mendukung mitra usaha untuk memilih produk berkualitas. Gunakan menu responsif. Tambahkan modal informasi pada hero.

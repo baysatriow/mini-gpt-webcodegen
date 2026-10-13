@@ -1,0 +1,8 @@
+RUN-128 | 2026-10-13T09:17:37.144635+07:00 | inspect_copy_subword_coverage
+Command: .venv/Scripts/python.exe .tmp/inspect_copy_token_coverage.py
+Commit: 5209976e73450c39e2b3101521a5b793e3021749
+
+{"name": "Kursus Workstaralasa", "tokens": [{"id": 48, "piece": "K", "train_title_occurrences": 4740}, {"id": 372, "piece": "ur", "train_title_occurrences": 1932}, {"id": 6210, "piece": "sus", "train_title_occurrences": 960}, {"id": 3579, "piece": " Work", "train_title_occurrences": 168}, {"id": 776, "piece": "sta", "train_title_occurrences": 0}, {"id": 303, "piece": "ra", "train_title_occurrences": 210}, {"id": 271, "piece": "la", "train_title_occurrences": 918}, {"id": 88, "piece": "s", "train_title_occurrences": 1284}, {"id": 70, "piece": "a", "train_title_occurrences": 5436}]}
+{"train_title_token_count": 299, "alphabetic_vocabulary_count": 7367}
+
+Exit code: 0

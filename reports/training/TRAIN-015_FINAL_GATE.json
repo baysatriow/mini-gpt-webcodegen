@@ -1,0 +1,128 @@
+{
+  "recorded_at_utc": "2026-10-13T12:24:27.176846+00:00",
+  "run_id": "TRAIN-015",
+  "selection_sha256": "c87edd00d5521dce19e953e3f43eaccd8c23828fb734b6bfaaaf5e519b1e82b5",
+  "final_report_sha256": "8f92098bada4f494126f078dcdcdd53e415690288b9ce5b7efa4b5f32624ff36",
+  "schema_valid": 48,
+  "exact_contract": 44,
+  "count": 48,
+  "gate_passed": true,
+  "failures": [
+    {
+      "example_id": "a441662cd6f76613b5445b14b14481db81a5b3603f8e9257421857e70e5f99bc",
+      "recipe": "article",
+      "style_mode": "plain_css",
+      "differences": [
+        {
+          "path": "$.sections[0].props.brand",
+          "expected": "Kursus Smartgismartni",
+          "actual": "Kursus Smartewelmartni"
+        },
+        {
+          "path": "$.sections[2].props.text",
+          "expected": "Kursus Smartgismartni",
+          "actual": "Kursus Smartewelmartni"
+        },
+        {
+          "path": "$.title",
+          "expected": "Kursus Smartgismartni",
+          "actual": "Kursus Smartewelmartni"
+        }
+      ]
+    },
+    {
+      "example_id": "1a8df8a21bcb5a00092c6a17fa123820577f672eab06f5dd8736b258b85eb922",
+      "recipe": "pricing",
+      "style_mode": "tailwind",
+      "differences": [
+        {
+          "path": "$.sections[0].props.brand",
+          "expected": "Kursus Smartgismartni",
+          "actual": "Kursus Smartdiremartni"
+        },
+        {
+          "path": "$.sections[1].props.heading",
+          "expected": "Kursus Smartgismartni",
+          "actual": "Kursus Smartdiremartni"
+        },
+        {
+          "path": "$.sections[3].props.text",
+          "expected": "Kursus Smartgismartni",
+          "actual": "Kursus Smartdiremartni"
+        },
+        {
+          "path": "$.title",
+          "expected": "Kursus Smartgismartni",
+          "actual": "Kursus Smartdiremartni"
+        }
+      ]
+    },
+    {
+      "example_id": "5eb4472d46be59801badbcbdab929a6edd67b497dbd82833c50007fe45c297ec",
+      "recipe": "contact",
+      "style_mode": "plain_css",
+      "differences": [
+        {
+          "path": "$.sections[0].props.brand",
+          "expected": "Kursus Smartgismartni",
+          "actual": "Kursus Smartewelmartni"
+        },
+        {
+          "path": "$.sections[1].props.heading",
+          "expected": "Kursus Smartgismartni",
+          "actual": "Kursus Smartewelmartni"
+        },
+        {
+          "path": "$.sections[3].props.text",
+          "expected": "Kursus Smartgismartni",
+          "actual": "Kursus Smartewelmartni"
+        },
+        {
+          "path": "$.title",
+          "expected": "Kursus Smartgismartni",
+          "actual": "Kursus Smartewelmartni"
+        }
+      ]
+    },
+    {
+      "example_id": "d9981873650f2af9301623150c1fc9db2204f419892c4293bacc1a75b91e2a0b",
+      "recipe": "accordion",
+      "style_mode": "tailwind",
+      "differences": [
+        {
+          "path": "$.sections[0].props.brand",
+          "expected": "Kursus Smartgismartni",
+          "actual": "Kursus Smartimagesmartni"
+        },
+        {
+          "path": "$.sections[1].props.heading",
+          "expected": "Kursus Smartgismartni",
+          "actual": "Kursus Smartimagesmartni"
+        },
+        {
+          "path": "$.sections[3].props.text",
+          "expected": "Kursus Smartgismartni",
+          "actual": "Kursus Smartimagesmartni"
+        },
+        {
+          "path": "$.title",
+          "expected": "Kursus Smartgismartni",
+          "actual": "Kursus Smartimagesmartni"
+        }
+      ]
+    }
+  ],
+  "selected_runtime": "TRAIN-015/best",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "gallery_report": "reports/training/TRAIN-015_RENDERED_OUTPUTS.json",
+  "exported_websites": 44,
+  "status": "controlled-contract-passed",
+  "browser_evaluated": false,
+  "generator_ui_implemented": false,
+  "limits": [
+    "Synthetic shared recipes with heldout fictional brands; arbitrary prompts/layouts not established",
+    "This final is now consumed; future tuning requires a new independent final",
+    "No retraining or checkpoint reselection from this result in AI-013",
+    "Browser review and application UI remain next stages"
+  ]
+}

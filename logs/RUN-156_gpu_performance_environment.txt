@@ -1,0 +1,23 @@
+RUN-156 | 2026-10-13T10:21:55.222454+07:00 | gpu_performance_environment
+Command: .venv/Scripts/python.exe -m qa.profile_gpu_training --inventory
+Commit: d876a9a227747ef751389f7ebf0c1e661885325b
+
+{
+  "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+  "interpreter": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\.venv\\Scripts\\python.exe",
+  "torch": "2.14.1+cu130",
+  "cuda": "13.0",
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "vram_bytes": 12820480000,
+  "cuda_available": true,
+  "bf16": true,
+  "capability": [
+    12,
+    0
+  ],
+  "platform": "Windows-10-10.0.26200-SP0",
+  "disk_free_bytes": 20554289152,
+  "nvidia_smi": "name, memory.total [MiB], memory.used [MiB], utilization.gpu [%], power.draw [W], power.limit [W], temperature.gpu\nNVIDIA GeForce RTX 5070, 12227 MiB, 3224 MiB, 2 %, 18.44 W, 250.00 W, 43\n"
+}
+
+Exit code: 0

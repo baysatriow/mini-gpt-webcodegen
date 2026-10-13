@@ -1,0 +1,27 @@
+{
+  "status": "complete",
+  "source": {
+    "id": "vulcan",
+    "dataset": "xlelords/vulcan",
+    "kind": "jsonl",
+    "filename": "frontend_sft.jsonl",
+    "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+    "split": "full",
+    "limit": 20,
+    "license_id": "mit",
+    "source_url": "https://huggingface.co/datasets/xlelords/vulcan",
+    "attribution": "Vulcan Front-End Code SFT Dataset, xlelords, 2026",
+    "style_mode": "plain_css"
+  },
+  "selection_sha256": "90de2dae098b3a4fcea6b6d90db0edd5a261aad3185fa78657e5c71b5221c376",
+  "seed": 42,
+  "sampling": "bounded source order",
+  "started_utc": "2026-10-12T11:19:54.284912+00:00",
+  "rows": 20,
+  "bytes": 37340,
+  "free_bytes_before": 28900290560,
+  "output": "data/raw/vulcan-20.jsonl",
+  "sha256": "4326656f6953ed85d7c85153f1dfe8ffe38d063f6d94859d2fdd279f7700ab8a",
+  "completed_utc": "2026-10-12T11:19:54.836709+00:00",
+  "free_bytes_after": 28900249600
+}

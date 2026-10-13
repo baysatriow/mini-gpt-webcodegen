@@ -1,0 +1,22 @@
+{
+  "example_id": "3b1014b980067a11207a18a3e77d50a27ac930ee421be6a92efba0dbb8a1fd33",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "989965e383229ac19576ffdfd1857da9a4785a1a9bc0d5a100236e1bee4ba148",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Studio Bagreenlo",
+      "style_mode": "plain_css",
+      "primary": "#ef4444",
+      "font": "sans",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami mendampingi pelajar Indonesia untuk merencanakan kegiatan bersama."
+    },
+    "errors": []
+  }
+}

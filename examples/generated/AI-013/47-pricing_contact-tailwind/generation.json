@@ -1,0 +1,22 @@
+{
+  "example_id": "0cd7eb66c6d49aec97579e5872279033cd0f8ec7d295fb1a98b0e2cf6717ed16",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "8fbdf0ae337f07171ad3813e550a41361d248405267fda8097cc56e61f79023f",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "tailwind",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Studio Bagreenlo",
+      "style_mode": "tailwind",
+      "primary": "#10b981",
+      "font": "sans",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Bersama membangun pengalaman terbaik."
+    },
+    "errors": []
+  }
+}

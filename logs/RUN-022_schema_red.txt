@@ -1,0 +1,25 @@
+RUN-022 | 2026-10-12T18:12:05.611978+07:00 | schema_red
+Command: .\.venv\Scripts\python.exe -m unittest tests.data.test_schema -v
+Commit: 7956be40214dcf98fbe3a3d23bda1d0eaf67b3b4
+
+test_schema (unittest.loader._FailedTest.test_schema) ... ERROR
+
+======================================================================
+ERROR: test_schema (unittest.loader._FailedTest.test_schema)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_schema
+Traceback (most recent call last):
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\data\test_schema.py", line 4, in <module>
+    from src.data.schema import validate_page_spec
+ModuleNotFoundError: No module named 'src.data.schema'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+
+Exit code: 1

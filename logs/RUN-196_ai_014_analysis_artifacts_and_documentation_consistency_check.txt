@@ -1,0 +1,17 @@
+RUN-196 | 2026-10-13T20:07:26.535341+07:00 | AI-014 analysis artifacts and documentation consistency check
+Command: .venv/Scripts/python.exe -c "import json
+from pathlib import Path
+from src.data.schema import validate_page_spec
+r=json.loads(Path('reports/analysis/AI-014_FULL_PAGE_SCOPE_VALID.json').read_text(encoding='utf-8'))
+assert all(not validate_page_spec(p['spec']) for p in r['profiles'].values())
+assert all(not p['fits_context'] and not p['fits_output_budget'] for p in r['profiles'].values())
+for name in ['reports/FULL_PAGE_DIRECTION_2026-10-13.md','logs/interaksi_llm/AI-014_2026-10-13.md']:
+ text=Path(name).read_text(encoding='utf-8'); assert chr(8212) not in text
+for name in ['README.md','logs/LOG_TRAINING.md','logs/PIPELINE_PROGRESS.md','logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md']:
+ assert 'AI-014' in Path(name).read_text(encoding='utf-8')
+print('Two valid manual fixtures and documentation links/status checked. No training, generation, browser inspection or unit tests executed.')"
+Commit: 219fc9e5985ec4a0181c3a5f4570c042001bfd85
+
+Two valid manual fixtures and documentation links/status checked. No training, generation, browser inspection or unit tests executed.
+
+Exit code: 0

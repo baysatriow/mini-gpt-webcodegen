@@ -1,0 +1,302 @@
+RUN-160 | 2026-10-13T10:28:02.715640+07:00 | gpu_allocator_fragmentation_profile
+Command: .venv/Scripts/python.exe -m qa.profile_gpu_training --report-id GPU-PERF-004 --packed --expandable-segments --steps 100
+Commit: d876a9a227747ef751389f7ebf0c1e661885325b
+
+Performance probe: manual_b4_a2
+{
+  "case": "manual_b4_a2",
+  "batch_size": 4,
+  "accumulation": 2,
+  "attention_backend": "manual",
+  "fused_adamw": false,
+  "supervised_only_logits": false,
+  "allocator_config": "expandable_segments:True",
+  "precision": "bf16",
+  "context": 1024,
+  "status": "completed",
+  "kind": "discarded performance probe on train only, not quality evaluation",
+  "warmup_updates": 6,
+  "measured_updates": 100,
+  "seconds": 10.33866919967113,
+  "seconds_per_update": 0.1033866919967113,
+  "target_tokens_per_second": 28902.752784614215,
+  "input_tokens_per_second": 79236.50367167743,
+  "examples_per_second": 77.3793981168725,
+  "peak_allocated_bytes": 2231051776,
+  "peak_reserved_bytes": 2386558976,
+  "free_vram_bytes": 9129951232,
+  "max_grad_norm": 0.17357030510902405,
+  "last_loss": 0.030191650591056798,
+  "telemetry": {
+    "sample_count": 19,
+    "interval_seconds": 0.5,
+    "raw_path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\gpu_profile\\GPU-PERF-004\\manual_b4_a2.telemetry.jsonl",
+    "errors": [],
+    "memory_scope": "nvidia-smi memory includes other desktop applications",
+    "utilization_pct": {
+      "mean": 86.0,
+      "max": 92.0,
+      "min": 3.0
+    },
+    "memory_used_mib": {
+      "mean": 4055.1052631578946,
+      "max": 4064.0,
+      "min": 4036.0
+    },
+    "power_w": {
+      "mean": 169.7478947368421,
+      "max": 176.51,
+      "min": 67.74
+    },
+    "temperature_c": {
+      "mean": 51.31578947368421,
+      "max": 54.0,
+      "min": 47.0
+    },
+    "sm_clock_mhz": {
+      "mean": 2934.157894736842,
+      "max": 2947.0,
+      "min": 2805.0
+    }
+  }
+}
+Performance probe: packed_b24_a1
+{
+  "case": "packed_b24_a1",
+  "batch_size": 24,
+  "accumulation": 1,
+  "attention_backend": "sdpa",
+  "fused_adamw": true,
+  "supervised_only_logits": true,
+  "allocator_config": "expandable_segments:True",
+  "precision": "bf16",
+  "context": 1024,
+  "status": "completed",
+  "kind": "discarded performance probe on train only, not quality evaluation",
+  "warmup_updates": 6,
+  "measured_updates": 100,
+  "seconds": 9.268611000094097,
+  "seconds_per_update": 0.09268611000094097,
+  "target_tokens_per_second": 97424.84607357376,
+  "input_tokens_per_second": 265152.99865050433,
+  "examples_per_second": 258.93847524463314,
+  "peak_allocated_bytes": 3706083840,
+  "peak_reserved_bytes": 3808428032,
+  "free_vram_bytes": 7708082176,
+  "max_grad_norm": 0.12281438708305359,
+  "last_loss": 0.029157072536957592,
+  "telemetry": {
+    "sample_count": 17,
+    "interval_seconds": 0.5,
+    "raw_path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\gpu_profile\\GPU-PERF-004\\packed_b24_a1.telemetry.jsonl",
+    "errors": [],
+    "memory_scope": "nvidia-smi memory includes other desktop applications",
+    "utilization_pct": {
+      "mean": 90.11764705882354,
+      "max": 93.0,
+      "min": 81.0
+    },
+    "memory_used_mib": {
+      "mean": 5383.0,
+      "max": 5419.0,
+      "min": 5285.0
+    },
+    "power_w": {
+      "mean": 184.81058823529412,
+      "max": 193.93,
+      "min": 94.55
+    },
+    "temperature_c": {
+      "mean": 56.35294117647059,
+      "max": 58.0,
+      "min": 54.0
+    },
+    "sm_clock_mhz": {
+      "mean": 2923.176470588235,
+      "max": 2932.0,
+      "min": 2782.0
+    }
+  }
+}
+Performance probe: packed_b32_a1
+{
+  "case": "packed_b32_a1",
+  "batch_size": 32,
+  "accumulation": 1,
+  "attention_backend": "sdpa",
+  "fused_adamw": true,
+  "supervised_only_logits": true,
+  "allocator_config": "expandable_segments:True",
+  "precision": "bf16",
+  "context": 1024,
+  "status": "completed",
+  "kind": "discarded performance probe on train only, not quality evaluation",
+  "warmup_updates": 6,
+  "measured_updates": 100,
+  "seconds": 12.230436000158079,
+  "seconds_per_update": 0.12230436000158079,
+  "target_tokens_per_second": 98441.05312226307,
+  "input_tokens_per_second": 267921.76500965684,
+  "examples_per_second": 261.642348642243,
+  "peak_allocated_bytes": 4811206144,
+  "peak_reserved_bytes": 5005901824,
+  "free_vram_bytes": 6510608384,
+  "max_grad_norm": 0.09745617210865021,
+  "last_loss": 0.025209970966097103,
+  "telemetry": {
+    "sample_count": 22,
+    "interval_seconds": 0.5,
+    "raw_path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\gpu_profile\\GPU-PERF-004\\packed_b32_a1.telemetry.jsonl",
+    "errors": [],
+    "memory_scope": "nvidia-smi memory includes other desktop applications",
+    "utilization_pct": {
+      "mean": 92.36363636363636,
+      "max": 98.0,
+      "min": 90.0
+    },
+    "memory_used_mib": {
+      "mean": 6515.090909090909,
+      "max": 6553.0,
+      "min": 6353.0
+    },
+    "power_w": {
+      "mean": 193.6890909090909,
+      "max": 198.38,
+      "min": 145.43
+    },
+    "temperature_c": {
+      "mean": 57.5,
+      "max": 60.0,
+      "min": 55.0
+    },
+    "sm_clock_mhz": {
+      "mean": 2932.0,
+      "max": 2932.0,
+      "min": 2932.0
+    }
+  }
+}
+Performance probe: packed_b48_a1
+{
+  "case": "packed_b48_a1",
+  "batch_size": 48,
+  "accumulation": 1,
+  "attention_backend": "sdpa",
+  "fused_adamw": true,
+  "supervised_only_logits": true,
+  "allocator_config": "expandable_segments:True",
+  "precision": "bf16",
+  "context": 1024,
+  "status": "completed",
+  "kind": "discarded performance probe on train only, not quality evaluation",
+  "warmup_updates": 6,
+  "measured_updates": 100,
+  "seconds": 18.110625999805052,
+  "seconds_per_update": 0.18110625999805052,
+  "target_tokens_per_second": 99810.68572778533,
+  "input_tokens_per_second": 271398.6805344503,
+  "examples_per_second": 265.0377739594241,
+  "peak_allocated_bytes": 7037730304,
+  "peak_reserved_bytes": 7163871232,
+  "free_vram_bytes": 4352638976,
+  "max_grad_norm": 0.059989165514707565,
+  "last_loss": 0.03616166497252846,
+  "telemetry": {
+    "sample_count": 33,
+    "interval_seconds": 0.5,
+    "raw_path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\gpu_profile\\GPU-PERF-004\\packed_b48_a1.telemetry.jsonl",
+    "errors": [],
+    "memory_scope": "nvidia-smi memory includes other desktop applications",
+    "utilization_pct": {
+      "mean": 93.93939393939394,
+      "max": 100.0,
+      "min": 90.0
+    },
+    "memory_used_mib": {
+      "mean": 8585.39393939394,
+      "max": 8628.0,
+      "min": 8362.0
+    },
+    "power_w": {
+      "mean": 195.77848484848485,
+      "max": 198.35,
+      "min": 173.29
+    },
+    "temperature_c": {
+      "mean": 59.27272727272727,
+      "max": 62.0,
+      "min": 56.0
+    },
+    "sm_clock_mhz": {
+      "mean": 2931.787878787879,
+      "max": 2932.0,
+      "min": 2925.0
+    }
+  }
+}
+Performance probe: packed_b64_a1
+{
+  "case": "packed_b64_a1",
+  "batch_size": 64,
+  "accumulation": 1,
+  "attention_backend": "sdpa",
+  "fused_adamw": true,
+  "supervised_only_logits": true,
+  "allocator_config": "expandable_segments:True",
+  "precision": "bf16",
+  "context": 1024,
+  "status": "completed",
+  "kind": "discarded performance probe on train only, not quality evaluation",
+  "warmup_updates": 6,
+  "measured_updates": 100,
+  "seconds": 23.682726299739443,
+  "seconds_per_update": 0.23682726299739443,
+  "target_tokens_per_second": 101755.34562617114,
+  "input_tokens_per_second": 276724.8971699725,
+  "examples_per_second": 270.23915739255125,
+  "peak_allocated_bytes": 9181236224,
+  "peak_reserved_bytes": 9409921024,
+  "free_vram_bytes": 716021760,
+  "max_grad_norm": 0.06406925618648529,
+  "last_loss": 0.03173697256410206,
+  "telemetry": {
+    "sample_count": 43,
+    "interval_seconds": 0.5,
+    "raw_path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\gpu_profile\\GPU-PERF-004\\packed_b64_a1.telemetry.jsonl",
+    "errors": [],
+    "memory_scope": "nvidia-smi memory includes other desktop applications",
+    "utilization_pct": {
+      "mean": 95.18604651162791,
+      "max": 100.0,
+      "min": 89.0
+    },
+    "memory_used_mib": {
+      "mean": 10741.67441860465,
+      "max": 10767.0,
+      "min": 10562.0
+    },
+    "power_w": {
+      "mean": 202.2174418604651,
+      "max": 204.22,
+      "min": 189.76
+    },
+    "temperature_c": {
+      "mean": 60.83720930232558,
+      "max": 64.0,
+      "min": 58.0
+    },
+    "sm_clock_mhz": {
+      "mean": 2923.7441860465115,
+      "max": 2932.0,
+      "min": 2917.0
+    }
+  }
+}
+Stop batch growth: retain desktop/allocator memory headroom
+{
+  "selected": "packed_b48_a1",
+  "speedup": 3.453328008981812,
+  "report": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\reports\\training\\GPU-PERF-004.json"
+}
+
+Exit code: 0

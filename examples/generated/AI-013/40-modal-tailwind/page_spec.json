@@ -1,0 +1,53 @@
+{
+  "interactions": [
+    {
+      "target_id": "nav",
+      "type": "menu_toggle"
+    },
+    {
+      "target_id": "main",
+      "type": "modal"
+    }
+  ],
+  "language": "id",
+  "schema_version": "1.0",
+  "style_mode": "tailwind",
+  "theme": {
+    "background": "#ffffff",
+    "font": "sans",
+    "primary": "#06b6d4",
+    "text": "#111827"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "props": {
+        "brand": "Pustaka Nostargomi",
+        "links": [
+          {
+            "href": "#main",
+            "label": "Beranda"
+          }
+        ]
+      },
+      "type": "navbar"
+    },
+    {
+      "id": "main",
+      "props": {
+        "heading": "Pustaka Nostargomi",
+        "layout": "centered",
+        "text": "Temukan layanan pilihan kami."
+      },
+      "type": "hero"
+    },
+    {
+      "id": "footer",
+      "props": {
+        "text": "Pustaka Nostargomi"
+      },
+      "type": "footer"
+    }
+  ],
+  "title": "Pustaka Nostargomi"
+}

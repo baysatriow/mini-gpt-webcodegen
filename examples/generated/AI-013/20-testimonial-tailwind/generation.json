@@ -1,0 +1,22 @@
+{
+  "example_id": "6843134728e15d642af80986afeaeb57f8de3a27084db5fd429f6f999f9fb427",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "768175d3858936a917a4564157afffea048969b3664949e10d5373c8d3ae32aa",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "tailwind",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Komunitas Worksi",
+      "style_mode": "tailwind",
+      "primary": "#f59e0b",
+      "font": "sans",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kenali produk dan layanan kami."
+    },
+    "errors": []
+  }
+}

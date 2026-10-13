@@ -1,0 +1,211 @@
+{
+  "run_id": "TRAIN-006",
+  "status": "completed",
+  "started_at_utc": "2026-10-12T22:28:24.765079+00:00",
+  "config": {
+    "mode": "sft",
+    "seed": 42,
+    "block_size": 1024,
+    "dataset_dir": "data/processed/sft",
+    "tokenizer": "data/tokenizer/tokenizer.json",
+    "label_alignment": "already_shifted_next_token",
+    "prompt_and_padding_label": -100,
+    "oversize_json": "reject without truncation",
+    "model_config_path": "configs/model.json",
+    "device": "cuda",
+    "precision": "bf16",
+    "batch_size": 2,
+    "gradient_accumulation": 2,
+    "max_steps": 40,
+    "warmup_steps": 4,
+    "learning_rate": 0.0001,
+    "min_learning_rate": 1e-05,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "validation_interval": 10,
+    "validation_batches": 2,
+    "checkpoint_interval": 10,
+    "log_interval": 5,
+    "reserve_free_bytes": 16106127360,
+    "experiment_scope": "approved pilot: 4 train / 4 validation / 4 test; repeated small corpus, not generalization proof",
+    "selection_rule": "budget and schedule fixed before inspecting pilot test; best checkpoint selected by validation only",
+    "source_config_sha256": "fed5201907570e90bc23ef7f185d743e1e824921bd159c0a20bc348f3c1f8c8c",
+    "model_config": {
+      "vocab_size": 8192,
+      "block_size": 1024,
+      "n_layer": 6,
+      "n_head": 6,
+      "n_embd": 384,
+      "dropout": 0.1,
+      "tie_embeddings": true,
+      "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+    },
+    "initial_checkpoint": "checkpoints\\TRAIN-004-VERIFIED\\best.pt",
+    "initial_checkpoint_sha256": "49e03ebb37f01619de9dc93a55f6828367d84fd34380986bfa15597d9583831c",
+    "lineage": {
+      "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+      "pipeline_summary_sha256": "81dc5f63060dc399b50edaaccc7058ca4c5e0b7567aa1014b853f7382590ba8c",
+      "data_sha256": {
+        "train": "e909dbb3e89f3346d934d535c413d4cea305fe122835b00a8c368e9a6c81f67d",
+        "validation": "4fbc318e136ff6eafc91d8002f69089125a76a8f5f96d551d10427aa6ec57b95"
+      },
+      "validation_indices_sha256": "505128dad67de0f842115e9f306eb453db09b85d9099830850ea2fe69c0aeedd",
+      "train_blocks_or_examples": 4,
+      "validation_blocks_or_examples": 4,
+      "smoke": false,
+      "pretrain_fingerprint": {
+        "version": 1,
+        "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+        "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+        "source_revisions": [
+          {
+            "id": "vulcan",
+            "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+            "license": "mit",
+            "rows": 5000
+          },
+          {
+            "id": "websight_v01",
+            "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+            "license": "cc-by-4.0",
+            "rows": 20000
+          },
+          {
+            "id": "websight_v02",
+            "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+            "license": "cc-by-4.0",
+            "rows": 30000
+          }
+        ],
+        "partition_sha256": {
+          "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+          "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+          "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+        },
+        "token_cache_sha256": {
+          "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+          "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+          "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+        },
+        "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+      },
+      "sft_fingerprint": {
+        "version": 1,
+        "sha256": "c53aca6888d29c73d3cca5ef01a0a6e556720d3c75dac0a60be454d1b65ef5f7",
+        "pretrain_assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b"
+      },
+      "pretraining_parent": {
+        "checkpoint_sha256": "49e03ebb37f01619de9dc93a55f6828367d84fd34380986bfa15597d9583831c",
+        "phase": "pretrain",
+        "global_step": 1200,
+        "pretrain_fingerprint": {
+          "version": 1,
+          "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+          "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+          "source_revisions": [
+            {
+              "id": "vulcan",
+              "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+              "license": "mit",
+              "rows": 5000
+            },
+            {
+              "id": "websight_v01",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 20000
+            },
+            {
+              "id": "websight_v02",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 30000
+            }
+          ],
+          "partition_sha256": {
+            "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+            "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+            "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+          },
+          "token_cache_sha256": {
+            "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+            "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+            "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+          },
+          "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+        }
+      }
+    }
+  },
+  "config_sha256": "121c2fd14282faa3995820139384420db225735463685b179a1f4e327c3a07e8",
+  "resume_parent": null,
+  "label_alignment": "already shifted; loss consumes labels directly",
+  "global_step": 40,
+  "last_committed_step": 40,
+  "git_commit": "09dd290eb3aa08b98f4a75c60c300f64e1d528e3",
+  "parameter_count": 14186496,
+  "model_config": {
+    "vocab_size": 8192,
+    "block_size": 1024,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.1,
+    "tie_embeddings": true,
+    "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+  },
+  "device": "cuda",
+  "precision": "bf16",
+  "resume_parent_sha256": null,
+  "initial_validation": {
+    "loss": 7.511530427851229,
+    "perplexity": 1829.0105706635502,
+    "valid_tokens": 1404,
+    "batches": 2
+  },
+  "final_train_loss": 2.533279713011911,
+  "total_train_tokens": 56040,
+  "final_validation": {
+    "loss": 3.7392419016259346,
+    "perplexity": 42.0660878411792,
+    "valid_tokens": 1404,
+    "batches": 2
+  },
+  "best_validation_loss": 3.7392419016259346,
+  "final_checkpoint_sha256": "a2a76fb7b0f110778b08cdf54b9dce75c0398ed0a1abcc57bf5addadfcca326a",
+  "best_checkpoint_sha256": "74705520f6f6c543dc8d9908057769fdf81f478159efb44b6e3966ca847c5540",
+  "best_checkpoint": {
+    "path": "checkpoints\\TRAIN-006\\.versions\\best-9a9b1f83a0fa412bb252bf491c46e13e.pt",
+    "payload": ".versions\\best-9a9b1f83a0fa412bb252bf491c46e13e.pt",
+    "sha256": "74705520f6f6c543dc8d9908057769fdf81f478159efb44b6e3966ca847c5540",
+    "global_step": 40,
+    "validation_loss": 3.7392419016259346
+  },
+  "ended_at_utc": "2026-10-12T22:28:36.481796+00:00",
+  "wall_seconds": 11.717124400020111,
+  "free_bytes_after": 25839218688,
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "peak_allocated_bytes": 1266312704,
+  "peak_reserved_bytes": 1392508928,
+  "environment": {
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "executable": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\.venv\\Scripts\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "bf16_supported": true,
+    "gpu": "NVIDIA GeForce RTX 5070",
+    "cuda_architectures": [
+      "sm_75",
+      "sm_80",
+      "sm_86",
+      "sm_90",
+      "sm_100",
+      "sm_120"
+    ]
+  }
+}

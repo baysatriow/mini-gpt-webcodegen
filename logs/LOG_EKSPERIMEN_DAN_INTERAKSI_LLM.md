@@ -14,7 +14,9 @@ Zona waktu pencatatan: Asia/Jakarta
 - Jangan masukkan API key, password, token, atau data pribadi ke log.
 - Jika ada koreksi setelah dicatat, tambahkan catatan koreksi baru yang merujuk ID lama. Jangan menghapus atau mengubah riwayat run.
 
-Belum ada training Mini GPT, evaluasi hasil website, atau aplikasi yang dijalankan. RUN-001 sampai RUN-018 mencatat setup, audit sumber, pemeriksaan persyaratan, review planning, dan status commit/push, termasuk run yang gagal atau terhenti. Environment akhir berhasil diverifikasi. RUN-011 dan RUN-012 menambahkan audit Vulcan. RUN-014 menangkap satu tautan Markdown rusak, lalu RUN-015 dan RUN-016 memverifikasi perbaikannya. RUN-017 memeriksa preflight repository; RUN-018 memastikan commit planning sudah sampai di branch privat dan working tree bersih. Nomor run berikutnya: RUN-019. Nomor interaksi berikutnya: AI-005.
+Ringkasan terbaru AI-011: pipeline menghasilkan dua Studio Cakrawala sesuai prompt, CSS dan Tailwind/JS, dalam mode research tervalidasi per output. Model keseluruhan gagal43/48exact89,58% vs target90%; Senandika ditolak. Weighted TRAIN-013 tidak meningkatkan validation; beststep0 identik parent. Enam notebook48sel tanpaerror, browser belum diverifikasi. [Interaksi AI-011](interaksi_llm/AI-011_2026-10-13.md), [hasil](../reports/OUTPUT_DEVELOPMENT_2026-10-13.md), [dua website](../examples/generated/AI-011/index.html). RUN mengikuti ID tertinggi logs/RUN-*.txt; interaksi berikutnya AI-012.
+
+Ringkasan fase AI-010: pengguna menyetujui 12 kandidat pilot v2, preparation SFT 4/4/4 selesai; TRAIN-005 smoke 3 update dan TRAIN-006 pilot 40 update selesai. Validation target loss 7,512 ke 3,739, test loss 3,488 / PPL 32,729, JSON/schema valid 0/4. Lima notebook, 38 sel kode tanpa error, aplikasi needs-more-data-and-model-work. [Interaksi AI-010](interaksi_llm/AI-010_2026-10-13.md), [hasil SFT](../reports/SFT_PILOT_SUMMARY_2026-10-13.md). Saat fase tersebut, interaksi berikutnya AI-011.
 
 ---
 
@@ -602,3 +604,1758 @@ Perbarui setelah ada beberapa run; jangan menggantikan catatan run individual di
 - **Contoh hasil terbaik:**
 - **Keterbatasan yang ditemukan:**
 - **Keputusan eksperimen berikutnya:**
+
+### RUN-022
+
+- **Waktu:** 2026-10-12T18:12:05.611978+07:00 sampai 2026-10-12T18:12:05.797906+07:00.
+- **Tujuan:** schema_red.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_schema -v`.
+- **Commit:** `7956be40214dcf98fbe3a3d23bda1d0eaf67b3b4`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-022_schema_red.txt`.
+
+### RUN-023
+
+- **Waktu:** 2026-10-12T18:13:10.849424+07:00 sampai 2026-10-12T18:13:11.298856+07:00.
+- **Tujuan:** schema_green.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_schema -v`.
+- **Commit:** `7956be40214dcf98fbe3a3d23bda1d0eaf67b3b4`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-023_schema_green.txt`.
+
+## Pipeline data, sesi AI-005
+
+Planning disetujui oleh pengguna melalui permintaan implementasi pipeline dan download dataset. Ringkasan sesi: `logs/interaksi_llm/AI-005_2026-10-12.md`.
+
+### RUN-019
+
+- Storage preflight: F bebas 26,92 GiB. Output `logs/RUN-019_storage_preflight.txt`. Batas raw 1 GiB dan reserve 15 GiB.
+
+### RUN-020
+
+- Probe metadata gagal, exit 1, KeyError: 0 akibat dict(DatasetCardData). Output `logs/RUN-020_metadata_probe_failed.txt`.
+
+### RUN-021
+
+- Probe memakai to_dict berhasil, exit 0. Revision/lisensi WebSight dan Vulcan terverifikasi. Output `logs/RUN-021_metadata_probe_fixed.txt`.
+
+### RUN-024
+
+- **Waktu:** 2026-10-12T18:15:08.314647+07:00 sampai 2026-10-12T18:15:08.539875+07:00.
+- **Tujuan:** sources_red.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_sources -v`.
+- **Commit:** `6e9c4055e97de20ab18b16a7a4c7707f589652f5`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-024_sources_red.txt`.
+
+### RUN-025
+
+- **Waktu:** 2026-10-12T18:17:15.236783+07:00 sampai 2026-10-12T18:17:15.612372+07:00.
+- **Tujuan:** sources_green.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_schema tests.data.test_sources -v`.
+- **Commit:** `6e9c4055e97de20ab18b16a7a4c7707f589652f5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-025_sources_green.txt`.
+
+### RUN-026
+
+- **Waktu:** 2026-10-12T18:17:26.822198+07:00 sampai 2026-10-12T18:18:38.152481+07:00.
+- **Tujuan:** sources_smoke_download.
+- **Command:** `.\.venv\Scripts\python.exe -m src.data.sources --config configs/dataset.json --limit 20`.
+- **Commit:** `6e9c4055e97de20ab18b16a7a4c7707f589652f5`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-026_sources_smoke_download.txt`.
+
+### RUN-027
+
+- **Waktu:** 2026-10-12T18:19:00.313281+07:00 sampai 2026-10-12T18:19:00.507194+07:00.
+- **Tujuan:** normalize_red.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_normalize -v`.
+- **Commit:** `6e9c4055e97de20ab18b16a7a4c7707f589652f5`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-027_normalize_red.txt`.
+
+### RUN-028
+
+- **Waktu:** 2026-10-12T18:19:46.824768+07:00 sampai 2026-10-12T18:19:47.151928+07:00.
+- **Tujuan:** vulcan_adapter_regression_red.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_sources.SourceTests.test_vulcan_uses_pinned_http_stream_without_extra_dependency -v`.
+- **Commit:** `6e9c4055e97de20ab18b16a7a4c7707f589652f5`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-028_vulcan_adapter_regression_red.txt`.
+
+### RUN-029
+
+- **Waktu:** 2026-10-12T18:19:50.168214+07:00 sampai 2026-10-12T18:19:50.677649+07:00.
+- **Tujuan:** vulcan_adapter_regression_green.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_schema tests.data.test_sources -v`.
+- **Commit:** `6e9c4055e97de20ab18b16a7a4c7707f589652f5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-029_vulcan_adapter_regression_green.txt`.
+
+### RUN-030
+
+- **Waktu:** 2026-10-12T18:19:52.909279+07:00 sampai 2026-10-12T18:19:54.868338+07:00.
+- **Tujuan:** sources_smoke_retry.
+- **Command:** `.\.venv\Scripts\python.exe -m src.data.sources --config configs/dataset.json --limit 20`.
+- **Commit:** `6e9c4055e97de20ab18b16a7a4c7707f589652f5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-030_sources_smoke_retry.txt`.
+
+### RUN-032
+
+- **Waktu:** 2026-10-12T18:22:47.279457+07:00 sampai 2026-10-12T18:22:47.841906+07:00.
+- **Tujuan:** normalize_green.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_normalize tests.data.test_schema tests.data.test_sources -v`.
+- **Commit:** `4db811562d9736d87ee4c7681ea0a3bec70b706d`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-032_normalize_green.txt`.
+
+### RUN-033
+
+- **Waktu:** 2026-10-12T18:24:14.923770+07:00 sampai 2026-10-12T18:24:15.133136+07:00.
+- **Tujuan:** split_red.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_split -v`.
+- **Commit:** `e22b0da2bf4810b2678f657343e2fab1c69ab681`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-033_split_red.txt`.
+
+### RUN-031
+
+- **Waktu:** 2026-10-12T18:20:37.596982+07:00 sampai 2026-10-12T18:24:38.478216+07:00.
+- **Tujuan:** dataset_download_full.
+- **Command:** `.\.venv\Scripts\python.exe -m src.data.sources --config configs/dataset.json`.
+- **Commit:** `6e9c4055e97de20ab18b16a7a4c7707f589652f5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-031_dataset_download_full.txt`.
+
+### RUN-034
+
+- **Waktu:** 2026-10-12T18:25:08.865893+07:00 sampai 2026-10-12T18:25:09.418934+07:00.
+- **Tujuan:** split_green.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_schema tests.data.test_sources tests.data.test_normalize tests.data.test_split -v`.
+- **Commit:** `e22b0da2bf4810b2678f657343e2fab1c69ab681`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-034_split_green.txt`.
+
+### RUN-035
+
+- **Waktu:** 2026-10-12T18:28:11.846947+07:00 sampai 2026-10-12T18:28:12.062803+07:00.
+- **Tujuan:** pipeline_tokenizer_red.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_pipeline tests.data.test_tokenizer_dataset -v`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-035_pipeline_tokenizer_red.txt`.
+
+### RUN-036
+
+- **Waktu:** 2026-10-12T18:30:50.857557+07:00 sampai 2026-10-12T18:30:53.326314+07:00.
+- **Tujuan:** pipeline_tokenizer_green.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest discover -s tests -v`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-036_pipeline_tokenizer_green.txt`.
+
+### RUN-037
+
+- **Waktu:** 2026-10-12T18:31:11.566525+07:00 sampai 2026-10-12T18:32:24.338536+07:00.
+- **Tujuan:** prepare_data_and_fit_tokenizer.
+- **Command:** `.\.venv\Scripts\python.exe -m src.data.pipeline --config configs/dataset.json --train-tokenizer`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-037_prepare_data_and_fit_tokenizer.txt`.
+
+### RUN-038
+
+- **Waktu:** 2026-10-12T18:34:53.898476+07:00 sampai 2026-10-12T18:34:54.253004+07:00.
+- **Tujuan:** fragment_normalization_red.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_normalize.NormalizeTests.test_component_fragment_is_wrapped_with_provenance_not_discarded -v`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-038_fragment_normalization_red.txt`.
+
+### RUN-039
+
+- **Waktu:** 2026-10-12T18:35:28.763399+07:00 sampai 2026-10-12T18:35:31.143993+07:00.
+- **Tujuan:** fragment_normalization_green.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest discover -s tests -v`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-039_fragment_normalization_green.txt`.
+
+### RUN-040
+
+- **Waktu:** 2026-10-12T18:35:33.357836+07:00 sampai 2026-10-12T18:36:56.799663+07:00.
+- **Tujuan:** prepare_data_tokenizer_after_fragment_fix.
+- **Command:** `.\.venv\Scripts\python.exe -m src.data.pipeline --config configs/dataset.json --train-tokenizer`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-040_prepare_data_tokenizer_after_fragment_fix.txt`.
+
+### RUN-041
+
+- **Waktu:** 2026-10-12T18:39:18.046811+07:00 sampai 2026-10-12T18:39:18.380315+07:00.
+- **Tujuan:** css_js_corpus_regression_red.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.data.test_normalize.NormalizeTests.test_css_only_source_is_kept_as_css_pretraining_text tests.data.test_normalize.NormalizeTests.test_javascript_only_source_is_kept_as_code -v`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-041_css_js_corpus_regression_red.txt`.
+
+### RUN-042
+
+- **Waktu:** 2026-10-12T18:39:21.373918+07:00 sampai 2026-10-12T18:39:23.870987+07:00.
+- **Tujuan:** css_js_corpus_regression_green.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest discover -s tests -v`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-042_css_js_corpus_regression_green.txt`.
+
+### RUN-044
+
+- **Waktu:** 2026-10-12T18:40:14.784722+07:00 sampai 2026-10-12T18:40:17.221080+07:00.
+- **Tujuan:** css_var_classifier_fixed.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest discover -s tests -v`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-044_css_var_classifier_fixed.txt`.
+
+### RUN-043
+
+- **Waktu:** 2026-10-12T18:39:26.060021+07:00 sampai 2026-10-12T18:40:58.444522+07:00.
+- **Tujuan:** prepare_final_web_code_corpus.
+- **Command:** `.\.venv\Scripts\python.exe -m src.data.pipeline --config configs/dataset.json --train-tokenizer`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-043_prepare_final_web_code_corpus.txt`.
+
+### RUN-045
+
+- **Waktu:** 2026-10-12T18:42:30.883696+07:00 sampai 2026-10-12T18:44:03.222939+07:00.
+- **Tujuan:** prepare_corpus_final_classifier.
+- **Command:** `.\.venv\Scripts\python.exe -m src.data.pipeline --config configs/dataset.json --train-tokenizer`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-045_prepare_corpus_final_classifier.txt`.
+
+### RUN-046
+
+- **Waktu:** 2026-10-12T18:44:32.148995+07:00 sampai 2026-10-12T18:44:36.631010+07:00.
+- **Tujuan:** data_integrity_and_gpu_batch.
+- **Command:** `.\.venv\Scripts\python.exe qa/check_data_pipeline.py`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-046_data_integrity_and_gpu_batch.txt`.
+
+### RUN-047
+
+- **Waktu:** 2026-10-12T18:44:38.843331+07:00 sampai 2026-10-12T18:44:40.410476+07:00.
+- **Tujuan:** verify_download_reuse.
+- **Command:** `.\.venv\Scripts\python.exe -m src.data.sources --config configs/dataset.json`.
+- **Commit:** `d00d2e418222f04673baf02e7bb328ace143c6d1`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-047_verify_download_reuse.txt`.
+
+### RUN-048
+
+- **Waktu:** 2026-10-12T18:58:41.605827+07:00 sampai 2026-10-12T18:58:44.046318+07:00.
+- **Tujuan:** review_regressions_red.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest discover -s tests -v`.
+- **Commit:** `41608790d716e2e9e2682df0203756450d023284`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-048_review_regressions_red.txt`.
+
+### RUN-049
+
+- **Waktu:** 2026-10-12T19:00:43.393958+07:00 sampai 2026-10-12T19:00:46.475700+07:00.
+- **Tujuan:** review_regressions_green.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest discover -s tests -v`.
+- **Commit:** `41608790d716e2e9e2682df0203756450d023284`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-049_review_regressions_green.txt`.
+
+### RUN-050
+
+- **Waktu:** 2026-10-12T19:01:45.824857+07:00 sampai 2026-10-12T19:01:48.783099+07:00.
+- **Tujuan:** review_regressions_final.
+- **Command:** `.\.venv\Scripts\python.exe -B -W error::ResourceWarning -m unittest discover -s tests -v`.
+- **Commit:** `41608790d716e2e9e2682df0203756450d023284`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-050_review_regressions_final.txt`.
+
+### RUN-051
+
+- **Waktu:** 2026-10-12T19:01:50.991312+07:00 sampai 2026-10-12T19:02:32.441288+07:00.
+- **Tujuan:** prepare_verify_existing_tokenizer.
+- **Command:** `.\.venv\Scripts\python.exe -B -m src.data.pipeline --config configs/dataset.json`.
+- **Commit:** `41608790d716e2e9e2682df0203756450d023284`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-051_prepare_verify_existing_tokenizer.txt`.
+
+### RUN-052
+
+- **Waktu:** 2026-10-12T19:03:18.734486+07:00 sampai 2026-10-12T19:03:23.718433+07:00.
+- **Tujuan:** final_data_integrity_gpu.
+- **Command:** `.\.venv\Scripts\python.exe -B qa/check_data_pipeline.py`.
+- **Commit:** `41608790d716e2e9e2682df0203756450d023284`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-052_final_data_integrity_gpu.txt`.
+
+## Penutupan implementasi pipeline data, AI-005
+
+- Tasks 1-5 selesai; source downloader, validator PageSpec, normalizer, authoritative family split, BPE, cache, batch loader, dan integrity checker tersedia.
+- Download selesai: 55.000 baris / 117,57 MiB. Corpus final: 51.211 unik, 19.038.770 train tokens. Free F setelah verifikasi sekitar 26,45 GiB.
+- Review independen range 7956be4..4160879: 4 Important, seluruhnya diperbaiki; Critical/Minor 0. RUN-048 red, RUN-050 green 37 tests, RUN-051 reuse terverifikasi, RUN-052 data aktual/CUDA batch lulus.
+- Pemeriksaan artifact statis: AST 25 file Python, JSON 16 file, tautan Markdown dan larangan em dash pada 27 dokumen buatan proyek lulus. License card asli dipertahankan verbatim.
+- RUN setelah review mencatat HEAD dasar 4160879 dan berjalan pada working tree perbaikan. Code/perbaikan, manifest, dokumen dan log kemudian disimpan bersama ke Git pada branch feature/pipeline-data-model-training.
+- Tidak ada training model, skor kualitas generation, atau browser rendering. Anotasi produksi 119 draft / 0 reviewed. Model dan training merupakan tahap berikutnya.
+- Laporan rinci: reports/STATUS_PIPELINE_2026-10-12.md dan reports/REVIEW_PIPELINE_2026-10-12.md. Petunjuk operasi: docs/PIPELINE_DATA_GUIDE.md. Raw/cache/tokenizer/VENV tetap lokal dan di-ignore Git.
+
+### RUN-053
+
+- **Waktu:** 2026-10-12T20:13:34.757296+07:00 sampai 2026-10-12T20:13:45.509158+07:00.
+- **Tujuan:** training_environment_preflight.
+- **Command:** `.\.venv\Scripts\python.exe -B qa/check_gpu_environment.py`.
+- **Commit:** `b81cc6191a735df3a9aadf90b7cb0c5f47006816`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-053_training_environment_preflight.txt`.
+
+### RUN-054
+
+- **Waktu:** 2026-10-12T20:15:31.826712+07:00 sampai 2026-10-12T20:15:33.797795+07:00.
+- **Tujuan:** minigpt_model_red.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest tests.models.test_minigpt -v`.
+- **Commit:** `b81cc6191a735df3a9aadf90b7cb0c5f47006816`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-054_minigpt_model_red.txt`.
+
+### RUN-055
+
+- **Waktu:** 2026-10-12T20:17:26.374646+07:00 sampai 2026-10-12T20:17:30.721785+07:00.
+- **Tujuan:** minigpt_model_green.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest discover -s tests -v`.
+- **Commit:** `b81cc6191a735df3a9aadf90b7cb0c5f47006816`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-055_minigpt_model_green.txt`.
+
+### RUN-056
+
+- **Waktu:** 2026-10-12T20:17:33.089900+07:00 sampai 2026-10-12T20:17:38.270226+07:00.
+- **Tujuan:** TRAIN_001_gpu_profile.
+- **Command:** `.\.venv\Scripts\python.exe -B qa/profile_minigpt.py --run-id TRAIN-001`.
+- **Commit:** `b81cc6191a735df3a9aadf90b7cb0c5f47006816`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-056_train_001_gpu_profile.txt`.
+
+### RUN-057
+
+- **Waktu:** 2026-10-12T20:23:01.766072+07:00 sampai 2026-10-12T20:23:03.839663+07:00.
+- **Tujuan:** training_engine_red.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest discover -s tests/training -v`.
+- **Commit:** `24f9e5be4f29a4d120870ba666e016a8c90a8b65`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-057_training_engine_red.txt`.
+
+### RUN-058
+
+- **Waktu:** 2026-10-12T20:26:13.064477+07:00 sampai 2026-10-12T20:26:17.310255+07:00.
+- **Tujuan:** training_engine_green.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest discover -s tests/training -v`.
+- **Commit:** `24f9e5be4f29a4d120870ba666e016a8c90a8b65`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-058_training_engine_green.txt`.
+
+### RUN-059
+
+- **Waktu:** 2026-10-12T20:27:52.180127+07:00 sampai 2026-10-12T20:27:52.378178+07:00.
+- **Tujuan:** training_cli_sft_gate_red.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest tests.training.test_cli -v`.
+- **Commit:** `24f9e5be4f29a4d120870ba666e016a8c90a8b65`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-059_training_cli_sft_gate_red.txt`.
+
+### RUN-060
+
+- **Waktu:** 2026-10-12T20:30:15.592251+07:00 sampai 2026-10-12T20:30:21.196437+07:00.
+- **Tujuan:** model_training_suite_green.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest discover -s tests -v`.
+- **Commit:** `24f9e5be4f29a4d120870ba666e016a8c90a8b65`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-060_model_training_suite_green.txt`.
+
+### RUN-061
+
+- **Waktu:** 2026-10-12T20:30:23.476525+07:00 sampai 2026-10-12T20:30:32.287364+07:00.
+- **Tujuan:** TRAIN_002_smoke_training.
+- **Command:** `.\.venv\Scripts\python.exe -B -m qa.train_minigpt --config configs/training_pretrain.json --run-id TRAIN-002 --max-steps 5 --smoke`.
+- **Commit:** `24f9e5be4f29a4d120870ba666e016a8c90a8b65`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-061_train_002_smoke_training.txt`.
+
+### RUN-062
+
+- **Waktu:** 2026-10-12T20:32:32.164701+07:00 sampai 2026-10-12T20:33:22.637608+07:00.
+- **Tujuan:** TRAIN_003_baseline_pretraining.
+- **Command:** `.\.venv\Scripts\python.exe -B -m qa.train_minigpt --config configs/training_pretrain.json --run-id TRAIN-003 --stop-after 200`.
+- **Commit:** `81130214207dfae301bffe3114753f0b50f1d626`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-062_train_003_baseline_pretraining.txt`.
+
+### RUN-063
+
+- **Waktu:** 2026-10-12T20:33:35.012015+07:00 sampai 2026-10-12T20:33:37.051119+07:00.
+- **Tujuan:** evaluation_metrics_red.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest tests.evaluation.test_metrics -v`.
+- **Commit:** `81130214207dfae301bffe3114753f0b50f1d626`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-063_evaluation_metrics_red.txt`.
+
+### RUN-065
+
+- **Waktu:** 2026-10-12T20:37:09.662758+07:00 sampai 2026-10-12T20:37:12.657770+07:00.
+- **Tujuan:** evaluation_metrics_green.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest tests.evaluation.test_metrics -v`.
+- **Commit:** `81130214207dfae301bffe3114753f0b50f1d626`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-065_evaluation_metrics_green.txt`.
+
+### RUN-064
+
+- **Waktu:** 2026-10-12T20:33:57.219315+07:00 sampai 2026-10-12T20:37:48.014504+07:00.
+- **Tujuan:** TRAIN_004_resume_baseline.
+- **Command:** `.\.venv\Scripts\python.exe -B -m qa.train_minigpt --config configs/training_pretrain.json --run-id TRAIN-004 --resume checkpoints/TRAIN-003/last.pt`.
+- **Commit:** `81130214207dfae301bffe3114753f0b50f1d626`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-064_train_004_resume_baseline.txt`.
+
+### RUN-066
+
+- **Waktu:** 2026-10-12T20:38:05.320255+07:00 sampai 2026-10-12T20:38:24.348403+07:00.
+- **Tujuan:** trained_checkpoint_heldout_evaluation.
+- **Command:** `.\.venv\Scripts\python.exe -B -m qa.evaluate_minigpt --checkpoint checkpoints/TRAIN-004/best.pt --report-id TRAIN-004`.
+- **Commit:** `81130214207dfae301bffe3114753f0b50f1d626`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-066_trained_checkpoint_heldout_evaluation.txt`.
+
+### RUN-067
+
+- **Waktu:** 2026-10-12T20:39:12.871232+07:00 sampai 2026-10-12T20:39:14.079981+07:00.
+- **Tujuan:** export_baseline_training_curves.
+- **Command:** `.\.venv\Scripts\python.exe -B qa/plot_training.py`.
+- **Commit:** `81130214207dfae301bffe3114753f0b50f1d626`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-067_export_baseline_training_curves.txt`.
+
+### RUN-068
+
+- **Waktu:** 2026-10-12T20:40:05.237722+07:00 sampai 2026-10-12T20:40:10.897829+07:00.
+- **Tujuan:** full_model_training_evaluation_suite.
+- **Command:** `.\.venv\Scripts\python.exe -B -m unittest discover -s tests -v`.
+- **Commit:** `81130214207dfae301bffe3114753f0b50f1d626`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-068_full_model_training_evaluation_suite.txt`.
+
+### RUN-069
+
+- **Waktu:** 2026-10-12T21:49:37.045460+07:00 sampai 2026-10-12T21:49:41.424527+07:00.
+- **Tujuan:** notebook_dependencies.
+- **Command:** `./.venv/Scripts/python.exe -m pip install --no-cache-dir nbformat nbclient`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-069_notebook_dependencies.txt`.
+
+### RUN-070
+
+- **Waktu:** 2026-10-12T21:54:33.092247+07:00 sampai 2026-10-12T21:54:42.841766+07:00.
+- **Tujuan:** notebook_execution.
+- **Command:** `./.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-070_notebook_execution.txt`.
+
+### RUN-071
+
+- **Waktu:** 2026-10-12T21:57:49.307501+07:00 sampai 2026-10-12T21:57:53.057521+07:00.
+- **Tujuan:** review_checkpoint_red.
+- **Command:** `./.venv/Scripts/python.exe -m unittest tests.training.test_review_checkpoint tests.training.test_lineage -v`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-071_review_checkpoint_red.txt`.
+
+### RUN-072
+
+- **Waktu:** 2026-10-12T22:01:20.031048+07:00 sampai 2026-10-12T22:01:27.210310+07:00.
+- **Tujuan:** review_fixes_green.
+- **Command:** `./.venv/Scripts/python.exe -m unittest discover -s tests -v`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-072_review_fixes_green.txt`.
+
+### RUN-073
+
+- **Waktu:** 2026-10-12T22:02:39.116972+07:00 sampai 2026-10-12T22:02:51.880956+07:00.
+- **Tujuan:** notebook_execution_corrected.
+- **Command:** `./.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-073_notebook_execution_corrected.txt`.
+
+### RUN-074
+
+- **Waktu:** 2026-10-12T22:04:22.309719+07:00 sampai 2026-10-12T22:04:27.386194+07:00.
+- **Tujuan:** lineage_binding_red.
+- **Command:** `./.venv/Scripts/python.exe -m unittest tests.training.test_lineage tests.training.test_lineage_integration tests.training.test_review_checkpoint -v`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-074_lineage_binding_red.txt`.
+
+### RUN-075
+
+- **Waktu:** 2026-10-12T22:05:32.472663+07:00 sampai 2026-10-12T22:05:40.504407+07:00.
+- **Tujuan:** review_full_suite_green.
+- **Command:** `./.venv/Scripts/python.exe -W error::ResourceWarning -m unittest discover -s tests -v`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-075_review_full_suite_green.txt`.
+
+### RUN-076
+
+- **Waktu:** 2026-10-12T22:05:42.736559+07:00 sampai 2026-10-12T22:05:47.690353+07:00.
+- **Tujuan:** baseline_lineage_verified_copy.
+- **Command:** `./.venv/Scripts/python.exe qa/migrate_checkpoint_lineage.py --checkpoint checkpoints/TRAIN-004/best.pt --output checkpoints/TRAIN-004-VERIFIED/best.pt --report-id TRAIN-004`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-076_baseline_lineage_verified_copy.txt`.
+
+### RUN-077
+
+- **Waktu:** 2026-10-12T22:09:38.283645+07:00 sampai 2026-10-12T22:10:00.087335+07:00.
+- **Tujuan:** verified_baseline_evaluation.
+- **Command:** `./.venv/Scripts/python.exe -m qa.evaluate_minigpt --checkpoint checkpoints/TRAIN-004-VERIFIED/best.pt --report-id TRAIN-004-VERIFIED`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-077_verified_baseline_evaluation.txt`.
+
+### RUN-078
+
+- **Waktu:** 2026-10-12T22:16:59.622010+07:00 sampai 2026-10-12T22:17:11.793757+07:00.
+- **Tujuan:** notebooks_final_execution.
+- **Command:** `./.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-078_notebooks_final_execution.txt`.
+
+### RUN-079
+
+- **Waktu:** 2026-10-12T22:18:58.351473+07:00 sampai 2026-10-12T22:18:58.793056+07:00.
+- **Tujuan:** final_delivery_checks.
+- **Command:** `./.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-079_final_delivery_checks.txt`.
+
+### RUN-080
+
+- **Waktu:** 2026-10-12T22:18:58.912382+07:00 sampai 2026-10-12T22:19:06.752858+07:00.
+- **Tujuan:** final_pipeline_suite.
+- **Command:** `./.venv/Scripts/python.exe -W error::ResourceWarning -m unittest discover -s tests -v`.
+- **Commit:** `dd2611001052346617b74856e1da4c609a353a8b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-080_final_pipeline_suite.txt`.
+
+### RUN-081
+
+- **Waktu:** 2026-10-12T22:38:08.494027+07:00 sampai 2026-10-12T22:38:08.612227+07:00.
+- **Tujuan:** author_indonesian_annotation_pilot.
+- **Command:** `.venv/Scripts/python.exe .tmp/author_review_pilot.py`.
+- **Commit:** `04557166735abf2460c8f4aa90b45bb13b68b333`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-081_author_indonesian_annotation_pilot.txt`.
+
+### RUN-082
+
+- **Waktu:** 2026-10-12T22:38:28.830147+07:00 sampai 2026-10-12T22:38:28.944789+07:00.
+- **Tujuan:** author_indonesian_annotation_pilot.
+- **Command:** `.venv/Scripts/python.exe .tmp/author_review_pilot.py`.
+- **Commit:** `04557166735abf2460c8f4aa90b45bb13b68b333`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-082_author_indonesian_annotation_pilot.txt`.
+
+### RUN-083
+
+- **Waktu:** 2026-10-12T22:38:31.113691+07:00 sampai 2026-10-12T22:38:34.771913+07:00.
+- **Tujuan:** export_annotation_review_packet.
+- **Command:** `.venv/Scripts/python.exe -m qa.prepare_annotation_review --drafts data/annotations/pilot_drafts_id_v1.jsonl --output outputs/annotation_review/pilot-id-v1 --report reports/data/ANNOTATION_REVIEW_PILOT_ID_V1.json`.
+- **Commit:** `04557166735abf2460c8f4aa90b45bb13b68b333`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-083_export_annotation_review_packet.txt`.
+
+### RUN-084
+
+- **Waktu:** 2026-10-12T22:42:00.223974+07:00 sampai 2026-10-12T22:42:00.576990+07:00.
+- **Tujuan:** author_annotation_review_notebook.
+- **Command:** `.venv/Scripts/python.exe .tmp/author_review_notebook.py`.
+- **Commit:** `04557166735abf2460c8f4aa90b45bb13b68b333`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-084_author_annotation_review_notebook.txt`.
+
+### RUN-085
+
+- **Waktu:** 2026-10-12T22:42:12.068851+07:00 sampai 2026-10-12T22:42:29.083488+07:00.
+- **Tujuan:** annotation_review_notebooks_execution.
+- **Command:** `.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place`.
+- **Commit:** `04557166735abf2460c8f4aa90b45bb13b68b333`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-085_annotation_review_notebooks_execution.txt`.
+
+## AI-008: Pilot anotasi dan kurasi SFT
+
+- **Instruksi:** Pengguna meminta melanjutkan pipeline dan notebook, mempertahankan log serta commit/push.
+- **Hasil:** 12 draft prompt/target Indonesia dari 12 keluarga, 6 CSS biasa dan 6 Tailwind, 4 train/4 validation/4 test sesuai partisi asal. Paket review lokal dan notebook 04 tersedia.
+- **Bukti:** RUN-081 gagal import script authoring; RUN-082/083 berhasil menyiapkan draft dan paket; RUN-084 membuat notebook; RUN-085 empat notebook/30 sel tanpa cell error. Seluruh target pilot lolos schema/context, maksimum 640 dari 1.024 token.
+- **Batas:** Reviewed produksi 0, optimizer updates 0. Perubahan layout/tautan membutuhkan review dan corpus perlu diperluas. Tidak ada training atau hasil browser baru.
+- **Ekspor interaksi lengkap:** [AI-008](interaksi_llm/AI-008_2026-10-12.md).
+- **Panduan dan ringkasan:** [review anotasi](../docs/ANNOTATION_REVIEW_GUIDE.md), [coverage pilot](../reports/data/ANNOTATION_REVIEW_PILOT_ID_V1.json).
+
+### RUN-086
+
+- **Waktu:** 2026-10-12T22:45:53.500962+07:00 sampai 2026-10-12T22:45:53.928216+07:00.
+- **Tujuan:** annotation_delivery_checks.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `04557166735abf2460c8f4aa90b45bb13b68b333`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-086_annotation_delivery_checks.txt`.
+
+### RUN-087
+
+- **Waktu:** 2026-10-13T00:12:47.836295+07:00 sampai 2026-10-13T00:12:47.965444+07:00.
+- **Tujuan:** revise_indonesian_annotation_pilot.
+- **Command:** `.venv/Scripts/python.exe .tmp/revise_annotation_pilot.py`.
+- **Commit:** `3643af44c43b2a2fc2b42ec1dda0b816307b30b5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-087_revise_indonesian_annotation_pilot.txt`.
+
+### RUN-088
+
+- **Waktu:** 2026-10-13T00:12:50.280183+07:00 sampai 2026-10-13T00:12:56.862143+07:00.
+- **Tujuan:** export_annotation_review_v2.
+- **Command:** `.venv/Scripts/python.exe -m qa.prepare_annotation_review --drafts data/annotations/pilot_drafts_id_v2.jsonl --output outputs/annotation_review/pilot-id-v2 --report reports/data/ANNOTATION_REVIEW_PILOT_ID_V2.json`.
+- **Commit:** `3643af44c43b2a2fc2b42ec1dda0b816307b30b5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-088_export_annotation_review_v2.txt`.
+
+### RUN-089
+
+- **Waktu:** 2026-10-13T00:14:22.301362+07:00 sampai 2026-10-13T00:14:28.999456+07:00.
+- **Tujuan:** catalog_missing_annotation_types.
+- **Command:** `.venv/Scripts/python.exe -m qa.catalog_annotation_candidates --output outputs/annotation_candidates/coverage-v1 --report reports/data/ANNOTATION_CANDIDATE_COVERAGE_V1.json`.
+- **Commit:** `3643af44c43b2a2fc2b42ec1dda0b816307b30b5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-089_catalog_missing_annotation_types.txt`.
+
+### RUN-090
+
+- **Waktu:** 2026-10-13T00:16:02.250059+07:00 sampai 2026-10-13T00:16:04.511470+07:00.
+- **Tujuan:** update_review_notebook_v2.
+- **Command:** `.venv/Scripts/python.exe .tmp/update_review_notebook_v2.py`.
+- **Commit:** `3643af44c43b2a2fc2b42ec1dda0b816307b30b5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-090_update_review_notebook_v2.txt`.
+
+### RUN-091
+
+- **Waktu:** 2026-10-13T00:16:06.789127+07:00 sampai 2026-10-13T00:16:25.200806+07:00.
+- **Tujuan:** execute_review_notebook_v2.
+- **Command:** `.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place`.
+- **Commit:** `3643af44c43b2a2fc2b42ec1dda0b816307b30b5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-091_execute_review_notebook_v2.txt`.
+
+## AI-009: Revisi pilot dan coverage data
+
+- **Instruksi:** Setelah mapping, pengguna memberi instruksi oke lanjut.
+- **Hasil:** Paket v2 tetap 12 draft/12 keluarga; empat target/lima prompt diperbaiki, semua fragment tersedia. Kandidat tambahan 14 source rows dari train tersimpan untuk inspeksi, belum target SFT.
+- **Bukti:** RUN-087 revisi, RUN-088 export v2, RUN-089 katalog 41.639 train rows, RUN-090 notebook v2, RUN-091 empat notebook/32 sel tanpa error.
+- **Batas:** Reviewed 0/optimizer updates 0. Source tabs hanya memanggil fungsi yang belum diimplementasikan; modal/filter belum ditemukan heuristik. Keputusan review manusia dan nama reviewer diminta.
+- **Ekspor interaksi:** [AI-009](interaksi_llm/AI-009_2026-10-13.md).
+- **Artifact:** [pilot v2](../reports/data/ANNOTATION_REVIEW_PILOT_ID_V2.json), [perbandingan](../reports/data/ANNOTATION_PILOT_REVISIONS_V2.json), [coverage](../reports/data/ANNOTATION_CANDIDATE_COVERAGE_V1.json).
+
+### RUN-092
+
+- **Waktu:** 2026-10-13T00:20:48.198412+07:00 sampai 2026-10-13T00:20:48.675025+07:00.
+- **Tujuan:** annotation_v2_delivery_checks.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `3643af44c43b2a2fc2b42ec1dda0b816307b30b5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-092_annotation_v2_delivery_checks.txt`.
+
+### RUN-093
+
+- **Waktu:** 2026-10-13T05:25:56.712676+07:00 sampai 2026-10-13T05:26:01.269196+07:00.
+- **Tujuan:** record_user_approval_pilot_v2.
+- **Command:** `.venv/Scripts/python.exe .tmp/approve_pilot_v2.py`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-093_record_user_approval_pilot_v2.txt`.
+
+### RUN-094
+
+- **Waktu:** 2026-10-13T05:26:03.596384+07:00 sampai 2026-10-13T05:26:54.042273+07:00.
+- **Tujuan:** prepare_reviewed_sft_pilot.
+- **Command:** `.venv/Scripts/python.exe -m src.data.pipeline --config configs/dataset.json --annotations data/annotations/reviewed_pilot_v2.jsonl`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-094_prepare_reviewed_sft_pilot.txt`.
+
+### RUN-095
+
+- **Waktu:** 2026-10-13T05:27:30.924278+07:00 sampai 2026-10-13T05:27:46.571810+07:00.
+- **Tujuan:** sft_pilot_smoke.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_minigpt --config configs/training_sft_pilot.json --max-steps 3 --smoke --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-095_sft_pilot_smoke.txt`.
+
+### RUN-096
+
+- **Waktu:** 2026-10-13T05:28:18.337157+07:00 sampai 2026-10-13T05:28:37.395854+07:00.
+- **Tujuan:** train_approved_sft_pilot.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_minigpt --config configs/training_sft_pilot.json --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-096_train_approved_sft_pilot.txt`.
+
+### RUN-097
+
+- **Waktu:** 2026-10-13T05:28:52.135125+07:00 sampai 2026-10-13T05:29:24.075037+07:00.
+- **Tujuan:** evaluate_reviewed_sft_pilot.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_sft_pilot --checkpoint checkpoints/TRAIN-006/best.pt --report-id TRAIN-006`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-097_evaluate_reviewed_sft_pilot.txt`.
+
+### RUN-098
+
+- **Waktu:** 2026-10-13T05:33:34.185547+07:00 sampai 2026-10-13T05:33:35.196422+07:00.
+- **Tujuan:** author_sft_pilot_notebook.
+- **Command:** `.venv/Scripts/python.exe .tmp/author_sft_pilot_notebook.py`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-098_author_sft_pilot_notebook.txt`.
+
+### RUN-099
+
+- **Waktu:** 2026-10-13T05:33:41.397920+07:00 sampai 2026-10-13T05:34:04.952277+07:00.
+- **Tujuan:** execute_sft_pilot_notebooks.
+- **Command:** `.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-099_execute_sft_pilot_notebooks.txt`.
+
+### RUN-100
+
+- **Waktu:** 2026-10-13T05:37:22.619237+07:00 sampai 2026-10-13T05:37:22.804608+07:00.
+- **Tujuan:** document_sft_pilot_results.
+- **Command:** `.venv/Scripts/python.exe .tmp/document_sft_pilot.py`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-100_document_sft_pilot_results.txt`.
+
+### RUN-101
+
+- **Waktu:** 2026-10-13T05:37:34.728769+07:00 sampai 2026-10-13T05:37:35.224505+07:00.
+- **Tujuan:** sft_pilot_delivery_checks.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-101_sft_pilot_delivery_checks.txt`.
+
+### RUN-102
+
+- **Waktu:** 2026-10-13T05:38:08.730525+07:00 sampai 2026-10-13T05:38:09.180841+07:00.
+- **Tujuan:** sft_pilot_final_delivery.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `09dd290eb3aa08b98f4a75c60c300f64e1d528e3`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-102_sft_pilot_final_delivery.txt`.
+
+### RUN-103
+
+- **Waktu:** 2026-10-13T08:14:45.105184+07:00 sampai 2026-10-13T08:15:24.238804+07:00.
+- **Tujuan:** diagnose_sft_boundaries.
+- **Command:** `.venv/Scripts/python.exe -m qa.diagnose_sft_generation --checkpoint checkpoints/TRAIN-006/best.pt --report-id TRAIN-006-DEV`.
+- **Commit:** `eb7b21288a903587cdd5e82e48199456453a3ff8`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-103_diagnose_sft_boundaries.txt`.
+
+### RUN-104
+
+- **Waktu:** 2026-10-13T08:15:42.261930+07:00 sampai 2026-10-13T08:16:42.445894+07:00.
+- **Tujuan:** sft_fit_approved_corpus.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_minigpt --config configs/training_sft.json --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt`.
+- **Commit:** `eb7b21288a903587cdd5e82e48199456453a3ff8`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-104_sft_fit_approved_corpus.txt`.
+
+### RUN-105
+
+- **Waktu:** 2026-10-13T08:17:02.837685+07:00 sampai 2026-10-13T08:17:21.902461+07:00.
+- **Tujuan:** diagnose_sft_fit_last.
+- **Command:** `.venv/Scripts/python.exe -m qa.diagnose_sft_generation --checkpoint checkpoints/TRAIN-007/last.pt --report-id TRAIN-007-LAST-DEV`.
+- **Commit:** `eb7b21288a903587cdd5e82e48199456453a3ff8`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-105_diagnose_sft_fit_last.txt`.
+
+### RUN-106
+
+- **Waktu:** 2026-10-13T08:20:21.137088+07:00 sampai 2026-10-13T08:20:53.432272+07:00.
+- **Tujuan:** prepare_synthetic_curriculum.
+- **Command:** `.venv/Scripts/python.exe -m src.data.curriculum`.
+- **Commit:** `eb7b21288a903587cdd5e82e48199456453a3ff8`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-106_prepare_synthetic_curriculum.txt`.
+
+### RUN-107
+
+- **Waktu:** 2026-10-13T08:22:48.663830+07:00 sampai 2026-10-13T08:22:49.167529+07:00.
+- **Tujuan:** curriculum_source_delivery.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `eb7b21288a903587cdd5e82e48199456453a3ff8`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-107_curriculum_source_delivery.txt`.
+
+### RUN-108
+
+- **Waktu:** 2026-10-13T08:24:11.248356+07:00 sampai 2026-10-13T08:25:52.857878+07:00.
+- **Tujuan:** train_curriculum_stage_one.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_curriculum --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt --stop-after 800`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-108_train_curriculum_stage_one.txt`.
+
+### RUN-109
+
+- **Waktu:** 2026-10-13T08:26:02.132032+07:00 sampai 2026-10-13T08:27:06.197422+07:00.
+- **Tujuan:** curriculum_development_generation.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-008/best.pt --split validation --report-id TRAIN-008-DEV`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-109_curriculum_development_generation.txt`.
+
+### RUN-110
+
+- **Waktu:** 2026-10-13T08:27:33.929036+07:00 sampai 2026-10-13T08:30:51.016430+07:00.
+- **Tujuan:** resume_curriculum_fixed_budget.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_curriculum --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt --resume checkpoints/TRAIN-008/last.pt`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-110_resume_curriculum_fixed_budget.txt`.
+
+### RUN-111
+
+- **Waktu:** 2026-10-13T08:32:08.518058+07:00 sampai 2026-10-13T08:33:12.922434+07:00.
+- **Tujuan:** curriculum_completed_development.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-009/best.pt --split validation --report-id TRAIN-009-DEV`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-111_curriculum_completed_development.txt`.
+
+### RUN-112
+
+- **Waktu:** 2026-10-13T08:34:21.132273+07:00 sampai 2026-10-13T08:34:53.860644+07:00.
+- **Tujuan:** prepare_curriculum_serialization_control.
+- **Command:** `.venv/Scripts/python.exe -m src.data.curriculum --revision v2 --serialization appearance_before_sections`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-112_prepare_curriculum_serialization_control.txt`.
+
+### RUN-114
+
+- **Waktu:** 2026-10-13T08:38:06.742420+07:00 sampai 2026-10-13T08:38:06.908588+07:00.
+- **Tujuan:** document_curriculum_v1_training.
+- **Command:** `.venv/Scripts/python.exe .tmp/append_training_reports.py TRAIN-008 TRAIN-009`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-114_document_curriculum_v1_training.txt`.
+
+### RUN-113
+
+- **Waktu:** 2026-10-13T08:35:24.251171+07:00 sampai 2026-10-13T08:40:15.127153+07:00.
+- **Tujuan:** train_appearance_first_curriculum.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_curriculum --config configs/training_curriculum_v2.json --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-113_train_appearance_first_curriculum.txt`.
+
+### RUN-115
+
+- **Waktu:** 2026-10-13T08:40:33.253075+07:00 sampai 2026-10-13T08:41:38.088215+07:00.
+- **Tujuan:** appearance_first_development.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-010/best.pt --split validation --report-id TRAIN-010-DEV`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-115_appearance_first_development.txt`.
+
+### RUN-117
+
+- **Waktu:** 2026-10-13T08:43:57.440181+07:00 sampai 2026-10-13T08:44:04.961052+07:00.
+- **Tujuan:** install_offline_tailwind_compiler.
+- **Command:** `npm.cmd install --prefix tooling/tailwind --no-fund --no-audit`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-117_install_offline_tailwind_compiler.txt`.
+
+### RUN-116
+
+- **Waktu:** 2026-10-13T08:43:01.956582+07:00 sampai 2026-10-13T08:45:04.465110+07:00.
+- **Tujuan:** locked_curriculum_final.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-010/best.pt --split final --report-id TRAIN-010-FINAL`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-116_locked_curriculum_final.txt`.
+
+### RUN-118
+
+- **Waktu:** 2026-10-13T08:51:41.246418+07:00 sampai 2026-10-13T08:51:43.388023+07:00.
+- **Tujuan:** export_final_model_websites.
+- **Command:** `.venv/Scripts/python.exe -m qa.export_generated_websites --evaluation reports/training/TRAIN-010-FINAL_curriculum_evaluation.json --output outputs/generated_websites/AI-011 --report reports/GENERATED_OUTPUTS_2026-10-13.json`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-118_export_final_model_websites.txt`.
+
+### RUN-119
+
+- **Waktu:** 2026-10-13T08:52:18.166611+07:00 sampai 2026-10-13T08:52:27.865582+07:00.
+- **Tujuan:** export_final_model_websites_retry.
+- **Command:** `.venv/Scripts/python.exe -m qa.export_generated_websites --evaluation reports/training/TRAIN-010-FINAL_curriculum_evaluation.json --output outputs/generated_websites/AI-011-v2 --report reports/GENERATED_OUTPUTS_2026-10-13.json`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-119_export_final_model_websites_retry.txt`.
+
+### RUN-120
+
+- **Waktu:** 2026-10-13T08:52:38.196580+07:00 sampai 2026-10-13T08:52:45.596860+07:00.
+- **Tujuan:** generate_unseen_name_website.
+- **Command:** `.venv/Scripts/python.exe -m qa.generate_website --prompt-file examples/prompts/studio_cakrawala.txt --output outputs/generated_websites/studio-cakrawala-v1`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-120_generate_unseen_name_website.txt`.
+
+### RUN-121
+
+- **Waktu:** 2026-10-13T09:00:07.504613+07:00 sampai 2026-10-13T09:00:42.416551+07:00.
+- **Tujuan:** prepare_lexical_copy_curriculum.
+- **Command:** `.venv/Scripts/python.exe -m src.data.curriculum --revision v3 --serialization appearance_before_sections`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-121_prepare_lexical_copy_curriculum.txt`.
+
+### RUN-123
+
+- **Waktu:** 2026-10-13T09:08:56.564999+07:00 sampai 2026-10-13T09:08:59.429841+07:00.
+- **Tujuan:** audit_name_fidelity_failure.
+- **Command:** `.venv/Scripts/python.exe -m qa.audit_generation_artifacts --evaluation reports/training/TRAIN-010-FINAL_curriculum_evaluation.json --runtime-dir outputs/generated_websites/studio-cakrawala-v1 --report reports/PROMPT_CONTRACT_AUDIT_V2.json`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-123_audit_name_fidelity_failure.txt`.
+
+### RUN-124
+
+- **Waktu:** 2026-10-13T09:09:47.678507+07:00 sampai 2026-10-13T09:09:47.841941+07:00.
+- **Tujuan:** document_appearance_first_training.
+- **Command:** `.venv/Scripts/python.exe .tmp/append_training_reports.py TRAIN-010`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-124_document_appearance_first_training.txt`.
+
+### RUN-122
+
+- **Waktu:** 2026-10-13T09:04:59.196974+07:00 sampai 2026-10-13T09:14:10.030867+07:00.
+- **Tujuan:** train_lexical_copy_curriculum.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_curriculum --config configs/training_curriculum_v3.json --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-122_train_lexical_copy_curriculum.txt`.
+
+### RUN-126
+
+- **Waktu:** 2026-10-13T09:14:34.186711+07:00 sampai 2026-10-13T09:14:34.367460+07:00.
+- **Tujuan:** document_lexical_copy_training.
+- **Command:** `.venv/Scripts/python.exe .tmp/append_training_reports.py TRAIN-011`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-126_document_lexical_copy_training.txt`.
+
+### RUN-125
+
+- **Waktu:** 2026-10-13T09:14:22.878153+07:00 sampai 2026-10-13T09:15:31.879948+07:00.
+- **Tujuan:** lexical_copy_development.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-011/best.pt --split validation --report-id TRAIN-011-DEV`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-125_lexical_copy_development.txt`.
+
+### RUN-127
+
+- **Waktu:** 2026-10-13T09:16:14.271566+07:00 sampai 2026-10-13T09:16:14.383686+07:00.
+- **Tujuan:** inspect_lexical_copy_errors.
+- **Command:** `.venv/Scripts/python.exe .tmp/inspect_curriculum_errors.py`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-127_inspect_lexical_copy_errors.txt`.
+
+### RUN-128
+
+- **Waktu:** 2026-10-13T09:17:37.144635+07:00 sampai 2026-10-13T09:17:37.489755+07:00.
+- **Tujuan:** inspect_copy_subword_coverage.
+- **Command:** `.venv/Scripts/python.exe .tmp/inspect_copy_token_coverage.py`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-128_inspect_copy_subword_coverage.txt`.
+
+### RUN-129
+
+- **Waktu:** 2026-10-13T09:20:57.066023+07:00 sampai 2026-10-13T09:21:48.590841+07:00.
+- **Tujuan:** prepare_copy_vocabulary_curriculum.
+- **Command:** `.venv/Scripts/python.exe -m src.data.curriculum --revision v4 --serialization appearance_before_sections`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-129_prepare_copy_vocabulary_curriculum.txt`.
+
+### RUN-131
+
+- **Waktu:** 2026-10-13T09:27:15.209413+07:00 sampai 2026-10-13T09:27:15.934750+07:00.
+- **Tujuan:** development_milestone_structure.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-131_development_milestone_structure.txt`.
+
+### RUN-132
+
+- **Waktu:** 2026-10-13T09:29:26.311849+07:00 sampai 2026-10-13T09:29:27.037486+07:00.
+- **Tujuan:** audit_copy_training_exposure.
+- **Command:** `.venv/Scripts/python.exe -m qa.audit_curriculum_lexicon --dataset-dir data/processed/curriculum/v4 --name "Kursus Workstaralasa" --name "Studio Cakrawala" --name "Kafe Senandika" --report reports/COPY_LEXICON_AUDIT_V4.json`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-132_audit_copy_training_exposure.txt`.
+
+### RUN-130
+
+- **Waktu:** 2026-10-13T09:22:33.291026+07:00 sampai 2026-10-13T09:31:43.386953+07:00.
+- **Tujuan:** train_copy_vocabulary_continuation.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_curriculum --config configs/training_curriculum_v4.json --initialize-from checkpoints/TRAIN-011/best.pt`.
+- **Commit:** `5209976e73450c39e2b3101521a5b793e3021749`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-130_train_copy_vocabulary_continuation.txt`.
+
+### RUN-134
+
+- **Waktu:** 2026-10-13T09:32:03.497474+07:00 sampai 2026-10-13T09:32:03.702876+07:00.
+- **Tujuan:** document_copy_continuation_training.
+- **Command:** `.venv/Scripts/python.exe .tmp/append_training_reports.py TRAIN-012`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-134_document_copy_continuation_training.txt`.
+
+### RUN-133
+
+- **Waktu:** 2026-10-13T09:31:52.033659+07:00 sampai 2026-10-13T09:32:56.428326+07:00.
+- **Tujuan:** copy_vocabulary_development.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-012/best.pt --split validation --report-id TRAIN-012-DEV`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-133_copy_vocabulary_development.txt`.
+
+### RUN-135
+
+- **Waktu:** 2026-10-13T09:38:27.075762+07:00 sampai 2026-10-13T09:40:32.520181+07:00.
+- **Tujuan:** locked_copy_curriculum_final.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-012/best.pt --split final --report-id TRAIN-012-FINAL`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-135_locked_copy_curriculum_final.txt`.
+
+### RUN-136
+
+- **Waktu:** 2026-10-13T09:42:10.481345+07:00 sampai 2026-10-13T09:43:07.601443+07:00.
+- **Tujuan:** prepare_fresh_name_objective_final.
+- **Command:** `.venv/Scripts/python.exe -m src.data.curriculum --revision v5 --serialization appearance_before_sections`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-136_prepare_fresh_name_objective_final.txt`.
+
+### RUN-137
+
+- **Waktu:** 2026-10-13T09:44:02.379319+07:00 sampai 2026-10-13T09:44:13.568636+07:00.
+- **Tujuan:** prepare_train_name_loss_weights.
+- **Command:** `.venv/Scripts/python.exe -m qa.prepare_name_loss_weights --dataset-dir data/processed/curriculum/v5 --name-weight 16`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-137_prepare_train_name_loss_weights.txt`.
+
+### RUN-138
+
+- **Waktu:** 2026-10-13T09:44:56.667794+07:00 sampai 2026-10-13T09:52:15.682509+07:00.
+- **Tujuan:** train_name_copy_objective.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_curriculum --config configs/training_curriculum_v5.json --initialize-from checkpoints/TRAIN-012/best.pt`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-138_train_name_copy_objective.txt`.
+
+### RUN-139
+
+- **Waktu:** 2026-10-13T09:53:04.469948+07:00 sampai 2026-10-13T09:53:12.071792+07:00.
+- **Tujuan:** generate_validated_cakrawala_demo.
+- **Command:** `.venv/Scripts/python.exe -m qa.generate_website --checkpoint checkpoints/TRAIN-012/best.pt --evidence reports/training/TRAIN-012-FINAL_curriculum_evaluation.json --development --prompt-file examples/prompts/studio_cakrawala.txt --output outputs/generated_websites/studio-cakrawala-v2`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-139_generate_validated_cakrawala_demo.txt`.
+
+### RUN-140
+
+- **Waktu:** 2026-10-13T09:53:14.274494+07:00 sampai 2026-10-13T09:53:14.411484+07:00.
+- **Tujuan:** document_name_objective_training.
+- **Command:** `.venv/Scripts/python.exe .tmp/append_training_reports.py TRAIN-013`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-140_document_name_objective_training.txt`.
+
+### RUN-141
+
+- **Waktu:** 2026-10-13T09:53:29.733312+07:00 sampai 2026-10-13T09:53:36.150696+07:00.
+- **Tujuan:** generate_validated_tailwind_demo.
+- **Command:** `.venv/Scripts/python.exe -m qa.generate_website --checkpoint checkpoints/TRAIN-012/best.pt --evidence reports/training/TRAIN-012-FINAL_curriculum_evaluation.json --development --prompt-file examples/prompts/kafe_senandika_tailwind.txt --output outputs/generated_websites/kafe-senandika-v1`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 2.
+- **Output lengkap:** `logs/RUN-141_generate_validated_tailwind_demo.txt`.
+
+### RUN-142
+
+- **Waktu:** 2026-10-13T09:54:27.661972+07:00 sampai 2026-10-13T09:54:34.350550+07:00.
+- **Tujuan:** generate_cakrawala_tailwind_tabs.
+- **Command:** `.venv/Scripts/python.exe -m qa.generate_website --checkpoint checkpoints/TRAIN-012/best.pt --evidence reports/training/TRAIN-012-FINAL_curriculum_evaluation.json --development --prompt-file examples/prompts/studio_cakrawala_tailwind.txt --output outputs/generated_websites/studio-cakrawala-tailwind-v1`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-142_generate_cakrawala_tailwind_tabs.txt`.
+
+### RUN-143
+
+- **Waktu:** 2026-10-13T09:55:13.077113+07:00 sampai 2026-10-13T09:55:15.388976+07:00.
+- **Tujuan:** audit_actual_runtime_contracts.
+- **Command:** `.venv/Scripts/python.exe -m qa.audit_generation_artifacts --evaluation reports/training/TRAIN-012-FINAL_curriculum_evaluation.json --runtime-dir outputs/generated_websites/studio-cakrawala-v2 --runtime-dir outputs/generated_websites/kafe-senandika-v1 --runtime-dir outputs/generated_websites/studio-cakrawala-tailwind-v1 --report reports/PROMPT_CONTRACT_AUDIT_V4.json`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-143_audit_actual_runtime_contracts.txt`.
+
+### RUN-144
+
+- **Waktu:** 2026-10-13T09:55:17.588660+07:00 sampai 2026-10-13T09:55:19.755329+07:00.
+- **Tujuan:** snapshot_accepted_website_examples.
+- **Command:** `.venv/Scripts/python.exe -m qa.snapshot_generated_examples --source outputs/generated_websites/studio-cakrawala-v2 --source outputs/generated_websites/studio-cakrawala-tailwind-v1 --output examples/generated/AI-011 --report reports/EXAMPLE_SNAPSHOTS_2026-10-13.json`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-144_snapshot_accepted_website_examples.txt`.
+
+### RUN-145
+
+- **Waktu:** 2026-10-13T09:55:21.968874+07:00 sampai 2026-10-13T09:55:23.165828+07:00.
+- **Tujuan:** build_output_development_notebook.
+- **Command:** `.venv/Scripts/python.exe .tmp/build_development_notebook.py --runs TRAIN-013 --final-report reports/training/TRAIN-012-FINAL_curriculum_evaluation.json`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-145_build_output_development_notebook.txt`.
+
+### RUN-146
+
+- **Waktu:** 2026-10-13T09:55:58.035023+07:00 sampai 2026-10-13T09:56:22.389110+07:00.
+- **Tujuan:** execute_output_development_notebooks.
+- **Command:** `.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-146_execute_output_development_notebooks.txt`.
+
+### RUN-147
+
+- **Waktu:** 2026-10-13T09:56:31.173712+07:00 sampai 2026-10-13T09:56:33.546418+07:00.
+- **Tujuan:** inspect_name_objective_model_selection.
+- **Command:** `.venv/Scripts/python.exe .tmp/verify_initial_checkpoint_selection.py`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-147_inspect_name_objective_model_selection.txt`.
+
+### RUN-148
+
+- **Waktu:** 2026-10-13T09:56:35.713612+07:00 sampai 2026-10-13T09:56:38.279864+07:00.
+- **Tujuan:** validate_exported_website_files.
+- **Command:** `.venv/Scripts/python.exe .tmp/validate_generated_files.py --gallery-report reports/GENERATED_OUTPUTS_2026-10-13.json --runtime-dir examples/generated/AI-011/studio-cakrawala-v2 --runtime-dir examples/generated/AI-011/studio-cakrawala-tailwind-v1 --report reports/EXPORTED_FILES_VALIDATION_2026-10-13.json`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-148_validate_exported_website_files.txt`.
+
+### RUN-149
+
+- **Waktu:** 2026-10-13T09:58:29.142791+07:00 sampai 2026-10-13T09:58:30.208809+07:00.
+- **Tujuan:** finalize_output_development_notebook.
+- **Command:** `.venv/Scripts/python.exe .tmp/build_development_notebook.py --runs TRAIN-013 --final-report reports/training/TRAIN-012-FINAL_curriculum_evaluation.json`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-149_finalize_output_development_notebook.txt`.
+
+### RUN-150
+
+- **Waktu:** 2026-10-13T09:58:32.405495+07:00 sampai 2026-10-13T09:58:55.687749+07:00.
+- **Tujuan:** rerun_final_output_notebooks.
+- **Command:** `.venv/Scripts/python.exe qa/execute_notebooks.py --save-in-place`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-150_rerun_final_output_notebooks.txt`.
+
+### RUN-151
+
+- **Waktu:** 2026-10-13T10:08:00.976466+07:00 sampai 2026-10-13T10:08:02.560839+07:00.
+- **Tujuan:** final_output_delivery_structure.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-151_final_output_delivery_structure.txt`.
+
+### RUN-152
+
+- **Waktu:** 2026-10-13T10:10:12.534510+07:00 sampai 2026-10-13T10:10:12.627674+07:00.
+- **Tujuan:** check_static_results_gallery.
+- **Command:** `.venv/Scripts/python.exe -m .tmp.check_gallery_links`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-152_check_static_results_gallery.txt`.
+
+### RUN-153
+
+- **Waktu:** 2026-10-13T10:10:41.736237+07:00 sampai 2026-10-13T10:10:41.901950+07:00.
+- **Tujuan:** check_static_results_gallery_retry.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_gallery_links.py`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-153_check_static_results_gallery_retry.txt`.
+
+### RUN-154
+
+- **Waktu:** 2026-10-13T10:11:46.548007+07:00 sampai 2026-10-13T10:11:47.062120+07:00.
+- **Tujuan:** final_delivery_recheck.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-154_final_delivery_recheck.txt`.
+
+### RUN-155
+
+- **Waktu:** 2026-10-13T10:13:28.830524+07:00 sampai 2026-10-13T10:13:29.439567+07:00.
+- **Tujuan:** verify_staged_example_checksums.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_staged_snapshot_bytes.py`.
+- **Commit:** `0b2de4a6377a87069f2a684253554715217a5187`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-155_verify_staged_example_checksums.txt`.
+
+### RUN-156
+
+- **Waktu:** 2026-10-13T10:21:55.222454+07:00 sampai 2026-10-13T10:22:02.181072+07:00.
+- **Tujuan:** gpu_performance_environment.
+- **Command:** `.venv/Scripts/python.exe -m qa.profile_gpu_training --inventory`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-156_gpu_performance_environment.txt`.
+
+### RUN-157
+
+- **Waktu:** 2026-10-13T10:22:10.945066+07:00 sampai 2026-10-13T10:23:22.976205+07:00.
+- **Tujuan:** gpu_training_batch_sweep.
+- **Command:** `.venv/Scripts/python.exe -m qa.profile_gpu_training`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-157_gpu_training_batch_sweep.txt`.
+
+### RUN-158
+
+- **Waktu:** 2026-10-13T10:24:26.085344+07:00 sampai 2026-10-13T10:25:53.838138+07:00.
+- **Tujuan:** sustained_gpu_batch_comparison.
+- **Command:** `.venv/Scripts/python.exe -m qa.profile_gpu_training --report-id GPU-PERF-002 --confirm --steps 200`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-158_sustained_gpu_batch_comparison.txt`.
+
+### RUN-159
+
+- **Waktu:** 2026-10-13T10:26:23.587465+07:00 sampai 2026-10-13T10:27:12.646501+07:00.
+- **Tujuan:** gpu_supervised_projection_sweep.
+- **Command:** `.venv/Scripts/python.exe -m qa.profile_gpu_training --report-id GPU-PERF-003 --packed --steps 100`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-159_gpu_supervised_projection_sweep.txt`.
+
+### RUN-160
+
+- **Waktu:** 2026-10-13T10:28:02.715640+07:00 sampai 2026-10-13T10:29:45.330617+07:00.
+- **Tujuan:** gpu_allocator_fragmentation_profile.
+- **Command:** `.venv/Scripts/python.exe -m qa.profile_gpu_training --report-id GPU-PERF-004 --packed --expandable-segments --steps 100`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-160_gpu_allocator_fragmentation_profile.txt`.
+
+### RUN-161
+
+- **Waktu:** 2026-10-13T10:30:36.767268+07:00 sampai 2026-10-13T10:30:41.696952+07:00.
+- **Tujuan:** profile_actual_attention_operators.
+- **Command:** `.venv/Scripts/python.exe -m qa.profile_attention_runtime`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-161_profile_actual_attention_operators.txt`.
+
+### RUN-162
+
+- **Waktu:** 2026-10-13T10:30:56.419791+07:00 sampai 2026-10-13T10:33:46.988604+07:00.
+- **Tujuan:** train_gpu_optimized_continuation.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_configured_gpu --config configs/training_gpu_optimized.json --initialize-from checkpoints/TRAIN-012/best.pt`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-162_train_gpu_optimized_continuation.txt`.
+
+### RUN-164
+
+- **Waktu:** 2026-10-13T10:35:06.842778+07:00 sampai 2026-10-13T10:35:11.458862+07:00.
+- **Tujuan:** summarize_gpu_training_and_notebook.
+- **Command:** `.venv/Scripts/python.exe -m qa.summarize_gpu_training --run-id TRAIN-014`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-164_summarize_gpu_training_and_notebook.txt`.
+
+### RUN-163
+
+- **Waktu:** 2026-10-13T10:34:14.741171+07:00 sampai 2026-10-13T10:35:22.177431+07:00.
+- **Tujuan:** gpu_optimized_development_evaluation.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-014/best.pt --report-id TRAIN-014-DEV`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-163_gpu_optimized_development_evaluation.txt`.
+
+### RUN-165
+
+- **Waktu:** 2026-10-13T10:38:38.844857+07:00 sampai 2026-10-13T10:38:38.985523+07:00.
+- **Tujuan:** record_actual_gpu_training.
+- **Command:** `.venv/Scripts/python.exe -m qa.record_gpu_training --run-id TRAIN-014`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-165_record_actual_gpu_training.txt`.
+
+### RUN-166
+
+- **Waktu:** 2026-10-13T10:38:41.110814+07:00 sampai 2026-10-13T10:38:44.144372+07:00.
+- **Tujuan:** execute_gpu_optimization_notebook.
+- **Command:** `.venv/Scripts/python.exe -m qa.execute_notebooks --notebook 07_optimasi_gpu_dan_training.ipynb --save-in-place`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-166_execute_gpu_optimization_notebook.txt`.
+
+### RUN-167
+
+- **Waktu:** 2026-10-13T10:41:09.427051+07:00 sampai 2026-10-13T10:41:09.964639+07:00.
+- **Tujuan:** gpu_training_delivery_structure.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-167_gpu_training_delivery_structure.txt`.
+
+### RUN-168
+
+- **Waktu:** 2026-10-13T10:42:50.802136+07:00 sampai 2026-10-13T10:42:51.289892+07:00.
+- **Tujuan:** gpu_final_artifact_structure.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `d876a9a227747ef751389f7ebf0c1e661885325b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-168_gpu_final_artifact_structure.txt`.
+
+## Ringkasan terbaru AI-012
+
+Optimasi GPU telah dijalankan, termasuk empat sweep yang bobotnya dibuang dan TRAIN-014 dengan 800 update nyata. Config terpilih batch 48, BF16, SDPA, fused AdamW, projection hanya token target, dan expandable segments. Throughput 99.200 token target/detik, sekitar 3,43 kali baseline probe. Utilisasi GPU rata-rata 93,23%, maksimum 100%, suhu maksimum 67C pada sampel update. Tidak ada exception/OOM/nonfinite pada training.
+
+Kualitas terpilih belum meningkat: best step 0 identik parent TRAIN-012; development 24/24 schema valid,20/24 exact. Runtime website tetap TRAIN-012 dan overall final historis 43/48 masih gagal. Final v5 tetap tertutup. Notebook 07 delapan sel berhasil dieksekusi; tujuh notebook memiliki 56 sel executed tanpa error sel, notebook 01 sampai 06 tetap dipertahankan. [Interaksi AI-012](interaksi_llm/AI-012_2026-10-13.md), [laporan GPU](../reports/GPU_TRAINING_OPTIMIZATION_2026-10-13.md), [notebook 07](../notebooks/07_optimasi_gpu_dan_training.ipynb). Interaksi berikutnya AI-013; nomor RUN mengikuti ID tertinggi di logs/RUN-*.txt.
+
+### RUN-169
+
+- **Waktu:** 2026-10-13T18:57:57.376099+07:00 sampai 2026-10-13T18:59:29.725490+07:00.
+- **Tujuan:** AI-013 development diagnostic TRAIN-013 last name-weighted.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-013/last.pt --split validation --report-id TRAIN-013-LAST-DEV`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-169_ai_013_development_diagnostic_train_013_last_name_weighted.txt`.
+
+### RUN-170
+
+- **Waktu:** 2026-10-13T19:00:30.041738+07:00 sampai 2026-10-13T19:00:33.072314+07:00.
+- **Tujuan:** AI-013 development copying exposure diagnosis.
+- **Command:** `.venv/Scripts/python.exe -m qa.diagnose_curriculum_copying --dataset-dir data/processed/curriculum/v5 --evaluations reports/training/TRAIN-014-DEV_curriculum_evaluation.json reports/training/TRAIN-013-LAST-DEV_curriculum_evaluation.json --output reports/training/AI-013_COPY_DIAGNOSTIC.json`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-170_ai_013_development_copying_exposure_diagnosis.txt`.
+
+### RUN-171
+
+- **Waktu:** 2026-10-13T19:00:45.402787+07:00 sampai 2026-10-13T19:00:48.149347+07:00.
+- **Tujuan:** AI-013 copying diagnosis rerun corrected report path.
+- **Command:** `.venv/Scripts/python.exe -m qa.diagnose_curriculum_copying --dataset-dir data/processed/curriculum/v5 --evaluations reports/training/TRAIN-014-DEV_curriculum_evaluation.json reports/training/TRAIN-013-LAST-DEV_curriculum_evaluation.json --output reports/training/AI-013_COPY_DIAGNOSTIC.json`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-171_ai_013_copying_diagnosis_rerun_corrected_report_path.txt`.
+
+### RUN-172
+
+- **Waktu:** 2026-10-13T19:03:15.788642+07:00 sampai 2026-10-13T19:06:09.395010+07:00.
+- **Tujuan:** AI-013 prepare train-only lexical copying v6 preserve unopened heldout.
+- **Command:** `.venv/Scripts/python.exe -m qa.prepare_copy_curriculum`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-172_ai_013_prepare_train_only_lexical_copying_v6_preserve_unopened_heldout.txt`.
+
+### RUN-173
+
+- **Waktu:** 2026-10-13T19:06:34.440451+07:00 sampai 2026-10-13T19:06:49.284381+07:00.
+- **Tujuan:** AI-013 v6 batch48 memory and throughput probe discarded weights.
+- **Command:** `.venv/Scripts/python.exe -m qa.profile_gpu_training --probe --dataset-dir data/processed/curriculum/v6 --report-id GPU-PERF-005 --case v6_packed_b48_a1 --batch 48 --accumulation 1 --backend sdpa --fused --packed --steps 40`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-173_ai_013_v6_batch48_memory_and_throughput_probe_discarded_weights.txt`.
+
+### RUN-175
+
+- **Waktu:** 2026-10-13T19:11:50.583685+07:00 sampai 2026-10-13T19:11:52.475846+07:00.
+- **Tujuan:** AI-013 source and documentation structural audit during training.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-175_ai_013_source_and_documentation_structural_audit_during_training.txt`.
+
+### RUN-176
+
+- **Waktu:** 2026-10-13T19:12:40.999829+07:00 sampai 2026-10-13T19:12:46.092397+07:00.
+- **Tujuan:** AI-013 post-data train lexical exposure no final access.
+- **Command:** `.venv/Scripts/python.exe -m qa.diagnose_curriculum_copying --dataset-dir data/processed/curriculum/v6 --evaluations reports/training/TRAIN-014-DEV_curriculum_evaluation.json --output reports/training/AI-013_COPY_POST_DATA_DIAGNOSTIC.json`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-176_ai_013_post_data_train_lexical_exposure_no_final_access.txt`.
+
+### RUN-174
+
+- **Waktu:** 2026-10-13T19:07:19.362714+07:00 sampai 2026-10-13T19:15:26.403830+07:00.
+- **Tujuan:** AI-013 TRAIN-015 varied copying curriculum v6 fixed2400 optimized RTX5070.
+- **Command:** `.venv/Scripts/python.exe -m qa.train_configured_gpu --config configs/training_copy_contexts.json --initialize-from checkpoints/TRAIN-012/best.pt`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-174_ai_013_train_015_varied_copying_curriculum_v6_fixed2400_optimized_rtx5.txt`.
+
+### RUN-177
+
+- **Waktu:** 2026-10-13T19:15:38.763731+07:00 sampai 2026-10-13T19:16:56.934214+07:00.
+- **Tujuan:** AI-013 TRAIN-015 validation-selected best development generation.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-015/best.pt --split validation --report-id TRAIN-015-DEV`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-177_ai_013_train_015_validation_selected_best_development_generation.txt`.
+
+### RUN-179
+
+- **Waktu:** 2026-10-13T19:18:04.707624+07:00 sampai 2026-10-13T19:18:07.498604+07:00.
+- **Tujuan:** AI-013 freeze TRAIN-015 candidate before single independent final.
+- **Command:** `.venv/Scripts/python.exe -m qa.record_final_candidate --run-id TRAIN-015`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-179_ai_013_freeze_train_015_candidate_before_single_independent_final.txt`.
+
+### RUN-178
+
+- **Waktu:** 2026-10-13T19:17:06.020700+07:00 sampai 2026-10-13T19:18:22.948892+07:00.
+- **Tujuan:** AI-013 TRAIN-015 last development diagnosis fixed evaluation.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-015/last.pt --split validation --report-id TRAIN-015-LAST-DEV`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-178_ai_013_train_015_last_development_diagnosis_fixed_evaluation.txt`.
+
+### RUN-180
+
+- **Waktu:** 2026-10-13T19:19:19.064901+07:00 sampai 2026-10-13T19:19:23.194769+07:00.
+- **Tujuan:** AI-013 record TRAIN-015 development evidence curves comprehensive log notebook08.
+- **Command:** `.venv/Scripts/python.exe -m qa.summarize_copy_experiment --run-id TRAIN-015`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-180_ai_013_record_train_015_development_evidence_curves_comprehensive_log_.txt`.
+
+### RUN-182
+
+- **Waktu:** 2026-10-13T19:19:52.560749+07:00 sampai 2026-10-13T19:19:56.618294+07:00.
+- **Tujuan:** AI-013 execute notebook08 actual development evidence.
+- **Command:** `.venv/Scripts/python.exe -m qa.execute_notebooks --notebook 08_kualitas_penyalinan_dan_training.ipynb --save-in-place`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-182_ai_013_execute_notebook08_actual_development_evidence.txt`.
+
+### RUN-181
+
+- **Waktu:** 2026-10-13T19:19:41.026394+07:00 sampai 2026-10-13T19:22:01.552883+07:00.
+- **Tujuan:** AI-013 single locked final TRAIN-015 preselected best no reselection.
+- **Command:** `.venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-015/best.pt --split final --report-id TRAIN-015-FINAL`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-181_ai_013_single_locked_final_train_015_preselected_best_no_reselection.txt`.
+
+### RUN-183
+
+- **Waktu:** 2026-10-13T19:23:43.107268+07:00 sampai 2026-10-13T19:23:53.127837+07:00.
+- **Tujuan:** AI-013 export44 accepted final raw outputs website gallery and ZIP.
+- **Command:** `.venv/Scripts/python.exe -m qa.export_generated_websites --evaluation reports/training/TRAIN-015-FINAL_curriculum_evaluation.json --output examples/generated/AI-013 --report reports/training/TRAIN-015_RENDERED_OUTPUTS.json`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-183_ai_013_export44_accepted_final_raw_outputs_website_gallery_and_zip.txt`.
+
+### RUN-184
+
+- **Waktu:** 2026-10-13T19:24:25.185632+07:00 sampai 2026-10-13T19:24:27.499465+07:00.
+- **Tujuan:** AI-013 record single final gate runtime evidence and notebook09.
+- **Command:** `.venv/Scripts/python.exe -m qa.record_final_gate --run-id TRAIN-015 --gallery-report reports/training/TRAIN-015_RENDERED_OUTPUTS.json`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-184_ai_013_record_single_final_gate_runtime_evidence_and_notebook09.txt`.
+
+### RUN-185
+
+- **Waktu:** 2026-10-13T19:24:47.820738+07:00 sampai 2026-10-13T19:24:55.253701+07:00.
+- **Tujuan:** AI-013 retry prior Senandika prompt selected final-passed TRAIN-015.
+- **Command:** `.venv/Scripts/python.exe -m qa.generate_website --checkpoint checkpoints/TRAIN-015/best.pt --evidence reports/training/TRAIN-015-FINAL_curriculum_evaluation.json --prompt-file outputs/generated_websites/kafe-senandika-v1/prompt.txt --output outputs/generated_websites/kafe-senandika-v2`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-185_ai_013_retry_prior_senandika_prompt_selected_final_passed_train_015.txt`.
+
+### RUN-186
+
+- **Waktu:** 2026-10-13T19:24:57.550476+07:00 sampai 2026-10-13T19:24:59.648319+07:00.
+- **Tujuan:** AI-013 execute notebook09 final errors and actual website exports.
+- **Command:** `.venv/Scripts/python.exe -m qa.execute_notebooks --notebook 09_evaluasi_final_dan_output.ipynb --save-in-place`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-186_ai_013_execute_notebook09_final_errors_and_actual_website_exports.txt`.
+
+### RUN-187
+
+- **Waktu:** 2026-10-13T19:26:51.457466+07:00 sampai 2026-10-13T19:26:52.067132+07:00.
+- **Tujuan:** AI-013 final source docs notebooks structural audit.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-187_ai_013_final_source_docs_notebooks_structural_audit.txt`.
+
+### RUN-188
+
+- **Waktu:** 2026-10-13T19:27:51.007887+07:00 sampai 2026-10-13T19:27:53.300290+07:00.
+- **Tujuan:** AI-013 gallery ZIP bytes local resources raw specs static audit.
+- **Command:** `.venv/Scripts/python.exe -m qa.audit_generated_artifacts --gallery-report reports/training/TRAIN-015_RENDERED_OUTPUTS.json --output reports/training/TRAIN-015_OUTPUT_INTEGRITY.json --snapshot examples/generated/AI-013-senandika`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-188_ai_013_gallery_zip_bytes_local_resources_raw_specs_static_audit.txt`.
+
+### AI-013: Kelanjutan kualitas sesuai planning
+
+- Pengguna meminta kelanjutan sesuai rencana. Rincian interaksi/debugging: [AI-013](interaksi_llm/AI-013_2026-10-13.md). Skill executing-plans/systematic-debugging digunakan.
+- RUN-169 sampai RUN-188 memuat diagnosis, satu kegagalan path pada RUN-170 dan rerun, train-only v6, probe GPU, TRAIN-015 aktual, development, candidate lock sebelum final, satu final, renderer/gallery, notebook dan audit. Tidak menimpa run atau checkpoint sebelumnya.
+- TRAIN-015 selesai2.400update/481detik; data40.158train dengan21.090row tambahan sintetis. Reviewed manusia tetap12. GPUupdate mean92,03%/max100%, suhu max68C, sekitar101.569targettokens/sec. Log lengkap pada [LOG_TRAINING](LOG_TRAINING.md).
+- Development24/24exact, final48/48schema dan44/48exact91,67%. Kandidat sudah dipilih sebelum membuka final; tidak retraining/reselection dari final. Empat kesalahan disimpan. Final ini sekarang consumed.
+- Gallery44website+ZIP dari raw accepted dan snapshot Senandika tersedia. Notebook08/09 dijalankan9+6sel tanpa error; notebook lama dipertahankan. Raw/static checks berbeda dari browser acceptance.
+- Runtime dokumentasi TRAIN-015 best. UI generator dan browser acceptance belum dilakukan; prompt bebas/layout baru belum terbukti. [Final report](../reports/FINAL_GATE_2026-10-13.md).
+
+### RUN-189
+
+- **Waktu:** 2026-10-13T19:30:35.071606+07:00 sampai 2026-10-13T19:30:35.619306+07:00.
+- **Tujuan:** AI-013 complete final documentation and notebook structural audit.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-189_ai_013_complete_final_documentation_and_notebook_structural_audit.txt`.
+
+### RUN-190
+
+- **Waktu:** 2026-10-13T19:32:23.182762+07:00 sampai 2026-10-13T19:32:25.461111+07:00.
+- **Tujuan:** AI-013 preserve six frozen evidence hashes in staged Git bytes.
+- **Command:** `.venv/Scripts/python.exe -m qa.audit_generated_artifacts --gallery-report reports/training/TRAIN-015_RENDERED_OUTPUTS.json --output reports/training/TRAIN-015_GIT_EVIDENCE_INTEGRITY.json --snapshot examples/generated/AI-013-senandika --staged-evidence`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-190_ai_013_preserve_six_frozen_evidence_hashes_in_staged_git_bytes.txt`.
+
+### RUN-191
+
+- **Waktu:** 2026-10-13T19:32:49.848618+07:00 sampai 2026-10-13T19:32:52.378025+07:00.
+- **Tujuan:** AI-013 rerun frozen Git evidence after refreshing new report index bytes.
+- **Command:** `.venv/Scripts/python.exe -m qa.audit_generated_artifacts --gallery-report reports/training/TRAIN-015_RENDERED_OUTPUTS.json --output reports/training/TRAIN-015_GIT_EVIDENCE_INTEGRITY.json --snapshot examples/generated/AI-013-senandika --staged-evidence`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-191_ai_013_rerun_frozen_git_evidence_after_refreshing_new_report_index_byt.txt`.
+
+### RUN-192
+
+- **Waktu:** 2026-10-13T19:33:37.456134+07:00 sampai 2026-10-13T19:33:37.982441+07:00.
+- **Tujuan:** AI-013 post Git evidence fix full structural audit.
+- **Command:** `.venv/Scripts/python.exe .tmp/check_delivery.py`.
+- **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-192_ai_013_post_git_evidence_fix_full_structural_audit.txt`.
+
+### RUN-193
+
+- **Waktu:** 2026-10-13T20:02:00.846872+07:00 sampai 2026-10-13T20:02:01.364075+07:00.
+- **Tujuan:** AI-014 read only full page scope and train distribution analysis.
+- **Command:** `.venv/Scripts/python.exe -c "import json
+from collections import Counter
+from pathlib import Path
+from tokenizers import Tokenizer
+p=Path('data/processed/curriculum/v6/train.jsonl')
+counts=Counter(); types=Counter(); first=None
+for line in p.open(encoding='utf-8'):
+ r=json.loads(line); first=first or r
+ counts[len(r['target_spec']['sections'])]+=1
+ types.update(s['type'] for s in r['target_spec']['sections'])
+print('section_count_distribution:',dict(sorted(counts.items())))
+print('section_type_distribution:',dict(types))
+print('row_keys:',list(first))
+print('first_prompt:',first['prompt'])
+print('first_target:',json.dumps(first['target_spec'],ensure_ascii=False,separators=(',',':')))
+t=Tokenizer.from_file('data/tokenizer/tokenizer.json')
+print('first_prompt_tokens:',len(t.encode(first['prompt'],add_special_tokens=False).ids))
+print('first_target_tokens:',len(t.encode(json.dumps(first['target_spec'],ensure_ascii=False,separators=(',',':')),add_special_tokens=False).ids))
+print('block_size:1024 max_new_tokens:768')"`.
+- **Commit:** `219fc9e5985ec4a0181c3a5f4570c042001bfd85`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-193_ai_014_read_only_full_page_scope_and_train_distribution_analysis.txt`.
+
+### RUN-194
+
+- **Waktu:** 2026-10-13T20:03:11.958484+07:00 sampai 2026-10-13T20:03:14.318678+07:00.
+- **Tujuan:** AI-014 tokenizer measurement of hand authored diagnostic full pages.
+- **Command:** `.venv/Scripts/python.exe -c "import json, copy, shutil
+from pathlib import Path
+from tokenizers import Tokenizer
+from src.data.schema import validate_page_spec
+from src.data.curriculum import serialize_spec
+base=json.loads(next(Path('data/processed/curriculum/v6/train.jsonl').open(encoding='utf-8')))['target_spec']
+t=Tokenizer.from_file('data/tokenizer/tokenizer.json')
+profiles={
+'landing_page': [('about','Tentang layanan','Kami membantu pemilik usaha menyusun halaman informasi yang mudah dibaca. Setiap pekerjaan dimulai dari kebutuhan pelanggan, dilanjutkan dengan rancangan konten dan pemeriksaan tampilan pada perangkat yang berbeda.'),('services','Layanan utama','Layanan mencakup perencanaan halaman, penyusunan konten dan pendampingan penggunaan. Anda dapat memilih kebutuhan yang paling relevan melalui konsultasi awal sebelum menyepakati ruang lingkup pekerjaan.'),('benefits','Mengapa memilih kami','Proses kerja dijelaskan sejak awal agar pelanggan memahami tahapan dan hasil yang akan diterima. Susunan halaman dibuat terarah dengan navigasi yang jelas, teks yang mudah dibaca dan tombol tindakan yang sesuai.'),('process','Cara memulai','Sampaikan kebutuhan melalui formulir konsultasi. Kami meninjau informasi yang tersedia, menyusun rancangan awal dan membahas penyesuaian sebelum proses pengerjaan dilanjutkan.'),('faq','Pertanyaan umum','Apakah bisa menyesuaikan isi halaman? Isi halaman disusun dari informasi yang Anda berikan. Apakah tersedia pendampingan? Lingkup pendampingan dibahas dalam konsultasi awal agar sesuai dengan kebutuhan Anda.')],
+'company_profile': [('about','Tentang perusahaan','Perusahaan demo ini menyediakan layanan perencanaan komunikasi digital untuk usaha lokal. Informasi dalam contoh ini bersifat fiktif dan digunakan untuk menilai panjang rancangan halaman, bukan sebagai klaim perusahaan nyata.'),('vision','Visi dan prinsip','Kami mengutamakan informasi yang jelas, proses yang dapat dipahami dan komunikasi yang terbuka. Setiap rancangan diawali dengan tujuan yang terukur serta informasi yang disetujui oleh pemilik usaha.'),('services','Bidang layanan','Kami membantu menyusun profil usaha, menjelaskan layanan utama dan merancang alur kontak. Rincian layanan disesuaikan dengan kebutuhan serta materi yang tersedia agar halaman tetap relevan.'),('projects','Contoh proyek','Contoh proyek demo meliputi profil usaha lokal, informasi layanan dan halaman pengenalan produk. Materi ini adalah ilustrasi fiktif untuk menjelaskan bentuk layanan, bukan portofolio pekerjaan nyata.'),('process','Proses kerja','Tahap pertama mengumpulkan informasi perusahaan dan kebutuhan pembaca. Tahap berikutnya menyusun struktur serta isi halaman, kemudian melakukan tinjauan bersama sebelum hasil diserahkan.')]
+}
+result={'status':'diagnostic_only','fixture_origin':'hand_authored_not_model_output_not_training_data','block_size':1024,'max_new_tokens':768,'free_disk_gib':round(shutil.disk_usage('.').free/2**30,2),'reserve_gib':15,'profiles':{}}
+for genre, blocks in profiles.items():
+ spec=copy.deepcopy(base); brand='Usaha Demo Nusantara'; spec['title']=brand
+ spec['sections']=[{'id':'nav','type':'navbar','props':{'brand':brand,'links':[{'label':'Tentang','href':'#about'},{'label':'Layanan','href':'#services'},{'label':'Kontak','href':'#contact'}]}},{'id':'main','type':'hero','props':{'heading':brand,'text':'Kenali layanan dan proses kerja kami, kemudian diskusikan kebutuhan Anda melalui konsultasi awal.','layout':'split','button':{'label':'Hubungi kami','href':'#contact'}}}]
+ spec['sections'] += [{'id':i,'type':'text_section','props':{'heading':h,'text':x}} for i,h,x in blocks]
+ spec['sections'] += [{'id':'contact','type':'contact_form','props':{'heading':'Diskusikan kebutuhan Anda','fields':[{'name':'name','label':'Nama','type':'text','required':True},{'name':'email','label':'Email','type':'email','required':True},{'name':'message','label':'Pesan','type':'textarea','required':True}],'submit_label':'Kirim'}},{'id':'footer','type':'footer','props':{'text':brand,'links':[{'label':'Tentang','href':'#about'},{'label':'Kontak','href':'#contact'}]}}]
+ spec['interactions']=[{'type':'menu_toggle','target_id':'nav'},{'type':'form_validate','target_id':'contact'}]
+ prompt=f'Buat {genre} untuk {brand}. Gunakan CSS biasa. Sertakan navbar, hero, '+', '.join(h for _,h,_ in blocks)+', kontak dan footer. Gunakan data perusahaan fiktif yang diberikan, tombol kontak dan menu responsif.'
+ prefix=3+len(t.encode(prompt,add_special_tokens=False).ids); target=len(t.encode(serialize_spec(spec,'appearance_before_sections'),add_special_tokens=False).ids)
+ errors=validate_page_spec(spec)
+ result['profiles'][genre]={'sections':len(spec['sections']),'schema_errors':errors,'prefix_tokens':prefix,'target_tokens':target,'sequence_tokens_with_eos':prefix+target+1,'fits_context':prefix+target+1<=1024,'fits_output_budget':target+1<=768,'spec':spec,'prompt':prompt}
+path=Path('reports/analysis/AI-014_FULL_PAGE_SCOPE.json'); path.parent.mkdir(parents=True,exist_ok=True)
+with path.open('x',encoding='utf-8',newline='\n') as f: json.dump(result,f,ensure_ascii=False,indent=2); f.write('\n')
+print(json.dumps({**result,'profiles':{k:{a:b for a,b in v.items() if a not in ('spec','prompt')} for k,v in result['profiles'].items()}},ensure_ascii=False,indent=2))
+if any(v['schema_errors'] for v in result['profiles'].values()): raise SystemExit(1)"`.
+- **Commit:** `219fc9e5985ec4a0181c3a5f4570c042001bfd85`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-194_ai_014_tokenizer_measurement_of_hand_authored_diagnostic_full_pages.txt`.
+
+### RUN-195
+
+- **Waktu:** 2026-10-13T20:03:42.971359+07:00 sampai 2026-10-13T20:03:45.342791+07:00.
+- **Tujuan:** AI-014 rerun diagnostic fixtures with supported contact fields.
+- **Command:** `.venv/Scripts/python.exe -c "import json
+from pathlib import Path
+from tokenizers import Tokenizer
+from src.data.schema import validate_page_spec
+from src.data.curriculum import serialize_spec
+r=json.loads(Path('reports/analysis/AI-014_FULL_PAGE_SCOPE.json').read_text(encoding='utf-8'))
+r['supersedes_invalid_fixture']='AI-014_FULL_PAGE_SCOPE.json'; r['correction']='Remove unsupported required property from hand-authored contact fields; no production code changed.'
+t=Tokenizer.from_file('data/tokenizer/tokenizer.json')
+for genre,p in r['profiles'].items():
+ for s in p['spec']['sections']:
+  if s['type']=='contact_form':
+   for field in s['props']['fields']: field.pop('required',None)
+ p['schema_errors']=validate_page_spec(p['spec']); p['target_tokens']=len(t.encode(serialize_spec(p['spec'],'appearance_before_sections'),add_special_tokens=False).ids)
+ p['sequence_tokens_with_eos']=p['prefix_tokens']+p['target_tokens']+1
+ p['fits_context']=p['sequence_tokens_with_eos']<=1024; p['fits_output_budget']=p['target_tokens']+1<=768
+path=Path('reports/analysis/AI-014_FULL_PAGE_SCOPE_VALID.json')
+with path.open('x',encoding='utf-8',newline='\n') as f: json.dump(r,f,ensure_ascii=False,indent=2); f.write('\n')
+print(json.dumps({k:{a:b for a,b in p.items() if a not in ('spec','prompt')} for k,p in r['profiles'].items()},ensure_ascii=False,indent=2))
+assert all(not p['schema_errors'] for p in r['profiles'].values())"`.
+- **Commit:** `219fc9e5985ec4a0181c3a5f4570c042001bfd85`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-195_ai_014_rerun_diagnostic_fixtures_with_supported_contact_fields.txt`.
+
+### AI-014: Usulan halaman lengkap
+
+- Pengguna memilih landing page dan company profile. [Interaksi AI-014](interaksi_llm/AI-014_2026-10-13.md), [usulan arah](../reports/FULL_PAGE_DIRECTION_2026-10-13.md).
+- RUN-193 seluruh train v6 berisi 3 sampai 5 bagian. RUN-194 fixture manual gagal validasi properti field kontak; RUN-195 berhasil setelah fixture diperbaiki. Total dua halaman 9 bagian: 1.498 dan 1.479 token, melebihi konteks 1.024.
+- Belum ada training baru atau perubahan produksi. Usulan generasi rencana dan isi per bagian serta renderer lebih kaya menunggu review arah sesuai skill brainstorming. Final lama tetap consumed.
+
+### RUN-196
+
+- **Waktu:** 2026-10-13T20:07:26.535341+07:00 sampai 2026-10-13T20:07:26.824011+07:00.
+- **Tujuan:** AI-014 analysis artifacts and documentation consistency check.
+- **Command:** `.venv/Scripts/python.exe -c "import json
+from pathlib import Path
+from src.data.schema import validate_page_spec
+r=json.loads(Path('reports/analysis/AI-014_FULL_PAGE_SCOPE_VALID.json').read_text(encoding='utf-8'))
+assert all(not validate_page_spec(p['spec']) for p in r['profiles'].values())
+assert all(not p['fits_context'] and not p['fits_output_budget'] for p in r['profiles'].values())
+for name in ['reports/FULL_PAGE_DIRECTION_2026-10-13.md','logs/interaksi_llm/AI-014_2026-10-13.md']:
+ text=Path(name).read_text(encoding='utf-8'); assert chr(8212) not in text
+for name in ['README.md','logs/LOG_TRAINING.md','logs/PIPELINE_PROGRESS.md','logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md']:
+ assert 'AI-014' in Path(name).read_text(encoding='utf-8')
+print('Two valid manual fixtures and documentation links/status checked. No training, generation, browser inspection or unit tests executed.')"`.
+- **Commit:** `219fc9e5985ec4a0181c3a5f4570c042001bfd85`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-196_ai_014_analysis_artifacts_and_documentation_consistency_check.txt`.
+
+### RUN-197
+
+- **Waktu:** 2026-10-13T20:09:00.478714+07:00 sampai 2026-10-13T20:09:02.710572+07:00.
+- **Tujuan:** GitHub private repository commit push synchronization check.
+- **Command:** `.venv/Scripts/python.exe -c "import json, subprocess
+
+def git(*args):
+ return subprocess.check_output(['git',*args],text=True,encoding='utf-8').strip()
+branch=git('branch','--show-current'); local=git('rev-parse','HEAD')
+remote=git('ls-remote','origin','refs/heads/'+branch).split()[0]
+status=git('status','--porcelain=v1'); body=git('log','-1','--format=%B')
+repo=json.loads(subprocess.check_output(['gh','repo','view','baysatriow/mini-gpt-webcodegen','--json','nameWithOwner,isPrivate,url'],text=True,encoding='utf-8'))
+assert local==remote, 'Local and GitHub differ'
+assert not status, 'Uncommitted changes exist'
+assert 'co-authored-by:' not in body.lower(), 'Unexpected coauthor trailer'
+assert repo['isPrivate']
+print(json.dumps({'branch':branch,'local_commit':local,'github_commit':remote,'synchronized':True,'working_tree_clean_except_current_run_log':True,'coauthor_trailer':False,'repository':repo},indent=2))"`.
+- **Commit:** `81e64cb62ae3d9c399f9aa23595dc84e31cc0cb5`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-197_github_private_repository_commit_push_synchronization_check.txt`.
+
+### RUN-198
+
+- **Waktu:** 2026-10-13T20:09:33.351744+07:00 sampai 2026-10-13T20:09:35.652274+07:00.
+- **Tujuan:** GitHub sync rerun excluding new check logs.
+- **Command:** `.venv/Scripts/python.exe -c "import json, subprocess
+
+def git(*args):
+ return subprocess.check_output(['git',*args],text=True,encoding='utf-8').strip()
+branch=git('branch','--show-current'); local=git('rev-parse','HEAD')
+remote=git('ls-remote','origin','refs/heads/'+branch).split()[0]
+lines=git('status','--porcelain=v1').splitlines()
+expected={'logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md','logs/RUN-197_github_private_repository_commit_push_synchronization_check.txt','logs/RUN-198_github_sync_rerun_excluding_new_check_logs.txt'}
+actual={line[3:] if line[:1]==' ' else line[2:].strip() for line in lines}
+assert actual<=expected, 'Unexpected changes: '+repr(actual-expected)
+assert local==remote
+assert 'co-authored-by:' not in git('log','-1','--format=%B').lower()
+repo=json.loads(subprocess.check_output(['gh','repo','view','baysatriow/mini-gpt-webcodegen','--json','nameWithOwner,isPrivate,url'],text=True,encoding='utf-8'))
+assert repo['isPrivate']
+print(json.dumps({'branch':branch,'local_commit':local,'github_commit':remote,'synchronized':True,'pending_only_verification_logs':sorted(actual),'coauthor_trailer':False,'repository':repo,'correction':'RUN-197 detected its own newly created log; this rerun allows only the named verification logs.'},indent=2))"`.
+- **Commit:** `81e64cb62ae3d9c399f9aa23595dc84e31cc0cb5`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-198_github_sync_rerun_excluding_new_check_logs.txt`.

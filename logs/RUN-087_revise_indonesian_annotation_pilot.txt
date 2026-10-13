@@ -1,0 +1,7 @@
+RUN-087 | 2026-10-13T00:12:47.836295+07:00 | revise_indonesian_annotation_pilot
+Command: .venv/Scripts/python.exe .tmp/revise_annotation_pilot.py
+Commit: 3643af44c43b2a2fc2b42ec1dda0b816307b30b5
+
+{"rows": 12, "target_changed_rows": 4, "prompt_changed_rows": 5, "reviewed_rows": 0, "output": "data\\annotations\\pilot_drafts_id_v2.jsonl"}
+
+Exit code: 0

@@ -1,0 +1,10 @@
+RUN-166 | 2026-10-13T10:38:41.110814+07:00 | execute_gpu_optimization_notebook
+Command: .venv/Scripts/python.exe -m qa.execute_notebooks --notebook 07_optimasi_gpu_dan_training.ipynb --save-in-place
+Commit: d876a9a227747ef751389f7ebf0c1e661885325b
+
+F:\Generative_AI\Vibe_Coding_Proyek_1\.venv\Lib\site-packages\zmq\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.
+  self._get_loop()
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+{"notebook": "07_optimasi_gpu_dan_training.ipynb", "kernel": "mini-gpt-webcodegen", "code_cells": 8, "error_outputs": 0, "saved_to": "notebooks\\07_optimasi_gpu_dan_training.ipynb"}
+
+Exit code: 0

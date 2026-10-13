@@ -1,0 +1,8 @@
+RUN-114 | 2026-10-13T08:38:06.742420+07:00 | document_curriculum_v1_training
+Command: .venv/Scripts/python.exe .tmp/append_training_reports.py TRAIN-008 TRAIN-009
+Commit: 5209976e73450c39e2b3101521a5b793e3021749
+
+{"appended": "TRAIN-008", "status": "stopped_at_limit", "step": 800}
+{"appended": "TRAIN-009", "status": "completed", "step": 2400}
+
+Exit code: 0

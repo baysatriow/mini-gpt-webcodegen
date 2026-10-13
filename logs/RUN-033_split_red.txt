@@ -1,0 +1,25 @@
+RUN-033 | 2026-10-12T18:24:14.923770+07:00 | split_red
+Command: .\.venv\Scripts\python.exe -m unittest tests.data.test_split -v
+Commit: e22b0da2bf4810b2678f657343e2fab1c69ab681
+
+test_split (unittest.loader._FailedTest.test_split) ... ERROR
+
+======================================================================
+ERROR: test_split (unittest.loader._FailedTest.test_split)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_split
+Traceback (most recent call last):
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\data\test_split.py", line 6, in <module>
+    from src.data.split import assign_splits, canonical_hash, deduplicate, split_jsonl
+ModuleNotFoundError: No module named 'src.data.split'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+
+Exit code: 1

@@ -1,0 +1,2524 @@
+{
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "source_evaluation_sha256": "8f92098bada4f494126f078dcdcdd53e415690288b9ce5b7efa4b5f32624ff36",
+  "output_count": 44,
+  "output_dir": "examples\\generated\\AI-013",
+  "rejected": [
+    {
+      "example_id": "a441662cd6f76613b5445b14b14481db81a5b3603f8e9257421857e70e5f99bc",
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kursus Smartgismartni",
+          "style_mode": "plain_css",
+          "primary": "#2563eb",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung tim kreatif untuk mengelola layanan secara mudah."
+        },
+        "errors": [
+          "title: diminta 'Kursus Smartgismartni', model menghasilkan 'Kursus Smartewelmartni'",
+          "Section nav: isi tidak sesuai kontrak prompt",
+          "Section footer: isi tidak sesuai kontrak prompt"
+        ]
+      }
+    },
+    {
+      "example_id": "1a8df8a21bcb5a00092c6a17fa123820577f672eab06f5dd8736b258b85eb922",
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kursus Smartgismartni",
+          "style_mode": "tailwind",
+          "primary": "#10b981",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani mitra usaha untuk meningkatkan pengalaman pengguna."
+        },
+        "errors": [
+          "title: diminta 'Kursus Smartgismartni', model menghasilkan 'Kursus Smartdiremartni'",
+          "Section nav: isi tidak sesuai kontrak prompt",
+          "Section footer: isi tidak sesuai kontrak prompt",
+          "Section main: isi tidak sesuai kontrak prompt"
+        ]
+      }
+    },
+    {
+      "example_id": "5eb4472d46be59801badbcbdab929a6edd67b497dbd82833c50007fe45c297ec",
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kursus Smartgismartni",
+          "style_mode": "plain_css",
+          "primary": "#ef4444",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani komunitas lokal untuk merencanakan kegiatan bersama."
+        },
+        "errors": [
+          "title: diminta 'Kursus Smartgismartni', model menghasilkan 'Kursus Smartewelmartni'",
+          "Section nav: isi tidak sesuai kontrak prompt",
+          "Section footer: isi tidak sesuai kontrak prompt",
+          "Section main: isi tidak sesuai kontrak prompt"
+        ]
+      }
+    },
+    {
+      "example_id": "d9981873650f2af9301623150c1fc9db2204f419892c4293bacc1a75b91e2a0b",
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kursus Smartgismartni",
+          "style_mode": "tailwind",
+          "primary": "#10b981",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": [
+          "title: diminta 'Kursus Smartgismartni', model menghasilkan 'Kursus Smartimagesmartni'",
+          "Section nav: isi tidak sesuai kontrak prompt",
+          "Section footer: isi tidak sesuai kontrak prompt",
+          "Section main: isi tidak sesuai kontrak prompt"
+        ]
+      }
+    }
+  ],
+  "raw_output_sha256": "aa37e57dc7abed220b9b9f76ab73cb9a2d614f10b646de380146a0fb00bed456",
+  "raw_hash_bound_at_evaluation": true,
+  "archive_sha256": "d3d163bed1d7eed193320f24e0cc0ce9e1cb1675afc400f24afcfc61f7fbcf76",
+  "tailwind_version": "4.3.3",
+  "entries": [
+    {
+      "directory": "examples\\generated\\AI-013\\01-profile-plain_css",
+      "title": "Kafe Webtechraw",
+      "recipe": "profile",
+      "example_id": "c98cbad74d2daa4ec491f9b5d7f32b9df531c5960bb1acabf5f111063bfd6cea",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "d3ff0d68df87db237ef20013bd1b4fa02a59dc32cc4733e05551e4310a618b22",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kafe Webtechraw",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani pemilik bisnis untuk merencanakan kegiatan bersama."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "358493f426cea79d165ff201c38262e080939be7e9b4470430a322ffb7fc1c7d",
+          "bytes": 806
+        },
+        "index.html": {
+          "sha256": "5aa1c8b834cf42a8e682ef2d8119ccb18d92a03eea7b4eae5a6faf28cd95916a",
+          "bytes": 788
+        },
+        "page_spec.json": {
+          "sha256": "129a1e453958f78c495b4fa20643b9ea58545d36a527130c56f06eac77114834",
+          "bytes": 890
+        },
+        "prompt.txt": {
+          "sha256": "9a7fb80af02dbf5fa6e5b1d3176e37800f4bfb941a3ee5120f8b03f0299f4224",
+          "bytes": 314
+        },
+        "raw_output.txt": {
+          "sha256": "d3ff0d68df87db237ef20013bd1b4fa02a59dc32cc4733e05551e4310a618b22",
+          "bytes": 544
+        },
+        "styles.css": {
+          "sha256": "53d337f3006890dc35a243fbf567922bdde6880f896331eef2b8af0c990a9e05",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\02-profile-plain_css",
+      "title": "Pustaka Nostargomi",
+      "recipe": "profile",
+      "example_id": "d5f7a4a267973e441f4b51b1c5f0d482b7394a4ee0346856797ca3772e92e76a",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "e356fb48f0d312c98f7039bf1849a0134d0d550d06e280cd193e0f8ed35f5454",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Pustaka Nostargomi",
+          "style_mode": "plain_css",
+          "primary": "#06b6d4",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani usaha kecil untuk merencanakan kegiatan bersama."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "837ebc8582858da0ad6c5e3dba195143dd28910383342ea9e65e6d96a2f40d79",
+          "bytes": 807
+        },
+        "index.html": {
+          "sha256": "dd5e7354ec862953d8f7e08e136100418c5a9bd9c134c7530cef0e105b537dba",
+          "bytes": 797
+        },
+        "page_spec.json": {
+          "sha256": "9ea0d56efcfcbce9c5f7e04b7a0874ff1fb29c743b341941e7e90c7649227b2c",
+          "bytes": 900
+        },
+        "prompt.txt": {
+          "sha256": "97a9f86d773273a773e0e6e8820bc015b782ea83ac00e7e0b6ed9dc633e48ec1",
+          "bytes": 312
+        },
+        "raw_output.txt": {
+          "sha256": "e356fb48f0d312c98f7039bf1849a0134d0d550d06e280cd193e0f8ed35f5454",
+          "bytes": 554
+        },
+        "styles.css": {
+          "sha256": "b2a0fb579dab4dc88919e0ff3df38e5385b7bc2411307b3936b4037efdc445c9",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\03-profile-tailwind",
+      "title": "Kafe Webtechraw",
+      "recipe": "profile",
+      "example_id": "5198f0095e6bb40ad2d7696fa23d2b084a3e70658665e38444772fe67aea6b31",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "513d2ec9b6fc4eb52f08a2e49a5b3fecd5d5b02deaa2bfde71bdfc41cc649bfa",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kafe Webtechraw",
+          "style_mode": "tailwind",
+          "primary": "#f59e0b",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Temukan layanan pilihan kami."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "701b4cc200c86f1c0ba4540b037bbdd7c0386b34d2a4818680b4732e2d238253",
+          "bytes": 769
+        },
+        "index.html": {
+          "sha256": "d6edb5d31510f4fe79de9c8767090b91ad2664366a1bc4e50d8a1b1328bf4d4f",
+          "bytes": 923
+        },
+        "page_spec.json": {
+          "sha256": "998f18dbfd585c479aa8c3ceaf11123953553de66df2822a9c23817f09dfc4ce",
+          "bytes": 928
+        },
+        "prompt.txt": {
+          "sha256": "e69b40387483263f5ad564295b39ba6e207885088c81a6fd2fdc52dc16076fcc",
+          "bytes": 287
+        },
+        "raw_output.txt": {
+          "sha256": "513d2ec9b6fc4eb52f08a2e49a5b3fecd5d5b02deaa2bfde71bdfc41cc649bfa",
+          "bytes": 548
+        },
+        "styles.css": {
+          "sha256": "5a7c8129757f47b3aca1f146eb11b67ed660a16f88b6fde9475f6e68c4b910c1",
+          "bytes": 8180
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\04-profile-tailwind",
+      "title": "Klinik Sunpiblue",
+      "recipe": "profile",
+      "example_id": "f723a1ad254b30e967777a4e4c955c93d39ac2161138245dedc737de5255b2c0",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "2c569828382c9644fdd985fbb7099f193fc6adcff7b959ba07b0bd0cc1111778",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Klinik Sunpiblue",
+          "style_mode": "tailwind",
+          "primary": "#06b6d4",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendampingi pelajar Indonesia untuk memilih produk berkualitas."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "6f2b9a511b737b29df9fbdbe814b2c6521589d9309df364062ceb20f7daae185",
+          "bytes": 809
+        },
+        "index.html": {
+          "sha256": "80d5edd9a29af8e23ee7290cdeed1f8d56de0152713e2fc6ee3c2f9c5870e1e6",
+          "bytes": 795
+        },
+        "page_spec.json": {
+          "sha256": "06f99a323ac290cffd3113c85258df974daccd376824e85040219f06ba48f43d",
+          "bytes": 897
+        },
+        "prompt.txt": {
+          "sha256": "0e8cf0f3a5e45c4f22d4f0d19961acb13788970ac51dc072385ed243898ced4d",
+          "bytes": 317
+        },
+        "raw_output.txt": {
+          "sha256": "2c569828382c9644fdd985fbb7099f193fc6adcff7b959ba07b0bd0cc1111778",
+          "bytes": 551
+        },
+        "styles.css": {
+          "sha256": "be11be6e451f95ae3dd1ae074c771ebc7af73893f2d8c1087c0500d2aad91c34",
+          "bytes": 8180
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\05-features-plain_css",
+      "title": "Studio Bagreenlo",
+      "recipe": "features",
+      "example_id": "3b1014b980067a11207a18a3e77d50a27ac930ee421be6a92efba0dbb8a1fd33",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "989965e383229ac19576ffdfd1857da9a4785a1a9bc0d5a100236e1bee4ba148",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Studio Bagreenlo",
+          "style_mode": "plain_css",
+          "primary": "#ef4444",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendampingi pelajar Indonesia untuk merencanakan kegiatan bersama."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "0ac443fba847f3ebb5848b8b307273832bdda54398a5ea3f3fb3345302f1679a",
+          "bytes": 813
+        },
+        "index.html": {
+          "sha256": "63890a8a6fbd8c0e1fa3fc0650547d360cc54c8bf71d969af3aa597c08a9a660",
+          "bytes": 1286
+        },
+        "page_spec.json": {
+          "sha256": "ab21fdd94fed0726ffa978addb39de15e0b4ca0c1efb76b08c5c11a945aea818",
+          "bytes": 1355
+        },
+        "prompt.txt": {
+          "sha256": "d61207c9f053519b5a67076d94ebbaa697e68243b9692a63a348e60369e3a2cd",
+          "bytes": 381
+        },
+        "raw_output.txt": {
+          "sha256": "989965e383229ac19576ffdfd1857da9a4785a1a9bc0d5a100236e1bee4ba148",
+          "bytes": 788
+        },
+        "styles.css": {
+          "sha256": "5fa5028ebd4a8e01be5c2f1315c22991f2ecde1388888229e125eb7d67d0c8ed",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\06-features-plain_css",
+      "title": "Dapur Fakamaweb",
+      "recipe": "features",
+      "example_id": "597680f66008d27982c5910ef75fa02069cac2b017d36eac3a2b0f334ea1d99f",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "22649cf1212bc50ce615ddab160cc3100fac36d36a3c697e4c7632fbee8f4e44",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Dapur Fakamaweb",
+          "style_mode": "plain_css",
+          "primary": "#10b981",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendampingi pelanggan baru untuk meningkatkan pengalaman pengguna."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "718eaed65ab950b5ffe70f11f29b6047e4f124c0032f3590795087d646e3822d",
+          "bytes": 813
+        },
+        "index.html": {
+          "sha256": "ae8b86148ee0d33f07fe1077c526ebf01bb0283c6fc71e051a3617e2e5702913",
+          "bytes": 1272
+        },
+        "page_spec.json": {
+          "sha256": "0ea84265cb0c79ee17a3d50031afae8782c3ad1778355d136b3d876d21147305",
+          "bytes": 1342
+        },
+        "prompt.txt": {
+          "sha256": "0c18deae7ee8d165f692482794736e17dc76409d74a5f14ac07730a4a210a25a",
+          "bytes": 382
+        },
+        "raw_output.txt": {
+          "sha256": "22649cf1212bc50ce615ddab160cc3100fac36d36a3c697e4c7632fbee8f4e44",
+          "bytes": 775
+        },
+        "styles.css": {
+          "sha256": "5fd0ca3d853b72ee9a6683a6520526eb6f459dba0bb9f2b4bf44cf03e30269c4",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\07-features-tailwind",
+      "title": "Klinik Takacraft",
+      "recipe": "features",
+      "example_id": "9af9e7fd94c380c963617b057fb9cfee12f533b1d3e2091ccaf83c0e42fdd177",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "cebe99c5cf6a5b9b27ee68ae4f4ed3ecf680f2e4fada9704fcd754d5c9c3ebd4",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Klinik Takacraft",
+          "style_mode": "tailwind",
+          "primary": "#2563eb",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung pelanggan baru untuk memilih produk berkualitas."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "6e74cf055ffcb29e8fab3ed1f2f7af181502341123f42a46f0128d8af6f0dd5d",
+          "bytes": 803
+        },
+        "index.html": {
+          "sha256": "4c9ee7f0e6bdaef963b289895dfde8d095449630b41cb8dcdced2b039facd0d1",
+          "bytes": 1278
+        },
+        "page_spec.json": {
+          "sha256": "778b254327be2d2b33eacd14656fbc3cb0fa176d0411a8ed74386dc4c84d2dfb",
+          "bytes": 1346
+        },
+        "prompt.txt": {
+          "sha256": "e7218b72f786d7d16d636b0fe47dc4579918b7bc7734038cbec0dd4418e4cd44",
+          "bytes": 378
+        },
+        "raw_output.txt": {
+          "sha256": "cebe99c5cf6a5b9b27ee68ae4f4ed3ecf680f2e4fada9704fcd754d5c9c3ebd4",
+          "bytes": 779
+        },
+        "styles.css": {
+          "sha256": "ef11f709a4813b12fd5646e0c7096685c31b3d9531bc19893f851dd6522c9622",
+          "bytes": 8422
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\08-features-tailwind",
+      "title": "Dapur Fakamaweb",
+      "recipe": "features",
+      "example_id": "639dfc5384df878874c5aa699647407612f7f410ad8983eaa7c8a088522cd745",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "aac2aaef39fc4474e0f9bd6acbd06461e84088e763d4c2d50cccfa9c898026f1",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Dapur Fakamaweb",
+          "style_mode": "tailwind",
+          "primary": "#10b981",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani pelanggan baru untuk merencanakan kegiatan bersama."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "c49e127320c529e606b53f9cb199919c4dd5a18de4321f6ae5792e9b1da6fe16",
+          "bytes": 804
+        },
+        "index.html": {
+          "sha256": "b62965fe590c12537fa5ab0c2c36ab8a041e881b3be8fc6229f92c27d5674111",
+          "bytes": 1276
+        },
+        "page_spec.json": {
+          "sha256": "9c178029e571684b7d01aeb43c1cfb22747e11001c5d7b1b25935268883b363a",
+          "bytes": 1344
+        },
+        "prompt.txt": {
+          "sha256": "5bd6af9dfbcdefc51e9bb6379b2b14d76b6e66d8b9b25e24f8c375499c1a5046",
+          "bytes": 373
+        },
+        "raw_output.txt": {
+          "sha256": "aac2aaef39fc4474e0f9bd6acbd06461e84088e763d4c2d50cccfa9c898026f1",
+          "bytes": 777
+        },
+        "styles.css": {
+          "sha256": "bb003cff7b8cb323e3b5ee835daa63fb9d925df6b3a8242403d141eae8fd2e3f",
+          "bytes": 8425
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\10-article-plain_css",
+      "title": "Pustaka Nostargomi",
+      "recipe": "article",
+      "example_id": "9349cddc06391b8a2522abb60a1808aa19fd088c5f67f8dae09c66bc6e9b6bfd",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "712308a4b549321cba64f0c598338683e1c87476002fa44652caa9ccfceb06a9",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Pustaka Nostargomi",
+          "style_mode": "plain_css",
+          "primary": "#ef4444",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung mitra usaha untuk meningkatkan pengalaman pengguna."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "da5b60048daf782d24184a2c29053eab56f984564aedbda2bf7405866b811466",
+          "bytes": 811
+        },
+        "index.html": {
+          "sha256": "12bd329b065e816f0cb95d998da7c1ac198ef40e7a3987fcb93c1fc2b5cf243d",
+          "bytes": 940
+        },
+        "page_spec.json": {
+          "sha256": "273929e819f4099646ca558ddc2b4b6c38c752f57b04fc812e60fcb27081ce46",
+          "bytes": 943
+        },
+        "prompt.txt": {
+          "sha256": "16f7a0f8ea4816190f8218bfe59a3fac2d1df5428d091d1d9d91d660f320c362",
+          "bytes": 302
+        },
+        "raw_output.txt": {
+          "sha256": "712308a4b549321cba64f0c598338683e1c87476002fa44652caa9ccfceb06a9",
+          "bytes": 574
+        },
+        "styles.css": {
+          "sha256": "201f2a0ad18c89fa6ea79cf8f9a789877f5e3e438b8d2b566004609a2f541804",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\11-article-tailwind",
+      "title": "Studio Bagreenlo",
+      "recipe": "article",
+      "example_id": "412699430de85b98bd9fee1e8df717a66439ec316770ab0dc856cab5d20f3a62",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "3a9352b784090329a46350524c0716b7ccc6249c5a9292aefb8cebb3ec0b3764",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Studio Bagreenlo",
+          "style_mode": "tailwind",
+          "primary": "#06b6d4",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendampingi pelanggan baru untuk belajar dengan nyaman."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "5b5dfdae34f2f9a2d1aab517e10c80bac8220fabccdf25fc3616fb4fe59d2173",
+          "bytes": 800
+        },
+        "index.html": {
+          "sha256": "7c684864faa6810ba0ccfa23326bec153c85ddb4ba9a6ca0031c762517705c9d",
+          "bytes": 757
+        },
+        "page_spec.json": {
+          "sha256": "cd9177cc262a0f0ced805216612b96454f60259ebd00778d1c25efb112202295",
+          "bytes": 855
+        },
+        "prompt.txt": {
+          "sha256": "f398e6250caa886e75b43bb185e06e5022cbbf2b66e6472cce7eb91f4ceb14d4",
+          "bytes": 280
+        },
+        "raw_output.txt": {
+          "sha256": "3a9352b784090329a46350524c0716b7ccc6249c5a9292aefb8cebb3ec0b3764",
+          "bytes": 520
+        },
+        "styles.css": {
+          "sha256": "83ca1c53a97f8aeeb2ca4569dc1c05a3d0eb6004ebf7cca7fa134b29371f1d66",
+          "bytes": 8180
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\12-article-tailwind",
+      "title": "Klinik Sunpiblue",
+      "recipe": "article",
+      "example_id": "9d35c1296d5f4d82685bb1d1375f5235c6f5bc409e71ba4a7a73941de67783d0",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "cdf6a6d3aaecee0f2b00a18be6d52a90f3a3a0ef5ed88d4705218c2214be1b0d",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Klinik Sunpiblue",
+          "style_mode": "tailwind",
+          "primary": "#2563eb",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendampingi komunitas lokal untuk meningkatkan pengalaman pengguna."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "d4261fce93ef6fa7ed56108c5085764883a291a639ee13cc9a8142576f41140b",
+          "bytes": 812
+        },
+        "index.html": {
+          "sha256": "3d012338e4da4124d12ccf4f6c09e652d5ac6eb8ef87b64299f296451308533a",
+          "bytes": 769
+        },
+        "page_spec.json": {
+          "sha256": "f1288737bc239b3fd776165b1b459ed28a68ded0f275edb86fa9110ae72b6132",
+          "bytes": 867
+        },
+        "prompt.txt": {
+          "sha256": "d59ceee895f10a50af7c4b913017f8b7e4eacff17683aa52a84389fa4b824d78",
+          "bytes": 292
+        },
+        "raw_output.txt": {
+          "sha256": "cdf6a6d3aaecee0f2b00a18be6d52a90f3a3a0ef5ed88d4705218c2214be1b0d",
+          "bytes": 532
+        },
+        "styles.css": {
+          "sha256": "809ca25cbef4170e493cea4d4f0edab1a7edd74c43fad7a1753f744aa9736c3b",
+          "bytes": 8178
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\13-pricing-plain_css",
+      "title": "Galeri Smartbluebosa",
+      "recipe": "pricing",
+      "example_id": "8e7f9ad9ccb27f1e4d28e8c0f6c394cd50e3f8979e00f3141b9b61e8f292d5f4",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "94d8e235c4810eb65dd1d324e376caa1526a6d8a6aba84ee0c9c92def657dc41",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Galeri Smartbluebosa",
+          "style_mode": "plain_css",
+          "primary": "#10b981",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani usaha kecil untuk memilih produk berkualitas."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "bfd7d98993562cafe6cec7dc63c47e2fe835ade70bf3966c5fd480d2987c631e",
+          "bytes": 805
+        },
+        "index.html": {
+          "sha256": "41374fbb9ddbe9478529db605525d5c40320cc81202ace5419ec1517a1653add",
+          "bytes": 1338
+        },
+        "page_spec.json": {
+          "sha256": "ad923bca7ad532ccf5af5bed52bea507d0a5e2bf2eb4d35d312070a8350a4de4",
+          "bytes": 1464
+        },
+        "prompt.txt": {
+          "sha256": "a0d9c6baa7700c5eb2f2e6a518e9e31e144f2c71a0ec7de4af5c1d22332425c4",
+          "bytes": 416
+        },
+        "raw_output.txt": {
+          "sha256": "94d8e235c4810eb65dd1d324e376caa1526a6d8a6aba84ee0c9c92def657dc41",
+          "bytes": 807
+        },
+        "styles.css": {
+          "sha256": "e27122e585ec1f008069e2298e8072155198f2005e05f95b158a8634aa50bbb6",
+          "bytes": 3648
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\14-pricing-plain_css",
+      "title": "Rumah Wavelasica",
+      "recipe": "pricing",
+      "example_id": "d581bd2ded052f9ba0ecd194dab0b5fc1f9906628e889abdce9ff0ddabe8b56f",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "5b60f67477bf67a2e89a6948cddae69b09a196f2348b3d7065ef7115e4d60367",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Rumah Wavelasica",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu usaha kecil untuk mengembangkan gagasan baru."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "4354bba52356d15422dd172cae8510dc3c54d7fe002e12737669928c39d120ff",
+          "bytes": 801
+        },
+        "index.html": {
+          "sha256": "ab51bd7eb8587fd05ff054ddf2d325ae45e81606b619bc57ca70e590ca6c4215",
+          "bytes": 1151
+        },
+        "page_spec.json": {
+          "sha256": "e03dd99482c4b46d96866e1a6bdcc6a28733f17ba75545bf58adc1e3882f5ac5",
+          "bytes": 1374
+        },
+        "prompt.txt": {
+          "sha256": "1a400d4443454f81e58572186a46e939262dfb134f686abbef042ae8e0c05207",
+          "bytes": 403
+        },
+        "raw_output.txt": {
+          "sha256": "5b60f67477bf67a2e89a6948cddae69b09a196f2348b3d7065ef7115e4d60367",
+          "bytes": 751
+        },
+        "styles.css": {
+          "sha256": "e3bff3742c427077a05efed2cde6b63d62bebd7ced6537c93527de6a9639f9dd",
+          "bytes": 3648
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\16-pricing-tailwind",
+      "title": "Dapur Fakamaweb",
+      "recipe": "pricing",
+      "example_id": "f0e5bd2fa3235ee93418be90aa38eae2569c401b84ac1c2c4c4bf282b63f5ecc",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "b325b13fdb05a0e3d23b30268c58a82578318b217666fc6491ea375902b168f0",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Dapur Fakamaweb",
+          "style_mode": "tailwind",
+          "primary": "#8b5cf6",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "adaa261a977da637ccf81ec18a26e07c86b3a8576a34bc283cb09d3b3420aa39",
+          "bytes": 777
+        },
+        "index.html": {
+          "sha256": "3be1294d2a860bb4a92087f315adbc6327a05fcc547ce2b5952794731303d539",
+          "bytes": 1297
+        },
+        "page_spec.json": {
+          "sha256": "1e776bac0303e7018136c3031dd170acc81bfa132fbe34fe0420bf9e61d99a51",
+          "bytes": 1422
+        },
+        "prompt.txt": {
+          "sha256": "19f62120cb1756281a1462a37be2e6784f18edc22b1bedefef2e32706dcba10e",
+          "bytes": 386
+        },
+        "raw_output.txt": {
+          "sha256": "b325b13fdb05a0e3d23b30268c58a82578318b217666fc6491ea375902b168f0",
+          "bytes": 765
+        },
+        "styles.css": {
+          "sha256": "78d75f6af38d7af66a1388e0b83aa5257e5f8d908aadcfddd5b4762e37a5b583",
+          "bytes": 8425
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\17-testimonial-plain_css",
+      "title": "Toko Sunlacastar",
+      "recipe": "testimonial",
+      "example_id": "3f939a439fdd557d18f51bb75a3f8a4294ef2a316126cfd46f1d3d5dc480e23e",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "cf6d7f72dc24a12ee6defc6b728ad40333fa8911807f43ba9a0e5647077bf826",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Sunlacastar",
+          "style_mode": "plain_css",
+          "primary": "#10b981",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "27d9566e8ca58e74eaad469da9a833d41f8966590a329792f60151969a835077",
+          "bytes": 779
+        },
+        "index.html": {
+          "sha256": "e0dc3690673f7b94c957a91f4da24eee0c322a7863acbb6092d3d66316960791",
+          "bytes": 1237
+        },
+        "page_spec.json": {
+          "sha256": "793092b24eb72f884d46ebd063582c61fb38df9997f30a57b4bc67e5650f6e17",
+          "bytes": 1224
+        },
+        "prompt.txt": {
+          "sha256": "d72377c9b6a655208ce66303adb832261c6c17496d8708d8e6fee71a913a1309",
+          "bytes": 389
+        },
+        "raw_output.txt": {
+          "sha256": "cf6d7f72dc24a12ee6defc6b728ad40333fa8911807f43ba9a0e5647077bf826",
+          "bytes": 711
+        },
+        "styles.css": {
+          "sha256": "e27122e585ec1f008069e2298e8072155198f2005e05f95b158a8634aa50bbb6",
+          "bytes": 3648
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\18-testimonial-plain_css",
+      "title": "Pustaka Nostargomi",
+      "recipe": "testimonial",
+      "example_id": "4ae98e98f01b3f98b131154ebcbad40d210f7f87071b27e05873f9ce3c70660c",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "2eb9b14d099639a4a7373de63e0a87b6f2bac17d7727aefc6e9a98d16b7769b7",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Pustaka Nostargomi",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani usaha kecil untuk menemukan solusi praktis."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "0197cf1eb386a1eb43513371614597236b1b5ef084b7ed0d6cee94b903fe5018",
+          "bytes": 801
+        },
+        "index.html": {
+          "sha256": "d3bc5eac731709aeb2f3d8d99f4d198dc30a09f163de71765327c8f8954f9033",
+          "bytes": 1094
+        },
+        "page_spec.json": {
+          "sha256": "8a2314d394b3c0077387acbb49ede1bc92611c277c6d1e9ea360777ab0e1962c",
+          "bytes": 1178
+        },
+        "prompt.txt": {
+          "sha256": "072395ca04b2387f1f2e8e90a5ebbdf845deadfbfabce302d6d87b467be2cc4d",
+          "bytes": 405
+        },
+        "raw_output.txt": {
+          "sha256": "2eb9b14d099639a4a7373de63e0a87b6f2bac17d7727aefc6e9a98d16b7769b7",
+          "bytes": 699
+        },
+        "styles.css": {
+          "sha256": "e3bff3742c427077a05efed2cde6b63d62bebd7ced6537c93527de6a9639f9dd",
+          "bytes": 3648
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\19-testimonial-tailwind",
+      "title": "Kebun Nori",
+      "recipe": "testimonial",
+      "example_id": "5bcc73eee17ebf7b63bdb98d2141060516bbbbeebbb56b853ea9394b2c47398e",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "68b02c6771e8939f7b511e7222a459a43b1cc9c83d78034c52da11928efdf934",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kebun Nori",
+          "style_mode": "tailwind",
+          "primary": "#8b5cf6",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung keluarga modern untuk merencanakan kegiatan bersama."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "49a00b0d57a8a7653918c3629495c0ae5cd6711a6d944ec8be72d35942add8a7",
+          "bytes": 801
+        },
+        "index.html": {
+          "sha256": "6f20cc229ac5fb03c2deb78525afb213ac75512fe50a468fadeffeae12aeaec1",
+          "bytes": 1072
+        },
+        "page_spec.json": {
+          "sha256": "f87ef5956ab2f01db3d8ddacdff458a328839411424029aca49c07aab2a8019f",
+          "bytes": 1155
+        },
+        "prompt.txt": {
+          "sha256": "1595ff4543fc87fbed66fae693f695d9125d75857295692db4c9a1ffd8d2db73",
+          "bytes": 405
+        },
+        "raw_output.txt": {
+          "sha256": "68b02c6771e8939f7b511e7222a459a43b1cc9c83d78034c52da11928efdf934",
+          "bytes": 676
+        },
+        "styles.css": {
+          "sha256": "aeaa7ba3c06eda85fec481860edf5a6018e2618534c0a5919ed324aab1fc1ea7",
+          "bytes": 8424
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\20-testimonial-tailwind",
+      "title": "Komunitas Worksi",
+      "recipe": "testimonial",
+      "example_id": "6843134728e15d642af80986afeaeb57f8de3a27084db5fd429f6f999f9fb427",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "768175d3858936a917a4564157afffea048969b3664949e10d5373c8d3ae32aa",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Komunitas Worksi",
+          "style_mode": "tailwind",
+          "primary": "#f59e0b",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kenali produk dan layanan kami."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "083cd3c13b8254a1ba5a4c94752002198c964f9e942e36bde9b3f125f45b8184",
+          "bytes": 771
+        },
+        "index.html": {
+          "sha256": "bfc9f846055facafddc278a08640e6213130959d2fc17b0a4436147b1e3eed7b",
+          "bytes": 1060
+        },
+        "page_spec.json": {
+          "sha256": "1f0349b383189ede43001aac678e9682a151aaca4a35cfe609d8f0f772ef563b",
+          "bytes": 1143
+        },
+        "prompt.txt": {
+          "sha256": "38e60ebf693e9e4e9ea4cc67ea148831e074815fb11f9e566126890a2d7b244f",
+          "bytes": 370
+        },
+        "raw_output.txt": {
+          "sha256": "768175d3858936a917a4564157afffea048969b3664949e10d5373c8d3ae32aa",
+          "bytes": 664
+        },
+        "styles.css": {
+          "sha256": "e696d1b5c2a90e2be13cb6609813a472700b14a2fbad0b1f1bd7ba984b766c68",
+          "bytes": 8424
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\22-contact-plain_css",
+      "title": "Bengkel Norilightlight",
+      "recipe": "contact",
+      "example_id": "f718a19fcbe0875110210992a37e155eb23f24639677c39ca6d3bc7885455475",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "245bad32495cb1bd660ef20cda0995ffe5704d54ec37546e9cc89440a2f9218d",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Norilightlight",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendampingi usaha kecil untuk merencanakan kegiatan bersama."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "d717f24f89f176c2ade3abbdb9104f15f0dc848e4138a4d6e18f3a5cc40d7351",
+          "bytes": 813
+        },
+        "index.html": {
+          "sha256": "590c6caef199f4075f50a47ead4f7316022a7e4def24ca9da1720cb962dd7e67",
+          "bytes": 1643
+        },
+        "page_spec.json": {
+          "sha256": "e5f1fced36506b6fad2e69fee5a480b576d7bcde1a9ad3e1e3c41cd69be087b8",
+          "bytes": 1618
+        },
+        "prompt.txt": {
+          "sha256": "10a2203cd86634b25409919eea1a85522789fc9cc3583243fd0663406eff7333",
+          "bytes": 420
+        },
+        "raw_output.txt": {
+          "sha256": "245bad32495cb1bd660ef20cda0995ffe5704d54ec37546e9cc89440a2f9218d",
+          "bytes": 911
+        },
+        "styles.css": {
+          "sha256": "53d337f3006890dc35a243fbf567922bdde6880f896331eef2b8af0c990a9e05",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\23-contact-tailwind",
+      "title": "Galeri Smartbluebosa",
+      "recipe": "contact",
+      "example_id": "45e64cef03cd954010befccd34569f686f8e910be13ad406b3540cbe8aff77d6",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "ea21dfd8d48674a61f59604481cfee8624ce56133658fbec9f04b3d11d8639f8",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Galeri Smartbluebosa",
+          "style_mode": "tailwind",
+          "primary": "#f59e0b",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani mitra usaha untuk menemukan solusi praktis."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "701561f0dc5e224fae68508aaeed760d8607c75033b5112ff87564ac35d21526",
+          "bytes": 801
+        },
+        "index.html": {
+          "sha256": "04459a314d7efe4a5b2e4534eeaf26fa0270d3e394ac9d4715faaee9fdc87e1a",
+          "bytes": 1627
+        },
+        "page_spec.json": {
+          "sha256": "c4be3ba5fdba9aeca97b9569532942e220fe433cfc08b75fa2e60661b480d702",
+          "bytes": 1601
+        },
+        "prompt.txt": {
+          "sha256": "619d1ec59079a434e71093ebe885faca7632ef97cce7f8cd3b68c29abf610671",
+          "bytes": 409
+        },
+        "raw_output.txt": {
+          "sha256": "ea21dfd8d48674a61f59604481cfee8624ce56133658fbec9f04b3d11d8639f8",
+          "bytes": 894
+        },
+        "styles.css": {
+          "sha256": "d59c59b64e5aee84d1173befe2345b2e7b45891c9e9395bd900c869a42085fc2",
+          "bytes": 8181
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\24-contact-tailwind",
+      "title": "Pustaka Nostargomi",
+      "recipe": "contact",
+      "example_id": "8f96d055c1e5e357a29e14a113f1a5db67e8af722b4127314e107931ba7c99e8",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "7821bb82c6a47d5b6fe1efa9a31dfc8aab649af39608f3b867c733bf31acb6ac",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Pustaka Nostargomi",
+          "style_mode": "tailwind",
+          "primary": "#2563eb",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu usaha kecil untuk memilih produk berkualitas."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "fc25d4289d12e597cf25d4088f902c53d53e3cf2ca460f9829fd360f1a4e031c",
+          "bytes": 802
+        },
+        "index.html": {
+          "sha256": "faa4c37d62bf1206d0b82a82eaefefd3a97df775dbe47f9c489110ad23aede27",
+          "bytes": 1486
+        },
+        "page_spec.json": {
+          "sha256": "260deedbe7d80238d3a9a0ab0a6c6f3210714be99c24920f794776841286a840",
+          "bytes": 1525
+        },
+        "prompt.txt": {
+          "sha256": "2ad3267cdf3fe41050741fa5df4ab5935c39e12ddf7626e5ca9aa8c234ef1069",
+          "bytes": 404
+        },
+        "raw_output.txt": {
+          "sha256": "7821bb82c6a47d5b6fe1efa9a31dfc8aab649af39608f3b867c733bf31acb6ac",
+          "bytes": 848
+        },
+        "styles.css": {
+          "sha256": "b60d3fe19f46945d84fadcac8386f0995f6b23cb16bc076738459c94da3e2e36",
+          "bytes": 8177
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\25-accordion-plain_css",
+      "title": "Studio Bagreenlo",
+      "recipe": "accordion",
+      "example_id": "3ac9b6a504f265833736befbed085401312bb9fe5ba8e80b353fa90211e41768",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "8f0afe090cff297a274fa7b3f2627ac5830e5b9ee2238267626361c429e00797",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Studio Bagreenlo",
+          "style_mode": "plain_css",
+          "primary": "#8b5cf6",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendampingi pelanggan baru untuk meningkatkan pengalaman pengguna."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "0b6d4c507acd657d509d08962a9e6619d5f0cc174d0171ff4d27044370bf419c",
+          "bytes": 814
+        },
+        "index.html": {
+          "sha256": "12e07078e51c6a80701a30af5260a4b0bf3eb97b8e92bbff9da50828f7a362ea",
+          "bytes": 1240
+        },
+        "page_spec.json": {
+          "sha256": "eccb1271af3756c478615214cf8604eb568a33dc3d99145ce37764c59fc89925",
+          "bytes": 1430
+        },
+        "prompt.txt": {
+          "sha256": "1271b14d1bbcb43a27cfeb555f52e5d8110d5e8cf5f8d0ec3ef114ddeb0866b7",
+          "bytes": 434
+        },
+        "raw_output.txt": {
+          "sha256": "8f0afe090cff297a274fa7b3f2627ac5830e5b9ee2238267626361c429e00797",
+          "bytes": 833
+        },
+        "styles.css": {
+          "sha256": "636109fab60d89b1521d5fa29b3a12f71c11f87480c4c4d130e876c886d38465",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\26-accordion-plain_css",
+      "title": "Komunitas Worksi",
+      "recipe": "accordion",
+      "example_id": "b2a0518db500a87ac3833ca6c635bc41c97fc29f6dab1c7744ebf12c8cb12953",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "aba297db3e73a199767f795728815f20763e4b7f902938677e55d13cd8a0734a",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Komunitas Worksi",
+          "style_mode": "plain_css",
+          "primary": "#10b981",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "e90925499a66060d5dd00a365a53c98d707ed73946b9d998262b964759e67b31",
+          "bytes": 779
+        },
+        "index.html": {
+          "sha256": "e47f7f2c4142a6deb7f8189d98e84ec8104ed037e4c657b756023431f3134054",
+          "bytes": 1055
+        },
+        "page_spec.json": {
+          "sha256": "c98d5a39223d11e4e553b3fa449d91a06723a57642e4ffa2ffdfc9eda847e2ed",
+          "bytes": 1308
+        },
+        "prompt.txt": {
+          "sha256": "987ee35a5d423b824100f1398e487e6750407ac6d7c13d1fb01473df2628c69f",
+          "bytes": 382
+        },
+        "raw_output.txt": {
+          "sha256": "aba297db3e73a199767f795728815f20763e4b7f902938677e55d13cd8a0734a",
+          "bytes": 741
+        },
+        "styles.css": {
+          "sha256": "82caeea8c9bf0c8e7403c0e04d69fd9baa2e6ba3dc98de6663a6e69ed0bb7652",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\28-accordion-tailwind",
+      "title": "Kebun Smarttimi",
+      "recipe": "accordion",
+      "example_id": "72f52ec026e7791f215a25c0071744be463aab3b6c7136c77a3211a4b62ff679",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "f406d1b9b0bd88ece244d5680eb7387d2e5664f993f65ce552cdf7aae77854c2",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kebun Smarttimi",
+          "style_mode": "tailwind",
+          "primary": "#2563eb",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendampingi tim kreatif untuk membangun identitas digital."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "f772cd76ed92e7149370a2b7abdd3f118cb8ba4645dd467c726f5b4551f727bb",
+          "bytes": 802
+        },
+        "index.html": {
+          "sha256": "3797b77e94f40a1cb3f6824917fc6cb1e41e02f2ffea6eb29408525711557611",
+          "bytes": 1093
+        },
+        "page_spec.json": {
+          "sha256": "b7af5a686117190fae39115d7f5b21fb95695f4af05847e73e7e61295b304316",
+          "bytes": 1345
+        },
+        "prompt.txt": {
+          "sha256": "af8e3a9a10a9a12927c92240d389783b7024c86385cc25c7772f072a22c5528b",
+          "bytes": 414
+        },
+        "raw_output.txt": {
+          "sha256": "f406d1b9b0bd88ece244d5680eb7387d2e5664f993f65ce552cdf7aae77854c2",
+          "bytes": 778
+        },
+        "styles.css": {
+          "sha256": "809ca25cbef4170e493cea4d4f0edab1a7edd74c43fad7a1753f744aa9736c3b",
+          "bytes": 8178
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\29-tabs-plain_css",
+      "title": "Kebun Nori",
+      "recipe": "tabs",
+      "example_id": "75e94013fe0c9063a863ebc0c5da5cfd038d2904af83de98c4dc22c761141353",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "e38a83f2619a682fd3752270402df95cfa349850fde209e362bbedabc43370b6",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kebun Nori",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani pemilik bisnis untuk meningkatkan pengalaman pengguna."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "c71ccb29b5e50dd19ac40c3d4f653db583c9105752f45e505b301efcc6e3bb3a",
+          "bytes": 804
+        },
+        "index.html": {
+          "sha256": "99d0e4b899d7f88d1f3bac96695ff9691f3883478b333dd1b04590f0c59fd100",
+          "bytes": 1747
+        },
+        "page_spec.json": {
+          "sha256": "d04c72c1bbcf64673e2ab46641172f94e134aa173d45506da422125cc8af2c9c",
+          "bytes": 1397
+        },
+        "prompt.txt": {
+          "sha256": "c0dfdfe9cf2aaa72efbf64d9af68d7179d45ad3ed90ac73b6410f35b03d179fd",
+          "bytes": 421
+        },
+        "raw_output.txt": {
+          "sha256": "e38a83f2619a682fd3752270402df95cfa349850fde209e362bbedabc43370b6",
+          "bytes": 800
+        },
+        "styles.css": {
+          "sha256": "53d337f3006890dc35a243fbf567922bdde6880f896331eef2b8af0c990a9e05",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\30-tabs-plain_css",
+      "title": "Dapur Fakamaweb",
+      "recipe": "tabs",
+      "example_id": "39f3a576cbc970c2261dd5eb4b9dc265297925f354e67412b0fa004adfd90a95",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "9efd4690e4e80b9334f3cf78d8f4fe30a8dcf2919a149fbf6c8c2719580ea837",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Dapur Fakamaweb",
+          "style_mode": "plain_css",
+          "primary": "#06b6d4",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu mitra usaha untuk meningkatkan pengalaman pengguna."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "0f57eb561c4fcc16123dc7cc8bee7e09eeef1ece2a31522cbcffd1c5e2341864",
+          "bytes": 806
+        },
+        "index.html": {
+          "sha256": "f319493e30ff87dbebbd1d41f2804b20a86cd6a6518894264d27931d4651a757",
+          "bytes": 1755
+        },
+        "page_spec.json": {
+          "sha256": "c255952f7228d6cb07ce0d6d7d88b67acdb59a505a1d05937295fbf1bcdcb740",
+          "bytes": 1408
+        },
+        "prompt.txt": {
+          "sha256": "ecd5b688e959e10f23a288fbd2f4dcc69f8819bcc2fa460640d4a7cccb70ad40",
+          "bytes": 418
+        },
+        "raw_output.txt": {
+          "sha256": "9efd4690e4e80b9334f3cf78d8f4fe30a8dcf2919a149fbf6c8c2719580ea837",
+          "bytes": 811
+        },
+        "styles.css": {
+          "sha256": "cc54c2e444e9988b2b8a1e8a96e761b90cd898366de3e06e7ac2e53512ded5ce",
+          "bytes": 3648
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\31-tabs-tailwind",
+      "title": "Studio Bagreenlo",
+      "recipe": "tabs",
+      "example_id": "d008c1037a92bf660a68e3dcc95e666ea0cebd669d33e05b9f5bf1ccd49d6d22",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "f3d95d8d9981e495a13d97095e1bf7cf1d959f45bf74e336a749cc09cb85ef2e",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Studio Bagreenlo",
+          "style_mode": "tailwind",
+          "primary": "#8b5cf6",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung pelanggan baru untuk meningkatkan pengalaman pengguna."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "907eeb32f80d9e2cd6eb531278bf8fc136c49ba56657bc88389099b56462751d",
+          "bytes": 809
+        },
+        "index.html": {
+          "sha256": "7928cdefd6e997c3756406304da33423ea10c539a3df70be5d13932cf18b5987",
+          "bytes": 1628
+        },
+        "page_spec.json": {
+          "sha256": "562e3d4b5ddc2f018efb36c43ae66582d592e2f6840b74a8040a94fbb7f9e1fb",
+          "bytes": 1344
+        },
+        "prompt.txt": {
+          "sha256": "6f0e10c071d469b1a4345dca5331b482210647c0769ff9216db190f04b34f659",
+          "bytes": 416
+        },
+        "raw_output.txt": {
+          "sha256": "f3d95d8d9981e495a13d97095e1bf7cf1d959f45bf74e336a749cc09cb85ef2e",
+          "bytes": 777
+        },
+        "styles.css": {
+          "sha256": "9fd9f9c4ec0f806245f1d4456d66f620daf11aeef8b067b67c1c580ee609027b",
+          "bytes": 8181
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\32-tabs-tailwind",
+      "title": "Klinik Sunpiblue",
+      "recipe": "tabs",
+      "example_id": "0c874bd563f9398ea242f20cee4e0eb13edfecd784cdc5e1b61ac47411ba8eb9",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "8f3754fd1d043b09268f4031a71bdc6d2e44c4ac29b87d1bfc27f5f87b6e44f3",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Klinik Sunpiblue",
+          "style_mode": "tailwind",
+          "primary": "#06b6d4",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu usaha kecil untuk meningkatkan pengalaman pengguna."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "ff2d448447111d2f0b2bd162a5339e6bbf6d6f7b8dfd6c83454d61831329e86f",
+          "bytes": 806
+        },
+        "index.html": {
+          "sha256": "0560e750615645ae0a8f2a079d708510d485a5440cc8ee7640ff196c5c2fb55e",
+          "bytes": 1609
+        },
+        "page_spec.json": {
+          "sha256": "1b9ee1d78beb200773103804804747956dba38c1cbf305d1511deeb852afd1d9",
+          "bytes": 1331
+        },
+        "prompt.txt": {
+          "sha256": "7c2728259f78c98a855636ddaa2b9ea3b52b6f0ad1101d927f8bec9b24f1eac2",
+          "bytes": 405
+        },
+        "raw_output.txt": {
+          "sha256": "8f3754fd1d043b09268f4031a71bdc6d2e44c4ac29b87d1bfc27f5f87b6e44f3",
+          "bytes": 764
+        },
+        "styles.css": {
+          "sha256": "be11be6e451f95ae3dd1ae074c771ebc7af73893f2d8c1087c0500d2aad91c34",
+          "bytes": 8180
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\33-filter-plain_css",
+      "title": "Toko Sunlacastar",
+      "recipe": "filter",
+      "example_id": "b82915a197ffc5c526c2e1d774ec0d3c7c5137ddccd1f2ec269e0410dff5a2e5",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "9b5532c3965872417b81213d5e99f4863e653b35a18223a4e4c8aff3db59730d",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Sunlacastar",
+          "style_mode": "plain_css",
+          "primary": "#8b5cf6",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung tim kreatif untuk mengembangkan gagasan baru."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "075f3da35befeb3c5c7ddeb77a4179e59c4c9fbbe7f33354159704d952da101a",
+          "bytes": 802
+        },
+        "index.html": {
+          "sha256": "adeac5ff5998e7addf0fa24ebd0713e42eda83ca706aaa58c6fec76aa286735f",
+          "bytes": 1329
+        },
+        "page_spec.json": {
+          "sha256": "210a7fe958aa99512a226660f2b83a83440f809803e9f129c2f1ee398ac5e31b",
+          "bytes": 1328
+        },
+        "prompt.txt": {
+          "sha256": "32697099c966201f354419e8ca2f867ea857ace928f9ff841adfdf66877bf4b9",
+          "bytes": 404
+        },
+        "raw_output.txt": {
+          "sha256": "9b5532c3965872417b81213d5e99f4863e653b35a18223a4e4c8aff3db59730d",
+          "bytes": 761
+        },
+        "styles.css": {
+          "sha256": "0b2f3bf263935fb9985ffe1d1eda0491721e8e1027986798e7965087af8b59ad",
+          "bytes": 3648
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\34-filter-plain_css",
+      "title": "Dapur Fakamaweb",
+      "recipe": "filter",
+      "example_id": "33e2a8b4f3d0c32dce85546bea144dd0c444815179b3d8ec86d90b57e603eb5b",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "98b759d2e665b7e5c008671f1aa591f679428c31fabf0fcc9ad6eed633bfcb68",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Dapur Fakamaweb",
+          "style_mode": "plain_css",
+          "primary": "#8b5cf6",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung komunitas lokal untuk memilih produk berkualitas."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "9ff90132181f32ef731bc80d1f04d883733068fccdf32891f95447183ab349b9",
+          "bytes": 805
+        },
+        "index.html": {
+          "sha256": "5152fb55477343d5ce5a179bf0f82fcb8bd06b35175dd7b1db3ab0a7ec2271b1",
+          "bytes": 1480
+        },
+        "page_spec.json": {
+          "sha256": "0edc1bde606307e34f8a71b6921c72f0b75bd1ee9ffaacd0ab8fe48094210fe1",
+          "bytes": 1415
+        },
+        "prompt.txt": {
+          "sha256": "39702ed32bc88d89b93f83a1b2498a8edb758f4f354b48761599e4256a81f74a",
+          "bytes": 424
+        },
+        "raw_output.txt": {
+          "sha256": "98b759d2e665b7e5c008671f1aa591f679428c31fabf0fcc9ad6eed633bfcb68",
+          "bytes": 818
+        },
+        "styles.css": {
+          "sha256": "5799584e15209c57eb421be9a692b3bfbdc275906be8e7830ca34e6588e2af48",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\35-filter-tailwind",
+      "title": "Kafe Webtechraw",
+      "recipe": "filter",
+      "example_id": "cdee48335c209b4c580e20a5028d64112b8804bc8d39dc901aece1157cf0d257",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "9df1c144f6b9ab98a78577648ad0907fc6b2f058a176e2c7fe35a7958413d192",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kafe Webtechraw",
+          "style_mode": "tailwind",
+          "primary": "#10b981",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu komunitas lokal untuk belajar dengan nyaman."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "ff5f011d89eb49f229acd91bdae8fb49a9ac03680922c587394fbc4539b1743c",
+          "bytes": 797
+        },
+        "index.html": {
+          "sha256": "d7314c9ba5f056573bea2f706dcea2bfb6a33478aed275f5f08a4d976abc0874",
+          "bytes": 1333
+        },
+        "page_spec.json": {
+          "sha256": "529a962ccd2bc4dba290795002ff64245bb9ff1703461770e7740be11b3fa7c3",
+          "bytes": 1331
+        },
+        "prompt.txt": {
+          "sha256": "94f73c78b71109ee457ffd1125c3014ee1f7c8e916fdb229c0ab0d6f049e47be",
+          "bytes": 405
+        },
+        "raw_output.txt": {
+          "sha256": "9df1c144f6b9ab98a78577648ad0907fc6b2f058a176e2c7fe35a7958413d192",
+          "bytes": 764
+        },
+        "styles.css": {
+          "sha256": "c682c5da5792fa848df0c9f64c7a7d0e488cd73450a4cb65a1661b604f02d3e9",
+          "bytes": 8446
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\36-filter-tailwind",
+      "title": "Toko Codemapolight",
+      "recipe": "filter",
+      "example_id": "98d73873cc08b4f1a23ad7e584654462a759d148aa1213d6b3461c078552c2b0",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "e39043500d77d35007efc1b1dacc46e882ae6c1c721726123954edd1e23a9ff0",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Codemapolight",
+          "style_mode": "tailwind",
+          "primary": "#2563eb",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani pelajar Indonesia untuk merencanakan kegiatan bersama."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "c941fcf2699aa6e8fca7c4f1165f003e2c90817a386c244ef32dcd3f83e161d4",
+          "bytes": 811
+        },
+        "index.html": {
+          "sha256": "f36e090ce19c7286661879294e3bc2b1924e7ddd5912d2c24b1a348d332989cb",
+          "bytes": 1345
+        },
+        "page_spec.json": {
+          "sha256": "452fe102f7ee99a3ceaa05c556e48667692ce54fb8c0d866f1b52a34617a30f5",
+          "bytes": 1344
+        },
+        "prompt.txt": {
+          "sha256": "7e93426886b5bd9f9a2729c3a974c8c2ab5d2f82e152498d78b2d7c2e888ea29",
+          "bytes": 415
+        },
+        "raw_output.txt": {
+          "sha256": "e39043500d77d35007efc1b1dacc46e882ae6c1c721726123954edd1e23a9ff0",
+          "bytes": 777
+        },
+        "styles.css": {
+          "sha256": "e31ef2a7b242da3713bac268f171e8ddef46216d3907083c8730c1c3fd8e870b",
+          "bytes": 8442
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\37-modal-plain_css",
+      "title": "Toko Sunlacastar",
+      "recipe": "modal",
+      "example_id": "d9571633d1500a76bf878c070d8fad2683d23be8f9105531056d5f481fd67761",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "5b3082f0c8e92ff67c92c8588b61b2646973f8345a464ca10461d8445dc3c77c",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Sunlacastar",
+          "style_mode": "plain_css",
+          "primary": "#06b6d4",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "0366d8c441fd78364e96b1910cafc4eacbfa9e12a4385872aebeea4f4813edc6",
+          "bytes": 780
+        },
+        "index.html": {
+          "sha256": "eab3613f99c2c097a0b7fd4c28d8bc94a7f68b7f7dbb1866e97a7ed68ee05326",
+          "bytes": 1233
+        },
+        "page_spec.json": {
+          "sha256": "42263aeae43a99e0d77efd0c203d9b261afba1a186ed9ac7738f8c117e052bed",
+          "bytes": 1007
+        },
+        "prompt.txt": {
+          "sha256": "c6c8c68e5b5647197973e6577537eaec2833f9b828f833c6dff4976862d871ab",
+          "bytes": 334
+        },
+        "raw_output.txt": {
+          "sha256": "5b3082f0c8e92ff67c92c8588b61b2646973f8345a464ca10461d8445dc3c77c",
+          "bytes": 597
+        },
+        "styles.css": {
+          "sha256": "cc54c2e444e9988b2b8a1e8a96e761b90cd898366de3e06e7ac2e53512ded5ce",
+          "bytes": 3648
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\38-modal-plain_css",
+      "title": "Komunitas Worksi",
+      "recipe": "modal",
+      "example_id": "3f9b4058689bd4cf63d0132fbc764dd311a34a040280c5e9835820e24d8518cf",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "65d1a94b56e8b87291d9bbef9936aea36fe115001e95721a07262d6c590ebda7",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Komunitas Worksi",
+          "style_mode": "plain_css",
+          "primary": "#2563eb",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani mitra usaha untuk meningkatkan pengalaman pengguna."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "69c4d2a38449a9837a26eba63f432b1c99db27e3c5b8b4ef55481e0b20db2865",
+          "bytes": 808
+        },
+        "index.html": {
+          "sha256": "1c132f04bfc914d25686094114077917cd30fc0fef42022018ff1927a54adcac",
+          "bytes": 1287
+        },
+        "page_spec.json": {
+          "sha256": "868894b03f5cfefa25639e494d7e1bcf65c2c274681cab3b60bd8f28e8e75786",
+          "bytes": 1035
+        },
+        "prompt.txt": {
+          "sha256": "b50f3c3a22bc7dc28a761361c6958a94eded33e091d3b0980f17bba022aeee3f",
+          "bytes": 359
+        },
+        "raw_output.txt": {
+          "sha256": "65d1a94b56e8b87291d9bbef9936aea36fe115001e95721a07262d6c590ebda7",
+          "bytes": 625
+        },
+        "styles.css": {
+          "sha256": "2d7321012196e41ee7e355c6ddf63ce5cb9425eed6516b57a1cc14a68667048f",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\39-modal-tailwind",
+      "title": "Kafe Webtechraw",
+      "recipe": "modal",
+      "example_id": "37ba1608ef9a9e40c7fd2147c5e3c8f1070dddb1cdcd8864a4373b18730468ec",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "f862d35dc9908b23859cc1e87292876df61ab511e69aa718f81daed107c7561d",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kafe Webtechraw",
+          "style_mode": "tailwind",
+          "primary": "#f59e0b",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung mitra usaha untuk memilih produk berkualitas."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "c9a91eb23aebb1522701ac9d9f0294dfb3d105231358a3503cf7f9b943cd1989",
+          "bytes": 799
+        },
+        "index.html": {
+          "sha256": "0a55cc56a146f8ab228facde71a59f648c9cf9ca71cab06ca4b618ff4ae82385",
+          "bytes": 1272
+        },
+        "page_spec.json": {
+          "sha256": "68ebe5dc905237582861044fbda8c8909421ef9649e37d6e725c0ee72c8c87ea",
+          "bytes": 1024
+        },
+        "prompt.txt": {
+          "sha256": "46df8217b6958a1ae478f3aa08ff5fadbaf9f15ef33d187dba4eb766522fbe41",
+          "bytes": 351
+        },
+        "raw_output.txt": {
+          "sha256": "f862d35dc9908b23859cc1e87292876df61ab511e69aa718f81daed107c7561d",
+          "bytes": 614
+        },
+        "styles.css": {
+          "sha256": "d5da4169b8ef62dc1e84a5265bc7961258665687e8277fa89749c6994a9ae60f",
+          "bytes": 8180
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\40-modal-tailwind",
+      "title": "Pustaka Nostargomi",
+      "recipe": "modal",
+      "example_id": "d2ba4f711a3e2291f4f2558d69b222e33bb3eb46d75ea6a709219a8c13b0ca7a",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "20214d6af3e1feb900308d225a361b16d40e494f315da5c77f61d9df0b126ae1",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Pustaka Nostargomi",
+          "style_mode": "tailwind",
+          "primary": "#06b6d4",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Temukan layanan pilihan kami."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "bd6ed83ec25045bfa49a25eec75200a49547942f5c1a74f7432e25d3c7cfee8c",
+          "bytes": 771
+        },
+        "index.html": {
+          "sha256": "821931558a091c830639fdddf64691d97d51fc0baebb7e8d2f4a1aaf6afcc425",
+          "bytes": 1225
+        },
+        "page_spec.json": {
+          "sha256": "0cd7f9e4ec3158f6751ca4692df360a04df47d9fe4eb3ecb1c04cfc250d09c9f",
+          "bytes": 1005
+        },
+        "prompt.txt": {
+          "sha256": "54e0c5e0171437a631a87ea0fce4f0088b02059f1cf5e23bf105328ff58eb1d5",
+          "bytes": 326
+        },
+        "raw_output.txt": {
+          "sha256": "20214d6af3e1feb900308d225a361b16d40e494f315da5c77f61d9df0b126ae1",
+          "bytes": 595
+        },
+        "styles.css": {
+          "sha256": "83ca1c53a97f8aeeb2ca4569dc1c05a3d0eb6004ebf7cca7fa134b29371f1d66",
+          "bytes": 8180
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\41-features_contact-plain_css",
+      "title": "Dapur Weblawork",
+      "recipe": "features_contact",
+      "example_id": "a1aec5badc5de90e22a870e74d05e07e3ce2fe19a818f56337690368ec83cf65",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "f267289e033b19e53fc8e6bd48e095b2598b864f935df759643528e51c49c972",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Dapur Weblawork",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "7e0ef9e059b1cdecfb53154e9ed6ecdacb6001bfc9ab3a1486c734c2cfdd56e9",
+          "bytes": 779
+        },
+        "index.html": {
+          "sha256": "924ded9041a8ed80d8ed1c2953be4bc97fe2b9e0e3c2edcd588184907eb0ccfb",
+          "bytes": 1894
+        },
+        "page_spec.json": {
+          "sha256": "881c4b4c4ee6fff9ee5a4c98938deec14ac7e456a9a8a2dd0b9fd81daf62f28e",
+          "bytes": 1934
+        },
+        "prompt.txt": {
+          "sha256": "680160b0df5294cef7fe2b53fcc9f767156c9316726432d950b88847b0f83ef5",
+          "bytes": 440
+        },
+        "raw_output.txt": {
+          "sha256": "f267289e033b19e53fc8e6bd48e095b2598b864f935df759643528e51c49c972",
+          "bytes": 1040
+        },
+        "styles.css": {
+          "sha256": "9c8b901e12b2cfd902c0264f41abf3a97ab80ba353daa0360e9223243f99bd9d",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\42-features_contact-plain_css",
+      "title": "Komunitas Worksi",
+      "recipe": "features_contact",
+      "example_id": "00dec2b66165ab2f14c2b8302e7ebb6e1f9034cc5bf2d2a80a7b521da86f3777",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "62f3cd0f11e04bfb6f7a311203eb91ceebf45b2952dfd2fa740067382a59b664",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Komunitas Worksi",
+          "style_mode": "plain_css",
+          "primary": "#ef4444",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani keluarga modern untuk membangun identitas digital."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "7c47304299025f7fbf8ae35962456763e777995f1f1fc514c1b03ad316e21e8e",
+          "bytes": 806
+        },
+        "index.html": {
+          "sha256": "8e5ab7d7d5331bee92273913137812ffa84e1e857ab476288eda7e6b99ae9895",
+          "bytes": 1935
+        },
+        "page_spec.json": {
+          "sha256": "5969f0fe534faa1f53d6bb6bc838e66b54e49c2f8897dff3ae39f56f86ae91e4",
+          "bytes": 1974
+        },
+        "prompt.txt": {
+          "sha256": "22267a7da401ec3b3372e9425fb04eb89f9846b98e7055c591c6687b2bf5b303",
+          "bytes": 467
+        },
+        "raw_output.txt": {
+          "sha256": "62f3cd0f11e04bfb6f7a311203eb91ceebf45b2952dfd2fa740067382a59b664",
+          "bytes": 1080
+        },
+        "styles.css": {
+          "sha256": "84287a32be877e1dc2fc9284d278bc4958df5cd92b4634bc1c6f12a3316c1a38",
+          "bytes": 3648
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\43-features_contact-tailwind",
+      "title": "Kafe Webtechraw",
+      "recipe": "features_contact",
+      "example_id": "d4424df41ee0fccd455d853a4dd80c7a094f9c54c4ccb42ca1786491078c6713",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "48b71f4aa8ac141af0474973c47d5ecb0e329da1dbd182e1840ec6358f0ee3b5",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kafe Webtechraw",
+          "style_mode": "tailwind",
+          "primary": "#10b981",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu pemilik bisnis untuk memilih produk berkualitas."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "c6c0bcededd7a91286db9e6c7a59c067e425dcfc4db6b8664ff7ee1e25e59195",
+          "bytes": 801
+        },
+        "index.html": {
+          "sha256": "fbc73eb49b16cdf6c2effd67c1267c860199c596f1295a043778ef275eaea526",
+          "bytes": 1788
+        },
+        "page_spec.json": {
+          "sha256": "8b3f5117ffdfc932cff4ac38b25c8cbe8123863235f16866cd2a72eabb2c93e5",
+          "bytes": 1890
+        },
+        "prompt.txt": {
+          "sha256": "e7343f59ea020173ac6c96e9980bf7d3a38ad5dadb783ea7ada0023b7ac4007e",
+          "bytes": 451
+        },
+        "raw_output.txt": {
+          "sha256": "48b71f4aa8ac141af0474973c47d5ecb0e329da1dbd182e1840ec6358f0ee3b5",
+          "bytes": 1026
+        },
+        "styles.css": {
+          "sha256": "bb003cff7b8cb323e3b5ee835daa63fb9d925df6b3a8242403d141eae8fd2e3f",
+          "bytes": 8425
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\44-features_contact-tailwind",
+      "title": "Kursus Dado",
+      "recipe": "features_contact",
+      "example_id": "8d8d21a7791c4ab26b9e653b49f18d86814827cf9921e322c7ef5a93c9ed7f80",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "8dbb190390c77c5a4cd0d2cf5996a055595c2e5393f268cade67dfcab51fc150",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kursus Dado",
+          "style_mode": "tailwind",
+          "primary": "#f59e0b",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung mitra usaha untuk memilih produk berkualitas."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "fb9af8404785e75cd8afb0a58d9e32d47820f3a19503bc17cbc35614c9695335",
+          "bytes": 796
+        },
+        "index.html": {
+          "sha256": "fcbcda4d63ae3017815ad57f66755b69f3ab8cb137b2e9a068189d26ce8bbef5",
+          "bytes": 1776
+        },
+        "page_spec.json": {
+          "sha256": "145e62062df72e4b28f7bc9d8557f1db2c4e36ea1f269d4739cd43f6096541f9",
+          "bytes": 1879
+        },
+        "prompt.txt": {
+          "sha256": "1029580e4ecdafd35b0ea1843c2367586cf53cf5b9aad77c82613fdab29ee0f9",
+          "bytes": 449
+        },
+        "raw_output.txt": {
+          "sha256": "8dbb190390c77c5a4cd0d2cf5996a055595c2e5393f268cade67dfcab51fc150",
+          "bytes": 1015
+        },
+        "styles.css": {
+          "sha256": "fd48aa6134cd51c41cce26b3965032d73d24fe9a023d7d83bdc94379f3a4a673",
+          "bytes": 8424
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\45-pricing_contact-plain_css",
+      "title": "Studio Bagreenlo",
+      "recipe": "pricing_contact",
+      "example_id": "0da5698ac3a3c5d292f109f9e9d5c742cce0af8de77b1bbf27b21abd7157a7b0",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "a405727561ca404f6d9e7fe39deca6593b79c744dde007fd2c381028a163dc1c",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Studio Bagreenlo",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu komunitas lokal untuk meningkatkan pengalaman pengguna."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "2954dd12c53658619ac25907523dad7ce2fde60f3507dea10163b279c4c8dc78",
+          "bytes": 811
+        },
+        "index.html": {
+          "sha256": "7667eb72045379c76d97992023c324ef2655c9c47b07347b956103ec4f3b1974",
+          "bytes": 1988
+        },
+        "page_spec.json": {
+          "sha256": "07b0d872baecd94b7b4b2509509f57b86e0e20ba37cbd211a5ebe60f41728e81",
+          "bytes": 2084
+        },
+        "prompt.txt": {
+          "sha256": "7d7764ba7f1a96c3969d556f3046c8afb59d3f800b09c48f3d64afc8790d797b",
+          "bytes": 514
+        },
+        "raw_output.txt": {
+          "sha256": "a405727561ca404f6d9e7fe39deca6593b79c744dde007fd2c381028a163dc1c",
+          "bytes": 1100
+        },
+        "styles.css": {
+          "sha256": "53d337f3006890dc35a243fbf567922bdde6880f896331eef2b8af0c990a9e05",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\46-pricing_contact-plain_css",
+      "title": "Komunitas Worksi",
+      "recipe": "pricing_contact",
+      "example_id": "26cc5a710bec234f9910ddd018d6f41c1b2c75e05f5a92d7305eded68a4274b6",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "a2485a8c42f53a07196a92aef25f8ed9d23c0afe73605bce5215443e09ea8f51",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Komunitas Worksi",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani pelanggan baru untuk meningkatkan pengalaman pengguna."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "973495925d47385da77f1bd4ea674ad2b63f8ed0104fe8cfc8f16d1409a0ab18",
+          "bytes": 811
+        },
+        "index.html": {
+          "sha256": "6d00bbc946cd006f478175448f968e827c6030c34e9f887c84fb03ce66a45693",
+          "bytes": 1987
+        },
+        "page_spec.json": {
+          "sha256": "c39c7fa28bfbc2ce93228d52caec8fa88848251effd2ba00bfd427a5e02b1959",
+          "bytes": 2084
+        },
+        "prompt.txt": {
+          "sha256": "4d02bf015f48cad77bdfa241af23ffa854f892b39309138b457551423cb8b520",
+          "bytes": 515
+        },
+        "raw_output.txt": {
+          "sha256": "a2485a8c42f53a07196a92aef25f8ed9d23c0afe73605bce5215443e09ea8f51",
+          "bytes": 1100
+        },
+        "styles.css": {
+          "sha256": "9c8b901e12b2cfd902c0264f41abf3a97ab80ba353daa0360e9223243f99bd9d",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\47-pricing_contact-tailwind",
+      "title": "Studio Bagreenlo",
+      "recipe": "pricing_contact",
+      "example_id": "0cd7eb66c6d49aec97579e5872279033cd0f8ec7d295fb1a98b0e2cf6717ed16",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "8fbdf0ae337f07171ad3813e550a41361d248405267fda8097cc56e61f79023f",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Studio Bagreenlo",
+          "style_mode": "tailwind",
+          "primary": "#10b981",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "ba51c8285ab908ce58205caffbb640aec5f70699f95bdeb2cf7fb457f660b611",
+          "bytes": 777
+        },
+        "index.html": {
+          "sha256": "c7867fd8b088974d26189d42ff56c684e62615327a85fc8f58712c35ffb36e5b",
+          "bytes": 1956
+        },
+        "page_spec.json": {
+          "sha256": "672d445f5c96921a8100a0a9971d133367911d4e81c7acc25973eee26ea9db65",
+          "bytes": 2051
+        },
+        "prompt.txt": {
+          "sha256": "2ebbeacf7ad6155f0695e7296dc7a8ff9c9494841cdbe3e33007e345b3d38737",
+          "bytes": 479
+        },
+        "raw_output.txt": {
+          "sha256": "8fbdf0ae337f07171ad3813e550a41361d248405267fda8097cc56e61f79023f",
+          "bytes": 1067
+        },
+        "styles.css": {
+          "sha256": "8b2c4b1a90592138243237e3cc3b61b26e111e7800046815ce3b29a17071f622",
+          "bytes": 8424
+        }
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-013\\48-pricing_contact-tailwind",
+      "title": "Galeri Hanowa",
+      "recipe": "pricing_contact",
+      "example_id": "39acf3802d7215b16e9a27161c21db747e44a0ee5cf4d51150abbad2724b3f5d",
+      "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "raw_output_sha256": "8cda08980073b8200fab17e71e66d1eebb3e07300f56ee98dcafc39ca4836eb9",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "prompt_contract": {
+        "checked": true,
+        "requested": {
+          "title": "Galeri Hanowa",
+          "style_mode": "tailwind",
+          "primary": "#f59e0b",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu pelanggan baru untuk menemukan solusi praktis."
+        },
+        "errors": []
+      },
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "edbd311b8db7114b223d3efc248b3a628694639ed6ed471afd9b6dcdf2638f48",
+          "bytes": 797
+        },
+        "index.html": {
+          "sha256": "e1431a47e67c8c8f7f62b7f8e92d285b1a0c332b379e5091e2f64b69a893d94e",
+          "bytes": 1832
+        },
+        "page_spec.json": {
+          "sha256": "98072690cf4a12750735d7d3435b72ac8f493346d13510a323ec5f91ff7129e3",
+          "bytes": 1991
+        },
+        "prompt.txt": {
+          "sha256": "88044d58154c8fa4a39d92ea91453571bbda042fc78065bbfecd9ddd77c070cb",
+          "bytes": 487
+        },
+        "raw_output.txt": {
+          "sha256": "8cda08980073b8200fab17e71e66d1eebb3e07300f56ee98dcafc39ca4836eb9",
+          "bytes": 1037
+        },
+        "styles.css": {
+          "sha256": "2ca99754d652c91aef6497c1dc0d54b6892ccc3b1db468bd5eb283ca8d923617",
+          "bytes": 8425
+        }
+      }
+    }
+  ],
+  "browser_evaluated": false,
+  "limits": [
+    "Fictional controlled prompts, not arbitrary real-world generation",
+    "No generator application/API",
+    "Forms do not send data",
+    "Browser/visual scores require separate inspection"
+  ]
+}

@@ -1,6 +1,6 @@
 # Ruang Lingkup dan Rancangan Pipeline
 
-Dokumen ini menetapkan desain Mini GPT WebCodeGen sebelum pipeline data, model, training, atau aplikasi ditulis. Tujuan proyek adalah membuat model decoder-only dari bobot acak yang menghasilkan rancangan website terstruktur.
+Dokumen ini menetapkan desain Mini GPT WebCodeGen dan mencatat status implementasi pipeline data. Tujuan proyek adalah membuat model decoder-only dari bobot acak yang menghasilkan rancangan website terstruktur.
 
 ## Tujuan dan persyaratan tugas
 
@@ -59,23 +59,26 @@ Versi PyTorch adalah versi VENV yang tersedia dan diuji secara lokal pada 12 Okt
 
 Data tidak digabung sebelum schema dan license dicatat. Halaman sumber dikonversi ke PageSpec menggunakan anotasi terstruktur yang ditinjau kelompok; source code tidak diperlakukan sebagai PageSpec secara otomatis. `group_id` merepresentasikan keluarga halaman/template. Split dilakukan berdasarkan group, bukan baris, untuk mengurangi kebocoran. Dedup menyimpan alasan dan kunci pembanding. Test set ditahan hingga pilihan hyperparameter selesai.
 
+Alokasi keluarga pretraining disimpan dan menjadi acuan SFT. Record instruksi membawa source_row_id dan source_group_id yang dihitung ulang dari raw code. Group manual yang menggabungkan partition berbeda ditolak; validation/test SFT tetap berada pada partition sumber yang sama, bukan diacak ulang pada subset anotasi.
+
 ## Diagram pipeline
 
 ```mermaid
 flowchart TD
     A[Manifest sumber, revision, lisensi] --> B[Streaming subset teks]
     B --> C[Ekstraksi ide dan markup]
-    C --> D[Normalisasi teks, HTML, CSS, Tailwind]
-    D --> E[Konversi ke spesifikasi JSON]
-    E --> F[Validasi schema dan pemeriksaan semantik]
-    F --> G[Dedup dan kelompok template]
-    G --> H[Split train, validation, test per group]
-    H --> I[Tokenizer BPE pada train]
-    I --> J[Blok token dan data loader]
-    J --> K[Mini GPT random-init, next-token]
-    K --> L[Continued training instruksi prompt-ke-JSON]
-    L --> M[Evaluasi loss dan kualitas tugas]
-    M --> N[Checkpoint dan laporan]
+    C --> D[Normalisasi HTML CSS JavaScript]
+    D --> E[Dedup dan alokasi keluarga template]
+    E --> F[Tokenizer BPE pada train dan blok token]
+    F --> G[Mini GPT bobot acak, next-token]
+    C --> H[Draft PageSpec dan review prompt Indonesia]
+    H --> I[Validasi schema dan provenance]
+    E --> I
+    I --> J[SFT mengikuti partition sumber]
+    G --> K[Continued training prompt-ke-JSON]
+    J --> K
+    K --> L[Evaluasi loss dan kualitas tugas]
+    L --> M[Checkpoint dan laporan]
 ```
 
 Pretraining mempelajari struktur teks/kode dari sumber yang dikurasi. Pada tahap penyelarasan, prompt diikuti target PageSpec JSON dan loss dihitung pada token target, bukan prompt. Urutan field JSON kanonis ditetapkan agar target konsisten.
@@ -99,16 +102,17 @@ Validator tidak menjamin kualitas isi. Renderer menerima hanya ID interaksi yang
 ## Kontrak modul
 
 - `src/data/sources.py`: mengambil sumber yang diizinkan, revision, dan metadata lisensi.
-- `src/data/normalize.py`: menghasilkan `WebPageExample` dengan `example_id`, `prompt`, `target_spec`, `style_mode`, `interactions`, `source_id`, `source_revision`, `license_id`, `group_id`, dan `split`.
+- `src/data/normalize.py`: menghasilkan kode pretraining atau `PageExample` reviewed dengan prompt/target_spec, provenance, source_row_id/source_group_id, group_id, dan split. Style_mode/interactions dibaca dari target_spec.
 - `src/data/validate.py`: memeriksa schema dan batas komponen/interaksi.
-- `src/data/split.py`: membagi berdasarkan `group_id` memakai seed konfigurasi.
+- `src/data/split.py`: alokasi group pretraining memakai seed konfigurasi; SFT mewarisi alokasi source family dan memeriksa konflik group manual.
+- `src/data/integrity.py`: memverifikasi lineage tokenizer/cache dan SFT terhadap raw source serta alokasi keluarga bersama.
 - `src/data/tokenizer.py`: melatih BPE pada train, menyimpan vocab dan hash.
 - `src/data/dataset.py`: membuat token input dan label untuk pretraining/SFT.
 - `src/models/minigpt.py`: menerima `[batch, sequence]`, menghasilkan logits `[batch, sequence, vocab]`.
 - `src/training/train.py`: optimizer, validation, logging, checkpoint/resume dengan config, tokenizer, source manifest, dan RNG state.
 - `src/evaluation/`: loss, perplexity, JSON parse/schema, prompt held-out, serta rubric kualitas halaman.
 
-Kontrak ini untuk planning. Implementasi belum dibuat.
+Kontrak data, model, training, dan evaluator telah diimplementasikan. PageExample adalah record kanonis, dengan alias WebPageExample; style_mode dan interactions dibaca dari target_spec. Validator berada pada schema.py dan diekspor kembali melalui validate.py. Mini GPT berparameter 14.186.496, loop BF16, checkpoint/resume, mask token, dan probe PageSpec tersedia. SFT belum dijalankan.
 
 ## Evaluasi dan gerbang tahap
 
@@ -144,4 +148,8 @@ Kontrak ini untuk planning. Implementasi belum dibuat.
 
 ## Status
 
-Environment dan audit dataset siap. Pipeline data, model, training, evaluasi model, dan aplikasi belum dijalankan. Urutan implementasi dan interface rinci ada di dokumen [rencana implementasi](superpowers/plans/2026-10-12-pipeline-data-model-training.md). Aplikasi preview/unduhan dilaksanakan setelah konfirmasi planning dan lolos gerbang evaluasi model.
+Pembaruan AI-013: pipeline model memenuhi gerbang kontrak terkontrol pada final yang baru, 48/48 schema valid dan 44/48 exact. TRAIN-015 best dipilih lewat full validation CE sebelum final, lalu 44 output diterima diekspor menjadi website dan ZIP. [Laporan final](../reports/FINAL_GATE_2026-10-13.md) dan [notebook09](../notebooks/09_evaluasi_final_dan_output.ipynb) menjadi status terbaru. Scope berikutnya adalah aplikasi input prompt dengan grammar yang didukung, validasi per output, preview sandbox serta unduhan. UI dan kualitas browser belum dibuktikan. Semua eksperimen tambahan memakai data sintetis yang diungkapkan; jumlah reviewed manusia tetap 12. Paragraf berikut adalah riwayat tahap sebelumnya.
+
+Pembaruan AI-011: CLI menghasilkan dua research demo yang sesuai prompt, plain CSS dan Tailwind/JavaScript. [Hasil terbaru](../reports/OUTPUT_DEVELOPMENT_2026-10-13.md) membedakan output diterima per request dengan overall gate43/48yang gagal. UI generator bebas/browser acceptance belum tersedia. Tailwind dikompilasi lokal tanpa CDN. Paragraf berikut mencatat fase baseline sebelumnya.
+
+Planning sudah disetujui pengguna. Download subset dan pipeline data telah dijalankan; BPE ditrain baru hanya pada train partition. Model dan pretraining baseline 1.200 update selesai, termasuk resume pada GPU dan evaluasi token test penuh. Loss test 1,071 / perplexity 2,918, tetapi 4 probe eksploratif menghasilkan 0 PageSpec JSON valid. SFT produksi menunggu anotasi Indonesia reviewed, dan aplikasi belum dibuat. Gerbang needs-data dijelaskan pada [laporan training](../reports/PIPELINE_TRAINING_SUMMARY.md). Urutan implementasi ada di [rencana implementasi](superpowers/plans/2026-10-12-pipeline-data-model-training.md), command data di [panduan pipeline](PIPELINE_DATA_GUIDE.md), dan training di [panduan training](TRAINING_GUIDE.md).

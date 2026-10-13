@@ -1,0 +1,16 @@
+RUN-175 | 2026-10-13T19:11:50.583685+07:00 | AI-013 source and documentation structural audit during training
+Command: .venv/Scripts/python.exe .tmp/check_delivery.py
+Commit: 4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9
+
+{
+  "counts": {
+    "python": 75,
+    "json": 93,
+    "markdown": 52,
+    "notebook": 7,
+    "executed_code_cells": 56
+  },
+  "errors": []
+}
+
+Exit code: 0

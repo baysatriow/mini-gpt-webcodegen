@@ -1,0 +1,7 @@
+RUN-137 | 2026-10-13T09:44:02.379319+07:00 | prepare_train_name_loss_weights
+Command: .venv/Scripts/python.exe -m qa.prepare_name_loss_weights --dataset-dir data/processed/curriculum/v5 --name-weight 16
+Commit: 0b2de4a6377a87069f2a684253554715217a5187
+
+{"path": "data\\processed\\curriculum\\v5\\train.name_weights.npy", "sha256": "b83eef1fea4b814fc0d80b0a57be4adba9a077ffedb571f0f404c25c4bca81ba", "name_weight": 16.0, "weighted_name_token_positions": 475524, "rows": 19068, "train_sha256": "418dc7e18c4bf932ea8d89a3b5b2771eec440f5ec68186337ec6f90f32374538", "definition": "sum(weight * CE) / sum(weight) over supervised tokens; names16x, other targets/EOS1x, prompt/pad0", "limits": ["Training-only objective; validation/test retain ordinary target-token cross entropy"]}
+
+Exit code: 0

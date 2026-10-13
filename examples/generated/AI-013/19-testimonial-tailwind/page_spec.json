@@ -1,0 +1,57 @@
+{
+  "interactions": [],
+  "language": "id",
+  "schema_version": "1.0",
+  "style_mode": "tailwind",
+  "theme": {
+    "background": "#ffffff",
+    "font": "sans",
+    "primary": "#8b5cf6",
+    "text": "#111827"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "props": {
+        "brand": "Kebun Nori",
+        "links": [
+          {
+            "href": "#main",
+            "label": "Beranda"
+          }
+        ]
+      },
+      "type": "navbar"
+    },
+    {
+      "id": "main",
+      "props": {
+        "heading": "Kebun Nori",
+        "layout": "centered",
+        "text": "Kami mendukung keluarga modern untuk merencanakan kegiatan bersama."
+      },
+      "type": "hero"
+    },
+    {
+      "id": "testimonials",
+      "props": {
+        "heading": "Testimoni Contoh",
+        "items": [
+          {
+            "author": "Pengguna Demo",
+            "quote": "Ini testimoni contoh."
+          }
+        ]
+      },
+      "type": "testimonial"
+    },
+    {
+      "id": "footer",
+      "props": {
+        "text": "Kebun Nori"
+      },
+      "type": "footer"
+    }
+  ],
+  "title": "Kebun Nori"
+}

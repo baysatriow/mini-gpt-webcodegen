@@ -1,0 +1,25 @@
+{
+  "status": "complete",
+  "train_rows": 41639,
+  "trained_only_on_train": true,
+  "train_input_sha256": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+  "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+  "vocab_size": 8192,
+  "requested_vocab_size": 8192,
+  "special_token_ids": {
+    "<pad>": 0,
+    "<unk>": 1,
+    "<bos>": 2,
+    "<eos>": 3,
+    "<prompt>": 4,
+    "<target>": 5
+  },
+  "config": {
+    "vocab_size": 8192,
+    "min_frequency": 2,
+    "block_size": 1024,
+    "type": "byte_level_bpe",
+    "fit_split": "train",
+    "initialization": "new tokenizer, no pretrained vocabulary"
+  }
+}

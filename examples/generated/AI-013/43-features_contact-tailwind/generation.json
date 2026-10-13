@@ -1,0 +1,22 @@
+{
+  "example_id": "d4424df41ee0fccd455d853a4dd80c7a094f9c54c4ccb42ca1786491078c6713",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "48b71f4aa8ac141af0474973c47d5ecb0e329da1dbd182e1840ec6358f0ee3b5",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "tailwind",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Kafe Webtechraw",
+      "style_mode": "tailwind",
+      "primary": "#10b981",
+      "font": "mono",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami membantu pemilik bisnis untuk memilih produk berkualitas."
+    },
+    "errors": []
+  }
+}

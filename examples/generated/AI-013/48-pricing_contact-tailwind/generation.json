@@ -1,0 +1,22 @@
+{
+  "example_id": "39acf3802d7215b16e9a27161c21db747e44a0ee5cf4d51150abbad2724b3f5d",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "8cda08980073b8200fab17e71e66d1eebb3e07300f56ee98dcafc39ca4836eb9",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "tailwind",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Galeri Hanowa",
+      "style_mode": "tailwind",
+      "primary": "#f59e0b",
+      "font": "mono",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami membantu pelanggan baru untuk menemukan solusi praktis."
+    },
+    "errors": []
+  }
+}

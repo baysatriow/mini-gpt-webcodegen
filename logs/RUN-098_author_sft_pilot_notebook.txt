@@ -1,0 +1,61 @@
+RUN-098 | 2026-10-13T05:33:34.185547+07:00 | author_sft_pilot_notebook
+Command: .venv/Scripts/python.exe .tmp/author_sft_pilot_notebook.py
+Commit: 09dd290eb3aa08b98f4a75c60c300f64e1d528e3
+
+{
+  "notebook": "05_sft_pilot_dan_evaluasi.ipynb",
+  "code_cells": 6,
+  "data_profile": {
+    "train": {
+      "rows": 4,
+      "families": 4,
+      "styles": {
+        "tailwind": 2,
+        "plain_css": 2
+      },
+      "sections": {
+        "navbar": 3,
+        "hero": 1,
+        "text_section": 5,
+        "contact_form": 1
+      },
+      "interactions": {
+        "menu_toggle": 1,
+        "form_validate": 1
+      }
+    },
+    "validation": {
+      "rows": 4,
+      "families": 4,
+      "styles": {
+        "tailwind": 2,
+        "plain_css": 2
+      },
+      "sections": {
+        "feature_grid": 4,
+        "hero": 2,
+        "text_section": 1,
+        "footer": 1
+      },
+      "interactions": {}
+    },
+    "test": {
+      "rows": 4,
+      "families": 4,
+      "styles": {
+        "tailwind": 2,
+        "plain_css": 2
+      },
+      "sections": {
+        "navbar": 2,
+        "hero": 4,
+        "footer": 3,
+        "text_section": 3,
+        "feature_grid": 1
+      },
+      "interactions": {}
+    }
+  }
+}
+
+Exit code: 0

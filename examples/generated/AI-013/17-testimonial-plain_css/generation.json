@@ -1,0 +1,22 @@
+{
+  "example_id": "3f939a439fdd557d18f51bb75a3f8a4294ef2a316126cfd46f1d3d5dc480e23e",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "cf6d7f72dc24a12ee6defc6b728ad40333fa8911807f43ba9a0e5647077bf826",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Toko Sunlacastar",
+      "style_mode": "plain_css",
+      "primary": "#10b981",
+      "font": "mono",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Bersama membangun pengalaman terbaik."
+    },
+    "errors": []
+  }
+}

@@ -1,0 +1,82 @@
+RUN-074 | 2026-10-12T22:04:22.309719+07:00 | lineage_binding_red
+Command: ./.venv/Scripts/python.exe -m unittest tests.training.test_lineage tests.training.test_lineage_integration tests.training.test_review_checkpoint -v
+Commit: dd2611001052346617b74856e1da4c609a353a8b
+
+test_heldout_evaluation_rejects_different_assignment_even_with_same_tokenizer (tests.training.test_lineage.LineageTests.test_heldout_evaluation_rejects_different_assignment_even_with_same_tokenizer) ... ok
+test_legacy_binding_preserves_weights_and_requires_recorded_pipeline_snapshot (tests.training.test_lineage.LineageTests.test_legacy_binding_preserves_weights_and_requires_recorded_pipeline_snapshot) ... ERROR
+test_production_prompts_require_actual_reviewed_test_membership (tests.training.test_lineage.LineageTests.test_production_prompts_require_actual_reviewed_test_membership) ... ok
+test_sft_checkpoint_requires_pretraining_history (tests.training.test_lineage.LineageTests.test_sft_checkpoint_requires_pretraining_history) ... ok
+test_sft_initializer_rejects_wrong_corpus_phase_and_untrained_or_smoke_parent (tests.training.test_lineage.LineageTests.test_sft_initializer_rejects_wrong_corpus_phase_and_untrained_or_smoke_parent) ... ok
+test_corpus_fingerprint_survives_annotation_preparation_and_test_membership_is_verified (tests.training.test_lineage_integration.LineageIntegrationTests.test_corpus_fingerprint_survives_annotation_preparation_and_test_membership_is_verified) ... complete websight_v01: 30 rows, 13647 bytes
+HTML preprocessing: accepted=30 rejected=0
+Grouped split: {'train': 24, 'validation': 3, 'test': 3}, groups=30, duplicates=0
+Training fresh byte-level BPE on train split only
+train: 1840 tokens, 2 blocks
+validation: 149 tokens, 1 blocks
+test: 282 tokens, 1 blocks
+{
+  "status": "complete",
+  "tokenization": {
+    "status": "complete",
+    "action": "trained"
+  },
+  "sft": {
+    "status": "awaiting_review",
+    "draft_queue_rows": 30,
+    "reviewed_production_rows": 0
+  },
+  "free_bytes_after": 66389209088
+}
+HTML preprocessing: accepted=30 rejected=0
+Grouped split: {'train': 24, 'validation': 3, 'test': 3}, groups=30, duplicates=0
+{
+  "status": "complete",
+  "tokenization": {
+    "status": "complete",
+    "action": "reused"
+  },
+  "sft": {
+    "status": "complete",
+    "draft_queue_rows": 30,
+    "reviewed_production_rows": 30,
+    "rejected": 0
+  },
+  "free_bytes_after": 66389118976
+}
+ok
+test_best_generations_referenced_by_last_survive_more_frequent_validation (tests.training.test_review_checkpoint.ReviewCheckpointTests.test_best_generations_referenced_by_last_survive_more_frequent_validation) ... {"event": "validation", "step": 0, "loss": 5.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "train", "step": 1, "loss": 3.497948408126831, "grad_norm": 3.3596768379211426, "valid_tokens": 8, "learning_rate": 0.001, "seconds": 0.06821659998968244, "tokens_per_second": 117.27350822541693, "data_cursor": 1}
+{"event": "validation", "step": 1, "loss": 4.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "train", "step": 2, "loss": 3.4166786670684814, "grad_norm": 3.2066521644592285, "valid_tokens": 8, "learning_rate": 0.001, "seconds": 0.040826300042681396, "tokens_per_second": 195.95211889484204, "data_cursor": 2}
+{"event": "validation", "step": 2, "loss": 3.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "train", "step": 3, "loss": 3.4130873680114746, "grad_norm": 4.437862396240234, "valid_tokens": 4, "learning_rate": 0.0007750000000000001, "seconds": 0.005265900050289929, "tokens_per_second": 759.6042389334315, "data_cursor": 3}
+{"event": "validation", "step": 3, "loss": 2.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "train", "step": 4, "loss": 3.353144407272339, "grad_norm": 2.75575852394104, "valid_tokens": 8, "learning_rate": 0.00032500000000000015, "seconds": 0.005697900021914393, "tokens_per_second": 1404.0260392831783, "data_cursor": 4}
+{"event": "validation", "step": 4, "loss": 1.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "failure", "global_step": 4, "last_committed_step": 0, "error_type": "OSError", "error": "simulated last commit failure"}
+ok
+test_every_failed_save_stage_retains_previous_committed_payload (tests.training.test_review_checkpoint.ReviewCheckpointTests.test_every_failed_save_stage_retains_previous_committed_payload) ... ok
+test_resume_preserves_earlier_best_weights_and_actual_validation (tests.training.test_review_checkpoint.ReviewCheckpointTests.test_resume_preserves_earlier_best_weights_and_actual_validation) ... {"event": "validation", "step": 0, "loss": 1.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "train", "step": 1, "loss": 3.497948408126831, "grad_norm": 3.3596768379211426, "valid_tokens": 8, "learning_rate": 0.001, "seconds": 0.005335900001227856, "tokens_per_second": 1499.2784718902344, "data_cursor": 1}
+{"event": "train", "step": 2, "loss": 3.4166786670684814, "grad_norm": 3.2066521644592285, "valid_tokens": 8, "learning_rate": 0.001, "seconds": 0.004106900014448911, "tokens_per_second": 1947.9412627174681, "data_cursor": 2}
+{"event": "validation", "step": 2, "loss": 2.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "validation", "step": 2, "loss": 2.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "train", "step": 3, "loss": 3.4130873680114746, "grad_norm": 4.437862396240234, "valid_tokens": 4, "learning_rate": 0.0007750000000000001, "seconds": 0.0044454000308178365, "tokens_per_second": 899.8065353556282, "data_cursor": 3}
+{"event": "train", "step": 4, "loss": 3.353144407272339, "grad_norm": 2.75575852394104, "valid_tokens": 8, "learning_rate": 0.00032500000000000015, "seconds": 0.004485200042836368, "tokens_per_second": 1783.6439676257849, "data_cursor": 4}
+{"event": "validation", "step": 4, "loss": 1.5, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+ok
+
+======================================================================
+ERROR: test_legacy_binding_preserves_weights_and_requires_recorded_pipeline_snapshot (tests.training.test_lineage.LineageTests.test_legacy_binding_preserves_weights_and_requires_recorded_pipeline_snapshot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\training\test_lineage.py", line 23, in test_legacy_binding_preserves_weights_and_requires_recorded_pipeline_snapshot
+    from src.training.lineage import bind_legacy_checkpoint
+ImportError: cannot import name 'bind_legacy_checkpoint' from 'src.training.lineage' (F:\Generative_AI\Vibe_Coding_Proyek_1\src\training\lineage.py)
+
+----------------------------------------------------------------------
+Ran 9 tests in 2.686s
+
+FAILED (errors=1)
+
+Exit code: 1

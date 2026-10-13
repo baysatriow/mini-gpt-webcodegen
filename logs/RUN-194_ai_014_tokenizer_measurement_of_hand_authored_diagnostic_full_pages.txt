@@ -1,0 +1,63 @@
+RUN-194 | 2026-10-13T20:03:11.958484+07:00 | AI-014 tokenizer measurement of hand authored diagnostic full pages
+Command: .venv/Scripts/python.exe -c "import json, copy, shutil
+from pathlib import Path
+from tokenizers import Tokenizer
+from src.data.schema import validate_page_spec
+from src.data.curriculum import serialize_spec
+base=json.loads(next(Path('data/processed/curriculum/v6/train.jsonl').open(encoding='utf-8')))['target_spec']
+t=Tokenizer.from_file('data/tokenizer/tokenizer.json')
+profiles={
+'landing_page': [('about','Tentang layanan','Kami membantu pemilik usaha menyusun halaman informasi yang mudah dibaca. Setiap pekerjaan dimulai dari kebutuhan pelanggan, dilanjutkan dengan rancangan konten dan pemeriksaan tampilan pada perangkat yang berbeda.'),('services','Layanan utama','Layanan mencakup perencanaan halaman, penyusunan konten dan pendampingan penggunaan. Anda dapat memilih kebutuhan yang paling relevan melalui konsultasi awal sebelum menyepakati ruang lingkup pekerjaan.'),('benefits','Mengapa memilih kami','Proses kerja dijelaskan sejak awal agar pelanggan memahami tahapan dan hasil yang akan diterima. Susunan halaman dibuat terarah dengan navigasi yang jelas, teks yang mudah dibaca dan tombol tindakan yang sesuai.'),('process','Cara memulai','Sampaikan kebutuhan melalui formulir konsultasi. Kami meninjau informasi yang tersedia, menyusun rancangan awal dan membahas penyesuaian sebelum proses pengerjaan dilanjutkan.'),('faq','Pertanyaan umum','Apakah bisa menyesuaikan isi halaman? Isi halaman disusun dari informasi yang Anda berikan. Apakah tersedia pendampingan? Lingkup pendampingan dibahas dalam konsultasi awal agar sesuai dengan kebutuhan Anda.')],
+'company_profile': [('about','Tentang perusahaan','Perusahaan demo ini menyediakan layanan perencanaan komunikasi digital untuk usaha lokal. Informasi dalam contoh ini bersifat fiktif dan digunakan untuk menilai panjang rancangan halaman, bukan sebagai klaim perusahaan nyata.'),('vision','Visi dan prinsip','Kami mengutamakan informasi yang jelas, proses yang dapat dipahami dan komunikasi yang terbuka. Setiap rancangan diawali dengan tujuan yang terukur serta informasi yang disetujui oleh pemilik usaha.'),('services','Bidang layanan','Kami membantu menyusun profil usaha, menjelaskan layanan utama dan merancang alur kontak. Rincian layanan disesuaikan dengan kebutuhan serta materi yang tersedia agar halaman tetap relevan.'),('projects','Contoh proyek','Contoh proyek demo meliputi profil usaha lokal, informasi layanan dan halaman pengenalan produk. Materi ini adalah ilustrasi fiktif untuk menjelaskan bentuk layanan, bukan portofolio pekerjaan nyata.'),('process','Proses kerja','Tahap pertama mengumpulkan informasi perusahaan dan kebutuhan pembaca. Tahap berikutnya menyusun struktur serta isi halaman, kemudian melakukan tinjauan bersama sebelum hasil diserahkan.')]
+}
+result={'status':'diagnostic_only','fixture_origin':'hand_authored_not_model_output_not_training_data','block_size':1024,'max_new_tokens':768,'free_disk_gib':round(shutil.disk_usage('.').free/2**30,2),'reserve_gib':15,'profiles':{}}
+for genre, blocks in profiles.items():
+ spec=copy.deepcopy(base); brand='Usaha Demo Nusantara'; spec['title']=brand
+ spec['sections']=[{'id':'nav','type':'navbar','props':{'brand':brand,'links':[{'label':'Tentang','href':'#about'},{'label':'Layanan','href':'#services'},{'label':'Kontak','href':'#contact'}]}},{'id':'main','type':'hero','props':{'heading':brand,'text':'Kenali layanan dan proses kerja kami, kemudian diskusikan kebutuhan Anda melalui konsultasi awal.','layout':'split','button':{'label':'Hubungi kami','href':'#contact'}}}]
+ spec['sections'] += [{'id':i,'type':'text_section','props':{'heading':h,'text':x}} for i,h,x in blocks]
+ spec['sections'] += [{'id':'contact','type':'contact_form','props':{'heading':'Diskusikan kebutuhan Anda','fields':[{'name':'name','label':'Nama','type':'text','required':True},{'name':'email','label':'Email','type':'email','required':True},{'name':'message','label':'Pesan','type':'textarea','required':True}],'submit_label':'Kirim'}},{'id':'footer','type':'footer','props':{'text':brand,'links':[{'label':'Tentang','href':'#about'},{'label':'Kontak','href':'#contact'}]}}]
+ spec['interactions']=[{'type':'menu_toggle','target_id':'nav'},{'type':'form_validate','target_id':'contact'}]
+ prompt=f'Buat {genre} untuk {brand}. Gunakan CSS biasa. Sertakan navbar, hero, '+', '.join(h for _,h,_ in blocks)+', kontak dan footer. Gunakan data perusahaan fiktif yang diberikan, tombol kontak dan menu responsif.'
+ prefix=3+len(t.encode(prompt,add_special_tokens=False).ids); target=len(t.encode(serialize_spec(spec,'appearance_before_sections'),add_special_tokens=False).ids)
+ errors=validate_page_spec(spec)
+ result['profiles'][genre]={'sections':len(spec['sections']),'schema_errors':errors,'prefix_tokens':prefix,'target_tokens':target,'sequence_tokens_with_eos':prefix+target+1,'fits_context':prefix+target+1<=1024,'fits_output_budget':target+1<=768,'spec':spec,'prompt':prompt}
+path=Path('reports/analysis/AI-014_FULL_PAGE_SCOPE.json'); path.parent.mkdir(parents=True,exist_ok=True)
+with path.open('x',encoding='utf-8',newline='\n') as f: json.dump(result,f,ensure_ascii=False,indent=2); f.write('\n')
+print(json.dumps({**result,'profiles':{k:{a:b for a,b in v.items() if a not in ('spec','prompt')} for k,v in result['profiles'].items()}},ensure_ascii=False,indent=2))
+if any(v['schema_errors'] for v in result['profiles'].values()): raise SystemExit(1)"
+Commit: 219fc9e5985ec4a0181c3a5f4570c042001bfd85
+
+{
+  "status": "diagnostic_only",
+  "fixture_origin": "hand_authored_not_model_output_not_training_data",
+  "block_size": 1024,
+  "max_new_tokens": 768,
+  "free_disk_gib": 17.73,
+  "reserve_gib": 15,
+  "profiles": {
+    "landing_page": {
+      "sections": 9,
+      "schema_errors": [
+        "$.sections[7]: {'id': 'contact', 'type': 'contact_form', 'props': {'heading': 'Diskusikan kebutuhan Anda', 'fields': [{'name': 'name', 'label': 'Nama', 'type': 'text', 'required': True}, {'name': 'email', 'label': 'Email', 'type': 'email', 'required': True}, {'name': 'message', 'label': 'Pesan', 'type': 'textarea', 'required': True}], 'submit_label': 'Kirim'}} is not valid under any of the given schemas"
+      ],
+      "prefix_tokens": 123,
+      "target_tokens": 1398,
+      "sequence_tokens_with_eos": 1522,
+      "fits_context": false,
+      "fits_output_budget": false
+    },
+    "company_profile": {
+      "sections": 9,
+      "schema_errors": [
+        "$.sections[7]: {'id': 'contact', 'type': 'contact_form', 'props': {'heading': 'Diskusikan kebutuhan Anda', 'fields': [{'name': 'name', 'label': 'Nama', 'type': 'text', 'required': True}, {'name': 'email', 'label': 'Email', 'type': 'email', 'required': True}, {'name': 'message', 'label': 'Pesan', 'type': 'textarea', 'required': True}], 'submit_label': 'Kirim'}} is not valid under any of the given schemas"
+      ],
+      "prefix_tokens": 121,
+      "target_tokens": 1381,
+      "sequence_tokens_with_eos": 1503,
+      "fits_context": false,
+      "fits_output_budget": false
+    }
+  }
+}
+
+Exit code: 1

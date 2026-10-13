@@ -1,0 +1,22 @@
+{
+  "example_id": "37ba1608ef9a9e40c7fd2147c5e3c8f1070dddb1cdcd8864a4373b18730468ec",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "f862d35dc9908b23859cc1e87292876df61ab511e69aa718f81daed107c7561d",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "tailwind",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Kafe Webtechraw",
+      "style_mode": "tailwind",
+      "primary": "#f59e0b",
+      "font": "sans",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami mendukung mitra usaha untuk memilih produk berkualitas."
+    },
+    "errors": []
+  }
+}

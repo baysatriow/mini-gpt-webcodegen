@@ -1,0 +1,7 @@
+RUN-067 | 2026-10-12T20:39:12.871232+07:00 | export_baseline_training_curves
+Command: .\.venv\Scripts\python.exe -B qa/plot_training.py
+Commit: 81130214207dfae301bffe3114753f0b50f1d626
+
+{"path": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\reports\\training\\BASELINE_LOSS_2026-10-12.png", "train_updates": 1200, "validation_points": 13}
+
+Exit code: 0

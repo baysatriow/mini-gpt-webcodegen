@@ -1,0 +1,218 @@
+{
+  "run_id": "TRAIN-013",
+  "status": "completed",
+  "started_at_utc": "2026-10-13T02:45:00.782979+00:00",
+  "config": {
+    "mode": "sft",
+    "data_origin": "synthetic_curriculum",
+    "human_reviewed": false,
+    "curriculum_continuation": true,
+    "dataset_dir": "data/processed/curriculum/v5",
+    "name_loss_weight": 16,
+    "seed": 42,
+    "block_size": 1024,
+    "tokenizer": "data/tokenizer/tokenizer.json",
+    "model_config_path": "configs/model.json",
+    "device": "cuda",
+    "precision": "bf16",
+    "batch_size": 4,
+    "gradient_accumulation": 2,
+    "max_steps": 3600,
+    "warmup_steps": 90,
+    "learning_rate": 0.0001,
+    "min_learning_rate": 1e-05,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "validation_interval": 600,
+    "validation_batches": 360,
+    "checkpoint_interval": 600,
+    "log_interval": 300,
+    "reserve_free_bytes": 16106127360,
+    "experiment_scope": "train-only name-copy loss16x; unchanged train/validation; fresh independent final names",
+    "selection_rule": "fixed3600 updates, best full development ordinary target-token loss; untouched final afterward",
+    "model_config": {
+      "vocab_size": 8192,
+      "block_size": 1024,
+      "n_layer": 6,
+      "n_head": 6,
+      "n_embd": 384,
+      "dropout": 0.1,
+      "tie_embeddings": true,
+      "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+    },
+    "source_config_sha256": "56d5816bd061274b256beb8263cdb4282c80a0d46e89d4c107c5759a48df000f",
+    "initial_checkpoint": "checkpoints\\TRAIN-012\\best.pt",
+    "initial_checkpoint_sha256": "791a365463710f73dbfbba767bd8bd17f5b4442e8f6137a92ec8c5888d1a2ed3",
+    "lineage": {
+      "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+      "pretrain_fingerprint": {
+        "version": 1,
+        "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+        "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+        "source_revisions": [
+          {
+            "id": "vulcan",
+            "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+            "license": "mit",
+            "rows": 5000
+          },
+          {
+            "id": "websight_v01",
+            "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+            "license": "cc-by-4.0",
+            "rows": 20000
+          },
+          {
+            "id": "websight_v02",
+            "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+            "license": "cc-by-4.0",
+            "rows": 30000
+          }
+        ],
+        "partition_sha256": {
+          "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+          "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+          "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+        },
+        "token_cache_sha256": {
+          "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+          "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+          "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+        },
+        "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+      },
+      "synthetic_manifest_sha256": "cb0537774dd785111329fc79a083a8ddbd3150ae60b5f40e57a0f6ce8e936394",
+      "data_sha256": {
+        "train": "418dc7e18c4bf932ea8d89a3b5b2771eec440f5ec68186337ec6f90f32374538",
+        "validation": "945bde9e48d4e4e274a63e519d13357b201e1c1fa9835af427cb0758031d2800"
+      },
+      "validation_indices_sha256": "9bc32cb1719357ec7de7e859d9c67f3f0bdb69cb6deca4043f46d59d6b552c07",
+      "train_blocks_or_examples": 19068,
+      "validation_blocks_or_examples": 1440,
+      "smoke": false,
+      "human_reviewed": false,
+      "pretraining_parent": {
+        "checkpoint_sha256": "49e03ebb37f01619de9dc93a55f6828367d84fd34380986bfa15597d9583831c",
+        "phase": "pretrain",
+        "global_step": 1200,
+        "pretrain_fingerprint": {
+          "version": 1,
+          "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+          "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+          "source_revisions": [
+            {
+              "id": "vulcan",
+              "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+              "license": "mit",
+              "rows": 5000
+            },
+            {
+              "id": "websight_v01",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 20000
+            },
+            {
+              "id": "websight_v02",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 30000
+            }
+          ],
+          "partition_sha256": {
+            "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+            "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+            "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+          },
+          "token_cache_sha256": {
+            "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+            "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+            "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+          },
+          "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+        }
+      },
+      "curriculum_parent": {
+        "checkpoint_sha256": "791a365463710f73dbfbba767bd8bd17f5b4442e8f6137a92ec8c5888d1a2ed3",
+        "global_step": 3600,
+        "synthetic_manifest_sha256": "4875ed584633d9ee59d121e7b9d89e277fe37ec5f249cf4e1b3f189c81fd4673",
+        "run_id": "TRAIN-012"
+      },
+      "name_loss_weights": {
+        "path": "data\\processed\\curriculum\\v5\\train.name_weights.npy",
+        "sha256": "b83eef1fea4b814fc0d80b0a57be4adba9a077ffedb571f0f404c25c4bca81ba",
+        "name_weight": 16.0,
+        "weighted_name_token_positions": 475524,
+        "rows": 19068,
+        "train_sha256": "418dc7e18c4bf932ea8d89a3b5b2771eec440f5ec68186337ec6f90f32374538",
+        "definition": "sum(weight * CE) / sum(weight) over supervised tokens; names16x, other targets/EOS1x, prompt/pad0",
+        "limits": [
+          "Training-only objective; validation/test retain ordinary target-token cross entropy"
+        ]
+      }
+    }
+  },
+  "config_sha256": "42ff1ab6e918fc81decb4013464b4cb588cc800b9e3338e8797a3583df592b9e",
+  "resume_parent": null,
+  "label_alignment": "already shifted; loss consumes labels directly",
+  "global_step": 3600,
+  "last_committed_step": 3600,
+  "git_commit": "0b2de4a6377a87069f2a684253554715217a5187",
+  "parameter_count": 14186496,
+  "model_config": {
+    "vocab_size": 8192,
+    "block_size": 1024,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.1,
+    "tie_embeddings": true,
+    "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+  },
+  "device": "cuda",
+  "precision": "bf16",
+  "resume_parent_sha256": null,
+  "initial_validation": {
+    "loss": 0.005658693556845027,
+    "perplexity": 1.0056747342053285,
+    "valid_tokens": 623706,
+    "batches": 360
+  },
+  "final_train_loss": 0.3668931201967368,
+  "total_train_tokens": 10781936,
+  "final_validation": {
+    "loss": 0.007606502481371312,
+    "perplexity": 1.007635505411688,
+    "valid_tokens": 623706,
+    "batches": 360
+  },
+  "best_validation_loss": 0.005658693556845027,
+  "final_checkpoint_sha256": "fb4330b37f5198700d7d4ead95f7df264b02242dc3d82089e6a3dbfbaa338aac",
+  "best_checkpoint_sha256": "e44030d363afcc0c70b305ead82ba8bf1510ef53761e913e79b2697a4d81d28a",
+  "best_checkpoint": {
+    "path": "checkpoints\\TRAIN-013\\.versions\\best-963cc480e17945158b45945a0be6db4f.pt",
+    "payload": ".versions\\best-963cc480e17945158b45945a0be6db4f.pt",
+    "sha256": "e44030d363afcc0c70b305ead82ba8bf1510ef53761e913e79b2697a4d81d28a",
+    "global_step": 0,
+    "validation_loss": 0.005658693556845027
+  },
+  "ended_at_utc": "2026-10-13T02:52:14.998374+00:00",
+  "wall_seconds": 434.22006370004965,
+  "free_bytes_after": 20558270464,
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "peak_allocated_bytes": 2247337472,
+  "peak_reserved_bytes": 2501902336,
+  "environment": {
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "executable": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\.venv\\Scripts\\python.exe",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "gpu": "NVIDIA GeForce RTX 5070",
+    "platform": "Windows-10-10.0.26200-SP0"
+  },
+  "data_review_kind": "programmatic_contract, not human-reviewed production annotations"
+}

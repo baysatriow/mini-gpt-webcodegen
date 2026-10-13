@@ -1,0 +1,22 @@
+{
+  "example_id": "d9571633d1500a76bf878c070d8fad2683d23be8f9105531056d5f481fd67761",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "5b3082f0c8e92ff67c92c8588b61b2646973f8345a464ca10461d8445dc3c77c",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Toko Sunlacastar",
+      "style_mode": "plain_css",
+      "primary": "#06b6d4",
+      "font": "mono",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Solusi sederhana untuk kebutuhan Anda."
+    },
+    "errors": []
+  }
+}

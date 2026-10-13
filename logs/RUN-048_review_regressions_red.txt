@@ -1,0 +1,109 @@
+RUN-048 | 2026-10-12T18:58:41.605827+07:00 | review_regressions_red
+Command: .\.venv\Scripts\python.exe -B -m unittest discover -s tests -v
+Commit: 41608790d716e2e9e2682df0203756450d023284
+
+test_annotation_retains_source_row_and_computed_family (data.test_normalize.NormalizeTests.test_annotation_retains_source_row_and_computed_family) ... ERROR
+test_component_fragment_is_wrapped_with_provenance_not_discarded (data.test_normalize.NormalizeTests.test_component_fragment_is_wrapped_with_provenance_not_discarded) ... ok
+test_css_only_source_is_kept_as_css_pretraining_text (data.test_normalize.NormalizeTests.test_css_only_source_is_kept_as_css_pretraining_text) ... ok
+test_invalid_schema_is_rejected (data.test_normalize.NormalizeTests.test_invalid_schema_is_rejected) ... ok
+test_javascript_only_source_is_kept_as_code (data.test_normalize.NormalizeTests.test_javascript_only_source_is_kept_as_code) ... ok
+test_normalizer_writes_only_reviewed_records_and_reject_report (data.test_normalize.NormalizeTests.test_normalizer_writes_only_reviewed_records_and_reject_report) ... ok
+test_nullable_html_attributes_do_not_abort_following_records (data.test_normalize.NormalizeTests.test_nullable_html_attributes_do_not_abort_following_records) ... ERROR
+test_palette_variants_share_structural_group (data.test_normalize.NormalizeTests.test_palette_variants_share_structural_group) ... ok
+test_pretrain_keeps_js_as_text_but_filters_non_html (data.test_normalize.NormalizeTests.test_pretrain_keeps_js_as_text_but_filters_non_html) ... ok
+test_rejects_empty_prompt_draft_unknown_source_and_missing_license (data.test_normalize.NormalizeTests.test_rejects_empty_prompt_draft_unknown_source_and_missing_license) ... ok
+test_reviewed_indonesian_annotation_becomes_canonical_example (data.test_normalize.NormalizeTests.test_reviewed_indonesian_annotation_becomes_canonical_example) ... ok
+test_annotation_run_preserves_verified_tokens_and_checks_completed_sft (data.test_pipeline.PipelineTests.test_annotation_run_preserves_verified_tokens_and_checks_completed_sft) ... ERROR
+test_awaiting_review_rejects_a_current_complete_sft_manifest (data.test_pipeline.PipelineTests.test_awaiting_review_rejects_a_current_complete_sft_manifest) ... ERROR
+test_failed_or_missing_manifest_cannot_be_training_input (data.test_pipeline.PipelineTests.test_failed_or_missing_manifest_cannot_be_training_input) ... ok
+test_only_verified_completed_manifest_is_consumed (data.test_pipeline.PipelineTests.test_only_verified_completed_manifest_is_consumed) ... complete fixture: 1 rows, 104 bytes
+ok
+test_plain_css_and_tailwind_are_valid (data.test_schema.SchemaTests.test_plain_css_and_tailwind_are_valid) ... ok
+test_rejects_invalid_theme_and_extra_top_level_fields (data.test_schema.SchemaTests.test_rejects_invalid_theme_and_extra_top_level_fields) ... ok
+test_rejects_unknown_target_duplicate_ids_and_mismatched_interaction (data.test_schema.SchemaTests.test_rejects_unknown_target_duplicate_ids_and_mismatched_interaction) ... ok
+test_rejects_unsupported_style_script_attributes_and_urls (data.test_schema.SchemaTests.test_rejects_unsupported_style_script_attributes_and_urls) ... ok
+test_budget_failure_does_not_promote_partial_to_final (data.test_sources.SourceTests.test_budget_failure_does_not_promote_partial_to_final) ... ok
+test_manifest_atomic_json (data.test_sources.SourceTests.test_manifest_atomic_json) ... ok
+test_projects_columns_at_loader_and_emits_stable_provenance (data.test_sources.SourceTests.test_projects_columns_at_loader_and_emits_stable_provenance) ... ok
+test_reserve_rejects_before_iterating (data.test_sources.SourceTests.test_reserve_rejects_before_iterating) ... ok
+test_short_read_fails_and_completed_download_is_reusable (data.test_sources.SourceTests.test_short_read_fails_and_completed_download_is_reusable) ... complete fixture: 2 rows, 206 bytes
+reuse fixture: 2 rows, SHA-256 verified
+ok
+test_vulcan_uses_pinned_http_stream_without_extra_dependency (data.test_sources.SourceTests.test_vulcan_uses_pinned_http_stream_without_extra_dependency) ... ok
+data.test_split (unittest.loader._FailedTest.data.test_split) ... ERROR
+test_oversize_json_and_reserved_prompt_are_rejected (data.test_tokenizer_dataset.TokenizerTests.test_oversize_json_and_reserved_prompt_are_rejected) ... ok
+test_pretrain_labels_shift_and_long_documents_are_not_lost (data.test_tokenizer_dataset.TokenizerTests.test_pretrain_labels_shift_and_long_documents_are_not_lost) ... ok
+test_sft_only_target_and_eos_are_supervised (data.test_tokenizer_dataset.TokenizerTests.test_sft_only_target_and_eos_are_supervised) ... ok
+test_train_tokenizer_rejects_validation_rows (data.test_tokenizer_dataset.TokenizerTests.test_train_tokenizer_rejects_validation_rows) ... ok
+test_unicode_code_and_special_token_roundtrip (data.test_tokenizer_dataset.TokenizerTests.test_unicode_code_and_special_token_roundtrip) ... ok
+
+======================================================================
+ERROR: test_annotation_retains_source_row_and_computed_family (data.test_normalize.NormalizeTests.test_annotation_retains_source_row_and_computed_family)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\data\test_normalize.py", line 41, in test_annotation_retains_source_row_and_computed_family
+    self.assertEqual(result.source_row_id, "row-1")
+                     ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PageExample' object has no attribute 'source_row_id'
+
+======================================================================
+ERROR: test_nullable_html_attributes_do_not_abort_following_records (data.test_normalize.NormalizeTests.test_nullable_html_attributes_do_not_abort_following_records)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\data\test_normalize.py", line 32, in test_nullable_html_attributes_do_not_abort_following_records
+    report = prepare_pretraining([raw], root / "clean.jsonl")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\data\normalize.py", line 187, in prepare_pretraining
+    language = classify_code(text)
+               ^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\data\normalize.py", line 86, in classify_code
+    parser.feed(text)
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\html\parser.py", line 110, in feed
+    self.goahead(0)
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\html\parser.py", line 170, in goahead
+    k = self.parse_starttag(i)
+        ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\html\parser.py", line 337, in parse_starttag
+    self.handle_starttag(tag, attrs)
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\data\normalize.py", line 41, in handle_starttag
+    layout = sorted(c for c in values.get("class", "").split() if re.match(
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'split'
+
+======================================================================
+ERROR: test_annotation_run_preserves_verified_tokens_and_checks_completed_sft (data.test_pipeline.PipelineTests.test_annotation_run_preserves_verified_tokens_and_checks_completed_sft)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\data\test_pipeline.py", line 17, in test_annotation_run_preserves_verified_tokens_and_checks_completed_sft
+    from qa.check_data_pipeline import validate_sft_artifacts
+ImportError: cannot import name 'validate_sft_artifacts' from 'qa.check_data_pipeline' (F:\Generative_AI\Vibe_Coding_Proyek_1\qa\check_data_pipeline.py)
+
+======================================================================
+ERROR: test_awaiting_review_rejects_a_current_complete_sft_manifest (data.test_pipeline.PipelineTests.test_awaiting_review_rejects_a_current_complete_sft_manifest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\data\test_pipeline.py", line 60, in test_awaiting_review_rejects_a_current_complete_sft_manifest
+    from qa.check_data_pipeline import validate_sft_artifacts
+ImportError: cannot import name 'validate_sft_artifacts' from 'qa.check_data_pipeline' (F:\Generative_AI\Vibe_Coding_Proyek_1\qa\check_data_pipeline.py)
+
+======================================================================
+ERROR: data.test_split (unittest.loader._FailedTest.data.test_split)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: data.test_split
+Traceback (most recent call last):
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 419, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 362, in _get_module_from_name
+    __import__(name)
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\data\test_split.py", line 6, in <module>
+    from src.data.split import assign_splits, canonical_hash, deduplicate, split_jsonl, read_group_assignment
+ImportError: cannot import name 'read_group_assignment' from 'src.data.split' (F:\Generative_AI\Vibe_Coding_Proyek_1\src\data\split.py)
+
+
+----------------------------------------------------------------------
+Ran 31 tests in 0.272s
+
+FAILED (errors=5)
+
+Exit code: 1

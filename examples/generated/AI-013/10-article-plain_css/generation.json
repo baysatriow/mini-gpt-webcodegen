@@ -1,0 +1,22 @@
+{
+  "example_id": "9349cddc06391b8a2522abb60a1808aa19fd088c5f67f8dae09c66bc6e9b6bfd",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "712308a4b549321cba64f0c598338683e1c87476002fa44652caa9ccfceb06a9",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Pustaka Nostargomi",
+      "style_mode": "plain_css",
+      "primary": "#ef4444",
+      "font": "serif",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami mendukung mitra usaha untuk meningkatkan pengalaman pengguna."
+    },
+    "errors": []
+  }
+}

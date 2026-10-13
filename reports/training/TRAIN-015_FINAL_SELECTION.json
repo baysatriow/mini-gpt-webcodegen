@@ -1,0 +1,32 @@
+{
+  "recorded_at_utc": "2026-10-13T12:18:07.153281+00:00",
+  "run_id": "TRAIN-015",
+  "checkpoint": "checkpoints/TRAIN-015/best.pt",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "selected_by": "best full validation ordinary CE after fixed budget; development generation gate",
+  "training_report_sha256": "8e9e0784d3139cdfd82e42cc9918f328820af2a1ce68c889f683ff8682be98fb",
+  "development_report_sha256": "b253c09eda4bad2532ae8583d0840064434fbb62e2f1059adcca1dc38f6064ca",
+  "policy_sha256": "eafd347cc960f4eefdaee5c37b1e276328b77b97b246944a23c2c97b3506eb2c",
+  "final_suite": {
+    "path": "data\\processed\\curriculum\\v6\\final_prompts.jsonl",
+    "sha256": "3535c7c954fedefcf46911c059fc94171fdb689d2bd8982cbf4e20580c3858b5",
+    "count": 48
+  },
+  "acceptance": {
+    "schema_valid_rate": 0.95,
+    "exact_contract_rate": 0.9,
+    "repair_allowed": false
+  },
+  "decode": {
+    "precision": "bf16",
+    "temperature": 0,
+    "seed": 42,
+    "max_new_tokens": 768
+  },
+  "final_targets_read_for_selection": false,
+  "final_report_id": "TRAIN-015-FINAL",
+  "rule_after_final": "Record pass/failure once; no checkpoint reselection or retraining from this final result",
+  "limits": [
+    "Controlled synthetic recipes only; not arbitrary prompt or browser acceptance"
+  ]
+}

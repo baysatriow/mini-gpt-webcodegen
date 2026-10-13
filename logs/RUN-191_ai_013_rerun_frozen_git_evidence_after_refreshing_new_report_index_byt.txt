@@ -1,0 +1,18 @@
+RUN-191 | 2026-10-13T19:32:49.848618+07:00 | AI-013 rerun frozen Git evidence after refreshing new report index bytes
+Command: .venv/Scripts/python.exe -m qa.audit_generated_artifacts --gallery-report reports/training/TRAIN-015_RENDERED_OUTPUTS.json --output reports/training/TRAIN-015_GIT_EVIDENCE_INTEGRITY.json --snapshot examples/generated/AI-013-senandika --staged-evidence
+Commit: 4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9
+
+{
+  "exported_websites": 44,
+  "archive_files": 308,
+  "zip_bytes_verified": true,
+  "local_resources_and_fragments_verified": true,
+  "snapshot_files": 7,
+  "staged_evidence_hashes_verified": 6,
+  "browser_evaluated": false,
+  "limits": [
+    "Static artifact checks do not execute JavaScript or inspect layout/interactions in a browser"
+  ]
+}
+
+Exit code: 0

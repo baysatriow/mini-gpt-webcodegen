@@ -1,0 +1,398 @@
+RUN-103 | 2026-10-13T08:14:45.105184+07:00 | diagnose_sft_boundaries
+Command: .venv/Scripts/python.exe -m qa.diagnose_sft_generation --checkpoint checkpoints/TRAIN-006/best.pt --report-id TRAIN-006-DEV
+Commit: eb7b21288a903587cdd5e82e48199456453a3ff8
+
+{
+  "checkpoint_sha256": "74705520f6f6c543dc8d9908057769fdf81f478159efb44b6e3966ca847c5540",
+  "step": 40,
+  "scope": "train and validation only; no pilot test used for development",
+  "records": [
+    {
+      "example_id": "8ae479b15e77f32bae9b30fcc18c24666e1510c19a3dc699970a10db624fea6e",
+      "split": "train",
+      "prefix_ids_match": true,
+      "prefix_logits_max_abs_diff": 0.03125,
+      "target_first_token": "{",
+      "first_prediction": "_",
+      "first_top8": [
+        {
+          "token": "_",
+          "logit": 8.0
+        },
+        {
+          "token": " {",
+          "logit": 7.75
+        },
+        {
+          "token": "{",
+          "logit": 7.53125
+        },
+        {
+          "token": "-",
+          "logit": 6.15625
+        },
+        {
+          "token": ",",
+          "logit": 5.65625
+        },
+        {
+          "token": " img",
+          "logit": 5.34375
+        },
+        {
+          "token": " >",
+          "logit": 4.28125
+        },
+        {
+          "token": " div",
+          "logit": 3.875
+        }
+      ],
+      "teacher_forced_correct": 235,
+      "target_tokens": 434,
+      "parse_status": "failed",
+      "schema_valid": false,
+      "stop_reason": "token_limit",
+      "generated_tokens": 768
+    },
+    {
+      "example_id": "bac52e7ea6f1111483ef55e5a303d2089be5d048afb0acc0db358c4369657497",
+      "split": "train",
+      "prefix_ids_match": true,
+      "prefix_logits_max_abs_diff": 0.03125,
+      "target_first_token": "{",
+      "first_prediction": " {",
+      "first_top8": [
+        {
+          "token": " {",
+          "logit": 8.0625
+        },
+        {
+          "token": "_",
+          "logit": 7.96875
+        },
+        {
+          "token": "{",
+          "logit": 7.71875
+        },
+        {
+          "token": "-",
+          "logit": 6.21875
+        },
+        {
+          "token": ",",
+          "logit": 5.84375
+        },
+        {
+          "token": " img",
+          "logit": 5.34375
+        },
+        {
+          "token": " >",
+          "logit": 4.5
+        },
+        {
+          "token": " h",
+          "logit": 3.984375
+        }
+      ],
+      "teacher_forced_correct": 123,
+      "target_tokens": 199,
+      "parse_status": "failed",
+      "schema_valid": false,
+      "stop_reason": "token_limit",
+      "generated_tokens": 768
+    },
+    {
+      "example_id": "cac70568e2050b46d4b68a804873dcdee05d767ca65b7c7bca2d5f6ef418e922",
+      "split": "train",
+      "prefix_ids_match": true,
+      "prefix_logits_max_abs_diff": 0.03125,
+      "target_first_token": "{",
+      "first_prediction": "_",
+      "first_top8": [
+        {
+          "token": "_",
+          "logit": 8.0625
+        },
+        {
+          "token": " {",
+          "logit": 7.5625
+        },
+        {
+          "token": "{",
+          "logit": 7.4375
+        },
+        {
+          "token": "-",
+          "logit": 6.0
+        },
+        {
+          "token": ",",
+          "logit": 5.71875
+        },
+        {
+          "token": " img",
+          "logit": 5.15625
+        },
+        {
+          "token": " >",
+          "logit": 4.1875
+        },
+        {
+          "token": ">",
+          "logit": 3.765625
+        }
+      ],
+      "teacher_forced_correct": 261,
+      "target_tokens": 481,
+      "parse_status": "failed",
+      "schema_valid": false,
+      "stop_reason": "token_limit",
+      "generated_tokens": 768
+    },
+    {
+      "example_id": "eaaa2f9ab31db8592ff78f578ac41615261c7bb1ee48d0147b64ae7fe15bac47",
+      "split": "train",
+      "prefix_ids_match": true,
+      "prefix_logits_max_abs_diff": 0.03125,
+      "target_first_token": "{",
+      "first_prediction": "_",
+      "first_top8": [
+        {
+          "token": "_",
+          "logit": 8.375
+        },
+        {
+          "token": " {",
+          "logit": 7.84375
+        },
+        {
+          "token": "{",
+          "logit": 7.65625
+        },
+        {
+          "token": "-",
+          "logit": 6.25
+        },
+        {
+          "token": ",",
+          "logit": 5.625
+        },
+        {
+          "token": " img",
+          "logit": 5.40625
+        },
+        {
+          "token": " >",
+          "logit": 4.5
+        },
+        {
+          "token": " div",
+          "logit": 3.9375
+        }
+      ],
+      "teacher_forced_correct": 175,
+      "target_tokens": 287,
+      "parse_status": "failed",
+      "schema_valid": false,
+      "stop_reason": "eos",
+      "generated_tokens": 562
+    },
+    {
+      "example_id": "2f111972cf5a8e689c54ad739955a2db627f3e7c823727a2d89b399dd4f2fb07",
+      "split": "validation",
+      "prefix_ids_match": true,
+      "prefix_logits_max_abs_diff": 0.03125,
+      "target_first_token": "{",
+      "first_prediction": "_",
+      "first_top8": [
+        {
+          "token": "_",
+          "logit": 8.5
+        },
+        {
+          "token": " {",
+          "logit": 8.125
+        },
+        {
+          "token": "{",
+          "logit": 7.6875
+        },
+        {
+          "token": "-",
+          "logit": 6.625
+        },
+        {
+          "token": ",",
+          "logit": 6.03125
+        },
+        {
+          "token": " img",
+          "logit": 5.71875
+        },
+        {
+          "token": " >",
+          "logit": 4.84375
+        },
+        {
+          "token": " h",
+          "logit": 4.3125
+        }
+      ],
+      "teacher_forced_correct": 107,
+      "target_tokens": 231,
+      "parse_status": "failed",
+      "schema_valid": false,
+      "stop_reason": "token_limit",
+      "generated_tokens": 768
+    },
+    {
+      "example_id": "94458477f621a49a94233856afcc66160dc418088ab2577414c88c935a981f8d",
+      "split": "validation",
+      "prefix_ids_match": true,
+      "prefix_logits_max_abs_diff": 0.03125,
+      "target_first_token": "{",
+      "first_prediction": "_",
+      "first_top8": [
+        {
+          "token": "_",
+          "logit": 8.0
+        },
+        {
+          "token": " {",
+          "logit": 7.75
+        },
+        {
+          "token": "{",
+          "logit": 7.4375
+        },
+        {
+          "token": ",",
+          "logit": 6.15625
+        },
+        {
+          "token": "-",
+          "logit": 6.15625
+        },
+        {
+          "token": " img",
+          "logit": 5.21875
+        },
+        {
+          "token": " >",
+          "logit": 4.0
+        },
+        {
+          "token": " h",
+          "logit": 3.84375
+        }
+      ],
+      "teacher_forced_correct": 182,
+      "target_tokens": 481,
+      "parse_status": "failed",
+      "schema_valid": false,
+      "stop_reason": "token_limit",
+      "generated_tokens": 768
+    },
+    {
+      "example_id": "9f4be9409dcd1563564691e43fd3505e5da62d5c30bb38808d7b5d62b1a0e91a",
+      "split": "validation",
+      "prefix_ids_match": true,
+      "prefix_logits_max_abs_diff": 0.03125,
+      "target_first_token": "{",
+      "first_prediction": " {",
+      "first_top8": [
+        {
+          "token": " {",
+          "logit": 8.1875
+        },
+        {
+          "token": "_",
+          "logit": 7.9375
+        },
+        {
+          "token": "{",
+          "logit": 7.65625
+        },
+        {
+          "token": "-",
+          "logit": 6.25
+        },
+        {
+          "token": ",",
+          "logit": 6.15625
+        },
+        {
+          "token": " img",
+          "logit": 5.34375
+        },
+        {
+          "token": " >",
+          "logit": 4.34375
+        },
+        {
+          "token": ">",
+          "logit": 3.96875
+        }
+      ],
+      "teacher_forced_correct": 180,
+      "target_tokens": 418,
+      "parse_status": "failed",
+      "schema_valid": false,
+      "stop_reason": "token_limit",
+      "generated_tokens": 768
+    },
+    {
+      "example_id": "d7f0396af6446338be51464e45cf63c41835b4130f87a7c09458f9c17eed5da1",
+      "split": "validation",
+      "prefix_ids_match": true,
+      "prefix_logits_max_abs_diff": 0.03125,
+      "target_first_token": "{",
+      "first_prediction": " {",
+      "first_top8": [
+        {
+          "token": " {",
+          "logit": 8.3125
+        },
+        {
+          "token": "_",
+          "logit": 8.0
+        },
+        {
+          "token": "{",
+          "logit": 7.8125
+        },
+        {
+          "token": "-",
+          "logit": 6.46875
+        },
+        {
+          "token": ",",
+          "logit": 6.03125
+        },
+        {
+          "token": " img",
+          "logit": 5.625
+        },
+        {
+          "token": " >",
+          "logit": 5.0625
+        },
+        {
+          "token": " ul",
+          "logit": 4.1875
+        }
+      ],
+      "teacher_forced_correct": 117,
+      "target_tokens": 274,
+      "parse_status": "failed",
+      "schema_valid": false,
+      "stop_reason": "token_limit",
+      "generated_tokens": 768
+    }
+  ],
+  "hypothesis": "40 updates are insufficient for learning JSON target boundaries; check train fitting before expansion"
+}
+
+Exit code: 0

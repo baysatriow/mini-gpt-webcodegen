@@ -1,0 +1,22 @@
+{
+  "example_id": "d2ba4f711a3e2291f4f2558d69b222e33bb3eb46d75ea6a709219a8c13b0ca7a",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "20214d6af3e1feb900308d225a361b16d40e494f315da5c77f61d9df0b126ae1",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "tailwind",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Pustaka Nostargomi",
+      "style_mode": "tailwind",
+      "primary": "#06b6d4",
+      "font": "sans",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Temukan layanan pilihan kami."
+    },
+    "errors": []
+  }
+}

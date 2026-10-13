@@ -1,0 +1,14 @@
+{
+  "device": "cuda",
+  "precision": "bf16",
+  "batch_size": 4,
+  "seed": 42,
+  "max_new_tokens": 512,
+  "temperature": 0,
+  "generation_mode": "exploratory_unreviewed",
+  "prompts_path": "data/evaluation/probe_prompts.jsonl",
+  "schema_path": "configs/page_spec.schema.json",
+  "token_partition": "test",
+  "selection_rule": "checkpoint chosen using validation only; test does not tune hyperparameters",
+  "status": "token held-out evaluation plus exploratory probes; production PageSpec evaluation requires reviewed test annotations"
+}

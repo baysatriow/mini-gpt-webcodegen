@@ -1,0 +1,10 @@
+{
+  "parent": "TRAIN-012/best",
+  "candidate": "TRAIN-013/best",
+  "selected_step": 0,
+  "model_tensors_identical": true,
+  "parameter_tensors": 77,
+  "parent_sha256": "791a365463710f73dbfbba767bd8bd17f5b4442e8f6137a92ec8c5888d1a2ed3",
+  "candidate_sha256": "e44030d363afcc0c70b305ead82ba8bf1510ef53761e913e79b2697a4d81d28a",
+  "decision": "No measured improvement from name-weighted training; keep TRAIN-012 for research runtime; v5 final remains unread"
+}

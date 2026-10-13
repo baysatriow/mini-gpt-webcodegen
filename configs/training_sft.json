@@ -1,0 +1,18 @@
+{
+  "mode": "sft", "seed": 42, "block_size": 1024,
+  "dataset_dir": "data/processed/sft",
+  "tokenizer": "data/tokenizer/tokenizer.json",
+  "label_alignment": "already_shifted_next_token",
+  "prompt_and_padding_label": -100,
+  "oversize_json": "reject without truncation",
+  "model_config_path": "configs/model.json",
+  "device": "cuda", "precision": "bf16",
+  "batch_size": 2, "gradient_accumulation": 4,
+  "max_steps": 400, "warmup_steps": 20,
+  "learning_rate": 0.0001, "min_learning_rate": 0.00001,
+  "betas": [0.9, 0.95], "weight_decay": 0.1, "grad_clip": 1.0,
+  "validation_interval": 50, "validation_batches": 32,
+  "checkpoint_interval": 50, "log_interval": 10,
+  "reserve_free_bytes": 16106127360,
+  "status": "requires reviewed Indonesian annotations and pretraining checkpoint; profile again before SFT"
+}

@@ -1,0 +1,7 @@
+RUN-119 | 2026-10-13T08:52:18.166611+07:00 | export_final_model_websites_retry
+Command: .venv/Scripts/python.exe -m qa.export_generated_websites --evaluation reports/training/TRAIN-010-FINAL_curriculum_evaluation.json --output outputs/generated_websites/AI-011-v2 --report reports/GENERATED_OUTPUTS_2026-10-13.json
+Commit: 5209976e73450c39e2b3101521a5b793e3021749
+
+{"generated": 48, "gallery": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\index.html", "zip": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\websites.zip"}
+
+Exit code: 0

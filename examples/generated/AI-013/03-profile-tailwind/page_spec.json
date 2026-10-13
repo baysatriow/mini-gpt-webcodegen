@@ -1,0 +1,49 @@
+{
+  "interactions": [
+    {
+      "target_id": "nav",
+      "type": "menu_toggle"
+    }
+  ],
+  "language": "id",
+  "schema_version": "1.0",
+  "style_mode": "tailwind",
+  "theme": {
+    "background": "#ffffff",
+    "font": "serif",
+    "primary": "#f59e0b",
+    "text": "#111827"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "props": {
+        "brand": "Kafe Webtechraw",
+        "links": [
+          {
+            "href": "#main",
+            "label": "Beranda"
+          }
+        ]
+      },
+      "type": "navbar"
+    },
+    {
+      "id": "main",
+      "props": {
+        "heading": "Kafe Webtechraw",
+        "layout": "centered",
+        "text": "Temukan layanan pilihan kami."
+      },
+      "type": "hero"
+    },
+    {
+      "id": "footer",
+      "props": {
+        "text": "Kafe Webtechraw"
+      },
+      "type": "footer"
+    }
+  ],
+  "title": "Kafe Webtechraw"
+}

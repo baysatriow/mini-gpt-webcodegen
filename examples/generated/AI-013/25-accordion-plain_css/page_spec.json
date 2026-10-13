@@ -1,0 +1,70 @@
+{
+  "interactions": [
+    {
+      "target_id": "nav",
+      "type": "menu_toggle"
+    },
+    {
+      "target_id": "features",
+      "type": "accordion"
+    }
+  ],
+  "language": "id",
+  "schema_version": "1.0",
+  "style_mode": "plain_css",
+  "theme": {
+    "background": "#ffffff",
+    "font": "serif",
+    "primary": "#8b5cf6",
+    "text": "#111827"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "props": {
+        "brand": "Studio Bagreenlo",
+        "links": [
+          {
+            "href": "#main",
+            "label": "Beranda"
+          }
+        ]
+      },
+      "type": "navbar"
+    },
+    {
+      "id": "main",
+      "props": {
+        "heading": "Studio Bagreenlo",
+        "layout": "centered",
+        "text": "Kami mendampingi pelanggan baru untuk meningkatkan pengalaman pengguna."
+      },
+      "type": "hero"
+    },
+    {
+      "id": "features",
+      "props": {
+        "heading": "Layanan",
+        "items": [
+          {
+            "heading": "Pelatihan",
+            "text": "Informasi pelatihan."
+          },
+          {
+            "heading": "Pendampingan",
+            "text": "Informasi pendampingan."
+          }
+        ]
+      },
+      "type": "feature_grid"
+    },
+    {
+      "id": "footer",
+      "props": {
+        "text": "Studio Bagreenlo"
+      },
+      "type": "footer"
+    }
+  ],
+  "title": "Studio Bagreenlo"
+}

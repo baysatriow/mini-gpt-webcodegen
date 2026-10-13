@@ -1,0 +1,1 @@
+Saya ingin halaman Indonesia bernama Pustaka Nostargomi menggunakan CSS biasa. Aksen #ef4444, latar putih, teks #111827 dan font serif. Tampilkan navbar Beranda, teks profil, dan footer nama situs. Teks utama: Kami mendukung mitra usaha untuk meningkatkan pengalaman pengguna. Gunakan menu responsif.

@@ -1,0 +1,22 @@
+{
+  "example_id": "597680f66008d27982c5910ef75fa02069cac2b017d36eac3a2b0f334ea1d99f",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "22649cf1212bc50ce615ddab160cc3100fac36d36a3c697e4c7632fbee8f4e44",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Dapur Fakamaweb",
+      "style_mode": "plain_css",
+      "primary": "#10b981",
+      "font": "serif",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami mendampingi pelanggan baru untuk meningkatkan pengalaman pengguna."
+    },
+    "errors": []
+  }
+}

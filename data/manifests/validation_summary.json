@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "raw_rows": {
+    "websight_v01": 20000,
+    "websight_v02": 30000,
+    "vulcan": 5000
+  },
+  "rows_with_script_tag": {
+    "websight_v01": 150,
+    "websight_v02": 11,
+    "vulcan": 1200
+  },
+  "group_overlap": [],
+  "exact_duplicate_overlap": [],
+  "normalized_transforms": {
+    "none": 48011,
+    "not_html": 3200
+  },
+  "split_counts": {
+    "train": 41639,
+    "validation": 5016,
+    "test": 4556
+  },
+  "vocab_size": 8192,
+  "tokenizer_fit": "train only",
+  "token_cache_sha256": "verified all splits",
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "batch_shape": [
+    2,
+    1024
+  ],
+  "gpu_batch_transfer": true,
+  "model_training_executed": false,
+  "draft_annotations": 119,
+  "reviewed_annotations": 0,
+  "sft": {
+    "status": "awaiting_review",
+    "reviewed_rows": 0
+  },
+  "free_bytes": 28402155520
+}

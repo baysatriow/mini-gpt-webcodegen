@@ -1,0 +1,920 @@
+{
+  "evaluation_sha256": "47727ba98dedc3f3644b3bffe79764513a5d208de9303e46fde07ed0b8f639e6",
+  "raw_artifacts_sha256": "874305f44fd12365c23b624f54cc5f9fd6719f093c7c77b7d7e7962e714110f1",
+  "final_count": 48,
+  "final_contract_accepted": 43,
+  "results": [
+    {
+      "example_id": "3c74fa8080bff905efaf2b9804e8806375f7119a52c9debb3568a8e324ef8d00",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kursus Porawbluela",
+          "style_mode": "plain_css",
+          "primary": "#06b6d4",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kenali produk dan layanan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "b9ae2b0f9659aba690b582f567089ae27f16796690a2ff2057bce1e0448c05a6",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Dapur Ladaga",
+          "style_mode": "plain_css",
+          "primary": "#06b6d4",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani mitra usaha untuk merencanakan kegiatan bersama."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "7d043fd0ace6f6f2b2fa87c0d2c877cc06d82504a61841418bba2e3732d3c083",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Klinik Alacraftga",
+          "style_mode": "tailwind",
+          "primary": "#ef4444",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "adf54c55d46f42350118a044d3a3534c6d2731939ab43990a86388af1efc5aa6",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kebun Bija",
+          "style_mode": "tailwind",
+          "primary": "#06b6d4",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung pelajar Indonesia untuk memilih produk berkualitas."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "93e8403318e551d7dc69ba7f03ebfaa352a26b98dd63f2098c805952e705ecb9",
+      "accepted": false,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kursus Startechni",
+          "style_mode": "plain_css",
+          "primary": "#ef4444",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": [
+          "title: diminta 'Kursus Startechni', model menghasilkan 'Kursus Starchni'",
+          "Section nav: isi tidak sesuai kontrak prompt",
+          "Section footer: isi tidak sesuai kontrak prompt",
+          "Section main: isi tidak sesuai kontrak prompt"
+        ]
+      }
+    },
+    {
+      "example_id": "42868a7ec77816b88498cc5e0981ee36e6ad9f41968d3fd011dc43bf37c7f60a",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Dapur Biwavecak",
+          "style_mode": "plain_css",
+          "primary": "#06b6d4",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kenali produk dan layanan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "5905c13d107fa20a46960f6b656e90f8cfd4175e6be37bf5c5616786dd6b6963",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kursus Porawbluela",
+          "style_mode": "tailwind",
+          "primary": "#f59e0b",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani pelanggan baru untuk memilih produk berkualitas."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "bd9814dc79454dde3b314a3b13aa910fd8c9ac1b429e4468a7023a2b8bfa5a30",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Studio Craftni",
+          "style_mode": "tailwind",
+          "primary": "#06b6d4",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung keluarga modern untuk belajar dengan nyaman."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "c3e225dca95cf63cae93dc14ef134170e31945264a8b376751b62649385d2389",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Klinik Alacraftga",
+          "style_mode": "plain_css",
+          "primary": "#ef4444",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani tim kreatif untuk merencanakan kegiatan bersama."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "110280b5ad07f22493f43378ff5a8edb5e0109cdcac79a0dfe6511460b1eff5d",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kafe Wapo",
+          "style_mode": "plain_css",
+          "primary": "#8b5cf6",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendampingi tim kreatif untuk merencanakan kegiatan bersama."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "c54d0301e93766c750f267ae7bd91421cd50cbc92746dd2238b00bc75ac3c526",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kebun Labluemi",
+          "style_mode": "tailwind",
+          "primary": "#10b981",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani pelajar Indonesia untuk meningkatkan pengalaman pengguna."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "d1341c0364815038f22e6cb1b3a468e85a0d3288d2c7a9bf93c14e3c409a2a56",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Dapur Ladaga",
+          "style_mode": "tailwind",
+          "primary": "#2563eb",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendampingi keluarga modern untuk memilih produk berkualitas."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "b5d84a312446b252022e4867c1b786c90ac5e09c9741fc0f4bf5bdf00c424d89",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Pilahano",
+          "style_mode": "plain_css",
+          "primary": "#10b981",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "ce50c158a3b4020a81306b84c70764b93b679543e46c67617d6381d991f38a64",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kebun Bija",
+          "style_mode": "plain_css",
+          "primary": "#ef4444",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani pemilik bisnis untuk mengembangkan gagasan baru."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "7fdf318fa77c87fa59157e15ee0f77694e8c57695d71615a20b73983dd475769",
+      "accepted": false,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kursus Startechni",
+          "style_mode": "tailwind",
+          "primary": "#8b5cf6",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung mitra usaha untuk merencanakan kegiatan bersama."
+        },
+        "errors": [
+          "title: diminta 'Kursus Startechni', model menghasilkan 'Kursus Starchni'",
+          "Section nav: isi tidak sesuai kontrak prompt",
+          "Section footer: isi tidak sesuai kontrak prompt",
+          "Section main: isi tidak sesuai kontrak prompt"
+        ]
+      }
+    },
+    {
+      "example_id": "3f24cf635feac3555c0a0825f27957f5aca8b2bc44d810676e0fa820dd92a448",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Studio Craftni",
+          "style_mode": "tailwind",
+          "primary": "#10b981",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung pelanggan baru untuk merencanakan kegiatan bersama."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "0da8d9947b93927657efffca50df29c665929610016aefb63037b5621ac88b46",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kebun Labluemi",
+          "style_mode": "plain_css",
+          "primary": "#10b981",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu usaha kecil untuk mengembangkan gagasan baru."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "be20a2513dc827ea60de82a272d1a3f6194a3c78c6da7bf5815a36d55c784185",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kafe Wapo",
+          "style_mode": "plain_css",
+          "primary": "#8b5cf6",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendampingi komunitas lokal untuk membangun identitas digital."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "46f6a10be4d3c19f1ff9f2e2011c49f042f237ec16639b40f84ebe3fd57af187",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Komunitas Greenla",
+          "style_mode": "tailwind",
+          "primary": "#ef4444",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani mitra usaha untuk merencanakan kegiatan bersama."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "e8cc8e0b443a6d7a8cd5581660649d3b3c6192246f43f2c252e2f4011f5c993e",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Rumah Kaniso",
+          "style_mode": "tailwind",
+          "primary": "#06b6d4",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu tim kreatif untuk meningkatkan pengalaman pengguna."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "13c12a84ba4ae2d192b214b378cd1d4f4dd267d0592f8cd76c8f1b23a33d2d29",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Klinik Alacraftga",
+          "style_mode": "plain_css",
+          "primary": "#8b5cf6",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendampingi keluarga modern untuk merencanakan kegiatan bersama."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "933e6d4d2eab9a158619b0025c8275a56a49d2e24d2b01bd07f1123e41c26ea5",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Bistar",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "b99a0bb4acf83bc99f8cf29293a80a8973741d418c34232da02315ed96872a6c",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Studio Bowacode",
+          "style_mode": "tailwind",
+          "primary": "#10b981",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung usaha kecil untuk mengembangkan gagasan baru."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "da916588c512d7e7204429d5468561e585898724468ae1764b0d4fe0e0be82a8",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Dapur Ladaga",
+          "style_mode": "tailwind",
+          "primary": "#f59e0b",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani komunitas lokal untuk menemukan solusi praktis."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "7055d9f0d285c1ae68eef44cc7cb1a8ef2a902ec1de46b8bbb7864d2169fb28e",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kebun Labluemi",
+          "style_mode": "plain_css",
+          "primary": "#10b981",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu pelanggan baru untuk membangun identitas digital."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "cf38e00d5b5f7e95c13699fa2b04f4af8a435029c9e173df7bbe8724eaac3514",
+      "accepted": false,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Hagipimi",
+          "style_mode": "plain_css",
+          "primary": "#8b5cf6",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendampingi mitra usaha untuk belajar dengan nyaman."
+        },
+        "errors": [
+          "title: diminta 'Toko Hagipimi', model menghasilkan 'Toko Hagipi'",
+          "Section nav: isi tidak sesuai kontrak prompt",
+          "Section footer: isi tidak sesuai kontrak prompt",
+          "Section main: isi tidak sesuai kontrak prompt"
+        ]
+      }
+    },
+    {
+      "example_id": "b1acd907d985726cb10ba8b74133517b7b341dd0770d69e853069f2f7e50f76e",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Studio Bowacode",
+          "style_mode": "tailwind",
+          "primary": "#8b5cf6",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung tim kreatif untuk meningkatkan pengalaman pengguna."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "888693b30aec4f5b3992fcfcac542a17f7b63bcaca0b02d24e2cb24db8869048",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Rumah Kaniso",
+          "style_mode": "tailwind",
+          "primary": "#2563eb",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu usaha kecil untuk merencanakan kegiatan bersama."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "954428dc095be9d2c818fc4ae6374790090537ebeabcc7ce57108302cba1825b",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Pilahano",
+          "style_mode": "plain_css",
+          "primary": "#2563eb",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung komunitas lokal untuk mengembangkan gagasan baru."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "50727c03fc14b0676ce45d51cc3431bb6044997acee1f0c57671b680a1cce65a",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Rumah Kaniso",
+          "style_mode": "plain_css",
+          "primary": "#2563eb",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "9a6ff920386fc3f79c218e561000323abe3250ac29a957c279e66091ab2ade1a",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Fasososi",
+          "style_mode": "tailwind",
+          "primary": "#2563eb",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani pelanggan baru untuk membangun identitas digital."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "f8fc7e2bfabe2de4533927b946650ff2f1482ca2a0ccd864b1a622b2e2e5c281",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kebun Bija",
+          "style_mode": "tailwind",
+          "primary": "#8b5cf6",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung mitra usaha untuk mengembangkan gagasan baru."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "bbc800567eb245e9de24f07567c1926ea683fc5f14d4ac8cbbfbc191a4dc9772",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kursus Porawbluela",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani pelajar Indonesia untuk memilih produk berkualitas."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "75a2975b4ee87fb45b3088cd9d1920934d78d3b2aefa9c946546722f3bdf4828",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kebun Bija",
+          "style_mode": "plain_css",
+          "primary": "#10b981",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "a3f991d5ccba47c278ae171af1acc5bdc2eef2f51dc597d7751fbdf5f11c8d8e",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kebun Labluemi",
+          "style_mode": "tailwind",
+          "primary": "#ef4444",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung mitra usaha untuk belajar dengan nyaman."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "86a1cc22289ab2ce781f3423a6f926c460aeb881220d992002746bacdfebc6a4",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Komunitas Cawakado",
+          "style_mode": "tailwind",
+          "primary": "#ef4444",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendampingi pelajar Indonesia untuk mengelola layanan secara mudah."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "152bb17b74ff5e53b699efe4422ab1140c5a5fb88d2d7093974b7aeacc154091",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kebun Labluemi",
+          "style_mode": "plain_css",
+          "primary": "#06b6d4",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani pelajar Indonesia untuk membangun identitas digital."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "3aedfdba252d198cffba0517dea5256d378b6684e56d9209d08867530d441b45",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Klinik Caktikisun",
+          "style_mode": "plain_css",
+          "primary": "#2563eb",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu mitra usaha untuk mengelola layanan secara mudah."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "14aad30331e2e2a4bf8e7c9fb0a84af54fd687c940cb0ca4bafd4596d3e532db",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kursus Porawbluela",
+          "style_mode": "tailwind",
+          "primary": "#8b5cf6",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "e7577eb9ca8940625ef8784616f4f4ea3c17f01732166497344819e12029108b",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Rumah Ditati",
+          "style_mode": "tailwind",
+          "primary": "#8b5cf6",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung pemilik bisnis untuk membangun identitas digital."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "9be877d679292c4a69fefa4e5db95c875ffd3a1a69eaa7a5a2ad0ee8de217c0b",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Dapur Ranika",
+          "style_mode": "plain_css",
+          "primary": "#8b5cf6",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu mitra usaha untuk merencanakan kegiatan bersama."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "a36d72d48fb194ba5da01d1bf7e887bbd4e5a041c06dc9ff1337125e65af28c8",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Studio Craftni",
+          "style_mode": "plain_css",
+          "primary": "#06b6d4",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu pemilik bisnis untuk mengelola layanan secara mudah."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "671f96bc4b622b9b4473257f38494617c79316e160110ffba6a8e5841732d33f",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kebun Labluemi",
+          "style_mode": "tailwind",
+          "primary": "#ef4444",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami melayani pelajar Indonesia untuk merencanakan kegiatan bersama."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "394cf0f3b2a2009350f111e42f325ade4bc641e815fd4e02789893b89b472694",
+      "accepted": false,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Hagipimi",
+          "style_mode": "tailwind",
+          "primary": "#2563eb",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendukung komunitas lokal untuk merencanakan kegiatan bersama."
+        },
+        "errors": [
+          "title: diminta 'Toko Hagipimi', model menghasilkan 'Toko Hagipi'",
+          "Section nav: isi tidak sesuai kontrak prompt",
+          "Section footer: isi tidak sesuai kontrak prompt",
+          "Section main: isi tidak sesuai kontrak prompt"
+        ]
+      }
+    },
+    {
+      "example_id": "fac61476be97a1a570f03cc7dad30ab5325e647c19b365d5c4b38c20ff3f1bc4",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Klinik Alacraftga",
+          "style_mode": "plain_css",
+          "primary": "#8b5cf6",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kenali produk dan layanan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "7780b868b85e910f9cb3875db460591dd45775cba43bcb2ecd12b34607ce131f",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Studio Craftni",
+          "style_mode": "plain_css",
+          "primary": "#06b6d4",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "cf779ccda81a208b96414dac5d335bfeab7d40539392935445a9f967e84634e9",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kursus Porawbluela",
+          "style_mode": "tailwind",
+          "primary": "#ef4444",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "34f212762eb695f1baa69bd69017465b92d1abe4d83ae6da7eed4869f41d67aa",
+      "accepted": false,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Hagipimi",
+          "style_mode": "tailwind",
+          "primary": "#06b6d4",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami mendampingi pelanggan baru untuk meningkatkan pengalaman pengguna."
+        },
+        "errors": [
+          "title: diminta 'Toko Hagipimi', model menghasilkan 'Toko Hagipi'",
+          "Section nav: isi tidak sesuai kontrak prompt",
+          "Section footer: isi tidak sesuai kontrak prompt",
+          "Section main: isi tidak sesuai kontrak prompt"
+        ]
+      }
+    }
+  ],
+  "runtime": [
+    {
+      "directory": "outputs\\generated_websites\\studio-cakrawala-v2",
+      "raw_sha256": "3cff0b2f6be19075fb5dd8c4466fc03c7491f19a11cab180b2631ba6c13563dc",
+      "prompt_sha256": "1df58b64b2d1228010395ec74b599e047229b37805f17cde4d057760139275a4",
+      "historical_status": "accepted",
+      "contract_accepted_now": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Studio Cakrawala",
+          "style_mode": "plain_css",
+          "primary": "#2563eb",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Temukan layanan pilihan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\kafe-senandika-v1",
+      "raw_sha256": "78985b812e05c7c67a5b189e23c4cad4af0e74beaebccd8b0ad7c18d785d7966",
+      "prompt_sha256": "3fce8e0e0456ccff285f6dc980e9f5f8d3737bf70392044c7a6f60082411fa57",
+      "historical_status": "rejected",
+      "contract_accepted_now": false,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Kafe Senandika",
+          "style_mode": "tailwind",
+          "primary": "#10b981",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu tim kreatif untuk mengembangkan gagasan baru."
+        },
+        "errors": [
+          "title: diminta 'Kafe Senandika', model menghasilkan 'Kafe Senanka'",
+          "Section nav: isi tidak sesuai kontrak prompt",
+          "Section footer: isi tidak sesuai kontrak prompt",
+          "Section main: isi tidak sesuai kontrak prompt"
+        ]
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\studio-cakrawala-tailwind-v1",
+      "raw_sha256": "3f81a14473de1d4b44b8246445cff8cf161c9e1c5e5c6a6290d81a1254f911aa",
+      "prompt_sha256": "b09e17c74fc2add8a39d083d19ce1d6664e2af3254fb6f81d556ede488e016d7",
+      "historical_status": "accepted",
+      "contract_accepted_now": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Studio Cakrawala",
+          "style_mode": "tailwind",
+          "primary": "#10b981",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kami membantu tim kreatif untuk mengembangkan gagasan baru."
+        },
+        "errors": []
+      }
+    }
+  ],
+  "browser_evaluated": false,
+  "limits": [
+    "Artifact audit only; no new generation, no output repair, no browser/visual approval"
+  ]
+}

@@ -1,0 +1,8 @@
+RUN-117 | 2026-10-13T08:43:57.440181+07:00 | install_offline_tailwind_compiler
+Command: npm.cmd install --prefix tooling/tailwind --no-fund --no-audit
+Commit: 5209976e73450c39e2b3101521a5b793e3021749
+
+
+added 66 packages in 7s
+
+Exit code: 0

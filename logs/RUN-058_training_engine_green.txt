@@ -1,0 +1,36 @@
+RUN-058 | 2026-10-12T20:26:13.064477+07:00 | training_engine_green
+Command: .\.venv\Scripts\python.exe -B -m unittest discover -s tests/training -v
+Commit: 24f9e5be4f29a4d120870ba666e016a8c90a8b65
+
+test_corrupted_checkpoint_is_refused_before_model_mutation (test_checkpoint.CheckpointTests.test_corrupted_checkpoint_is_refused_before_model_mutation) ... {"event": "validation", "step": 0, "loss": 3.4789316654205322, "perplexity": 32.425062749505166, "valid_tokens": 16, "batches": 2}
+{"event": "train", "step": 1, "loss": 3.497948408126831, "grad_norm": 3.3596768379211426, "valid_tokens": 8, "learning_rate": 0.001, "seconds": 0.11589309998089448, "tokens_per_second": 69.02913116759184, "data_cursor": 1}
+{"event": "validation", "step": 1, "loss": 3.4130717515945435, "perplexity": 30.358354504271695, "valid_tokens": 16, "batches": 2}
+ok
+test_resume_restores_optimizer_scheduler_rng_and_next_batch (test_checkpoint.CheckpointTests.test_resume_restores_optimizer_scheduler_rng_and_next_batch) ... {"event": "validation", "step": 0, "loss": 3.4789316654205322, "perplexity": 32.425062749505166, "valid_tokens": 16, "batches": 2}
+{"event": "train", "step": 1, "loss": 3.497948408126831, "grad_norm": 3.3596768379211426, "valid_tokens": 8, "learning_rate": 0.001, "seconds": 0.0051852999604307115, "tokens_per_second": 1542.8229921216532, "data_cursor": 1}
+{"event": "train", "step": 2, "loss": 3.4166786670684814, "grad_norm": 3.2066521644592285, "valid_tokens": 8, "learning_rate": 0.001, "seconds": 0.0037386000039987266, "tokens_per_second": 2139.8384399088886, "data_cursor": 2}
+{"event": "validation", "step": 2, "loss": 3.362371802330017, "perplexity": 28.857554189330607, "valid_tokens": 16, "batches": 2}
+{"event": "train", "step": 3, "loss": 3.4130873680114746, "grad_norm": 4.437862396240234, "valid_tokens": 4, "learning_rate": 0.0007750000000000001, "seconds": 0.003891300002578646, "tokens_per_second": 1027.9341087424054, "data_cursor": 3}
+{"event": "train", "step": 4, "loss": 3.353144407272339, "grad_norm": 2.75575852394104, "valid_tokens": 8, "learning_rate": 0.00032500000000000015, "seconds": 0.004699100041761994, "tokens_per_second": 1702.453646209304, "data_cursor": 4}
+{"event": "validation", "step": 4, "loss": 3.3244839906692505, "perplexity": 27.78465780030699, "valid_tokens": 16, "batches": 2}
+{"event": "validation", "step": 0, "loss": 3.4789316654205322, "perplexity": 32.425062749505166, "valid_tokens": 16, "batches": 2}
+{"event": "train", "step": 1, "loss": 3.497948408126831, "grad_norm": 3.3596768379211426, "valid_tokens": 8, "learning_rate": 0.001, "seconds": 0.005716199986636639, "tokens_per_second": 1399.5311603342152, "data_cursor": 1}
+{"event": "train", "step": 2, "loss": 3.4166786670684814, "grad_norm": 3.2066521644592285, "valid_tokens": 8, "learning_rate": 0.001, "seconds": 0.004530400037765503, "tokens_per_second": 1765.8484754793935, "data_cursor": 2}
+{"event": "validation", "step": 2, "loss": 3.362371802330017, "perplexity": 28.857554189330607, "valid_tokens": 16, "batches": 2}
+{"event": "validation", "step": 2, "loss": 3.362371802330017, "perplexity": 28.857554189330607, "valid_tokens": 16, "batches": 2}
+{"event": "train", "step": 3, "loss": 3.4130873680114746, "grad_norm": 4.437862396240234, "valid_tokens": 4, "learning_rate": 0.0007750000000000001, "seconds": 0.004787500016391277, "tokens_per_second": 835.5091355206137, "data_cursor": 3}
+{"event": "train", "step": 4, "loss": 3.353144407272339, "grad_norm": 2.75575852394104, "valid_tokens": 8, "learning_rate": 0.00032500000000000015, "seconds": 0.003954700019676238, "tokens_per_second": 2022.9094394509702, "data_cursor": 4}
+{"event": "validation", "step": 4, "loss": 3.3244839906692505, "perplexity": 27.78465780030699, "valid_tokens": 16, "batches": 2}
+ok
+test_nonfinite_loss_is_rejected_before_optimizer_update (test_engine.EngineTests.test_nonfinite_loss_is_rejected_before_optimizer_update) ... ok
+test_sft_masks_prompt_and_does_not_shift_labels_again (test_engine.EngineTests.test_sft_masks_prompt_and_does_not_shift_labels_again) ... ok
+test_simulated_oom_preserves_last_committed_checkpoint_and_failure_log (test_engine.EngineTests.test_simulated_oom_preserves_last_committed_checkpoint_and_failure_log) ... {"event": "validation", "step": 0, "loss": 3.4789316654205322, "perplexity": 32.425062749505166, "valid_tokens": 16, "batches": 2}
+{"event": "failure", "global_step": 0, "last_committed_step": 0, "error_type": "OutOfMemoryError", "error": "SIMULATED_TEST_OOM"}
+ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.975s
+
+OK
+
+Exit code: 0

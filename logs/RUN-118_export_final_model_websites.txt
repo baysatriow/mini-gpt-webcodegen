@@ -1,0 +1,17 @@
+RUN-118 | 2026-10-13T08:51:41.246418+07:00 | export_final_model_websites
+Command: .venv/Scripts/python.exe -m qa.export_generated_websites --evaluation reports/training/TRAIN-010-FINAL_curriculum_evaluation.json --output outputs/generated_websites/AI-011 --report reports/GENERATED_OUTPUTS_2026-10-13.json
+Commit: 5209976e73450c39e2b3101521a5b793e3021749
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\export_generated_websites.py", line 63, in <module>
+    main()
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\export_generated_websites.py", line 42, in main
+    entries.append({'directory': str(directory.relative_to(ROOT)), 'title': spec['title'], 'recipe': row['recipe'],
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 730, in relative_to
+    raise ValueError("{!r} is not in the subpath of {!r}"
+ValueError: 'outputs\\generated_websites\\AI-011\\01-profile-plain_css' is not in the subpath of 'F:\\Generative_AI\\Vibe_Coding_Proyek_1' OR one path is relative and the other is absolute.
+
+Exit code: 1

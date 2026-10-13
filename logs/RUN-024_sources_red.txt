@@ -1,0 +1,25 @@
+RUN-024 | 2026-10-12T18:15:08.314647+07:00 | sources_red
+Command: .\.venv\Scripts\python.exe -m unittest tests.data.test_sources -v
+Commit: 6e9c4055e97de20ab18b16a7a4c7707f589652f5
+
+test_sources (unittest.loader._FailedTest.test_sources) ... ERROR
+
+======================================================================
+ERROR: test_sources (unittest.loader._FailedTest.test_sources)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_sources
+Traceback (most recent call last):
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\data\test_sources.py", line 6, in <module>
+    from src.data.sources import download_source, stream_websight, write_manifest
+ModuleNotFoundError: No module named 'src.data.sources'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+
+Exit code: 1

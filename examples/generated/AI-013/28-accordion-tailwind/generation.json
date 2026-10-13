@@ -1,0 +1,22 @@
+{
+  "example_id": "72f52ec026e7791f215a25c0071744be463aab3b6c7136c77a3211a4b62ff679",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "f406d1b9b0bd88ece244d5680eb7387d2e5664f993f65ce552cdf7aae77854c2",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "tailwind",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Kebun Smarttimi",
+      "style_mode": "tailwind",
+      "primary": "#2563eb",
+      "font": "mono",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami mendampingi tim kreatif untuk membangun identitas digital."
+    },
+    "errors": []
+  }
+}

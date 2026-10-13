@@ -1,0 +1,7 @@
+RUN-153 | 2026-10-13T10:10:41.736237+07:00 | check_static_results_gallery_retry
+Command: .venv/Scripts/python.exe .tmp/check_gallery_links.py
+Commit: 0b2de4a6377a87069f2a684253554715217a5187
+
+{"gallery": "examples\\generated\\AI-011\\index.html", "sha256": "b8a1c7fe0be9f3bae0e34a04b020487c68c1cb4fc0402a637b3bb3bcfc76108a", "local_links": 7, "missing": [], "browser_evaluated": false}
+
+Exit code: 0

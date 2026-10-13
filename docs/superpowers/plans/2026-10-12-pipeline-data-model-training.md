@@ -82,27 +82,27 @@
 - Theme menerima warna hexadecimal dan font dari enum. Link hanya menerima `https`, `mailto`, `tel`, atau fragment lokal.
 - Komponen tidak menerima `script`, atribut `on*`, protokol URL selain `https`, `mailto`, `tel`, dan fragment lokal.
 
-- [ ] **Step 1: Tulis pemeriksaan schema yang akan gagal**
+- [x] **Step 1: Tulis pemeriksaan schema yang akan gagal**
 
 Tambahkan `unittest.TestCase` yang memeriksa PageSpec valid, field `style_mode` invalid, ID interaksi di luar katalog, `script` sebagai component, dan atribut `onclick`. Gunakan object minimal eksplisit dengan satu section `hero` dan satu paragraph.
 
-- [ ] **Step 2: Jalankan pemeriksaan sebelum fungsi tersedia**
+- [x] **Step 2: Jalankan pemeriksaan sebelum fungsi tersedia**
 
 Run: `python -m unittest tests.data.test_schema -v`
 
 Expected: gagal karena module/schema belum tersedia.
 
-- [ ] **Step 3: Buat record dan schema ketat**
+- [x] **Step 3: Buat record dan schema ketat**
 
 Implementasikan `PageExample` sebagai `dataclass(frozen=True)` dan `validate_page_spec` menggunakan `jsonschema.Draft202012Validator`. Gunakan `additionalProperties: false` pada object utama dan tiap component, panjang string maksimum, batas section, serta enum tag/interaksi.
 
-- [ ] **Step 4: Jalankan seluruh pemeriksaan schema**
+- [x] **Step 4: Jalankan seluruh pemeriksaan schema**
 
 Run: `python -m unittest tests.data.test_schema -v`
 
 Expected: seluruh assertion lulus dan semua error menyebut JSON path yang ditolak.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add src/data/schema.py configs/page_spec.schema.json tests/__init__.py tests/data/__init__.py tests/data/test_schema.py
@@ -129,27 +129,27 @@ git push -u origin HEAD
 - Konfigurasi awal mematok dataset `HuggingFaceM4/WebSight`, config `v0.1` atau `v0.2`, split `train`, field text dan `llm_generated_idea` yang tersedia, serta limit contoh yang dapat diubah.
 - Setiap source row mendapat index lokal, revision, konfigurasi, waktu akses, dan hash teks.
 
-- [ ] **Step 1: Tulis pemeriksaan dengan loader palsu**
+- [x] **Step 1: Tulis pemeriksaan dengan loader palsu**
 
 Buat test yang menyuntikkan iterable 3 record serta loader palsu. Minta `limit=2`, lalu pastikan hanya dua record yang dikembalikan, field image tidak disentuh, dan dataset name/config/revision/split tercatat.
 
-- [ ] **Step 2: Jalankan test loader palsu**
+- [x] **Step 2: Jalankan test loader palsu**
 
 Run: `python -m unittest tests.data.test_sources -v`
 
 Expected: gagal karena `stream_websight` dan `write_manifest` belum ada.
 
-- [ ] **Step 3: Implementasikan adapter streaming**
+- [x] **Step 3: Implementasikan adapter streaming**
 
 Panggil `datasets.load_dataset("HuggingFaceM4/WebSight", config_name, split="train", revision=revision, streaming=True)`. Panggil `select_columns` sebelum iterasi. Terapkan shuffle buffer terbatas dengan seed config, lalu `take(limit)`. Buat seed, buffer size, column list, dan limit eksplisit di `configs/dataset.json`. Jangan memanggil `load_dataset` tanpa `streaming=True`.
 
-- [ ] **Step 4: Jalankan unit dan smoke fetch terbatas**
+- [x] **Step 4: Jalankan unit dan smoke fetch terbatas**
 
 Run: `python -m unittest tests.data.test_sources -v`
 
 Expected: semua test lokal lulus. Jalankan `python -m src.data.sources --config configs/dataset.json --limit 20`; expected: maksimal 20 teks diterima, tidak ada image payload pada JSONL, revision tetap di manifest, dan disk usage dicatat di RUN.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add src/data/sources.py configs/dataset.json tests/data/test_sources.py data/manifests/README.md
@@ -175,27 +175,27 @@ git push origin HEAD
 - Satu anotasi memetakan `source_row_id`, prompt Bahasa Indonesia, content language, `group_id`, PageSpec, status review, reviewer initials, dan alasan perubahan.
 - WebSight v0.1 dapat dipakai untuk pretraining markup; untuk SFT, pasangkan dengan prompt hasil anotasi dan tinjauan manusia. WebSight v0.2 dapat memakai `llm_generated_idea` sebagai bahan prompt, tetapi terjemahan/penyusunan prompt tetap ditinjau.
 
-- [ ] **Step 1: Tulis pemeriksaan normalizer**
+- [x] **Step 1: Tulis pemeriksaan normalizer**
 
 Periksa prompt kosong, source id tidak dikenal, target schema invalid, license tidak ada, `annotation_status` belum `reviewed`, serta pasangan valid. Untuk record ditolak, pastikan alasan menyebut field yang menyebabkan reject.
 
-- [ ] **Step 2: Jalankan pemeriksaan normalizer**
+- [x] **Step 2: Jalankan pemeriksaan normalizer**
 
 Run: `python -m unittest tests.data.test_normalize -v`
 
 Expected: gagal sebelum normalizer dibuat.
 
-- [ ] **Step 3: Implementasikan konversi dan report reject**
+- [x] **Step 3: Implementasikan konversi dan report reject**
 
 Implementasikan normalizer sebagai transformasi lokal deterministik. Simpan anotasi bersama source row ID dan revision, validasi PageSpec sebelum ditulis, tolak record tanpa review, dan keluarkan jumlah accepted/rejected beserta alasan ke file report terpisah. Jangan memanggil layanan LLM jaringan dari preprocessing.
 
-- [ ] **Step 4: Jalankan unit dan konversi fixture**
+- [x] **Step 4: Jalankan unit dan konversi fixture**
 
 Run: `python -m unittest tests.data.test_normalize -v`
 
 Expected: fixture menghasilkan satu baris JSONL kanonis dan record invalid hanya masuk report reject.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add src/data/normalize.py data/annotations/README.md tests/data/test_normalize.py configs/dataset.json
@@ -219,27 +219,27 @@ git push origin HEAD
 - `assign_splits(examples: Sequence[PageExample], seed: int, ratios: tuple[float, float, float]) -> list[PageExample]` membagi group ke `train`, `validation`, `test`.
 - Default rasio konfigurasi `0.80, 0.10, 0.10` berlaku pada jumlah group, bukan jumlah baris. Simpan seed, group count, example count, dan hash split.
 
-- [ ] **Step 1: Tulis test anti-leakage**
+- [x] **Step 1: Tulis test anti-leakage**
 
 Buat dua PageExample dari `group_id="layout-hero-001"` dan satu dari `layout-form-004`; pastikan dua contoh pertama selalu satu split dan seed sama menghasilkan hasil sama.
 
-- [ ] **Step 2: Jalankan test anti-leakage**
+- [x] **Step 2: Jalankan test anti-leakage**
 
 Run: `python -m unittest tests.data.test_split -v`
 
 Expected: gagal karena split belum dibuat.
 
-- [ ] **Step 3: Implementasikan dedup dan group allocation**
+- [x] **Step 3: Implementasikan dedup dan group allocation**
 
 Urutkan group IDs dengan seeded RNG, alokasikan group utuh ke split menurut rasio jumlah group, kemudian tulis contoh dalam urutan stabil. Jika group kurang dari 10, hentikan dengan pesan yang menjelaskan bahwa validation/test tidak dapat diandalkan. Jangan menurunkan group ID saat warna atau sinonim berubah.
 
-- [ ] **Step 4: Jalankan pemeriksaan repeatability dan overlap**
+- [x] **Step 4: Jalankan pemeriksaan repeatability dan overlap**
 
 Run: `python -m unittest tests.data.test_split -v`
 
 Expected: `group_id` antar split tidak beririsan, hasil seed sama persis, dan duplicate canonical hash masuk reject list.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add src/data/split.py tests/data/test_split.py configs/dataset.json
@@ -267,27 +267,27 @@ git push origin HEAD
 - `encode_sft(prompt: str, target_json: str, tokenizer, block_size: int) -> tuple[list[int], list[int]]` memberi label `-100` pada seluruh posisi prompt dan padding.
 - `PageSpecDataset(rows, tokenizer, mode, block_size)` mengembalikan tensor `input_ids` dan `labels` panjang tetap.
 
-- [ ] **Step 1: Tulis test token round trip dan label mask**
+- [x] **Step 1: Tulis test token round trip dan label mask**
 
 Gunakan fixture Unicode Indonesia, HTML tag, CSS punctuation, Tailwind class, serta token special. Pastikan decode mempertahankan karakter, dan label SFT pada prompt/padding bernilai `-100`.
 
-- [ ] **Step 2: Jalankan test tokenizer/dataset**
+- [x] **Step 2: Jalankan test tokenizer/dataset**
 
 Run: `python -m unittest tests.data.test_tokenizer_dataset -v`
 
 Expected: gagal sebelum tokenizer dan dataset dibuat.
 
-- [ ] **Step 3: Implementasikan BPE dan batch packing**
+- [x] **Step 3: Implementasikan BPE dan batch packing**
 
 Buat tokenizer byte-level baru dari iterator train split, special token untuk awal/akhir prompt dan target serta padding. Tolak target JSON lebih panjang dari block size dan catat jumlah truncation; jangan memotong JSON tanpa penanda. Simpan tokenizer JSON, vocab, special-token map, block size, dan hash.
 
-- [ ] **Step 4: Jalankan unit dan hitung distribusi token**
+- [x] **Step 4: Jalankan unit dan hitung distribusi token**
 
 Run: `python -m unittest tests.data.test_tokenizer_dataset -v`
 
 Expected: semua mask dan round-trip benar; report menampilkan p50/p95/max tokens per contoh dan jumlah contoh yang melewati block size sebelum training dimulai.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add src/data/tokenizer.py src/data/dataset.py tests/data/test_tokenizer_dataset.py configs/tokenizer.json configs/training_pretrain.json configs/training_sft.json
@@ -313,27 +313,27 @@ git push origin HEAD
 - `Block.forward(x)` melakukan pre-layer normalization, causal attention residual, MLP/GELU residual.
 - Embedding token dijumlahkan dengan learned positional embedding; model memakai final layer norm dan linear language-model head.
 
-- [ ] **Step 1: Tulis test causal attention dan ukuran tensor**
+- [x] **Step 1: Tulis test causal attention dan ukuran tensor**
 
 Uji output shape, causal mask dengan membandingkan prefix logits sebelum/sesudah token suffix diubah, backward menghasilkan gradien finite, serta panjang sequence di atas block size ditolak.
 
-- [ ] **Step 2: Jalankan model test**
+- [x] **Step 2: Jalankan model test**
 
 Run: `python -m unittest tests.models.test_minigpt -v`
 
 Expected: gagal sebelum modul model dibuat.
 
-- [ ] **Step 3: Implementasikan komponen dengan operasi PyTorch dasar**
+- [x] **Step 3: Implementasikan komponen dengan operasi PyTorch dasar**
 
 Gunakan `nn.Embedding`, `nn.Linear`, `nn.LayerNorm`, `nn.Dropout`, `torch.matmul`, dan mask segitiga kausal. Tulis struktur attention dan decoder block sendiri; jangan memakai `nn.Transformer` atau bobot model lain. Inisialisasi linear/embedding dengan normal ber-mean nol, std `0.02`, serta bias nol.
 
-- [ ] **Step 4: Jalankan CPU, CUDA dan BF16 forward/backward**
+- [x] **Step 4: Jalankan CPU, CUDA dan BF16 forward/backward**
 
 Run: `python -m unittest tests.models.test_minigpt -v`
 
 Expected: seluruh output shape benar dan loss/gradien finite pada CPU serta RTX 5070; catat parameter count dan peak VRAM pada RUN.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add src/models/minigpt.py tests/models/__init__.py tests/models/test_minigpt.py configs/model.json
@@ -362,27 +362,27 @@ git push origin HEAD
 - `save_checkpoint(path, state: dict) -> None`; `load_checkpoint(path, model, optimizer, scheduler) -> dict` memulihkan model, optimizer, scheduler, step, dan RNG state.
 - SFT loss menghitung hanya label bukan `-100`. Pretraining loss memprediksi token berikutnya untuk seluruh token valid.
 
-- [ ] **Step 1: Tulis test satu optimizer step dan resume**
+- [x] **Step 1: Tulis test satu optimizer step dan resume**
 
 Gunakan model mini deterministik dan batch kecil. Pastikan parameter berubah setelah step, loss finite, prompt loss diabaikan pada SFT, dan state hasil save/load meneruskan `global_step` serta parameter yang sama.
 
-- [ ] **Step 2: Jalankan training/checkpoint test**
+- [x] **Step 2: Jalankan training/checkpoint test**
 
 Run: `python -m unittest tests.training -v`
 
 Expected: gagal sebelum engine tersedia.
 
-- [ ] **Step 3: Implementasikan loop dengan config immutable per run**
+- [x] **Step 3: Implementasikan loop dengan config immutable per run**
 
 Set seed sebelum loader/model. Gunakan AdamW dan konfigurasi optimizer eksplisit. BF16 CUDA berjalan dalam `torch.autocast("cuda", dtype=torch.bfloat16)` hanya jika config mengaktifkannya. Jalankan validation tanpa grad, append satu record JSONL per step, simpan checkpoint `last` dan `best` berdasarkan validation loss, serta tulis console output ke log TRAIN.
 
-- [ ] **Step 4: Jalankan unit dan smoke training tanpa dataset penuh**
+- [x] **Step 4: Jalankan unit dan smoke training tanpa dataset penuh**
 
 Run: `python -m unittest tests.training -v`
 
 Expected: test resume identik dan batch mini berakhir dengan loss finite. Jalankan `python -m qa.train_minigpt --config configs/training_pretrain.json --max-steps 5 --smoke`; expected: menyimpan artifact terpisah, tidak menimpa config produksi, dan membuat entry TRAIN baru.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add src/training/engine.py tests/training/__init__.py tests/training/test_engine.py tests/training/test_checkpoint.py qa/train_minigpt.py configs/training_sft.json logs/LOG_TRAINING.md
@@ -410,27 +410,27 @@ git push origin HEAD
 - `evaluate_checkpoint(checkpoint, prompts_path, schema_path) -> dict` menulis JSON summary, contoh output, dan jumlah parse/schema failures.
 - Prompt held-out berisi keluarga layout yang tidak masuk train atau validation.
 
-- [ ] **Step 1: Tulis test metric mask dan JSON invalid**
+- [x] **Step 1: Tulis test metric mask dan JSON invalid**
 
 Pastikan label `-100` tidak dihitung pada loss, perplexity sama dengan eksponensial loss token yang dihitung, JSON invalid tercatat gagal tanpa menghentikan batch evaluasi.
 
-- [ ] **Step 2: Jalankan evaluation test**
+- [x] **Step 2: Jalankan evaluation test**
 
 Run: `python -m unittest tests.evaluation -v`
 
 Expected: gagal sebelum metric dan evaluator dibuat.
 
-- [ ] **Step 3: Implementasikan evaluator dan output machine-readable**
+- [x] **Step 3: Implementasikan evaluator dan output machine-readable**
 
 Tulis satu record per prompt berisi prompt ID, checkpoint hash, raw output, parse status, schema errors, seed/decode config, serta rubric manual kosong untuk reviewer. Jangan menulis skor visual otomatis tanpa browser.
 
-- [ ] **Step 4: Jalankan evaluasi pada fixture dan checkpoint**
+- [x] **Step 4: Jalankan evaluasi pada fixture dan checkpoint**
 
 Run: `python -m unittest tests.evaluation -v`
 
 Expected: test fixture lulus. Evaluasi checkpoint menulis parse/schema rates dan daftar error; reviewer melengkapi rubric layout, teks, aksesibilitas, dan style.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add src/evaluation/metrics.py src/evaluation/generate.py tests/evaluation/__init__.py tests/evaluation/test_metrics.py configs/evaluation.json qa/evaluate_minigpt.py
@@ -454,23 +454,23 @@ git push origin HEAD
 - Ringkasan laporan merujuk commit, TRAIN IDs, dataset manifests, training graphs, held-out metrics, checkpoint hash, attribution, keterbatasan, dan rekomendasi.
 - Status gerbang bernilai `ready`, `needs-data`, atau `needs-model-work`, dengan bukti untuk setiap nilai.
 
-- [ ] **Step 1: Cocokkan setiap klaim dengan run artifact**
+- [x] **Step 1: Cocokkan setiap klaim dengan run artifact**
 
 Bangun tabel klaim, TRAIN/RUN ID, artifact, dan nilai aktual. Hilangkan klaim yang tidak didukung output run.
 
-- [ ] **Step 2: Jalankan pemeriksaan dokumentasi dan license**
+- [x] **Step 2: Jalankan pemeriksaan dokumentasi dan license**
 
 Pastikan manifest mencatat WebSight revision/CC-BY attribution, Webdev tidak disebut sebagai training source, WebMC tetap benchmark saja, dan log mencakup run gagal.
 
-- [ ] **Step 3: Tulis laporan hasil**
+- [x] **Step 3: Tulis laporan hasil**
 
 Masukkan parameter/model hash, ukuran dataset dan split, token counts, kurva loss, parse/schema rates, contoh prompt/output, reviewer rubric, serta keterbatasan. Jangan melatih ulang hanya untuk mempercantik hasil.
 
-- [ ] **Step 4: Minta persetujuan sebelum aplikasi**
+- [x] **Step 4: Minta persetujuan sebelum aplikasi**
 
 Perlihatkan laporan, README, dan planning kepada pengguna. Implementasi antarmuka, preview iframe, packaging Tailwind, dan unduhan dimulai hanya setelah pipeline serta kualitas model ditinjau.
 
-- [ ] **Step 5: Commit dan push**
+- [x] **Step 5: Commit dan push**
 
 ```powershell
 git add reports/PIPELINE_TRAINING_SUMMARY.md README.md logs/LOG_TRAINING.md docs/PROJECT_SCOPE_AND_PIPELINE.md

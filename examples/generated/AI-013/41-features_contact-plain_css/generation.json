@@ -1,0 +1,22 @@
+{
+  "example_id": "a1aec5badc5de90e22a870e74d05e07e3ce2fe19a818f56337690368ec83cf65",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "f267289e033b19e53fc8e6bd48e095b2598b864f935df759643528e51c49c972",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Dapur Weblawork",
+      "style_mode": "plain_css",
+      "primary": "#f59e0b",
+      "font": "serif",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Bersama membangun pengalaman terbaik."
+    },
+    "errors": []
+  }
+}

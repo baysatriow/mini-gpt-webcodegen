@@ -1,0 +1,118 @@
+{
+  "run_id": "TRAIN-002",
+  "status": "completed",
+  "started_at_utc": "2026-10-12T13:30:26.162265+00:00",
+  "config": {
+    "mode": "pretrain",
+    "seed": 42,
+    "block_size": 1024,
+    "dataset_dir": "data/processed/pretrain",
+    "tokenizer": "data/tokenizer/tokenizer.json",
+    "label_alignment": "already_shifted_next_token",
+    "long_documents": "pack across blocks without discarding tail",
+    "model_config_path": "configs/model.json",
+    "device": "cuda",
+    "precision": "bf16",
+    "batch_size": 4,
+    "gradient_accumulation": 1,
+    "max_steps": 5,
+    "warmup_steps": 60,
+    "learning_rate": 0.0003,
+    "min_learning_rate": 3e-05,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "validation_interval": 1,
+    "validation_batches": 32,
+    "checkpoint_interval": 1,
+    "log_interval": 1,
+    "reserve_free_bytes": 16106127360,
+    "status": "bounded baseline after measured GPU profile; not quality guarantee",
+    "source_config_sha256": "8df2b184f598c29733f22559f829f5272c82988b385995ac034b4cf5488001d4",
+    "model_config": {
+      "vocab_size": 8192,
+      "block_size": 1024,
+      "n_layer": 6,
+      "n_head": 6,
+      "n_embd": 384,
+      "dropout": 0.1,
+      "tie_embeddings": true,
+      "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+    },
+    "lineage": {
+      "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+      "pipeline_summary_sha256": "85f8f6994e70111a887dd60d7b8c70d80de1835ec66ecd8862381e023e5ed283",
+      "data_sha256": {
+        "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+        "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e"
+      },
+      "validation_indices_sha256": "ff19ab86b0b929af5ecf4088265deb661f38b64bd9cb5359849afc17f0971c04",
+      "train_blocks_or_examples": 32,
+      "validation_blocks_or_examples": 8,
+      "smoke": true
+    }
+  },
+  "config_sha256": "6add9bbedbff884b0afe224dc0d429b26ca2c27f6f147b5d54cc6bc5d4167b32",
+  "resume_parent": null,
+  "label_alignment": "already shifted; loss consumes labels directly",
+  "global_step": 5,
+  "last_committed_step": 5,
+  "git_commit": "24f9e5be4f29a4d120870ba666e016a8c90a8b65",
+  "parameter_count": 14186496,
+  "model_config": {
+    "vocab_size": 8192,
+    "block_size": 1024,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.1,
+    "tie_embeddings": true,
+    "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+  },
+  "device": "cuda",
+  "precision": "bf16",
+  "resume_parent_sha256": null,
+  "initial_validation": {
+    "loss": 9.10213851928711,
+    "perplexity": 8974.46426171776,
+    "valid_tokens": 8192,
+    "batches": 2
+  },
+  "final_train_loss": 8.803996086120605,
+  "total_train_tokens": 20480,
+  "final_validation": {
+    "loss": 8.700616359710693,
+    "perplexity": 6006.613310983928,
+    "valid_tokens": 8192,
+    "batches": 2
+  },
+  "best_validation_loss": 8.700616359710693,
+  "final_checkpoint_sha256": "c38f3cb3682af69dedd7872e87688c9270c3c67d17942c235c43675b2d9cf2d5",
+  "best_checkpoint_sha256": "51030ac622ab8ff7c7ce5e4f2f1d31b46748625f6cb04a75a876ad7be99f2145",
+  "ended_at_utc": "2026-10-12T13:30:31.590729+00:00",
+  "wall_seconds": 5.428762900002766,
+  "free_bytes_after": 28060966912,
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "peak_allocated_bytes": 2117289472,
+  "peak_reserved_bytes": 2363490304,
+  "environment": {
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "executable": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\.venv\\Scripts\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "bf16_supported": true,
+    "gpu": "NVIDIA GeForce RTX 5070",
+    "cuda_architectures": [
+      "sm_75",
+      "sm_80",
+      "sm_86",
+      "sm_90",
+      "sm_100",
+      "sm_120"
+    ]
+  }
+}

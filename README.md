@@ -2,6 +2,24 @@
 
 Mini GPT WebCodeGen adalah proyek kuliah untuk membangun model generatif decoder-only dari bobot acak yang menghasilkan rancangan website. Model menulis spesifikasi halaman berbentuk JSON, aplikasi memvalidasinya, lalu renderer tahap akhir membuat HTML, CSS, dan JavaScript untuk preview serta unduhan.
 
+## Pengembangan terbaru, 13 Oktober 2026
+
+**TRAIN-015 memenuhi gerbang kontrak terkontrol:** development 24/24 sesuai persis, final 48/48 JSON valid dan 44/48 sesuai persis (91,67%). Kandidat dipilih sebelum satu evaluasi final. Empat kesalahan tetap disimpan. Benchmark ini memakai recipe sintetis bersama dengan nama yang dipisahkan antar partition, sehingga belum membuktikan kemampuan prompt bebas atau layout baru.
+
+Data v6 menambah 21.090 contoh train, total 40.158. Training 2.400 update selesai dalam 481 detik, dengan 46,35 juta label target dan sekitar 101.569 token target/detik saat update. GPU rata-rata 92,03%, maksimum 100%, suhu maksimum 68°C pada sampel update. Data, LR dan budget berbeda dari TRAIN-014; hasil ini bukan ablation yang mengisolasi efek data.
+
+Runtime yang digunakan pada command terbaru adalah **TRAIN-015 best**. [Gallery 44 website](examples/generated/AI-013/index.html) dan [ZIP output](examples/generated/AI-013/websites.zip) berisi HTML, CSS biasa atau Tailwind lokal, JavaScript, prompt dan keluaran model. [Kafe Senandika](examples/generated/AI-013-senandika/index.html) yang sebelumnya salah kini diterima pada prompt development yang sama. **UI generator dan pemeriksaan browser belum selesai.**
+
+Proses aktual tersedia di [notebook 08](notebooks/08_kualitas_penyalinan_dan_training.ipynb), [notebook 09](notebooks/09_evaluasi_final_dan_output.ipynb), [laporan final](reports/FINAL_GATE_2026-10-13.md), dan [log training](logs/LOG_TRAINING.md). Catatan berikut merupakan riwayat AI-011/AI-012 sebelum TRAIN-015.
+
+Optimasi RTX 5070 sudah dijalankan: **batch 48, BF16, SDPA, fused AdamW**, proyeksi hanya token target, dan allocator expandable segments. TRAIN-014 selesai 800 update dalam 162 detik, sekitar 99.200 token target/detik atau 3,43 kali baseline probe. Utilisasi rata-rata 93,23%, maksimum 100%, dan suhu maksimum 67°C pada sampel update. Kualitas terpilih belum meningkat, best step 0 identik dengan parent; runtime tetap TRAIN-012. Lihat [laporan GPU](reports/GPU_TRAINING_OPTIMIZATION_2026-10-13.md) dan [notebook 07](notebooks/07_optimasi_gpu_dan_training.ipynb).
+
+CLI prompt -> Mini GPT -> validasi PageSpec/kontrak -> renderer HTML/CSS/JavaScript sudah menghasilkan dua contoh Studio Cakrawala yang sesuai prompt, CSS biasa dan Tailwind dengan tabs. [Buka contoh hasil](examples/generated/AI-011/index.html) atau [unduh file](examples/generated/AI-011/examples.zip). Raw output/model SHA disertakan; tidak memperbaiki JSON atau mengganti nama setelah decoding.
+
+Model runtime TRAIN-012 masih gagal overall quality gate:48/48schema valid,43/48exact89,58%, target90%. Contoh memakai **mode development** dengan validasi penuh per output, bukan klaim siap produksi. Kafe Senandika salah menjadi Senanka dan ditolak. Eksperimen name-weighted TRAIN-013 tidak meningkatkan validation; beststep0 identik parent. Final v5 belum dibuka. Prompt bebas/browser quality belum terbukti.
+
+Lihat [hasil pengembangan](reports/OUTPUT_DEVELOPMENT_2026-10-13.md), [panduan generasi](docs/GENERATING_WEBSITES.md), dan [diagnosis/data curriculum](docs/SFT_DEVELOPMENT_2026-10-13.md). Dataset sintetis dipisahkan dari12 anotasi human-reviewed; model tetap berasal dari bobot acak proyek. Bagian baseline/pilot di bawah mencatat tahap sebelumnya.
+
 ## Ruang lingkup
 
 ### Masuk MVP
@@ -32,7 +50,7 @@ Mini GPT WebCodeGen adalah proyek kuliah untuk membangun model generatif decoder
 | Keluaran aplikasi | HTML5, CSS biasa atau Tailwind, JavaScript murni |
 | Metrik dan log | Markdown, JSONL/JSON, grafik loss |
 
-Environment GPU tersedia dan sudah diperiksa secara lokal. Ukuran model dan konfigurasi training belum dipilih. Periksa ulang versi software sebelum membuat ulang environment.
+Environment GPU tersedia dan sudah diperiksa secara lokal. Baseline Mini GPT memakai 14.186.496 parameter, 6 layer / 6 head / embedding 384, context 1.024, dan BF16. Profil awal pretraining memakai batch 4 dengan accumulation 4. Curriculum terbaru menggunakan [runtime GPU optimal](configs/training_gpu_optimized.json), batch 48 dengan accumulation 1. Ukuran batch ini perlu diprofilkan kembali untuk pretraining yang semua tokennya aktif. Periksa ulang versi software sebelum membuat ulang environment.
 
 ## Alur produk
 
@@ -55,14 +73,17 @@ Model menghasilkan PageSpec dengan section terbatas seperti navbar, hero, featur
 ```mermaid
 flowchart LR
     A[Dataset, revision, lisensi] --> B[Streaming subset teks]
-    B --> C[Normalisasi dan kurasi]
-    C --> D[JSONL prompt dan spesifikasi]
-    D --> E[Validasi, dedup, split keluarga template]
-    E --> F[Tokenizer proyek dan data loader]
-    F --> G[Pretraining Mini GPT bobot acak]
-    G --> H[Penyelarasan prompt ke JSON]
-    H --> I[Evaluasi loss dan hasil website]
-    I --> J[Checkpoint dan laporan]
+    B --> C[Kode HTML CSS JavaScript]
+    C --> D[Dedup dan alokasi keluarga template]
+    D --> E[BPE train saja dan token cache]
+    E --> F[Pretraining Mini GPT bobot acak]
+    B --> G[Draft PageSpec dan review prompt Indonesia]
+    G --> H[Validasi schema dan provenance]
+    D --> H
+    H --> I[SFT mengikuti partition sumber]
+    F --> J[Penyelarasan prompt ke JSON]
+    I --> J
+    J --> K[Evaluasi held-out dan laporan]
 ```
 
 ## Dataset yang dipertimbangkan
@@ -83,18 +104,22 @@ Contoh Mini GPT di panduan memakai kutipan pendek. Proyek ini mengubah domain co
 
 Panduan menyebut training dan fine-tuning. Di proyek ini, model dimulai dari bobot acak. Penyelarasan prompt-ke-JSON melanjutkan training model proyek tersebut dan tidak memakai checkpoint pralatih eksternal.
 
-## Status tahapan
+## Status tahapan sebelum pengembangan output
 
 1. Riset dataset dan environment GPU: selesai dan dicatat.
-2. Scope, teknologi, alur pipeline, training log, dan rencana implementasi: disusun untuk ditinjau.
-3. Pipeline data: menunggu planning ditinjau.
-4. Mini GPT dan training: menunggu pipeline data.
-5. Evaluasi held-out dan pengukuran model: menunggu training.
-6. Aplikasi preview dan unduhan: tahap akhir.
+2. Scope, teknologi, alur pipeline, training log, dan rencana implementasi: disetujui pengguna.
+3. Pipeline data: downloader, validator, normalizer, dedup/group split, BPE, dan batch loader sudah diimplementasikan. Download 55.000 teks selesai; hasil preparation dan pemeriksaan tersedia di manifest/laporan.
+4. Mini GPT, training loop, checkpoint dan resume: tersedia. Pretraining baseline 1.200 update selesai; 12 anotasi pilot v2 disetujui, preparation SFT 4/4/4 selesai, smoke 3 update dan pilot SFT 40 update selesai.
+5. Test kode baseline: loss 1,071 / perplexity 2,918. Test target JSON SFT pilot: loss 3,488 / perplexity 32,729; generasi JSON/schema valid 0/4. Dua loss memakai korpus berbeda dan tidak dibandingkan langsung.
+6. Aplikasi preview dan unduhan: tahap akhir, gerbang saat ini needs-more-data-and-model-work.
 
 Dokumen desain ada di [docs/README.md](docs/README.md), rencana implementasi di [rencana pipeline](docs/superpowers/plans/2026-10-12-pipeline-data-model-training.md), dan catatan eksperimen di [log training](logs/LOG_TRAINING.md).
 
 ## Environment lokal
+
+Enam notebook tersedia di [panduan notebook](notebooks/README.md). Status terbaru, diagnosis, corpus sintetis, eksperimen gagal dan dua output website ada pada [notebook06](notebooks/06_pengembangan_output_pagespec.ipynb). Notebook01-05 mempertahankan snapshot historis. Pilih kernel **Mini GPT WebCodeGen (Python 3.11 CUDA)**. Training/generation default tidak berjalan ulang; opsi eksplisit dicatat melalui RUN logger.
+
+Review training menghasilkan lima Important yang diperbaiki. RUN-075 lulus 58 tests. Verified copy baseline memiliki model tensors identik untuk parent SFT berikutnya. Lihat [hasil dan batas review](reports/REVIEW_TRAINING_2026-10-12.md).
 
 Lihat [panduan environment](docs/PANDUAN_ENVIRONMENT.md).
 
@@ -103,4 +128,46 @@ Set-Location 'F:\Generative_AI\Vibe_Coding_Proyek_1'
 .\.venv\Scripts\Activate.ps1
 ```
 
-Training Mini GPT, evaluasi model, dan aplikasi preview belum dijalankan.
+Pretraining, pilot dan curriculum sudah dijalankan. CLI serta contoh hasil/unduhan tersedia; UI input generator dan preview sandbox belum dibuat.
+
+## Menjalankan pipeline data
+
+```powershell
+.\.venv\Scripts\python.exe qa/run_logged.py --label download_dataset -- .\.venv\Scripts\python.exe -m src.data.sources --config configs/dataset.json
+.\.venv\Scripts\python.exe qa/run_logged.py --label prepare_dataset -- .\.venv\Scripts\python.exe -m src.data.pipeline --config configs/dataset.json --train-tokenizer
+.\.venv\Scripts\python.exe qa/run_logged.py --label data_integrity -- .\.venv\Scripts\python.exe qa/check_data_pipeline.py
+```
+
+Download memverifikasi dan memakai ulang file yang selesai. Config awal mematok 20.000 WebSight v0.1, 30.000 WebSight v0.2, dan 5.000 Vulcan; total raw 123.276.847 bytes. Cache dan data ada pada drive proyek. Batas raw 1 GiB dan reserve disk 15 GiB mencegah unduhan seluruh korpus.
+
+CSS/JS standalone tetap menjadi teks untuk pretraining; target PageSpec jalur produksi berasal dari anotasi reviewed. Curriculum programmatic_contract mempunyai rute data/training/evaluator terpisah dan tidak dianggap human-reviewed. Grouping template adalah heuristik, sehingga pemeriksaan tanpa overlap group/exact hash tidak membuktikan nol kebocoran semantik.
+
+Petunjuk rinci ada di [panduan pipeline](docs/PIPELINE_DATA_GUIDE.md) dan hasil nyata di [laporan status data](reports/STATUS_PIPELINE_2026-10-12.md). Manifest kecil menyimpan source revision/license/checksum, split, tokenizer, token profile, dan status instruksi. Vocabulary BPE 8.192 baru dilatih dari train split; blok pretraining 1.024 token memakai label next-token yang sudah digeser.
+
+Pada akhir tahap data, review menemukan empat masalah yang diperbaiki dan dicatat di [laporan review](reports/REVIEW_PIPELINE_2026-10-12.md), dengan 37 tests lulus. Family allocation dipakai bersama oleh pretraining dan SFT; preparation anotasi memverifikasi dan mempertahankan tokenizer/cache yang cocok. RUN-052 memeriksa ulang seluruh data aktual dan transfer batch ke RTX 5070. Status model/training terbaru tersedia di bagian berikut; 119 draft produksi tetap menunggu review.
+
+## Model dan baseline aktual
+
+Tahap berikutnya sudah dilaksanakan: model dari bobot acak, optimizer AdamW, validation, checksum checkpoint, RNG/data cursor resume, dan evaluator tersedia. RUN-068 lulus 49 tests. TRAIN-003/004 melatih 19.657.265 token valid dalam 1.200 update, dengan stop/resume terencana pada step 200. Validation subset loss turun dari 9,102 menjadi 1,111; test penuh loss 1,071 / perplexity 2,918. Peak allocated saat resume sekitar 2,03 GiB.
+
+Namun probe PageSpec JSON masih 0/4 valid. Hasil ini memerlukan kurasi instruksi dan SFT dari checkpoint proyek sebelum aplikasi dibuat. Status dan bukti lengkap: [laporan training](reports/PIPELINE_TRAINING_SUMMARY.md), [panduan training](docs/TRAINING_GUIDE.md), serta [grafik loss](reports/training/BASELINE_LOSS_2026-10-12.png). Data/checkpoint/tokenizer tetap lokal, log dan laporan kecil dipush ke repo private.
+
+## Kurasi instruksi Indonesia
+
+Paket review pilot tersedia lokal: 12 kandidat dari 12 keluarga, 6 CSS biasa dan 6 Tailwind, termasuk menu responsif dan validasi form. Pengguna menyetujui seluruh pilot v2 melalui chat pada 13 Oktober 2026. Reviewed copy berisi 12 anotasi; paket draft dan worksheet kosong asli dipertahankan sebagai riwayat. Nama pribadi/checklist per kolom tidak diasumsikan.
+
+Mulai dari [notebook kurasi](notebooks/04_kurasi_dan_sft.ipynb), [panduan review](docs/ANNOTATION_REVIEW_GUIDE.md), dan [bukti approval](reports/data/ANNOTATION_APPROVAL_PILOT_V2.json). Pilot belum cukup untuk generalisasi; perluas data reviewed sebelum eksperimen berikutnya.
+
+Revisi [pilot v2](reports/data/ANNOTATION_REVIEW_PILOT_ID_V2.json) memperbaiki empat target dan lima prompt, dengan fragmen tidak tersedia 4 menjadi 0. Snapshot ini mencatat status draft saat diekspor; status terbaru ada pada bukti approval. Pemindaian train menghasilkan [14 kandidat tambahan](reports/data/ANNOTATION_CANDIDATE_COVERAGE_V1.json) untuk inspeksi; kandidat belum menjadi anotasi dan source tabs terpilih belum memiliki implementasi fungsi.
+
+## Hasil SFT pilot 13 Oktober 2026
+
+TRAIN-005 smoke 3 update dan TRAIN-006 pilot 40 update memakai parent pretraining proyek yang sama, tokenizer dan assignment family tetap. Pilot memakai batch 2 x accumulation 2, BF16 pada RTX 5070. Validation target-token loss turun **7,512 ke 3,739**, peak allocated sekitar **1,18 GiB**, free disk setelah training sekitar **24,07 GiB**, di atas reserve 15 GiB.
+
+Test reviewed empat contoh menghasilkan **0/4 JSON valid**; seluruh generasi mencapai batas 768 token. Penurunan loss belum menunjukkan model bisa membuat website. Budget training/checkpoint dipilih sebelum test, tidak ada tuning ulang dari hasil test. Empat contoh train diulang 40 kali; corpus perlu diperluas berdasarkan katalog proyek. Karena test pilot sudah dibaca, evaluasi final generalisasi perlu data yang belum dipakai untuk pengembangan.
+
+Lihat [notebook SFT](notebooks/05_sft_pilot_dan_evaluasi.ipynb), [hasil lengkap](reports/SFT_PILOT_SUMMARY_2026-10-13.md), [metrik test](reports/training/TRAIN-006_sft_evaluation.json) dan [log training](logs/LOG_TRAINING.md). Belum ada evaluasi browser/visual atau aplikasi preview.
+
+## Usulan pengembangan halaman lengkap
+
+Prioritas berikutnya adalah landing page dan company profile. [Analisis dan usulan arah AI-014](reports/FULL_PAGE_DIRECTION_2026-10-13.md) membandingkan generasi bertahap, konteks lebih panjang dan template tetap. Rekomendasi: model membuat rencana lalu isi tiap bagian, komposer menyatukan PageSpec, renderer menyediakan variasi layout serta aset lokal. Status masih usulan untuk review, belum kemampuan checkpoint saat ini.

@@ -1,0 +1,1 @@
+Saya ingin halaman Indonesia bernama Pustaka Nostargomi menggunakan Tailwind. Aksen #06b6d4, latar putih, teks #111827 dan font sans. Tampilkan navbar Beranda, hero centered dengan judul nama situs, dan footer nama situs. Teks utama: Temukan layanan pilihan kami. Gunakan menu responsif. Tambahkan modal informasi pada hero.

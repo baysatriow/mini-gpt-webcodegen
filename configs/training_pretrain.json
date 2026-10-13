@@ -1,0 +1,17 @@
+{
+  "mode": "pretrain", "seed": 42, "block_size": 1024,
+  "dataset_dir": "data/processed/pretrain",
+  "tokenizer": "data/tokenizer/tokenizer.json",
+  "label_alignment": "already_shifted_next_token",
+  "long_documents": "pack across blocks without discarding tail",
+  "model_config_path": "configs/model.json",
+  "device": "cuda", "precision": "bf16",
+  "batch_size": 4, "gradient_accumulation": 4,
+  "max_steps": 1200, "warmup_steps": 60,
+  "learning_rate": 0.0003, "min_learning_rate": 0.00003,
+  "betas": [0.9, 0.95], "weight_decay": 0.1, "grad_clip": 1.0,
+  "validation_interval": 100, "validation_batches": 32,
+  "checkpoint_interval": 100, "log_interval": 10,
+  "reserve_free_bytes": 16106127360,
+  "status": "bounded baseline after measured GPU profile; not quality guarantee"
+}

@@ -1,0 +1,11 @@
+{
+  "exported_websites": 44,
+  "archive_files": 308,
+  "zip_bytes_verified": true,
+  "local_resources_and_fragments_verified": true,
+  "snapshot_files": 7,
+  "browser_evaluated": false,
+  "limits": [
+    "Static artifact checks do not execute JavaScript or inspect layout/interactions in a browser"
+  ]
+}

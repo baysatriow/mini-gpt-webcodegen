@@ -1,0 +1,16 @@
+RUN-107 | 2026-10-13T08:22:48.663830+07:00 | curriculum_source_delivery
+Command: .venv/Scripts/python.exe .tmp/check_delivery.py
+Commit: eb7b21288a903587cdd5e82e48199456453a3ff8
+
+{
+  "counts": {
+    "python": 57,
+    "json": 40,
+    "markdown": 44,
+    "notebook": 5,
+    "executed_code_cells": 38
+  },
+  "errors": []
+}
+
+Exit code: 0

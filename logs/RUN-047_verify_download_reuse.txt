@@ -1,0 +1,10 @@
+RUN-047 | 2026-10-12T18:44:38.843331+07:00 | verify_download_reuse
+Command: .\.venv\Scripts\python.exe -m src.data.sources --config configs/dataset.json
+Commit: d00d2e418222f04673baf02e7bb328ace143c6d1
+
+reuse websight_v01: 20000 rows, SHA-256 verified
+reuse websight_v02: 30000 rows, SHA-256 verified
+reuse vulcan: 5000 rows, SHA-256 verified
+{"total_raw_bytes": 123276847, "free_bytes_after": 28404670464}
+
+Exit code: 0

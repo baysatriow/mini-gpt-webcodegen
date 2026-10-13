@@ -1,0 +1,53 @@
+{
+  "interactions": [
+    {
+      "target_id": "nav",
+      "type": "menu_toggle"
+    },
+    {
+      "target_id": "main",
+      "type": "modal"
+    }
+  ],
+  "language": "id",
+  "schema_version": "1.0",
+  "style_mode": "plain_css",
+  "theme": {
+    "background": "#ffffff",
+    "font": "mono",
+    "primary": "#06b6d4",
+    "text": "#111827"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "props": {
+        "brand": "Toko Sunlacastar",
+        "links": [
+          {
+            "href": "#main",
+            "label": "Beranda"
+          }
+        ]
+      },
+      "type": "navbar"
+    },
+    {
+      "id": "main",
+      "props": {
+        "heading": "Toko Sunlacastar",
+        "layout": "centered",
+        "text": "Solusi sederhana untuk kebutuhan Anda."
+      },
+      "type": "hero"
+    },
+    {
+      "id": "footer",
+      "props": {
+        "text": "Toko Sunlacastar"
+      },
+      "type": "footer"
+    }
+  ],
+  "title": "Toko Sunlacastar"
+}

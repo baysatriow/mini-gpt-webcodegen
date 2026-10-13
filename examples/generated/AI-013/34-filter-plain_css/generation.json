@@ -1,0 +1,22 @@
+{
+  "example_id": "33e2a8b4f3d0c32dce85546bea144dd0c444815179b3d8ec86d90b57e603eb5b",
+  "checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+  "raw_output_sha256": "98b759d2e665b7e5c008671f1aa591f679428c31fabf0fcc9ad6eed633bfcb68",
+  "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+  "synthetic_demo": true,
+  "style_mode": "plain_css",
+  "exact_contract": true,
+  "prompt_contract": {
+    "checked": true,
+    "requested": {
+      "title": "Dapur Fakamaweb",
+      "style_mode": "plain_css",
+      "primary": "#8b5cf6",
+      "font": "sans",
+      "text": "#111827",
+      "background": "#ffffff",
+      "main_text": "Kami mendukung komunitas lokal untuk memilih produk berkualitas."
+    },
+    "errors": []
+  }
+}

@@ -1,0 +1,312 @@
+{
+  "status": "diagnostic_only",
+  "fixture_origin": "hand_authored_not_model_output_not_training_data",
+  "block_size": 1024,
+  "max_new_tokens": 768,
+  "free_disk_gib": 17.73,
+  "reserve_gib": 15,
+  "profiles": {
+    "landing_page": {
+      "sections": 9,
+      "schema_errors": [],
+      "prefix_tokens": 123,
+      "target_tokens": 1374,
+      "sequence_tokens_with_eos": 1498,
+      "fits_context": false,
+      "fits_output_budget": false,
+      "spec": {
+        "schema_version": "1.0",
+        "title": "Usaha Demo Nusantara",
+        "language": "id",
+        "style_mode": "plain_css",
+        "theme": {
+          "primary": "#8b5cf6",
+          "background": "#ffffff",
+          "text": "#111827",
+          "font": "sans"
+        },
+        "sections": [
+          {
+            "id": "nav",
+            "type": "navbar",
+            "props": {
+              "brand": "Usaha Demo Nusantara",
+              "links": [
+                {
+                  "label": "Tentang",
+                  "href": "#about"
+                },
+                {
+                  "label": "Layanan",
+                  "href": "#services"
+                },
+                {
+                  "label": "Kontak",
+                  "href": "#contact"
+                }
+              ]
+            }
+          },
+          {
+            "id": "main",
+            "type": "hero",
+            "props": {
+              "heading": "Usaha Demo Nusantara",
+              "text": "Kenali layanan dan proses kerja kami, kemudian diskusikan kebutuhan Anda melalui konsultasi awal.",
+              "layout": "split",
+              "button": {
+                "label": "Hubungi kami",
+                "href": "#contact"
+              }
+            }
+          },
+          {
+            "id": "about",
+            "type": "text_section",
+            "props": {
+              "heading": "Tentang layanan",
+              "text": "Kami membantu pemilik usaha menyusun halaman informasi yang mudah dibaca. Setiap pekerjaan dimulai dari kebutuhan pelanggan, dilanjutkan dengan rancangan konten dan pemeriksaan tampilan pada perangkat yang berbeda."
+            }
+          },
+          {
+            "id": "services",
+            "type": "text_section",
+            "props": {
+              "heading": "Layanan utama",
+              "text": "Layanan mencakup perencanaan halaman, penyusunan konten dan pendampingan penggunaan. Anda dapat memilih kebutuhan yang paling relevan melalui konsultasi awal sebelum menyepakati ruang lingkup pekerjaan."
+            }
+          },
+          {
+            "id": "benefits",
+            "type": "text_section",
+            "props": {
+              "heading": "Mengapa memilih kami",
+              "text": "Proses kerja dijelaskan sejak awal agar pelanggan memahami tahapan dan hasil yang akan diterima. Susunan halaman dibuat terarah dengan navigasi yang jelas, teks yang mudah dibaca dan tombol tindakan yang sesuai."
+            }
+          },
+          {
+            "id": "process",
+            "type": "text_section",
+            "props": {
+              "heading": "Cara memulai",
+              "text": "Sampaikan kebutuhan melalui formulir konsultasi. Kami meninjau informasi yang tersedia, menyusun rancangan awal dan membahas penyesuaian sebelum proses pengerjaan dilanjutkan."
+            }
+          },
+          {
+            "id": "faq",
+            "type": "text_section",
+            "props": {
+              "heading": "Pertanyaan umum",
+              "text": "Apakah bisa menyesuaikan isi halaman? Isi halaman disusun dari informasi yang Anda berikan. Apakah tersedia pendampingan? Lingkup pendampingan dibahas dalam konsultasi awal agar sesuai dengan kebutuhan Anda."
+            }
+          },
+          {
+            "id": "contact",
+            "type": "contact_form",
+            "props": {
+              "heading": "Diskusikan kebutuhan Anda",
+              "fields": [
+                {
+                  "name": "name",
+                  "label": "Nama",
+                  "type": "text"
+                },
+                {
+                  "name": "email",
+                  "label": "Email",
+                  "type": "email"
+                },
+                {
+                  "name": "message",
+                  "label": "Pesan",
+                  "type": "textarea"
+                }
+              ],
+              "submit_label": "Kirim"
+            }
+          },
+          {
+            "id": "footer",
+            "type": "footer",
+            "props": {
+              "text": "Usaha Demo Nusantara",
+              "links": [
+                {
+                  "label": "Tentang",
+                  "href": "#about"
+                },
+                {
+                  "label": "Kontak",
+                  "href": "#contact"
+                }
+              ]
+            }
+          }
+        ],
+        "interactions": [
+          {
+            "type": "menu_toggle",
+            "target_id": "nav"
+          },
+          {
+            "type": "form_validate",
+            "target_id": "contact"
+          }
+        ]
+      },
+      "prompt": "Buat landing_page untuk Usaha Demo Nusantara. Gunakan CSS biasa. Sertakan navbar, hero, Tentang layanan, Layanan utama, Mengapa memilih kami, Cara memulai, Pertanyaan umum, kontak dan footer. Gunakan data perusahaan fiktif yang diberikan, tombol kontak dan menu responsif."
+    },
+    "company_profile": {
+      "sections": 9,
+      "schema_errors": [],
+      "prefix_tokens": 121,
+      "target_tokens": 1357,
+      "sequence_tokens_with_eos": 1479,
+      "fits_context": false,
+      "fits_output_budget": false,
+      "spec": {
+        "schema_version": "1.0",
+        "title": "Usaha Demo Nusantara",
+        "language": "id",
+        "style_mode": "plain_css",
+        "theme": {
+          "primary": "#8b5cf6",
+          "background": "#ffffff",
+          "text": "#111827",
+          "font": "sans"
+        },
+        "sections": [
+          {
+            "id": "nav",
+            "type": "navbar",
+            "props": {
+              "brand": "Usaha Demo Nusantara",
+              "links": [
+                {
+                  "label": "Tentang",
+                  "href": "#about"
+                },
+                {
+                  "label": "Layanan",
+                  "href": "#services"
+                },
+                {
+                  "label": "Kontak",
+                  "href": "#contact"
+                }
+              ]
+            }
+          },
+          {
+            "id": "main",
+            "type": "hero",
+            "props": {
+              "heading": "Usaha Demo Nusantara",
+              "text": "Kenali layanan dan proses kerja kami, kemudian diskusikan kebutuhan Anda melalui konsultasi awal.",
+              "layout": "split",
+              "button": {
+                "label": "Hubungi kami",
+                "href": "#contact"
+              }
+            }
+          },
+          {
+            "id": "about",
+            "type": "text_section",
+            "props": {
+              "heading": "Tentang perusahaan",
+              "text": "Perusahaan demo ini menyediakan layanan perencanaan komunikasi digital untuk usaha lokal. Informasi dalam contoh ini bersifat fiktif dan digunakan untuk menilai panjang rancangan halaman, bukan sebagai klaim perusahaan nyata."
+            }
+          },
+          {
+            "id": "vision",
+            "type": "text_section",
+            "props": {
+              "heading": "Visi dan prinsip",
+              "text": "Kami mengutamakan informasi yang jelas, proses yang dapat dipahami dan komunikasi yang terbuka. Setiap rancangan diawali dengan tujuan yang terukur serta informasi yang disetujui oleh pemilik usaha."
+            }
+          },
+          {
+            "id": "services",
+            "type": "text_section",
+            "props": {
+              "heading": "Bidang layanan",
+              "text": "Kami membantu menyusun profil usaha, menjelaskan layanan utama dan merancang alur kontak. Rincian layanan disesuaikan dengan kebutuhan serta materi yang tersedia agar halaman tetap relevan."
+            }
+          },
+          {
+            "id": "projects",
+            "type": "text_section",
+            "props": {
+              "heading": "Contoh proyek",
+              "text": "Contoh proyek demo meliputi profil usaha lokal, informasi layanan dan halaman pengenalan produk. Materi ini adalah ilustrasi fiktif untuk menjelaskan bentuk layanan, bukan portofolio pekerjaan nyata."
+            }
+          },
+          {
+            "id": "process",
+            "type": "text_section",
+            "props": {
+              "heading": "Proses kerja",
+              "text": "Tahap pertama mengumpulkan informasi perusahaan dan kebutuhan pembaca. Tahap berikutnya menyusun struktur serta isi halaman, kemudian melakukan tinjauan bersama sebelum hasil diserahkan."
+            }
+          },
+          {
+            "id": "contact",
+            "type": "contact_form",
+            "props": {
+              "heading": "Diskusikan kebutuhan Anda",
+              "fields": [
+                {
+                  "name": "name",
+                  "label": "Nama",
+                  "type": "text"
+                },
+                {
+                  "name": "email",
+                  "label": "Email",
+                  "type": "email"
+                },
+                {
+                  "name": "message",
+                  "label": "Pesan",
+                  "type": "textarea"
+                }
+              ],
+              "submit_label": "Kirim"
+            }
+          },
+          {
+            "id": "footer",
+            "type": "footer",
+            "props": {
+              "text": "Usaha Demo Nusantara",
+              "links": [
+                {
+                  "label": "Tentang",
+                  "href": "#about"
+                },
+                {
+                  "label": "Kontak",
+                  "href": "#contact"
+                }
+              ]
+            }
+          }
+        ],
+        "interactions": [
+          {
+            "type": "menu_toggle",
+            "target_id": "nav"
+          },
+          {
+            "type": "form_validate",
+            "target_id": "contact"
+          }
+        ]
+      },
+      "prompt": "Buat company_profile untuk Usaha Demo Nusantara. Gunakan CSS biasa. Sertakan navbar, hero, Tentang perusahaan, Visi dan prinsip, Bidang layanan, Contoh proyek, Proses kerja, kontak dan footer. Gunakan data perusahaan fiktif yang diberikan, tombol kontak dan menu responsif."
+    }
+  },
+  "supersedes_invalid_fixture": "AI-014_FULL_PAGE_SCOPE.json",
+  "correction": "Remove unsupported required property from hand-authored contact fields; no production code changed."
+}

@@ -1,0 +1,244 @@
+RUN-049 | 2026-10-12T19:00:43.393958+07:00 | review_regressions_green
+Command: .\.venv\Scripts\python.exe -B -m unittest discover -s tests -v
+Commit: 41608790d716e2e9e2682df0203756450d023284
+
+test_annotation_retains_source_row_and_computed_family (data.test_normalize.NormalizeTests.test_annotation_retains_source_row_and_computed_family) ... ok
+test_component_fragment_is_wrapped_with_provenance_not_discarded (data.test_normalize.NormalizeTests.test_component_fragment_is_wrapped_with_provenance_not_discarded) ... ok
+test_css_only_source_is_kept_as_css_pretraining_text (data.test_normalize.NormalizeTests.test_css_only_source_is_kept_as_css_pretraining_text) ... ok
+test_invalid_schema_is_rejected (data.test_normalize.NormalizeTests.test_invalid_schema_is_rejected) ... ok
+test_javascript_only_source_is_kept_as_code (data.test_normalize.NormalizeTests.test_javascript_only_source_is_kept_as_code) ... ok
+test_normalizer_writes_only_reviewed_records_and_reject_report (data.test_normalize.NormalizeTests.test_normalizer_writes_only_reviewed_records_and_reject_report) ... ok
+test_nullable_html_attributes_do_not_abort_following_records (data.test_normalize.NormalizeTests.test_nullable_html_attributes_do_not_abort_following_records) ... ok
+test_palette_variants_share_structural_group (data.test_normalize.NormalizeTests.test_palette_variants_share_structural_group) ... ok
+test_pretrain_keeps_js_as_text_but_filters_non_html (data.test_normalize.NormalizeTests.test_pretrain_keeps_js_as_text_but_filters_non_html) ... ok
+test_rejects_empty_prompt_draft_unknown_source_and_missing_license (data.test_normalize.NormalizeTests.test_rejects_empty_prompt_draft_unknown_source_and_missing_license) ... ok
+test_reviewed_indonesian_annotation_becomes_canonical_example (data.test_normalize.NormalizeTests.test_reviewed_indonesian_annotation_becomes_canonical_example) ... ok
+test_annotation_run_preserves_verified_tokens_and_checks_completed_sft (data.test_pipeline.PipelineTests.test_annotation_run_preserves_verified_tokens_and_checks_completed_sft) ... complete websight_v01: 30 rows, 13647 bytes
+HTML preprocessing: accepted=30 rejected=0
+Grouped split: {'train': 24, 'validation': 3, 'test': 3}, groups=30, duplicates=0
+Training fresh byte-level BPE on train split only
+train: 1840 tokens, 2 blocks
+validation: 149 tokens, 1 blocks
+test: 282 tokens, 1 blocks
+{
+  "status": "complete",
+  "sft": {
+    "status": "awaiting_review",
+    "draft_queue_rows": 30,
+    "reviewed_production_rows": 0
+  },
+  "free_bytes_after": 66893438976
+}
+HTML preprocessing: accepted=30 rejected=0
+Grouped split: {'train': 24, 'validation': 3, 'test': 3}, groups=30, duplicates=0
+F:\Generative_AI\Vibe_Coding_Proyek_1\src\data\pipeline.py:59: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\BAYUSW~1\\AppData\\Local\\Temp\\tmpk3ewhrzs\\data\\annotations\\review_queue.jsonl' mode='r' encoding='utf-8'>
+  queue_count = sum(1 for _ in queue.open(encoding="utf-8"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+{
+  "status": "complete",
+  "sft": {
+    "status": "complete",
+    "draft_queue_rows": 30,
+    "reviewed_production_rows": 30,
+    "rejected": 0,
+    "split": {
+      "status": "complete",
+      "seed": 42,
+      "ratios_by_group": [
+        0.8,
+        0.1,
+        0.1
+      ],
+      "input_sha256": "ef5d908c898788c718a8fd68cc4deaea699122dbb3700a27163347f750653097",
+      "source_rows": 30,
+      "deduplicated_rows": 30,
+      "duplicates": 0,
+      "group_count": 30,
+      "group_counts": {
+        "train": 24,
+        "validation": 3,
+        "test": 3
+      },
+      "row_counts": {
+        "train": 24,
+        "validation": 3,
+        "test": 3
+      },
+      "group_overlap": [],
+      "split_policy": "inherit_pretrain",
+      "assignment_sha256": "518d7399cca8bcc8e5053af00183988fa7f17aeecdeee9bbce378891668822a1",
+      "group_assignment": {
+        "path": "group_assignment.json",
+        "sha256": "c47914468715179a8655a22a804ca331d97556eb523b353c3c41169f3daf8090"
+      },
+      "files": {
+        "train": {
+          "path": "train.jsonl",
+          "sha256": "81e4536220ceea252a84933ac6d87bca7537510c7fd4905cad80ee99c039efb0"
+        },
+        "validation": {
+          "path": "validation.jsonl",
+          "sha256": "38106472a1b808004968bfbd356c98d0d5ace9ad6ed444dd375d5852629efc67"
+        },
+        "test": {
+          "path": "test.jsonl",
+          "sha256": "375c8b038837d052d731744c8291eb1d9c7fef7ac3e7cff5f0a5c038ade6bde4"
+        }
+      },
+      "pretrain_assignment_sha256": "518d7399cca8bcc8e5053af00183988fa7f17aeecdeee9bbce378891668822a1"
+    }
+  },
+  "free_bytes_after": 66893344768
+}
+HTML preprocessing: accepted=30 rejected=0
+Grouped split: {'train': 24, 'validation': 3, 'test': 3}, groups=30, duplicates=0
+{
+  "status": "complete",
+  "sft": {
+    "status": "complete",
+    "draft_queue_rows": 30,
+    "reviewed_production_rows": 30,
+    "rejected": 0,
+    "split": {
+      "status": "complete",
+      "seed": 42,
+      "ratios_by_group": [
+        0.8,
+        0.1,
+        0.1
+      ],
+      "input_sha256": "ef5d908c898788c718a8fd68cc4deaea699122dbb3700a27163347f750653097",
+      "source_rows": 30,
+      "deduplicated_rows": 30,
+      "duplicates": 0,
+      "group_count": 30,
+      "group_counts": {
+        "train": 24,
+        "validation": 3,
+        "test": 3
+      },
+      "row_counts": {
+        "train": 24,
+        "validation": 3,
+        "test": 3
+      },
+      "group_overlap": [],
+      "split_policy": "inherit_pretrain",
+      "assignment_sha256": "518d7399cca8bcc8e5053af00183988fa7f17aeecdeee9bbce378891668822a1",
+      "group_assignment": {
+        "path": "group_assignment.json",
+        "sha256": "c47914468715179a8655a22a804ca331d97556eb523b353c3c41169f3daf8090"
+      },
+      "files": {
+        "train": {
+          "path": "train.jsonl",
+          "sha256": "81e4536220ceea252a84933ac6d87bca7537510c7fd4905cad80ee99c039efb0"
+        },
+        "validation": {
+          "path": "validation.jsonl",
+          "sha256": "38106472a1b808004968bfbd356c98d0d5ace9ad6ed444dd375d5852629efc67"
+        },
+        "test": {
+          "path": "test.jsonl",
+          "sha256": "375c8b038837d052d731744c8291eb1d9c7fef7ac3e7cff5f0a5c038ade6bde4"
+        }
+      },
+      "pretrain_assignment_sha256": "518d7399cca8bcc8e5053af00183988fa7f17aeecdeee9bbce378891668822a1"
+    }
+  },
+  "free_bytes_after": 66893344768
+}
+HTML preprocessing: accepted=30 rejected=0
+Grouped split: {'train': 24, 'validation': 3, 'test': 3}, groups=30, duplicates=0
+{
+  "status": "requires_tokenization",
+  "sft": {
+    "status": "complete",
+    "draft_queue_rows": 30,
+    "reviewed_production_rows": 30,
+    "rejected": 0,
+    "split": {
+      "status": "complete",
+      "seed": 42,
+      "ratios_by_group": [
+        0.8,
+        0.1,
+        0.1
+      ],
+      "input_sha256": "ef5d908c898788c718a8fd68cc4deaea699122dbb3700a27163347f750653097",
+      "source_rows": 30,
+      "deduplicated_rows": 30,
+      "duplicates": 0,
+      "group_count": 30,
+      "group_counts": {
+        "train": 24,
+        "validation": 3,
+        "test": 3
+      },
+      "row_counts": {
+        "train": 24,
+        "validation": 3,
+        "test": 3
+      },
+      "group_overlap": [],
+      "split_policy": "inherit_pretrain",
+      "assignment_sha256": "518d7399cca8bcc8e5053af00183988fa7f17aeecdeee9bbce378891668822a1",
+      "group_assignment": {
+        "path": "group_assignment.json",
+        "sha256": "c47914468715179a8655a22a804ca331d97556eb523b353c3c41169f3daf8090"
+      },
+      "files": {
+        "train": {
+          "path": "train.jsonl",
+          "sha256": "81e4536220ceea252a84933ac6d87bca7537510c7fd4905cad80ee99c039efb0"
+        },
+        "validation": {
+          "path": "validation.jsonl",
+          "sha256": "38106472a1b808004968bfbd356c98d0d5ace9ad6ed444dd375d5852629efc67"
+        },
+        "test": {
+          "path": "test.jsonl",
+          "sha256": "375c8b038837d052d731744c8291eb1d9c7fef7ac3e7cff5f0a5c038ade6bde4"
+        }
+      },
+      "pretrain_assignment_sha256": "518d7399cca8bcc8e5053af00183988fa7f17aeecdeee9bbce378891668822a1"
+    }
+  },
+  "free_bytes_after": 66893348864
+}
+ok
+test_awaiting_review_rejects_a_current_complete_sft_manifest (data.test_pipeline.PipelineTests.test_awaiting_review_rejects_a_current_complete_sft_manifest) ... ok
+test_failed_or_missing_manifest_cannot_be_training_input (data.test_pipeline.PipelineTests.test_failed_or_missing_manifest_cannot_be_training_input) ... ok
+test_only_verified_completed_manifest_is_consumed (data.test_pipeline.PipelineTests.test_only_verified_completed_manifest_is_consumed) ... complete fixture: 1 rows, 104 bytes
+ok
+test_plain_css_and_tailwind_are_valid (data.test_schema.SchemaTests.test_plain_css_and_tailwind_are_valid) ... ok
+test_rejects_invalid_theme_and_extra_top_level_fields (data.test_schema.SchemaTests.test_rejects_invalid_theme_and_extra_top_level_fields) ... ok
+test_rejects_unknown_target_duplicate_ids_and_mismatched_interaction (data.test_schema.SchemaTests.test_rejects_unknown_target_duplicate_ids_and_mismatched_interaction) ... ok
+test_rejects_unsupported_style_script_attributes_and_urls (data.test_schema.SchemaTests.test_rejects_unsupported_style_script_attributes_and_urls) ... ok
+test_budget_failure_does_not_promote_partial_to_final (data.test_sources.SourceTests.test_budget_failure_does_not_promote_partial_to_final) ... ok
+test_manifest_atomic_json (data.test_sources.SourceTests.test_manifest_atomic_json) ... ok
+test_projects_columns_at_loader_and_emits_stable_provenance (data.test_sources.SourceTests.test_projects_columns_at_loader_and_emits_stable_provenance) ... ok
+test_reserve_rejects_before_iterating (data.test_sources.SourceTests.test_reserve_rejects_before_iterating) ... ok
+test_short_read_fails_and_completed_download_is_reusable (data.test_sources.SourceTests.test_short_read_fails_and_completed_download_is_reusable) ... complete fixture: 2 rows, 206 bytes
+reuse fixture: 2 rows, SHA-256 verified
+ok
+test_vulcan_uses_pinned_http_stream_without_extra_dependency (data.test_sources.SourceTests.test_vulcan_uses_pinned_http_stream_without_extra_dependency) ... ok
+test_dedup_ignores_source_metadata_but_preserves_distinct_targets (data.test_split.SplitTests.test_dedup_ignores_source_metadata_but_preserves_distinct_targets) ... ok
+test_group_never_crosses_split_and_seed_is_repeatable (data.test_split.SplitTests.test_group_never_crosses_split_and_seed_is_repeatable) ... ok
+test_persisted_family_map_is_verified_against_split_files (data.test_split.SplitTests.test_persisted_family_map_is_verified_against_split_files) ... ok
+test_pretrain_split_manifest_matches_files_and_counts (data.test_split.SplitTests.test_pretrain_split_manifest_matches_files_and_counts) ... ok
+test_sft_inherits_global_family_partition_and_checks_manual_merges (data.test_split.SplitTests.test_sft_inherits_global_family_partition_and_checks_manual_merges) ... ok
+test_too_few_groups_and_invalid_ratios_are_rejected (data.test_split.SplitTests.test_too_few_groups_and_invalid_ratios_are_rejected) ... ok
+test_unknown_source_family_and_missing_heldout_partition_are_rejected (data.test_split.SplitTests.test_unknown_source_family_and_missing_heldout_partition_are_rejected) ... ok
+test_oversize_json_and_reserved_prompt_are_rejected (data.test_tokenizer_dataset.TokenizerTests.test_oversize_json_and_reserved_prompt_are_rejected) ... ok
+test_pretrain_labels_shift_and_long_documents_are_not_lost (data.test_tokenizer_dataset.TokenizerTests.test_pretrain_labels_shift_and_long_documents_are_not_lost) ... ok
+test_sft_only_target_and_eos_are_supervised (data.test_tokenizer_dataset.TokenizerTests.test_sft_only_target_and_eos_are_supervised) ... ok
+test_train_tokenizer_rejects_validation_rows (data.test_tokenizer_dataset.TokenizerTests.test_train_tokenizer_rejects_validation_rows) ... ok
+test_unicode_code_and_special_token_roundtrip (data.test_tokenizer_dataset.TokenizerTests.test_unicode_code_and_special_token_roundtrip) ... ok
+
+----------------------------------------------------------------------
+Ran 37 tests in 0.932s
+
+OK
+
+Exit code: 0

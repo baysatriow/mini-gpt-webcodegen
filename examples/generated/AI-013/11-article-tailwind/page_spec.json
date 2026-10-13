@@ -1,0 +1,43 @@
+{
+  "interactions": [],
+  "language": "id",
+  "schema_version": "1.0",
+  "style_mode": "tailwind",
+  "theme": {
+    "background": "#ffffff",
+    "font": "sans",
+    "primary": "#06b6d4",
+    "text": "#111827"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "props": {
+        "brand": "Studio Bagreenlo",
+        "links": [
+          {
+            "href": "#main",
+            "label": "Beranda"
+          }
+        ]
+      },
+      "type": "navbar"
+    },
+    {
+      "id": "main",
+      "props": {
+        "heading": "Profil",
+        "text": "Kami mendampingi pelanggan baru untuk belajar dengan nyaman."
+      },
+      "type": "text_section"
+    },
+    {
+      "id": "footer",
+      "props": {
+        "text": "Studio Bagreenlo"
+      },
+      "type": "footer"
+    }
+  ],
+  "title": "Studio Bagreenlo"
+}

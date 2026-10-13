@@ -1,0 +1,614 @@
+{
+  "kind": "actual exported artifact validation",
+  "website_count": 50,
+  "records": [
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\01-profile-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "19a0a8e262db457a0c4ddc78603e70953a1f58280481d7576cbfe1e9d223c468",
+        "styles.css": "e27122e585ec1f008069e2298e8072155198f2005e05f95b158a8634aa50bbb6",
+        "app.js": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+        "page_spec.json": "36fdd5ec5ce801ca22376657b8da69bae0615db209da7e7ae2a6e1dc0e3cc44c",
+        "raw_output.txt": "69a29820808d3f30236a774eb57b99ea39dd5db9d1ccd364d9dde85362c0042c"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\02-profile-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "2c6bea26f87f396f38f9024926809b14d785bc6226060f6da1870b279af60e1f",
+        "styles.css": "636109fab60d89b1521d5fa29b3a12f71c11f87480c4c4d130e876c886d38465",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "c1f55474d272b1a6b6085783e75db070f47eea6b0e576b9e66df23afc0ed4208",
+        "raw_output.txt": "6e12e821e5903b7ff30f645046f7b703716d1cf22dabbeb1882e755ebc4d1c09"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\03-profile-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "19a0a8e262db457a0c4ddc78603e70953a1f58280481d7576cbfe1e9d223c468",
+        "styles.css": "83ca1c53a97f8aeeb2ca4569dc1c05a3d0eb6004ebf7cca7fa134b29371f1d66",
+        "app.js": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+        "page_spec.json": "ba3fd36eca5812563ce66ba953c85a34b6cde6124c2cb0c93f9cdd2842b03e07",
+        "raw_output.txt": "083590ff53d1864d315db842163d3878b85ef3ed4560793b2bb19ff221366225"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\04-profile-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "070398fa1f7a7a183fa6d4d59e48acde27f21ecc81c04e117df41a864d12544c",
+        "styles.css": "5a7c8129757f47b3aca1f146eb11b67ed660a16f88b6fde9475f6e68c4b910c1",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "4f9773c6281ed28c1ad743ea01f2fe19d9e9a135c087941924bd57104eb26d78",
+        "raw_output.txt": "2c5561055a4ab5ab8ca88b7b25e4c6c04b97b754c93e0ae229915b0438492902"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\05-features-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "c238b5b8991038f73e2a6f682d5bb3df97bc4c168c5092664b5f2b7953a6713c",
+        "styles.css": "5fa5028ebd4a8e01be5c2f1315c22991f2ecde1388888229e125eb7d67d0c8ed",
+        "app.js": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+        "page_spec.json": "c37b80ee565a8f38078410bba549a6ac105718581426a03a04f13638e22be0d7",
+        "raw_output.txt": "aced422877a650a7d6db0ca79b4de9563844f313de2c7b2f49713988c2ce37b0"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\06-features-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "eca0ee4118cf362e822d0443031c4b944c39bdfe3619b18e090e3fb8c58ea76c",
+        "styles.css": "90d182469753494ae5fe2929ceb806816dca9b147bc7a270c4714333ffbd0d3a",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "fc04e54e7039a5233d27d261bb63834d95d69305e8d078e9b5a628d9c1c39d98",
+        "raw_output.txt": "f12dd2440c0f61d56153292296976f2688186e033d468c53c4749dadc72543a0"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\07-features-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "e0d04fd130672a8bbf98577fa8812f1d36eb449e9679ea978bef9bbd534675ce",
+        "styles.css": "ab2fd19ac66f005ba5b756e6c0a13ada503bed01b5be9ad90b0f6c59087eb3ee",
+        "app.js": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+        "page_spec.json": "a9ea2f2db563888cf0197f3701e5048051fa02e516280b92bffbe9a4deee289d",
+        "raw_output.txt": "94a76c94e2843af365230f5db54154083634fd5a0a37a7e7b296c570cb7612a6"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\08-features-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "a15337599a156c8b62d65cf77058ebd7a52b90a8ec8a190389aaf4955402653b",
+        "styles.css": "6335412cd450a096106a16d47811deb2970db1bbc7b05e6fc2f971bc6537d0c5",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "3617463851524ad837201eda7e0022641e9789bfc6487fa2c8435bbc99ee77a4",
+        "raw_output.txt": "0b119e48d796084dbbe4bacd79b9dcd9897c266a09a8da59f6bb5eb70d0e13f7"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\09-article-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "f75482fa0bbf50cf96c0c50a0f75357880d2f6a2c575284adf70672e81df61c9",
+        "styles.css": "5fd0ca3d853b72ee9a6683a6520526eb6f459dba0bb9f2b4bf44cf03e30269c4",
+        "app.js": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+        "page_spec.json": "cf2a3ec047f0e3b53ffa67abcc28df68a772264f25e1808b6ad98ebc5400c105",
+        "raw_output.txt": "6a38303c568e0aff69991a3a15dd472ecda6d81e957426e9d2821cb2b1a92753"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\10-article-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "db9eac3c3df2a1ab4ea015fdda01e9324b73baaa58573bb168d3da4a2f3af108",
+        "styles.css": "53d337f3006890dc35a243fbf567922bdde6880f896331eef2b8af0c990a9e05",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "f5cd78d26a15f208c45699a1fe857c684bae5d4d30eeff960bf175452fd00d28",
+        "raw_output.txt": "c1f6a40065fc28e3d51ce8d2b1820eabb270b865c4c3f48ea5ee55be393e58a4"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\11-article-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "b73b561c3e0069b6ac58558eba88a8a9378baccd4db45ee4a1233369fcd31de7",
+        "styles.css": "6207db5cc0cb7e6bf4198d69a2bb99521fbbd090a41fc6fc0f37718095b1134a",
+        "app.js": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+        "page_spec.json": "e09da39c04c23c2fbf64ee4d1f6f6ec9924801bffeff7ee5b6ff7ec169905d24",
+        "raw_output.txt": "073ca7b1aa20e1e09924c376f38a92c9525a64ba83b7c333f7ce1edfc550b2c9"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\12-article-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "56fb82509baf8f199c92c5bf07ae4045b24a1de7f95107030a05641e3954f152",
+        "styles.css": "1ceab924c2d680f40c270218d6809c2847202d80b378b1f16ab0dbe1eeae9221",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "1e4efb16babc4e7dddd52164469d2d34bd6c31a35262eb7ab6a5c842f8372015",
+        "raw_output.txt": "7746a34b6e63a50e16e8e3d54eb710b80b8acf091dc3b8452798ac0209390009"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\13-pricing-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "a408377a5b3adce6a4ba103915e15bc6e14bd53ea314033b8c10844fbcf985e4",
+        "styles.css": "9c8b901e12b2cfd902c0264f41abf3a97ab80ba353daa0360e9223243f99bd9d",
+        "app.js": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+        "page_spec.json": "f909527e809c823e2d09cb5e417003d965aefff31dda938e2d6f27a98fd36292",
+        "raw_output.txt": "22bbc018ef74050fe23e55e3d92c641bdb860566a9de318c250b2e5731ee5fe5"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\14-pricing-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "701162b97bbd0377fa3e39080643e25da743ed27143e834d1a0cf05382883fa4",
+        "styles.css": "0b2f3bf263935fb9985ffe1d1eda0491721e8e1027986798e7965087af8b59ad",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "735be1d82d72882b8b99e96f21363907fc12d32a3267b2c8581696654aebf71f",
+        "raw_output.txt": "7996fbf38411667659787cb06e94b07ad4f9dde8423d10d3bdd5c9843d2fb338"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\15-pricing-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "dcfe61cccfe942aa6cb5f01000f5dd59d3848307113530b5e780119ea257969d",
+        "styles.css": "fd48aa6134cd51c41cce26b3965032d73d24fe9a023d7d83bdc94379f3a4a673",
+        "app.js": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+        "page_spec.json": "964a99161e923af9b72c6891347fe78f87520030e434843fe1f4035fc84b8111",
+        "raw_output.txt": "379ba4823947b11d45ae33b32589ae92497e4e69dd920644e5502fa4bdccc46a"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\16-pricing-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "d5d7fd1b8ed723f57d3f12793d4383965c145066b0a332b0bf8e687538dd18e3",
+        "styles.css": "cc66c2cd4aa1f583a53fad464f34a96bbb2744ec8f0561f438848845064a9d15",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "e04d4e4197d09cd3368264d5c56ddb53d3878229a44bb7d1088414d2981f805b",
+        "raw_output.txt": "7e9e80a5d4d428f4938c7554125163917a945a75a10035fb68a843c4a19202ed"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\17-testimonial-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "642224c0480dbdc01b034a839ddf8b589e60c3c2e8e1a1669a36a9c3c21f1904",
+        "styles.css": "2d7321012196e41ee7e355c6ddf63ce5cb9425eed6516b57a1cc14a68667048f",
+        "app.js": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+        "page_spec.json": "99f1b804e15ff2b88310527310ca5729d2a02dedb865d3a7e1539eb036eaddd1",
+        "raw_output.txt": "7acfb7f07eccb2b7a617526d6f29a80f09ecd08cefbf68be4956047cf76b8777"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\18-testimonial-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "4c1816728897021facf7ecd8bd2a0a002dc070bbd532b34b90e0acf6765c1dd0",
+        "styles.css": "5fa5028ebd4a8e01be5c2f1315c22991f2ecde1388888229e125eb7d67d0c8ed",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "e222da10e9b82a28cddcf67bfeac7d747d4ed11a543cc572a2f97b579af005d1",
+        "raw_output.txt": "43dabb87f09c95ff8e208213b2808324ba78bb7a8070dc0f465087f1f86a1f80"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\19-testimonial-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "642224c0480dbdc01b034a839ddf8b589e60c3c2e8e1a1669a36a9c3c21f1904",
+        "styles.css": "78d75f6af38d7af66a1388e0b83aa5257e5f8d908aadcfddd5b4762e37a5b583",
+        "app.js": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+        "page_spec.json": "0af528f3f39bb8d2dfbaa4feaabd9a1903ef2f788f4bdb16dfbeffa8625c9573",
+        "raw_output.txt": "e138ae904d642a06492ed048463e88a7799933408b53b76a9e6bb20fc9cfc8b7"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\20-testimonial-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "4eff3db2ee786c487154d006e983b69470b8b2855eddc2b0b9dd5d40cec9f1dc",
+        "styles.css": "e696d1b5c2a90e2be13cb6609813a472700b14a2fbad0b1f1bd7ba984b766c68",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "37889a784ef1f1e36cc34ad1de03b4c86155bc767857e5efe877245ef27c38c4",
+        "raw_output.txt": "99253821bd59446ef86673ce0c454fd4e78698c19841f28d546ad54ccbe6bf49"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\21-contact-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "9f2bf5143a2d71a4f31fa4023f51f37038df24c811a042b82b33569707172be6",
+        "styles.css": "e3bff3742c427077a05efed2cde6b63d62bebd7ced6537c93527de6a9639f9dd",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "6933158e0ea089b221242d028db6ac8eb612e361472394b221eb8b6f5fc6d918",
+        "raw_output.txt": "d3b1000dded10411f8ee97346618029ffe0df0bc13faf16aec06ee966a5187d7"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\22-contact-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "951b59352120ede238eb90c7988eabbc24a406400b97b09407ad3873b02aea10",
+        "styles.css": "cc54c2e444e9988b2b8a1e8a96e761b90cd898366de3e06e7ac2e53512ded5ce",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "58b0f1c3e1ec614cc4dfdb7026691c6e90747a9b19c3245cd73d33098c91eefb",
+        "raw_output.txt": "d4a1a0313c70a9395341355bb6bd7a4d3ab3844a1ce6065db676071bdcfd83bc"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\23-contact-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "f6ae4daeb4306783c1e069c28e198fc23237e64a75feff9874cae1988bedb7a0",
+        "styles.css": "86dccfc226298829bd627e0d6760caab5a9795f208faa1558d2c2bf97cbf9ac2",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "1210eecab08f2913ff7fb3fa91f6f1a5d394ea95d674bfaafa2f7dd6ef4b28b2",
+        "raw_output.txt": "50324ddc92479ec7494ec6df049413bbbaae738b9a46bcc64c5ff88195ad3dda"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\24-contact-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "68aa8500e092575ff923cc130e995fa26492256ae7c92d0fbc7106b1d1b1e2e4",
+        "styles.css": "d5da4169b8ef62dc1e84a5265bc7961258665687e8277fa89749c6994a9ae60f",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "483d9fe2a691fb99023fcd8b992199e9a4c4d61409da64f633c7f16e8f1c77b0",
+        "raw_output.txt": "41a818f5cf2de9a5066c0fe9b05544842b04089a811c7405dce5009ded43e934"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\25-accordion-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "1d5b4af80c11a316245b84c42f1c2344a02a5ef874bcc1e83324dc84daefe0b1",
+        "styles.css": "9c8b901e12b2cfd902c0264f41abf3a97ab80ba353daa0360e9223243f99bd9d",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "1314836cf52da0042aec9117230c6167dd38e72ef5c7f6990cdea6dfe75ded6c",
+        "raw_output.txt": "47490b8deb30e61b69f6ef844b14dac6970014aa8d1e12a866c8713001664711"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\26-accordion-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "4c181414bb924de92d8c44b5eaf602b354724e8970d6d98a97bf0e96c222079f",
+        "styles.css": "53d337f3006890dc35a243fbf567922bdde6880f896331eef2b8af0c990a9e05",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "60c6149af272eb92a65e7757a406f32f475dbe27b70a2f21f18500322e1e666b",
+        "raw_output.txt": "646d28c47f390a44d1d7c7c62f5dfbd18e34c18f7b5220b14f91d202f5c684eb"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\27-accordion-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "48930a9aee966a57ab94e00617dd68d6c7735fb165efbd47a348e786d2183f17",
+        "styles.css": "969b9b39c049f979b5e73b1a4c70ae83be5d59c1973038c61e01efe48cc562fd",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "6b59981fe307a14b694bc7c977ddb157d6bd22faa37fd619263bc382ae56b76e",
+        "raw_output.txt": "3baad1c5f30d1f7aea53232b189f7031416a9f5f20f3feb75d0d608545cc36b1"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\28-accordion-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "4c181414bb924de92d8c44b5eaf602b354724e8970d6d98a97bf0e96c222079f",
+        "styles.css": "d59c59b64e5aee84d1173befe2345b2e7b45891c9e9395bd900c869a42085fc2",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "aa15c670e40a84a3552b8ad3440b5b602b1f8ca1444ac76f8d4d9661e1aa07f5",
+        "raw_output.txt": "e9b280485687788ffd30ac93e0bcd9ccacf682e9dc0f512aba507e6ffc39c6d3"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\29-tabs-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "e2470bab37759e54db449c0222791c1305919d70b96eb8592af4123e4f5e3d63",
+        "styles.css": "5fa5028ebd4a8e01be5c2f1315c22991f2ecde1388888229e125eb7d67d0c8ed",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "9155b47b91e3afb2909e79167e6058e743c3521f0b1a3587ccad0199774c1b4c",
+        "raw_output.txt": "7de253f002fe5d6b4bda439dd402f4860e1ae128c0c1b01db45591d390be16d7"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\30-tabs-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "27b1ab02c32c8ec6f44ec43caf91596e67eac2669dd2d41301b0a2953d930487",
+        "styles.css": "201f2a0ad18c89fa6ea79cf8f9a789877f5e3e438b8d2b566004609a2f541804",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "0bc0ac7aa682c9c6c9bbda63c5dd8bbe1311f07ea3ccf3cb62a2de24c2adaa6c",
+        "raw_output.txt": "67a1515924c4e532f3145eb078be724e87f7cbe2bda2f6efe3740973cf982442"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\31-tabs-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "6ef2f7464f974186b6484716b10dd2adefe8211634511f4e64e550908ec58d40",
+        "styles.css": "809ca25cbef4170e493cea4d4f0edab1a7edd74c43fad7a1753f744aa9736c3b",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "a4fc536732a1ff0c6ddaf8b07574e3c6e726c01a1d3ffc9a45332cf5db41e42a",
+        "raw_output.txt": "7dfa77f5ac9b7d2580a9e31da802fc480cce8972ba5ff89f162a2c67e741758f"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\32-tabs-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "3db89ccb26fa7c1ebd6c5459dba7544ae1d6974f6824e2a0d9528cff54a0d43e",
+        "styles.css": "809ca25cbef4170e493cea4d4f0edab1a7edd74c43fad7a1753f744aa9736c3b",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "9e65f95fe8c66d2766c9718cf3ec9e997b30aef1a83295b6e4105906dd226f9a",
+        "raw_output.txt": "b6a1a1fd5ed0a1e9d48b3a6d1c3984110512d5081565d871cd8c3840a658229d"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\33-filter-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "33c460737a67c2d8cb8da85c20af2a19323b8e79d1ffe61e113e56cf26909e17",
+        "styles.css": "ed914d6ccfd24f3c243c96aa3aa362dea7fa5100a1085be1c521e29d71a9529b",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "a7486b2452a2973f2443ba7f55b91dd4dadf2ad13aa944e8923b8af3d2d1a9a4",
+        "raw_output.txt": "5fbca609ec5d07a5c304cd758662b326b51ef43b39ea85a03adc4847d79f0a63"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\34-filter-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "450e9080089ea94e52a4dac1ad2cf5ced02a2999f591bcfeecdd6ce86bbba838",
+        "styles.css": "90d182469753494ae5fe2929ceb806816dca9b147bc7a270c4714333ffbd0d3a",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "483085e162cf5091bf90ba2f08c55afcee9b89bcaa61425cdfeefd7b5583393d",
+        "raw_output.txt": "2804eec42866eecdd45528964ad4527b8c47189c0136b592a099063350d1f22e"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\35-filter-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "1d6f75a248f7fa3721842aa2810e44cc0ba9a78160db214c4e824463167d9027",
+        "styles.css": "2f976f3f02c506b293d16a18e4da778c80352d808caeb8a8df4d13747ad1251e",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "bb9d43b47f5d8500c1272d1de4eb584904255a5a232286fe542fa3b21d6c69bf",
+        "raw_output.txt": "0799a00f927a6c49b692a4555014ab97ba56551b34730c032cff7fec8e4e577f"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\36-filter-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "223d382730f039a91000e990d03b44f8953e9379da8bf6e9afeb1d3d5e9f3045",
+        "styles.css": "a9a898dba7e0a9bf2fae341da9145a13d1671554647ae5949f62e8103d5b4741",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "7298ab51b4f6a8b68c0e13c96b1526af5af52e0678ba923979bea2763de446a8",
+        "raw_output.txt": "f700a1d0189da69c1296a6044fc41f7ddf46364151eca3f2d54c79f5d7aa54a5"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\37-modal-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "51f1e4256a5dade433d7b9db733090fdba16c1657980e9367d4435c2142d5691",
+        "styles.css": "53d337f3006890dc35a243fbf567922bdde6880f896331eef2b8af0c990a9e05",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "963bcec7f753405e6e41aa4b9768482403bc1858d35aa7c7ef4a77eef7e9304f",
+        "raw_output.txt": "2a0bd7c42822edd691c878f65b52b6ccc43e53d03440cdb15de8b2ceaac6245e"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\38-modal-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "f3fd76d3757a5fd99a28bda22de8fd9e2e99941d64e459943f153098a7868192",
+        "styles.css": "e3bff3742c427077a05efed2cde6b63d62bebd7ced6537c93527de6a9639f9dd",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "f9cd3c605696abe33196b23bb63c1d073f5452c9dfec4313c2412ea94f1037db",
+        "raw_output.txt": "091e8f8e06010edc51dab20cbaa175e7b650558052a695b257ddd49f55c07790"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\39-modal-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "c57647e8b6adee024d2f42284ae6c49504196e061080571e5c0809da279ac7da",
+        "styles.css": "1ceab924c2d680f40c270218d6809c2847202d80b378b1f16ab0dbe1eeae9221",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "8d6b41e4dca85e42844085e5fe473b7e3fb4672a92fa42dcad7acd20853d9d9e",
+        "raw_output.txt": "547fc03e9bbddda1ef969444804d7b34b6c7ba6597a5f29dc57b915a935ad4b7"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\40-modal-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "cade2d5923045ae08e83010a85280f4d330c548fd5cdc8f516676410e3c2a0e9",
+        "styles.css": "1ceab924c2d680f40c270218d6809c2847202d80b378b1f16ab0dbe1eeae9221",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "2c34b23860d49dd9cda692f3c4d5d1b073658d0a9f3b7f096f6d430b2d1e6531",
+        "raw_output.txt": "402aee76fb3bd5cfc0aa8fb3c839a14b1fda62d885b850e5d6da5d79daaa38ba"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\41-features_contact-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "aa8e22f76f070e4d1a48215a0c398b5c5d478d306899ab7355fe1903c09c7fa8",
+        "styles.css": "0b2f3bf263935fb9985ffe1d1eda0491721e8e1027986798e7965087af8b59ad",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "d12c96b616390c67fd7761f5ca6543102cd222d7e3b07f34228ce3a471283aa0",
+        "raw_output.txt": "2460c559a838e16d067a815c377364bdd52266ead6a29666ffe6861ffe660765"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\42-features_contact-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "e7b3473d8db3eaee3d513f75d71b49c4a0aed0d2a945f16baa6d827e893950c3",
+        "styles.css": "b2a0fb579dab4dc88919e0ff3df38e5385b7bc2411307b3936b4037efdc445c9",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "f0f9629a69375e0d6d40c8847a47576b7f2918af394893dce0d0ccb29e6a11db",
+        "raw_output.txt": "3ab30eedba8562ca70ecca8f4094ed567b46d5991822f9e029df73a6bac4c4e3"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\43-features_contact-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "c1fcbc4eb90091c35f7e1bdeb143d0bbfc4f3dbbf07bb32204a72ae97b83a51a",
+        "styles.css": "78d75f6af38d7af66a1388e0b83aa5257e5f8d908aadcfddd5b4762e37a5b583",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "208033668a362d8d7283c23f7dd6faa05abcefbb6bd6aac47b1058d3a93b3082",
+        "raw_output.txt": "0e7464f4d2dc6f10ad83a95c4a814ea6e58729655bb9a2bc6ebba506577561cb"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\44-features_contact-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "d2be3067fa2bff77c0a1ff14c0a0c00a0febb70561af36f77ed4e31e42907e4f",
+        "styles.css": "aeaa7ba3c06eda85fec481860edf5a6018e2618534c0a5919ed324aab1fc1ea7",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "78b830beb420fa2e85f663d21eff1f588fa1dbb6f2b794464a1c74630788fc02",
+        "raw_output.txt": "bc6c33ff02a370bb280b84b26b4f5e7e42c7322aa0755a010721d5c0907d9e25"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\45-pricing_contact-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "5efb66d0f0a2734f9ab13169a7533964db65b8bea87e0b4930a534fd749015d1",
+        "styles.css": "9c8b901e12b2cfd902c0264f41abf3a97ab80ba353daa0360e9223243f99bd9d",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "4ce1ff6e349613d3ec3fd3317381a2925b74444e91108624f93ee0e9c0a0d5c8",
+        "raw_output.txt": "66dbbbfe7541f10ac84bde84a3630298d9b60acd5b4df1c5633030f388b47a27"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\46-pricing_contact-plain_css",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "681d30fb7c37868b054a19a9f5ea9c5a4b015aeb22ec1680f117deb1ef419ca9",
+        "styles.css": "90d182469753494ae5fe2929ceb806816dca9b147bc7a270c4714333ffbd0d3a",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "3586c471f65fd91847e9cea0b1d9f58fc9aaeb65b781263d1f0a60e06d27e2f4",
+        "raw_output.txt": "f86c0a4047d88b3e62ecf9d93725d8c4c97e65f84014b3a5f8beecb31fbfc4db"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\47-pricing_contact-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "50daaf5b4a38a5dcd25b2aa33b29ca7170ff9ff4acd159a103855ec583facac0",
+        "styles.css": "b138a4934ba8af7ca6fafcb52c2b32c8baad26c020b478abfbeb503c801a4322",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "c6019814c4896dfdd4c641cc29b4e0870a4b133cc8ea8a0814d641f02c33723d",
+        "raw_output.txt": "230f11e2ee0eb38ea6fe0a2d5b5a1da4da5b2474ab0c661587fc1d3b2986da4f"
+      }
+    },
+    {
+      "directory": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\generated_websites\\AI-011-v2\\48-pricing_contact-tailwind",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "cc73b95a72718a08f83c5434edcd6391b2e24c5d50331bbc81701ac4fac45511",
+        "styles.css": "3b9d5733778ab104ee0ef26713f7ede233474cbfa772dbe3dd49bb9a4ce433dd",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "e9d1031cda7e08423b46440c949e8fff2400fbfec0d3276475df9910277337eb",
+        "raw_output.txt": "1f3c40f1f06480662798146286a405b098cff193c7ba7f32792e08341658854c"
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-011\\studio-cakrawala-v2",
+      "style_mode": "plain_css",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "bfbecccb81ee5fbea738d3530196376f664ddbe8a07f058cc50e1e1f1c9dd026",
+        "styles.css": "90d182469753494ae5fe2929ceb806816dca9b147bc7a270c4714333ffbd0d3a",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "e3a933c1bee8664366d1d463fa26d74b6d1e79c4bfdbc35a6529b528bf30ee2c",
+        "raw_output.txt": "3cff0b2f6be19075fb5dd8c4466fc03c7491f19a11cab180b2631ba6c13563dc"
+      }
+    },
+    {
+      "directory": "examples\\generated\\AI-011\\studio-cakrawala-tailwind-v1",
+      "style_mode": "tailwind",
+      "contract_accepted": true,
+      "files": {
+        "index.html": "a3b6126a2fbc26577ce61353356b6aad1f1fcc3ce3e26d0ed78c216c3cbe2dff",
+        "styles.css": "c4562b21102306a884638eadc6082783216d34118645f7b58f7f3aa434e2fdf0",
+        "app.js": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+        "page_spec.json": "0d3f7b4fe54a173dbea2efb159b3d77588bf7808084ca30c7895adf215dba5b0",
+        "raw_output.txt": "3f81a14473de1d4b44b8246445cff8cf161c9e1c5e5c6a6290d81a1254f911aa"
+      }
+    }
+  ],
+  "errors": [],
+  "unique_js_syntax_checked": 2,
+  "zip_sha256": "905f854fb8f844f2a5460cf2327da2645894513510804793e608fdf90a126519",
+  "browser_evaluated": false,
+  "limits": [
+    "HTML references, schema/raw fidelity, prompt contract, JS syntax and ZIP contents only",
+    "No JavaScript execution or browser/visual verification"
+  ]
+}

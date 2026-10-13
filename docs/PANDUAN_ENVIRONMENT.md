@@ -44,6 +44,8 @@ py -3.11 -m venv .venv
 
 Pemeriksaan ini menguji operasi lingkungan pada tensor kecil. Ukuran model, throughput, batch maksimum, kualitas generasi, dan durasi training Mini GPT belum diukur.
 
+Catatan sesudah setup: profiling dan baseline telah dijalankan pada TRAIN-001 sampai TRAIN-004. Lihat [hasil training](../reports/PIPELINE_TRAINING_SUMMARY.md) dan [notebook](../notebooks/README.md). nbformat 5.11.1 dan nbclient 0.11.0 ditambahkan pada RUN-069 untuk format/eksekusi notebook; PyTorch tidak diganti.
+
 Environment, dataset mentah, output, dan checkpoint telah dicantumkan pada `.gitignore`.
 
 ## Sumber

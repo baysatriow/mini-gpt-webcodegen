@@ -1,0 +1,17 @@
+RUN-188 | 2026-10-13T19:27:51.007887+07:00 | AI-013 gallery ZIP bytes local resources raw specs static audit
+Command: .venv/Scripts/python.exe -m qa.audit_generated_artifacts --gallery-report reports/training/TRAIN-015_RENDERED_OUTPUTS.json --output reports/training/TRAIN-015_OUTPUT_INTEGRITY.json --snapshot examples/generated/AI-013-senandika
+Commit: 4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9
+
+{
+  "exported_websites": 44,
+  "archive_files": 308,
+  "zip_bytes_verified": true,
+  "local_resources_and_fragments_verified": true,
+  "snapshot_files": 7,
+  "browser_evaluated": false,
+  "limits": [
+    "Static artifact checks do not execute JavaScript or inspect layout/interactions in a browser"
+  ]
+}
+
+Exit code: 0

@@ -1,0 +1,66 @@
+{
+  "interactions": [
+    {
+      "target_id": "features",
+      "type": "tabs"
+    }
+  ],
+  "language": "id",
+  "schema_version": "1.0",
+  "style_mode": "tailwind",
+  "theme": {
+    "background": "#ffffff",
+    "font": "serif",
+    "primary": "#10b981",
+    "text": "#111827"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "props": {
+        "brand": "Kafe Senandika",
+        "links": [
+          {
+            "href": "#main",
+            "label": "Beranda"
+          }
+        ]
+      },
+      "type": "navbar"
+    },
+    {
+      "id": "main",
+      "props": {
+        "heading": "Kafe Senandika",
+        "layout": "centered",
+        "text": "Kami membantu tim kreatif untuk mengembangkan gagasan baru."
+      },
+      "type": "hero"
+    },
+    {
+      "id": "features",
+      "props": {
+        "heading": "Layanan",
+        "items": [
+          {
+            "heading": "Produk",
+            "text": "Informasi produk."
+          },
+          {
+            "heading": "Layanan",
+            "text": "Informasi layanan."
+          }
+        ]
+      },
+      "type": "feature_grid"
+    },
+    {
+      "id": "footer",
+      "props": {
+        "text": "Kafe Senandika"
+      },
+      "type": "footer"
+    }
+  ],
+  "title": "Kafe Senandika"
+}
