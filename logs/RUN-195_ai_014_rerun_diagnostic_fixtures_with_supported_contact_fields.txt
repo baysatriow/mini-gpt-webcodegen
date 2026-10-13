@@ -1,0 +1,44 @@
+RUN-195 | 2026-10-13T20:03:42.971359+07:00 | AI-014 rerun diagnostic fixtures with supported contact fields
+Command: .venv/Scripts/python.exe -c "import json
+from pathlib import Path
+from tokenizers import Tokenizer
+from src.data.schema import validate_page_spec
+from src.data.curriculum import serialize_spec
+r=json.loads(Path('reports/analysis/AI-014_FULL_PAGE_SCOPE.json').read_text(encoding='utf-8'))
+r['supersedes_invalid_fixture']='AI-014_FULL_PAGE_SCOPE.json'; r['correction']='Remove unsupported required property from hand-authored contact fields; no production code changed.'
+t=Tokenizer.from_file('data/tokenizer/tokenizer.json')
+for genre,p in r['profiles'].items():
+ for s in p['spec']['sections']:
+  if s['type']=='contact_form':
+   for field in s['props']['fields']: field.pop('required',None)
+ p['schema_errors']=validate_page_spec(p['spec']); p['target_tokens']=len(t.encode(serialize_spec(p['spec'],'appearance_before_sections'),add_special_tokens=False).ids)
+ p['sequence_tokens_with_eos']=p['prefix_tokens']+p['target_tokens']+1
+ p['fits_context']=p['sequence_tokens_with_eos']<=1024; p['fits_output_budget']=p['target_tokens']+1<=768
+path=Path('reports/analysis/AI-014_FULL_PAGE_SCOPE_VALID.json')
+with path.open('x',encoding='utf-8',newline='\n') as f: json.dump(r,f,ensure_ascii=False,indent=2); f.write('\n')
+print(json.dumps({k:{a:b for a,b in p.items() if a not in ('spec','prompt')} for k,p in r['profiles'].items()},ensure_ascii=False,indent=2))
+assert all(not p['schema_errors'] for p in r['profiles'].values())"
+Commit: 219fc9e5985ec4a0181c3a5f4570c042001bfd85
+
+{
+  "landing_page": {
+    "sections": 9,
+    "schema_errors": [],
+    "prefix_tokens": 123,
+    "target_tokens": 1374,
+    "sequence_tokens_with_eos": 1498,
+    "fits_context": false,
+    "fits_output_budget": false
+  },
+  "company_profile": {
+    "sections": 9,
+    "schema_errors": [],
+    "prefix_tokens": 121,
+    "target_tokens": 1357,
+    "sequence_tokens_with_eos": 1479,
+    "fits_context": false,
+    "fits_output_budget": false
+  }
+}
+
+Exit code: 0

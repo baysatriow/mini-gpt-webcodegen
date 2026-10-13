@@ -2202,3 +2202,116 @@ Kualitas terpilih belum meningkat: best step 0 identik parent TRAIN-012; develop
 - **Commit:** `4b38fe1f8ec1e94a1c77e663cfe0138356c5ebe9`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-192_ai_013_post_git_evidence_fix_full_structural_audit.txt`.
+
+### RUN-193
+
+- **Waktu:** 2026-10-13T20:02:00.846872+07:00 sampai 2026-10-13T20:02:01.364075+07:00.
+- **Tujuan:** AI-014 read only full page scope and train distribution analysis.
+- **Command:** `.venv/Scripts/python.exe -c "import json
+from collections import Counter
+from pathlib import Path
+from tokenizers import Tokenizer
+p=Path('data/processed/curriculum/v6/train.jsonl')
+counts=Counter(); types=Counter(); first=None
+for line in p.open(encoding='utf-8'):
+ r=json.loads(line); first=first or r
+ counts[len(r['target_spec']['sections'])]+=1
+ types.update(s['type'] for s in r['target_spec']['sections'])
+print('section_count_distribution:',dict(sorted(counts.items())))
+print('section_type_distribution:',dict(types))
+print('row_keys:',list(first))
+print('first_prompt:',first['prompt'])
+print('first_target:',json.dumps(first['target_spec'],ensure_ascii=False,separators=(',',':')))
+t=Tokenizer.from_file('data/tokenizer/tokenizer.json')
+print('first_prompt_tokens:',len(t.encode(first['prompt'],add_special_tokens=False).ids))
+print('first_target_tokens:',len(t.encode(json.dumps(first['target_spec'],ensure_ascii=False,separators=(',',':')),add_special_tokens=False).ids))
+print('block_size:1024 max_new_tokens:768')"`.
+- **Commit:** `219fc9e5985ec4a0181c3a5f4570c042001bfd85`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-193_ai_014_read_only_full_page_scope_and_train_distribution_analysis.txt`.
+
+### RUN-194
+
+- **Waktu:** 2026-10-13T20:03:11.958484+07:00 sampai 2026-10-13T20:03:14.318678+07:00.
+- **Tujuan:** AI-014 tokenizer measurement of hand authored diagnostic full pages.
+- **Command:** `.venv/Scripts/python.exe -c "import json, copy, shutil
+from pathlib import Path
+from tokenizers import Tokenizer
+from src.data.schema import validate_page_spec
+from src.data.curriculum import serialize_spec
+base=json.loads(next(Path('data/processed/curriculum/v6/train.jsonl').open(encoding='utf-8')))['target_spec']
+t=Tokenizer.from_file('data/tokenizer/tokenizer.json')
+profiles={
+'landing_page': [('about','Tentang layanan','Kami membantu pemilik usaha menyusun halaman informasi yang mudah dibaca. Setiap pekerjaan dimulai dari kebutuhan pelanggan, dilanjutkan dengan rancangan konten dan pemeriksaan tampilan pada perangkat yang berbeda.'),('services','Layanan utama','Layanan mencakup perencanaan halaman, penyusunan konten dan pendampingan penggunaan. Anda dapat memilih kebutuhan yang paling relevan melalui konsultasi awal sebelum menyepakati ruang lingkup pekerjaan.'),('benefits','Mengapa memilih kami','Proses kerja dijelaskan sejak awal agar pelanggan memahami tahapan dan hasil yang akan diterima. Susunan halaman dibuat terarah dengan navigasi yang jelas, teks yang mudah dibaca dan tombol tindakan yang sesuai.'),('process','Cara memulai','Sampaikan kebutuhan melalui formulir konsultasi. Kami meninjau informasi yang tersedia, menyusun rancangan awal dan membahas penyesuaian sebelum proses pengerjaan dilanjutkan.'),('faq','Pertanyaan umum','Apakah bisa menyesuaikan isi halaman? Isi halaman disusun dari informasi yang Anda berikan. Apakah tersedia pendampingan? Lingkup pendampingan dibahas dalam konsultasi awal agar sesuai dengan kebutuhan Anda.')],
+'company_profile': [('about','Tentang perusahaan','Perusahaan demo ini menyediakan layanan perencanaan komunikasi digital untuk usaha lokal. Informasi dalam contoh ini bersifat fiktif dan digunakan untuk menilai panjang rancangan halaman, bukan sebagai klaim perusahaan nyata.'),('vision','Visi dan prinsip','Kami mengutamakan informasi yang jelas, proses yang dapat dipahami dan komunikasi yang terbuka. Setiap rancangan diawali dengan tujuan yang terukur serta informasi yang disetujui oleh pemilik usaha.'),('services','Bidang layanan','Kami membantu menyusun profil usaha, menjelaskan layanan utama dan merancang alur kontak. Rincian layanan disesuaikan dengan kebutuhan serta materi yang tersedia agar halaman tetap relevan.'),('projects','Contoh proyek','Contoh proyek demo meliputi profil usaha lokal, informasi layanan dan halaman pengenalan produk. Materi ini adalah ilustrasi fiktif untuk menjelaskan bentuk layanan, bukan portofolio pekerjaan nyata.'),('process','Proses kerja','Tahap pertama mengumpulkan informasi perusahaan dan kebutuhan pembaca. Tahap berikutnya menyusun struktur serta isi halaman, kemudian melakukan tinjauan bersama sebelum hasil diserahkan.')]
+}
+result={'status':'diagnostic_only','fixture_origin':'hand_authored_not_model_output_not_training_data','block_size':1024,'max_new_tokens':768,'free_disk_gib':round(shutil.disk_usage('.').free/2**30,2),'reserve_gib':15,'profiles':{}}
+for genre, blocks in profiles.items():
+ spec=copy.deepcopy(base); brand='Usaha Demo Nusantara'; spec['title']=brand
+ spec['sections']=[{'id':'nav','type':'navbar','props':{'brand':brand,'links':[{'label':'Tentang','href':'#about'},{'label':'Layanan','href':'#services'},{'label':'Kontak','href':'#contact'}]}},{'id':'main','type':'hero','props':{'heading':brand,'text':'Kenali layanan dan proses kerja kami, kemudian diskusikan kebutuhan Anda melalui konsultasi awal.','layout':'split','button':{'label':'Hubungi kami','href':'#contact'}}}]
+ spec['sections'] += [{'id':i,'type':'text_section','props':{'heading':h,'text':x}} for i,h,x in blocks]
+ spec['sections'] += [{'id':'contact','type':'contact_form','props':{'heading':'Diskusikan kebutuhan Anda','fields':[{'name':'name','label':'Nama','type':'text','required':True},{'name':'email','label':'Email','type':'email','required':True},{'name':'message','label':'Pesan','type':'textarea','required':True}],'submit_label':'Kirim'}},{'id':'footer','type':'footer','props':{'text':brand,'links':[{'label':'Tentang','href':'#about'},{'label':'Kontak','href':'#contact'}]}}]
+ spec['interactions']=[{'type':'menu_toggle','target_id':'nav'},{'type':'form_validate','target_id':'contact'}]
+ prompt=f'Buat {genre} untuk {brand}. Gunakan CSS biasa. Sertakan navbar, hero, '+', '.join(h for _,h,_ in blocks)+', kontak dan footer. Gunakan data perusahaan fiktif yang diberikan, tombol kontak dan menu responsif.'
+ prefix=3+len(t.encode(prompt,add_special_tokens=False).ids); target=len(t.encode(serialize_spec(spec,'appearance_before_sections'),add_special_tokens=False).ids)
+ errors=validate_page_spec(spec)
+ result['profiles'][genre]={'sections':len(spec['sections']),'schema_errors':errors,'prefix_tokens':prefix,'target_tokens':target,'sequence_tokens_with_eos':prefix+target+1,'fits_context':prefix+target+1<=1024,'fits_output_budget':target+1<=768,'spec':spec,'prompt':prompt}
+path=Path('reports/analysis/AI-014_FULL_PAGE_SCOPE.json'); path.parent.mkdir(parents=True,exist_ok=True)
+with path.open('x',encoding='utf-8',newline='\n') as f: json.dump(result,f,ensure_ascii=False,indent=2); f.write('\n')
+print(json.dumps({**result,'profiles':{k:{a:b for a,b in v.items() if a not in ('spec','prompt')} for k,v in result['profiles'].items()}},ensure_ascii=False,indent=2))
+if any(v['schema_errors'] for v in result['profiles'].values()): raise SystemExit(1)"`.
+- **Commit:** `219fc9e5985ec4a0181c3a5f4570c042001bfd85`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-194_ai_014_tokenizer_measurement_of_hand_authored_diagnostic_full_pages.txt`.
+
+### RUN-195
+
+- **Waktu:** 2026-10-13T20:03:42.971359+07:00 sampai 2026-10-13T20:03:45.342791+07:00.
+- **Tujuan:** AI-014 rerun diagnostic fixtures with supported contact fields.
+- **Command:** `.venv/Scripts/python.exe -c "import json
+from pathlib import Path
+from tokenizers import Tokenizer
+from src.data.schema import validate_page_spec
+from src.data.curriculum import serialize_spec
+r=json.loads(Path('reports/analysis/AI-014_FULL_PAGE_SCOPE.json').read_text(encoding='utf-8'))
+r['supersedes_invalid_fixture']='AI-014_FULL_PAGE_SCOPE.json'; r['correction']='Remove unsupported required property from hand-authored contact fields; no production code changed.'
+t=Tokenizer.from_file('data/tokenizer/tokenizer.json')
+for genre,p in r['profiles'].items():
+ for s in p['spec']['sections']:
+  if s['type']=='contact_form':
+   for field in s['props']['fields']: field.pop('required',None)
+ p['schema_errors']=validate_page_spec(p['spec']); p['target_tokens']=len(t.encode(serialize_spec(p['spec'],'appearance_before_sections'),add_special_tokens=False).ids)
+ p['sequence_tokens_with_eos']=p['prefix_tokens']+p['target_tokens']+1
+ p['fits_context']=p['sequence_tokens_with_eos']<=1024; p['fits_output_budget']=p['target_tokens']+1<=768
+path=Path('reports/analysis/AI-014_FULL_PAGE_SCOPE_VALID.json')
+with path.open('x',encoding='utf-8',newline='\n') as f: json.dump(r,f,ensure_ascii=False,indent=2); f.write('\n')
+print(json.dumps({k:{a:b for a,b in p.items() if a not in ('spec','prompt')} for k,p in r['profiles'].items()},ensure_ascii=False,indent=2))
+assert all(not p['schema_errors'] for p in r['profiles'].values())"`.
+- **Commit:** `219fc9e5985ec4a0181c3a5f4570c042001bfd85`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-195_ai_014_rerun_diagnostic_fixtures_with_supported_contact_fields.txt`.
+
+### AI-014: Usulan halaman lengkap
+
+- Pengguna memilih landing page dan company profile. [Interaksi AI-014](interaksi_llm/AI-014_2026-10-13.md), [usulan arah](../reports/FULL_PAGE_DIRECTION_2026-10-13.md).
+- RUN-193 seluruh train v6 berisi 3 sampai 5 bagian. RUN-194 fixture manual gagal validasi properti field kontak; RUN-195 berhasil setelah fixture diperbaiki. Total dua halaman 9 bagian: 1.498 dan 1.479 token, melebihi konteks 1.024.
+- Belum ada training baru atau perubahan produksi. Usulan generasi rencana dan isi per bagian serta renderer lebih kaya menunggu review arah sesuai skill brainstorming. Final lama tetap consumed.
+
+### RUN-196
+
+- **Waktu:** 2026-10-13T20:07:26.535341+07:00 sampai 2026-10-13T20:07:26.824011+07:00.
+- **Tujuan:** AI-014 analysis artifacts and documentation consistency check.
+- **Command:** `.venv/Scripts/python.exe -c "import json
+from pathlib import Path
+from src.data.schema import validate_page_spec
+r=json.loads(Path('reports/analysis/AI-014_FULL_PAGE_SCOPE_VALID.json').read_text(encoding='utf-8'))
+assert all(not validate_page_spec(p['spec']) for p in r['profiles'].values())
+assert all(not p['fits_context'] and not p['fits_output_budget'] for p in r['profiles'].values())
+for name in ['reports/FULL_PAGE_DIRECTION_2026-10-13.md','logs/interaksi_llm/AI-014_2026-10-13.md']:
+ text=Path(name).read_text(encoding='utf-8'); assert chr(8212) not in text
+for name in ['README.md','logs/LOG_TRAINING.md','logs/PIPELINE_PROGRESS.md','logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md']:
+ assert 'AI-014' in Path(name).read_text(encoding='utf-8')
+print('Two valid manual fixtures and documentation links/status checked. No training, generation, browser inspection or unit tests executed.')"`.
+- **Commit:** `219fc9e5985ec4a0181c3a5f4570c042001bfd85`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-196_ai_014_analysis_artifacts_and_documentation_consistency_check.txt`.

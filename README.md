@@ -167,3 +167,7 @@ TRAIN-005 smoke 3 update dan TRAIN-006 pilot 40 update memakai parent pretrainin
 Test reviewed empat contoh menghasilkan **0/4 JSON valid**; seluruh generasi mencapai batas 768 token. Penurunan loss belum menunjukkan model bisa membuat website. Budget training/checkpoint dipilih sebelum test, tidak ada tuning ulang dari hasil test. Empat contoh train diulang 40 kali; corpus perlu diperluas berdasarkan katalog proyek. Karena test pilot sudah dibaca, evaluasi final generalisasi perlu data yang belum dipakai untuk pengembangan.
 
 Lihat [notebook SFT](notebooks/05_sft_pilot_dan_evaluasi.ipynb), [hasil lengkap](reports/SFT_PILOT_SUMMARY_2026-10-13.md), [metrik test](reports/training/TRAIN-006_sft_evaluation.json) dan [log training](logs/LOG_TRAINING.md). Belum ada evaluasi browser/visual atau aplikasi preview.
+
+## Usulan pengembangan halaman lengkap
+
+Prioritas berikutnya adalah landing page dan company profile. [Analisis dan usulan arah AI-014](reports/FULL_PAGE_DIRECTION_2026-10-13.md) membandingkan generasi bertahap, konteks lebih panjang dan template tetap. Rekomendasi: model membuat rencana lalu isi tiap bagian, komposer menyatukan PageSpec, renderer menyediakan variasi layout serta aset lokal. Status masih usulan untuk review, belum kemampuan checkpoint saat ini.
