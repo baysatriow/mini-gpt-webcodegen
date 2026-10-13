@@ -48,6 +48,8 @@ def _parent_descriptor(state, root, summary):
 
 
 def validate_initial_checkpoint(parent, config, root, summary=None):
+    if config.get('curriculum_continuation', False):
+        return validate_curriculum_continuation(parent, config, root, summary)
     if config["mode"] != "sft":
         raise ValueError("Model-only initialization is reserved for SFT from project pretraining")
     lineage = parent["config"]["lineage"]
@@ -59,6 +61,36 @@ def validate_initial_checkpoint(parent, config, root, summary=None):
         summary = json.loads((Path(root) / "data/manifests/pipeline_summary.json").read_text(encoding="utf-8"))
     if _parent_descriptor(parent, root, summary) != config["lineage"]["pretrain_fingerprint"]:
         raise ValueError("Initial checkpoint pretraining corpus/family lineage mismatch")
+
+
+def validate_curriculum_continuation(parent, config, root, summary=None):
+    """Continue only this project's disclosed synthetic model; production gate stays separate."""
+    from src.data.curriculum import verify_manifest
+    parent_cfg, lineage = parent['config'], parent['config']['lineage']
+    if (config['mode'] != 'sft' or config.get('data_origin') != 'synthetic_curriculum'
+            or config.get('human_reviewed') is not False or config['lineage']['human_reviewed'] is not False
+            or parent_cfg['mode'] != 'sft' or parent_cfg.get('data_origin') != 'synthetic_curriculum'
+            or lineage.get('human_reviewed') is not False or parent['global_step'] < 1):
+        raise ValueError('Continuation requires a trained project synthetic curriculum parent')
+    if summary is None:
+        summary = json.loads((Path(root) / 'data/manifests/pipeline_summary.json').read_text(encoding='utf-8'))
+    fingerprint = pretrain_descriptor(root, summary)
+    ancestry = lineage.get('pretraining_parent', {})
+    if (lineage['tokenizer_sha256'] != config['lineage']['tokenizer_sha256']
+            or lineage['pretrain_fingerprint'] != fingerprint or config['lineage']['pretrain_fingerprint'] != fingerprint
+            or ancestry.get('phase') != 'pretrain' or ancestry.get('global_step', 0) < 1
+            or ancestry.get('pretrain_fingerprint') != fingerprint
+            or config['lineage']['pretraining_parent'] != ancestry
+            or parent['model_config'] != config['model_config']):
+        raise ValueError('Continuation model/tokenizer/project pretraining ancestry mismatch')
+    directory = Path(root) / parent_cfg['dataset_dir']
+    verify_manifest(directory)
+    recorded = config['lineage'].get('curriculum_parent', {})
+    if (sha256_file(directory / 'manifest.json') != lineage['synthetic_manifest_sha256']
+            or recorded.get('synthetic_manifest_sha256') != lineage['synthetic_manifest_sha256']
+            or recorded.get('checkpoint_sha256') != config['initial_checkpoint_sha256']
+            or recorded.get('global_step') != parent['global_step']):
+        raise ValueError('Continuation parent/corpus evidence changed')
 
 
 def verify_checkpoint_lineage(state, root, summary):

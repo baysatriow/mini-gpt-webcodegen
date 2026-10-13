@@ -11,6 +11,7 @@ from torch.utils.data import DataLoader
 from qa.prepare_annotation_review import local_link_findings
 from src.data.curriculum import ROOT, DIRECTORY, RECIPES, CurriculumDataset, verify_manifest
 from src.data.normalize import read_jsonl
+from src.data.integrity import reuse_tokenization
 from src.data.sources import sha256_file, write_manifest
 from src.evaluation.generate import _generate, assess_output
 from src.models.minigpt import MiniGPT
@@ -28,31 +29,35 @@ def main():
     report_path = ROOT / f'reports/training/{args.report_id}_curriculum_evaluation.json'
     outputs_path = ROOT / f'outputs/metrics/{args.report_id}_curriculum_outputs.json'
     if report_path.exists() or outputs_path.exists(): raise ValueError('Report already exists')
-    manifest = verify_manifest()
     state = read_checkpoint(args.checkpoint)
+    directory = ROOT / state['config'].get('dataset_dir', 'data/processed/curriculum/v1')
+    manifest = verify_manifest(directory)
     lineage = state['config']['lineage']
     summary = json.loads((ROOT / 'data/manifests/pipeline_summary.json').read_text(encoding='utf-8'))
+    reuse_tokenization(ROOT, summary, summary['split'], json.loads((ROOT / 'configs/tokenizer.json').read_text()))
     if state['config'].get('data_origin') != 'synthetic_curriculum' or lineage['human_reviewed'] is not False:
         raise ValueError('Requires a disclosed synthetic checkpoint')
-    if lineage['synthetic_manifest_sha256'] != sha256_file(DIRECTORY / 'manifest.json'):
+    if lineage['synthetic_manifest_sha256'] != sha256_file(directory / 'manifest.json'):
         raise ValueError('Curriculum lineage changed')
     fingerprint = pretrain_descriptor(ROOT, summary)
     parent = lineage['pretraining_parent']
     if lineage['pretrain_fingerprint'] != fingerprint or parent['pretrain_fingerprint'] != fingerprint or parent['phase'] != 'pretrain' or parent['global_step'] < 1:
         raise ValueError('Pretraining ancestry changed')
     if args.split == 'final':
-        if state['global_step'] < state['config']['max_steps']:
-            raise ValueError('Locked final suite requires the predeclared training budget to finish')
+        training_report = json.loads((ROOT / f"reports/training/{state['run_id']}.json").read_text(encoding='utf-8'))
+        if (training_report['status'] != 'completed' or training_report['global_step'] != state['config']['max_steps']
+                or training_report['best_checkpoint_sha256'] != checkpoint_sha256(args.checkpoint)):
+            raise ValueError('Locked final suite requires a completed fixed budget and its validation-selected best')
         final = manifest['final_suite']
         path = ROOT / final['path']
         if sha256_file(path) != final['sha256']: raise ValueError('Locked final suite changed')
         rows = list(read_jsonl(path))
-        actual = {r['example_id']: r for r in read_jsonl(DIRECTORY / 'test.jsonl')}
+        actual = {r['example_id']: r for r in read_jsonl(directory / 'test.jsonl')}
         if len(rows) != final['count'] or any(actual.get(r['example_id']) != r for r in rows):
             raise ValueError('Final prompt membership changed')
         split = 'test'
     else:
-        path = DIRECTORY / 'validation.jsonl'
+        path = directory / 'validation.jsonl'
         all_rows = list(read_jsonl(path))
         rows = [next(r for r in all_rows if r['recipe'] == recipe and r['target_spec']['style_mode'] == style)
                 for recipe in RECIPES for style in ('plain_css', 'tailwind')]
@@ -75,16 +80,22 @@ def main():
     write_manifest(outputs_path, records)
     valid = sum(r['parsed_spec'] is not None for r in records)
     exact = sum(r['exact_contract'] for r in records)
+    field_matches = {}
+    for field in ('title', 'style_mode', 'theme', 'sections', 'interactions'):
+        field_matches[field] = sum(r['parsed_spec'] is not None and r['parsed_spec'][field] == r['target_spec'][field] for r in records)
     report = {'checkpoint_sha256': checkpoint_sha256(args.checkpoint), 'checkpoint_step': state['global_step'],
+        'schema_sha256': sha256_file(ROOT / 'configs/page_spec.schema.json'),
         'split': args.split, 'prompt_file_sha256': sha256_file(path), 'token_metrics': token_metrics,
         'count': len(rows), 'parseable': sum(r['parse_status'] == 'passed' for r in records),
         'schema_valid': valid, 'exact_contract': exact, 'schema_valid_rate': valid / len(rows),
         'exact_contract_rate': exact / len(rows), 'resolved_links': sum(r['resolved_links'] for r in records),
+        'exact_field_matches': field_matches,
         'all_ended_eos': all(r['stop_reason'] == 'eos' for r in records), 'decode_config': config,
         'acceptance_fixed_before_training': manifest['acceptance'],
         'contract_gate_passed': valid / len(rows) >= .95 and exact / len(rows) >= .90,
         'review_kind': 'programmatic_contract, not human-reviewed production SFT',
         'outputs_path': str(outputs_path.relative_to(ROOT)),
+        'outputs_sha256': sha256_file(outputs_path),
         'limits': ['Shared synthetic component recipes across partitions; fictional title families held out',
                    'No JSON repair or forced first token', 'No browser/manual acceptance',
                    'No claim of arbitrary real-world prompts or unseen layout-family generalization']}

@@ -14,7 +14,9 @@ Dokumen di sini menjelaskan ruang lingkup, persyaratan tugas, sumber dataset, en
 - [Panduan training](TRAINING_GUIDE.md): profiling, smoke/baseline, resume, SFT, failure artifact, dan evaluasi.
 - [Ringkasan baseline](../reports/PIPELINE_TRAINING_SUMMARY.md): hasil pretraining terukur, grafik, checkpoint dan probe JSON historis.
 - [Hasil SFT pilot](../reports/SFT_PILOT_SUMMARY_2026-10-13.md): approval, 40 update, loss target dan generasi 0/4 valid.
-- [Notebook proses](../notebooks/README.md): lima notebook, output aktual, dan kernel proyek.
+- [Pengembangan output](SFT_DEVELOPMENT_2026-10-13.md): diagnosis, curriculum sintetis, serialization, dan penyalinan nama.
+- [Panduan generasi website](GENERATING_WEBSITES.md): format prompt, validasi isi, ekspor lokal CSS/Tailwind/JavaScript dan batasnya.
+- [Notebook proses](../notebooks/README.md): notebook berurutan, output aktual, dan kernel proyek.
 - [Review training](../reports/REVIEW_TRAINING_2026-10-12.md): checkpoint terbaik, transaksi save, lineage parent/SFT/test, verified copy, dan Minor ditunda.
 
 ## Status

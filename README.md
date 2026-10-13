@@ -2,6 +2,12 @@
 
 Mini GPT WebCodeGen adalah proyek kuliah untuk membangun model generatif decoder-only dari bobot acak yang menghasilkan rancangan website. Model menulis spesifikasi halaman berbentuk JSON, aplikasi memvalidasinya, lalu renderer tahap akhir membuat HTML, CSS, dan JavaScript untuk preview serta unduhan.
 
+## Pengembangan terbaru, 13 Oktober 2026
+
+CLI prompt -> Mini GPT -> validasi PageSpec/kontrak -> renderer HTML/CSS/JavaScript sudah tersedia. Model v2 menghasilkan48/48 final sintetis tepat dan48 website diekspor, tetapi gagal menyalin nama Studio Cakrawala. V3 development20/24 tepat, sehingga final barunya belum dibuka. Continuation v4 sedang memperluas penyalinan subword. Hasil ini belum menyatakan dukungan prompt bebas atau browser acceptance.
+
+Lihat [hasil pengembangan](reports/OUTPUT_DEVELOPMENT_2026-10-13.md), [panduan generasi](docs/GENERATING_WEBSITES.md), dan [diagnosis/data curriculum](docs/SFT_DEVELOPMENT_2026-10-13.md). Dataset sintetis dipisahkan dari12 anotasi human-reviewed; model tetap berasal dari bobot acak proyek. Bagian baseline/pilot di bawah mencatat tahap sebelumnya.
+
 ## Ruang lingkup
 
 ### Masuk MVP
@@ -122,7 +128,7 @@ Pretraining, SFT pilot dan evaluasi sudah dijalankan; aplikasi preview belum dib
 
 Download memverifikasi dan memakai ulang file yang selesai. Config awal mematok 20.000 WebSight v0.1, 30.000 WebSight v0.2, dan 5.000 Vulcan; total raw 123.276.847 bytes. Cache dan data ada pada drive proyek. Batas raw 1 GiB dan reserve disk 15 GiB mencegah unduhan seluruh korpus.
 
-CSS/JS standalone tetap menjadi teks untuk pretraining; target PageSpec hanya berasal dari anotasi reviewed. Grouping template adalah heuristik, sehingga pemeriksaan tanpa overlap group/exact hash tidak membuktikan nol kebocoran semantik.
+CSS/JS standalone tetap menjadi teks untuk pretraining; target PageSpec jalur produksi berasal dari anotasi reviewed. Curriculum programmatic_contract mempunyai rute data/training/evaluator terpisah dan tidak dianggap human-reviewed. Grouping template adalah heuristik, sehingga pemeriksaan tanpa overlap group/exact hash tidak membuktikan nol kebocoran semantik.
 
 Petunjuk rinci ada di [panduan pipeline](docs/PIPELINE_DATA_GUIDE.md) dan hasil nyata di [laporan status data](reports/STATUS_PIPELINE_2026-10-12.md). Manifest kecil menyimpan source revision/license/checksum, split, tokenizer, token profile, dan status instruksi. Vocabulary BPE 8.192 baru dilatih dari train split; blok pretraining 1.024 token memakai label next-token yang sudah digeser.
 

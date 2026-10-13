@@ -1,0 +1,102 @@
+RUN-116 | 2026-10-13T08:43:01.956582+07:00 | locked_curriculum_final
+Command: .venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-010/best.pt --split final --report-id TRAIN-010-FINAL
+Commit: 5209976e73450c39e2b3101521a5b793e3021749
+
+{"example": 1, "count": 48, "recipe": "profile", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 2, "count": 48, "recipe": "profile", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 3, "count": 48, "recipe": "profile", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 4, "count": 48, "recipe": "profile", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 5, "count": 48, "recipe": "features", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 6, "count": 48, "recipe": "features", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 7, "count": 48, "recipe": "features", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 8, "count": 48, "recipe": "features", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 9, "count": 48, "recipe": "article", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 10, "count": 48, "recipe": "article", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 11, "count": 48, "recipe": "article", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 12, "count": 48, "recipe": "article", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 13, "count": 48, "recipe": "pricing", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 14, "count": 48, "recipe": "pricing", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 15, "count": 48, "recipe": "pricing", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 16, "count": 48, "recipe": "pricing", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 17, "count": 48, "recipe": "testimonial", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 18, "count": 48, "recipe": "testimonial", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 19, "count": 48, "recipe": "testimonial", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 20, "count": 48, "recipe": "testimonial", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 21, "count": 48, "recipe": "contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 22, "count": 48, "recipe": "contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 23, "count": 48, "recipe": "contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 24, "count": 48, "recipe": "contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 25, "count": 48, "recipe": "accordion", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 26, "count": 48, "recipe": "accordion", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 27, "count": 48, "recipe": "accordion", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 28, "count": 48, "recipe": "accordion", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 29, "count": 48, "recipe": "tabs", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 30, "count": 48, "recipe": "tabs", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 31, "count": 48, "recipe": "tabs", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 32, "count": 48, "recipe": "tabs", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 33, "count": 48, "recipe": "filter", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 34, "count": 48, "recipe": "filter", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 35, "count": 48, "recipe": "filter", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 36, "count": 48, "recipe": "filter", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 37, "count": 48, "recipe": "modal", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 38, "count": 48, "recipe": "modal", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 39, "count": 48, "recipe": "modal", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 40, "count": 48, "recipe": "modal", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 41, "count": 48, "recipe": "features_contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 42, "count": 48, "recipe": "features_contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 43, "count": 48, "recipe": "features_contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 44, "count": 48, "recipe": "features_contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 45, "count": 48, "recipe": "pricing_contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 46, "count": 48, "recipe": "pricing_contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 47, "count": 48, "recipe": "pricing_contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 48, "count": 48, "recipe": "pricing_contact", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{
+  "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+  "checkpoint_step": 2400,
+  "schema_sha256": "7a13c15552171245fa0d28876eb6bd9612ece8dddc05a330c793574950e93bb7",
+  "split": "final",
+  "prompt_file_sha256": "87e9eaf673632ce5e2d28f8e5f47215a62ccea9136191efbe1ae17adcdbeeafa",
+  "token_metrics": {
+    "loss": 1.6989679670359032e-05,
+    "perplexity": 1.000016989823996,
+    "valid_tokens": 587295,
+    "batches": 348
+  },
+  "count": 48,
+  "parseable": 48,
+  "schema_valid": 48,
+  "exact_contract": 48,
+  "schema_valid_rate": 1.0,
+  "exact_contract_rate": 1.0,
+  "resolved_links": 48,
+  "exact_field_matches": {
+    "title": 48,
+    "style_mode": 48,
+    "theme": 48,
+    "sections": 48,
+    "interactions": 48
+  },
+  "all_ended_eos": true,
+  "decode_config": {
+    "precision": "bf16",
+    "temperature": 0,
+    "seed": 42,
+    "max_new_tokens": 768
+  },
+  "acceptance_fixed_before_training": {
+    "schema_valid_rate": 0.95,
+    "exact_contract_rate": 0.9,
+    "repair_allowed": false
+  },
+  "contract_gate_passed": true,
+  "review_kind": "programmatic_contract, not human-reviewed production SFT",
+  "outputs_path": "outputs\\metrics\\TRAIN-010-FINAL_curriculum_outputs.json",
+  "limits": [
+    "Shared synthetic component recipes across partitions; fictional title families held out",
+    "No JSON repair or forced first token",
+    "No browser/manual acceptance",
+    "No claim of arbitrary real-world prompts or unseen layout-family generalization"
+  ]
+}
+
+Exit code: 0

@@ -1,0 +1,2033 @@
+{
+  "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+  "source_evaluation_sha256": "dae07f0efb641806fe7daac4a6f92a948d4793360dbe7fc650833553594b4e87",
+  "output_count": 48,
+  "output_dir": "outputs\\generated_websites\\AI-011-v2",
+  "archive_sha256": "905f854fb8f844f2a5460cf2327da2645894513510804793e608fdf90a126519",
+  "tailwind_version": "4.3.3",
+  "entries": [
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\01-profile-plain_css",
+      "title": "Bengkel Kenanga",
+      "recipe": "profile",
+      "example_id": "6ecc7f3487ad76ccb8b10807b683617bf45c9d43db2556f96eec8f59c4412300",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "69a29820808d3f30236a774eb57b99ea39dd5db9d1ccd364d9dde85362c0042c",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "974df5a466795b8704741299a380b665a6ec961a656f97cc3bb628774748cd36",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "19a0a8e262db457a0c4ddc78603e70953a1f58280481d7576cbfe1e9d223c468",
+          "bytes": 760
+        },
+        "page_spec.json": {
+          "sha256": "36fdd5ec5ce801ca22376657b8da69bae0615db209da7e7ae2a6e1dc0e3cc44c",
+          "bytes": 862
+        },
+        "prompt.txt": {
+          "sha256": "5aaf13926d1fb3adc6d9534c93f75917b398f8a8539e8b2a86438af48c0a0de2",
+          "bytes": 286
+        },
+        "raw_output.txt": {
+          "sha256": "69a29820808d3f30236a774eb57b99ea39dd5db9d1ccd364d9dde85362c0042c",
+          "bytes": 516
+        },
+        "styles.css": {
+          "sha256": "e27122e585ec1f008069e2298e8072155198f2005e05f95b158a8634aa50bbb6",
+          "bytes": 3648
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\02-profile-plain_css",
+      "title": "Toko Angkasa",
+      "recipe": "profile",
+      "example_id": "9c40577b8807079ba1ea80deaa5474abb621edd88f5984ae8a436500cd126fc9",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "6e12e821e5903b7ff30f645046f7b703716d1cf22dabbeb1882e755ebc4d1c09",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "3ad10dd0e18c64f5063afed9ef6b9c1b42f03c6602384d56cd7fb8ac9b96e486",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "2c6bea26f87f396f38f9024926809b14d785bc6226060f6da1870b279af60e1f",
+          "bytes": 920
+        },
+        "page_spec.json": {
+          "sha256": "c1f55474d272b1a6b6085783e75db070f47eea6b0e576b9e66df23afc0ed4208",
+          "bytes": 926
+        },
+        "prompt.txt": {
+          "sha256": "1af7a57f10ea3af854b609f687ea7a18eed5bb8a4c35d3f4428f6e784149babf",
+          "bytes": 288
+        },
+        "raw_output.txt": {
+          "sha256": "6e12e821e5903b7ff30f645046f7b703716d1cf22dabbeb1882e755ebc4d1c09",
+          "bytes": 546
+        },
+        "styles.css": {
+          "sha256": "636109fab60d89b1521d5fa29b3a12f71c11f87480c4c4d130e876c886d38465",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\03-profile-tailwind",
+      "title": "Bengkel Kenanga",
+      "recipe": "profile",
+      "example_id": "8cc5c9d566ce0f0f23ab9672fce87ab5c4897a113029a65c0eae98101ca025d9",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "083590ff53d1864d315db842163d3878b85ef3ed4560793b2bb19ff221366225",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "182387bb55dcec127741031793f3826eed8fd3682ea98ed4137dd608984ca4f1",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "19a0a8e262db457a0c4ddc78603e70953a1f58280481d7576cbfe1e9d223c468",
+          "bytes": 760
+        },
+        "page_spec.json": {
+          "sha256": "ba3fd36eca5812563ce66ba953c85a34b6cde6124c2cb0c93f9cdd2842b03e07",
+          "bytes": 861
+        },
+        "prompt.txt": {
+          "sha256": "8ca653f41f36def269bdc0ebbcbf77401cf22ef0a74b8d934544f41df33e1463",
+          "bytes": 279
+        },
+        "raw_output.txt": {
+          "sha256": "083590ff53d1864d315db842163d3878b85ef3ed4560793b2bb19ff221366225",
+          "bytes": 515
+        },
+        "styles.css": {
+          "sha256": "83ca1c53a97f8aeeb2ca4569dc1c05a3d0eb6004ebf7cca7fa134b29371f1d66",
+          "bytes": 8180
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\04-profile-tailwind",
+      "title": "Toko Angkasa",
+      "recipe": "profile",
+      "example_id": "ceb1a84edf971b72f8e2d868827b2a557c2acc45bfc091fbe15739975272a30e",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "2c5561055a4ab5ab8ca88b7b25e4c6c04b97b754c93e0ae229915b0438492902",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "8190897a493eb63df19c3d54ac611d65f3c58e74250a592041bf662a77b0e168",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "070398fa1f7a7a183fa6d4d59e48acde27f21ecc81c04e117df41a864d12544c",
+          "bytes": 911
+        },
+        "page_spec.json": {
+          "sha256": "4f9773c6281ed28c1ad743ea01f2fe19d9e9a135c087941924bd57104eb26d78",
+          "bytes": 916
+        },
+        "prompt.txt": {
+          "sha256": "0d4d188d1f850666ef8c4bdd9fd4180ef0c64f9e0d59f59fc5729b9b4c8f5ae7",
+          "bytes": 284
+        },
+        "raw_output.txt": {
+          "sha256": "2c5561055a4ab5ab8ca88b7b25e4c6c04b97b754c93e0ae229915b0438492902",
+          "bytes": 536
+        },
+        "styles.css": {
+          "sha256": "5a7c8129757f47b3aca1f146eb11b67ed660a16f88b6fde9475f6e68c4b910c1",
+          "bytes": 8180
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\05-features-plain_css",
+      "title": "Bengkel Kenanga",
+      "recipe": "features",
+      "example_id": "d5e30d6bff5d0797205969f239f36e4272c4dd31e86eca39116b5cc8e076bb53",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "aced422877a650a7d6db0ca79b4de9563844f313de2c7b2f49713988c2ce37b0",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "9f35f2b7e19d143b7ee4b585a86b0532a5ccb3eaf00bb5af3290d1a377d09fed",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "c238b5b8991038f73e2a6f682d5bb3df97bc4c168c5092664b5f2b7953a6713c",
+          "bytes": 1077
+        },
+        "page_spec.json": {
+          "sha256": "c37b80ee565a8f38078410bba549a6ac105718581426a03a04f13638e22be0d7",
+          "bytes": 1243
+        },
+        "prompt.txt": {
+          "sha256": "88a6af32916092c930a91a86ce19edb78b2518eb126ac32d96cd8c65cbbb0859",
+          "bytes": 342
+        },
+        "raw_output.txt": {
+          "sha256": "aced422877a650a7d6db0ca79b4de9563844f313de2c7b2f49713988c2ce37b0",
+          "bytes": 710
+        },
+        "styles.css": {
+          "sha256": "5fa5028ebd4a8e01be5c2f1315c22991f2ecde1388888229e125eb7d67d0c8ed",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\06-features-plain_css",
+      "title": "Toko Angkasa",
+      "recipe": "features",
+      "example_id": "a23bb59b6e3f2f5eca26471a45bc9928807f1d1830f2a8f3e42235698571e625",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "f12dd2440c0f61d56153292296976f2688186e033d468c53c4749dadc72543a0",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "37240d25921e503e5dc04df2f47d55aff66b9b08f4cd00d20761e74080422522",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "eca0ee4118cf362e822d0443031c4b944c39bdfe3619b18e090e3fb8c58ea76c",
+          "bytes": 1230
+        },
+        "page_spec.json": {
+          "sha256": "fc04e54e7039a5233d27d261bb63834d95d69305e8d078e9b5a628d9c1c39d98",
+          "bytes": 1299
+        },
+        "prompt.txt": {
+          "sha256": "a56fb484ecca67eaecc3b8f2419319b393f2a01a62161153265ad86d3caf2413",
+          "bytes": 345
+        },
+        "raw_output.txt": {
+          "sha256": "f12dd2440c0f61d56153292296976f2688186e033d468c53c4749dadc72543a0",
+          "bytes": 732
+        },
+        "styles.css": {
+          "sha256": "90d182469753494ae5fe2929ceb806816dca9b147bc7a270c4714333ffbd0d3a",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\07-features-tailwind",
+      "title": "Bengkel Kenanga",
+      "recipe": "features",
+      "example_id": "6b369df8ca9f1d2f2354034e3206e30d1592f6ccd400f047c2c3a2497eb392bc",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "94a76c94e2843af365230f5db54154083634fd5a0a37a7e7b296c570cb7612a6",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "15c905d47e78c8c049b8c1afde1545b19e5525cf8932eb8941fae5e1cf7d77c9",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "e0d04fd130672a8bbf98577fa8812f1d36eb449e9679ea978bef9bbd534675ce",
+          "bytes": 1072
+        },
+        "page_spec.json": {
+          "sha256": "a9ea2f2db563888cf0197f3701e5048051fa02e516280b92bffbe9a4deee289d",
+          "bytes": 1237
+        },
+        "prompt.txt": {
+          "sha256": "904c04994bc9f22abd4f458df1639b1489733a8176dc4093ab366844043f08dc",
+          "bytes": 334
+        },
+        "raw_output.txt": {
+          "sha256": "94a76c94e2843af365230f5db54154083634fd5a0a37a7e7b296c570cb7612a6",
+          "bytes": 704
+        },
+        "styles.css": {
+          "sha256": "ab2fd19ac66f005ba5b756e6c0a13ada503bed01b5be9ad90b0f6c59087eb3ee",
+          "bytes": 8425
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\08-features-tailwind",
+      "title": "Toko Angkasa",
+      "recipe": "features",
+      "example_id": "7560d259faeb7b63cbd11d6b3522ae9d501aa43515274efd5ec18a34d302ac3a",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "0b119e48d796084dbbe4bacd79b9dcd9897c266a09a8da59f6bb5eb70d0e13f7",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "8f903e0dbf00aa45dd09df297759928f552e7f61902456ac28200a0d02732613",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "a15337599a156c8b62d65cf77058ebd7a52b90a8ec8a190389aaf4955402653b",
+          "bytes": 1220
+        },
+        "page_spec.json": {
+          "sha256": "3617463851524ad837201eda7e0022641e9789bfc6487fa2c8435bbc99ee77a4",
+          "bytes": 1288
+        },
+        "prompt.txt": {
+          "sha256": "39a4e52a16d5597357a055bb286d03234ad921bacaef4a81d84b4a5cec36214e",
+          "bytes": 337
+        },
+        "raw_output.txt": {
+          "sha256": "0b119e48d796084dbbe4bacd79b9dcd9897c266a09a8da59f6bb5eb70d0e13f7",
+          "bytes": 721
+        },
+        "styles.css": {
+          "sha256": "6335412cd450a096106a16d47811deb2970db1bbc7b05e6fc2f971bc6537d0c5",
+          "bytes": 8421
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\09-article-plain_css",
+      "title": "Bengkel Kenanga",
+      "recipe": "article",
+      "example_id": "85834f72aea666f7bf1e50eb5b574574e18c8de9e77fe04589ecaea3da42ce95",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "6a38303c568e0aff69991a3a15dd472ecda6d81e957426e9d2821cb2b1a92753",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "b430b793648e659d0459d997d30da8db54fc29649a46f0ba3ca35e9ca1b673a5",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "f75482fa0bbf50cf96c0c50a0f75357880d2f6a2c575284adf70672e81df61c9",
+          "bytes": 723
+        },
+        "page_spec.json": {
+          "sha256": "cf2a3ec047f0e3b53ffa67abcc28df68a772264f25e1808b6ad98ebc5400c105",
+          "bytes": 823
+        },
+        "prompt.txt": {
+          "sha256": "8afa2b5e5665a80ee6533d2ac3de51a85cfd75b189ab5129179f06dd76a32cde",
+          "bytes": 247
+        },
+        "raw_output.txt": {
+          "sha256": "6a38303c568e0aff69991a3a15dd472ecda6d81e957426e9d2821cb2b1a92753",
+          "bytes": 488
+        },
+        "styles.css": {
+          "sha256": "5fd0ca3d853b72ee9a6683a6520526eb6f459dba0bb9f2b4bf44cf03e30269c4",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\10-article-plain_css",
+      "title": "Toko Angkasa",
+      "recipe": "article",
+      "example_id": "dfb72b48a618978c7136e87438c20176d1113f4b46f41b1e8a139a07c0cfeaf1",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "c1f6a40065fc28e3d51ce8d2b1820eabb270b865c4c3f48ea5ee55be393e58a4",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "a8cfbddb1d969b665ff39ef8009b2d5bf287252442e368eb547e1127a6b6cd21",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "db9eac3c3df2a1ab4ea015fdda01e9324b73baaa58573bb168d3da4a2f3af108",
+          "bytes": 885
+        },
+        "page_spec.json": {
+          "sha256": "f5cd78d26a15f208c45699a1fe857c684bae5d4d30eeff960bf175452fd00d28",
+          "bytes": 887
+        },
+        "prompt.txt": {
+          "sha256": "b76d234608b978038186e93285ae1dddb555ff7a9043ed49ff53e5c40e278078",
+          "bytes": 255
+        },
+        "raw_output.txt": {
+          "sha256": "c1f6a40065fc28e3d51ce8d2b1820eabb270b865c4c3f48ea5ee55be393e58a4",
+          "bytes": 518
+        },
+        "styles.css": {
+          "sha256": "53d337f3006890dc35a243fbf567922bdde6880f896331eef2b8af0c990a9e05",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\11-article-tailwind",
+      "title": "Bengkel Kenanga",
+      "recipe": "article",
+      "example_id": "36034a67a4229cb3001e5e8596e9fa538c032fbe5fdd1a7ec493dde99c576985",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "073ca7b1aa20e1e09924c376f38a92c9525a64ba83b7c333f7ce1edfc550b2c9",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "94882d877041b060d1e5240e4bf9ca534c07d0d4912641b5b0ea7aa002d5b513",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "b73b561c3e0069b6ac58558eba88a8a9378baccd4db45ee4a1233369fcd31de7",
+          "bytes": 725
+        },
+        "page_spec.json": {
+          "sha256": "e09da39c04c23c2fbf64ee4d1f6f6ec9924801bffeff7ee5b6ff7ec169905d24",
+          "bytes": 823
+        },
+        "prompt.txt": {
+          "sha256": "b1933a31d800cec82db464ee8d320cf6e9b52bf5264783d6fdf666449353ca2a",
+          "bytes": 252
+        },
+        "raw_output.txt": {
+          "sha256": "073ca7b1aa20e1e09924c376f38a92c9525a64ba83b7c333f7ce1edfc550b2c9",
+          "bytes": 488
+        },
+        "styles.css": {
+          "sha256": "6207db5cc0cb7e6bf4198d69a2bb99521fbbd090a41fc6fc0f37718095b1134a",
+          "bytes": 8180
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\12-article-tailwind",
+      "title": "Toko Angkasa",
+      "recipe": "article",
+      "example_id": "ea8d7ddcb945f9e5878081a48ee0a545017af3ef329dcacd8597f59c75fad7f0",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "7746a34b6e63a50e16e8e3d54eb710b80b8acf091dc3b8452798ac0209390009",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "9716045111d2e5cd4a5a651a695bb496a2bd1c88520210506c6c153a47439c60",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "56fb82509baf8f199c92c5bf07ae4045b24a1de7f95107030a05641e3954f152",
+          "bytes": 893
+        },
+        "page_spec.json": {
+          "sha256": "1e4efb16babc4e7dddd52164469d2d34bd6c31a35262eb7ab6a5c842f8372015",
+          "bytes": 894
+        },
+        "prompt.txt": {
+          "sha256": "8d737e1e3d3c5279b7e90d7eb2a73e5afea30f2d2055cc2d6831311d460c0b4d",
+          "bytes": 259
+        },
+        "raw_output.txt": {
+          "sha256": "7746a34b6e63a50e16e8e3d54eb710b80b8acf091dc3b8452798ac0209390009",
+          "bytes": 525
+        },
+        "styles.css": {
+          "sha256": "1ceab924c2d680f40c270218d6809c2847202d80b378b1f16ab0dbe1eeae9221",
+          "bytes": 8180
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\13-pricing-plain_css",
+      "title": "Bengkel Kenanga",
+      "recipe": "pricing",
+      "example_id": "3d2d8105784f2e78620584d422334799293a1e43f39a17ed268d142e99fdd502",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "22bbc018ef74050fe23e55e3d92c641bdb860566a9de318c250b2e5731ee5fe5",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "e6e12bd0093229e22a3b58d7d61313bd1661dca9c7f9ccc76e93d3ff698e774b",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "a408377a5b3adce6a4ba103915e15bc6e14bd53ea314033b8c10844fbcf985e4",
+          "bytes": 1125
+        },
+        "page_spec.json": {
+          "sha256": "f909527e809c823e2d09cb5e417003d965aefff31dda938e2d6f27a98fd36292",
+          "bytes": 1349
+        },
+        "prompt.txt": {
+          "sha256": "caca7b10eebc5d3383f35a31df4866116ba29aaa1fd1d8e94029fd2b4d28ca7e",
+          "bytes": 375
+        },
+        "raw_output.txt": {
+          "sha256": "22bbc018ef74050fe23e55e3d92c641bdb860566a9de318c250b2e5731ee5fe5",
+          "bytes": 726
+        },
+        "styles.css": {
+          "sha256": "9c8b901e12b2cfd902c0264f41abf3a97ab80ba353daa0360e9223243f99bd9d",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\14-pricing-plain_css",
+      "title": "Toko Angkasa",
+      "recipe": "pricing",
+      "example_id": "2f476ff3d562e05a0f7a5e0fdb6ac09648e801876ec7b11bf61e408fa2ed7cdb",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "7996fbf38411667659787cb06e94b07ad4f9dde8423d10d3bdd5c9843d2fb338",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "96fafde83aafe8a9453d6576ceda14c40f509d5215a236d0dbc86e1d9b5fc5da",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "701162b97bbd0377fa3e39080643e25da743ed27143e834d1a0cf05382883fa4",
+          "bytes": 1276
+        },
+        "page_spec.json": {
+          "sha256": "735be1d82d72882b8b99e96f21363907fc12d32a3267b2c8581696654aebf71f",
+          "bytes": 1402
+        },
+        "prompt.txt": {
+          "sha256": "83c6123764807fde08fef023b3c6fa30756328b04b417fac68ea7601bfd3f531",
+          "bytes": 372
+        },
+        "raw_output.txt": {
+          "sha256": "7996fbf38411667659787cb06e94b07ad4f9dde8423d10d3bdd5c9843d2fb338",
+          "bytes": 745
+        },
+        "styles.css": {
+          "sha256": "0b2f3bf263935fb9985ffe1d1eda0491721e8e1027986798e7965087af8b59ad",
+          "bytes": 3648
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\15-pricing-tailwind",
+      "title": "Bengkel Kenanga",
+      "recipe": "pricing",
+      "example_id": "587dc34054ed1e3e2f4841f1954504d13880510c447acd1c9ec5caa6c5eb2a8a",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "379ba4823947b11d45ae33b32589ae92497e4e69dd920644e5502fa4bdccc46a",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "afb15e81c9ffb3ac773041941256d6b249dbeff3c84e89d9abeb177d51663937",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "dcfe61cccfe942aa6cb5f01000f5dd59d3848307113530b5e780119ea257969d",
+          "bytes": 1119
+        },
+        "page_spec.json": {
+          "sha256": "964a99161e923af9b72c6891347fe78f87520030e434843fe1f4035fc84b8111",
+          "bytes": 1342
+        },
+        "prompt.txt": {
+          "sha256": "282f4a4dc90f289a85f4cd64366216e53774ae383b2b540ed9673e4e8fcf943a",
+          "bytes": 374
+        },
+        "raw_output.txt": {
+          "sha256": "379ba4823947b11d45ae33b32589ae92497e4e69dd920644e5502fa4bdccc46a",
+          "bytes": 719
+        },
+        "styles.css": {
+          "sha256": "fd48aa6134cd51c41cce26b3965032d73d24fe9a023d7d83bdc94379f3a4a673",
+          "bytes": 8424
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\16-pricing-tailwind",
+      "title": "Toko Angkasa",
+      "recipe": "pricing",
+      "example_id": "b233e9fbfb554651a2bb868625007451069f6bb277db32a8257c63260b3e0e5d",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "7e9e80a5d4d428f4938c7554125163917a945a75a10035fb68a843c4a19202ed",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "28516bc313832274915cead710822651f32b7a031bd7128099492cce9820dfc2",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "d5d7fd1b8ed723f57d3f12793d4383965c145066b0a332b0bf8e687538dd18e3",
+          "bytes": 1285
+        },
+        "page_spec.json": {
+          "sha256": "e04d4e4197d09cd3368264d5c56ddb53d3878229a44bb7d1088414d2981f805b",
+          "bytes": 1411
+        },
+        "prompt.txt": {
+          "sha256": "c03055059fdf1e8221bd0288c5511f5b57054360434f2d940969a62675bf7594",
+          "bytes": 384
+        },
+        "raw_output.txt": {
+          "sha256": "7e9e80a5d4d428f4938c7554125163917a945a75a10035fb68a843c4a19202ed",
+          "bytes": 754
+        },
+        "styles.css": {
+          "sha256": "cc66c2cd4aa1f583a53fad464f34a96bbb2744ec8f0561f438848845064a9d15",
+          "bytes": 8424
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\17-testimonial-plain_css",
+      "title": "Bengkel Kenanga",
+      "recipe": "testimonial",
+      "example_id": "bd9ecf7ee648d6500c05ecbe11c1b67f629e2fbb14b4c8a55c4d9314d146cf97",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "7acfb7f07eccb2b7a617526d6f29a80f09ecd08cefbf68be4956047cf76b8777",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "e0e294ff27d62c8f11da8d485a18acd87f40c9d1f1e26649e2b53d5cefc748c0",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "642224c0480dbdc01b034a839ddf8b589e60c3c2e8e1a1669a36a9c3c21f1904",
+          "bytes": 1056
+        },
+        "page_spec.json": {
+          "sha256": "99f1b804e15ff2b88310527310ca5729d2a02dedb865d3a7e1539eb036eaddd1",
+          "bytes": 1141
+        },
+        "prompt.txt": {
+          "sha256": "ec0c81e5a0954443ebf714e70629652ea47bdeea2865e9a6fc23b21efe95ea33",
+          "bytes": 374
+        },
+        "raw_output.txt": {
+          "sha256": "7acfb7f07eccb2b7a617526d6f29a80f09ecd08cefbf68be4956047cf76b8777",
+          "bytes": 662
+        },
+        "styles.css": {
+          "sha256": "2d7321012196e41ee7e355c6ddf63ce5cb9425eed6516b57a1cc14a68667048f",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\18-testimonial-plain_css",
+      "title": "Toko Angkasa",
+      "recipe": "testimonial",
+      "example_id": "4ddb441183106130ea3424f64b989cd8a9f968df47412697bd0a6a6451c44a63",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "43dabb87f09c95ff8e208213b2808324ba78bb7a8070dc0f465087f1f86a1f80",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "0133286d8833e0750a5955b19218b36a11c330a4da92bf5e20da0ee8ac30e48f",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "4c1816728897021facf7ecd8bd2a0a002dc070bbd532b34b90e0acf6765c1dd0",
+          "bytes": 1215
+        },
+        "page_spec.json": {
+          "sha256": "e222da10e9b82a28cddcf67bfeac7d747d4ed11a543cc572a2f97b579af005d1",
+          "bytes": 1202
+        },
+        "prompt.txt": {
+          "sha256": "9a9988b239c0471beb78b7ea7952fc120abfc29baee493babe171f14dca81d3a",
+          "bytes": 379
+        },
+        "raw_output.txt": {
+          "sha256": "43dabb87f09c95ff8e208213b2808324ba78bb7a8070dc0f465087f1f86a1f80",
+          "bytes": 689
+        },
+        "styles.css": {
+          "sha256": "5fa5028ebd4a8e01be5c2f1315c22991f2ecde1388888229e125eb7d67d0c8ed",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\19-testimonial-tailwind",
+      "title": "Bengkel Kenanga",
+      "recipe": "testimonial",
+      "example_id": "05479ec311dfaa6232b76e5827bb83b83997105719fdf6a0285cc3c6cc02faee",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "e138ae904d642a06492ed048463e88a7799933408b53b76a9e6bb20fc9cfc8b7",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "b57dfe9f3370fd75e12c6b1854634898cc5bf7e9424ce7e690a909e06902cfe1",
+          "bytes": 48
+        },
+        "generation.json": {
+          "sha256": "ab0b18f22340bf639f78e19c38b469fe1df1c04ead42c07b530c9952cf9f1b74",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "642224c0480dbdc01b034a839ddf8b589e60c3c2e8e1a1669a36a9c3c21f1904",
+          "bytes": 1056
+        },
+        "page_spec.json": {
+          "sha256": "0af528f3f39bb8d2dfbaa4feaabd9a1903ef2f788f4bdb16dfbeffa8625c9573",
+          "bytes": 1139
+        },
+        "prompt.txt": {
+          "sha256": "0c4868c6e68c087c594c5bc9878f53f973ce9f2a4e5f591fb6018d54afd3f69e",
+          "bytes": 375
+        },
+        "raw_output.txt": {
+          "sha256": "e138ae904d642a06492ed048463e88a7799933408b53b76a9e6bb20fc9cfc8b7",
+          "bytes": 660
+        },
+        "styles.css": {
+          "sha256": "78d75f6af38d7af66a1388e0b83aa5257e5f8d908aadcfddd5b4762e37a5b583",
+          "bytes": 8425
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\20-testimonial-tailwind",
+      "title": "Toko Angkasa",
+      "recipe": "testimonial",
+      "example_id": "45a11f3c7340e4b0ead5d1e1828204c45de9f73c46ebf898d86b999f41151edc",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "99253821bd59446ef86673ce0c454fd4e78698c19841f28d546ad54ccbe6bf49",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "a458462f3d2406b53d9177a8eac59d07762bde466c4f3efb97c4da2b5b3a32d7",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "4eff3db2ee786c487154d006e983b69470b8b2855eddc2b0b9dd5d40cec9f1dc",
+          "bytes": 1213
+        },
+        "page_spec.json": {
+          "sha256": "37889a784ef1f1e36cc34ad1de03b4c86155bc767857e5efe877245ef27c38c4",
+          "bytes": 1199
+        },
+        "prompt.txt": {
+          "sha256": "1181ac53e3ea2a01f95361433102e5e18eb1ebcb17d2f38c7f063de21a022fcb",
+          "bytes": 376
+        },
+        "raw_output.txt": {
+          "sha256": "99253821bd59446ef86673ce0c454fd4e78698c19841f28d546ad54ccbe6bf49",
+          "bytes": 686
+        },
+        "styles.css": {
+          "sha256": "e696d1b5c2a90e2be13cb6609813a472700b14a2fbad0b1f1bd7ba984b766c68",
+          "bytes": 8424
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\21-contact-plain_css",
+      "title": "Bengkel Kenanga",
+      "recipe": "contact",
+      "example_id": "1cf5c22fda97372250f7e2286ca3dec196db1382ec9ef16415f692507b299d0f",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "d3b1000dded10411f8ee97346618029ffe0df0bc13faf16aec06ee966a5187d7",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "9f5d1f3c5d4aedb134aadf41828f9b4ae389af28ff4ccfc2b860d859155e4c46",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "9f2bf5143a2d71a4f31fa4023f51f37038df24c811a042b82b33569707172be6",
+          "bytes": 1446
+        },
+        "page_spec.json": {
+          "sha256": "6933158e0ea089b221242d028db6ac8eb612e361472394b221eb8b6f5fc6d918",
+          "bytes": 1485
+        },
+        "prompt.txt": {
+          "sha256": "fffdbc63b8ea35eb46af4418db0c54743d0bcb2c356a085bcd5e8a6c83af2481",
+          "bytes": 367
+        },
+        "raw_output.txt": {
+          "sha256": "d3b1000dded10411f8ee97346618029ffe0df0bc13faf16aec06ee966a5187d7",
+          "bytes": 808
+        },
+        "styles.css": {
+          "sha256": "e3bff3742c427077a05efed2cde6b63d62bebd7ced6537c93527de6a9639f9dd",
+          "bytes": 3648
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\22-contact-plain_css",
+      "title": "Toko Angkasa",
+      "recipe": "contact",
+      "example_id": "94b2a808d13669347dd76447885673d45a5b973dad3d19f27893bae16277ce7f",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "d4a1a0313c70a9395341355bb6bd7a4d3ab3844a1ce6065db676071bdcfd83bc",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "2a59c3926735f69270a334f32f7f6052a1f7ad82e790ef004be5a7a38b10f630",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "951b59352120ede238eb90c7988eabbc24a406400b97b09407ad3873b02aea10",
+          "bytes": 1576
+        },
+        "page_spec.json": {
+          "sha256": "58b0f1c3e1ec614cc4dfdb7026691c6e90747a9b19c3245cd73d33098c91eefb",
+          "bytes": 1551
+        },
+        "prompt.txt": {
+          "sha256": "184c5c38ea41f988cd0bba7ef3a76041b57daed1c8333ae17a3724db6c1f3cdb",
+          "bytes": 383
+        },
+        "raw_output.txt": {
+          "sha256": "d4a1a0313c70a9395341355bb6bd7a4d3ab3844a1ce6065db676071bdcfd83bc",
+          "bytes": 844
+        },
+        "styles.css": {
+          "sha256": "cc54c2e444e9988b2b8a1e8a96e761b90cd898366de3e06e7ac2e53512ded5ce",
+          "bytes": 3648
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\23-contact-tailwind",
+      "title": "Bengkel Kenanga",
+      "recipe": "contact",
+      "example_id": "8ecc9c3117ba2fdf720a76d26ccf05cf6a9b68c2a993b21139b342b2a415e846",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "50324ddc92479ec7494ec6df049413bbbaae738b9a46bcc64c5ff88195ad3dda",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "07fe5b8575b69ab9ee6fdfd90cd7775a407e5cc081e88083e4e985c0e13aaa20",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "f6ae4daeb4306783c1e069c28e198fc23237e64a75feff9874cae1988bedb7a0",
+          "bytes": 1444
+        },
+        "page_spec.json": {
+          "sha256": "1210eecab08f2913ff7fb3fa91f6f1a5d394ea95d674bfaafa2f7dd6ef4b28b2",
+          "bytes": 1482
+        },
+        "prompt.txt": {
+          "sha256": "3030090f1900cfe0d87333a5eedf58a75a6bf18bd255069e44691a44f97f4e4e",
+          "bytes": 367
+        },
+        "raw_output.txt": {
+          "sha256": "50324ddc92479ec7494ec6df049413bbbaae738b9a46bcc64c5ff88195ad3dda",
+          "bytes": 805
+        },
+        "styles.css": {
+          "sha256": "86dccfc226298829bd627e0d6760caab5a9795f208faa1558d2c2bf97cbf9ac2",
+          "bytes": 8181
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\24-contact-tailwind",
+      "title": "Toko Angkasa",
+      "recipe": "contact",
+      "example_id": "e0011b6386311fa30aa9b19513c9b48cecc4a05e3833273d980f8d1777965edb",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "41a818f5cf2de9a5066c0fe9b05544842b04089a811c7405dce5009ded43e934",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "49a7b233ed115863111ecb7e5555266f88a924118917660c738bc1233e461686",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "68aa8500e092575ff923cc130e995fa26492256ae7c92d0fbc7106b1d1b1e2e4",
+          "bytes": 1575
+        },
+        "page_spec.json": {
+          "sha256": "483d9fe2a691fb99023fcd8b992199e9a4c4d61409da64f633c7f16e8f1c77b0",
+          "bytes": 1549
+        },
+        "prompt.txt": {
+          "sha256": "f79ff75598c08011b4db41a9cab1a43896d1e3f058d84c757e5e47f55224aa46",
+          "bytes": 381
+        },
+        "raw_output.txt": {
+          "sha256": "41a818f5cf2de9a5066c0fe9b05544842b04089a811c7405dce5009ded43e934",
+          "bytes": 842
+        },
+        "styles.css": {
+          "sha256": "d5da4169b8ef62dc1e84a5265bc7961258665687e8277fa89749c6994a9ae60f",
+          "bytes": 8180
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\25-accordion-plain_css",
+      "title": "Bengkel Kenanga",
+      "recipe": "accordion",
+      "example_id": "46e7ec14cf4ebc3c00a511d63f895ee7670ee370d8e4f6e4dd52d971fb903b78",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "47490b8deb30e61b69f6ef844b14dac6970014aa8d1e12a866c8713001664711",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "f5f5030a6f0986e12a245888ab7956e4b91cc731304e6f274dffc22f151d004d",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "1d5b4af80c11a316245b84c42f1c2344a02a5ef874bcc1e83324dc84daefe0b1",
+          "bytes": 1051
+        },
+        "page_spec.json": {
+          "sha256": "1314836cf52da0042aec9117230c6167dd38e72ef5c7f6990cdea6dfe75ded6c",
+          "bytes": 1305
+        },
+        "prompt.txt": {
+          "sha256": "b4d70881d5817e7698695dc27f17bb824bb99fee5a49bc003b1dce64f3977d7f",
+          "bytes": 379
+        },
+        "raw_output.txt": {
+          "sha256": "47490b8deb30e61b69f6ef844b14dac6970014aa8d1e12a866c8713001664711",
+          "bytes": 738
+        },
+        "styles.css": {
+          "sha256": "9c8b901e12b2cfd902c0264f41abf3a97ab80ba353daa0360e9223243f99bd9d",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\26-accordion-plain_css",
+      "title": "Toko Angkasa",
+      "recipe": "accordion",
+      "example_id": "4877386ed9ff62d8e6d6f668a586ee37410fad4c21ab9e75ec9ac0635f3941f0",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "646d28c47f390a44d1d7c7c62f5dfbd18e34c18f7b5220b14f91d202f5c684eb",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "71afcf9b1f0f73d1834c99619bd6fcaf066bce2af79ff5f3bbc0bcf335348bde",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "4c181414bb924de92d8c44b5eaf602b354724e8970d6d98a97bf0e96c222079f",
+          "bytes": 1191
+        },
+        "page_spec.json": {
+          "sha256": "60c6149af272eb92a65e7757a406f32f475dbe27b70a2f21f18500322e1e666b",
+          "bytes": 1380
+        },
+        "prompt.txt": {
+          "sha256": "6af9b57bf1cc99b531e211825dd83b5fd16a3645403dc10d465525fa972ac3cb",
+          "bytes": 396
+        },
+        "raw_output.txt": {
+          "sha256": "646d28c47f390a44d1d7c7c62f5dfbd18e34c18f7b5220b14f91d202f5c684eb",
+          "bytes": 783
+        },
+        "styles.css": {
+          "sha256": "53d337f3006890dc35a243fbf567922bdde6880f896331eef2b8af0c990a9e05",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\27-accordion-tailwind",
+      "title": "Bengkel Kenanga",
+      "recipe": "accordion",
+      "example_id": "9fa9fab9c5a1fb1ddae0ede660aee33b25849967fde9936151158a15fa41d802",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "3baad1c5f30d1f7aea53232b189f7031416a9f5f20f3feb75d0d608545cc36b1",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "2d30b492e90bda51111fecb134a101320b07139fbad7ad9a09a9e51e071655d6",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "48930a9aee966a57ab94e00617dd68d6c7735fb165efbd47a348e786d2183f17",
+          "bytes": 1045
+        },
+        "page_spec.json": {
+          "sha256": "6b59981fe307a14b694bc7c977ddb157d6bd22faa37fd619263bc382ae56b76e",
+          "bytes": 1298
+        },
+        "prompt.txt": {
+          "sha256": "3b22c134c84b98f24f9fafed64f1e747e9fb6bc69607d61a60eefa1df9d8d35c",
+          "bytes": 377
+        },
+        "raw_output.txt": {
+          "sha256": "3baad1c5f30d1f7aea53232b189f7031416a9f5f20f3feb75d0d608545cc36b1",
+          "bytes": 731
+        },
+        "styles.css": {
+          "sha256": "969b9b39c049f979b5e73b1a4c70ae83be5d59c1973038c61e01efe48cc562fd",
+          "bytes": 8180
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\28-accordion-tailwind",
+      "title": "Toko Angkasa",
+      "recipe": "accordion",
+      "example_id": "e6729b2806eeb5c535b5c761aef6af78a2461b19be8709130a2f9d60d3cca9ca",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "e9b280485687788ffd30ac93e0bcd9ccacf682e9dc0f512aba507e6ffc39c6d3",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "7daf37d7866b684ffe828b0bfff14a8fc7e2005cb8e079daf7bb26c4739ec31c",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "4c181414bb924de92d8c44b5eaf602b354724e8970d6d98a97bf0e96c222079f",
+          "bytes": 1191
+        },
+        "page_spec.json": {
+          "sha256": "aa15c670e40a84a3552b8ad3440b5b602b1f8ca1444ac76f8d4d9661e1aa07f5",
+          "bytes": 1379
+        },
+        "prompt.txt": {
+          "sha256": "19dd89a6841189ed2531199488a0c10884c75b92ff3d555506482ae71f14d6b9",
+          "bytes": 395
+        },
+        "raw_output.txt": {
+          "sha256": "e9b280485687788ffd30ac93e0bcd9ccacf682e9dc0f512aba507e6ffc39c6d3",
+          "bytes": 782
+        },
+        "styles.css": {
+          "sha256": "d59c59b64e5aee84d1173befe2345b2e7b45891c9e9395bd900c869a42085fc2",
+          "bytes": 8181
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\29-tabs-plain_css",
+      "title": "Bengkel Kenanga",
+      "recipe": "tabs",
+      "example_id": "ce33dd1a8ff3fb9d62214ee1a395ec6896f4108c79b4af92dee7bbc14fb5207b",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "7de253f002fe5d6b4bda439dd402f4860e1ae128c0c1b01db45591d390be16d7",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "7a58ad40e2fd3a2fa31eae246ec295410cc3e406785f86098238724108416b84",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "e2470bab37759e54db449c0222791c1305919d70b96eb8592af4123e4f5e3d63",
+          "bytes": 1569
+        },
+        "page_spec.json": {
+          "sha256": "9155b47b91e3afb2909e79167e6058e743c3521f0b1a3587ccad0199774c1b4c",
+          "bytes": 1291
+        },
+        "prompt.txt": {
+          "sha256": "c62bc481608e457d4d2a33d4970caff6a361b532426651c220dcbe8ebf8f3e45",
+          "bytes": 370
+        },
+        "raw_output.txt": {
+          "sha256": "7de253f002fe5d6b4bda439dd402f4860e1ae128c0c1b01db45591d390be16d7",
+          "bytes": 724
+        },
+        "styles.css": {
+          "sha256": "5fa5028ebd4a8e01be5c2f1315c22991f2ecde1388888229e125eb7d67d0c8ed",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\30-tabs-plain_css",
+      "title": "Toko Angkasa",
+      "recipe": "tabs",
+      "example_id": "7fa35dcec738fe59c5986e2580d3a6b2dc66fa47f204cb99aaa27dea2af1cb21",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "67a1515924c4e532f3145eb078be724e87f7cbe2bda2f6efe3740973cf982442",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "e8283f11d98a524400769e836a78c1516e117baef6aff9ff2a3459f507162ac7",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "27b1ab02c32c8ec6f44ec43caf91596e67eac2669dd2d41301b0a2953d930487",
+          "bytes": 1710
+        },
+        "page_spec.json": {
+          "sha256": "0bc0ac7aa682c9c6c9bbda63c5dd8bbe1311f07ea3ccf3cb62a2de24c2adaa6c",
+          "bytes": 1366
+        },
+        "prompt.txt": {
+          "sha256": "a5ae4338e7146cc0721dc1ea4aded8cfe361096f414a157b9bba0c39ba907dec",
+          "bytes": 389
+        },
+        "raw_output.txt": {
+          "sha256": "67a1515924c4e532f3145eb078be724e87f7cbe2bda2f6efe3740973cf982442",
+          "bytes": 769
+        },
+        "styles.css": {
+          "sha256": "201f2a0ad18c89fa6ea79cf8f9a789877f5e3e438b8d2b566004609a2f541804",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\31-tabs-tailwind",
+      "title": "Bengkel Kenanga",
+      "recipe": "tabs",
+      "example_id": "8ab6a2d2e08ca4f431211fe762ad66151112f2b35344d1ddcd285a03519152cb",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "7dfa77f5ac9b7d2580a9e31da802fc480cce8972ba5ff89f162a2c67e741758f",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "06df30937fd9fae771e918d838c1904745f68c7c9694276006a97a8d41e4cf69",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "6ef2f7464f974186b6484716b10dd2adefe8211634511f4e64e550908ec58d40",
+          "bytes": 1587
+        },
+        "page_spec.json": {
+          "sha256": "a4fc536732a1ff0c6ddaf8b07574e3c6e726c01a1d3ffc9a45332cf5db41e42a",
+          "bytes": 1305
+        },
+        "prompt.txt": {
+          "sha256": "4355862e77db1147d2fe59eebc5dd39486f80aa72ec749527014006859688f37",
+          "bytes": 376
+        },
+        "raw_output.txt": {
+          "sha256": "7dfa77f5ac9b7d2580a9e31da802fc480cce8972ba5ff89f162a2c67e741758f",
+          "bytes": 738
+        },
+        "styles.css": {
+          "sha256": "809ca25cbef4170e493cea4d4f0edab1a7edd74c43fad7a1753f744aa9736c3b",
+          "bytes": 8178
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\32-tabs-tailwind",
+      "title": "Toko Angkasa",
+      "recipe": "tabs",
+      "example_id": "7e69272931119745f52292bd26bd930c91441b4ace0153689204b41def486065",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "b6a1a1fd5ed0a1e9d48b3a6d1c3984110512d5081565d871cd8c3840a658229d",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "bcfc9f6306c570ee4d45e04643230f7bc94c13474266a1aa5562ba22784c7780",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "3db89ccb26fa7c1ebd6c5459dba7544ae1d6974f6824e2a0d9528cff54a0d43e",
+          "bytes": 1703
+        },
+        "page_spec.json": {
+          "sha256": "9e65f95fe8c66d2766c9718cf3ec9e997b30aef1a83295b6e4105906dd226f9a",
+          "bytes": 1357
+        },
+        "prompt.txt": {
+          "sha256": "90b1806f647bdc0b25193414b74859013d3494ec047836d05cf5fd0f9ca7b639",
+          "bytes": 380
+        },
+        "raw_output.txt": {
+          "sha256": "b6a1a1fd5ed0a1e9d48b3a6d1c3984110512d5081565d871cd8c3840a658229d",
+          "bytes": 760
+        },
+        "styles.css": {
+          "sha256": "809ca25cbef4170e493cea4d4f0edab1a7edd74c43fad7a1753f744aa9736c3b",
+          "bytes": 8178
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\33-filter-plain_css",
+      "title": "Bengkel Kenanga",
+      "recipe": "filter",
+      "example_id": "dda0913e561d77610891d44063ee0cc944a8e4d7bb1f99eec91e791492092e9d",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "5fbca609ec5d07a5c304cd758662b326b51ef43b39ea85a03adc4847d79f0a63",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "cb9bda15d886577bc51f9f3ccb5db8b0dbb6c06802309842bf3e971bb44079b3",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "33c460737a67c2d8cb8da85c20af2a19323b8e79d1ffe61e113e56cf26909e17",
+          "bytes": 1310
+        },
+        "page_spec.json": {
+          "sha256": "a7486b2452a2973f2443ba7f55b91dd4dadf2ad13aa944e8923b8af3d2d1a9a4",
+          "bytes": 1309
+        },
+        "prompt.txt": {
+          "sha256": "5482be6ececa410214eace61964ad119ab583222b18d0378deaac351c4aa529f",
+          "bytes": 381
+        },
+        "raw_output.txt": {
+          "sha256": "5fbca609ec5d07a5c304cd758662b326b51ef43b39ea85a03adc4847d79f0a63",
+          "bytes": 742
+        },
+        "styles.css": {
+          "sha256": "ed914d6ccfd24f3c243c96aa3aa362dea7fa5100a1085be1c521e29d71a9529b",
+          "bytes": 3648
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\34-filter-plain_css",
+      "title": "Toko Angkasa",
+      "recipe": "filter",
+      "example_id": "b2c401cefdadd17ade066c9db92bd43fb970d34380ef457bfce54075432c4042",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "2804eec42866eecdd45528964ad4527b8c47189c0136b592a099063350d1f22e",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "c68bef99b9c8af826b3ab601e2dac13812194e9730015613f61d832d1fea02be",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "450e9080089ea94e52a4dac1ad2cf5ced02a2999f591bcfeecdd6ce86bbba838",
+          "bytes": 1427
+        },
+        "page_spec.json": {
+          "sha256": "483085e162cf5091bf90ba2f08c55afcee9b89bcaa61425cdfeefd7b5583393d",
+          "bytes": 1362
+        },
+        "prompt.txt": {
+          "sha256": "b4bec959ea0a8be0d3f0a362ab5c04e0374977e56567365b48b6f5d8fb1afbb2",
+          "bytes": 384
+        },
+        "raw_output.txt": {
+          "sha256": "2804eec42866eecdd45528964ad4527b8c47189c0136b592a099063350d1f22e",
+          "bytes": 765
+        },
+        "styles.css": {
+          "sha256": "90d182469753494ae5fe2929ceb806816dca9b147bc7a270c4714333ffbd0d3a",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\35-filter-tailwind",
+      "title": "Bengkel Kenanga",
+      "recipe": "filter",
+      "example_id": "697c36c36b29db32a4e0596545c70f001d27df9f444e986a1bbfcf9cfe823ccd",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "0799a00f927a6c49b692a4555014ab97ba56551b34730c032cff7fec8e4e577f",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "18cbcc631c921be25326b443c3732a1ef8929b40deea574d2e9c65594ced9c09",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "1d6f75a248f7fa3721842aa2810e44cc0ba9a78160db214c4e824463167d9027",
+          "bytes": 1303
+        },
+        "page_spec.json": {
+          "sha256": "bb9d43b47f5d8500c1272d1de4eb584904255a5a232286fe542fa3b21d6c69bf",
+          "bytes": 1301
+        },
+        "prompt.txt": {
+          "sha256": "d90e5aaaa05fcb979d53236a9342573fc6b6b96349dccb38957ddee70e1c8c57",
+          "bytes": 375
+        },
+        "raw_output.txt": {
+          "sha256": "0799a00f927a6c49b692a4555014ab97ba56551b34730c032cff7fec8e4e577f",
+          "bytes": 734
+        },
+        "styles.css": {
+          "sha256": "2f976f3f02c506b293d16a18e4da778c80352d808caeb8a8df4d13747ad1251e",
+          "bytes": 8446
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\36-filter-tailwind",
+      "title": "Toko Angkasa",
+      "recipe": "filter",
+      "example_id": "9a055cc9edee842fc56c439151113a1bff72901d09f17d7782b9424d06bfe312",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "f700a1d0189da69c1296a6044fc41f7ddf46364151eca3f2d54c79f5d7aa54a5",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "1293c4eeed24f2899ff9fb5382d43cdc5d3353737da3b14dffcad22a1b96afb0",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "223d382730f039a91000e990d03b44f8953e9379da8bf6e9afeb1d3d5e9f3045",
+          "bytes": 1426
+        },
+        "page_spec.json": {
+          "sha256": "7298ab51b4f6a8b68c0e13c96b1526af5af52e0678ba923979bea2763de446a8",
+          "bytes": 1360
+        },
+        "prompt.txt": {
+          "sha256": "72eb14217db57c50b70187106605046d54f33852e717ebf4b33effd5fde9e094",
+          "bytes": 384
+        },
+        "raw_output.txt": {
+          "sha256": "f700a1d0189da69c1296a6044fc41f7ddf46364151eca3f2d54c79f5d7aa54a5",
+          "bytes": 763
+        },
+        "styles.css": {
+          "sha256": "a9a898dba7e0a9bf2fae341da9145a13d1671554647ae5949f62e8103d5b4741",
+          "bytes": 8443
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\37-modal-plain_css",
+      "title": "Bengkel Kenanga",
+      "recipe": "modal",
+      "example_id": "d1cdd0fd179aeb0967781d19407c2b2a980f14ebae7f99ef0c171547dfcd21c5",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "2a0bd7c42822edd691c878f65b52b6ccc43e53d03440cdb15de8b2ceaac6245e",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "46e323dd5423273e497b6723cee8f4b6bef6d372f935fe707a25ebbb572c2c41",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "51f1e4256a5dade433d7b9db733090fdba16c1657980e9367d4435c2142d5691",
+          "bytes": 1079
+        },
+        "page_spec.json": {
+          "sha256": "963bcec7f753405e6e41aa4b9768482403bc1858d35aa7c7ef4a77eef7e9304f",
+          "bytes": 925
+        },
+        "prompt.txt": {
+          "sha256": "f6448ae66cdacbf4effd1dc819642bade5314e1864ee0b9c8e7d55961741e701",
+          "bytes": 314
+        },
+        "raw_output.txt": {
+          "sha256": "2a0bd7c42822edd691c878f65b52b6ccc43e53d03440cdb15de8b2ceaac6245e",
+          "bytes": 545
+        },
+        "styles.css": {
+          "sha256": "53d337f3006890dc35a243fbf567922bdde6880f896331eef2b8af0c990a9e05",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\38-modal-plain_css",
+      "title": "Toko Angkasa",
+      "recipe": "modal",
+      "example_id": "5fce861dd0d977de2faf331a2fcb4ba0112990942455d4eb9e1b1417d58ca48d",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "091e8f8e06010edc51dab20cbaa175e7b650558052a695b257ddd49f55c07790",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "5df8c33508130fcde0f02c1eb82c5d21f3f980db52f977a48ee0fdf7025c4bc8",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "f3fd76d3757a5fd99a28bda22de8fd9e2e99941d64e459943f153098a7868192",
+          "bytes": 1211
+        },
+        "page_spec.json": {
+          "sha256": "f9cd3c605696abe33196b23bb63c1d073f5452c9dfec4313c2412ea94f1037db",
+          "bytes": 990
+        },
+        "prompt.txt": {
+          "sha256": "d0c1d9b9ff9ad0dbf5d71f521ab565916745c4eb736c0617f007a0e34a249b55",
+          "bytes": 326
+        },
+        "raw_output.txt": {
+          "sha256": "091e8f8e06010edc51dab20cbaa175e7b650558052a695b257ddd49f55c07790",
+          "bytes": 580
+        },
+        "styles.css": {
+          "sha256": "e3bff3742c427077a05efed2cde6b63d62bebd7ced6537c93527de6a9639f9dd",
+          "bytes": 3648
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\39-modal-tailwind",
+      "title": "Bengkel Kenanga",
+      "recipe": "modal",
+      "example_id": "7499d38f1c6e68d2ceed59d185f11095e75bf7cf6a230cef46abc722b33e8856",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "547fc03e9bbddda1ef969444804d7b34b6c7ba6597a5f29dc57b915a935ad4b7",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "15f628e1623a17ecef2d075a4f748ed44f5aa731957fd493d8d87da2bfc7dc54",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "c57647e8b6adee024d2f42284ae6c49504196e061080571e5c0809da279ac7da",
+          "bytes": 1093
+        },
+        "page_spec.json": {
+          "sha256": "8d6b41e4dca85e42844085e5fe473b7e3fb4672a92fa42dcad7acd20853d9d9e",
+          "bytes": 931
+        },
+        "prompt.txt": {
+          "sha256": "47683952612b2d4993bdef1a173a180a36270903e1e7dffb9b6511231b59d3f9",
+          "bytes": 317
+        },
+        "raw_output.txt": {
+          "sha256": "547fc03e9bbddda1ef969444804d7b34b6c7ba6597a5f29dc57b915a935ad4b7",
+          "bytes": 551
+        },
+        "styles.css": {
+          "sha256": "1ceab924c2d680f40c270218d6809c2847202d80b378b1f16ab0dbe1eeae9221",
+          "bytes": 8180
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\40-modal-tailwind",
+      "title": "Toko Angkasa",
+      "recipe": "modal",
+      "example_id": "978f2b991bf1ad8b0e704a99bf4906ae2aa79dc523bc9e11aa5c5a7b64ddf3e1",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "402aee76fb3bd5cfc0aa8fb3c839a14b1fda62d885b850e5d6da5d79daaa38ba",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "3fa61b019c029e2e0586430e255d63a01590fdb85826bc198285796abec0219b",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "cade2d5923045ae08e83010a85280f4d330c548fd5cdc8f516676410e3c2a0e9",
+          "bytes": 1213
+        },
+        "page_spec.json": {
+          "sha256": "2c34b23860d49dd9cda692f3c4d5d1b073658d0a9f3b7f096f6d430b2d1e6531",
+          "bytes": 990
+        },
+        "prompt.txt": {
+          "sha256": "3134d744766965c221f9d20e580879d29a9d35d6b66696e4e807443d1458638c",
+          "bytes": 323
+        },
+        "raw_output.txt": {
+          "sha256": "402aee76fb3bd5cfc0aa8fb3c839a14b1fda62d885b850e5d6da5d79daaa38ba",
+          "bytes": 580
+        },
+        "styles.css": {
+          "sha256": "1ceab924c2d680f40c270218d6809c2847202d80b378b1f16ab0dbe1eeae9221",
+          "bytes": 8180
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\41-features_contact-plain_css",
+      "title": "Bengkel Kenanga",
+      "recipe": "features_contact",
+      "example_id": "031118f4200fc79f0ad1db0f778ae6c308aa72987c5b6c2ce89042fb78d2c5f4",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "2460c559a838e16d067a815c377364bdd52266ead6a29666ffe6861ffe660765",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "c28987447a26132c7f579fd883b6ac8008748a39ee3cf21591170f24e902d2b9",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "aa8e22f76f070e4d1a48215a0c398b5c5d478d306899ab7355fe1903c09c7fa8",
+          "bytes": 1747
+        },
+        "page_spec.json": {
+          "sha256": "d12c96b616390c67fd7761f5ca6543102cd222d7e3b07f34228ce3a471283aa0",
+          "bytes": 1850
+        },
+        "prompt.txt": {
+          "sha256": "00201956f85195725784808dd11e65f83574d109ee0b19b29bba6482b5f166ae",
+          "bytes": 416
+        },
+        "raw_output.txt": {
+          "sha256": "2460c559a838e16d067a815c377364bdd52266ead6a29666ffe6861ffe660765",
+          "bytes": 986
+        },
+        "styles.css": {
+          "sha256": "0b2f3bf263935fb9985ffe1d1eda0491721e8e1027986798e7965087af8b59ad",
+          "bytes": 3648
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\42-features_contact-plain_css",
+      "title": "Toko Angkasa",
+      "recipe": "features_contact",
+      "example_id": "cdd9aab66f2cbc2237fc927b76c9dfe1366b35d13e75ce9ecedb1f89aedcc683",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "3ab30eedba8562ca70ecca8f4094ed567b46d5991822f9e029df73a6bac4c4e3",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "de3303eab2d0ea8d1dd0010d299ba88bd5c628dc990756dcdd5c751d63a94bed",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "e7b3473d8db3eaee3d513f75d71b49c4a0aed0d2a945f16baa6d827e893950c3",
+          "bytes": 1876
+        },
+        "page_spec.json": {
+          "sha256": "f0f9629a69375e0d6d40c8847a47576b7f2918af394893dce0d0ccb29e6a11db",
+          "bytes": 1916
+        },
+        "prompt.txt": {
+          "sha256": "c701ef21549bba6a688137e650965e2e5218265e97616065fa96d23488ed202f",
+          "bytes": 434
+        },
+        "raw_output.txt": {
+          "sha256": "3ab30eedba8562ca70ecca8f4094ed567b46d5991822f9e029df73a6bac4c4e3",
+          "bytes": 1022
+        },
+        "styles.css": {
+          "sha256": "b2a0fb579dab4dc88919e0ff3df38e5385b7bc2411307b3936b4037efdc445c9",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\43-features_contact-tailwind",
+      "title": "Bengkel Kenanga",
+      "recipe": "features_contact",
+      "example_id": "5cc7b41e07d002942fcb22ebb20b3118e793e68b82d18f4e2c859369183f556c",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "0e7464f4d2dc6f10ad83a95c4a814ea6e58729655bb9a2bc6ebba506577561cb",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "9fef13f9707425286f0ccca9f70410a76da2f13f767e79b609e07e5bc3c1bf59",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "c1fcbc4eb90091c35f7e1bdeb143d0bbfc4f3dbbf07bb32204a72ae97b83a51a",
+          "bytes": 1745
+        },
+        "page_spec.json": {
+          "sha256": "208033668a362d8d7283c23f7dd6faa05abcefbb6bd6aac47b1058d3a93b3082",
+          "bytes": 1847
+        },
+        "prompt.txt": {
+          "sha256": "5288b481f79d767e41a6605a25d63da5eec150bd035ceb37af3712e2b7992795",
+          "bytes": 416
+        },
+        "raw_output.txt": {
+          "sha256": "0e7464f4d2dc6f10ad83a95c4a814ea6e58729655bb9a2bc6ebba506577561cb",
+          "bytes": 983
+        },
+        "styles.css": {
+          "sha256": "78d75f6af38d7af66a1388e0b83aa5257e5f8d908aadcfddd5b4762e37a5b583",
+          "bytes": 8425
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\44-features_contact-tailwind",
+      "title": "Toko Angkasa",
+      "recipe": "features_contact",
+      "example_id": "572adfe5a36614d462e39644edff9eed8a9718103782389cd0e95f5ffd02ad72",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "bc6c33ff02a370bb280b84b26b4f5e7e42c7322aa0755a010721d5c0907d9e25",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "101cda28990eff4526848c877903a638c5251e2d74f45f11c266dfe37ac35bde",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "d2be3067fa2bff77c0a1ff14c0a0c00a0febb70561af36f77ed4e31e42907e4f",
+          "bytes": 1883
+        },
+        "page_spec.json": {
+          "sha256": "78b830beb420fa2e85f663d21eff1f588fa1dbb6f2b794464a1c74630788fc02",
+          "bytes": 1921
+        },
+        "prompt.txt": {
+          "sha256": "b218e46a15167f104853533326a7f05236dd8e9e903e34da828157c3900b7346",
+          "bytes": 437
+        },
+        "raw_output.txt": {
+          "sha256": "bc6c33ff02a370bb280b84b26b4f5e7e42c7322aa0755a010721d5c0907d9e25",
+          "bytes": 1027
+        },
+        "styles.css": {
+          "sha256": "aeaa7ba3c06eda85fec481860edf5a6018e2618534c0a5919ed324aab1fc1ea7",
+          "bytes": 8424
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\45-pricing_contact-plain_css",
+      "title": "Bengkel Kenanga",
+      "recipe": "pricing_contact",
+      "example_id": "3a57a07058d89a188b66c82ffed6233397d0526803a99a9b512ca944285b63e9",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "66dbbbfe7541f10ac84bde84a3630298d9b60acd5b4df1c5633030f388b47a27",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "7eacdb346b6e925019f1ae92b642c4f4496290c3336bc7028168d3f65f4fd3db",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "5efb66d0f0a2734f9ab13169a7533964db65b8bea87e0b4930a534fd749015d1",
+          "bytes": 1817
+        },
+        "page_spec.json": {
+          "sha256": "4ce1ff6e349613d3ec3fd3317381a2925b74444e91108624f93ee0e9c0a0d5c8",
+          "bytes": 1978
+        },
+        "prompt.txt": {
+          "sha256": "d92db3e0ea36ed21a7fc58e74dc07ee0337042d976bc99cbacaa5d3ea5157763",
+          "bytes": 474
+        },
+        "raw_output.txt": {
+          "sha256": "66dbbbfe7541f10ac84bde84a3630298d9b60acd5b4df1c5633030f388b47a27",
+          "bytes": 1024
+        },
+        "styles.css": {
+          "sha256": "9c8b901e12b2cfd902c0264f41abf3a97ab80ba353daa0360e9223243f99bd9d",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\46-pricing_contact-plain_css",
+      "title": "Toko Angkasa",
+      "recipe": "pricing_contact",
+      "example_id": "acf7eaf57f116e141c1e8b5a3b6ceed8ce634187083c0bc19f8b9cb571f7e8e5",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "f86c0a4047d88b3e62ecf9d93725d8c4c97e65f84014b3a5f8beecb31fbfc4db",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "plain_css",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "f6128855b9f3b370080734e98cc3841742f9d1d1f03ac954890568a42505875d",
+          "bytes": 441
+        },
+        "index.html": {
+          "sha256": "681d30fb7c37868b054a19a9f5ea9c5a4b015aeb22ec1680f117deb1ef419ca9",
+          "bytes": 1932
+        },
+        "page_spec.json": {
+          "sha256": "3586c471f65fd91847e9cea0b1d9f58fc9aaeb65b781263d1f0a60e06d27e2f4",
+          "bytes": 2028
+        },
+        "prompt.txt": {
+          "sha256": "e9c695e04a29f99ad37838f0cd33cb1cbc00e6b8e1a329f8ccfbfeb7e7491482",
+          "bytes": 470
+        },
+        "raw_output.txt": {
+          "sha256": "f86c0a4047d88b3e62ecf9d93725d8c4c97e65f84014b3a5f8beecb31fbfc4db",
+          "bytes": 1044
+        },
+        "styles.css": {
+          "sha256": "90d182469753494ae5fe2929ceb806816dca9b147bc7a270c4714333ffbd0d3a",
+          "bytes": 3647
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\47-pricing_contact-tailwind",
+      "title": "Bengkel Kenanga",
+      "recipe": "pricing_contact",
+      "example_id": "f985c0aad59279831ab37e724a8f11bdee1f37a5a19b6da966355a31f05e65a2",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "230f11e2ee0eb38ea6fe0a2d5b5a1da4da5b2474ab0c661587fc1d3b2986da4f",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "b2224dd31476e0528aae1094a411dfb29f74e2f271d961bdccf10afd5990444d",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "50daaf5b4a38a5dcd25b2aa33b29ca7170ff9ff4acd159a103855ec583facac0",
+          "bytes": 1811
+        },
+        "page_spec.json": {
+          "sha256": "c6019814c4896dfdd4c641cc29b4e0870a4b133cc8ea8a0814d641f02c33723d",
+          "bytes": 1970
+        },
+        "prompt.txt": {
+          "sha256": "f3500aeaed03f55544943174d9bedcec0efc545d129fb10c408a47c76c94cf82",
+          "bytes": 466
+        },
+        "raw_output.txt": {
+          "sha256": "230f11e2ee0eb38ea6fe0a2d5b5a1da4da5b2474ab0c661587fc1d3b2986da4f",
+          "bytes": 1016
+        },
+        "styles.css": {
+          "sha256": "b138a4934ba8af7ca6fafcb52c2b32c8baad26c020b478abfbeb503c801a4322",
+          "bytes": 8425
+        }
+      }
+    },
+    {
+      "directory": "outputs\\generated_websites\\AI-011-v2\\48-pricing_contact-tailwind",
+      "title": "Toko Angkasa",
+      "recipe": "pricing_contact",
+      "example_id": "ca8b7b04bcb0255679587c15bbc8dd4e7ba3826de075dbe035acdeface001017",
+      "checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+      "raw_output_sha256": "1f3c40f1f06480662798146286a405b098cff193c7ba7f32792e08341658854c",
+      "origin": "raw Mini GPT output -> schema validation -> deterministic renderer",
+      "synthetic_demo": true,
+      "style_mode": "tailwind",
+      "exact_contract": true,
+      "files": {
+        "app.js": {
+          "sha256": "c8d9b42c940879e7c561288af010a79117cdf591e0c02bfbf480d14dae374180",
+          "bytes": 2308
+        },
+        "generation.json": {
+          "sha256": "a9059856081a2903416020a69dc8dbee81f397aeaa4377947d8772721dc0b2be",
+          "bytes": 440
+        },
+        "index.html": {
+          "sha256": "cc73b95a72718a08f83c5434edcd6391b2e24c5d50331bbc81701ac4fac45511",
+          "bytes": 1941
+        },
+        "page_spec.json": {
+          "sha256": "e9d1031cda7e08423b46440c949e8fff2400fbfec0d3276475df9910277337eb",
+          "bytes": 2037
+        },
+        "prompt.txt": {
+          "sha256": "df83c22e4052f2e84cca9b19132e5803dde212e91fd07767b614f153a6afd082",
+          "bytes": 477
+        },
+        "raw_output.txt": {
+          "sha256": "1f3c40f1f06480662798146286a405b098cff193c7ba7f32792e08341658854c",
+          "bytes": 1053
+        },
+        "styles.css": {
+          "sha256": "3b9d5733778ab104ee0ef26713f7ede233474cbfa772dbe3dd49bb9a4ce433dd",
+          "bytes": 8424
+        }
+      }
+    }
+  ],
+  "browser_evaluated": false,
+  "limits": [
+    "Fictional controlled prompts, not arbitrary real-world generation",
+    "No generator application/API",
+    "Forms do not send data",
+    "Browser/visual scores require separate inspection"
+  ]
+}

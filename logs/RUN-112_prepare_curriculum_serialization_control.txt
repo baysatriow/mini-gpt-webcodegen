@@ -1,0 +1,109 @@
+RUN-112 | 2026-10-13T08:34:21.132273+07:00 | prepare_curriculum_serialization_control
+Command: .venv/Scripts/python.exe -m src.data.curriculum --revision v2 --serialization appearance_before_sections
+Commit: 5209976e73450c39e2b3101521a5b793e3021749
+
+{
+  "revision": "synthetic-contract-v2",
+  "serialization": "appearance_before_sections",
+  "status": "complete",
+  "seed": 42,
+  "counts": {
+    "train": {
+      "rows": 11040,
+      "families": 230
+    },
+    "validation": {
+      "rows": 1392,
+      "families": 29
+    },
+    "test": {
+      "rows": 1392,
+      "families": 29
+    }
+  },
+  "coverage": {
+    "train": {
+      "sections": {
+        "navbar": 11040,
+        "hero": 10120,
+        "footer": 11040,
+        "feature_grid": 4600,
+        "text_section": 920,
+        "pricing_table": 1840,
+        "testimonial": 920,
+        "contact_form": 2760
+      },
+      "interactions": {
+        "menu_toggle": 5520,
+        "form_validate": 2760,
+        "accordion": 920,
+        "tabs": 920,
+        "filter": 920,
+        "modal": 920
+      }
+    },
+    "validation": {
+      "sections": {
+        "navbar": 1392,
+        "hero": 1276,
+        "footer": 1392,
+        "feature_grid": 580,
+        "text_section": 116,
+        "pricing_table": 232,
+        "testimonial": 116,
+        "contact_form": 348
+      },
+      "interactions": {
+        "menu_toggle": 696,
+        "form_validate": 348,
+        "accordion": 116,
+        "tabs": 116,
+        "filter": 116,
+        "modal": 116
+      }
+    },
+    "test": {
+      "sections": {
+        "navbar": 1392,
+        "hero": 1276,
+        "footer": 1392,
+        "feature_grid": 580,
+        "text_section": 116,
+        "pricing_table": 232,
+        "testimonial": 116,
+        "contact_form": 348
+      },
+      "interactions": {
+        "menu_toggle": 696,
+        "form_validate": 348,
+        "accordion": 116,
+        "tabs": 116,
+        "filter": 116,
+        "modal": 116
+      }
+    }
+  },
+  "max_sequence_tokens": 856,
+  "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+  "split_policy": "disjoint fictional title families; shared component templates across partitions",
+  "human_reviewed_rows": 0,
+  "review_kind": "programmatic_contract",
+  "final_suite": {
+    "path": "data\\processed\\curriculum\\v2\\final_prompts.jsonl",
+    "sha256": "87e9eaf673632ce5e2d28f8e5f47215a62ccea9136191efbe1ae17adcdbeeafa",
+    "count": 48
+  },
+  "acceptance": {
+    "schema_valid_rate": 0.95,
+    "exact_contract_rate": 0.9,
+    "repair_allowed": false
+  },
+  "limits": [
+    "Synthetic template transfer only, not arbitrary real-world website generalization",
+    "Not human-reviewed production SFT; existing 12 reviewed rows and all HF manifests remain unchanged",
+    "No factual businesses or real testimonials; no external data license attribution claimed"
+  ],
+  "controlled_change": "top-level style_mode/theme precede sections; no prompt/target semantics, split, nested key order, or budget changes"
+}
+
+Exit code: 0

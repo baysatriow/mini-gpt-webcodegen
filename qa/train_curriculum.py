@@ -11,6 +11,7 @@ from torch.utils.data import DataLoader, Subset
 
 from qa.train_minigpt import next_run_id
 from src.data.curriculum import CurriculumDataset, DIRECTORY, verify_manifest
+from src.data.integrity import reuse_tokenization
 from src.data.sources import sha256_file, write_manifest
 from src.training.engine import ResumableBatchSampler, checkpoint_sha256, read_checkpoint, run_training
 from src.training.lineage import pretrain_descriptor, validate_initial_checkpoint
@@ -28,23 +29,32 @@ def main():
     cfg = json.loads(args.config.read_text(encoding='utf-8'))
     if cfg['data_origin'] != 'synthetic_curriculum' or cfg['human_reviewed'] is not False:
         raise ValueError('Curriculum origin must remain explicit')
-    manifest = verify_manifest()
+    directory = ROOT / cfg.get('dataset_dir', 'data/processed/curriculum/v1')
+    manifest = verify_manifest(directory)
     summary = json.loads((ROOT / 'data/manifests/pipeline_summary.json').read_text(encoding='utf-8'))
+    reuse_tokenization(ROOT, summary, summary['split'], json.loads((ROOT / 'configs/tokenizer.json').read_text()))
     cfg['model_config'] = json.loads((ROOT / cfg['model_config_path']).read_text())
     cfg['source_config_sha256'] = sha256_file(args.config)
     cfg['initial_checkpoint'] = str(args.initialize_from.resolve().relative_to(ROOT))
     cfg['initial_checkpoint_sha256'] = checkpoint_sha256(args.initialize_from)
+    parent_state = read_checkpoint(args.initialize_from)
     indices = torch.randperm(manifest['counts']['validation']['rows'], generator=torch.Generator().manual_seed(59)).tolist()[:cfg['batch_size'] * cfg['validation_batches']]
     fingerprint = pretrain_descriptor(ROOT, summary)
     cfg['lineage'] = {'tokenizer_sha256': manifest['tokenizer_sha256'], 'pretrain_fingerprint': fingerprint,
-        'synthetic_manifest_sha256': sha256_file(DIRECTORY / 'manifest.json'),
+        'synthetic_manifest_sha256': sha256_file(directory / 'manifest.json'),
         'data_sha256': {s: manifest['files'][s]['rows']['sha256'] for s in ('train', 'validation')},
         'validation_indices_sha256': hashlib.sha256(json.dumps(indices).encode()).hexdigest(),
         'train_blocks_or_examples': manifest['counts']['train']['rows'], 'validation_blocks_or_examples': len(indices),
         'smoke': False, 'human_reviewed': False,
         'pretraining_parent': {'checkpoint_sha256': cfg['initial_checkpoint_sha256'], 'phase': 'pretrain',
-            'global_step': read_checkpoint(args.initialize_from)['global_step'], 'pretrain_fingerprint': fingerprint}}
-    validate_initial_checkpoint(read_checkpoint(args.initialize_from), cfg, ROOT, summary)
+            'global_step': parent_state['global_step'], 'pretrain_fingerprint': fingerprint}}
+    if cfg.get('curriculum_continuation', False):
+        cfg['lineage']['pretraining_parent'] = parent_state['config']['lineage']['pretraining_parent']
+        cfg['lineage']['curriculum_parent'] = {'checkpoint_sha256': cfg['initial_checkpoint_sha256'],
+            'global_step': parent_state['global_step'],
+            'synthetic_manifest_sha256': parent_state['config']['lineage']['synthetic_manifest_sha256'],
+            'run_id': parent_state['run_id']}
+    validate_initial_checkpoint(parent_state, cfg, ROOT, summary)
     train = DataLoader(CurriculumDataset(manifest, 'train'), batch_sampler=ResumableBatchSampler(manifest['counts']['train']['rows'], cfg['batch_size'], cfg['seed']), num_workers=0)
     development = DataLoader(Subset(CurriculumDataset(manifest, 'validation'), indices), batch_size=cfg['batch_size'], num_workers=0)
     run_id = next_run_id()

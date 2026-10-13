@@ -1,0 +1,40 @@
+{
+  "checkpoint_sha256": "959a5b5a5344714123896bd57c810f3d9ad63f0b7f3223a7bc1c68b61ec8c17f",
+  "checkpoint_step": 800,
+  "split": "validation",
+  "prompt_file_sha256": "3677bc1956cb404f8b7ad3eff20d4fd0e9108cc41afe4f0f30285876c52b117c",
+  "token_metrics": {
+    "loss": 0.011960342309577873,
+    "perplexity": 1.01203215321241,
+    "valid_tokens": 586061,
+    "batches": 348
+  },
+  "count": 24,
+  "parseable": 22,
+  "schema_valid": 22,
+  "exact_contract": 0,
+  "schema_valid_rate": 0.9166666666666666,
+  "exact_contract_rate": 0.0,
+  "resolved_links": 22,
+  "all_ended_eos": true,
+  "decode_config": {
+    "precision": "bf16",
+    "temperature": 0,
+    "seed": 42,
+    "max_new_tokens": 768
+  },
+  "acceptance_fixed_before_training": {
+    "schema_valid_rate": 0.95,
+    "exact_contract_rate": 0.9,
+    "repair_allowed": false
+  },
+  "contract_gate_passed": false,
+  "review_kind": "programmatic_contract, not human-reviewed production SFT",
+  "outputs_path": "outputs\\metrics\\TRAIN-008-DEV_curriculum_outputs.json",
+  "limits": [
+    "Shared synthetic component recipes across partitions; fictional title families held out",
+    "No JSON repair or forced first token",
+    "No browser/manual acceptance",
+    "No claim of arbitrary real-world prompts or unseen layout-family generalization"
+  ]
+}

@@ -73,6 +73,8 @@ Rujukan API dasar: [PyTorch AMP](https://docs.pytorch.org/docs/2.14/amp.html), [
 
 ## Perintah SFT pilot yang sudah dijalankan
 
+Bagian pilot di bawah adalah riwayat human-reviewed. Eksperimen lanjutan memakai jalur curriculum sintetis terpisah, bukan memperluas approval pilot. Lihat [rancangan eksperimen](SFT_DEVELOPMENT_2026-10-13.md) dan [panduan generasi](GENERATING_WEBSITES.md). Model dan parent tetap dari bobot acak proyek, bukan pretrained LLM eksternal. Mask prompt/padding, EOS/JSON labels, hash data, validation checkpoint selection dan reserve 15 GiB tetap diterapkan.
+
 ```powershell
 .\.venv\Scripts\python.exe qa/run_logged.py --label prepare_reviewed_sft_pilot -- .\.venv\Scripts\python.exe -m src.data.pipeline --config configs/dataset.json --annotations data/annotations/reviewed_pilot_v2.jsonl
 .\.venv\Scripts\python.exe qa/run_logged.py --label sft_pilot_smoke -- .\.venv\Scripts\python.exe -m qa.train_minigpt --config configs/training_sft_pilot.json --max-steps 3 --smoke --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt

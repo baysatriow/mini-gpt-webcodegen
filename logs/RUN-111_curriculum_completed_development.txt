@@ -1,0 +1,77 @@
+RUN-111 | 2026-10-13T08:32:08.518058+07:00 | curriculum_completed_development
+Command: .venv/Scripts/python.exe -m qa.evaluate_curriculum --checkpoint checkpoints/TRAIN-009/best.pt --split validation --report-id TRAIN-009-DEV
+Commit: 5209976e73450c39e2b3101521a5b793e3021749
+
+{"example": 1, "count": 24, "recipe": "profile", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 2, "count": 24, "recipe": "profile", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 3, "count": 24, "recipe": "features", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 4, "count": 24, "recipe": "features", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 5, "count": 24, "recipe": "article", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 6, "count": 24, "recipe": "article", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 7, "count": 24, "recipe": "pricing", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 8, "count": 24, "recipe": "pricing", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 9, "count": 24, "recipe": "testimonial", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 10, "count": 24, "recipe": "testimonial", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 11, "count": 24, "recipe": "contact", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 12, "count": 24, "recipe": "contact", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 13, "count": 24, "recipe": "accordion", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 14, "count": 24, "recipe": "accordion", "schema_valid": true, "exact_contract": true, "stop": "eos"}
+{"example": 15, "count": 24, "recipe": "tabs", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 16, "count": 24, "recipe": "tabs", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 17, "count": 24, "recipe": "filter", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 18, "count": 24, "recipe": "filter", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 19, "count": 24, "recipe": "modal", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 20, "count": 24, "recipe": "modal", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 21, "count": 24, "recipe": "features_contact", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 22, "count": 24, "recipe": "features_contact", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 23, "count": 24, "recipe": "pricing_contact", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{"example": 24, "count": 24, "recipe": "pricing_contact", "schema_valid": true, "exact_contract": false, "stop": "eos"}
+{
+  "checkpoint_sha256": "cfff2bc2d3a8d71a9d0c00c81248d66da018b9148a9a7a468add1777ff63114a",
+  "checkpoint_step": 2400,
+  "split": "validation",
+  "prompt_file_sha256": "3677bc1956cb404f8b7ad3eff20d4fd0e9108cc41afe4f0f30285876c52b117c",
+  "token_metrics": {
+    "loss": 0.006780917895493566,
+    "perplexity": 1.0068039603728511,
+    "valid_tokens": 586061,
+    "batches": 348
+  },
+  "count": 24,
+  "parseable": 24,
+  "schema_valid": 24,
+  "exact_contract": 1,
+  "schema_valid_rate": 1.0,
+  "exact_contract_rate": 0.041666666666666664,
+  "resolved_links": 24,
+  "exact_field_matches": {
+    "title": 24,
+    "style_mode": 24,
+    "theme": 1,
+    "sections": 24,
+    "interactions": 24
+  },
+  "all_ended_eos": true,
+  "decode_config": {
+    "precision": "bf16",
+    "temperature": 0,
+    "seed": 42,
+    "max_new_tokens": 768
+  },
+  "acceptance_fixed_before_training": {
+    "schema_valid_rate": 0.95,
+    "exact_contract_rate": 0.9,
+    "repair_allowed": false
+  },
+  "contract_gate_passed": false,
+  "review_kind": "programmatic_contract, not human-reviewed production SFT",
+  "outputs_path": "outputs\\metrics\\TRAIN-009-DEV_curriculum_outputs.json",
+  "limits": [
+    "Shared synthetic component recipes across partitions; fictional title families held out",
+    "No JSON repair or forced first token",
+    "No browser/manual acceptance",
+    "No claim of arbitrary real-world prompts or unseen layout-family generalization"
+  ]
+}
+
+Exit code: 0

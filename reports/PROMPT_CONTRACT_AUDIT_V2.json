@@ -1,0 +1,855 @@
+{
+  "evaluation_sha256": "dae07f0efb641806fe7daac4a6f92a948d4793360dbe7fc650833553594b4e87",
+  "raw_artifacts_sha256": "b8afad2ebafffe844afbdff52ee7b4b82ab9d19bed849528d91acfa0a8b2fa66",
+  "final_count": 48,
+  "final_contract_accepted": 48,
+  "results": [
+    {
+      "example_id": "6ecc7f3487ad76ccb8b10807b683617bf45c9d43db2556f96eec8f59c4412300",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "plain_css",
+          "primary": "#10b981",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "9c40577b8807079ba1ea80deaa5474abb621edd88f5984ae8a436500cd126fc9",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "plain_css",
+          "primary": "#8b5cf6",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "8cc5c9d566ce0f0f23ab9672fce87ab5c4897a113029a65c0eae98101ca025d9",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "tailwind",
+          "primary": "#06b6d4",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "ceb1a84edf971b72f8e2d868827b2a557c2acc45bfc091fbe15739975272a30e",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "tailwind",
+          "primary": "#f59e0b",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Temukan layanan pilihan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "d5e30d6bff5d0797205969f239f36e4272c4dd31e86eca39116b5cc8e076bb53",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "plain_css",
+          "primary": "#ef4444",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "a23bb59b6e3f2f5eca26471a45bc9928807f1d1830f2a8f3e42235698571e625",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "plain_css",
+          "primary": "#2563eb",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "6b369df8ca9f1d2f2354034e3206e30d1592f6ccd400f047c2c3a2497eb392bc",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "tailwind",
+          "primary": "#06b6d4",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "7560d259faeb7b63cbd11d6b3522ae9d501aa43515274efd5ec18a34d302ac3a",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "tailwind",
+          "primary": "#2563eb",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "85834f72aea666f7bf1e50eb5b574574e18c8de9e77fe04589ecaea3da42ce95",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "plain_css",
+          "primary": "#10b981",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Temukan layanan pilihan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "dfb72b48a618978c7136e87438c20176d1113f4b46f41b1e8a139a07c0cfeaf1",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Temukan layanan pilihan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "36034a67a4229cb3001e5e8596e9fa538c032fbe5fdd1a7ec493dde99c576985",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "tailwind",
+          "primary": "#10b981",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kenali produk dan layanan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "ea8d7ddcb945f9e5878081a48ee0a545017af3ef329dcacd8597f59c75fad7f0",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "tailwind",
+          "primary": "#8b5cf6",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "3d2d8105784f2e78620584d422334799293a1e43f39a17ed268d142e99fdd502",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "2f476ff3d562e05a0f7a5e0fdb6ac09648e801876ec7b11bf61e408fa2ed7cdb",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "plain_css",
+          "primary": "#8b5cf6",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Temukan layanan pilihan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "587dc34054ed1e3e2f4841f1954504d13880510c447acd1c9ec5caa6c5eb2a8a",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "tailwind",
+          "primary": "#f59e0b",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kenali produk dan layanan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "b233e9fbfb554651a2bb868625007451069f6bb277db32a8257c63260b3e0e5d",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "tailwind",
+          "primary": "#8b5cf6",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "bd9ecf7ee648d6500c05ecbe11c1b67f629e2fbb14b4c8a55c4d9314d146cf97",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "plain_css",
+          "primary": "#2563eb",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kenali produk dan layanan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "4ddb441183106130ea3424f64b989cd8a9f968df47412697bd0a6a6451c44a63",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "plain_css",
+          "primary": "#ef4444",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kenali produk dan layanan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "05479ec311dfaa6232b76e5827bb83b83997105719fdf6a0285cc3c6cc02faee",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "tailwind",
+          "primary": "#8b5cf6",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kenali produk dan layanan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "45a11f3c7340e4b0ead5d1e1828204c45de9f73c46ebf898d86b999f41151edc",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "tailwind",
+          "primary": "#f59e0b",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Temukan layanan pilihan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "1cf5c22fda97372250f7e2286ca3dec196db1382ec9ef16415f692507b299d0f",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kenali produk dan layanan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "94b2a808d13669347dd76447885673d45a5b973dad3d19f27893bae16277ce7f",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "plain_css",
+          "primary": "#06b6d4",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "8ecc9c3117ba2fdf720a76d26ccf05cf6a9b68c2a993b21139b342b2a415e846",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "tailwind",
+          "primary": "#ef4444",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Temukan layanan pilihan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "e0011b6386311fa30aa9b19513c9b48cecc4a05e3833273d980f8d1777965edb",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "tailwind",
+          "primary": "#f59e0b",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "46e7ec14cf4ebc3c00a511d63f895ee7670ee370d8e4f6e4dd52d971fb903b78",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kenali produk dan layanan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "4877386ed9ff62d8e6d6f668a586ee37410fad4c21ab9e75ec9ac0635f3941f0",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "9fa9fab9c5a1fb1ddae0ede660aee33b25849967fde9936151158a15fa41d802",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "tailwind",
+          "primary": "#ef4444",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kenali produk dan layanan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "e6729b2806eeb5c535b5c761aef6af78a2461b19be8709130a2f9d60d3cca9ca",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "tailwind",
+          "primary": "#f59e0b",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "ce33dd1a8ff3fb9d62214ee1a395ec6896f4108c79b4af92dee7bbc14fb5207b",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "plain_css",
+          "primary": "#ef4444",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Temukan layanan pilihan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "7fa35dcec738fe59c5986e2580d3a6b2dc66fa47f204cb99aaa27dea2af1cb21",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "plain_css",
+          "primary": "#ef4444",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "8ab6a2d2e08ca4f431211fe762ad66151112f2b35344d1ddcd285a03519152cb",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "tailwind",
+          "primary": "#2563eb",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "7e69272931119745f52292bd26bd930c91441b4ace0153689204b41def486065",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "tailwind",
+          "primary": "#2563eb",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kenali produk dan layanan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "dda0913e561d77610891d44063ee0cc944a8e4d7bb1f99eec91e791492092e9d",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "plain_css",
+          "primary": "#2563eb",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Temukan layanan pilihan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "b2c401cefdadd17ade066c9db92bd43fb970d34380ef457bfce54075432c4042",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "plain_css",
+          "primary": "#2563eb",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Temukan layanan pilihan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "697c36c36b29db32a4e0596545c70f001d27df9f444e986a1bbfcf9cfe823ccd",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "tailwind",
+          "primary": "#06b6d4",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "9a055cc9edee842fc56c439151113a1bff72901d09f17d7782b9424d06bfe312",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "tailwind",
+          "primary": "#2563eb",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "d1cdd0fd179aeb0967781d19407c2b2a980f14ebae7f99ef0c171547dfcd21c5",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kenali produk dan layanan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "5fce861dd0d977de2faf331a2fcb4ba0112990942455d4eb9e1b1417d58ca48d",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "7499d38f1c6e68d2ceed59d185f11095e75bf7cf6a230cef46abc722b33e8856",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "tailwind",
+          "primary": "#8b5cf6",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "978f2b991bf1ad8b0e704a99bf4906ae2aa79dc523bc9e11aa5c5a7b64ddf3e1",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "tailwind",
+          "primary": "#8b5cf6",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "031118f4200fc79f0ad1db0f778ae6c308aa72987c5b6c2ce89042fb78d2c5f4",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "plain_css",
+          "primary": "#8b5cf6",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kenali produk dan layanan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "cdd9aab66f2cbc2237fc927b76c9dfe1366b35d13e75ce9ecedb1f89aedcc683",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "plain_css",
+          "primary": "#06b6d4",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "5cc7b41e07d002942fcb22ebb20b3118e793e68b82d18f4e2c859369183f556c",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "tailwind",
+          "primary": "#8b5cf6",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Temukan layanan pilihan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "572adfe5a36614d462e39644edff9eed8a9718103782389cd0e95f5ffd02ad72",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "tailwind",
+          "primary": "#8b5cf6",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "3a57a07058d89a188b66c82ffed6233397d0526803a99a9b512ca944285b63e9",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "plain_css",
+          "primary": "#f59e0b",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Bersama membangun pengalaman terbaik."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "acf7eaf57f116e141c1e8b5a3b6ceed8ce634187083c0bc19f8b9cb571f7e8e5",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "plain_css",
+          "primary": "#2563eb",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Temukan layanan pilihan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "f985c0aad59279831ab37e724a8f11bdee1f37a5a19b6da966355a31f05e65a2",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Bengkel Kenanga",
+          "style_mode": "tailwind",
+          "primary": "#ef4444",
+          "font": "mono",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Kenali produk dan layanan kami."
+        },
+        "errors": []
+      }
+    },
+    {
+      "example_id": "ca8b7b04bcb0255679587c15bbc8dd4e7ba3826de075dbe035acdeface001017",
+      "accepted": true,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Toko Angkasa",
+          "style_mode": "tailwind",
+          "primary": "#06b6d4",
+          "font": "serif",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Solusi sederhana untuk kebutuhan Anda."
+        },
+        "errors": []
+      }
+    }
+  ],
+  "runtime": [
+    {
+      "directory": "outputs\\generated_websites\\studio-cakrawala-v1",
+      "raw_sha256": "dfe3c55b2c0f2c4fde186ed496e9b58b168c4a544b4a800cd643946d83175625",
+      "prompt_sha256": "1df58b64b2d1228010395ec74b599e047229b37805f17cde4d057760139275a4",
+      "historical_status": "generated",
+      "contract_accepted_now": false,
+      "contract": {
+        "checked": true,
+        "requested": {
+          "title": "Studio Cakrawala",
+          "style_mode": "plain_css",
+          "primary": "#2563eb",
+          "font": "sans",
+          "text": "#111827",
+          "background": "#ffffff",
+          "main_text": "Temukan layanan pilihan kami."
+        },
+        "errors": [
+          "title: diminta 'Studio Cakrawala', model menghasilkan 'Studio Cahaya'",
+          "Section nav: isi tidak sesuai kontrak prompt",
+          "Section footer: isi tidak sesuai kontrak prompt",
+          "Section main: isi tidak sesuai kontrak prompt"
+        ]
+      }
+    }
+  ],
+  "browser_evaluated": false,
+  "limits": [
+    "Artifact audit only; no new generation, no output repair, no browser/visual approval"
+  ]
+}

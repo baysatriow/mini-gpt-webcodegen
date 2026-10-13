@@ -1,0 +1,45 @@
+RUN-122 | 2026-10-13T09:04:59.196974+07:00 | train_lexical_copy_curriculum
+Command: .venv/Scripts/python.exe -m qa.train_curriculum --config configs/training_curriculum_v3.json --initialize-from checkpoints/TRAIN-004-VERIFIED/best.pt
+Commit: 5209976e73450c39e2b3101521a5b793e3021749
+
+{"event": "validation", "step": 0, "loss": 7.5773243363358525, "perplexity": 1953.3953378696876, "valid_tokens": 56973, "batches": 32}
+{"event": "train", "step": 1, "loss": 7.409615718290309, "grad_norm": 29.50761604309082, "valid_tokens": 3467, "learning_rate": 1.2499999999999999e-06, "seconds": 0.3406558000133373, "tokens_per_second": 10177.428359840815, "data_cursor": 2}
+{"event": "train", "step": 200, "loss": 0.48919294383536366, "grad_norm": 2.064361572265625, "valid_tokens": 3853, "learning_rate": 0.00025, "seconds": 0.11028270004317164, "tokens_per_second": 34937.48338127096, "data_cursor": 400}
+{"event": "train", "step": 400, "loss": 0.23661484789808612, "grad_norm": 0.6878095865249634, "valid_tokens": 3602, "learning_rate": 0.0002991908412020579, "seconds": 0.10610929998802021, "tokens_per_second": 33946.12913671721, "data_cursor": 800}
+{"event": "validation", "step": 400, "loss": 0.1945355093803685, "perplexity": 1.2147466170188808, "valid_tokens": 56973, "batches": 32}
+{"event": "train", "step": 600, "loss": 0.15563216926374412, "grad_norm": 0.5256209373474121, "valid_tokens": 3352, "learning_rate": 0.0002958918368767118, "seconds": 0.10732149996329099, "tokens_per_second": 31233.25709337404, "data_cursor": 1200}
+{"event": "train", "step": 800, "loss": 0.0699650979588489, "grad_norm": 0.3768731355667114, "valid_tokens": 3316, "learning_rate": 0.0002901116690482473, "seconds": 0.10946120001608506, "tokens_per_second": 30293.83927375839, "data_cursor": 1600}
+{"event": "validation", "step": 800, "loss": 0.08145269447787185, "perplexity": 1.0848618964116752, "valid_tokens": 56973, "batches": 32}
+{"event": "train", "step": 1000, "loss": 0.06511231368973544, "grad_norm": 0.31247830390930176, "valid_tokens": 3729, "learning_rate": 0.0002819599055995829, "seconds": 0.1063162999926135, "tokens_per_second": 35074.58405022634, "data_cursor": 2000}
+{"event": "train", "step": 1200, "loss": 0.03577619073207874, "grad_norm": 0.2643093466758728, "valid_tokens": 3529, "learning_rate": 0.0002715910699787615, "seconds": 0.1144757000147365, "tokens_per_second": 30827.503125516687, "data_cursor": 2400}
+{"event": "validation", "step": 1200, "loss": 0.0403133575994922, "perplexity": 1.0411369712636112, "valid_tokens": 56973, "batches": 32}
+{"event": "train", "step": 1400, "loss": 0.025625602934095593, "grad_norm": 0.2248542606830597, "valid_tokens": 3600, "learning_rate": 0.00025920171207862683, "seconds": 0.1059994000243023, "tokens_per_second": 33962.45638347608, "data_cursor": 2800}
+{"event": "train", "step": 1600, "loss": 0.01938407601392128, "grad_norm": 0.2248184084892273, "valid_tokens": 3293, "learning_rate": 0.00024502668247032507, "seconds": 0.10668740002438426, "tokens_per_second": 30865.875438405645, "data_cursor": 3200}
+{"event": "validation", "step": 1600, "loss": 0.0272528357602299, "perplexity": 1.0276275909234214, "valid_tokens": 56973, "batches": 32}
+{"event": "train", "step": 1800, "loss": 0.023683276916265178, "grad_norm": 0.21227802336215973, "valid_tokens": 3835, "learning_rate": 0.0002293346806156331, "seconds": 0.10600209998665377, "tokens_per_second": 36178.52854314062, "data_cursor": 3600}
+{"event": "train", "step": 2000, "loss": 0.007756563783423301, "grad_norm": 0.18414989113807678, "valid_tokens": 2934, "learning_rate": 0.00021242316144544463, "seconds": 0.1068997000111267, "tokens_per_second": 27446.28843387412, "data_cursor": 4000}
+{"event": "validation", "step": 2000, "loss": 0.014651281440741157, "perplexity": 1.0147591375643936, "valid_tokens": 56973, "batches": 32}
+{"event": "train", "step": 2200, "loss": 0.004996088238193061, "grad_norm": 0.1291607916355133, "valid_tokens": 3765, "learning_rate": 0.00019461269685445225, "seconds": 0.10850129998289049, "tokens_per_second": 34700.04507405627, "data_cursor": 4400}
+{"event": "train", "step": 2400, "loss": 0.00333866742221838, "grad_norm": 0.10656964778900146, "valid_tokens": 3315, "learning_rate": 0.0001762408989945764, "seconds": 0.11156990000745282, "tokens_per_second": 29712.31487864164, "data_cursor": 4800}
+{"event": "validation", "step": 2400, "loss": 0.007476881553660849, "perplexity": 1.0075049032272534, "valid_tokens": 56973, "batches": 32}
+{"event": "train", "step": 2600, "loss": 0.0058359550171761055, "grad_norm": 0.1969224512577057, "valid_tokens": 3184, "learning_rate": 0.0001576560205561625, "seconds": 0.10818179999478161, "tokens_per_second": 29431.93772107311, "data_cursor": 5200}
+{"event": "train", "step": 2800, "loss": 0.0069300843880237125, "grad_norm": 0.07575759291648865, "valid_tokens": 3109, "learning_rate": 0.00013921035334893392, "seconds": 0.11106279998784885, "tokens_per_second": 27993.171434000848, "data_cursor": 5600}
+{"event": "validation", "step": 2800, "loss": 0.007749282867341484, "perplexity": 1.0077793862695055, "valid_tokens": 56973, "batches": 32}
+{"event": "train", "step": 3000, "loss": 0.006392464865392177, "grad_norm": 0.12769843637943268, "valid_tokens": 3184, "learning_rate": 0.00012125355031808034, "seconds": 0.10995130002265796, "tokens_per_second": 28958.27515767312, "data_cursor": 6000}
+{"event": "train", "step": 3200, "loss": 0.0019522224964965923, "grad_norm": 0.10422857850790024, "valid_tokens": 3569, "learning_rate": 0.00010412599758221663, "seconds": 0.10674039996229112, "tokens_per_second": 33436.26219557772, "data_cursor": 6400}
+{"event": "validation", "step": 3200, "loss": 0.007546750084553055, "perplexity": 1.0075752985738897, "valid_tokens": 56973, "batches": 32}
+{"event": "train", "step": 3400, "loss": 0.001429717822615149, "grad_norm": 0.062770314514637, "valid_tokens": 3248, "learning_rate": 8.815236213173725e-05, "seconds": 0.10768839996308088, "tokens_per_second": 30161.094427194766, "data_cursor": 6800}
+{"event": "train", "step": 3600, "loss": 0.0022354298542902737, "grad_norm": 0.0920434445142746, "valid_tokens": 4131, "learning_rate": 7.363543749630429e-05, "seconds": 0.11152460001176223, "tokens_per_second": 37041.15504170661, "data_cursor": 7200}
+{"event": "validation", "step": 3600, "loss": 0.007172705430617953, "perplexity": 1.007198490895863, "valid_tokens": 56973, "batches": 32}
+{"event": "train", "step": 3800, "loss": 0.0008339451514356147, "grad_norm": 0.0626782700419426, "valid_tokens": 3472, "learning_rate": 6.0850404041954484e-05, "seconds": 0.10951300000306219, "tokens_per_second": 31703.998611150422, "data_cursor": 7600}
+{"event": "train", "step": 4000, "loss": 0.00020362945007426398, "grad_norm": 0.00912761501967907, "valid_tokens": 3360, "learning_rate": 5.00396126986618e-05, "seconds": 0.1089207999757491, "tokens_per_second": 30848.102481326743, "data_cursor": 8000}
+{"event": "validation", "step": 4000, "loss": 0.0067975863739420505, "perplexity": 1.0068207424028315, "valid_tokens": 56973, "batches": 32}
+{"event": "train", "step": 4200, "loss": 0.0006341307871707674, "grad_norm": 0.012896654196083546, "valid_tokens": 3759, "learning_rate": 4.1407990997133e-05, "seconds": 0.11067439999897033, "tokens_per_second": 33964.494047719905, "data_cursor": 8400}
+{"event": "train", "step": 4400, "loss": 0.00041858976334831124, "grad_norm": 0.01594294048845768, "valid_tokens": 2994, "learning_rate": 3.511915849722439e-05, "seconds": 0.109878099989146, "tokens_per_second": 27248.37797792057, "data_cursor": 8800}
+{"event": "validation", "step": 4400, "loss": 0.0068315917646718256, "perplexity": 1.0068549803177054, "valid_tokens": 56973, "batches": 32}
+{"event": "train", "step": 4600, "loss": 0.0006079229060560465, "grad_norm": 0.017154831439256668, "valid_tokens": 3456, "learning_rate": 3.129232524326212e-05, "seconds": 0.11291009996784851, "tokens_per_second": 30608.42210735892, "data_cursor": 9200}
+{"event": "train", "step": 4800, "loss": 0.00017382848282911206, "grad_norm": 0.005078509915620089, "valid_tokens": 3258, "learning_rate": 3.0000032038621055e-05, "seconds": 0.10681309999199584, "tokens_per_second": 30501.87664475745, "data_cursor": 9600}
+{"event": "validation", "step": 4800, "loss": 0.006050640093847748, "perplexity": 1.006068982191771, "valid_tokens": 56973, "batches": 32}
+{"run_id": "TRAIN-011", "status": "completed", "checkpoint": "checkpoints\\TRAIN-011\\last.pt"}
+
+Exit code: 0

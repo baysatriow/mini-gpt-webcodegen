@@ -1,0 +1,10 @@
+{
+  "name": "webcodegen-offline-css-compiler",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pinned Tailwind compiler for standalone generated website examples",
+  "devDependencies": {
+    "tailwindcss": "4.3.3",
+    "@tailwindcss/cli": "4.3.3"
+  }
+}

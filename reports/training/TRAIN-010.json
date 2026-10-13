@@ -1,0 +1,198 @@
+{
+  "run_id": "TRAIN-010",
+  "status": "completed",
+  "started_at_utc": "2026-10-13T01:35:27.425902+00:00",
+  "config": {
+    "mode": "sft",
+    "data_origin": "synthetic_curriculum",
+    "human_reviewed": false,
+    "dataset_dir": "data/processed/curriculum/v2",
+    "seed": 42,
+    "block_size": 1024,
+    "tokenizer": "data/tokenizer/tokenizer.json",
+    "model_config_path": "configs/model.json",
+    "device": "cuda",
+    "precision": "bf16",
+    "batch_size": 4,
+    "gradient_accumulation": 2,
+    "max_steps": 2400,
+    "warmup_steps": 120,
+    "learning_rate": 0.0003,
+    "min_learning_rate": 3e-05,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "validation_interval": 200,
+    "validation_batches": 32,
+    "checkpoint_interval": 200,
+    "log_interval": 100,
+    "reserve_free_bytes": 16106127360,
+    "experiment_scope": "same synthetic pairs and budget; appearance fields serialized before sections",
+    "selection_rule": "fixed 2400 updates before locked synthetic final suite; best by development token loss",
+    "model_config": {
+      "vocab_size": 8192,
+      "block_size": 1024,
+      "n_layer": 6,
+      "n_head": 6,
+      "n_embd": 384,
+      "dropout": 0.1,
+      "tie_embeddings": true,
+      "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+    },
+    "source_config_sha256": "ea645d8b6f9a1bb444fdb7f7729b55f40b6c48f6d13a8df1587ddb7303942a79",
+    "initial_checkpoint": "checkpoints\\TRAIN-004-VERIFIED\\best.pt",
+    "initial_checkpoint_sha256": "49e03ebb37f01619de9dc93a55f6828367d84fd34380986bfa15597d9583831c",
+    "lineage": {
+      "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+      "pretrain_fingerprint": {
+        "version": 1,
+        "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+        "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+        "source_revisions": [
+          {
+            "id": "vulcan",
+            "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+            "license": "mit",
+            "rows": 5000
+          },
+          {
+            "id": "websight_v01",
+            "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+            "license": "cc-by-4.0",
+            "rows": 20000
+          },
+          {
+            "id": "websight_v02",
+            "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+            "license": "cc-by-4.0",
+            "rows": 30000
+          }
+        ],
+        "partition_sha256": {
+          "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+          "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+          "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+        },
+        "token_cache_sha256": {
+          "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+          "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+          "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+        },
+        "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+      },
+      "synthetic_manifest_sha256": "bfb4c2cbf1a8f353dec379ede7a7c4eb39c3414b32183e29f6eb6b0602418aa2",
+      "data_sha256": {
+        "train": "d7fe1365ab927c75e879aa7fe31a8522e447625055ed79afd1411c0b0ea1b5c4",
+        "validation": "3677bc1956cb404f8b7ad3eff20d4fd0e9108cc41afe4f0f30285876c52b117c"
+      },
+      "validation_indices_sha256": "56286c1c502a98de233b6f1605299b750c9455901ce781cf5ac9ae7935c51ffd",
+      "train_blocks_or_examples": 11040,
+      "validation_blocks_or_examples": 128,
+      "smoke": false,
+      "human_reviewed": false,
+      "pretraining_parent": {
+        "checkpoint_sha256": "49e03ebb37f01619de9dc93a55f6828367d84fd34380986bfa15597d9583831c",
+        "phase": "pretrain",
+        "global_step": 1200,
+        "pretrain_fingerprint": {
+          "version": 1,
+          "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+          "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+          "source_revisions": [
+            {
+              "id": "vulcan",
+              "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+              "license": "mit",
+              "rows": 5000
+            },
+            {
+              "id": "websight_v01",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 20000
+            },
+            {
+              "id": "websight_v02",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 30000
+            }
+          ],
+          "partition_sha256": {
+            "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+            "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+            "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+          },
+          "token_cache_sha256": {
+            "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+            "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+            "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+          },
+          "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+        }
+      }
+    }
+  },
+  "config_sha256": "06f6c64c52f526424d583e263d6b69a81c2b89886bea91658d1836cc7abc6c21",
+  "resume_parent": null,
+  "label_alignment": "already shifted; loss consumes labels directly",
+  "global_step": 2400,
+  "last_committed_step": 2400,
+  "git_commit": "5209976e73450c39e2b3101521a5b793e3021749",
+  "parameter_count": 14186496,
+  "model_config": {
+    "vocab_size": 8192,
+    "block_size": 1024,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.1,
+    "tie_embeddings": true,
+    "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+  },
+  "device": "cuda",
+  "precision": "bf16",
+  "resume_parent_sha256": null,
+  "initial_validation": {
+    "loss": 7.595766971288757,
+    "perplexity": 1989.7553516443652,
+    "valid_tokens": 54345,
+    "batches": 32
+  },
+  "final_train_loss": 0.00012622822070579585,
+  "total_train_tokens": 8098973,
+  "final_validation": {
+    "loss": 1.6208545980298625e-05,
+    "perplexity": 1.0000162086773394,
+    "valid_tokens": 54345,
+    "batches": 32
+  },
+  "best_validation_loss": 1.6208545980298625e-05,
+  "final_checkpoint_sha256": "13986f0344fa58367e405c3ad69053f17a36e23f9b70a2855f317ac3a90a3c5c",
+  "best_checkpoint_sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+  "best_checkpoint": {
+    "path": "checkpoints\\TRAIN-010\\.versions\\best-f1002f3e6ba14454a42e77dfdcb2fb24.pt",
+    "payload": ".versions\\best-f1002f3e6ba14454a42e77dfdcb2fb24.pt",
+    "sha256": "fc082d0cfece6e4227a4b9f2b4cba0a006af1e5f4d18891b72676ffd72c5faf7",
+    "global_step": 2400,
+    "validation_loss": 1.6208545980298625e-05
+  },
+  "ended_at_utc": "2026-10-13T01:40:14.485099+00:00",
+  "wall_seconds": 287.0638229000033,
+  "free_bytes_after": 22952054784,
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "peak_allocated_bytes": 2176525824,
+  "peak_reserved_bytes": 2367684608,
+  "environment": {
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "executable": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\.venv\\Scripts\\python.exe",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "gpu": "NVIDIA GeForce RTX 5070",
+    "platform": "Windows-10-10.0.26200-SP0"
+  },
+  "data_review_kind": "programmatic_contract, not human-reviewed production annotations"
+}

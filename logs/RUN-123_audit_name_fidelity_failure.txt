@@ -1,0 +1,7 @@
+RUN-123 | 2026-10-13T09:08:56.564999+07:00 | audit_name_fidelity_failure
+Command: .venv/Scripts/python.exe -m qa.audit_generation_artifacts --evaluation reports/training/TRAIN-010-FINAL_curriculum_evaluation.json --runtime-dir outputs/generated_websites/studio-cakrawala-v1 --report reports/PROMPT_CONTRACT_AUDIT_V2.json
+Commit: 5209976e73450c39e2b3101521a5b793e3021749
+
+{"final": [48, 48], "runtime": [{"directory": "outputs\\generated_websites\\studio-cakrawala-v1", "accepted": false, "errors": ["title: diminta 'Studio Cakrawala', model menghasilkan 'Studio Cahaya'", "Section nav: isi tidak sesuai kontrak prompt", "Section footer: isi tidak sesuai kontrak prompt", "Section main: isi tidak sesuai kontrak prompt"]}]}
+
+Exit code: 0
