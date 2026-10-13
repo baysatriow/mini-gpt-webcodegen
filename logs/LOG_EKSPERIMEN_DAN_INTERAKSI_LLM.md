@@ -2359,3 +2359,43 @@ print(json.dumps({'branch':branch,'local_commit':local,'github_commit':remote,'s
 - **Commit:** `81e64cb62ae3d9c399f9aa23595dc84e31cc0cb5`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-198_github_sync_rerun_excluding_new_check_logs.txt`.
+
+### RUN-199
+
+- **Waktu:** 2026-10-13T20:22:53.841771+07:00 sampai 2026-10-13T20:23:00.619955+07:00.
+- **Tujuan:** Merge interim progress into main push and return to development branch.
+- **Command:** `.venv/Scripts/python.exe -c "import json, subprocess
+
+def run(*args):
+ p=subprocess.run(['git',*args],text=True,encoding='utf-8',capture_output=True)
+ print(p.stdout.strip(),flush=True)
+ if p.stderr.strip(): print(p.stderr.strip(),flush=True)
+ if p.returncode: raise RuntimeError('Git operation failed: '+repr(args))
+ return p.stdout.strip()
+feature='feature/pipeline-data-model-training'
+assert run('branch','--show-current')==feature
+run('diff','--exit-code'); run('diff','--cached','--exit-code')
+run('merge-base','--is-ancestor','origin/main',feature)
+source=run('rev-parse',feature); previous_main=run('rev-parse','main')
+run('switch','main')
+run('merge','--ff-only','origin/main')
+run('merge','--no-ff',feature,'-m','merge: integrate interim pipeline progress into main')
+merged=run('rev-parse','HEAD')
+run('diff','--check',previous_main,merged)
+run('merge-base','--is-ancestor',source,'main')
+run('push','origin','main')
+run('switch',feature)
+run('merge','--ff-only','main')
+run('push','origin',feature)
+assert run('rev-parse','main')==run('rev-parse',feature)
+print(json.dumps({'previous_main':previous_main,'integrated_feature_commit':source,'merge_commit':merged,'active_branch':feature,'main_and_feature_synchronized':True,'tests_or_training_run':False,'branch_preserved':True},indent=2))"`.
+- **Commit:** `fbd16ddd85c837bca824980d0559ddb94b228518`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-199_merge_interim_progress_into_main_push_and_return_to_development_branch.txt`.
+
+### Integrasi progres sementara ke main, 2026-10-13
+
+- Permintaan pengguna: merge progres sementara ke main, kemudian lanjut memakai branch pengembangan yang sama.
+- RUN-199: source fbd16ddd85c837bca824980d0559ddb94b228518 digabung ke main lama 7956be40214dcf98fbe3a3d23bda1d0eaf67b3b4 melalui merge commit 0ddfa3d03b03607ea1f9a4a27f45f8471547d125, tanpa konflik. Main sudah dipush; feature diselaraskan ke merge commit dan dipush.
+- Branch feature/pipeline-data-model-training tetap disimpan dan aktif untuk kelanjutan. Log operasi disimpan pada kedua branch setelah integrasi. Tidak menjalankan training atau test suite baru. Pemeriksaan Git memastikan source ancestor main dan diff tanpa whitespace error.
+- Skill finishing-a-development-branch dipakai. Pilihan merge, target main dan pemeliharaan branch mengikuti instruksi langsung pengguna, tanpa menanyakan ulang pilihan integrasi.
