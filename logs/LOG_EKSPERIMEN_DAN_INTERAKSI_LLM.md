@@ -4003,6 +4003,14 @@ print({'notebook':str(path.relative_to(root)),'code_cells':sum(c.cell_type=='cod
 - Kesalahan utama adalah malformed JSON pada `process`; jumlah role ini tetap 480 contoh setelah augmentation. Rasio plan 70 persen juga sama antara baseline TRAIN-019 dan v3. Perbandingan awal yang memakai lokasi laporan keliru telah dikoreksi setelah RUN-313 sampai RUN-315. Semua percobaan dan koreksi tetap dicatat pada ledger.
 - Notebook 13 telah dijalankan 20 sel. Ringkasan komprehensif ada di `logs/LOG_TRAINING.md`, catatan interaksi ada di `logs/interaksi_llm/AI-020_2026-10-14.md`. Hasil belum membuktikan kualitas visual browser maupun review manusia.
 
+## AI-021: Audit keluaran process v3, 14 Oktober 2026
+
+- Membandingkan satu training target role `process` yang valid dengan raw output development yang gagal.
+- Model menghasilkan `{"id":"props":...` lalu EOS pada token231 dari budget1.536. Kegagalan contoh ini bukan output terpotong oleh token limit.
+- Process tetap480/17.280 section rows pada v3, sementara proporsi v2 adalah480/12.480. Ini hipotesis data dilution, belum bukti kausal.
+- Rekomendasi desain v4 yang menahan prompt v3, validator, sampler dan setting training tetap, lalu hanya menambah target process di halaman train yang memuat role itu. Belum diimplementasikan dan belum ada training baru.
+- RUN-330 mencatat syntax error pada perintah audit pertama. RUN-331 mengulang audit dengan sukses dan menjaga ledger tetap append-only.
+
 ### RUN-329
 
 - **Waktu:** 2026-10-14T03:27:14.987269+07:00 sampai 2026-10-14T03:27:15.409887+07:00.
@@ -4011,3 +4019,21 @@ print({'notebook':str(path.relative_to(root)),'code_cells':sum(c.cell_type=='cod
 - **Commit:** `4e2da2fcbd259cc33e1a4b8d7184f37bfc932dd1`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-329_verify_v3_notebook_logs_contracts_and_git_whitespace.txt`.
+
+### RUN-330
+
+- **Waktu:** 2026-10-14T03:29:11.409914+07:00 sampai 2026-10-14T03:29:11.488000+07:00.
+- **Tujuan:** compare_process_training_target_with_raw_development_failure.
+- **Command:** `.venv\Scripts\python.exe -c "import json; from pathlib import Path; p=Path('data/processed/fullpage/v3/train.jsonl'); target=None; row_input=None; row_keys=None;\nfor line in p.open(encoding='utf-8'):\n r=json.loads(line)\n if r.get('task')=='section_content' and json.loads(r['target']).get('role')=='process': target=r['target']; row_input=r.get('input',r.get('prompt')); row_keys=list(r); break\nprint('TRAIN_ROW_KEYS',row_keys); print('TRAIN_INPUT',str(row_input)[:500]); print('TRAIN_TARGET',target[:800]);\nbase=Path('outputs/fullpage/v3/TRAIN-020-step1800-development'); found=None\nfor f in base.glob('**/attempt-*.json'):\n d=json.loads(f.read_text(encoding='utf-8'))\n if d.get('stage')=='process' and any('Invalid JSON' in e for e in d.get('errors',[])):\n  found=(f,d); break\nprint('FAIL_PATH',str(found[0]) if found else None); print('FAIL_META',json.dumps({k:found[1].get(k) for k in ['stage','task','retry','stop_reason','generated_tokens','max_new_tokens','errors']},ensure_ascii=False) if found else None); print('FAIL_RAW',repr(found[1].get('raw'))[:1000] if found else None)"`.
+- **Commit:** `aa29b4dc264587cddbe4294f957eb3c548804087`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-330_compare_process_training_target_with_raw_development_failure.txt`.
+
+### RUN-331
+
+- **Waktu:** 2026-10-14T03:29:19.815352+07:00 sampai 2026-10-14T03:29:19.983309+07:00.
+- **Tujuan:** compare_process_training_target_with_raw_development_failure_after_inline_syntax_fix.
+- **Command:** `.venv\Scripts\python.exe -c "import json; from pathlib import Path; rows=(json.loads(line) for line in Path('data/processed/fullpage/v3/train.jsonl').open(encoding='utf-8')); sample=next(r for r in rows if r.get('task')=='section_content' and json.loads(r['target']).get('role')=='process'); print('TRAIN_ROW_KEYS',list(sample)); print('TRAIN_INPUT',str(sample.get('input',sample.get('prompt')))[:500]); print('TRAIN_TARGET',sample['target'][:800]); base=Path('outputs/fullpage/v3/TRAIN-020-step1800-development'); attempts=[(f,json.loads(f.read_text(encoding='utf-8'))) for f in base.glob('**/attempt-*.json')]; found=next(((f,d) for f,d in attempts if d.get('stage')=='process' and any('Invalid JSON' in e for e in d.get('errors',[]))),None); print('FAIL_PATH',str(found[0]) if found else None); print('FAIL_META',json.dumps({k:found[1].get(k) for k in ['stage','task','retry','stop_reason','generated_tokens','max_new_tokens','errors']},ensure_ascii=False) if found else None); print('FAIL_RAW',repr(found[1].get('raw'))[:1000] if found else None)"`.
+- **Commit:** `aa29b4dc264587cddbe4294f957eb3c548804087`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-331_compare_process_training_target_with_raw_development_failure_after_inl.txt`.

@@ -193,4 +193,8 @@ Pemeriksaan pesan validator mentah mengonfirmasi tiga keluarga mengalami plan id
 
 CodeGraph index lokal tersedia dan telah disinkronkan setelah perubahan source v3 pada RUN-318, RUN-321, dan RUN-323.
 
-Paket v3, notebook, dan rekam eksperimen dipush ke branch `feature/pipeline-data-model-training` pada commit `8be8a53`.
+Paket v3, notebook, dan rekam eksperimen dipush ke branch `feature/pipeline-data-model-training` pada commit `8be8a53`. Penutupan checklist dan dokumentasi commit menyusul pada `aa29b4d`.
+
+### Diagnosis raw output v3
+
+RUN-331 membandingkan satu target train role `process` dengan keluaran gagal TRAIN-020. Target menulis `id=process` dengan JSON valid, sedangkan model mengeluarkan `{"id":"props":...}` dan berhenti di EOS setelah231 token. Pada v3 role process tetap480 dari17.280 section rows, turun dari3,85 persen menjadi2,78 persen dari v2. Ini hipotesis kemungkinan data dilution, belum bukti kausal. Usulan kontrol berikutnya adalah menambah target process untuk train page yang memiliki role tersebut, dengan prompt v3 dan seluruh setting lain tetap. Belum dikerjakan, perlu review desain. Detail di [AI-021](../logs/interaksi_llm/AI-021_2026-10-14.md).

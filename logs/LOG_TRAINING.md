@@ -1051,3 +1051,11 @@ TRAIN-021 melanjutkan checkpoint lengkap TRAIN-020 secara persis, termasuk state
 - Debugging tercatat tanpa menghapus run gagal: RUN-282 compile error diperbaiki RUN-284; RUN-287 masalah utilitas hash dituntaskan dengan verifikasi RUN-288/289; RUN-290 context overflow ditangani dengan instruksi fakta yang lebih ringkas; RUN-303 salah tingkat folder dikoreksi oleh audit RUN-306/311; RUN-312 salah lokasi laporan rasio dikoreksi setelah audit RUN-313/315.
 
 Status: pipeline dan rekam training tersedia, tetapi target 95 persen belum tercapai. Sebelum eksperimen training lain, gunakan error utama pada `process` dan title copy untuk menyusun rancangan train-only yang bisa direview. Pertahankan semua partisi, validator strict, reserve storage, dan final benchmark tertutup.
+
+### Diagnosis tambahan setelah notebook v3
+
+RUN-331 membandingkan satu target training role `process` dengan satu raw output TRAIN-020. Target memuat `"id":"process"` yang valid. Output model dimulai dengan `{"id":"props":...` dan berhenti pada EOS setelah231 token dari budget1.536, sehingga contoh itu bukan kegagalan token limit. Error parser terjadi di kolom14.
+
+Distribusi train RUN-316: v2 memiliki480 dari12.480 section rows untuk process, atau3,85 persen. V3 tetap480 process dari17.280 section rows, atau2,78 persen, turun sekitar27,8 persen sebagai porsi relatif. Ini mendukung hipotesis data dilution, tetapi belum membuktikan sebab-akibat.
+
+Rancangan berikutnya yang perlu direview adalah melengkapi target process hanya untuk train page yang mempunyai descriptor process, sambil menahan prompt v3, renderer, validator, sampler0,7, budget token, dan training setting lain tetap. Belum ada implementasi atau training v4. RUN-330 adalah kesalahan syntax pada perintah audit awal; RUN-331 mengulang pemeriksaan dan berhasil.
