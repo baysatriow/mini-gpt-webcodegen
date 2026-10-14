@@ -334,3 +334,7 @@ RUN-592 supersedes the earlier RUN-591 storage snapshot. The training engine's d
 ## TRAIN-026 exact resume active
 
 RUN-592 superseded the earlier storage snapshot and passed the fresh preflight. RUN-593 records exact resume from TRAIN-025 step 1,800 to global step 3,600 with the frozen config. Training begins after this record is pushed. Development, test, and final evaluation remain closed during training.
+
+## TRAIN-026 completed, development comparison next
+
+RUN-593 completed normally at step 3,600 and the report, frozen config, exact TRAIN-025 resume parent, and checkpoint SHA-256 passed read-only verification. Training-loop validation CE is 0.005312048531726459 and is not the page-quality result. A fresh check shows 26.919 GiB free on F:, leaving about 10.879 GiB above the engine's reserve and checkpoint allowance. Snapshot and report paths for both candidates are absent. Next, create the approved snapshots and evaluate both on the same 80 development requests, then select by complete pages with CE as tie-breaker. Final/test data remain closed.

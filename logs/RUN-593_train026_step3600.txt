@@ -8,3 +8,11 @@ RUN-592 read-only preflight passed all source, config, exact-parent, storage, GP
 Storage before launch: 24,794,189,824 bytes free; 7,571,214,336 bytes above frozen reserve plus estimated checkpoint allowance.
 Target: resume from global step 1800 and stop at committed step 3600. No development, test, or final evaluation during training.
 Status at record creation: launch pending.
+
+RUN-593 completion verification, checked 2026-10-14 22:24:40 +07:00
+- TRAIN-026 report status is completed at global_step=3600 and last_committed_step=3600.
+- Current frozen config SHA-256 matches the report: 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186.
+- Exact resume parent is checkpoints/TRAIN-025/last.pt with SHA-256 e7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339.
+- Final TRAIN-026 checkpoint SHA-256: cc586807fe8db32ae04f746e7684642b36f7f1652cfca3339b11cfd5b8f179c5.
+- Process exited successfully. Training-loop validation loss is 0.005312048531726459, which is token cross-entropy and not page-quality evaluation.
+- Development, test, and final evaluation were not run during training.

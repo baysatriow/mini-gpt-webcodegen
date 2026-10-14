@@ -1,0 +1,16 @@
+RUN-594 development comparison preflight
+Checked: 2026-10-14 22:24:40 +07:00
+Status: PASS, read-only.
+
+TRAIN-026 report and checkpoint:
+- status: completed
+- global_step and last_committed_step: 3600
+- frozen config SHA-256: 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186, matches current config
+- exact resume source: checkpoints/TRAIN-025/last.pt
+- exact resume source SHA-256: e7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339
+- TRAIN-026 checkpoint SHA-256: cc586807fe8db32ae04f746e7684642b36f7f1652cfca3339b11cfd5b8f179c5
+- storage free: 28,904,259,584 bytes (26.919 GiB)
+- reserve plus estimated checkpoint allowance: 17222975488 bytes
+- headroom above reserve and allowance: 11681284096 bytes
+
+All candidate snapshot, development output/report, and selection report destinations are new and absent. This comparison uses only the fixed development split of 80 requests. No test or final request file was opened. Continue using the frozen selector; minimum gate is 76/80 complete pages, model_gate true, and exact facts/links/assets valid. CE is a tie-breaker. Keep final closed.

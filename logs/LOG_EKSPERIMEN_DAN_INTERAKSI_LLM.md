@@ -6468,3 +6468,7 @@ Setelah pengguna mengingatkan bahwa drive F aman, preflight baca-saja diulang. P
 ## RUN-593, resume TRAIN-026 sampai step 3.600
 
 RUN-592 lulus preflight segar, termasuk source lineage, checkpoint/report TRAIN-025 step 1.800, storage dengan headroom 7.571.214.336 byte, dan GPU RTX 5070. RUN-593 mencatat exact resume dari `checkpoints/TRAIN-025/last.pt` dengan config beku yang sama. Training dimulai setelah log dipush dan berhenti di global step 3.600. Evaluasi development, test, dan final tidak dijalankan selama training.
+
+## RUN-593, hasil training TRAIN-026
+
+TRAIN-026 selesai normal pada global step 3.600 dan last_committed_step=3600. Config beku dan digest report cocok. Checkpoint parent TRAIN-025 yang digunakan saat resume ber-hash 7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339; checkpoint TRAIN-026 ber-hash cc586807fe8db32ae04f746e7684642b36f7f1652cfca3339b11cfd5b8f179c5. Loss validasi internal training 0,005312048531726459 adalah cross-entropy token, bukan nilai kualitas halaman. Cek ulang drive F menunjukkan 26,919 GiB kosong. Tahap berikutnya membandingkan snapshot step 1.800 dan 3.600 pada 80 prompt development yang sama. Data test/final tetap tertutup.

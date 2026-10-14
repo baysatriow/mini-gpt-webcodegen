@@ -1220,3 +1220,12 @@ Tujuan V5 adalah mengurangi kesalahan penyalinan identitas dengan meminta model 
 
 - RUN-592 passed a fresh resume preflight with 23.091 GiB free and 7,571,214,336 bytes of headroom above reserve plus checkpoint estimate. It verified the frozen source-bound config and exact TRAIN-025 step-1800 checkpoint/report lineage.
 - RUN-593 records TRAIN-026 resuming from `checkpoints/TRAIN-025/last.pt` and targeting global step 3,600 under the same frozen config. Training starts after this launch record is pushed. Development, test, and final evaluation remain closed during training.
+
+### TRAIN-026 step-3600 completion
+
+- RUN-593 completed normally at global_step=3600 and last_committed_step=3600. The report and exact-resume checkpoint verification passed.
+- The current V5 config SHA-256 and report config SHA-256 both equal 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186.
+- TRAIN-026 resumed from checkpoints/TRAIN-025/last.pt, whose verified digest is 7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339. The completed checkpoint digest is cc586807fe8db32ae04f746e7684642b36f7f1652cfca3339b11cfd5b8f179c5.
+- Final training-loop validation cross-entropy is 0.005312048531726459. It is not a full-page generation score.
+- The user correctly asked for another F: storage check. The training engine's shutil.disk_usage currently reports 26.919 GiB free, about 10.879 GiB above its frozen reserve plus checkpoint allowance.
+- Candidate snapshots, generation output directories, and report paths for the 1,800 and 3,600 comparisons are absent. Continue with the approved fixed 80-request development comparison. Final/test data remain unopened.
