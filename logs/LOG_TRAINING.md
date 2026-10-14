@@ -1237,3 +1237,7 @@ RUN-595 creates immutable weights-only snapshots for TRAIN-025 step 1,800 and TR
 RUN-595 snapshots saved
 
 Immutable weights-only snapshots passed the project snapshot utility. TRAIN-025 step 1,800 digest is c1a450149eb8f860cc42595bba283e0f9e915a436f38f967516bc5107bd1c446; TRAIN-026 step 3,600 digest is 6276d7a0cb68bee482f91b07430d1421eb47a866a4a2d7729d8a3493c8a336e6. Both snapshots descend from their completed training checkpoints and bind to V5 manifest 90c2dc71c4d91ff9a36a3fbd1bd36bd329c127b711c69556df4c0f58381d6dd2. The 80-request development evaluations are next.
+
+TRAIN-025 step 1,800 development result
+
+Kandidat step 1.800 mendapat 80/80 halaman lengkap, 0 kegagalan, model_gate=true, dan pemeriksaan facts/links/assets lulus. Report development memastikan inal_used=false dan checkpoint cocok dengan snapshot. Ini hasil validator/pipeline, belum review visual browser. Evaluasi step 3.600 masih diperlukan sebelum laporan seleksi final dibuat.

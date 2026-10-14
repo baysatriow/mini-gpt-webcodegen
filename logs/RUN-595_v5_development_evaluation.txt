@@ -20,3 +20,98 @@ Candidate snapshot creation, checked: 2026-10-14 22:25:40 +07:00
 - TRAIN-026 parent: checkpoints/TRAIN-026/last.pt; source digest cc586807fe8db32ae04f746e7684642b36f7f1652cfca3339b11cfd5b8f179c5.
 - Step-3600 snapshot: checkpoints/FULLPAGE-V5/TRAIN-026-step3600.pt; checkpoint digest 6276d7a0cb68bee482f91b07430d1421eb47a866a4a2d7729d8a3493c8a336e6; file digest a508dd46d26703e93dcfb7dfe8ce625b15e8631183039ffd0a2cac993924c4cd.
 - Both snapshots are weights-only and bind to V5 manifest SHA-256 90c2dc71c4d91ff9a36a3fbd1bd36bd329c127b711c69556df4c0f58381d6dd2.
+{"page": 1, "of": 80, "request_id": "page0240-plain_css", "status": "accepted", "seconds": 7.2}
+{"page": 2, "of": 80, "request_id": "page0240-tailwind", "status": "accepted", "seconds": 8.586}
+{"page": 3, "of": 80, "request_id": "page0241-plain_css", "status": "accepted", "seconds": 6.763}
+{"page": 4, "of": 80, "request_id": "page0241-tailwind", "status": "accepted", "seconds": 7.021}
+{"page": 5, "of": 80, "request_id": "page0242-plain_css", "status": "accepted", "seconds": 6.923}
+{"page": 6, "of": 80, "request_id": "page0242-tailwind", "status": "accepted", "seconds": 7.024}
+{"page": 7, "of": 80, "request_id": "page0243-plain_css", "status": "accepted", "seconds": 6.802}
+{"page": 8, "of": 80, "request_id": "page0243-tailwind", "status": "accepted", "seconds": 6.958}
+{"page": 9, "of": 80, "request_id": "page0244-plain_css", "status": "accepted", "seconds": 6.867}
+{"page": 10, "of": 80, "request_id": "page0244-tailwind", "status": "accepted", "seconds": 6.829}
+{"page": 11, "of": 80, "request_id": "page0245-plain_css", "status": "accepted", "seconds": 6.305}
+{"page": 12, "of": 80, "request_id": "page0245-tailwind", "status": "accepted", "seconds": 6.767}
+{"page": 13, "of": 80, "request_id": "page0246-plain_css", "status": "accepted", "seconds": 6.243}
+{"page": 14, "of": 80, "request_id": "page0246-tailwind", "status": "accepted", "seconds": 6.838}
+{"page": 15, "of": 80, "request_id": "page0247-plain_css", "status": "accepted", "seconds": 6.087}
+{"page": 16, "of": 80, "request_id": "page0247-tailwind", "status": "accepted", "seconds": 6.755}
+{"page": 17, "of": 80, "request_id": "page0248-plain_css", "status": "accepted", "seconds": 6.16}
+{"page": 18, "of": 80, "request_id": "page0248-tailwind", "status": "accepted", "seconds": 7.065}
+{"page": 19, "of": 80, "request_id": "page0249-plain_css", "status": "accepted", "seconds": 5.81}
+{"page": 20, "of": 80, "request_id": "page0249-tailwind", "status": "accepted", "seconds": 6.842}
+{"page": 21, "of": 80, "request_id": "page0250-plain_css", "status": "accepted", "seconds": 6.157}
+{"page": 22, "of": 80, "request_id": "page0250-tailwind", "status": "accepted", "seconds": 6.994}
+{"page": 23, "of": 80, "request_id": "page0251-plain_css", "status": "accepted", "seconds": 6.433}
+{"page": 24, "of": 80, "request_id": "page0251-tailwind", "status": "accepted", "seconds": 7.072}
+{"page": 25, "of": 80, "request_id": "page0252-plain_css", "status": "accepted", "seconds": 6.984}
+{"page": 26, "of": 80, "request_id": "page0252-tailwind", "status": "accepted", "seconds": 7.094}
+{"page": 27, "of": 80, "request_id": "page0253-plain_css", "status": "accepted", "seconds": 6.862}
+{"page": 28, "of": 80, "request_id": "page0253-tailwind", "status": "accepted", "seconds": 7.084}
+{"page": 29, "of": 80, "request_id": "page0254-plain_css", "status": "accepted", "seconds": 6.999}
+{"page": 30, "of": 80, "request_id": "page0254-tailwind", "status": "accepted", "seconds": 7.089}
+{"page": 31, "of": 80, "request_id": "page0255-plain_css", "status": "accepted", "seconds": 6.789}
+{"page": 32, "of": 80, "request_id": "page0255-tailwind", "status": "accepted", "seconds": 6.978}
+{"page": 33, "of": 80, "request_id": "page0256-plain_css", "status": "accepted", "seconds": 6.921}
+{"page": 34, "of": 80, "request_id": "page0256-tailwind", "status": "accepted", "seconds": 7.066}
+{"page": 35, "of": 80, "request_id": "page0257-plain_css", "status": "accepted", "seconds": 6.769}
+{"page": 36, "of": 80, "request_id": "page0257-tailwind", "status": "accepted", "seconds": 6.935}
+{"page": 37, "of": 80, "request_id": "page0258-plain_css", "status": "accepted", "seconds": 6.617}
+{"page": 38, "of": 80, "request_id": "page0258-tailwind", "status": "accepted", "seconds": 6.766}
+{"page": 39, "of": 80, "request_id": "page0259-plain_css", "status": "accepted", "seconds": 6.506}
+{"page": 40, "of": 80, "request_id": "page0259-tailwind", "status": "accepted", "seconds": 6.508}
+{"page": 41, "of": 80, "request_id": "page0260-plain_css", "status": "accepted", "seconds": 6.527}
+{"page": 42, "of": 80, "request_id": "page0260-tailwind", "status": "accepted", "seconds": 6.762}
+{"page": 43, "of": 80, "request_id": "page0261-plain_css", "status": "accepted", "seconds": 6.317}
+{"page": 44, "of": 80, "request_id": "page0261-tailwind", "status": "accepted", "seconds": 6.574}
+{"page": 45, "of": 80, "request_id": "page0262-plain_css", "status": "accepted", "seconds": 6.543}
+{"page": 46, "of": 80, "request_id": "page0262-tailwind", "status": "accepted", "seconds": 6.778}
+{"page": 47, "of": 80, "request_id": "page0263-plain_css", "status": "accepted", "seconds": 6.509}
+{"page": 48, "of": 80, "request_id": "page0263-tailwind", "status": "accepted", "seconds": 6.705}
+{"page": 49, "of": 80, "request_id": "page0264-plain_css", "status": "accepted", "seconds": 6.597}
+{"page": 50, "of": 80, "request_id": "page0264-tailwind", "status": "accepted", "seconds": 7.206}
+{"page": 51, "of": 80, "request_id": "page0265-plain_css", "status": "accepted", "seconds": 6.759}
+{"page": 52, "of": 80, "request_id": "page0265-tailwind", "status": "accepted", "seconds": 6.969}
+{"page": 53, "of": 80, "request_id": "page0266-plain_css", "status": "accepted", "seconds": 6.887}
+{"page": 54, "of": 80, "request_id": "page0266-tailwind", "status": "accepted", "seconds": 7.165}
+{"page": 55, "of": 80, "request_id": "page0267-plain_css", "status": "accepted", "seconds": 6.831}
+{"page": 56, "of": 80, "request_id": "page0267-tailwind", "status": "accepted", "seconds": 7.053}
+{"page": 57, "of": 80, "request_id": "page0268-plain_css", "status": "accepted", "seconds": 6.929}
+{"page": 58, "of": 80, "request_id": "page0268-tailwind", "status": "accepted", "seconds": 7.163}
+{"page": 59, "of": 80, "request_id": "page0269-plain_css", "status": "accepted", "seconds": 6.822}
+{"page": 60, "of": 80, "request_id": "page0269-tailwind", "status": "accepted", "seconds": 7.045}
+{"page": 61, "of": 80, "request_id": "page0270-plain_css", "status": "accepted", "seconds": 6.959}
+{"page": 62, "of": 80, "request_id": "page0270-tailwind", "status": "accepted", "seconds": 7.149}
+{"page": 63, "of": 80, "request_id": "page0271-plain_css", "status": "accepted", "seconds": 5.986}
+{"page": 64, "of": 80, "request_id": "page0271-tailwind", "status": "accepted", "seconds": 6.83}
+{"page": 65, "of": 80, "request_id": "page0272-plain_css", "status": "accepted", "seconds": 6.19}
+{"page": 66, "of": 80, "request_id": "page0272-tailwind", "status": "accepted", "seconds": 6.954}
+{"page": 67, "of": 80, "request_id": "page0273-plain_css", "status": "accepted", "seconds": 6.08}
+{"page": 68, "of": 80, "request_id": "page0273-tailwind", "status": "accepted", "seconds": 6.764}
+{"page": 69, "of": 80, "request_id": "page0274-plain_css", "status": "accepted", "seconds": 6.312}
+{"page": 70, "of": 80, "request_id": "page0274-tailwind", "status": "accepted", "seconds": 6.765}
+{"page": 71, "of": 80, "request_id": "page0275-plain_css", "status": "accepted", "seconds": 6.264}
+{"page": 72, "of": 80, "request_id": "page0275-tailwind", "status": "accepted", "seconds": 6.662}
+{"page": 73, "of": 80, "request_id": "page0276-plain_css", "status": "accepted", "seconds": 6.401}
+{"page": 74, "of": 80, "request_id": "page0276-tailwind", "status": "accepted", "seconds": 6.736}
+{"page": 75, "of": 80, "request_id": "page0277-plain_css", "status": "accepted", "seconds": 6.473}
+{"page": 76, "of": 80, "request_id": "page0277-tailwind", "status": "accepted", "seconds": 6.691}
+{"page": 77, "of": 80, "request_id": "page0278-plain_css", "status": "accepted", "seconds": 6.937}
+{"page": 78, "of": 80, "request_id": "page0278-tailwind", "status": "accepted", "seconds": 7.096}
+{"page": 79, "of": 80, "request_id": "page0279-plain_css", "status": "accepted", "seconds": 6.837}
+{"page": 80, "of": 80, "request_id": "page0279-tailwind", "status": "accepted", "seconds": 6.95}
+{
+  "scope": "development",
+  "complete": 80,
+  "total": 80,
+  "model_gate": true
+}
+
+TRAIN-025 step-1800 development result, checked: 2026-10-14 22:35:20 +07:00
+- Scope: development; count=80; total=80; complete=80; failures=0.
+- model_gate: true; accepted_facts_links_assets_valid: true; fullpage contract: source-bound-v1; final_used: false.
+- Snapshot checkpoint SHA-256: c1a450149eb8f860cc42595bba283e0f9e915a436f38f967516bc5107bd1c446.
+- Fixed development request SHA-256: e4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173.
+- Development report SHA-256: 08477f615d54f01e7c237f6852937664187903faea2306bf92fe3b596d4b65c0.
+- All 80 generated pages were accepted by the evaluator. Browser/human visual review is pending.
+- TRAIN-026 step 3,600 comparison remains in progress; do not choose the selected checkpoint until both reports pass selector validation.

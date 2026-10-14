@@ -342,3 +342,7 @@ RUN-593 completed normally at step 3,600 and the report, frozen config, exact TR
 ## RUN-595 launched: V5 development comparison
 
 RUN-595 akan menyimpan snapshot bobot untuk TRAIN-025 step 1.800 dan TRAIN-026 step 3.600, lalu mengevaluasi keduanya pada 80 permintaan validation V5 yang sama. Aturan seleksi dan ambang 76/80 tetap beku. Evaluator hanya membuka file request development; test dan final tetap tertutup.
+
+## Development TRAIN-025 step 1.800: 80/80
+
+Kandidat step 1.800 memperoleh 80/80 halaman lengkap dan model_gate=true; fakta, tautan, dan aset diterima. Semua 80 halaman berstatus accepted. Evaluasi ini hanya memakai development dan report menyatakan inal_used=false. Belum ada klaim visual/browser. Kandidat step 3.600 sedang menunggu evaluasi pada permintaan yang sama.

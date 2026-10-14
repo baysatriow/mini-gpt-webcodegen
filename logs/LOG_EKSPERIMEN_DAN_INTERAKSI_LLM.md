@@ -6476,3 +6476,7 @@ TRAIN-026 selesai normal pada global step 3.600 dan last_committed_step=3600. Co
 ## RUN-595, perbandingan development V5 dimulai
 
 RUN-595 menyiapkan snapshot bobot TRAIN-025 step 1.800 dan TRAIN-026 step 3.600, kemudian menjalankan evaluasi pada 80 request development V5 yang sama. Pemilihan kandidat memakai halaman lengkap terbanyak, CE validation sebagai tie-breaker, dan tetap mensyaratkan model_gate serta validasi facts/links/assets. Data test dan final tidak dibuka.
+
+## Hasil kandidat step 1.800
+
+Evaluasi development TRAIN-025 mencapai 80/80 halaman accepted dari 80 request, tanpa kegagalan, model_gate=true, dan pemeriksaan fakta/tautan/aset lulus. Request set SHA-256 4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173; checkpoint SHA-256 c1a450149eb8f860cc42595bba283e0f9e915a436f38f967516bc5107bd1c446. Final tidak digunakan. Pemeriksaan visual manusia/browser belum dijalankan. Lanjutkan evaluasi step 3.600 sebelum menentukan kandidat terpilih.
