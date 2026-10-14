@@ -213,3 +213,10 @@ RUN-331 membandingkan satu target train role `process` dengan keluaran gagal TRA
 - Pair CSS biasa dan Tailwind sering mendapat hasil teks gagal yang sama. Ini mendukung prioritas perbaikan identity/fact copy model bersama, bukan penyesuaian renderer CSS.
 - Pilihan berikutnya untuk review: probe prompt copy eksplisit, penambahan target copy identitas dari keluarga train saja, atau perubahan kontrak agar identitas dan fakta diikat dari request oleh renderer. Belum ada perubahan atau training v5.
 - Catatan bukti lengkap: [AI-023](interaksi_llm/AI-023_2026-10-14.md), [training log](LOG_TRAINING.md), RUN-379 dan RUN-380.
+
+## AI-024: Desain source-bound facts dan penanganan prompt, 14 Oktober 2026
+
+- Pengguna memilih perubahan kontrak yang merujuk fakta langsung ke request karena error v4 didominasi penyalinan nama dan fakta.
+- Spec baru mempertahankan input request terstruktur di pipeline model. Untuk UI prompt bebas yang akan dibuat kemudian, request tidak jelas atau kurang fakta wajib meminta klarifikasi; request di luar cakupan diberi pesan cakupan; tidak ada output parsial atau file.
+- Request valid menghasilkan plan dengan referensi fakta. Resolver/renderer memakai fakta literal dari request. Model tidak menghasilkan JavaScript bebas.
+- [Spec untuk review](../docs/superpowers/specs/2026-10-14-fullpage-source-bound-facts-design.md). Tidak ada implementasi atau training baru.
