@@ -1,0 +1,18 @@
+RUN-434
+Started: 2026-10-14 18:48:36 +07:00
+Purpose: Inspect source-bound catalog fact kinds and PageSpec properties for RequestDraft coverage.
+Command: project .venv Python parsed configs/fullpage/source-bound-copy-v1.json
+Exit code: 0
+
+REQUIRED_ROLES={"company_profile": ["navigation", "hero", "about", "services", "values", "process", "portfolio", "contact", "footer"], "landing_page": ["navigation", "hero", "about", "services", "benefits", "process", "faq", "contact", "footer"]}
+ROLE=navigation; fact_kinds=name; properties=brand
+ROLE=hero; fact_kinds=name; properties=heading
+ROLE=about; fact_kinds=description; properties=text
+ROLE=services; fact_kinds=service; properties=items
+ROLE=benefits; fact_kinds=value; properties=items
+ROLE=values; fact_kinds=value; properties=text
+ROLE=process; fact_kinds=process; properties=items
+ROLE=faq; fact_kinds=faq; properties=items
+ROLE=portfolio; fact_kinds=project; properties=items
+ROLE=contact; fact_kinds=; properties=
+ROLE=footer; fact_kinds=name; properties=text

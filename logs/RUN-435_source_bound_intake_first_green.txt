@@ -1,0 +1,81 @@
+RUN-435
+Started: 2026-10-14 18:52:26 +07:00
+Command: .\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_intake -v
+Exit code: 1
+
+test_draft_prompt_must_match_original_prompt (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_draft_prompt_must_match_original_prompt) ... ok
+test_duplicate_fact_ids_and_unknown_assets_are_clarified (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_duplicate_fact_ids_and_unknown_assets_are_clarified) ... ok
+test_exact_source_spans_build_clean_generation_request (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_exact_source_spans_build_clean_generation_request) ... FAIL
+test_explicit_catalog_capability_is_unsupported_before_missing_facts (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_explicit_catalog_capability_is_unsupported_before_missing_facts) ... FAIL
+test_explicit_external_script_capability_is_unsupported (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_explicit_external_script_capability_is_unsupported) ... FAIL
+test_full_plan_context_overflow_is_input_too_long (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_full_plan_context_overflow_is_input_too_long) ... ok
+test_generation_status_mapping_hides_raw_errors (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_generation_status_mapping_hides_raw_errors) ... ok
+test_input_over_one_thousand_characters_is_not_truncated (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_input_over_one_thousand_characters_is_not_truncated) ... ok
+test_mismatched_capability_evidence_is_not_treated_as_explicit (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_mismatched_capability_evidence_is_not_treated_as_explicit) ... ok
+test_mismatched_source_span_is_not_accepted (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_mismatched_source_span_is_not_accepted) ... ok
+test_missing_business_name_requests_clarification (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_missing_business_name_requests_clarification) ... ok
+test_nested_service_fields_require_independent_evidence (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_nested_service_fields_require_independent_evidence) ... ok
+test_space_themed_ceramic_company_profile_is_supported (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_space_themed_ceramic_company_profile_is_supported) ... FAIL
+test_unknown_capability_is_clarified_instead_of_silently_rejected (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_unknown_capability_is_clarified_instead_of_silently_rejected) ... ok
+test_unsupported_genre_and_style_are_reported (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_unsupported_genre_and_style_are_reported) ... ok
+test_user_confirmed_fact_is_accepted_without_prompt_match (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_user_confirmed_fact_is_accepted_without_prompt_match) ... FAIL
+
+======================================================================
+FAIL: test_exact_source_spans_build_clean_generation_request (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_exact_source_spans_build_clean_generation_request)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_intake.py", line 22, in test_exact_source_spans_build_clean_generation_request
+    self.assertEqual("ready", result.status)
+AssertionError: 'ready' != 'needs_clarification'
+- ready
++ needs_clarification
+
+
+======================================================================
+FAIL: test_explicit_catalog_capability_is_unsupported_before_missing_facts (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_explicit_catalog_capability_is_unsupported_before_missing_facts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_intake.py", line 82, in test_explicit_catalog_capability_is_unsupported_before_missing_facts
+    self.assertEqual("unsupported_request", result.status)
+AssertionError: 'unsupported_request' != 'needs_clarification'
+- unsupported_request
++ needs_clarification
+
+
+======================================================================
+FAIL: test_explicit_external_script_capability_is_unsupported (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_explicit_external_script_capability_is_unsupported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_intake.py", line 96, in test_explicit_external_script_capability_is_unsupported
+    self.assertEqual("unsupported_request", result.status)
+AssertionError: 'unsupported_request' != 'needs_clarification'
+- unsupported_request
++ needs_clarification
+
+
+======================================================================
+FAIL: test_space_themed_ceramic_company_profile_is_supported (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_space_themed_ceramic_company_profile_is_supported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_intake.py", line 69, in test_space_themed_ceramic_company_profile_is_supported
+    self.assertEqual("ready", result.status)
+AssertionError: 'ready' != 'needs_clarification'
+- ready
++ needs_clarification
+
+
+======================================================================
+FAIL: test_user_confirmed_fact_is_accepted_without_prompt_match (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_user_confirmed_fact_is_accepted_without_prompt_match)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_intake.py", line 59, in test_user_confirmed_fact_is_accepted_without_prompt_match
+    self.assertEqual("ready", result.status)
+AssertionError: 'ready' != 'needs_clarification'
+- ready
++ needs_clarification
+
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.022s
+
+FAILED (failures=5)

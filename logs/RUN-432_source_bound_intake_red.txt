@@ -1,0 +1,24 @@
+RUN-432
+Started: 2026-10-14 18:47:53 +07:00
+Command: .\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_intake -v
+Exit code: 1
+
+test_source_bound_intake (unittest.loader._FailedTest.test_source_bound_intake) ... ERROR
+
+======================================================================
+ERROR: test_source_bound_intake (unittest.loader._FailedTest.test_source_bound_intake)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_source_bound_intake
+Traceback (most recent call last):
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_intake.py", line 4, in <module>
+    from src.fullpage.intake import map_generation_result, prepare_intake
+ModuleNotFoundError: No module named 'src.fullpage.intake'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

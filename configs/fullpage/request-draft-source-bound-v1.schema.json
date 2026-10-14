@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:mini-gpt-webcodegen:fullpage:request-draft:source-bound-v1",
+  "type": "object",
+  "properties": {
+    "contract_version": {
+      "const": "request-draft-source-bound-v1"
+    },
+    "prompt": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "genre": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "style_mode": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "business_facts": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 24,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {"$ref": "#/$defs/fact_id"},
+              "kind": {"const": "name"},
+              "value": {"type": "string", "minLength": 1, "maxLength": 100},
+              "evidence": {"$ref": "#/$defs/fact_evidence"}
+            },
+            "required": ["id", "kind", "value", "evidence"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {"$ref": "#/$defs/fact_id"},
+              "kind": {"const": "description"},
+              "value": {"type": "string", "minLength": 1, "maxLength": 3000},
+              "evidence": {"$ref": "#/$defs/fact_evidence"}
+            },
+            "required": ["id", "kind", "value", "evidence"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {"$ref": "#/$defs/fact_id"},
+              "kind": {"const": "value"},
+              "value": {"type": "string", "minLength": 1, "maxLength": 1000},
+              "evidence": {"$ref": "#/$defs/fact_evidence"}
+            },
+            "required": ["id", "kind", "value", "evidence"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {"$ref": "#/$defs/fact_id"},
+              "kind": {"enum": ["service", "project", "process", "faq"]},
+              "value": {"$ref": "#/$defs/titled_fact"}
+            },
+            "required": ["id", "kind", "value"],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "requested_features": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "properties": {
+          "capability_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+          },
+          "evidence": {"$ref": "#/$defs/capability_evidence"}
+        },
+        "required": ["capability_id", "evidence"],
+        "additionalProperties": false
+      }
+    },
+    "asset_ids": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+      }
+    },
+    "fictitious": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "contract_version",
+    "prompt",
+    "genre",
+    "style_mode",
+    "business_facts",
+    "requested_features",
+    "asset_ids",
+    "fictitious"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "fact_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+    },
+    "source_span": {
+      "type": "object",
+      "properties": {
+        "start": {"type": "integer", "minimum": 0},
+        "end": {"type": "integer", "minimum": 1}
+      },
+      "required": ["start", "end"],
+      "additionalProperties": false
+    },
+    "capability_source_span": {
+      "type": "object",
+      "properties": {
+        "start": {"type": "integer", "minimum": 0},
+        "end": {"type": "integer", "minimum": 1},
+        "quote": {"type": "string", "minLength": 1, "maxLength": 100}
+      },
+      "required": ["start", "end", "quote"],
+      "additionalProperties": false
+    },
+    "fact_evidence": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {"source_span": {"$ref": "#/$defs/source_span"}},
+          "required": ["source_span"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {"user_confirmed": {"const": true}},
+          "required": ["user_confirmed"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "capability_evidence": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {"source_span": {"$ref": "#/$defs/capability_source_span"}},
+          "required": ["source_span"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {"user_confirmed": {"const": true}},
+          "required": ["user_confirmed"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "titled_fact": {
+      "type": "object",
+      "properties": {
+        "title": {"type": "string", "minLength": 1, "maxLength": 100},
+        "title_evidence": {"$ref": "#/$defs/fact_evidence"},
+        "text": {"type": "string", "minLength": 1, "maxLength": 1000},
+        "text_evidence": {"$ref": "#/$defs/fact_evidence"}
+      },
+      "required": ["title", "title_evidence", "text", "text_evidence"],
+      "additionalProperties": false
+    }
+  }
+}

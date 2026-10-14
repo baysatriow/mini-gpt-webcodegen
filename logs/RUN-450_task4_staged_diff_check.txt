@@ -1,0 +1,6 @@
+RUN-450
+Started: 2026-10-14 18:59:36 +07:00
+Command: git diff --cached --check
+Exit code: 1
+
+The staged check found trailing whitespace in the RUN-448 summary line because the empty application-path status was interpolated after a label. The RUN-448 raw capture is retained. The summary is corrected to say no application-path changes, then the staged check will be rerun.

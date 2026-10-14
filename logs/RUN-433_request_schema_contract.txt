@@ -1,0 +1,20 @@
+RUN-433
+Started: 2026-10-14 18:48:05 +07:00
+Purpose: Inspect the existing request schema contract for intake normalization.
+Command: project .venv Python reading configs/fullpage/request.schema.json
+Exit code: 0
+
+TOP_KEYS=request_id,prompt,genre,style_mode,business_facts,asset_ids,fictitious
+FACT_ARRAY_LIMITS={"minItems": 3, "maxItems": 24}
+FACT_KIND=name; required=id,kind,value; value_keys=
+FACT_KIND=description; required=id,kind,value; value_keys=
+FACT_KIND=value; required=id,kind,value; value_keys=
+FACT_KIND=service; required=id,kind,value; value_keys=title,text
+FACT_KIND=project; required=id,kind,value; value_keys=title,text
+FACT_KIND=team; required=id,kind,value; value_keys=title,text
+FACT_KIND=process; required=id,kind,value; value_keys=title,text
+FACT_KIND=faq; required=id,kind,value; value_keys=title,text
+FACT_KIND=contact; required=id,kind,value; value_keys=label,href
+FACT_KIND=price; required=id,kind,value; value_keys=name,price,features,button
+FACT_KIND=testimonial; required=id,kind,value; value_keys=quote,author
+ROOT_REQUIRED=request_id,prompt,genre,style_mode,business_facts,asset_ids,fictitious

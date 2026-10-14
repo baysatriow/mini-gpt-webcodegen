@@ -1,0 +1,38 @@
+RUN-444
+Started: 2026-10-14 18:57:16 +07:00
+Command: .\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_intake -v
+Exit code: 1
+
+test_draft_prompt_must_match_original_prompt (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_draft_prompt_must_match_original_prompt) ... ok
+test_duplicate_fact_ids_and_unknown_assets_are_clarified (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_duplicate_fact_ids_and_unknown_assets_are_clarified) ... ok
+test_exact_source_spans_build_clean_generation_request (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_exact_source_spans_build_clean_generation_request) ... ok
+test_explicit_catalog_capability_is_unsupported_before_missing_facts (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_explicit_catalog_capability_is_unsupported_before_missing_facts) ... ok
+test_explicit_external_script_capability_is_unsupported (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_explicit_external_script_capability_is_unsupported) ... ok
+test_full_plan_context_overflow_is_input_too_long (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_full_plan_context_overflow_is_input_too_long) ... ok
+test_generation_status_mapping_hides_raw_errors (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_generation_status_mapping_hides_raw_errors) ... ok
+test_input_over_one_thousand_characters_is_not_truncated (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_input_over_one_thousand_characters_is_not_truncated) ... ok
+test_mismatched_capability_evidence_is_not_treated_as_explicit (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_mismatched_capability_evidence_is_not_treated_as_explicit) ... ok
+test_mismatched_source_span_is_not_accepted (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_mismatched_source_span_is_not_accepted) ... ok
+test_missing_business_name_requests_clarification (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_missing_business_name_requests_clarification) ... ok
+test_nested_service_fields_require_independent_evidence (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_nested_service_fields_require_independent_evidence) ... ok
+test_space_themed_ceramic_company_profile_is_supported (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_space_themed_ceramic_company_profile_is_supported) ... ok
+test_unknown_capability_is_clarified_instead_of_silently_rejected (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_unknown_capability_is_clarified_instead_of_silently_rejected) ... ok
+test_unmentioned_unsupported_genre_is_clarified (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_unmentioned_unsupported_genre_is_clarified) ... FAIL
+test_unsupported_genre_and_style_are_reported (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_unsupported_genre_and_style_are_reported) ... ok
+test_user_confirmed_fact_is_accepted_without_prompt_match (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_user_confirmed_fact_is_accepted_without_prompt_match) ... ok
+
+======================================================================
+FAIL: test_unmentioned_unsupported_genre_is_clarified (tests.fullpage.test_source_bound_intake.SourceBoundIntakeTests.test_unmentioned_unsupported_genre_is_clarified)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_intake.py", line 156, in test_unmentioned_unsupported_genre_is_clarified
+    self.assertEqual("needs_clarification", result.status)
+AssertionError: 'needs_clarification' != 'unsupported_request'
+- needs_clarification
++ unsupported_request
+
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.070s
+
+FAILED (failures=1)

@@ -138,3 +138,87 @@ def fake_source_bound_generator(root, *, contract_version, model_outputs, tokeni
     generator._execute_task = execute
     generator._fixture_calls = calls
     return generator
+
+
+def intake_fixture(
+    prompt="Buat company profile Studio Mapurana. Deskripsi: Studio Mapurana membuat keramik untuk rumah. Layanan: Kelas keramik. Detail: Kelas untuk pemula.",
+    *,
+    include_name=True,
+    evidence="confirmed",
+    tokenizer=None,
+):
+    from src.fullpage.intake import load_intake_catalog
+
+    def proof(value):
+        if evidence == "span":
+            start = prompt.index(value)
+            return {"source_span": {"start": start, "end": start + len(value)}}
+        return {"user_confirmed": True}
+
+    facts = []
+    if include_name:
+        value = "Studio Mapurana"
+        facts.append({"id": "name", "kind": "name", "value": value, "evidence": proof(value)})
+    description = "Studio Mapurana membuat keramik untuk rumah."
+    facts.extend(
+        [
+            {"id": "about", "kind": "description", "value": description, "evidence": proof(description)},
+            {
+                "id": "srv0",
+                "kind": "service",
+                "value": {
+                    "title": "Kelas keramik",
+                    "title_evidence": proof("Kelas keramik"),
+                    "text": "Kelas untuk pemula.",
+                    "text_evidence": proof("Kelas untuk pemula."),
+                },
+            },
+            {
+                "id": "values",
+                "kind": "value",
+                "value": "Bahan dan proses dijelaskan secara terbuka.",
+                "evidence": {"user_confirmed": True},
+            },
+            {
+                "id": "step0",
+                "kind": "process",
+                "value": {
+                    "title": "Pilih tanah liat",
+                    "title_evidence": {"user_confirmed": True},
+                    "text": "Tentukan bahan yang akan digunakan.",
+                    "text_evidence": {"user_confirmed": True},
+                },
+            },
+            {
+                "id": "faq0",
+                "kind": "faq",
+                "value": {
+                    "title": "Bagaimana memulai?",
+                    "title_evidence": {"user_confirmed": True},
+                    "text": "Hubungi studio untuk berdiskusi.",
+                    "text_evidence": {"user_confirmed": True},
+                },
+            },
+            {
+                "id": "project0",
+                "kind": "project",
+                "value": {
+                    "title": "Cangkir pagi",
+                    "title_evidence": {"user_confirmed": True},
+                    "text": "Contoh karya keramik.",
+                    "text_evidence": {"user_confirmed": True},
+                },
+            },
+        ]
+    )
+    draft = {
+        "contract_version": "request-draft-source-bound-v1",
+        "prompt": prompt,
+        "genre": "company_profile",
+        "style_mode": "plain_css",
+        "business_facts": facts,
+        "requested_features": [],
+        "asset_ids": ["company-shapes"],
+        "fictitious": True,
+    }
+    return draft, tokenizer or _FixtureTokenizer(), load_intake_catalog(ROOT)

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:mini-gpt-webcodegen:fullpage:capability-catalog:1",
+  "contract_version": "capability-catalog-v1",
+  "supported_genres": [
+    "landing_page",
+    "company_profile"
+  ],
+  "supported_style_modes": [
+    "plain_css",
+    "tailwind"
+  ],
+  "scope_message": "Saat ini generator mendukung landing page dan company profile dengan CSS biasa atau Tailwind. Halaman dibuat menggunakan HTML, CSS, dan JavaScript lokal dari komponen yang tersedia.",
+  "unsupported_capabilities": [
+    {
+      "id": "backend",
+      "label": "backend, database, atau pemrosesan di server",
+      "evidence_phrases": [
+        "backend",
+        "server-side",
+        "server side",
+        "database backend"
+      ]
+    },
+    {
+      "id": "external_script",
+      "label": "script eksternal atau script pihak ketiga",
+      "evidence_phrases": [
+        "external script",
+        "third-party script",
+        "script eksternal",
+        "script dari cdn"
+      ]
+    },
+    {
+      "id": "arbitrary_javascript",
+      "label": "JavaScript bebas di luar interaksi yang disediakan",
+      "evidence_phrases": [
+        "arbitrary javascript",
+        "free-form javascript",
+        "javascript bebas",
+        "kode javascript bebas"
+      ]
+    }
+  ]
+}

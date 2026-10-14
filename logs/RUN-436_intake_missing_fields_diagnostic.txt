@@ -1,0 +1,8 @@
+RUN-436
+Started: 2026-10-14 18:52:37 +07:00
+Purpose: Diagnose which RequestDraft fields are preventing ready and explicit-capability outcomes.
+Command: inline project Python prepared fixture cases and printed only status, missing field IDs, and safe message
+Exit code: 0
+
+spans needs_clarification ('business_facts.step0.value.title_evidence', 'business_facts.step0.value.text_evidence', 'business_facts.faq0.value.title_evidence', 'business_facts.faq0.value.text_evidence', 'business_facts.project0.value.title_evidence', 'business_facts.project0.value.text_evidence', 'request_draft') Saya belum bisa menyiapkan halaman. Lengkapi atau konfirmasi: business facts step0 value title evidence, business facts step0 value text evidence, business facts faq0 value title evidence, business facts faq0 value text evidence, business facts project0 value title evidence, business facts project0 value text evidence, format data request. Tidak ada halaman atau berkas yang dibuat saat intake.
+unsupported unsupported_request () Permintaan ini berada di luar cakupan karena membutuhkan: backend, database, atau pemrosesan di server. Saat ini generator mendukung landing page dan company profile dengan CSS biasa atau Tailwind. Halaman dibuat menggunakan HTML, CSS, dan JavaScript lokal dari komponen yang tersedia.

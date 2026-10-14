@@ -4979,3 +4979,249 @@ p=j(\"reports/training/FULLPAGE-GPU-005.json\"); print(\"GPU\",json.dumps([{k:r.
 - Local and remote commit: efcbd4453dd8b49b11da12176695e852c84e8f5f
 - Output: `logs/RUN-428_task3_remote_closeout.txt`
 - Decision: Task 3 implementation is closed; continue to Task 4.
+
+### RUN-429
+
+- Purpose: Commit the Task 3 log and pipeline closeout after the implementation commit was verified on origin.
+- Command: `git diff --cached --check`; `git commit -m "docs: close out source-bound generation task"`.
+- Environment: Project root, feature branch.
+- Staged check exit: 0
+- Commit command exit: 0
+- Commit: 333398a3681a4217220ff403e6979fcebffc3dc0 (docs: close out source-bound generation task)
+- Output: `logs/RUN-429_task3_docs_commit.txt`
+- Decision: Push the closeout commit and move to Task 4.
+
+### RUN-430
+
+- Purpose: Push the Task 3 documentation and experiment-log closeout commit.
+- Command: `git push origin feature/pipeline-data-model-training`
+- Environment: Project root, configured origin.
+- Exit code: 0
+- Remote matches local HEAD: True
+- Output: `logs/RUN-430_task3_closeout_push.txt`
+- Decision: Task 3 implementation and closeout are pushed; continue with Task 4 intake design.
+
+### RUN-431
+
+- Purpose: Freeze the Task 4 intake implementation brief against the approved plan.
+- Scope: source-span evidence, unsupported capability catalog, request/context bounds, and safe status mapping. No UI or extraction model.
+- Base: `333398a3681a4217220ff403e6979fcebffc3dc0`.
+- Brief: `.superpowers/sdd/2026-10-14-fullpage-source-bound-facts/task-4-brief.md`.
+- Output: `logs/RUN-431_task_4_brief.txt`.
+- Decision: Begin with the expected-red intake test.
+
+### RUN-432
+
+- Purpose: Confirm the new Task 4 intake tests fail before the intake module is implemented.
+- Command: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_intake -v`
+- Environment: Windows PowerShell, project `.venv` interpreter.
+- Exit code: 1
+- Output: `logs/RUN-432_source_bound_intake_red.txt`
+- Decision: Implement only the approved schema, capability catalog, and intake library.
+
+### RUN-433
+
+- Purpose: Inspect accepted request fields and fact kinds before building the normalized intake request.
+- Command: project `.venv` Python parsed `configs/fullpage/request.schema.json` properties, fact variants, and required keys.
+- Environment: Windows PowerShell, project interpreter.
+- Exit code: 0
+- Output: `logs/RUN-433_request_schema_contract.txt`
+- Decision: Preserve only schema-supported fact values in the returned request and strip evidence metadata.
+
+### RUN-434
+
+- Purpose: Identify the request fact kinds consumed by the source-bound role catalog.
+- Command: project `.venv` Python parsed `configs/fullpage/source-bound-copy-v1.json` required roles, fact kinds, and PageSpec properties.
+- Environment: Windows PowerShell, project interpreter.
+- Exit code: 0
+- Output: `logs/RUN-434_source_bound_fact_kinds.txt`
+- Decision: Validate evidence for every fact kind the source-bound catalog can use.
+
+### RUN-435
+
+- Purpose: Run the Task 4 intake cases against the first implementation of the versioned draft schema and status protocol.
+- Command: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_intake -v`
+- Environment: Windows PowerShell, project `.venv` interpreter.
+- Exit code: 1
+- Output: `logs/RUN-435_source_bound_intake_first_green.txt`
+- Decision: Use the failing cases to make a targeted correction.
+
+### RUN-436
+
+- Purpose: Identify stable field IDs behind five Task 4 failures without printing business values or raw prompt text.
+- Command: inline project `.venv` Python ran source-span and unsupported-capability fixtures.
+- Environment: Windows PowerShell, project interpreter.
+- Exit code: 0
+- Output: `logs/RUN-436_intake_missing_fields_diagnostic.txt`
+- Decision: Fix the shared draft validation issue exposed by both cases.
+
+### RUN-437
+
+- Purpose: Rerun Task 4 intake cases after aligning nested fact evidence and capability quote evidence with the closed draft schema.
+- Command: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_intake -v`
+- Environment: Windows PowerShell, project `.venv` interpreter.
+- Exit code: 0
+- Output: `logs/RUN-437_source_bound_intake_rerun.txt`
+- Decision: Review the complete full-page suite and edge cases.
+
+### RUN-438
+
+- Purpose: Run the full-page regression suite after adding source-bound prompt intake.
+- Command: `.\.venv\Scripts\python.exe -m unittest discover -s tests/fullpage -v`
+- Environment: Windows PowerShell, project `.venv` interpreter.
+- Exit code: 0
+- Output: `logs/RUN-438_fullpage_intake_regression.txt`
+- Decision: All full-page behavior passes with intake added.
+
+### RUN-439
+
+- Purpose: Refresh CodeGraph after adding the source-bound intake module and fixtures.
+- Command: `codegraph sync .`
+- Environment: Project root, PowerShell.
+- Exit code: 0
+- Output: `logs/RUN-439_codegraph_sync_task4.txt`
+- Decision: Review the indexed intake source before closeout.
+
+### RUN-440
+
+- Purpose: Refresh CodeGraph after reviewing and refining the Task 4 intake contracts.
+- Command: codegraph sync ..
+- Environment: Project root, PowerShell.
+- Exit code: 0
+- Output: `logs/RUN-440_codegraph_review_refresh.txt`.
+- Decision: Review current source-bound intake and test symbols before final regression.
+
+### RUN-441
+
+- Purpose: Rerun focused Task 4 intake cases after hardening capability catalog validation and simplifying context-overflow coverage.
+- Command: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_intake -v`.
+- Environment: Windows PowerShell, project .venv interpreter.
+- Exit code: 0
+- Output: `logs/RUN-441_source_bound_intake_final.txt`.
+- Decision: Confirm Task 4 intake behavior and full-page regression after the catalog and fixture refinements.
+
+### RUN-442
+
+- Purpose: Rerun all full-page tests after the final Task 4 intake review.
+- Command: `.\.venv\Scripts\python.exe -m unittest discover -s tests/fullpage -v`.
+- Environment: Windows PowerShell, project .venv interpreter.
+- Exit code: 0
+- Output: `logs/RUN-442_fullpage_task4_regression.txt`.
+- Decision: Confirm Task 4 intake behavior and full-page regression after the catalog and fixture refinements.
+
+### RUN-443
+
+- Purpose: Refresh CodeGraph after tying unsupported genre and style classification to the original user prompt.
+- Command: codegraph sync ..
+- Environment: Project root, PowerShell.
+- Exit code: 0
+- Output: `logs/RUN-443_codegraph_explicit_scope_evidence.txt`.
+- Decision: Inspect the source-bound phrase guard and rerun the Task 4 gate.
+
+### RUN-444
+
+- Purpose: Run source-bound intake cases after requiring prompt evidence for unsupported genres and styles.
+- Command: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_intake -v`.
+- Environment: Windows PowerShell, project .venv interpreter.
+- Exit code: 1
+- Output: `logs/RUN-444_source_bound_intake_evidence_gate.txt`.
+- Decision: Confirm source-backed unsupported genre and style handling before Task 4 closeout.
+
+### RUN-445
+
+- Purpose: Refresh CodeGraph after ensuring unmentioned unsupported labels request clarification.
+- Command: codegraph sync ..
+- Environment: Project root, PowerShell.
+- Exit code: 0
+- Output: `logs/RUN-445_codegraph_scope_fallback.txt`.
+- Decision: Rerun the failing intake case and full-page regression.
+
+### RUN-446
+
+- Purpose: Rerun all intake cases, including the unmentioned unsupported genre fixture, after correcting status fallback.
+- Command: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_intake -v`.
+- Environment: Windows PowerShell, project .venv interpreter.
+- Exit code: 0
+- Output: `logs/RUN-446_source_bound_intake_evidence_rerun.txt`.
+- Decision: Check source-backed scope outcomes after correcting the unmentioned-label fallback.
+
+### RUN-447
+
+- Purpose: Run all full-page tests after source-backed genre and style scope handling is corrected.
+- Command: `.\.venv\Scripts\python.exe -m unittest discover -s tests/fullpage -v`.
+- Environment: Windows PowerShell, project .venv interpreter.
+- Exit code: 0
+- Output: `logs/RUN-447_fullpage_task4_final_regression.txt`.
+- Decision: Check source-backed scope outcomes after correcting the unmentioned-label fallback.
+
+### RUN-448
+
+- Purpose: Check tracked Task 4 changes for whitespace issues and confirm no application UI files changed.
+- Command: git diff --check; git status --short -- app/.
+- Environment: Project root, feature branch.
+- Exit code: 0
+- Application-path status: none.
+- Output: `logs/RUN-448_task4_precommit_audit.txt`.
+- Decision: Prepare Task 4 closeout; a staged check will include new files and documentation.
+
+## AI-029: Source-bound prompt intake and status protocol, 14 October 2026
+
+- Implemented a structured, versioned intake draft and local capability catalog. Facts require exact prompt-span evidence or user confirmation, including separate evidence for nested fields.
+- Overlength requests, incomplete facts, explicit unsupported capabilities, and generation outcomes receive stable safe statuses. The validator does not call a prose extractor, truncate input, or expose raw model errors.
+- A genre or style outside the catalog is classified as unsupported only when the original prompt explicitly mentions that label. Unmentioned draft labels require clarification. RUN-444 preserved a test-fixture failure, and RUN-446/RUN-447 passed the corrected intake and full-page suites.
+- No UI, dataset, checkpoint, or training artifact changed. Task 5 is next: create deterministic training targets without split leakage.
+- Details: `logs/interaksi_llm/AI-029_2026-10-14.md`.
+### RUN-449
+
+- Purpose: Record the Task 4 AI interaction and status-evidence decisions.
+- Command: write `logs/interaksi_llm/AI-029_2026-10-14.md` and append its index to the experiment log.
+- Environment: Project root, PowerShell.
+- Exit code: 0
+- Output: `logs/RUN-449_task4_ai_interaction_record.txt`.
+- Decision: Stage Task 4 code, test evidence, and interaction logs for commit.
+
+### RUN-450
+
+- Purpose: Record and correct a staged-log formatting issue found by the Task 4 precommit check.
+- Command: git diff --cached --check.
+- Environment: Project root, feature branch.
+- Exit code: 1
+- Finding: The RUN-448 summary had trailing whitespace because its application-path status was empty. The raw RUN-448 output remains intact; the summary now records no application-path changes.
+- Output: `logs/RUN-450_task4_staged_diff_check.txt`.
+- Decision: Rerun the complete staged whitespace check.
+
+### RUN-451
+
+- Purpose: Refresh CodeGraph after extending the negative source-evidence case to both genre and style labels.
+- Command: codegraph sync ..
+- Environment: Project root, PowerShell.
+- Exit code: 0
+- Output: `logs/RUN-451_codegraph_intake_scope_tests.txt`.
+- Decision: Rerun intake and full-page regression before committing Task 4.
+
+### RUN-452
+
+- Purpose: Run intake cases for both explicit and unmentioned unsupported genres and style modes.
+- Command: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_intake -v`.
+- Environment: Windows PowerShell, project .venv interpreter.
+- Exit code: 0
+- Output: `logs/RUN-452_intake_scope_evidence_final.txt`.
+- Decision: Close the source-evidence status gate before Task 4 commit.
+
+### RUN-453
+
+- Purpose: Rerun the full-page suite after broadening explicit scope evidence tests to genre and style.
+- Command: `.\.venv\Scripts\python.exe -m unittest discover -s tests/fullpage -v`.
+- Environment: Windows PowerShell, project .venv interpreter.
+- Exit code: 0
+- Output: `logs/RUN-453_fullpage_task4_final.txt`.
+- Decision: Close the source-evidence status gate before Task 4 commit.
+
+### RUN-454
+
+- Purpose: Record the final Task 4 staged whitespace check before implementation commit.
+- Command: git diff --cached --check.
+- Environment: Project root, feature branch.
+- Exit code: 0
+- Output: `logs/RUN-454_task4_staged_check.txt`.
+- Decision: Commit Task 4 source, schemas, tests, and experiment evidence.

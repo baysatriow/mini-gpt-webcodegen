@@ -1,0 +1,7 @@
+RUN-449
+Started: 2026-10-14 18:58:51 +07:00
+Command: write AI-029 interaction record and append its index to the experiment log
+Exit code: 0
+AI record: logs/interaksi_llm/AI-029_2026-10-14.md
+
+Recorded Task 4 source-bound evidence decisions, a failed negative test and correction, the 17-case intake pass, and the 42-case full-page pass.

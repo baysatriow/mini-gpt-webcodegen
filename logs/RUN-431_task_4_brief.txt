@@ -1,0 +1,7 @@
+RUN-431
+Started: 2026-10-14 18:46:50 +07:00
+Purpose: Capture the approved Task 4 implementation brief before editing intake code.
+BASE: 333398a3681a4217220ff403e6979fcebffc3dc0
+Scope: source-backed RequestDraft validation, safe status mapping, no UI or extraction model.
+Brief: .superpowers/sdd/2026-10-14-fullpage-source-bound-facts/task-4-brief.md
+Decision: Proceed with TDD using exact source spans and the existing PagePlan budget checker.
