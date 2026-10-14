@@ -1233,3 +1233,7 @@ Tujuan V5 adalah mengurangi kesalahan penyalinan identitas dengan meminta model 
 ### RUN-595 launch: source-bound V5 development comparison
 
 RUN-595 creates immutable weights-only snapshots for TRAIN-025 step 1,800 and TRAIN-026 step 3,600, then evaluates both on the same 80 frozen development requests. The fixed selector chooses by complete pages, with ordinary validation cross-entropy as a tie-breaker. The 76/80 gate also requires model_gate and exact accepted facts, links, and assets. All destinations were confirmed absent. Evaluation reads the V5 validation requests only; test and final data remain closed.
+
+RUN-595 snapshots saved
+
+Immutable weights-only snapshots passed the project snapshot utility. TRAIN-025 step 1,800 digest is c1a450149eb8f860cc42595bba283e0f9e915a436f38f967516bc5107bd1c446; TRAIN-026 step 3,600 digest is 6276d7a0cb68bee482f91b07430d1421eb47a866a4a2d7729d8a3493c8a336e6. Both snapshots descend from their completed training checkpoints and bind to V5 manifest 90c2dc71c4d91ff9a36a3fbd1bd36bd329c127b711c69556df4c0f58381d6dd2. The 80-request development evaluations are next.

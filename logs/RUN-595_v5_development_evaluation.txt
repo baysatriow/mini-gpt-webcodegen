@@ -13,3 +13,10 @@ Evaluation commands, each receives validation.requests.jsonl from data/processed
 .venv/Scripts/python.exe -m qa.evaluate_fullpage --scope development --dataset-dir data/processed/fullpage/v5 --checkpoint checkpoints/FULLPAGE-V5/TRAIN-026-step3600.pt --output outputs/fullpage/FULLPAGE-V5/TRAIN-026-step3600 --report reports/fullpage/FULLPAGE-V5_TRAIN-026_STEP3600_DEVELOPMENT.json
 
 After both reports are verified, invoke qa.select_fullpage_v5 using the two generation reports and matching TRAIN-025/TRAIN-026 training reports. Selector output: reports/training/FULLPAGE-V5_DEVELOPMENT_SELECTION.json.
+
+Candidate snapshot creation, checked: 2026-10-14 22:25:40 +07:00
+- TRAIN-025 parent: checkpoints/TRAIN-025/last.pt; source digest e7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339.
+- Step-1800 snapshot: checkpoints/FULLPAGE-V5/TRAIN-025-step1800.pt; checkpoint digest c1a450149eb8f860cc42595bba283e0f9e915a436f38f967516bc5107bd1c446; file digest 68264e32a71e94634626b110e9f4ceebf35fdab9954cb82ce9b49d4162f34fc3.
+- TRAIN-026 parent: checkpoints/TRAIN-026/last.pt; source digest cc586807fe8db32ae04f746e7684642b36f7f1652cfca3339b11cfd5b8f179c5.
+- Step-3600 snapshot: checkpoints/FULLPAGE-V5/TRAIN-026-step3600.pt; checkpoint digest 6276d7a0cb68bee482f91b07430d1421eb47a866a4a2d7729d8a3493c8a336e6; file digest a508dd46d26703e93dcfb7dfe8ce625b15e8631183039ffd0a2cac993924c4cd.
+- Both snapshots are weights-only and bind to V5 manifest SHA-256 90c2dc71c4d91ff9a36a3fbd1bd36bd329c127b711c69556df4c0f58381d6dd2.
