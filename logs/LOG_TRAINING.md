@@ -1245,3 +1245,7 @@ Kandidat step 1.800 mendapat 80/80 halaman lengkap, 0 kegagalan, model_gate=true
 TRAIN-026 step-3600 development preflight
 
 Sebelum evaluasi kandidat kedua, free space dicek ulang menjadi 26,802 GiB. Headroom terhadap reserve 15 GiB dan allowance checkpoint 1.116.848.128 byte adalah 11.555.201.024 byte. Folder output dan report TRAIN-026 masih kosong. Report TRAIN-025 cocok dengan snapshot. Evaluasi lanjut pada development set yang sama.
+
+TRAIN-026 step 3.600 development result
+
+Kandidat step 3.600 memperoleh 80/80 halaman lengkap, 0 kegagalan, model_gate=true, dan pemeriksaan facts/links/assets lulus. Request SHA-256 cocok dengan kandidat step 1.800. Report memastikan inal_used=false. Kedua kandidat mencapai gate, sehingga selector beku akan memakai jumlah halaman lengkap, lalu CE ordinary sebagai tie-breaker, dan step lebih awal jika tetap seri. Review visual browser belum dilakukan.

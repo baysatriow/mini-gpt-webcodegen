@@ -346,3 +346,7 @@ RUN-595 akan menyimpan snapshot bobot untuk TRAIN-025 step 1.800 dan TRAIN-026 s
 ## Development TRAIN-025 step 1.800: 80/80
 
 Kandidat step 1.800 memperoleh 80/80 halaman lengkap dan model_gate=true; fakta, tautan, dan aset diterima. Semua 80 halaman berstatus accepted. Evaluasi ini hanya memakai development dan report menyatakan inal_used=false. Belum ada klaim visual/browser. Kandidat step 3.600 sedang menunggu evaluasi pada permintaan yang sama.
+
+## Development TRAIN-026 step 3.600: 80/80
+
+Kandidat step 3.600 mencapai 80/80 halaman lengkap, model_gate=true, fakta/tautan/aset lulus, dan inal_used=false. Request SHA-256 sama dengan evaluasi kandidat step 1.800. Kedua kandidat melampaui gate 76/80; selector beku akan memilih sesuai aturan jumlah halaman, CE, lalu step lebih awal. Pemeriksaan visual browser masih pending.
