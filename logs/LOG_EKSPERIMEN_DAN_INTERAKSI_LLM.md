@@ -5653,3 +5653,12 @@ p=j(\"reports/training/FULLPAGE-GPU-005.json\"); print(\"GPU\",json.dumps([{k:r.
 - Exit code: 0.
 - Output: `logs/RUN-501_task5_codegraph_sync.txt`.
 - Decision: CodeGraph synchronized 9 changed files and 223 nodes. The V5 runtime dataset and preparation report remain local and ignored.
+
+### RUN-502
+
+- Purpose: Push and verify the Task 5 source-bound dataset preparation implementation.
+- Command: `git push origin feature/pipeline-data-model-training`, followed by local HEAD and remote ref checks.
+- Environment: Project branch `feature/pipeline-data-model-training`; remote `origin`.
+- Exit code: 0.
+- Output: `logs/RUN-502_task5_commit_push_verification.txt`.
+- Decision: Commit `4a525397f71ac5c7c358374bdf7ebcbd12ffec3a` is present on the remote branch. No co-author trailer was used.

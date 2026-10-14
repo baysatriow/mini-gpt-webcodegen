@@ -368,7 +368,7 @@ Run: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_da
 
 Expected: fixture preparation passes and final request contents are not loaded by the builder.
 
-- [ ] **Step 5: Commit and push the data-preparation code.** Do not commit generated runtime data or reports.
+- [x] **Step 5: Commit and push the data-preparation code.** Do not commit generated runtime data or reports.
 
 ```powershell
 git add src/fullpage/source_bound_targets.py qa/prepare_fullpage_v5.py tests/fullpage/test_source_bound_data.py
