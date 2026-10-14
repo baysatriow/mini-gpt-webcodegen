@@ -1249,3 +1249,7 @@ Sebelum evaluasi kandidat kedua, free space dicek ulang menjadi 26,802 GiB. Head
 TRAIN-026 step 3.600 development result
 
 Kandidat step 3.600 memperoleh 80/80 halaman lengkap, 0 kegagalan, model_gate=true, dan pemeriksaan facts/links/assets lulus. Request SHA-256 cocok dengan kandidat step 1.800. Report memastikan inal_used=false. Kedua kandidat mencapai gate, sehingga selector beku akan memakai jumlah halaman lengkap, lalu CE ordinary sebagai tie-breaker, dan step lebih awal jika tetap seri. Review visual browser belum dilakukan.
+
+### RUN-596 selector preflight
+
+Dua report development cocok pada 80 request yang sama, 80/80 lengkap, model_gate=true, facts/links/assets valid, dan inal_used=false. Checkpoint dan hash report training sudah tertaut lewat snapshot masing-masing. Output selector belum ada dan tidak akan menimpa file. Berikutnya jalankan selector resmi dengan aturan beku: halaman lengkap terbanyak, CE biasa sebagai tie-breaker, lalu step lebih awal jika seri. Test/final tetap tertutup.

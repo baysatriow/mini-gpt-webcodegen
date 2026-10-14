@@ -1,0 +1,15 @@
+RUN-596 V5 development candidate selection preflight
+Checked: 2026-10-14 22:45:32 +07:00
+Status: PASS, read-only. The selection report destination does not exist.
+
+Inputs:
+- Step 1800 generation report: reports/fullpage/FULLPAGE-V5_TRAIN-025_STEP1800_DEVELOPMENT.json, SHA-256 08477f615d54f01e7c237f6852937664187903faea2306bf92fe3b596d4b65c0.
+- Step 1800 training report: reports/training/TRAIN-025.json.
+- Step 3600 generation report: reports/fullpage/FULLPAGE-V5_TRAIN-026_STEP3600_DEVELOPMENT.json, SHA-256 21de295c413fe2367548823e2d955a153c4e1021851a195dc04ff0630cfb5c89.
+- Step 3600 training report: reports/training/TRAIN-026.json.
+- Both generation reports use source-bound-v1, have 80/80 complete pages, model_gate=true, accepted_facts_links_assets_valid=true, final_used=false, and share development request SHA-256 e4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173.
+- Selector gate: minimum 76/80 plus model_gate and exact accepted facts/links/assets. Winner: maximum complete pages; ordinary development CE breaks ties; earlier step breaks exact ties.
+- No test or final corpus is accessed by this command.
+
+Command:
+.venv/Scripts/python.exe -m qa.select_fullpage_v5 --step1800-report reports/fullpage/FULLPAGE-V5_TRAIN-025_STEP1800_DEVELOPMENT.json --step1800-training reports/training/TRAIN-025.json --step3600-report reports/fullpage/FULLPAGE-V5_TRAIN-026_STEP3600_DEVELOPMENT.json --step3600-training reports/training/TRAIN-026.json --output reports/training/FULLPAGE-V5_DEVELOPMENT_SELECTION.json
