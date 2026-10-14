@@ -273,7 +273,7 @@ git push origin feature/pipeline-data-model-training
 - Exact intake statuses are `needs_clarification`, `unsupported_request`, `input_too_long`, `ready`, `generation_failed`, and `completed`. Map raw generator status `accepted` to `completed`, `missing_information` to `needs_clarification`, `input_too_long` to `input_too_long`, and `stage_failed` to `generation_failed`.
 - Apply status precedence in this order: overlength input, explicit unsupported capability, missing or unverified facts, then `ready`. Map a model-side SectionDraft budget overflow to `input_too_long` before any SectionDraft model call.
 
-- [ ] **Step 1: Add failing intake status tests.** Include a missing-fact request, a matching source span, a mismatched source span, a user-confirmed field, a space-themed ceramic company profile, an explicitly requested backend/external script, a prompt over 1,000 characters, and a full request that overflows the plan budget.
+- [x] **Step 1: Add failing intake status tests.** Include a missing-fact request, a matching source span, a mismatched source span, a user-confirmed field, a space-themed ceramic company profile, an explicitly requested backend/external script, a prompt over 1,000 characters, and a full request that overflows the plan budget.
 
 ```python
 class SourceBoundIntakeTests(unittest.TestCase):
@@ -284,13 +284,13 @@ class SourceBoundIntakeTests(unittest.TestCase):
         self.assertIsNone(result.request)
 ```
 
-- [ ] **Step 2: Run focused intake tests and confirm status handling is absent.**
+- [x] **Step 2: Run focused intake tests and confirm status handling is absent.**
 
 Run: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_intake -v`
 
 Expected: test imports or assertions fail before implementation.
 
-- [ ] **Step 3: Implement evidence validation and status mapping.** Validate the prompt length and context budget first, then explicit unsupported capability references, then required facts and source spans. Return one clarification listing missing fields; reject only capabilities listed in the capability catalog. Never truncate input or invoke the model for these statuses. A phrase merely describing a creative theme is not an unsupported capability.
+- [x] **Step 3: Implement evidence validation and status mapping.** Validate the prompt length and context budget first, then explicit unsupported capability references, then required facts and source spans. Return one clarification listing missing fields; reject only capabilities listed in the capability catalog. Never truncate input or invoke the model for these statuses. A phrase merely describing a creative theme is not an unsupported capability.
 
 ```python
 if over_character_or_token_budget:
@@ -301,13 +301,13 @@ if missing_fields:
     return IntakeResult('needs_clarification', clarification_message(missing_fields), missing_fields, None)
 ```
 
-- [ ] **Step 4: Run all intake cases.** Verify the space theme reaches `ready` when required facts are confirmed, unsupported capabilities produce no request, mismatched spans are not accepted, input and plan-budget overflow are not truncated, and generation status mapping hides raw errors from the user-safe message.
+- [x] **Step 4: Run all intake cases.** Verify the space theme reaches `ready` when required facts are confirmed, unsupported capabilities produce no request, mismatched spans are not accepted, input and plan-budget overflow are not truncated, and generation status mapping hides raw errors from the user-safe message.
 
 Run: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_intake -v`
 
 Expected: every intake status and evidence case passes without an application UI.
 
-- [ ] **Step 5: Commit and push the intake unit.**
+- [x] **Step 5: Commit and push the intake unit.**
 
 ```powershell
 git add configs/fullpage/request-draft-source-bound-v1.schema.json configs/fullpage/capability-catalog-v1.json src/fullpage/intake.py tests/fullpage/test_source_bound_intake.py

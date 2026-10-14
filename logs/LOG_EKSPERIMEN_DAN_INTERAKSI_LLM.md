@@ -5225,3 +5225,40 @@ p=j(\"reports/training/FULLPAGE-GPU-005.json\"); print(\"GPU\",json.dumps([{k:r.
 - Exit code: 0
 - Output: `logs/RUN-454_task4_staged_check.txt`.
 - Decision: Commit Task 4 source, schemas, tests, and experiment evidence.
+
+### RUN-455
+
+- Purpose: Commit the Task 4 source-bound intake unit and its experiment evidence.
+- Command: git commit -m "feat: validate fullpage prompt intake evidence".
+- Environment: Project root, feature branch.
+- Exit code: 0
+- Output: `logs/RUN-455_task4_implementation_commit.txt`.
+- Decision: Push the implementation commit to the authorized private feature branch.
+
+### RUN-456
+
+- Purpose: Push the Task 4 source-bound intake implementation commit to the authorized private feature branch.
+- Command: git push origin feature/pipeline-data-model-training.
+- Environment: Project root, configured origin.
+- Exit code: 0
+- Output: `logs/RUN-456_task4_push.txt`.
+- Decision: Verify remote HEAD and prepare Task 4 documentation closeout.
+
+### RUN-457
+
+- Purpose: Verify the pushed Task 4 commit is the feature branch remote HEAD.
+- Command: git rev-parse HEAD; git ls-remote origin refs/heads/feature/pipeline-data-model-training.
+- Environment: Project root, configured origin.
+- Exit code: 0
+- Local and remote HEAD: 8bc231700e028b25160465bcf7c1d21e8ac12fb8
+- Output: `logs/RUN-457_task4_remote_verification.txt`.
+- Decision: Close Task 4 documentation and begin Task 5 target design.
+
+### RUN-458
+
+- Purpose: Close Task 4 in the plan, spec status, pipeline progress, and local execution ledger.
+- Command: Update the Task 4 completion state and append its evidence summary.
+- Environment: Project root, feature branch.
+- Exit code: 0
+- Output: `logs/RUN-458_task4_documentation_closeout.txt`.
+- Decision: Commit and push documentation closeout, then begin Task 5.

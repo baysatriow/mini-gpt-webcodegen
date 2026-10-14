@@ -1,0 +1,38 @@
+RUN-455
+Started: 2026-10-14 19:00:37 +07:00
+Command: git commit -m 'feat: validate fullpage prompt intake evidence'
+Exit code: 0
+
+[feature/pipeline-data-model-training 8bc2317] feat: validate fullpage prompt intake evidence
+ 33 files changed, 1825 insertions(+)
+ create mode 100644 configs/fullpage/capability-catalog-v1.json
+ create mode 100644 configs/fullpage/request-draft-source-bound-v1.schema.json
+ create mode 100644 logs/RUN-429_task3_docs_commit.txt
+ create mode 100644 logs/RUN-430_task3_closeout_push.txt
+ create mode 100644 logs/RUN-431_task_4_brief.txt
+ create mode 100644 logs/RUN-432_source_bound_intake_red.txt
+ create mode 100644 logs/RUN-433_request_schema_contract.txt
+ create mode 100644 logs/RUN-434_source_bound_fact_kinds.txt
+ create mode 100644 logs/RUN-435_source_bound_intake_first_green.txt
+ create mode 100644 logs/RUN-436_intake_missing_fields_diagnostic.txt
+ create mode 100644 logs/RUN-437_source_bound_intake_rerun.txt
+ create mode 100644 logs/RUN-438_fullpage_intake_regression.txt
+ create mode 100644 logs/RUN-439_codegraph_sync_task4.txt
+ create mode 100644 logs/RUN-440_codegraph_review_refresh.txt
+ create mode 100644 logs/RUN-441_source_bound_intake_final.txt
+ create mode 100644 logs/RUN-442_fullpage_task4_regression.txt
+ create mode 100644 logs/RUN-443_codegraph_explicit_scope_evidence.txt
+ create mode 100644 logs/RUN-444_source_bound_intake_evidence_gate.txt
+ create mode 100644 logs/RUN-445_codegraph_scope_fallback.txt
+ create mode 100644 logs/RUN-446_source_bound_intake_evidence_rerun.txt
+ create mode 100644 logs/RUN-447_fullpage_task4_final_regression.txt
+ create mode 100644 logs/RUN-448_task4_precommit_audit.txt
+ create mode 100644 logs/RUN-449_task4_ai_interaction_record.txt
+ create mode 100644 logs/RUN-450_task4_staged_diff_check.txt
+ create mode 100644 logs/RUN-451_codegraph_intake_scope_tests.txt
+ create mode 100644 logs/RUN-452_intake_scope_evidence_final.txt
+ create mode 100644 logs/RUN-453_fullpage_task4_final.txt
+ create mode 100644 logs/RUN-454_task4_staged_check.txt
+ create mode 100644 logs/interaksi_llm/AI-029_2026-10-14.md
+ create mode 100644 src/fullpage/intake.py
+ create mode 100644 tests/fullpage/test_source_bound_intake.py

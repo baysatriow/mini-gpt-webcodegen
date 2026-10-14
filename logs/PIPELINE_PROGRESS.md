@@ -282,3 +282,12 @@ RUN-331 membandingkan satu target train role `process` dengan keluaran gagal TRA
 - Evaluation identity now hashes the source-bound prompts, serializer, validators, resolver, composer, renderer, asset catalog code, versioned schemas, and copy catalog. A focused test protects the legacy and source-bound identity split.
 - RUN-421 passed 10 focused generation tests. RUN-422 passed all 25 full-page tests. RUN-423 synchronized CodeGraph. No dataset, checkpoint, training run, UI, or backend changed in Task 3. Real checkpoint generation and browser review remain pending.
 - Task 3 code is committed as `efcbd4453dd8b49b11da12176695e852c84e8f5f` (`feat: dispatch source-bound fullpage generation`) and pushed to `origin/feature/pipeline-data-model-training`; RUN-426 and RUN-427 contain the commit and remote verification records.
+
+### Source-bound Task 4 prompt intake
+
+- Added a versioned RequestDraft schema and fixed capability catalog. Intake validates user-confirmed or exact prompt-span evidence for every scalar and nested fact, request limits, catalog references, and required business facts.
+- Explicit unsupported capabilities require a matching prompt quote from the catalog. Unsupported genre or style labels are classified as out of scope only when they are explicitly mentioned in the original prompt. Unmentioned draft labels request clarification.
+- Generation statuses map to stable user-safe messages. Raw validator and model errors are hidden. Intake does not run an extraction model, modify the original prompt, create a page, or write output files. No `app/` files changed.
+- RUN-446 passed 17 focused intake tests. RUN-447 and the final RUN-453 passed all 42 full-page tests. RUN-444 captured a negative-test fixture mismatch and RUN-450 captured and corrected a whitespace issue in the summary log.
+- Task 4 is committed as `8bc231700e028b25160465bcf7c1d21e8ac12fb8` (`feat: validate fullpage prompt intake evidence`) and pushed to `origin/feature/pipeline-data-model-training`; RUN-456 and RUN-457 confirm the push.
+- No dataset, checkpoint, or training artifact changed. Task 5 is next: prepare deterministic source-bound V5 targets using training families only while preserving frozen validation and final partitions.

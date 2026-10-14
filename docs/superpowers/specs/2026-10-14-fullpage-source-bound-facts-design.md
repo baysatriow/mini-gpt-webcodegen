@@ -2,7 +2,7 @@
 
 Tanggal: 14 Oktober 2026
 
-Status: pengguna menyetujui arah arsitektur. Tasks 1 sampai 3 sudah diimplementasikan; Task 4 sampai 10, data v5, dan training v5 belum dimulai.
+Status: pengguna menyetujui arah arsitektur. Tasks 1 sampai 4 sudah diimplementasikan; Tasks 5 sampai 10, data v5, dan training v5 belum dimulai.
 
 Dokumen ini melanjutkan [desain generasi halaman lengkap](2026-10-13-full-page-generation-design.md). Perubahan utama adalah memisahkan fakta yang diberikan pengguna dari pilihan struktur dan presentasi yang dibuat MiniGPT.
 
