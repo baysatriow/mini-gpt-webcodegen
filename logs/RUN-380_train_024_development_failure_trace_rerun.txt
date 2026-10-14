@@ -1,0 +1,101 @@
+RUN-380 | 2026-10-14T14:18:45.384991+07:00 | TRAIN-024 development failure trace rerun
+Command: .\\.venv\\Scripts\\python.exe C:\Users\BAYUSW~1\AppData\Local\Temp\train024_failure_trace.py
+Commit: 51e8e5eda07046f23bf5cfd21434259ea669b773
+
+OUTPUT_ROOTS ['outputs\\fullpage\\TRAIN-024-development-step3600']
+
+REQUEST page0242-plain_css attempt-01 expected_identity= {'title': 'Kafe Bayalaya', 'genre': 'landing_page', 'style_mode': 'plain_css'}
+attempt-01.json task= page_plan stage= plan retry= False errors= []
+  PLAN_FIELDS {'title': 'Kafe Bayalaya', 'genre': 'landing_page', 'style_mode': 'plain_css', 'roles': ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'contact', 'footer']}
+attempt-02.json task= section_content stage= nav retry= False errors= ['Brand fact mismatch']
+  SECTION_RAW {"id":"nav","props":{"brand":"Kafe Baya","links":[{"href":"#about","label":"Tentang"},{"href":"#services","label":"Layanan"},{"href":"#contact","label":"Kontak"}]},"role":"navigation","type":"navbar","variant":"inline"}
+attempt-03.json task= section_content stage= nav retry= True errors= ['Brand fact mismatch']
+  SECTION_RAW {"id":"nav","props":{"brand":"Kafe Baya","links":[{"href":"#about","label":"Tentang"},{"href":"#services","label":"Layanan"},{"href":"#contact","label":"Kontak"}]},"role":"navigation","type":"navbar","variant":"inline"}
+
+REQUEST page0242-tailwind attempt-01 expected_identity= {'title': 'Kafe Bayalaya', 'genre': 'landing_page', 'style_mode': 'tailwind'}
+attempt-01.json task= page_plan stage= plan retry= False errors= []
+  PLAN_FIELDS {'title': 'Kafe Bayalaya', 'genre': 'landing_page', 'style_mode': 'tailwind', 'roles': ['navigation', 'hero', 'about', 'services', 'benefits', 'process', 'faq', 'contact', 'footer']}
+attempt-02.json task= section_content stage= nav retry= False errors= ['Brand fact mismatch']
+  SECTION_RAW {"id":"nav","props":{"brand":"Kafe Baya","links":[{"href":"#about","label":"Tentang"},{"href":"#services","label":"Layanan"},{"href":"#contact","label":"Kontak"}]},"role":"navigation","type":"navbar","variant":"inline"}
+attempt-03.json task= section_content stage= nav retry= True errors= ['Brand fact mismatch']
+  SECTION_RAW {"id":"nav","props":{"brand":"Kafe Baya","links":[{"href":"#about","label":"Tentang"},{"href":"#services","label":"Layanan"},{"href":"#contact","label":"Kontak"}]},"role":"navigation","type":"navbar","variant":"inline"}
+
+REQUEST page0247-plain_css attempt-01 expected_identity= {'title': 'Toko Yadilala', 'genre': 'company_profile', 'style_mode': 'plain_css'}
+attempt-01.json task= page_plan stage= plan retry= False errors= ['Plan request identity/style mismatch']
+  PLAN_FIELDS {'title': 'Toko Yadila', 'genre': 'company_profile', 'style_mode': 'plain_css', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+attempt-02.json task= page_plan stage= plan retry= True errors= ['Plan request identity/style mismatch']
+  PLAN_FIELDS {'title': 'Toko Yadila', 'genre': 'company_profile', 'style_mode': 'plain_css', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+
+REQUEST page0247-tailwind attempt-01 expected_identity= {'title': 'Toko Yadilala', 'genre': 'company_profile', 'style_mode': 'tailwind'}
+attempt-01.json task= page_plan stage= plan retry= False errors= ['Plan request identity/style mismatch']
+  PLAN_FIELDS {'title': 'Toko Yadila', 'genre': 'company_profile', 'style_mode': 'tailwind', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+attempt-02.json task= page_plan stage= plan retry= True errors= []
+  PLAN_FIELDS {'title': 'Toko Yadilala', 'genre': 'company_profile', 'style_mode': 'tailwind', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+attempt-03.json task= section_content stage= nav retry= False errors= []
+  SECTION_RAW {"id":"nav","props":{"brand":"Toko Yadilala","links":[{"href":"#about","label":"Tentang"},{"href":"#services","label":"Layanan"},{"href":"#contact","label":"Kontak"}]},"role":"navigation","type":"navbar","variant":"inline"}
+attempt-04.json task= section_content stage= main retry= False errors= []
+  SECTION_RAW {"id":"main","props":{"button":{"href":"#contact","label":"Diskusikan kebutuhan"},"heading":"Toko Yadilala","layout":"centered","media":{"alt":"Ilustrasi usaha demo fiktif","asset_id":"company-shapes"},"text":"Kenali layanan produk kebutuhan harian dan diskusikan kebutuhan Anda. Demo fiktif."},"role":"hero","type":"hero","variant":"centered"}
+attempt-05.json task= section_content stage= about retry= False errors= ['Required fact text mismatch: about']
+  SECTION_RAW {"id":"about","props":{"heading":"Tentang Toko Yadilala","text":"Toko Yadila adalah usaha demo fiktif di bidang produk kebutuhan harian. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas."},"role":"about","type":"text_section","variant":"prose"}
+attempt-06.json task= section_content stage= about retry= True errors= ['Required fact text mismatch: about']
+  SECTION_RAW {"id":"about","props":{"heading":"Tentang Toko Yadilala","text":"Toko Yadila adalah usaha demo fiktif di bidang produk kebutuhan harian. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas."},"role":"about","type":"text_section","variant":"prose"}
+
+REQUEST page0249-plain_css attempt-01 expected_identity= {'title': 'Studio Mapurana', 'genre': 'company_profile', 'style_mode': 'plain_css'}
+attempt-01.json task= page_plan stage= plan retry= False errors= ['Plan request identity/style mismatch']
+  PLAN_FIELDS {'title': 'Studio Studiominurana', 'genre': 'company_profile', 'style_mode': 'plain_css', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+attempt-02.json task= page_plan stage= plan retry= True errors= ['Plan request identity/style mismatch']
+  PLAN_FIELDS {'title': 'Studio Studioarcurana', 'genre': 'company_profile', 'style_mode': 'plain_css', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+
+REQUEST page0249-tailwind attempt-01 expected_identity= {'title': 'Studio Mapurana', 'genre': 'company_profile', 'style_mode': 'tailwind'}
+attempt-01.json task= page_plan stage= plan retry= False errors= ['Plan request identity/style mismatch']
+  PLAN_FIELDS {'title': 'Studio Studiominurana', 'genre': 'company_profile', 'style_mode': 'tailwind', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+attempt-02.json task= page_plan stage= plan retry= True errors= ['Plan request identity/style mismatch']
+  PLAN_FIELDS {'title': 'Studio Studioarcurana', 'genre': 'company_profile', 'style_mode': 'tailwind', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+
+REQUEST page0253-plain_css attempt-01 expected_identity= {'title': 'Kursus Raramapu', 'genre': 'company_profile', 'style_mode': 'plain_css'}
+attempt-01.json task= page_plan stage= plan retry= False errors= ['Plan request identity/style mismatch']
+  PLAN_FIELDS {'title': 'Kursus Rarau', 'genre': 'company_profile', 'style_mode': 'plain_css', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+attempt-02.json task= page_plan stage= plan retry= True errors= ['Plan request identity/style mismatch']
+  PLAN_FIELDS {'title': 'Kursus Rarau', 'genre': 'company_profile', 'style_mode': 'plain_css', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+
+REQUEST page0253-tailwind attempt-01 expected_identity= {'title': 'Kursus Raramapu', 'genre': 'company_profile', 'style_mode': 'tailwind'}
+attempt-01.json task= page_plan stage= plan retry= False errors= ['Plan request identity/style mismatch']
+  PLAN_FIELDS {'title': 'Kursus Rarau', 'genre': 'company_profile', 'style_mode': 'tailwind', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+attempt-02.json task= page_plan stage= plan retry= True errors= ['Plan request identity/style mismatch']
+  PLAN_FIELDS {'title': 'Kursus Rarau', 'genre': 'company_profile', 'style_mode': 'tailwind', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+
+REQUEST page0257-plain_css attempt-01 expected_identity= {'title': 'Studio Pusanupu', 'genre': 'company_profile', 'style_mode': 'plain_css'}
+attempt-01.json task= page_plan stage= plan retry= False errors= []
+  PLAN_FIELDS {'title': 'Studio Pusanupu', 'genre': 'company_profile', 'style_mode': 'plain_css', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+attempt-02.json task= section_content stage= nav retry= False errors= []
+  SECTION_RAW {"id":"nav","props":{"brand":"Studio Pusanupu","links":[{"href":"#about","label":"Tentang"},{"href":"#services","label":"Layanan"},{"href":"#contact","label":"Kontak"}]},"role":"navigation","type":"navbar","variant":"inline"}
+attempt-03.json task= section_content stage= main retry= False errors= ['Hero brand fact mismatch']
+  SECTION_RAW {"id":"main","props":{"button":{"href":"#contact","label":"Diskusikan kebutuhan"},"heading":"Studio Pusanu","layout":"split","media":{"alt":"Ilustrasi usaha demo fiktif","asset_id":"company-shapes"},"text":"Kenali layanan desain dan komunikasi dan diskusikan kebutuhan Anda. Demo fiktif."},"role":"hero","type":"hero","variant":"split"}
+attempt-04.json task= section_content stage= main retry= True errors= ['Hero brand fact mismatch']
+  SECTION_RAW {"id":"main","props":{"button":{"href":"#contact","label":"Diskusikan kebutuhan"},"heading":"Studio Pusanu","layout":"split","media":{"alt":"Ilustrasi usaha demo fiktif","asset_id":"company-shapes"},"text":"Kenali layanan desain dan komunikasi dan diskusikan kebutuhan Anda. Demo fiktif."},"role":"hero","type":"hero","variant":"split"}
+
+REQUEST page0257-tailwind attempt-01 expected_identity= {'title': 'Studio Pusanupu', 'genre': 'company_profile', 'style_mode': 'tailwind'}
+attempt-01.json task= page_plan stage= plan retry= False errors= ['Plan request identity/style mismatch']
+  PLAN_FIELDS {'title': 'Studio Pusanu', 'genre': 'company_profile', 'style_mode': 'tailwind', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+attempt-02.json task= page_plan stage= plan retry= True errors= []
+  PLAN_FIELDS {'title': 'Studio Pusanupu', 'genre': 'company_profile', 'style_mode': 'tailwind', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+attempt-03.json task= section_content stage= nav retry= False errors= []
+  SECTION_RAW {"id":"nav","props":{"brand":"Studio Pusanupu","links":[{"href":"#about","label":"Tentang"},{"href":"#services","label":"Layanan"},{"href":"#contact","label":"Kontak"}]},"role":"navigation","type":"navbar","variant":"inline"}
+attempt-04.json task= section_content stage= main retry= False errors= ['Hero brand fact mismatch']
+  SECTION_RAW {"id":"main","props":{"button":{"href":"#contact","label":"Diskusikan kebutuhan"},"heading":"Studio Pusanu","layout":"split","media":{"alt":"Ilustrasi usaha demo fiktif","asset_id":"company-shapes"},"text":"Kenali layanan desain dan komunikasi dan diskusikan kebutuhan Anda. Demo fiktif."},"role":"hero","type":"hero","variant":"split"}
+attempt-05.json task= section_content stage= main retry= True errors= ['Hero brand fact mismatch']
+  SECTION_RAW {"id":"main","props":{"button":{"href":"#contact","label":"Diskusikan kebutuhan"},"heading":"Studio Pusanu","layout":"split","media":{"alt":"Ilustrasi usaha demo fiktif","asset_id":"company-shapes"},"text":"Kenali layanan desain dan komunikasi dan diskusikan kebutuhan Anda. Demo fiktif."},"role":"hero","type":"hero","variant":"split"}
+
+REQUEST page0271-plain_css attempt-01 expected_identity= {'title': 'Toko Laditaya', 'genre': 'company_profile', 'style_mode': 'plain_css'}
+attempt-01.json task= page_plan stage= plan retry= False errors= ['Plan request identity/style mismatch']
+  PLAN_FIELDS {'title': 'Toko Ladirefa', 'genre': 'company_profile', 'style_mode': 'plain_css', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+attempt-02.json task= page_plan stage= plan retry= True errors= ['Plan request identity/style mismatch']
+  PLAN_FIELDS {'title': 'Toko Ladirefa', 'genre': 'company_profile', 'style_mode': 'plain_css', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+
+REQUEST page0271-tailwind attempt-01 expected_identity= {'title': 'Toko Laditaya', 'genre': 'company_profile', 'style_mode': 'tailwind'}
+attempt-01.json task= page_plan stage= plan retry= False errors= ['Plan request identity/style mismatch']
+  PLAN_FIELDS {'title': 'Toko Ladirefa', 'genre': 'company_profile', 'style_mode': 'tailwind', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+attempt-02.json task= page_plan stage= plan retry= True errors= ['Plan request identity/style mismatch']
+  PLAN_FIELDS {'title': 'Toko Ladirefa', 'genre': 'company_profile', 'style_mode': 'tailwind', 'roles': ['navigation', 'hero', 'about', 'services', 'values', 'process', 'portfolio', 'contact', 'footer']}
+
+Exit code: 0

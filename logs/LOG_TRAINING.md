@@ -1119,3 +1119,14 @@ Rancangan berikutnya yang perlu direview adalah melengkapi target process hanya 
 - Output utama tetap synthetic contract evaluation. Browser visual review, human review, deployment, dan final benchmark tidak dilakukan.
 
 Kesimpulan: v4 memperbaiki kelulusan dari80 persen ke85 persen antara step1800 dan3600, tetapi belum mencapai95 persen. Error yang dominan pada candidate terbaik kini adalah konsistensi identity/style di plan serta penyalinan fakta merek. Gunakan pola ini untuk merancang eksperimen train-only berikutnya dengan validator strict dan final benchmark tetap tertutup.
+
+### Diagnosis raw output development setelah v4
+
+- RUN-379 gagal karena diagnosis awal mencari `request.json` satu tingkat terlalu tinggi dari folder attempt. Kegagalan tercatat dan tidak dihapus. RUN-380 membaca struktur artifact yang benar, exit 0.
+- Pada TRAIN-024, 12 halaman gagal terdiri dari enam keluarga nama usaha, masing-masing dengan style CSS biasa dan Tailwind. Output kedua style sering memperlihatkan kesalahan isi yang sama, sehingga bukti ini mengarah ke copy dan grounding model bersama, bukan masalah stylesheet.
+- Contoh raw: `Kafe Bayalaya` menjadi `Kafe Baya` di navigasi; `Toko Yadilala` menjadi `Toko Yadila` di plan atau teks about; `Studio Mapurana` menjadi `Studio Studiominurana` atau `Studio Studioarcurana`; `Kursus Raramapu` menjadi `Kursus Rarau`; `Studio Pusanupu` menjadi `Studio Pusanu` di plan atau hero; `Toko Laditaya` menjadi `Toko Ladirefa` di plan.
+- Pada beberapa pasangan style, retry memperbaiki judul plan tetapi kesalahan nama tetap muncul di section berikutnya. Retry yang ada sudah menyebut exact request identity, tetapi tidak menghapus semua kesalahan.
+- Source facts dan nama tersedia di request. Kontrak plan dan section meminta model mengeluarkan beberapa fakta itu lagi, lalu validator menolak jika teks berbeda. Tidak ada perbaikan otomatis yang diterapkan.
+- Diagnosis hanya membaca raw output TRAIN-024 dan request development yang telah digunakan untuk selection. Tidak ada data development yang ditambahkan ke train, tidak ada perubahan prompt, renderer, schema, validator, bobot, atau checkpoint. Final tetap tertutup.
+- RUN-379 dan RUN-380 serta output lengkapnya tercatat di `LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md` dan `logs/RUN-*.txt`. Analisis interaksi dicatat di [AI-023](interaksi_llm/AI-023_2026-10-14.md).
+- Rancangan lanjutan masih menunggu review. Bandingkan probe prompt copy eksplisit, curriculum copy identitas train-only, dan desain kontrak source-bound yang menghindari model menyalin ulang fakta identitas. Pertahankan gate 76/80, validator strict, split keluarga, serta final tertutup.

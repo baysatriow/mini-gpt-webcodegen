@@ -4512,3 +4512,21 @@ p=j(\"reports/training/FULLPAGE-GPU-005.json\"); print(\"GPU\",json.dumps([{k:r.
 - **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-378_build_and_execute_fullpage_v4_notebook.txt`.
+
+### RUN-379
+
+- **Waktu:** 2026-10-14T14:18:26.098586+07:00 sampai 2026-10-14T14:18:26.775764+07:00.
+- **Tujuan:** TRAIN-024 development failure trace diagnosis.
+- **Command:** `.\\.venv\\Scripts\\python.exe C:\Users\BAYUSW~1\AppData\Local\Temp\train024_failure_trace.py`.
+- **Commit:** `51e8e5eda07046f23bf5cfd21434259ea669b773`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-379_train_024_development_failure_trace_diagnosis.txt`.
+
+### RUN-380
+
+- **Waktu:** 2026-10-14T14:18:45.384991+07:00 sampai 2026-10-14T14:18:45.742773+07:00.
+- **Tujuan:** TRAIN-024 development failure trace rerun.
+- **Command:** `.\\.venv\\Scripts\\python.exe C:\Users\BAYUSW~1\AppData\Local\Temp\train024_failure_trace.py`.
+- **Commit:** `51e8e5eda07046f23bf5cfd21434259ea669b773`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-380_train_024_development_failure_trace_rerun.txt`.

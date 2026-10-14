@@ -206,3 +206,10 @@ RUN-331 membandingkan satu target train role `process` dengan keluaran gagal TRA
 - TRAIN-023 gagal pada storage preflight di update0. Checkpoint resume historis dipindahkan dengan checksum terverifikasi dan junction di lokasi awal; TRAIN-024 melanjutkan dari TRAIN-022/step1800. Semua failure/retry dicatat.
 - Notebook14 menjalankan16 sel tanpa error. Data tetap sintetis, human review dan browser visual review belum dilakukan, final benchmark tidak dibuka.
 - Laporan ranking: `reports/training/FULLPAGE-V4_DEVELOPMENT_SELECTION.json`. Detail hardware, config, lineage, metrics, errors, dan run IDs ada pada `logs/LOG_TRAINING.md` dan [AI-022](interaksi_llm/AI-022_2026-10-14.md).
+
+### Diagnosis lanjutan TRAIN-024, 14 Oktober 2026
+
+- RUN-380 menelusuri attempt mentah pada 12 halaman gagal. Seluruhnya terkumpul pada enam keluarga nama usaha. Kesalahan berulang berupa ejaan nama yang dipotong atau diganti pada plan, navigation, hero, dan about.
+- Pair CSS biasa dan Tailwind sering mendapat hasil teks gagal yang sama. Ini mendukung prioritas perbaikan identity/fact copy model bersama, bukan penyesuaian renderer CSS.
+- Pilihan berikutnya untuk review: probe prompt copy eksplisit, penambahan target copy identitas dari keluarga train saja, atau perubahan kontrak agar identitas dan fakta diikat dari request oleh renderer. Belum ada perubahan atau training v5.
+- Catatan bukti lengkap: [AI-023](interaksi_llm/AI-023_2026-10-14.md), [training log](LOG_TRAINING.md), RUN-379 dan RUN-380.
