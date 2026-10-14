@@ -13,3 +13,12 @@ Inputs:
 
 Command:
 .venv/Scripts/python.exe -m qa.select_fullpage_v5 --step1800-report reports/fullpage/FULLPAGE-V5_TRAIN-025_STEP1800_DEVELOPMENT.json --step1800-training reports/training/TRAIN-025.json --step3600-report reports/fullpage/FULLPAGE-V5_TRAIN-026_STEP3600_DEVELOPMENT.json --step3600-training reports/training/TRAIN-026.json --output reports/training/FULLPAGE-V5_DEVELOPMENT_SELECTION.json
+
+Selector attempt 1 failed, diagnosis checked: 2026-10-14 22:47:44 +07:00
+- Command returned exit code 1 at qa/select_fullpage_v5.py::_verify_generation_report with: ValueError: Generation report does not match the frozen V4 development request set.
+- Root cause: the evaluator was invoked with dataset-dir=data/processed/fullpage/v5. Its reports therefore record the V5 manifest SHA-256 90c2dc71c4d91ff9a36a3fbd1bd36bd329c127b711c69556df4c0f58381d6dd2 and request_file under V5. The frozen selector explicitly requires data/processed/fullpage/v4/validation.requests.jsonl and V4 manifest SHA-256 aae2de8cfceb16110eb93b0668447fcda7237fdfabaa7e0c2a22ce2c3d41cf15.
+- The underlying development requests are identical: V4 and V5 validation request file SHA-256 is 2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836; both canonical request-list SHA-256 values are e4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173; each has 80 rows.
+- Both existing output identity files match their report checkpoint digest, request-list digest, count=80, and source hashes. All 80 attempt result files exist for each candidate.
+- No selection report was written. Candidate generation results are preserved.
+- Corrected single-variable retry: call the evaluator with dataset-dir=data/processed/fullpage/v4, --resume, the same checkpoint and existing output directory, and new report destinations. This binds report metadata to the frozen V4 contract while reusing all 160 existing page results. No training or page regeneration is intended.
+- No test or final request files were opened.

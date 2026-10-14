@@ -1253,3 +1253,7 @@ Kandidat step 3.600 memperoleh 80/80 halaman lengkap, 0 kegagalan, model_gate=tr
 ### RUN-596 selector preflight
 
 Dua report development cocok pada 80 request yang sama, 80/80 lengkap, model_gate=true, facts/links/assets valid, dan inal_used=false. Checkpoint dan hash report training sudah tertaut lewat snapshot masing-masing. Output selector belum ada dan tidak akan menimpa file. Berikutnya jalankan selector resmi dengan aturan beku: halaman lengkap terbanyak, CE biasa sebagai tie-breaker, lalu step lebih awal jika seri. Test/final tetap tertutup.
+
+### RUN-596 selector attempt 1: rejected report identity, no selection
+
+Selector berhenti karena report evaluasi menyebut path dan manifest V5, sedangkan kontrak selection membekukan path dan manifest V4. Ini bukan kegagalan halaman atau data yang berubah. Hash file request validation V4 dan V5 identik (2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836) dan hash canonical 80 request identik (4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173). Semua 160 halaman hasil generation dan identitas checkpoint cocok. Selector tidak menulis laporan pilihan. Berikutnya evaluator dijalankan ulang dengan path dataset V4 dan --resume ke folder hasil yang sama, memakai report path baru. Dengan begitu metadata report memenuhi kontrak V4 dan output halaman digunakan kembali. Final tetap tertutup.

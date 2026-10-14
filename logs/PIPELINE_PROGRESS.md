@@ -350,3 +350,7 @@ Kandidat step 1.800 memperoleh 80/80 halaman lengkap dan model_gate=true; fakta,
 ## Development TRAIN-026 step 3.600: 80/80
 
 Kandidat step 3.600 mencapai 80/80 halaman lengkap, model_gate=true, fakta/tautan/aset lulus, dan inal_used=false. Request SHA-256 sama dengan evaluasi kandidat step 1.800. Kedua kandidat melampaui gate 76/80; selector beku akan memilih sesuai aturan jumlah halaman, CE, lalu step lebih awal. Pemeriksaan visual browser masih pending.
+
+## Selector menolak identitas report V5, hasil tetap terjaga
+
+Percobaan selector pertama gagal dengan pemeriksaan kontrak yang benar: report dibuat dari data/processed/fullpage/v5, sedangkan selector meminta request file dan manifest V4 yang dibekukan. Byte file request V4/V5 sama, begitu juga 80 request canonical. Checkpoint, source, dan 160 hasil halaman cocok; tidak ada report selection yang dibuat. Perbaikan terbatas pada metadata: jalankan evaluator dengan dataset-dir V4 dan resume ke output yang sama, menggunakan report baru. Tidak ada perubahan model atau prompt.
