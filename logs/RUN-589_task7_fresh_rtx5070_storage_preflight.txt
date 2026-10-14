@@ -1,0 +1,37 @@
+RUN-589 fresh RTX 5070 and storage preflight
+Started: 2026-10-14 21:42:56 +0700
+Commit under preflight: eb9d8d6
+Result: PASS, read-only preflight. No training/evaluation/final-data read was started by this preflight.
+
+Environment:
+- Python 3.11.9
+- PyTorch 2.14.1+cu130
+- CUDA runtime 13.0
+- NVIDIA GeForce RTX 5070, BF16 supported
+- CUDA BF16 matrix multiplication completed and returned finite values
+- CUDA free memory after probe: 11,491,344,384 bytes
+- nvidia-smi snapshot: 0 percent GPU utilization, 3,367 / 12,227 MiB used, 41 C
+- Desktop and other processes remained untouched
+
+Frozen source-bound configuration:
+- Path: configs/fullpage/training-improvement-v5.json
+- SHA-256: 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186
+- verify_source_bound_lineage passed for the frozen V5 sources and partitions
+- Parent: checkpoints/FULLPAGE-V4/TRAIN-024-step3600.pt
+- Parent SHA-256: 913b1b00aec040a0d51c3607cf7261288e7fe089378850fc66c131400c0f319a
+- Parent identity validated as TRAIN-024 at global step 3600
+
+Storage gate:
+- Free bytes: 17,301,737,472
+- Frozen reserve: 16,106,127,360 bytes
+- Estimated checkpoint allowance: 1,116,848,128 bytes
+- Required free bytes: 17,222,975,488
+- Headroom above reserve plus checkpoint allowance: 78,761,984 bytes, about 75 MiB
+- Gate passed with narrow headroom; monitor disk during training
+
+Output gate:
+- No existing checkpoints/TRAIN-025 directory
+- No existing reports/training/TRAIN-025.json
+- No existing outputs/metrics/TRAIN-025.jsonl
+- No existing logs/training/TRAIN-025.log
+- TRAIN-025 may now be started with the frozen config and stop-after 1800 boundary

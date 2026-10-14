@@ -309,3 +309,8 @@ RUN-331 membandingkan satu target train role `process` dengan keluaran gagal TRA
 - TRAIN-025 report/config identity, step-1800 committed state, checkpoint digest, and full optimizer/scheduler/sampler/RNG state are verified by the trainer. The development selector checks the same parent report and hash recorded in TRAIN-026.
 - RUN-566 passed 21 focused regressions. RUN-568 refreshed config SHA-256 to `0ee3332b0a3f19e42efe2ddb2eb6a1dbf69add7e84511323efeffa418bf78244`; RUN-569 rebuilt notebook 15 with 22 cells. RUN-570 passed 20 training tests, and RUN-571 passed 79 full-page tests.
 - TRAIN-025 remains unstarted. Await the fresh whole-branch review, commit and push, then repeat the live RTX 5070 and storage preflight. Final data remains sealed.
+
+
+## TRAIN-025 runtime gate
+
+RUN-589 passed the fresh RTX 5070, CUDA BF16, V5 lineage, TRAIN-024 parent, output-path, and storage checks. Storage headroom above the frozen reserve plus checkpoint estimate is 78,761,984 bytes, so it must be monitored. Commit `eb9d8d6` is pushed. TRAIN-025 launch at the approved 1,800-step boundary is next; training has not started at this entry. Final data remains closed.

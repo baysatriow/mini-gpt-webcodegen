@@ -1183,3 +1183,12 @@ Tujuan V5 adalah mengurangi kesalahan penyalinan identitas dengan meminta model 
 - RUN-576 mereproduksi celah. RUN-577 menemukan fixture warm-start ber-ID noncanonical; RUN-578 lulus 9 tes engine. RUN-579 lulus 21 tes training, RUN-580 lulus 79 tes full-page, dan RUN-585 mengulangi 79 tes setelah config dan notebook dibangun ulang.
 - RUN-583 memperbarui config beku ke SHA-256 `8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186`. RUN-584 membangun ulang notebook 15 dengan 22 sel tanpa menjalankan cell training atau evaluasi.
 - TRAIN-025 belum berjalan. Review branch baru, commit/push, dan preflight GPU/storage segar tetap wajib sebelum training. Final tetap tertutup.
+
+
+### TRAIN-025 runtime preflight and branch delivery
+
+- The whole-branch review completed with no actionable findings. Commit `eb9d8d6` added the source-bound V5 training pipeline and was pushed to `origin/feature/pipeline-data-model-training`.
+- RUN-589 performed a fresh, read-only preflight after push. PyTorch 2.14.1+cu130 on CUDA 13.0 detected the RTX 5070, and a CUDA BF16 operation completed with finite output. The frozen V5 config and TRAIN-024 step-3600 parent lineage passed verification. The TRAIN-025 output paths were absent.
+- Disk free space was 17,301,737,472 bytes. The frozen 15 GiB reserve plus estimated checkpoint allowance required 17,222,975,488 bytes, leaving 78,761,984 bytes of headroom. This passes the engine gate with a narrow margin, so disk space must be monitored during training.
+- The GPU snapshot reported 0 percent utilization, 3,367 / 12,227 MiB used, and 41 C. Other desktop processes were left untouched. Final and test data remain sealed.
+- Preflight passed. TRAIN-025 launch is the next action, using the frozen V5 config and the approved stop at step 1,800. No training update has occurred yet at this log entry.

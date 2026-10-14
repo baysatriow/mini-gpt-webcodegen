@@ -6439,3 +6439,10 @@ p=j(\"reports/training/FULLPAGE-GPU-005.json\"); print(\"GPU\",json.dumps([{k:r.
 - Exit code: 0. Added lines containing U+2014: 0.
 - Output: logs/RUN-588_correct_staged_audit_and_log_format.txt.
 - Decision: Include this correction record in staging and repeat the final whitespace check before whole-branch review.
+
+
+## RUN-589, preflight TRAIN-025 source-bound
+
+Review whole-branch bersih tanpa temuan actionable. Commit `eb9d8d6` telah dipush ke `origin/feature/pipeline-data-model-training`. Preflight baca-saja setelah push mengonfirmasi RTX 5070, CUDA BF16, config V5 SHA-256 `8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186`, serta parent TRAIN-024 step 3600 dengan SHA-256 `913b1b00aec040a0d51c3607cf7261288e7fe089378850fc66c131400c0f319a`. Jalur output TRAIN-025 masih kosong.
+
+Ruang bebas 17.301.737.472 byte melewati kebutuhan reserve 15 GiB ditambah estimasi checkpoint 1.116.848.128 byte sebesar 78.761.984 byte, sekitar 75 MiB. Gerbang storage lulus dengan margin tipis dan perlu dipantau saat training. Snapshot GPU menunjukkan utilisasi 0 persen, memori terpakai 3.367 dari 12.227 MiB, suhu 41 C. Proses desktop lain tidak dihentikan. Training belum dimulai pada catatan ini. Final dan test tetap tertutup.
