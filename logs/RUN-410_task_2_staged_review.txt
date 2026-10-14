@@ -1,0 +1,63 @@
+STAGED CHECK EXIT=2
+logs/RUN-397_source_bound_compose_red.txt:20: new blank line at EOF.
+logs/RUN-399_sync_task_2_composer.txt:13: new blank line at EOF.
+logs/RUN-400_source_bound_compose_green.txt:11: new blank line at EOF.
+logs/RUN-401_source_bound_composition_and_contracts.txt:20: new blank line at EOF.
+logs/RUN-402_sync_task_2_final.txt:12: new blank line at EOF.
+logs/RUN-403_multiple_fact_slots_and_contracts.txt:20: new blank line at EOF.
+logs/RUN-404_sync_task_2_review.txt:12: new blank line at EOF.
+logs/RUN-405_source_bound_semantic_validation.txt:33: new blank line at EOF.
+logs/RUN-406_source_bound_semantic_validation_rerun.txt:21: new blank line at EOF.
+logs/RUN-407_sync_task_2_after_semantic_gate.txt:13: new blank line at EOF.
+logs/RUN-408_sync_task_2_final_review.txt:8: new blank line at EOF.
+logs/RUN-409_task_2_precommit_status.txt:38: new blank line at EOF.
+
+STAGED STAT:
+ configs/fullpage/source-bound-copy-v1.json         |  19 +++-
+ .../2026-10-14-fullpage-source-bound-facts.md      |   8 +-
+ logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md           | 114 +++++++++++++++++++++
+ logs/PIPELINE_PROGRESS.md                          |   7 ++
+ logs/RUN-397_source_bound_compose_red.txt          |  20 ++++
+ logs/RUN-398_correct_run_397_metadata.txt          |   8 ++
+ logs/RUN-399_sync_task_2_composer.txt              |  14 +++
+ logs/RUN-400_source_bound_compose_green.txt        |  11 ++
+ ...-401_source_bound_composition_and_contracts.txt |  20 ++++
+ logs/RUN-402_sync_task_2_final.txt                 |  13 +++
+ logs/RUN-403_multiple_fact_slots_and_contracts.txt |  20 ++++
+ logs/RUN-404_sync_task_2_review.txt                |  13 +++
+ logs/RUN-405_source_bound_semantic_validation.txt  |  33 ++++++
+ ...-406_source_bound_semantic_validation_rerun.txt |  21 ++++
+ logs/RUN-407_sync_task_2_after_semantic_gate.txt   |  14 +++
+ logs/RUN-408_sync_task_2_final_review.txt          |   9 ++
+ logs/RUN-409_task_2_precommit_status.txt           |  38 +++++++
+ logs/interaksi_llm/AI-027_2026-10-14.md            |  10 ++
+ src/fullpage/source_bound_compose.py               |  69 +++++++++++++
+ src/fullpage/source_bound_resolver.py              |  83 +++++++++++++++
+ tests/fullpage/fixtures.py                         |  31 +++++-
+ tests/fullpage/test_source_bound_compose.py        | 108 +++++++++++++++++++
+ 22 files changed, 674 insertions(+), 9 deletions(-)
+
+STATUS:
+## feature/pipeline-data-model-training...origin/feature/pipeline-data-model-training
+M  configs/fullpage/source-bound-copy-v1.json
+M  docs/superpowers/plans/2026-10-14-fullpage-source-bound-facts.md
+M  logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md
+M  logs/PIPELINE_PROGRESS.md
+A  logs/RUN-397_source_bound_compose_red.txt
+A  logs/RUN-398_correct_run_397_metadata.txt
+A  logs/RUN-399_sync_task_2_composer.txt
+A  logs/RUN-400_source_bound_compose_green.txt
+A  logs/RUN-401_source_bound_composition_and_contracts.txt
+A  logs/RUN-402_sync_task_2_final.txt
+A  logs/RUN-403_multiple_fact_slots_and_contracts.txt
+A  logs/RUN-404_sync_task_2_review.txt
+A  logs/RUN-405_source_bound_semantic_validation.txt
+A  logs/RUN-406_source_bound_semantic_validation_rerun.txt
+A  logs/RUN-407_sync_task_2_after_semantic_gate.txt
+A  logs/RUN-408_sync_task_2_final_review.txt
+A  logs/RUN-409_task_2_precommit_status.txt
+A  logs/interaksi_llm/AI-027_2026-10-14.md
+A  src/fullpage/source_bound_compose.py
+A  src/fullpage/source_bound_resolver.py
+M  tests/fullpage/fixtures.py
+A  tests/fullpage/test_source_bound_compose.py

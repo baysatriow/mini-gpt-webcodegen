@@ -1,0 +1,19 @@
+test_composes_both_genres_and_styles (tests.fullpage.test_source_bound_compose.SourceBoundCompositionTests.test_composes_both_genres_and_styles) ... ok
+test_composition_uses_exact_request_facts (tests.fullpage.test_source_bound_compose.SourceBoundCompositionTests.test_composition_uses_exact_request_facts) ... ok
+test_html_sensitive_fact_is_escaped_by_existing_renderer (tests.fullpage.test_source_bound_compose.SourceBoundCompositionTests.test_html_sensitive_fact_is_escaped_by_existing_renderer) ... ok
+test_rejects_a_section_draft_count_mismatch (tests.fullpage.test_source_bound_compose.SourceBoundCompositionTests.test_rejects_a_section_draft_count_mismatch) ... ok
+test_rejects_missing_role_and_unavailable_service_fact (tests.fullpage.test_source_bound_compose.SourceBoundCompositionTests.test_rejects_missing_role_and_unavailable_service_fact) ... ok
+test_rejects_unknown_fact_duplicate_slot_and_wrong_role_slot (tests.fullpage.test_source_bound_compose.SourceBoundCompositionTests.test_rejects_unknown_fact_duplicate_slot_and_wrong_role_slot) ... ok
+test_accepts_both_genres_and_styles (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_accepts_both_genres_and_styles) ... ok
+test_contract_version_loads_its_generated_schema_files (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_contract_version_loads_its_generated_schema_files) ... ok
+test_rejects_bad_role_type_variant_and_catalog_pairings (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_rejects_bad_role_type_variant_and_catalog_pairings) ... ok
+test_rejects_extra_top_level_and_nested_properties (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_rejects_extra_top_level_and_nested_properties) ... ok
+test_rejects_malformed_catalog_mappings_without_crashing (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_rejects_malformed_catalog_mappings_without_crashing) ... ok
+test_rejects_unknown_assets_and_duplicate_references (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_rejects_unknown_assets_and_duplicate_references) ... ok
+test_rejects_unknown_fact_copy_and_free_text (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_rejects_unknown_fact_copy_and_free_text) ... ok
+test_source_bound_schemas_are_closed_and_legacy_builder_is_unchanged (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_source_bound_schemas_are_closed_and_legacy_builder_is_unchanged) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.071s
+
+OK

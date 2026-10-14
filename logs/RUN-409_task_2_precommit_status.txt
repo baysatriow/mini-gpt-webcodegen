@@ -1,0 +1,37 @@
+STATUS:
+## feature/pipeline-data-model-training...origin/feature/pipeline-data-model-training
+ M configs/fullpage/source-bound-copy-v1.json
+ M docs/superpowers/plans/2026-10-14-fullpage-source-bound-facts.md
+ M logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md
+ M logs/PIPELINE_PROGRESS.md
+ M tests/fullpage/fixtures.py
+?? logs/RUN-397_source_bound_compose_red.txt
+?? logs/RUN-398_correct_run_397_metadata.txt
+?? logs/RUN-399_sync_task_2_composer.txt
+?? logs/RUN-400_source_bound_compose_green.txt
+?? logs/RUN-401_source_bound_composition_and_contracts.txt
+?? logs/RUN-402_sync_task_2_final.txt
+?? logs/RUN-403_multiple_fact_slots_and_contracts.txt
+?? logs/RUN-404_sync_task_2_review.txt
+?? logs/RUN-405_source_bound_semantic_validation.txt
+?? logs/RUN-406_source_bound_semantic_validation_rerun.txt
+?? logs/RUN-407_sync_task_2_after_semantic_gate.txt
+?? logs/RUN-408_sync_task_2_final_review.txt
+?? logs/interaksi_llm/AI-027_2026-10-14.md
+?? src/fullpage/source_bound_compose.py
+?? src/fullpage/source_bound_resolver.py
+?? tests/fullpage/test_source_bound_compose.py
+
+DIFF STAT:
+warning: in the working copy of 'logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'logs/PIPELINE_PROGRESS.md', CRLF will be replaced by LF the next time Git touches it
+ configs/fullpage/source-bound-copy-v1.json         |  19 +++-
+ .../2026-10-14-fullpage-source-bound-facts.md      |   8 +-
+ logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md           | 106 +++++++++++++++++++++
+ logs/PIPELINE_PROGRESS.md                          |   7 ++
+ tests/fullpage/fixtures.py                         |  31 +++++-
+ 5 files changed, 162 insertions(+), 9 deletions(-)
+
+DIFF CHECK:
+warning: in the working copy of 'logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'logs/PIPELINE_PROGRESS.md', CRLF will be replaced by LF the next time Git touches it

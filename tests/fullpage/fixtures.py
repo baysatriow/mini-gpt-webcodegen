@@ -19,6 +19,7 @@ def source_bound_fixture(genre="company_profile", style="plain_css"):
             {"id": "about", "kind": "description", "value": "Studio Mapurana membuat keramik untuk rumah."},
             {"id": "values", "kind": "value", "value": "Bahan dan proses dijelaskan secara terbuka."},
             {"id": "srv0", "kind": "service", "value": {"title": "Kelas keramik", "text": "Kelas untuk pemula."}},
+            {"id": "srv1", "kind": "service", "value": {"title": "Karya pesanan", "text": "Pembuatan karya berdasarkan diskusi kebutuhan."}},
             {"id": "step0", "kind": "process", "value": {"title": "Pilih tanah liat", "text": "Tentukan bahan yang akan digunakan."}},
             {"id": "faq0", "kind": "faq", "value": {"title": "Bagaimana memulai?", "text": "Hubungi studio untuk berdiskusi."}},
             {"id": "project0", "kind": "project", "value": {"title": "Cangkir pagi", "text": "Contoh karya keramik."}},
@@ -30,7 +31,7 @@ def source_bound_fixture(genre="company_profile", style="plain_css"):
     company_roles = ["navigation", "hero", "about", "services", "values", "process", "portfolio", "contact", "footer"]
     role_facts = {
         "navigation": ["name"], "hero": ["name"], "about": ["about"],
-        "services": ["srv0"], "benefits": ["values"], "values": ["values"],
+        "services": ["srv0", "srv1"], "benefits": ["values"], "values": ["values"],
         "process": ["step0"], "faq": ["faq0"], "portfolio": ["project0"],
         "contact": [], "footer": ["name"],
     }
@@ -54,3 +55,31 @@ def source_bound_fixture(genre="company_profile", style="plain_css"):
         "asset_slots": [],
     }
     return request, catalog, plan, navigation_draft
+
+
+def full_source_bound_fixture(genre="company_profile", style="plain_css"):
+    request, catalog, plan, _ = source_bound_fixture(genre, style)
+    facts = {fact["id"]: fact for fact in request["business_facts"]}
+    drafts = []
+    for descriptor in plan["sections"]:
+        role_spec = catalog["roles"][descriptor["role"]]
+        fact_slots = []
+        for fact_id in descriptor["fact_ids"]:
+            fact = facts[fact_id]
+            slot_id = next(
+                identifier
+                for identifier in role_spec["slot_ids"]
+                if fact["kind"] in catalog["slots"][identifier]["fact_kinds"]
+            )
+            fact_slots.append({"slot_id": slot_id, "fact_id": fact_id})
+        asset_slots = [
+            {"slot_id": slot_id, "asset_id": asset_id}
+            for slot_id, asset_id in zip(role_spec["asset_slot_ids"], descriptor["asset_ids"], strict=True)
+        ]
+        drafts.append({
+            "contract_version": "source-bound-v1",
+            "section_id": descriptor["id"],
+            "fact_slots": fact_slots,
+            "asset_slots": asset_slots,
+        })
+    return request, catalog, plan, drafts

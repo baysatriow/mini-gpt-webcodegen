@@ -1,0 +1,19 @@
+test_source_bound_compose (unittest.loader._FailedTest.test_source_bound_compose) ... ERROR
+
+======================================================================
+ERROR: test_source_bound_compose (unittest.loader._FailedTest.test_source_bound_compose)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_source_bound_compose
+Traceback (most recent call last):
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_compose.py", line 8, in <module>
+    from src.fullpage.source_bound_compose import compose_source_bound_page
+ModuleNotFoundError: No module named 'src.fullpage.source_bound_compose'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

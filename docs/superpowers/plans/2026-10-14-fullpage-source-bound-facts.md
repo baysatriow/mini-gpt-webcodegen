@@ -139,7 +139,7 @@ git push origin feature/pipeline-data-model-training
 - `derive_interactions(sections: list[dict]) -> list[dict]`
 - The resolver inserts literal values only from `request.business_facts`; it fills nonfactual strings only from the selected copy catalog. The composer reads title, genre, style, and request-controlled metadata from the validated request, resolves the bounded theme ID through the catalog, and returns a PageSpec 2.0.
 
-- [ ] **Step 1: Add a failing composition test.** Use `source_bound_fixture()` and assert the resolved title, navbar brand, hero name, description, and service card exactly equal their request facts.
+- [x] **Step 1: Add a failing composition test.** Use `source_bound_fixture()` and assert the resolved title, navbar brand, hero name, description, and service card exactly equal their request facts. RUN-397 records the expected missing-composer failure.
 
 ```python
 class SourceBoundCompositionTests(unittest.TestCase):
@@ -151,13 +151,13 @@ class SourceBoundCompositionTests(unittest.TestCase):
         self.assertEqual([], validate_composed_page(page))
 ```
 
-- [ ] **Step 2: Run the focused test and confirm the resolver is not implemented.**
+- [x] **Step 2: Run the focused test and confirm the resolver is not implemented.** RUN-397 recorded the expected import failure; RUN-398 corrects its metadata reference.
 
 Run: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_compose -v`
 
 Expected: import or assertion failure before implementation.
 
-- [ ] **Step 3: Implement the slot resolver and composer.** Check each slot against the selected template and allowed fact kind. Reject missing, extra, duplicate, unknown, or wrong-role references. Build the final component data and call `validate_composed_page` before returning it.
+- [x] **Step 3: Implement the slot resolver and composer.** Check each slot against the selected template and allowed fact kind. Reject missing, extra, duplicate, unknown, or wrong-role references. Build the final component data and call `validate_composed_page` before returning it.
 
 ```python
 def compose_source_bound_page(request, page_plan, drafts, copy_catalog):
@@ -170,7 +170,7 @@ def compose_source_bound_page(request, page_plan, drafts, copy_catalog):
     return page
 ```
 
-- [ ] **Step 4: Run focused composition checks.** Verify unknown fact IDs, duplicate slot IDs, unavailable service facts, missing required roles, and HTML-sensitive fact text. For the last case, render and assert `<script>` supplied inside a fact is escaped in `index.html`.
+- [x] **Step 4: Run focused composition checks.** Verify unknown fact IDs, duplicate slot IDs, unavailable service facts, missing required roles, unprovided catalog items, and HTML-sensitive fact text. The renderer escapes `<script>` supplied inside a fact. RUN-406 passes 15 source-bound composition and contract tests.
 
 Run: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_compose -v`
 

@@ -1,0 +1,7 @@
+T  Syncing CodeGraph
+|
+Scanning files...
+|
+•  Already up to date
+|
+-  Done

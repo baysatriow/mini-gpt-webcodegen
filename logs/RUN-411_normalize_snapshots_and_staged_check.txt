@@ -1,0 +1,2 @@
+Normalized EOF in 13 output snapshots.
+STAGED CHECK EXIT=0

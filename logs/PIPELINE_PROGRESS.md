@@ -262,3 +262,10 @@ RUN-331 membandingkan satu target train role `process` dengan keluaran gagal TRA
 - RUN-395 confirmed the complete staged Task 1 diff has no whitespace errors.
 
 - RUN-396 normalized three decorative CodeGraph output separators to plain text and confirmed the staged diff remained whitespace-clean.
+
+### Source-bound Task 2 implementation
+
+- Added a resolver that maps validated request fact references to PageSpec properties, and a composer that builds PageSpec 2.0 metadata, theme, and supported interactions from the request and local catalog.
+- Contact form fields and hero alternative text are static entries in the source-bound copy catalog. The composer reuses the existing semantic fact checks and fullpage schema validation before returning the complete page.
+- RUN-397 recorded the expected import failure before implementation. RUN-405 found that the first negative-test catalog fixture violated its own mapping contract before reaching the intended semantic check. The fixture was corrected without weakening validation; RUN-406 then passed all 15 focused tests across both genres and styles, including repeated service references, escaped HTML-sensitive text, missing references, and unprovided catalog items.
+- Task 2 code review and commit are pending. No dataset, checkpoint, training, UI, or backend change has been made in this task.

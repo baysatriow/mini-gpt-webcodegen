@@ -1,0 +1,10 @@
+test_composition_uses_exact_request_facts (tests.fullpage.test_source_bound_compose.SourceBoundCompositionTests.test_composition_uses_exact_request_facts) ... ok
+test_html_sensitive_fact_is_escaped_by_existing_renderer (tests.fullpage.test_source_bound_compose.SourceBoundCompositionTests.test_html_sensitive_fact_is_escaped_by_existing_renderer) ... ok
+test_rejects_a_section_draft_count_mismatch (tests.fullpage.test_source_bound_compose.SourceBoundCompositionTests.test_rejects_a_section_draft_count_mismatch) ... ok
+test_rejects_missing_role_and_unavailable_service_fact (tests.fullpage.test_source_bound_compose.SourceBoundCompositionTests.test_rejects_missing_role_and_unavailable_service_fact) ... ok
+test_rejects_unknown_fact_duplicate_slot_and_wrong_role_slot (tests.fullpage.test_source_bound_compose.SourceBoundCompositionTests.test_rejects_unknown_fact_duplicate_slot_and_wrong_role_slot) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.049s
+
+OK

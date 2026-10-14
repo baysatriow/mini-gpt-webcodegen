@@ -1,0 +1,8 @@
+### RUN-398
+
+- Waktu: 2026-10-14T18:19:42+07:00.
+- Tujuan: Menambahkan koreksi append-only atas format metadata RUN-397. Keluaran asli tetap utuh pada RUN-397_source_bound_compose_red.txt; hasilnya import gagal karena komposer belum dibuat, sesuai tahap RED.
+- Command: Menulis catatan koreksi untuk rujukan commit dasar dan lokasi keluaran lengkap RUN-397.
+- Commit: dasar yang benar adalah a6e45e486ae8b3a0bda1d208ef3bfe855baf8531. Tidak ada perubahan kode.
+- Hasil: metadata koreksi ditambahkan; catatan RUN-397 asli tidak diubah.
+- Output lengkap: logs/RUN-398_correct_run_397_metadata.txt.

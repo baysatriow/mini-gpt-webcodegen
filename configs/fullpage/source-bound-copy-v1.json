@@ -182,10 +182,11 @@
     "copy-hero-standard": {
       "role": "hero",
       "component": "hero",
-      "page_properties": ["text", "button"],
+      "page_properties": ["text", "button", "media"],
       "properties": {
         "text": "Kenali pilihan layanan dan mulai berdiskusi.",
-        "button": {"label": "Diskusikan kebutuhan", "href": "#contact"}
+        "button": {"label": "Diskusikan kebutuhan", "href": "#contact"},
+        "media": {}
       }
     },
     "copy-about-standard": {
@@ -233,9 +234,14 @@
     "copy-contact-local": {
       "role": "contact",
       "component": "contact_form",
-      "page_properties": ["heading", "submit_label"],
+      "page_properties": ["heading", "fields", "submit_label"],
       "properties": {
         "heading": "Diskusikan kebutuhan Anda",
+        "fields": [
+          {"name": "name", "label": "Nama", "type": "text"},
+          {"name": "email", "label": "Email", "type": "email"},
+          {"name": "message", "label": "Pesan", "type": "textarea"}
+        ],
         "submit_label": "Kirim"
       }
     },
@@ -264,6 +270,11 @@
     "footer_name": {"role": "footer", "component": "footer", "property": "text", "fact_kinds": ["name"], "value_mode": "scalar"}
   },
   "asset_slots": {
-    "hero_art": {"role": "hero", "component": "hero", "property": "media.asset_id"}
+    "hero_art": {
+      "role": "hero",
+      "component": "hero",
+      "property": "media.asset_id",
+      "alt_text": "Ilustrasi vektor untuk halaman usaha demo fiktif."
+    }
   }
 }
