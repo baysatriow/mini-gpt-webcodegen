@@ -1257,3 +1257,7 @@ Dua report development cocok pada 80 request yang sama, 80/80 lengkap, model_gat
 ### RUN-596 selector attempt 1: rejected report identity, no selection
 
 Selector berhenti karena report evaluasi menyebut path dan manifest V5, sedangkan kontrak selection membekukan path dan manifest V4. Ini bukan kegagalan halaman atau data yang berubah. Hash file request validation V4 dan V5 identik (2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836) dan hash canonical 80 request identik (4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173). Semua 160 halaman hasil generation dan identitas checkpoint cocok. Selector tidak menulis laporan pilihan. Berikutnya evaluator dijalankan ulang dengan path dataset V4 dan --resume ke folder hasil yang sama, memakai report path baru. Dengan begitu metadata report memenuhi kontrak V4 dan output halaman digunakan kembali. Final tetap tertutup.
+
+### RUN-597 preflight: rebind reports to the frozen V4 request source
+
+Preflight confirms the V4 and V5 request bytes and canonical request objects are identical. All 160 candidate outputs already exist and their identities match checkpoint, request, count, and source hashes. RUN-597 will call the evaluator with the V4 dataset path and --resume, writing two new report files. Existing reports/output pages stay preserved. Then rerun the V5 selector with corrected reports. This changes report source metadata only and does not train or regenerate page artifacts.
