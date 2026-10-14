@@ -1,0 +1,10 @@
+RUN-593 TRAIN-026 exact resume to step 3600
+Started: 2026-10-14 22:12:46 +0700
+Git commit before launch: 3446edb
+Command: .venv/Scripts/python.exe -u -m qa.train_fullpage --config configs/fullpage/training-improvement-v5.json --run-id TRAIN-026 --resume checkpoints/TRAIN-025/last.pt --stop-after 3600
+Frozen config SHA-256: 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186
+Resume parent SHA-256: e7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339
+RUN-592 read-only preflight passed all source, config, exact-parent, storage, GPU, and output-path checks.
+Storage before launch: 24,794,189,824 bytes free; 7,571,214,336 bytes above frozen reserve plus estimated checkpoint allowance.
+Target: resume from global step 1800 and stop at committed step 3600. No development, test, or final evaluation during training.
+Status at record creation: launch pending.

@@ -329,3 +329,8 @@ RUN-590 completed TRAIN-025 at step 1,800. Its report and `last.pt` passed exact
 ## TRAIN-026 resume preflight passed
 
 RUN-592 supersedes the earlier RUN-591 storage snapshot. The training engine's disk check now reports 23.091 GiB free and 7,571,214,336 bytes above the frozen reserve plus checkpoint estimate. TRAIN-025 step-1800 report and checkpoint lineage passed, and TRAIN-026 paths are absent. Resume launch from `checkpoints/TRAIN-025/last.pt` is ready. Development, test, and final evaluations remain closed.
+
+
+## TRAIN-026 exact resume active
+
+RUN-592 superseded the earlier storage snapshot and passed the fresh preflight. RUN-593 records exact resume from TRAIN-025 step 1,800 to global step 3,600 with the frozen config. Training begins after this record is pushed. Development, test, and final evaluation remain closed during training.

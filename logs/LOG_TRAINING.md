@@ -1214,3 +1214,9 @@ Tujuan V5 adalah mengurangi kesalahan penyalinan identitas dengan meminta model 
 - RUN-591 recorded a failed storage gate at its earlier timestamp. After the user's note that F: remained safe, RUN-592 repeated the read-only check using the same disk usage call as the training engine.
 - The fresh measurement reported 23.091 GiB free against a 15 GiB reserve plus 1,116,848,128 bytes of checkpoint allowance, leaving 7,571,214,336 bytes of headroom. The storage gate now passes.
 - TRAIN-025 report, step-1800 exact-resume checkpoint, frozen config hash, source lineage, and absence of TRAIN-026 outputs all passed verification. RUN-026 resume launch is now ready from `checkpoints/TRAIN-025/last.pt`; no development, test, or final data was opened.
+
+
+### TRAIN-026 exact resume launch
+
+- RUN-592 passed a fresh resume preflight with 23.091 GiB free and 7,571,214,336 bytes of headroom above reserve plus checkpoint estimate. It verified the frozen source-bound config and exact TRAIN-025 step-1800 checkpoint/report lineage.
+- RUN-593 records TRAIN-026 resuming from `checkpoints/TRAIN-025/last.pt` and targeting global step 3,600 under the same frozen config. Training starts after this launch record is pushed. Development, test, and final evaluation remain closed during training.

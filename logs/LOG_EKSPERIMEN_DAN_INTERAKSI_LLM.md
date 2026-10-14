@@ -6463,3 +6463,8 @@ Preflight RUN-591 untuk resume TRAIN-026 mengonfirmasi parent dan report, tetapi
 ## RUN-592, preflight ulang resume TRAIN-026
 
 Setelah pengguna mengingatkan bahwa drive F aman, preflight baca-saja diulang. Pengukuran `shutil.disk_usage(root).free` yang sama dengan engine melaporkan 23,091 GiB bebas. Kebutuhan frozen reserve 15 GiB ditambah allowance checkpoint 1.116.848.128 byte adalah 17.222.975.488 byte, dengan margin 7.571.214.336 byte. Source lineage, config, report TRAIN-025, exact checkpoint step 1.800, dan output path kosong lulus. RUN-591 mencatat snapshot sebelumnya dan tidak lagi menjadi status terbaru. GPU RTX 5070 berada pada 3 persen utilisasi, 3.350 dari 12.227 MiB terpakai, suhu 43 C. Training belum dimulai pada catatan ini. Final tetap tertutup.
+
+
+## RUN-593, resume TRAIN-026 sampai step 3.600
+
+RUN-592 lulus preflight segar, termasuk source lineage, checkpoint/report TRAIN-025 step 1.800, storage dengan headroom 7.571.214.336 byte, dan GPU RTX 5070. RUN-593 mencatat exact resume dari `checkpoints/TRAIN-025/last.pt` dengan config beku yang sama. Training dimulai setelah log dipush dan berhenti di global step 3.600. Evaluasi development, test, dan final tidak dijalankan selama training.
