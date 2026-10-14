@@ -4950,3 +4950,32 @@ p=j(\"reports/training/FULLPAGE-GPU-005.json\"); print(\"GPU\",json.dumps([{k:r.
 - Exit code: 0
 - Output: `logs/RUN-425_task3_staged_review.txt`
 - Decision: Continue to commit only when the staged check exits 0.
+
+### RUN-426
+
+- Purpose: Commit the Task 3 source-bound generation unit after the staged check passed.
+- Command: `git commit -m "feat: dispatch source-bound fullpage generation"`
+- Environment: Project root, Git branch feature/pipeline-data-model-training.
+- Exit code: 0
+- Commit: efcbd4453dd8b49b11da12176695e852c84e8f5f (feat: dispatch source-bound fullpage generation)
+- Output: `logs/RUN-426_task3_commit.txt`
+- Decision: Record the commit, push the feature branch, then add a separate closeout record.
+
+### RUN-427
+
+- Purpose: Push the Task 3 generation commit to the authorized private feature branch.
+- Command: `git push origin feature/pipeline-data-model-training`
+- Environment: Project root, configured origin.
+- Exit code: 0
+- Output: `logs/RUN-427_task3_push.txt`
+- Decision: Verify remote branch and write closeout record.
+
+### RUN-428
+
+- Purpose: Confirm the Task 3 implementation commit is present on the remote branch.
+- Command: `git rev-parse HEAD` and `git ls-remote origin refs/heads/feature/pipeline-data-model-training`.
+- Environment: Project root, configured origin.
+- Exit code: 0
+- Local and remote commit: efcbd4453dd8b49b11da12176695e852c84e8f5f
+- Output: `logs/RUN-428_task3_remote_closeout.txt`
+- Decision: Task 3 implementation is closed; continue to Task 4.

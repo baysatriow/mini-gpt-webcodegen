@@ -1,0 +1,27 @@
+RUN-426
+Started: 2026-10-14 18:42:34 +07:00
+Command: git commit -m "feat: dispatch source-bound fullpage generation"
+Exit code: 0
+HEAD: efcbd4453dd8b49b11da12176695e852c84e8f5f
+Subject: feat: dispatch source-bound fullpage generation
+
+[feature/pipeline-data-model-training efcbd44] feat: dispatch source-bound fullpage generation
+ 23 files changed, 981 insertions(+), 9 deletions(-)
+ create mode 100644 logs/RUN-414_task_3_brief.txt
+ create mode 100644 logs/RUN-415_source_bound_generation_red.txt
+ create mode 100644 logs/RUN-416_sync_source_bound_generation.txt
+ create mode 100644 logs/RUN-417_source_bound_generation_test.txt
+ create mode 100644 logs/RUN-418_source_bound_generation_test_capture_fix.txt
+ create mode 100644 logs/RUN-419_renderer_export_repro.txt
+ create mode 100644 logs/RUN-420_renderer_export_repro.txt
+ create mode 100644 logs/RUN-421_source_bound_generation_focused.txt
+ create mode 100644 logs/RUN-422_fullpage_regression.txt
+ create mode 100644 logs/RUN-423_codegraph_sync_task3.txt
+ create mode 100644 logs/RUN-424_task3_precommit_review.txt
+ create mode 100644 logs/RUN-425_task3_staged_review.txt
+ create mode 100644 logs/interaksi_llm/AI-028_2026-10-14.md
+ create mode 100644 src/fullpage/source_bound_prompts.py
+ create mode 100644 src/fullpage/source_bound_serialization.py
+ create mode 100644 tests/fullpage/test_source_bound_generation.py
+
+STATUS AFTER COMMIT:
