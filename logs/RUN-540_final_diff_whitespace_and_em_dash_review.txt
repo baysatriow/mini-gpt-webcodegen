@@ -1,0 +1,75 @@
+RUN-540
+Purpose: Final whitespace and authored-text punctuation review before whole-diff review.
+Command: git diff --check, changed-diff em dash scan, and changed-file inventory.
+warning: in the working copy of 'logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'logs/LOG_TRAINING.md', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'logs/PIPELINE_PROGRESS.md', CRLF will be replaced by LF the next time Git touches it
+Result: git diff --check passed; no em dash found in new RUN records or added tracked lines.
+Tracked diff stat:
+ logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md | 337 +++++++++++++++++++++++++++++++
+ logs/LOG_TRAINING.md                     |  27 +++
+ logs/PIPELINE_PROGRESS.md                |  11 +
+ qa/train_fullpage.py                     |   3 +
+ src/fullpage/evaluation.py               |  12 +-
+ src/fullpage/generation.py               |   9 +-
+ src/fullpage/lineage.py                  | 274 +++++++++++++++++++++++++
+ src/training/engine.py                   |  17 +-
+ tests/training/test_engine.py            | 126 +++++++++++-
+ 9 files changed, 795 insertions(+), 21 deletions(-)
+Working tree inventory:
+ M logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md
+ M logs/LOG_TRAINING.md
+ M logs/PIPELINE_PROGRESS.md
+ M qa/train_fullpage.py
+ M src/fullpage/evaluation.py
+ M src/fullpage/generation.py
+ M src/fullpage/lineage.py
+ M src/training/engine.py
+ M tests/training/test_engine.py
+?? configs/fullpage/training-improvement-v5.json
+?? logs/RUN-503_task6_parent_and_storage_preflight.txt
+?? logs/RUN-504_task6_source_bound_lineage_red.txt
+?? logs/RUN-505_task6_lineage_tests_first_implementation.txt
+?? logs/RUN-506_task6_source_bound_lineage_tests.txt
+?? logs/RUN-507_task6_freeze_v5_training_config.txt
+?? logs/RUN-508_task6_archive_audit_syntax_error.txt
+?? logs/RUN-509_task6_verified_checkpoint_archive.txt
+?? logs/RUN-510_task6_fullpage_suite.txt
+?? logs/RUN-511_task6_training_engine_lineage_tests.txt
+?? logs/RUN-512_task7_report_shape_inspection_error.txt
+?? logs/RUN-514_task7_selector_red.txt
+?? logs/RUN-515_task7_selector_unit_tests.txt
+?? logs/RUN-516_task7_selector_unit_tests.txt
+?? logs/RUN-517_task8_notebook_builder_red.txt
+?? logs/RUN-518_task8_notebook_builder_tests.txt
+?? logs/RUN-518_task8_notebook_test_language_mismatch.txt
+?? logs/RUN-519_task8_notebook_builder_tests.txt
+?? logs/RUN-520_task8_build_notebook.txt
+?? logs/RUN-521_task7_8_fullpage_suite.txt
+?? logs/RUN-522_task8_regenerate_notebook_after_data_summary_fix.txt
+?? logs/RUN-523_task8_notebook_summary_cell_check.txt
+?? logs/RUN-524_task6_warm_start_test_fixture_missing_dir.txt
+?? logs/RUN-525_task6_warm_start_test_path_observer.txt
+?? logs/RUN-526_task6_warm_start_test_green.txt
+?? logs/RUN-527_task6_warm_start_baseline_red.txt
+?? logs/RUN-528_task6_codegraph_sync.txt
+?? logs/RUN-529_task6_gpu_lineage_storage_preflight.txt
+?? logs/RUN-530_task6_training_suite.txt
+?? logs/RUN-531_task6_training_suite_rerun.txt
+?? logs/RUN-532_task7_8_fullpage_suite.txt
+?? logs/RUN-533_task6_initializer_order_compatibility_tests.txt
+?? logs/RUN-534_task6_refresh_v5_config_for_final_engine.txt
+?? logs/RUN-535_promote_and_verify_v5_config.txt
+?? logs/RUN-536_rebuild_notebook_for_refreshed_config.txt
+?? logs/RUN-537_final_training_suite.txt
+?? logs/RUN-538_final_fullpage_suite.txt
+?? logs/RUN-539_final_codegraph_sync.txt
+?? logs/RUN-540_final_diff_whitespace_and_em_dash_review.txt
+?? logs/config-archive/
+?? notebooks/15_fullpage_v5_source_bound_facts.ipynb
+?? qa/build_fullpage_v5_notebook.py
+?? qa/configure_fullpage_v5_training.py
+?? qa/select_fullpage_v5.py
+?? tests/fullpage/test_source_bound_lineage.py
+?? tests/fullpage/test_source_bound_notebook.py
+?? tests/fullpage/test_source_bound_selection.py

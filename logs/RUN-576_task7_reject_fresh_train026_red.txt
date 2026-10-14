@@ -1,0 +1,33 @@
+RUN-576 red regression for fresh TRAIN-026
+Started: 2026-10-14 21:28:21 +07:00
+Command: .venv\\Scripts\\python.exe -m unittest discover -s tests/training -p test_engine.py
+Exit code: 1
+
+{"event": "validation", "step": 0, "loss": 3.465736150741577, "perplexity": 32.0000079341402, "valid_tokens": 16, "batches": 2}
+{"event": "validation", "step": 0, "loss": 3.4789316654205322, "perplexity": 32.425062749505166, "valid_tokens": 16, "batches": 2}
+{"event": "failure", "global_step": 0, "last_committed_step": 0, "error_type": "OutOfMemoryError", "error": "SIMULATED_TEST_OOM"}
+{"event": "validation", "step": 0, "loss": 3.465736150741577, "perplexity": 32.0000079341402, "valid_tokens": 16, "batches": 2}
+......F..
+======================================================================
+FAIL: test_source_bound_fresh_train026_is_rejected_before_train024_read_or_artifacts (test_engine.EngineTests.test_source_bound_fresh_train026_is_rejected_before_train024_read_or_artifacts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\training\test_engine.py", line 232, in test_source_bound_fresh_train026_is_rejected_before_train024_read_or_artifacts
+    run_training(config_path, train, val, "TRAIN-026", stop_after=0, root=root)
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\training\engine.py", line 338, in run_training
+    source_bound_parent = read_checkpoint(source_bound_initial_path)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\mock.py", line 1183, in _execute_mock_call
+    raise effect
+AssertionError: TRAIN-024 must not be read
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.703s
+
+FAILED (failures=1)

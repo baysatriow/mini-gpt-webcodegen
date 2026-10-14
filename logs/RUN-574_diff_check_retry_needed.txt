@@ -1,0 +1,5 @@
+RUN-574 staged whitespace validation
+Command: git add -A; git diff --cached --check HEAD
+Exit code: 2
+Result: The staged diff check found an extra blank line at EOF in each of the two older CodeGraph raw logs after punctuation normalization. No code or test failure was reported.
+Decision: Normalize each file to exactly one final newline, stage the correction, and repeat the full staged diff and punctuation audit.

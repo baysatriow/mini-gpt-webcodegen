@@ -1,0 +1,5 @@
+RUN-572 authored-content scan after suite completion
+Command: PowerShell scan of added diff lines and untracked text files for U+2014.
+Exit code: 1
+Result: Added tracked diff lines were clean. Two prior CodeGraph raw logs still contained a U+2014 status marker with two spaces before Done, so the first targeted normalization did not match those lines.
+Decision: Normalize the exact remaining status line in each prior record and repeat the scan.

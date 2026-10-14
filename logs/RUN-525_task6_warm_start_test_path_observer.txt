@@ -1,0 +1,5 @@
+RUN-525
+Purpose: Rerun the warm-start integration test after fixing its fixture directory.
+Result: The test reached step-zero validation, but its event recorder did not recognize the loaded parent because it compared different path forms.
+Impact: This was a test-observer mismatch. All training artifacts were inside the temporary directory; no project model or GPU state changed.
+Correction: Resolve both paths before comparing, then rerun.

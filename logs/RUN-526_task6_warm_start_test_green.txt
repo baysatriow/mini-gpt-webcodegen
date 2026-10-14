@@ -1,0 +1,5 @@
+RUN-526
+Purpose: Verify source-bound warm-start loads the exact parent weights before constructing a fresh optimizer and does not restore parent optimizer, scheduler, sampler, or RNG state.
+Environment: Project virtual environment; CPU-only temporary MiniGPT and synthetic checkpoint fixture.
+Result: Passed. Step remained zero, model tensors exactly matched the parent, optimizer state was empty, sampler cursor was zero, and scheduler/RNG did not match deliberately stale parent values.
+Data boundary: No project dataset, GPU, development request, validation record, or final record was accessed.

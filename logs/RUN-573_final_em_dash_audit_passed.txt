@@ -1,0 +1,4 @@
+RUN-573 authored-content punctuation audit
+Command: PowerShell scan of added diff lines and untracked text files for Unicode code point U+2014.
+Exit code: 0
+Result: Zero prohibited punctuation found in added diff lines and untracked text files. The two older CodeGraph status lines were normalized without changing their recorded scan results.

@@ -23,6 +23,9 @@ def run_fullpage_training(config_path,*,run_id,resume=None,root,stop_after=None)
     for path,digest in lineage['source_sha256'].items():
         if sha256_file(root/path)!=digest: raise ValueError('Training source changed: '+path)
     if sha256_file(root/config['tokenizer'])!=lineage['tokenizer_sha256']: raise ValueError('Tokenizer changed')
+    if config.get('fullpage_contract_version') == 'source-bound-v1':
+        from src.fullpage.lineage import verify_source_bound_lineage
+        verify_source_bound_lineage(config,root)
     tokenizer=Tokenizer.from_file(str(root/config['tokenizer'])); loaders={}
     for split in ('train','validation'):
         families=set(manifest['pilot_family_ids'][split]) if config['scope']=='pilot' else None

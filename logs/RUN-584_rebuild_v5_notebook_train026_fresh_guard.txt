@@ -1,0 +1,8 @@
+RUN-584 rebuild source-bound notebook after fresh-run guard
+Started: 2026-10-14 21:31:40 +07:00
+Command: .venv\\Scripts\\python.exe -m qa.build_fullpage_v5_notebook
+Exit code: 0
+Config identity: 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186
+Training and evaluation cells executed: no
+
+Created notebooks\15_fullpage_v5_source_bound_facts.ipynb with 22 cells. Training and evaluation cells were not executed.

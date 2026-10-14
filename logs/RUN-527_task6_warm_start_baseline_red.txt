@@ -1,0 +1,5 @@
+RUN-527
+Purpose: Check that the warm-start regression detects the committed engine behavior.
+Method: Load the committed HEAD engine source as an isolated module and run the same focused test. The working engine file was left untouched.
+Result: Expected failure. Baseline event order was optimizer creation, parent load, while the approved source-bound behavior requires parent weights to load before optimizer creation.
+Impact: No project source, checkpoint, or dataset changed.

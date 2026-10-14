@@ -1,0 +1,7 @@
+RUN-531
+Command: .venv/Scripts/python.exe -m unittest discover -s tests/training -p 'test*.py' -v
+Environment: Project .venv, CPU and temporary fixtures only.
+Result: Exit code 0. All 16 tests passed.
+Coverage: Checkpoint checksum, exact resume optimizer/scheduler/RNG/sampler restoration, SFT CLI boundary, source-bound warm-start, training lineage, and recoverable checkpoint behavior.
+GPU training started: false
+Final data accessed: false

@@ -1,0 +1,67 @@
+{
+  "v4_parent_manifest_sha256": "aae2de8cfceb16110eb93b0668447fcda7237fdfabaa7e0c2a22ce2c3d41cf15",
+  "v5_manifest_sha256": "90c2dc71c4d91ff9a36a3fbd1bd36bd329c127b711c69556df4c0f58381d6dd2",
+  "sealed_hashes_before_after_match": true,
+  "sealed_hash_values": [
+    "230584ac1340b7ff96ed0745bb3090c345a8516c4a6ae72dce98c6b6f6d06586",
+    "038845b1187bc4b588aa98db8c8e8944d1480faa16067a02e291deedc5a3ffa4",
+    "2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836"
+  ],
+  "family_counts": {
+    "train": 240,
+    "validation": 40
+  },
+  "request_counts": {
+    "train": 3360,
+    "validation": 80
+  },
+  "task_counts": {
+    "train": 33600,
+    "validation": 800
+  },
+  "block_size": 2048,
+  "output_budgets": {
+    "page_plan": 896,
+    "section_content": 1536
+  },
+  "maximum_tokens": {
+    "train": {
+      "prefix_tokens": 866,
+      "target_tokens_with_eos": 756,
+      "total_tokens": 1622
+    },
+    "validation": {
+      "prefix_tokens": 817,
+      "target_tokens_with_eos": 752,
+      "total_tokens": 1569
+    }
+  },
+  "data_preparation": {
+    "dataset_bytes": 61135963,
+    "disk_free_before_bytes": 16668971008,
+    "disk_free_after_bytes": 16607821824,
+    "sealed_hashes_unchanged": true
+  },
+  "warm_start": {
+    "path": "checkpoints/FULLPAGE-V4/TRAIN-024-step3600.pt",
+    "sha256": "913b1b00aec040a0d51c3607cf7261288e7fe089378850fc66c131400c0f319a"
+  },
+  "training": {
+    "batch_size": 8,
+    "gradient_accumulation": 6,
+    "plan_batch_probability": 0.7,
+    "max_steps": 3600,
+    "validation_interval": 1800,
+    "checkpoint_interval": 1800
+  },
+  "config_sha256": "b6d25313cbfceeeb6471a7191b2bc13abd0ae99ae05fc3894cfb9e20d03cddb3",
+  "storage": {
+    "free_bytes": 17301581824,
+    "reserve_bytes": 16106127360,
+    "checkpoint_preflight_bytes": 834043904,
+    "gate_passed": true
+  },
+  "human_reviewed": false,
+  "final_opened": false
+}
+Exit code: 0

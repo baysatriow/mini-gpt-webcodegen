@@ -1,0 +1,5 @@
+RUN-524
+Purpose: Execute the new source-bound warm-start integration test.
+Result: Failed before entering run_training because save_checkpoint expected the temporary checkpoints directory to exist.
+Impact: No project artifacts or GPU state changed.
+Correction: Create the temporary checkpoint directory explicitly, then rerun.

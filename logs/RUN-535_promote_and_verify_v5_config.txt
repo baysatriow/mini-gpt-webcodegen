@@ -1,0 +1,10 @@
+RUN-535
+Action: Preserve the previous unused config at logs/config-archive/training-improvement-v5-before-legacy-order-compat.json and promote the rebuilt source-pinned config.
+Previous config SHA-256: b6d25313cbfceeeb6471a7191b2bc13abd0ae99ae05fc3894cfb9e20d03cddb3
+Current config SHA-256: 195c314855fddc340f0b1f7a32ce77dae0a436fa55aed0b23b0cbe8d545a8f64
+Live engine SHA-256: c20612ae3a5c8ac8a4a89faec89b9eb8d21c6061257400313e644ba91ba9d4d3
+Pinned engine SHA-256: c20612ae3a5c8ac8a4a89faec89b9eb8d21c6061257400313e644ba91ba9d4d3
+V5 data lineage: passed
+TRAIN-024 step-3600 weights-only parent lineage: passed
+Training started: false
+Final data opened: false

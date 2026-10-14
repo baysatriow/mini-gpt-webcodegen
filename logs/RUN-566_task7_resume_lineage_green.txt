@@ -1,0 +1,5 @@
+RUN-566 targeted regression: source-bound TRAIN-026 resume provenance
+Command: .venv/Scripts/python.exe -m unittest tests.fullpage.test_source_bound_resume tests.fullpage.test_source_bound_selection tests.training.test_engine
+Exit code: 0
+Result: 21 tests passed. Coverage includes exact TRAIN-025 path/run identity, TRAIN-025 report and config identity, stored checkpoint digest, full optimizer/scheduler/sampler/RNG state, selector parent path/hash, and no run artifacts on a rejected path.
+Environment: Project .venv with isolated CPU fixtures. No production checkpoint or GPU training was used.

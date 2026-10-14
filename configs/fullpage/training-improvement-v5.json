@@ -1,0 +1,258 @@
+{
+  "mode": "sft",
+  "scope": "main",
+  "data_origin": "fullpage_curriculum",
+  "human_reviewed": false,
+  "fullpage_contract_version": "source-bound-v1",
+  "dataset_dir": "data/processed/fullpage/v5",
+  "plan_batch_probability": 0.7,
+  "seed": 42,
+  "block_size": 2048,
+  "generation_contract": {
+    "block_size": 2048,
+    "output_budgets": {
+      "page_plan": 896,
+      "section_content": 1536
+    }
+  },
+  "tokenizer": "data/tokenizer/tokenizer.json",
+  "model_config_path": "configs/model_fullpage_2048.json",
+  "model_config": {
+    "vocab_size": 8192,
+    "block_size": 2048,
+    "n_layer": 6,
+    "n_head": 6,
+    "n_embd": 384,
+    "dropout": 0.1,
+    "tie_embeddings": true,
+    "initialization": "random normal mean 0 std 0.02; no pretrained weights"
+  },
+  "device": "cuda",
+  "precision": "bf16",
+  "batch_size": 8,
+  "gradient_accumulation": 6,
+  "max_steps": 3600,
+  "warmup_steps": 180,
+  "learning_rate": 5e-05,
+  "min_learning_rate": 5e-06,
+  "betas": [
+    0.9,
+    0.95
+  ],
+  "weight_decay": 0.1,
+  "grad_clip": 1,
+  "validation_interval": 1800,
+  "validation_batches": null,
+  "checkpoint_interval": 1800,
+  "log_interval": 100,
+  "reserve_free_bytes": 16106127360,
+  "initial_checkpoint": "checkpoints/FULLPAGE-V4/TRAIN-024-step3600.pt",
+  "initial_checkpoint_sha256": "913b1b00aec040a0d51c3607cf7261288e7fe089378850fc66c131400c0f319a",
+  "storage_phase_id": "fullpage-improvement-v5",
+  "performance": {
+    "attention_backend": "sdpa",
+    "fused_adamw": true,
+    "pin_memory": true,
+    "tf32": true,
+    "supervised_only_logits": true,
+    "validation_supervised_only_logits": true,
+    "allocator_config": "expandable_segments:True",
+    "gpu_telemetry": true,
+    "selected_by": "reports/training/FULLPAGE-GPU-005-CONTROLLED-B8.json",
+    "best_weights_only": true
+  },
+  "selection_rule": "Fixed 3,600-update budget initialized from TRAIN-024 weights only. Compare development generation at updates 1,800 and 3,600 by complete pages and exact fact-reference checks, then ordinary development CE. Require at least 76 of 80 pages for the model gate. Keep final data sealed.",
+  "lineage": {
+    "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+    "fullpage_manifest_sha256": "90c2dc71c4d91ff9a36a3fbd1bd36bd329c127b711c69556df4c0f58381d6dd2",
+    "parent_v4_manifest_sha256": "aae2de8cfceb16110eb93b0668447fcda7237fdfabaa7e0c2a22ce2c3d41cf15",
+    "initialization_parent": {
+      "migration_kind": "position_extension",
+      "source_checkpoint_sha256": "3399709ffe2fa7981c9d26b8ff5723f7821bd78e302bea6dfe63aaf1d27c8638",
+      "source_config_sha256": "9e72eec8798e47f90f17b77a6d99e10037d0273503e5bb104f8b284ad5fb3d98",
+      "source_lineage": {
+        "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+        "pretrain_fingerprint": {
+          "version": 1,
+          "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+          "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+          "source_revisions": [
+            {
+              "id": "vulcan",
+              "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+              "license": "mit",
+              "rows": 5000
+            },
+            {
+              "id": "websight_v01",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 20000
+            },
+            {
+              "id": "websight_v02",
+              "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+              "license": "cc-by-4.0",
+              "rows": 30000
+            }
+          ],
+          "partition_sha256": {
+            "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+            "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+            "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+          },
+          "token_cache_sha256": {
+            "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+            "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+            "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+          },
+          "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+        },
+        "synthetic_manifest_sha256": "0fb20da53b4e498cbcbadb7aa6296685a319ae323f68cc96e36f1659ba20d08c",
+        "data_sha256": {
+          "train": "7d0d9f247436ca413f93fcde7b22337de88a29c64150c41998a172058388d2fd",
+          "validation": "945bde9e48d4e4e274a63e519d13357b201e1c1fa9835af427cb0758031d2800"
+        },
+        "validation_indices_sha256": "9bc32cb1719357ec7de7e859d9c67f3f0bdb69cb6deca4043f46d59d6b552c07",
+        "train_blocks_or_examples": 40158,
+        "validation_blocks_or_examples": 1440,
+        "smoke": false,
+        "human_reviewed": false,
+        "pretraining_parent": {
+          "checkpoint_sha256": "49e03ebb37f01619de9dc93a55f6828367d84fd34380986bfa15597d9583831c",
+          "phase": "pretrain",
+          "global_step": 1200,
+          "pretrain_fingerprint": {
+            "version": 1,
+            "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+            "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+            "source_revisions": [
+              {
+                "id": "vulcan",
+                "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+                "license": "mit",
+                "rows": 5000
+              },
+              {
+                "id": "websight_v01",
+                "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                "license": "cc-by-4.0",
+                "rows": 20000
+              },
+              {
+                "id": "websight_v02",
+                "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+                "license": "cc-by-4.0",
+                "rows": 30000
+              }
+            ],
+            "partition_sha256": {
+              "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+              "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+              "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+            },
+            "token_cache_sha256": {
+              "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+              "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+              "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+            },
+            "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+          }
+        },
+        "curriculum_parent": {
+          "checkpoint_sha256": "791a365463710f73dbfbba767bd8bd17f5b4442e8f6137a92ec8c5888d1a2ed3",
+          "global_step": 3600,
+          "synthetic_manifest_sha256": "4875ed584633d9ee59d121e7b9d89e277fe37ec5f249cf4e1b3f189c81fd4673",
+          "run_id": "TRAIN-012"
+        }
+      },
+      "pretrain_fingerprint": {
+        "version": 1,
+        "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+        "assignment_sha256": "b827fdf80f0a20577a674a2ef4b70159da92a472e2535d5458c410c0398ab55b",
+        "source_revisions": [
+          {
+            "id": "vulcan",
+            "revision": "19d2a482c78554e59feca0ce2b50fb7835e90c6f",
+            "license": "mit",
+            "rows": 5000
+          },
+          {
+            "id": "websight_v01",
+            "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+            "license": "cc-by-4.0",
+            "rows": 20000
+          },
+          {
+            "id": "websight_v02",
+            "revision": "b11f8172f89c992b56ac702319e02c428cca4a4e",
+            "license": "cc-by-4.0",
+            "rows": 30000
+          }
+        ],
+        "partition_sha256": {
+          "train": "9de281a574a839157549c3334cee4d61a6ef90ccccd81905f04ce89e79ae098b",
+          "validation": "4116003f72270f9631ffa42b4d37c403d7adf4a82b4c749194a3dddd51b95bfd",
+          "test": "ecca06285b5c4f67b12146e2a3824ea793a7b2a2797416ab9560f1c30456d9f5"
+        },
+        "token_cache_sha256": {
+          "train": "44eb1d883865917f5cafc448ac60592c002d9526de7e2579deca9ad50655e0c8",
+          "validation": "5461629ba4b9bff9ec640a9b64ccb21466d2dacb96a948cea33629526f74d80e",
+          "test": "cb3fe10b32e993e6b4e835d7068d62638df35e5fd75739e10dd9d08db41acf4a"
+        },
+        "sha256": "fd6e3b5a20b3214cfd9e6cc769f7c011d3209235731edb793b917e60ca8a371a"
+      },
+      "tokenizer_sha256": "f7d5410d5963b3504bc09a4f6bf29e695cb8c6ba64041bfe1596a13cecb210d7",
+      "source_positions": 1024,
+      "target_positions": 2048,
+      "new_position_seed": 42,
+      "new_position_distribution": "normal mean0 std0.02",
+      "human_reviewed": false
+    },
+    "warm_start_parent": {
+      "path": "checkpoints/FULLPAGE-V4/TRAIN-024-step3600.pt",
+      "sha256": "913b1b00aec040a0d51c3607cf7261288e7fe089378850fc66c131400c0f319a",
+      "run_id": "TRAIN-024",
+      "global_step": 3600,
+      "weights_only": true,
+      "config_sha256": "ba4e8f706e8ebf2900965cfc7e1900c8aa331f131300913c4eb03eaf5398e296",
+      "dataset_manifest_sha256": "aae2de8cfceb16110eb93b0668447fcda7237fdfabaa7e0c2a22ce2c3d41cf15"
+    },
+    "schema_sha256": {
+      "plan-source-bound-v1.schema.json": "0fd8a445f1d6aa222105b4fb67a10ba0fedf33aef45e2f71ddef5af3076363ef",
+      "plan.schema.json": "cf8ef56b884ae9b3d15e03698a5cffff9a6fc29c0f311f32050a1e627c4f5e35",
+      "section-source-bound-v1.schema.json": "f263402ffc54aa86d14d069f875446137e46bc4e151199bc7d7ff81d156fadfa",
+      "section.schema.json": "099bb0a51e0420c9b46dbf2787368798f8f89346e66c309ac139a5e0b1d48c3f"
+    },
+    "source_sha256": {
+      "configs/fullpage/source-bound-copy-v1.json": "edda679022803bd9ffba744d13a15d1a0259b3deeeace98fa5ad5645a6602b74",
+      "configs/model_fullpage_2048.json": "64970856668633fbc1b3a6b659bb799bd0d11c6015cb410919ffbf0fb62afeb7",
+      "qa/configure_fullpage_v5_training.py": "c42f398632b54bda2af9935eabbe4abb27426062030c5d6daecbbe4bc9245d17",
+      "qa/evaluate_fullpage.py": "9590f3c3402ed4febc317a9501a89429881b0a16936b73debc95f866d7891981",
+      "qa/prepare_fullpage_v5.py": "a52463eac2b5c2259ab6a43ac32831e1f747db75ab3473d91d404f6bb16ce01d",
+      "qa/snapshot_fullpage_checkpoint.py": "0cba1a3a3cbacddba954cfeaf038350ccff5582440307cf8dd418209ecd57d27",
+      "qa/train_fullpage.py": "fa64ee7db37c44447ed661e68c4b9f58cf8d905bb60f27df9b9deb3930772727",
+      "src/fullpage/assets.py": "e47d6be9106d9aca8186532e7290586236aebd9eb3da0e47f3dea12dfdbd6f5c",
+      "src/fullpage/compose.py": "64ef0dbc4d76b3a5fe2fab3ab897f17ca0631ddb21bde41b757ccc48c588a034",
+      "src/fullpage/contracts.py": "7ac7e76bbdfe512e32e12807271ea7eea5e30261c80ba2a42c15d80aff4ace84",
+      "src/fullpage/curriculum.py": "6ca195325bfc28fef36ecf8315b1e58407e0068d3286fced61aa45ff0743ca7c",
+      "src/fullpage/dataset.py": "d06722dac52e31e85c18a930cd62639890d9e0cd49edd0d43bcf623ae994a5f6",
+      "src/fullpage/evaluation.py": "cc6becc59c7dacd1fbb42a67f504cb5d5aeff2641770b7d149709273397ae1e6",
+      "src/fullpage/generation.py": "0982e5fbbad840d681f6efba90b89251d7b75a731aeeca4266ad07ce76b60139",
+      "src/fullpage/lineage.py": "dbaa598f782dd246fb33c38688602d4173393fcf9a58d3a8c4d170f547ca49a0",
+      "src/fullpage/prompts.py": "c0f3255de7607e6438b36975eb96afbf48837922cd146f63093f0e72c0bdf263",
+      "src/fullpage/renderer.py": "860e307406bb28e638003369a303f1f50bbb89119666ea4879532fa1ad564183",
+      "src/fullpage/serialization.py": "0594b01d9baf7bab4777020c3aaef2d9a6b4ab41a4ba848200e4df96adf021f1",
+      "src/fullpage/source_bound_compose.py": "ec53f01cf1e1ca128e8b38eef3d48244fa24cd7cc3ced2682b273b8cb3d455d9",
+      "src/fullpage/source_bound_contracts.py": "f9421d9b952acada1208e3b74286161d2b5fc3298ab8b7fbddc43f6ea88443f6",
+      "src/fullpage/source_bound_prompts.py": "3fa14c1da346625826c06762dd229d0517748be1e5f946ac9911c2b54660a7cb",
+      "src/fullpage/source_bound_resolver.py": "2ad3b82d01393d0e7e6152a026de45fe2fc1a583c7197b82bd98f6fcb5cc7995",
+      "src/fullpage/source_bound_serialization.py": "c28905429343ce1d6a94efe8eb64d8ee9e7207c360768cbbba3c6bf71ecd5708",
+      "src/fullpage/source_bound_targets.py": "fce09550669e22a0ee858f719664ca0f9304b28d69f4fad203b1d655c83f82c7",
+      "src/models/minigpt.py": "bfa75a3f29ce9cfa2ee4256fd06c6deb08ba1803b94c5fdc7bf273e31f152ccd",
+      "src/training/engine.py": "1504c5e3ad4249d372cf1726c198546cc2d4a8b80e0c03da8c5283438af5b82b"
+    },
+    "copy_catalog_sha256": "edda679022803bd9ffba744d13a15d1a0259b3deeeace98fa5ad5645a6602b74",
+    "profile_sha256": "8a101fa71916993c3beb47c81c18255bb645ebe11862fa82fc93983ef02c2998"
+  }
+}

@@ -1,0 +1,7 @@
+RUN-568 regenerate source-bound V5 config after resume lineage implementation
+Command: .venv/Scripts/python.exe -m qa.configure_fullpage_v5_training --root . --output configs/fullpage/training-improvement-v5.json
+Exit code: 0
+Prior config: SHA-256 6ef910cca039890916fb97217d2c4f934b11e3332c1376021c70797ad06e7842, archived at logs/config-archive/training-improvement-v5-before-resume-parent-guard.json.
+New config: SHA-256 0ee3332b0a3f19e42efe2ddb2eb6a1dbf69add7e84511323efeffa418bf78244.
+Frozen settings: plan probability 0.7, batch size 8, gradient accumulation 6, 3,600 updates, page plan budget 896, section budget 1,536. TRAIN-024 parent hash and V5 manifest are unchanged.
+Environment: Config generation and source/data lineage verification only. Training and evaluation did not run.

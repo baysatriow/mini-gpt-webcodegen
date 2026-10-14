@@ -1,0 +1,5 @@
+RUN-536
+Command: .venv/Scripts/python.exe -m qa.build_fullpage_v5_notebook
+Purpose: Refresh notebook cells from the final V5 config. No cell execution.
+Created notebooks\15_fullpage_v5_source_bound_facts.ipynb with 22 cells. Training and evaluation cells were not executed.
+Exit code: 0

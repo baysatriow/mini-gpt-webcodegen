@@ -5,6 +5,7 @@ import time
 from collections import Counter
 from pathlib import Path
 from .generation import CONTRACT_VERSION, FullPageGenerator, checkpoint_contract_version
+from .lineage import SOURCE_BOUND_LINEAGE_FILES
 from .curriculum import write_json
 from .serialization import canonical
 from src.data.sources import sha256_file
@@ -19,19 +20,12 @@ def evaluation_source_paths(contract_version=None):
         'src/fullpage/prompts.py',
     ]
     if contract_version == CONTRACT_VERSION:
+        paths.extend(SOURCE_BOUND_LINEAGE_FILES)
         paths.extend([
-            'src/fullpage/source_bound_prompts.py',
-            'src/fullpage/source_bound_serialization.py',
-            'src/fullpage/source_bound_contracts.py',
-            'src/fullpage/source_bound_compose.py',
-            'src/fullpage/source_bound_resolver.py',
-            'src/fullpage/renderer.py',
-            'src/fullpage/assets.py',
             'configs/fullpage/plan-source-bound-v1.schema.json',
             'configs/fullpage/section-source-bound-v1.schema.json',
-            'configs/fullpage/source-bound-copy-v1.json',
         ])
-    return tuple(paths)
+    return tuple(dict.fromkeys(paths))
 
 
 def claim_final_evaluation(path, identity, *, resume=False):

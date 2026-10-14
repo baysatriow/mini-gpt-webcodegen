@@ -1,0 +1,6 @@
+RUN-508 failed attempt
+Purpose: Verify the archived checkpoint and available training reserve after creating the junction.
+Command: Read-only PowerShell inventory and SHA-256 audit of the junction and E-drive copies.
+Environment: Project root on F: and archive on E:; no training process.
+Result: The audit script stopped at parse time because PowerShell does not support the Python-style exponent operator used in the reserve expression. No files were changed.
+Decision: Preserve this failed attempt and rerun the read-only audit with PowerShell byte constants.

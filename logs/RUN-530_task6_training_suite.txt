@@ -1,0 +1,5 @@
+RUN-530
+Command: .venv/Scripts/python.exe -m unittest discover -s tests/training -p test*.py -v
+Environment: CPU/temporary fixtures; no GPU training, project dataset mutation, or final data access.
+Result: The PowerShell Tee-Object invocation used incompatible parameter names. The test result was not reliably captured, so this attempt is inconclusive and will be rerun with FilePath.
+Exit code: 

@@ -1,0 +1,11 @@
+T  Syncing CodeGraph
+|
+Scanning files...
+Parsing code...
+Resolving refs...
+|
+*  Synced 1 changed files
+|
+•  Modified: 1 - 27 nodes in 437ms
+|
+Done

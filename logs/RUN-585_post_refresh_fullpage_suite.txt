@@ -1,0 +1,12 @@
+RUN-585 post-refresh full-page suite
+Started: 2026-10-14 21:32:18 +07:00
+Command: .venv\\Scripts\\python.exe -m unittest discover -s tests/fullpage
+Exit code: 0
+Config SHA-256: 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186
+Scope: Current frozen lineage, selection, generation, evaluation, and notebook checks. No final-record parsing or GPU training.
+
+...............................................................................
+----------------------------------------------------------------------
+Ran 79 tests in 2.698s
+
+OK

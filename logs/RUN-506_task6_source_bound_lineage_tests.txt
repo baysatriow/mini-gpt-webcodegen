@@ -1,0 +1,18 @@
+test_changed_parent_digest_is_rejected (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_changed_parent_digest_is_rejected) ... ok
+test_exact_train024_weights_only_snapshot_is_accepted (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_exact_train024_weights_only_snapshot_is_accepted) ... ok
+test_full_optimizer_checkpoint_is_rejected (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_full_optimizer_checkpoint_is_rejected) ... ok
+test_source_bound_dataset_lineage_is_verified_without_final_parsing (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_dataset_lineage_is_verified_without_final_parsing) ... ok
+test_source_bound_lineage_rejects_changed_dataset_bytes (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_changed_dataset_bytes) ... ok
+test_source_bound_lineage_rejects_changed_training_source (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_changed_training_source) ... ok
+test_source_bound_lineage_rejects_sealed_hash_mismatch (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_sealed_hash_mismatch) ... ok
+test_source_bound_lineage_rejects_test_split (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_test_split) ... ok
+test_wrong_parent_model_shape_is_rejected (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_wrong_parent_model_shape_is_rejected) ... ok
+test_wrong_parent_run_id_is_rejected (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_wrong_parent_run_id_is_rejected) ... ok
+test_wrong_parent_step_is_rejected (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_wrong_parent_step_is_rejected) ... ok
+test_wrong_parent_v4_manifest_is_rejected (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_wrong_parent_v4_manifest_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 2.939s
+
+OK
+Exit code: 0

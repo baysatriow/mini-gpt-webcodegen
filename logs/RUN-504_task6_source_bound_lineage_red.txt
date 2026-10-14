@@ -1,0 +1,19 @@
+test_source_bound_lineage (unittest.loader._FailedTest.test_source_bound_lineage) ... ERROR
+
+======================================================================
+ERROR: test_source_bound_lineage (unittest.loader._FailedTest.test_source_bound_lineage)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_source_bound_lineage
+Traceback (most recent call last):
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_lineage.py", line 9, in <module>
+    from src.fullpage.lineage import (
+ImportError: cannot import name 'SOURCE_BOUND_LINEAGE_FILES' from 'src.fullpage.lineage' (F:\Generative_AI\Vibe_Coding_Proyek_1\src\fullpage\lineage.py)
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

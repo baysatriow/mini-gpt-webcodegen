@@ -1,0 +1,13 @@
+test_candidates_must_use_the_same_development_requests_and_manifest (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_candidates_must_use_the_same_development_requests_and_manifest) ... ok
+test_complete_page_count_precedes_cross_entropy (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_complete_page_count_precedes_cross_entropy) ... ok
+test_cross_entropy_breaks_a_complete_page_tie (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_cross_entropy_breaks_a_complete_page_tie) ... ok
+test_gate_requires_at_least_76_of_80 (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_gate_requires_at_least_76_of_80) ... ok
+test_input_reports_are_not_mutated (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_input_reports_are_not_mutated) ... ok
+test_invalid_fact_acceptance_cannot_pass_gate (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_invalid_fact_acceptance_cannot_pass_gate) ... ok
+test_reports_must_match_the_exact_step_and_run_identity (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_reports_must_match_the_exact_step_and_run_identity) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.000s
+
+OK
+Exit code: 0

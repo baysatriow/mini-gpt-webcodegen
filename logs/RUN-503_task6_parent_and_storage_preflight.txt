@@ -1,0 +1,22 @@
+Parent checkpoint: checkpoints/FULLPAGE-V4/TRAIN-024-step3600.pt
+Parent payload SHA-256: 913b1b00aec040a0d51c3607cf7261288e7fe089378850fc66c131400c0f319a
+Parent run ID: TRAIN-024
+Parent global step: 3600
+Parent weights_only: true
+Parent model block size: 2048
+Parent data origin: fullpage_curriculum
+Parent dataset: data/processed/fullpage/v4
+Parent contract: legacy
+
+V5 dataset manifest SHA-256: 90c2dc71c4d91ff9a36a3fbd1bd36bd329c127b711c69556df4c0f58381d6dd2
+V5 request counts: 3360 train, 80 validation
+V5 task counts: 33600 train, 800 validation
+RTX 5070 controlled profile: microbatch 8, gradient accumulation 6, effective batch 48, plan probability 0.7, stable, measured 51562 tokens/second over 20 measured updates.
+
+Storage audit:
+- Free bytes: 16607813632
+- Reserve bytes: 16106127360
+- Free bytes above reserve: 501686272
+- Checkpoint preflight estimate: 834043904
+- Shortfall to preflight estimate: 332357632
+- Current storage decision: training not started.

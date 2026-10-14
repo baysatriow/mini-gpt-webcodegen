@@ -1,6 +1,6 @@
 # Pipeline ledger: docs/superpowers/plans/2026-10-12-pipeline-data-model-training.md
 
-Status terkini AI-022, 14 Oktober 2026: eksperimen fullpage v4 memperoleh 68/80 halaman development pada update 3.600. Target 76/80 belum tercapai. [Laporan pemilihan](../reports/training/FULLPAGE-V4_DEVELOPMENT_SELECTION.json), [notebook 14](../notebooks/14_fullpage_v4_process_role_training.ipynb), [log training](LOG_TRAINING.md), dan [interaksi AI-022](interaksi_llm/AI-022_2026-10-14.md). Catatan AI-011 dan AI-013 di bawah tetap menjadi riwayat.
+Status terkini 14 Oktober 2026: pipeline V5 source-bound, selector, dan notebook 15 sudah disiapkan. Fresh source-bound run kini hanya dapat memakai ID TRAIN-025. TRAIN-026 hanya dapat melanjutkan checkpoint TRAIN-025 step 1800 dengan hash laporan dan checkpoint yang sesuai. Config beku saat ini SHA-256 `8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186`. RUN-579 lulus 21 training tests. RUN-580 dan RUN-585 lulus 79 full-page tests. Notebook 15 memiliki 22 sel dan belum dieksekusi. Review ulang branch, commit/push, serta preflight GPU/storage segar masih menunggu sebelum TRAIN-025. Target tetap 76/80 dari 80 request development, dengan validation CE sebagai pendukung. Final tetap tertutup. [Log training](LOG_TRAINING.md), [interaksi AI-025](interaksi_llm/AI-025_2026-10-14.md), dan [notebook 15](../notebooks/15_fullpage_v5_source_bound_facts.ipynb). Catatan AI-011, AI-013, dan AI-022 di bawah tetap menjadi riwayat.
 
 Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download dataset setelah pemeriksaan storage.
 
@@ -229,11 +229,22 @@ RUN-331 membandingkan satu target train role `process` dengan keluaran gagal TRA
 - Keluarga data dan 80 prompt development tetap beku; test hanya diverifikasi dengan hash bytes dan tidak diparse. Target tetap 76/80 dan final benchmark tetap tertutup.
 - [Rencana implementasi](../docs/superpowers/plans/2026-10-14-fullpage-source-bound-facts.md), [spesifikasi](../docs/superpowers/specs/2026-10-14-fullpage-source-bound-facts-design.md), [interaksi AI-025](interaksi_llm/AI-025_2026-10-14.md). Belum ada implementasi, test, perubahan dataset/checkpoint, training, atau evaluasi.
 
+### Source-bound V5 training readiness, 14 Oktober 2026
+
+- Source-bound schema, resolver/composer, staged generator, prompt intake, V5 train/development corpus, warm-start lineage, development selector, and notebook foundation are implemented. The training/evaluation UI is still not built.
+- V5 is synthetic and not human-reviewed. It contains 240 train families and 40 development families, 3,360/80 requests, and 33,600/800 task rows. Final and test rows remain outside the V5 training corpus.
+- TRAIN-024 is pinned as the only V5 initialization parent: step 3,600, weights-only, SHA-256 `913b1b00aec040a0d51c3607cf7261288e7fe089378850fc66c131400c0f319a`. The source-bound engine loads these weights before creating a fresh optimizer; the legacy INIT-2048 path retains its previous ordering; exact resume tests still pass.
+- Historical config SHA-256 `195c314855fddc340f0b1f7a32ce77dae0a436fa55aed0b23b0cbe8d545a8f64` pinned the V5 manifest and engine before later guard revisions. Current config SHA-256 is `6ef910cca039890916fb97217d2c4f934b11e3332c1376021c70797ad06e7842`; prior configs remain archived under `logs/config-archive/`.
+- RUN-537 passed all 17 training tests. RUN-538 passed all 71 full-page tests. RUN-529 passed the project `.venv` RTX 5070 CUDA/BF16 check, parent/data lineage, and storage reserve. RUN-535 reverified config lineage after the final engine change; RUN-536 rebuilt the 22-cell notebook.
+- Storage preflight measured 17,301,045,248 bytes free against 16,706,895,872 bytes required including the 15 GiB reserve and checkpoint estimate. This is the earlier preflight measurement; repeat it immediately before TRAIN-025.
+- Notebook: [15, source-bound V5 training](../notebooks/15_fullpage_v5_source_bound_facts.ipynb). It separates TRAIN-025 weights-only initialization at step 0 to 1,800 from TRAIN-026 exact resume to step 3,600.
+- Remaining before training: whole-diff review, commit/push, and immediate storage/GPU preflight. Training has not started. The development selector waits for both real checkpoint reports. The 76/80 gate is unchanged and final data is unopened.
+
 ### Implementasi source-bound v1 dimulai
 
 - 14 Oktober 2026: mulai Task 1 pada branch `feature/pipeline-data-model-training` setelah persetujuan pengguna.
 - Kontrak test RED tercatat pada RUN-381 karena builder source-bound belum tersedia. Implementasi belum mulai saat pemeriksaan merah dijalankan.
-- Split dataset tetap tertutup dan training belum dimulai. Lihat AI-026 untuk keputusan implementasi yang sedang dijalankan.
+- Historical note: split dataset tetap tertutup dan training belum dimulai. Rujukan AI-026 hanya berlaku untuk tahap implementasi terdahulu dan bukan status keputusan terbaru.
 
 ### Source-bound Task 1 verification
 
@@ -290,4 +301,11 @@ RUN-331 membandingkan satu target train role `process` dengan keluaran gagal TRA
 - Generation statuses map to stable user-safe messages. Raw validator and model errors are hidden. Intake does not run an extraction model, modify the original prompt, create a page, or write output files. No `app/` files changed.
 - RUN-446 passed 17 focused intake tests. RUN-447 and the final RUN-453 passed all 42 full-page tests. RUN-444 captured a negative-test fixture mismatch and RUN-450 captured and corrected a whitespace issue in the summary log.
 - Task 4 is committed as `8bc231700e028b25160465bcf7c1d21e8ac12fb8` (`feat: validate fullpage prompt intake evidence`) and pushed to `origin/feature/pipeline-data-model-training`; RUN-456 and RUN-457 confirm the push.
-- No dataset, checkpoint, or training artifact changed. Task 5 is next: prepare deterministic source-bound V5 targets using training families only while preserving frozen validation and final partitions.
+- Historical note: no dataset, checkpoint, or training artifact had changed at this earlier Task 4 milestone. Task 5 has since been completed with train-family-only V5 targets and frozen validation/final partitions.
+
+### Resume-parent verification follow-up
+
+- RUN-565 reproduced that TRAIN-026 could reach generic resume handling with a non-TRAIN-025 path. The trainer now rejects any other run ID or parent path before reading the checkpoint or creating run artifacts.
+- TRAIN-025 report/config identity, step-1800 committed state, checkpoint digest, and full optimizer/scheduler/sampler/RNG state are verified by the trainer. The development selector checks the same parent report and hash recorded in TRAIN-026.
+- RUN-566 passed 21 focused regressions. RUN-568 refreshed config SHA-256 to `0ee3332b0a3f19e42efe2ddb2eb6a1dbf69add7e84511323efeffa418bf78244`; RUN-569 rebuilt notebook 15 with 22 cells. RUN-570 passed 20 training tests, and RUN-571 passed 79 full-page tests.
+- TRAIN-025 remains unstarted. Await the fresh whole-branch review, commit and push, then repeat the live RTX 5070 and storage preflight. Final data remains sealed.

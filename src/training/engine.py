@@ -278,12 +278,17 @@ def checkpoint_sha256(path: Path):
 
 
 def read_checkpoint(path: Path):
-    payload, _ = _checkpoint_payload(Path(path))
-    return torch.load(payload, map_location="cpu", weights_only=True)
+    return read_checkpoint_with_digest(path)[0]
 
 
-def load_checkpoint(path, model, optimizer, scheduler, *, restore_rng=True):
-    state = read_checkpoint(Path(path))
+def read_checkpoint_with_digest(path: Path):
+    """Load a verified checkpoint and return its payload digest from the same read."""
+    payload, manifest = _checkpoint_payload(Path(path))
+    return torch.load(payload, map_location="cpu", weights_only=True), manifest["sha256"]
+
+
+def load_checkpoint(path, model, optimizer, scheduler, *, restore_rng=True, state=None):
+    state = read_checkpoint(Path(path)) if state is None else state
     if state["model_config"] != model.config:
         raise ValueError("Checkpoint model configuration mismatch")
     model.load_state_dict(state["model"])
@@ -311,6 +316,37 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
         raise ValueError("Invalid run ID")
     if train_loader.num_workers != 0 or not isinstance(train_loader.batch_sampler, ResumableBatchSampler):
         raise ValueError("Exact resume requires ResumableBatchSampler and num_workers=0")
+    source_bound_parent, source_bound_initial_path = None, None
+    source_bound_resume_state = None
+    if config.get("fullpage_contract_version") == "source-bound-v1":
+        from src.fullpage.lineage import (
+            TRAIN024_PATH,
+            TRAIN024_SHA256,
+            TRAIN025_REPORT_PATH,
+            validate_source_bound_parent,
+            validate_source_bound_resume_path,
+            validate_source_bound_resume_state,
+            validate_source_bound_train025_report,
+            verify_source_bound_training_settings,
+        )
+        if not resume and (config.get("initial_checkpoint") != TRAIN024_PATH
+                           or config.get("initial_checkpoint_sha256") != TRAIN024_SHA256):
+            raise ValueError("Source-bound fresh training requires the exact TRAIN-024 warm-start")
+        verify_source_bound_training_settings(config, root)
+        if not resume:
+            source_bound_initial_path = root / TRAIN024_PATH
+            if run_id != "TRAIN-025":
+                raise ValueError("Fresh source-bound training must use run ID TRAIN-025")
+            source_bound_parent = read_checkpoint(source_bound_initial_path)
+            validate_source_bound_parent(source_bound_parent, config, root)
+        else:
+            parent_path = validate_source_bound_resume_path(run_id, resume, root)
+            source_bound_resume_state, resume_digest = read_checkpoint_with_digest(parent_path)
+            validate_source_bound_resume_state(source_bound_resume_state, config)
+            parent_report = json.loads((root / TRAIN025_REPORT_PATH).read_text(encoding="utf-8"))
+            validate_source_bound_train025_report(
+                parent_report, config, sha256_file(config_path), resume_digest,
+            )
     directory = root / "checkpoints" / run_id
     directory.mkdir(parents=True, exist_ok=False)
     summary_path = root / f"reports/training/{run_id}.json"
@@ -369,6 +405,12 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
             estimated_checkpoint_bytes = model.parameter_count() * 12 * 6 + 64 * 1024**2
         if shutil.disk_usage(root).free < config["reserve_free_bytes"] + estimated_checkpoint_bytes:
             raise OSError("Insufficient storage for last/best checkpoints while preserving reserve")
+        if source_bound_parent is not None:
+            load_checkpoint(source_bound_initial_path, model, None, None,
+                            restore_rng=False, state=source_bound_parent)
+            source_bound_parent = None
+        if device.type == "cuda":
+            torch.cuda.reset_peak_memory_stats()
         optimizer_options = {"fused": True} if performance.get("fused_adamw", False) else {}
         optimizer = torch.optim.AdamW(model.parameters(), lr=config["learning_rate"], betas=tuple(config["betas"]), weight_decay=config["weight_decay"], **optimizer_options)
         def rate(step):
@@ -380,9 +422,9 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
         scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, rate)
         step, best, total_tokens, best_reference = 0, float("inf"), 0, None
         best_path = directory / "best.pt"
-        if device.type == "cuda":
-            torch.cuda.reset_peak_memory_stats()
-        if config.get("initial_checkpoint") and not resume:
+        if (config.get("initial_checkpoint") and not resume
+                and config.get('fullpage_contract_version') != 'source-bound-v1'):
+            # Preserve the legacy initializer's ordering and validation behavior.
             from src.training.lineage import validate_initial_checkpoint
             initial_path = root / config["initial_checkpoint"]
             if checkpoint_sha256(initial_path) != config["initial_checkpoint_sha256"]:
@@ -395,7 +437,8 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
                 validate_initial_checkpoint(parent, config, root)
             load_checkpoint(initial_path, model, None, None, restore_rng=False)
         if resume:
-            state = read_checkpoint(Path(resume))
+            state = (source_bound_resume_state if source_bound_resume_state is not None
+                     else read_checkpoint(Path(resume)))
             if state.get('weights_only'):
                 raise ValueError('Exact resume requires last checkpoint with optimizer/scheduler state; best is weights-only')
             def verified_resume_config(candidate):
@@ -407,7 +450,7 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
                 return candidate["config"]
             if verified_resume_config(state) != config:
                 raise ValueError("Resume immutable training config/data lineage mismatch")
-            state = load_checkpoint(resume, model, optimizer, scheduler)
+            state = load_checkpoint(resume, model, optimizer, scheduler, state=state)
             train_loader.batch_sampler.load_state_dict(state["sampler"])
             step, best, total_tokens = state["global_step"], state["best_validation_loss"], state["total_tokens"]
             reference = state.get("best_checkpoint")

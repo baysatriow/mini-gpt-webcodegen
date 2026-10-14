@@ -1,0 +1,6 @@
+RUN-512 failed attempt
+Purpose: Inspect historical training and generation report field shapes for the V5 development selector.
+Command: PowerShell invoked the project Python interpreter with an inline inspection containing literal escaped newlines.
+Environment: Read-only inspection of TRAIN-024 and V4 development reports; final records untouched.
+Result: Python rejected the command string as invalid syntax before any files were read or modified.
+Decision: Preserve this failed attempt and repeat the small read-only field inspection with PowerShell JSON handling.

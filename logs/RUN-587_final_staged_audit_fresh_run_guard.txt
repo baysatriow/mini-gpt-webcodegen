@@ -1,0 +1,133 @@
+RUN-587 final staged diff and punctuation audit
+Started: 2026-10-14 21:33:42 +07:00
+Branch: feature/pipeline-data-model-training
+Staged paths before this run record: 108
+Command: git diff --cached --check HEAD; scan added staged lines for Unicode code point U+2014
+Whitespace check exit code: 2
+Added lines containing U+2014: 0
+
+Whitespace output:
+logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md:6403: trailing whitespace.
++- Output: logs/RUN-584_rebuild_v5_notebook_train026_fresh_guard.txt and 
+logs/RUN-576_task7_reject_fresh_train026_red.txt:34: new blank line at EOF.
+logs/RUN-577_task7_reject_fresh_train026_green.txt:24: new blank line at EOF.
+logs/RUN-578_task7_source_bound_engine_regressions.txt:16: new blank line at EOF.
+logs/RUN-579_full_training_suite_fresh_run_guard.txt:88: new blank line at EOF.
+logs/RUN-580_fullpage_suite_fresh_run_guard.txt:12: new blank line at EOF.
+logs/RUN-581_codegraph_sync_fresh_run_guard.txt:17: new blank line at EOF.
+logs/RUN-583_refresh_v5_config_train026_fresh_guard.txt:24: new blank line at EOF.
+logs/RUN-584_rebuild_v5_notebook_train026_fresh_guard.txt:9: new blank line at EOF.
+logs/RUN-585_post_refresh_fullpage_suite.txt:13: new blank line at EOF.
+logs/RUN-586_post_refresh_training_suite.txt:89: new blank line at EOF.
+
+Punctuation findings:
+
+Status:
+A  configs/fullpage/training-improvement-v5.json
+M  logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md
+M  logs/LOG_TRAINING.md
+M  logs/PIPELINE_PROGRESS.md
+A  logs/RUN-503_task6_parent_and_storage_preflight.txt
+A  logs/RUN-504_task6_source_bound_lineage_red.txt
+A  logs/RUN-505_task6_lineage_tests_first_implementation.txt
+A  logs/RUN-506_task6_source_bound_lineage_tests.txt
+A  logs/RUN-507_task6_freeze_v5_training_config.txt
+A  logs/RUN-508_task6_archive_audit_syntax_error.txt
+A  logs/RUN-509_task6_verified_checkpoint_archive.txt
+A  logs/RUN-510_task6_fullpage_suite.txt
+A  logs/RUN-511_task6_training_engine_lineage_tests.txt
+A  logs/RUN-512_task7_report_shape_inspection_error.txt
+A  logs/RUN-514_task7_selector_red.txt
+A  logs/RUN-515_task7_selector_unit_tests.txt
+A  logs/RUN-516_task7_selector_unit_tests.txt
+A  logs/RUN-517_task8_notebook_builder_red.txt
+A  logs/RUN-518_task8_notebook_builder_tests.txt
+A  logs/RUN-518_task8_notebook_test_language_mismatch.txt
+A  logs/RUN-519_task8_notebook_builder_tests.txt
+A  logs/RUN-520_task8_build_notebook.txt
+A  logs/RUN-521_task7_8_fullpage_suite.txt
+A  logs/RUN-522_task8_regenerate_notebook_after_data_summary_fix.txt
+A  logs/RUN-523_task8_notebook_summary_cell_check.txt
+A  logs/RUN-524_task6_warm_start_test_fixture_missing_dir.txt
+A  logs/RUN-525_task6_warm_start_test_path_observer.txt
+A  logs/RUN-526_task6_warm_start_test_green.txt
+A  logs/RUN-527_task6_warm_start_baseline_red.txt
+A  logs/RUN-528_task6_codegraph_sync.txt
+A  logs/RUN-529_task6_gpu_lineage_storage_preflight.txt
+A  logs/RUN-530_task6_training_suite.txt
+A  logs/RUN-531_task6_training_suite_rerun.txt
+A  logs/RUN-532_task7_8_fullpage_suite.txt
+A  logs/RUN-533_task6_initializer_order_compatibility_tests.txt
+A  logs/RUN-534_task6_refresh_v5_config_for_final_engine.txt
+A  logs/RUN-535_promote_and_verify_v5_config.txt
+A  logs/RUN-536_rebuild_notebook_for_refreshed_config.txt
+A  logs/RUN-537_final_training_suite.txt
+A  logs/RUN-538_final_fullpage_suite.txt
+A  logs/RUN-539_final_codegraph_sync.txt
+A  logs/RUN-540_final_diff_whitespace_and_em_dash_review.txt
+A  logs/RUN-541_task6_missing_parent_guard_red.txt
+A  logs/RUN-542_task6_missing_parent_guard_green.txt
+A  logs/RUN-543_task6_lineage_engine_codegraph_sync.txt
+A  logs/RUN-544_task6_parent_guard_regressions.txt
+A  logs/RUN-545_task6_parent_guard_regressions_rerun.txt
+A  logs/RUN-546_task6_parent_guard_codegraph_sync.txt
+A  logs/RUN-547_task6_refresh_v5_config_parent_guard.txt
+A  logs/RUN-548_task6_promote_and_verify_v5_config.txt
+A  logs/RUN-549_task6_v5_config_readonly_verification.txt
+A  logs/RUN-550_task8_rebuild_notebook_after_parent_guard.txt
+A  logs/RUN-551_training_suite_after_parent_guard.txt
+A  logs/RUN-552_fullpage_suite_after_parent_guard.txt
+A  logs/RUN-553_task7_frozen_settings_lineage_red.txt
+A  logs/RUN-554_task7_frozen_settings_engine_red.txt
+A  logs/RUN-555_task7_frozen_settings_lineage_red.txt
+A  logs/RUN-556_task7_frozen_settings_engine_red.txt
+A  logs/RUN-557_task7_frozen_settings_lineage_green.txt
+A  logs/RUN-558_task7_frozen_settings_engine_green.txt
+A  logs/RUN-559_task7_codegraph_sync_frozen_settings.txt
+A  logs/RUN-560_task7_live_settings_profile_verification.txt
+A  logs/RUN-561_task6_refresh_v5_config_frozen_settings.txt
+A  logs/RUN-562_task8_rebuild_notebook_after_frozen_settings.txt
+A  logs/RUN-563_final_training_suite_frozen_settings.txt
+A  logs/RUN-564_final_fullpage_suite_frozen_settings.txt
+A  logs/RUN-565_task7_resume_lineage_red.txt
+A  logs/RUN-566_task7_resume_lineage_green.txt
+A  logs/RUN-567_task7_codegraph_sync_resume_guard.txt
+A  logs/RUN-568_task6_refresh_config_after_resume_guard.txt
+A  logs/RUN-569_task8_rebuild_notebook_after_resume_guard.txt
+A  logs/RUN-570_final_training_suite_resume_parent_guard.txt
+A  logs/RUN-571_final_fullpage_suite_resume_parent_guard.txt
+A  logs/RUN-572_final_em_dash_audit_retry_needed.txt
+A  logs/RUN-573_final_em_dash_audit_passed.txt
+A  logs/RUN-574_diff_check_retry_needed.txt
+A  logs/RUN-575_final_staged_diff_audit_passed.txt
+A  logs/RUN-576_task7_reject_fresh_train026_red.txt
+A  logs/RUN-577_task7_reject_fresh_train026_green.txt
+A  logs/RUN-578_task7_source_bound_engine_regressions.txt
+A  logs/RUN-579_full_training_suite_fresh_run_guard.txt
+A  logs/RUN-580_fullpage_suite_fresh_run_guard.txt
+A  logs/RUN-581_codegraph_sync_fresh_run_guard.txt
+A  logs/RUN-583_refresh_v5_config_train026_fresh_guard.txt
+A  logs/RUN-584_rebuild_v5_notebook_train026_fresh_guard.txt
+A  logs/RUN-585_post_refresh_fullpage_suite.txt
+A  logs/RUN-586_post_refresh_training_suite.txt
+A  logs/config-archive/training-improvement-v5-before-frozen-settings-guard.json
+A  logs/config-archive/training-improvement-v5-before-legacy-order-compat.json
+A  logs/config-archive/training-improvement-v5-before-parent-guard.json
+A  logs/config-archive/training-improvement-v5-before-resume-parent-guard.json
+A  logs/config-archive/training-improvement-v5-before-train026-fresh-run-guard.json
+M  logs/interaksi_llm/AI-024_2026-10-14.md
+M  logs/interaksi_llm/AI-025_2026-10-14.md
+A  notebooks/15_fullpage_v5_source_bound_facts.ipynb
+A  qa/build_fullpage_v5_notebook.py
+A  qa/configure_fullpage_v5_training.py
+A  qa/select_fullpage_v5.py
+M  qa/train_fullpage.py
+M  src/fullpage/evaluation.py
+M  src/fullpage/generation.py
+M  src/fullpage/lineage.py
+M  src/training/engine.py
+A  tests/fullpage/test_source_bound_lineage.py
+A  tests/fullpage/test_source_bound_notebook.py
+A  tests/fullpage/test_source_bound_resume.py
+A  tests/fullpage/test_source_bound_selection.py
+M  tests/training/test_engine.py

@@ -1,0 +1,22 @@
+test_source_bound_dataset_lineage_is_verified_without_final_parsing (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_dataset_lineage_is_verified_without_final_parsing) ... ok
+test_source_bound_lineage_rejects_missing_or_changed_train024_pin (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_missing_or_changed_train024_pin) ... ok
+test_exact_train024_weights_only_snapshot_is_accepted (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_exact_train024_weights_only_snapshot_is_accepted) ... ok
+test_source_bound_fresh_run_requires_pinned_parent_before_creating_artifacts (tests.training.test_engine.EngineTests.test_source_bound_fresh_run_requires_pinned_parent_before_creating_artifacts) ... ok
+test_source_bound_warm_start_loads_only_weights_before_fresh_training_state (tests.training.test_engine.EngineTests.test_source_bound_warm_start_loads_only_weights_before_fresh_training_state) ... ERROR
+{"event": "validation", "step": 0, "loss": 3.465736150741577, "perplexity": 32.0000079341402, "valid_tokens": 16, "batches": 2}
+test_legacy_initializer_keeps_its_existing_optimizer_then_weights_order (tests.training.test_engine.EngineTests.test_legacy_initializer_keeps_its_existing_optimizer_then_weights_order) ... ok
+
+======================================================================
+ERROR: test_source_bound_warm_start_loads_only_weights_before_fresh_training_state (tests.training.test_engine.EngineTests.test_source_bound_warm_start_loads_only_weights_before_fresh_training_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\training\test_engine.py", line 161, in test_source_bound_warm_start_loads_only_weights_before_fresh_training_state
+    run_training(config_path, train, val, "TRAIN-TEST-WARM", stop_after=0, root=root)
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\training\engine.py", line 319, in run_training
+    raise ValueError("Source-bound fresh training requires the exact TRAIN-024 warm-start")
+ValueError: Source-bound fresh training requires the exact TRAIN-024 warm-start
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.743s
+
+FAILED (errors=1)

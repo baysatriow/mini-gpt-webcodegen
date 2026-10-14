@@ -1,0 +1,5 @@
+RUN-569 rebuild source-bound V5 notebook from refreshed config
+Command: .venv/Scripts/python.exe -m qa.build_fullpage_v5_notebook
+Exit code: 0
+Result: Rebuilt notebooks/15_fullpage_v5_source_bound_facts.ipynb with 22 cells. Training and evaluation cells were not executed.
+Config identity: 0ee3332b0a3f19e42efe2ddb2eb6a1dbf69add7e84511323efeffa418bf78244.

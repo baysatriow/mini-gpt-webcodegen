@@ -1,0 +1,5 @@
+RUN-571 complete full-page suite after source-bound resume guard
+Command: .venv/Scripts/python.exe -m unittest discover -s tests/fullpage
+Exit code: 0
+Result: All 79 full-page tests passed.
+Environment: Project .venv with isolated fixtures. Final records were not opened and no training or generation run was started.

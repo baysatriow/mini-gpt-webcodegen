@@ -1,0 +1,5 @@
+RUN-567 CodeGraph sync after resume lineage source changes
+Command: codegraph sync
+Exit code: 0
+Result: Synced 6 changed files. Added 1 node and modified 5 files, with 178 nodes refreshed.
+Note: The CLI's decorative status line was normalized in this saved record to honor the no em dash preference.

@@ -1,0 +1,6 @@
+RUN-539
+Purpose: Refresh CodeGraph after final engine compatibility changes.
+Command: codegraph sync
+Result: Passed. Two changed files synchronized and 70 graph nodes updated.
+CodeGraph state: current.
+No training or data operations.

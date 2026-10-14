@@ -5662,3 +5662,780 @@ p=j(\"reports/training/FULLPAGE-GPU-005.json\"); print(\"GPU\",json.dumps([{k:r.
 - Exit code: 0.
 - Output: `logs/RUN-502_task5_commit_push_verification.txt`.
 - Decision: Commit `4a525397f71ac5c7c358374bdf7ebcbd12ffec3a` is present on the remote branch. No co-author trailer was used.
+
+### RUN-503
+
+- Purpose: Verify the frozen TRAIN-024 warm-start identity and check current storage headroom before V5 training configuration.
+- Command: Project `.venv` Python loaded the weights-only checkpoint metadata and model tensor size; PowerShell inspected the controlled RTX 5070 profile and free space.
+- Environment: Project `.venv`, `checkpoints/FULLPAGE-V4/TRAIN-024-step3600.pt`, V5 runtime manifest, RTX 5070 profile; no training started.
+- Exit code: 0.
+- Output: `logs/RUN-503_task6_parent_and_storage_preflight.txt`.
+- Decision: TRAIN-024 is the expected step 3,600 weights-only V4 checkpoint with SHA-256 `913b1b00aec040a0d51c3607cf7261288e7fe089378850fc66c131400c0f319a`. Current free space is 501,686,272 bytes above reserve, short of the 834,043,904 byte checkpoint preflight by 332,357,632 bytes. Preserve the reserve and relocate verified archives before training.
+
+### RUN-508
+
+- Purpose: Verify the archived checkpoint and available training reserve after creating the junction.
+- Command: Read-only PowerShell inventory and SHA-256 audit of the junction and E-drive copies.
+- Environment: Project root on F: and archive on E:; no training process.
+- Exit code: 1.
+- Output: `logs/RUN-508_task6_archive_audit_syntax_error.txt`.
+- Decision: The audit script stopped at parse time because PowerShell does not support the Python-style exponent operator. No files changed. Preserve this failed attempt and rerun with PowerShell byte constants.
+
+### RUN-504
+
+- Purpose: Verify that the new source-bound lineage tests fail before the verifier implementation exists.
+- Command: Project `.venv` Python unittest for `tests.fullpage.test_source_bound_lineage`.
+- Environment: Temporary lineage fixture; no project data changed.
+- Exit code: 1, expected RED result.
+- Output: `logs/RUN-504_task6_source_bound_lineage_red.txt`.
+- Decision: The test module could not import the required lineage contract. Continue implementation, then rerun.
+
+### RUN-505
+
+- Purpose: Run source-bound lineage acceptance and rejection cases against the first verifier implementation.
+- Command: Project `.venv` Python unittest for `tests.fullpage.test_source_bound_lineage`.
+- Environment: Temporary lineage fixture; final records remained hash-only.
+- Exit code: 1. Eleven cases passed; the exact parent acceptance fixture had an incorrect expected checkpoint digest.
+- Output: `logs/RUN-505_task6_lineage_tests_first_implementation.txt`.
+- Decision: Correct only the test fixture to the frozen TRAIN-024 SHA-256, preserve this failed record, and rerun.
+
+### RUN-506
+
+- Purpose: Rerun source-bound lineage verification after correcting the fixture and enforcing the 896-token PagePlan maximum.
+- Command: Project `.venv` Python unittest for `tests.fullpage.test_source_bound_lineage`.
+- Environment: Temporary lineage fixtures; no final split parsing.
+- Exit code: 0.
+- Output: `logs/RUN-506_task6_source_bound_lineage_tests.txt`.
+- Decision: All 12 exact lineage acceptance and rejection checks passed.
+
+### RUN-507
+
+- Purpose: Freeze and verify the V5 source-bound 3,600-update RTX 5070 training configuration.
+- Command: Project `.venv` Python `python -m qa.configure_fullpage_v5_training`.
+- Environment: V5 manifest, RTX 5070 B8/A6 profile, and TRAIN-024 weights-only checkpoint; configuration only, no training.
+- Exit code: 0.
+- Output: `logs/RUN-507_task6_freeze_v5_training_config.txt`; configuration: `configs/fullpage/training-improvement-v5.json`.
+- Evidence: Config SHA-256 `b6d25313cbfceeeb6471a7191b2bc13abd0ae99ae05fc3894cfb9e20d03cddb3`; parent SHA-256 `913b1b00aec040a0d51c3607cf7261288e7fe089378850fc66c131400c0f319a`; V5 manifest SHA-256 `90c2dc71c4d91ff9a36a3fbd1bd36bd329c127b711c69556df4c0f58381d6dd2`.
+- Decision: Configuration lineage and frozen batch, update, and output-token settings passed.
+
+### RUN-509
+
+- Purpose: Confirm TRAIN-016 archive integrity, F-drive junction behavior, and training storage reserve.
+- Command: Read-only SHA-256 comparison across the F-drive junction, verified archive, and preserved original copy.
+- Environment: Project root on F:, archive on E:; 11 files totaling 700,335,671 bytes.
+- Exit code: 0.
+- Output: `logs/RUN-509_task6_verified_checkpoint_archive.txt`.
+- Evidence: All 11 hashes and sizes matched. The F-drive junction points to the E-drive archive. F has 17,301,790,720 bytes free; reserve plus checkpoint preflight requires 16,940,171,264 bytes.
+- Decision: Storage gate passed while retaining an additional verified original archive copy.
+
+### RUN-510
+
+- Purpose: Run all discovered full-page tests after source-bound lineage enforcement was added.
+- Command: Project `.venv` Python `python -m unittest discover -s tests/fullpage -p 'test*.py' -v`.
+- Environment: Project `.venv`; temporary fixtures; final files were not parsed.
+- Exit code: 0.
+- Output: `logs/RUN-510_task6_fullpage_suite.txt`.
+- Decision: All 62 full-page tests passed.
+
+### RUN-511
+
+- Purpose: Check initialization, exact-resume, checkpoint, and lineage regressions in the training engine.
+- Command: Project `.venv` Python unittest modules for engine, lineage, integration lineage, and checkpoint.
+- Environment: Temporary CPU training/checkpoint fixtures.
+- Exit code: 0.
+- Output: `logs/RUN-511_task6_training_engine_lineage_tests.txt`.
+- Decision: All 11 tests passed. Temporary fixture updates did not start project training.
+
+### RUN-512
+
+- Purpose: Inspect historical training and generation report field shapes for the V5 development selector.
+- Command: Read-only PowerShell JSON inspection through an invalid inline Python string.
+- Environment: Historical TRAIN-024 summary only; final records untouched.
+- Exit code: 1.
+- Output: `logs/RUN-512_task7_report_shape_inspection_error.txt`.
+- Decision: Python rejected the escaped-newline command string before reading files. Preserve the failed attempt and repeat with PowerShell JSON handling.
+
+### RUN-513
+
+- Purpose: Confirm historical training summary fields needed to validate step identity and cross entropy.
+- Command: Read-only PowerShell JSON inspection of the existing TRAIN-024 summary.
+- Environment: Project reports; no validation or final request records read.
+- Exit code: 0.
+- Output: Console field summary only.
+- Evidence: Historical training reports use `run_id`, `status`, `global_step`, `final_validation.loss`, and `best_checkpoint_sha256`. No historical V4 generation summary existed at the inspected paths, so the selector follows the approved V5 report contract.
+
+### RUN-514
+
+- Purpose: Verify the development selector test fails before the selector exists.
+- Command: Project `.venv` Python unittest for `tests.fullpage.test_source_bound_selection`.
+- Environment: Synthetic report fixtures; no runtime model artifact read.
+- Exit code: 1, expected RED result.
+- Output: `logs/RUN-514_task7_selector_red.txt`.
+- Decision: The missing selector module caused the expected import error.
+
+### RUN-515
+
+- Purpose: Run selector ordering, gate, and report-identity tests against the first implementation.
+- Command: Project `.venv` Python unittest for `tests.fullpage.test_source_bound_selection`.
+- Environment: Synthetic report fixtures.
+- Exit code: 1. Two tests passed and five errored because the fixture omitted its required checkpoint digest.
+- Output: `logs/RUN-515_task7_selector_unit_tests.txt`.
+- Decision: Add the pinned-shaped digest to the test fixture and preserve strict selector validation.
+
+### RUN-516
+
+- Purpose: Rerun selector report-ordering and development-gate checks after completing the fixture.
+- Command: Project `.venv` Python unittest for `tests.fullpage.test_source_bound_selection`.
+- Environment: Synthetic report fixtures; no final data access.
+- Exit code: 0.
+- Output: `logs/RUN-516_task7_selector_unit_tests.txt`.
+- Decision: All 7 selector unit tests passed.
+
+### RUN-517
+
+- Purpose: Verify the notebook builder test fails before the builder exists.
+- Command: Project `.venv` Python unittest for `tests.fullpage.test_source_bound_notebook`.
+- Environment: No notebook or training cell executed.
+- Exit code: 1, expected RED result.
+- Output: `logs/RUN-517_task8_notebook_builder_red.txt`.
+- Decision: The absent builder module caused the expected import error.
+
+### RUN-518
+
+- Purpose: Validate notebook disclosure, development stages, and closed-final contract.
+- Command: Project `.venv` Python unittest for `tests.fullpage.test_source_bound_notebook`.
+- Environment: Notebook built at a temporary path; no stage cells executed.
+- Exit code: 1. One test passed and one asserted an English label not used by the Indonesian notebook.
+- Output: `logs/RUN-518_task8_notebook_test_language_mismatch.txt`.
+- Decision: Change the assertion to the notebook's Indonesian wording and rerun.
+
+### RUN-519
+
+- Purpose: Rerun notebook structure and disclosure checks using the Indonesian notebook wording.
+- Command: Project `.venv` Python unittest for `tests.fullpage.test_source_bound_notebook`.
+- Environment: Temporary notebook output; no training cell executed.
+- Exit code: 0.
+- Output: `logs/RUN-519_task8_notebook_builder_tests.txt`.
+- Decision: Both notebook builder tests passed.
+
+### RUN-520
+
+- Purpose: Build the reproducible 22-cell V5 training notebook.
+- Command: Project `.venv` Python `python -m qa.build_fullpage_v5_notebook`.
+- Environment: Notebook artifact creation only. Training and evaluation cells were not executed.
+- Exit code: 0.
+- Output: `logs/RUN-520_task8_build_notebook.txt`; notebook: `notebooks/15_fullpage_v5_source_bound_facts.ipynb`.
+- Decision: Notebook generation and `nbformat.validate` passed.
+
+### RUN-521
+
+- Purpose: Run the complete discovered full-page contract, data, generation, intake, lineage, selector, and notebook suite.
+- Command: Project `.venv` Python `python -m unittest discover -s tests/fullpage -p 'test*.py' -v`.
+- Environment: Project `.venv`; test fixtures only.
+- Exit code: 0.
+- Output: `logs/RUN-521_task7_8_fullpage_suite.txt`.
+- Decision: All 71 full-page tests passed.
+
+### RUN-522
+
+- Purpose: Regenerate the notebook after aligning the data summary with the actual V5 preparation report fields.
+- Command: Project `.venv` Python `python -m qa.build_fullpage_v5_notebook`.
+- Environment: Notebook regenerated; no training/evaluation cell executed.
+- Exit code: 0.
+- Output: `logs/RUN-522_task8_regenerate_notebook_after_data_summary_fix.txt`.
+- Decision: The notebook now shows the verified dataset byte count, disk readings, and sealed-hash equality result.
+
+### RUN-523
+
+- Purpose: Execute only the notebook's read-only manifest/config/storage summary cell.
+- Command: Project `.venv` Python executed the first inspection cell from notebook 15.
+- Environment: Read V4/V5 manifests, V5 preparation report, config, file hashes, and disk usage. No training/evaluation cell or final request record was opened.
+- Exit code: 0.
+- Output: `logs/RUN-523_task8_notebook_summary_cell_check.txt`.
+- Evidence: V5 summary showed 240/40 families, 3,360/80 requests, 33,600/800 task rows, source budgets 896/1,536, maximum combined contexts 1,622/1,569, sealed hashes unchanged, 15 GiB reserve passed, and final_opened=false.
+- Decision: Notebook data inspection displays current lineage and storage evidence correctly.
+
+### RUN-524
+
+- Purpose: Exercise the source-bound weights-only warm-start regression test against the current engine.
+- Command: Project `.venv` Python unittest for `tests.training.test_engine.EngineTests.test_source_bound_warm_start_loads_only_weights_before_fresh_training_state`.
+- Environment: Temporary CPU model and checkpoint fixture; no project checkpoints or GPU used.
+- Exit code: 1, fixture setup error before the training function ran because the temporary checkpoints root had not been created.
+- Output: Captured in the current task console; corrected in the next test attempt.
+- Decision: Create the fixture directory explicitly. No project files or model artifacts changed.
+
+### RUN-525
+
+- Purpose: Rerun the warm-start regression after completing its temporary checkpoint fixture.
+- Command: Project `.venv` Python unittest for the focused warm-start test.
+- Environment: Temporary CPU fixture; the run reached step-zero validation and wrote artifacts only inside the temporary directory.
+- Exit code: 1, the event recorder compared a relative and resolved checkpoint path and therefore missed the parent-load event.
+- Output: Captured in the current task console; the recorder now normalizes both paths before comparison.
+- Decision: Fix the test observer and rerun. This was a test instrumentation mismatch, not a model or training failure.
+
+### RUN-526
+
+- Purpose: Verify source-bound warm-start loads the exact checkpoint weights before creating fresh optimizer state, without restoring sampler, scheduler, or RNG state.
+- Command: Project `.venv` Python focused unittest for the warm-start regression.
+- Environment: Temporary CPU MiniGPT and synthetic weights-only checkpoint; lineage validator isolated with a test double; no GPU, dataset, or final data access.
+- Exit code: 0. Validation ran at step 0; parent weights matched exactly; optimizer state was empty; sampler cursor was 0; scheduler and RNG differed from deliberately stale parent values.
+- Output: Captured in the current task console.
+- Decision: Current source-bound weights-only initialization behavior is protected by an integration regression test.
+
+### RUN-527
+
+- Purpose: Prove the warm-start regression detects the original committed engine behavior.
+- Command: Load `src/training/engine.py` from committed HEAD in a separate Python module and run the same focused test against it.
+- Environment: Temporary baseline source file; the project checkout and current engine file were not replaced or modified.
+- Exit code: 1, expected RED result. The committed engine created the optimizer before loading parent weights, opposite the approved warm-start sequence.
+- Output: Captured in the current task console.
+- Decision: The regression test distinguishes the approved source-bound initialization order from the committed baseline.
+
+### RUN-528
+
+- Purpose: Refresh the repository CodeGraph after Task 6, Task 7, Task 8, and warm-start test changes.
+- Command: `codegraph sync`.
+- Environment: Local repository index only.
+- Exit code: 0. Twelve changed source files synchronized, with 281 graph nodes added or updated.
+- Output: Captured in the current task console.
+- Decision: CodeGraph is current for the next source review.
+
+### RUN-529
+
+- Purpose: Verify the project interpreter, live CUDA/BF16 operation, pinned TRAIN-024 parent, V5 source lineage, and checkpoint reserve before GPU training.
+- Command: Project `.venv` Python executed a BF16 CUDA matrix operation, verified the V5 dataset/config/source hashes and exact warm-start checkpoint, and calculated the engine checkpoint reserve.
+- Environment: `.venv/Scripts/python.exe`, Python 3.11.9, PyTorch 2.14.1+cu130, CUDA 13.0, RTX 5070.
+- Exit code: 0. CUDA operation and BF16 support passed. TRAIN-024 step 3,600 and `weights_only=true` validated. Config SHA-256 is `b6d25313cbfceeeb6471a7191b2bc13abd0ae99ae05fc3894cfb9e20d03cddb3`.
+- Storage: 17,301,045,248 free bytes; reserve plus estimated checkpoint bytes 16,706,895,872; headroom 594,149,376 bytes.
+- Boundary: No training or final data access. Other desktop/Jupyter GPU processes were left untouched.
+- Output: `logs/RUN-529_task6_gpu_lineage_storage_preflight.txt`.
+- Decision: The GPU, source lineage, parent artifact, and 15 GiB reserve gates pass. Training remains blocked on the final focused and full-suite regression runs.
+
+### RUN-530
+
+- Purpose: Run all training engine, lineage, checkpoint, CLI, and review-checkpoint tests before GPU training.
+- Command: `.venv/Scripts/python.exe -m unittest discover -s tests/training -p 'test*.py' -v`, tee to the RUN log.
+- Environment: CPU and temporary fixtures only.
+- Result: Inconclusive. PowerShell rejected the `Tee-Object` parameter combination while capturing output. The run log contains no trustworthy test summary.
+- Output: `logs/RUN-530_task6_training_suite.txt`.
+- Decision: Preserve this attempt and rerun with the supported `-FilePath` parameter. Do not start training until the rerun passes.
+
+### RUN-531
+
+- Purpose: Run all training engine, checkpoint, CLI, lineage, and review-checkpoint regression tests.
+- Command: `.venv/Scripts/python.exe -m unittest discover -s tests/training -p 'test*.py' -v`.
+- Environment: Project virtual environment with CPU and temporary fixtures; no GPU training or final data access.
+- Exit code: 0. All 16 training tests passed, including fresh source-bound warm-start and exact resume restoration.
+- Output: `logs/RUN-531_task6_training_suite_rerun.txt`.
+- Decision: Training-engine and lineage regression gates pass.
+
+### RUN-532
+
+- Purpose: Run all source-bound contracts, data, generation, intake, lineage, selector, and notebook tests.
+- Command: `.venv/Scripts/python.exe -m unittest discover -s tests/fullpage -p 'test*.py' -v`.
+- Environment: Project virtual environment and isolated test fixtures only. No real checkpoint inference, training, or final data access.
+- Exit code: 0. All 71 full-page tests passed.
+- Output: `logs/RUN-532_task7_8_fullpage_suite.txt`.
+- Decision: Task 7 selector rules and Task 8 notebook builder pass the complete full-page regression suite.
+
+### RUN-533
+
+- Purpose: Verify V5 warm-start ordering while preserving the legacy initializer and exact-resume behavior.
+- Command: Project `.venv` Python ran the legacy initializer ordering test, source-bound warm-start test, and exact-resume checkpoint test.
+- Environment: CPU and temporary model/checkpoint fixtures only.
+- Exit code: 0. All 3 tests passed. Legacy path still creates optimizer before loading initial weights; source-bound path loads weights before fresh optimizer creation; exact resume remains state-restoring.
+- Output: `logs/RUN-533_task6_initializer_order_compatibility_tests.txt`.
+- Decision: Preserve the legacy initializer ordering explicitly. Since `src/training/engine.py` changed, regenerate the not-yet-used V5 config and notebook before training.
+
+### RUN-534
+
+- Purpose: Rebuild the frozen V5 config against the final initializer implementation and exact pinned source hashes.
+- Command: `.venv/Scripts/python.exe -m qa.configure_fullpage_v5_training --output configs/fullpage/training-improvement-v5-refresh.json`.
+- Environment: Project virtual environment; verified V5 corpus, controlled RTX 5070 profile, and TRAIN-024 parent. No training started.
+- Exit code: 0. Refreshed config SHA-256 `195c314855fddc340f0b1f7a32ce77dae0a436fa55aed0b23b0cbe8d545a8f64`; dataset and parent hashes remained unchanged.
+- Output: `logs/RUN-534_task6_refresh_v5_config_for_final_engine.txt`.
+- Decision: Refresh config because the engine source hash changed. The first config had not been used for training.
+
+### RUN-535
+
+- Purpose: Promote the regenerated V5 config while retaining the earlier unused config for audit, then verify current source and parent lineage.
+- Command: Move the previous config to `logs/config-archive/`, promote the regenerated config, and run project `.venv` lineage and parent validation.
+- Environment: Local config files and read-only V5 dataset/checkpoints. No model update or final data access.
+- Exit code: 0. Current config hash is `195c314855fddc340f0b1f7a32ce77dae0a436fa55aed0b23b0cbe8d545a8f64`; its engine pin matches the live SHA-256 `c20612ae3a5c8ac8a4a89faec89b9eb8d21c6061257400313e644ba91ba9d4d3`. Parent and data lineage passed.
+- Output: `logs/RUN-535_promote_and_verify_v5_config.txt`.
+- Decision: Config is current and ready for notebook regeneration and final verification.
+
+### RUN-536
+
+- Purpose: Rebuild notebook 15 using the refreshed V5 training config.
+- Command: `.venv/Scripts/python.exe -m qa.build_fullpage_v5_notebook`.
+- Environment: Notebook generation only; training and evaluation cells were not executed.
+- Exit code: 0. The notebook contains 22 cells.
+- Output: `logs/RUN-536_rebuild_notebook_for_refreshed_config.txt`.
+- Decision: Notebook now corresponds to the final config hash for TRAIN-025/026.
+
+### RUN-537
+
+- Purpose: Run the complete training, checkpoint, CLI, lineage, and review-checkpoint test suite against the final engine code.
+- Command: `.venv/Scripts/python.exe -m unittest discover -s tests/training -p 'test*.py' -v`.
+- Environment: CPU and temporary fixtures; no GPU training or final data access.
+- Exit code: 0. All 17 training tests passed, including both initializer-order tests and exact resume.
+- Output: `logs/RUN-537_final_training_suite.txt`.
+- Decision: Final training engine and checkpoint regression suite passes.
+
+### RUN-538
+
+- Purpose: Re-run all full-page tests against the final engine/config/notebook state.
+- Command: `.venv/Scripts/python.exe -m unittest discover -s tests/fullpage -p 'test*.py' -v`.
+- Environment: Full-page test fixtures only. No training, production data writes, or final record access.
+- Exit code: 0. All 71 full-page tests passed.
+- Output: `logs/RUN-538_final_fullpage_suite.txt`.
+- Decision: Final contract, dataset, generation, selector, lineage, and notebook regression suite passes.
+
+### RUN-539
+
+- Purpose: Refresh CodeGraph after final engine compatibility changes.
+- Command: `codegraph sync`.
+- Exit code: 0. Two changed files synchronized and 70 graph nodes updated.
+- Output: `logs/RUN-539_final_codegraph_sync.txt`.
+- Decision: CodeGraph is current for the final diff review.
+
+### RUN-540
+
+- Purpose: Check whitespace and the user's no-em-dash preference in this change set.
+- Command: `git diff --check`, scan added tracked lines and new RUN records for U+2014, and capture the working-tree inventory.
+- Exit code: 0. Whitespace check passed. No em dash was found in added tracked lines or new RUN records.
+- Output: `logs/RUN-540_final_diff_whitespace_and_em_dash_review.txt`.
+- Decision: Proceed to the whole-diff review.
+
+### RUN-541
+
+- Purpose: Add regression coverage for missing or altered TRAIN-024 initialization pins in the source-bound lineage and training engine.
+- Command: `.venv/Scripts/python.exe -m unittest tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_missing_or_changed_train024_pin tests.training.test_engine.EngineTests.test_source_bound_fresh_run_requires_pinned_parent_before_creating_artifacts -v`.
+- Environment: Project `.venv`, temporary CPU fixtures only. No V5 dataset, production checkpoint, GPU, or final records were used.
+- Exit code: 1, expected red result. The four lineage tampering cases were accepted, and the engine began a four-update tiny CPU fixture run because no parent guard existed. That run wrote only inside the test temporary directory, which was removed at test exit.
+- Output: `logs/RUN-541_task6_missing_parent_guard_red.txt`.
+- Decision: Enforce the exact TRAIN-024 path and digest in source-bound lineage; validate the exact parent before the engine creates run artifacts. Limit the repeat regression fixture to zero updates.
+
+### RUN-542
+
+- Purpose: Run the new missing-parent regressions and existing warm-start-order coverage.
+- Command: `.venv/Scripts/python.exe -m unittest` with two valid test names and one guessed warm-start test name.
+- Environment: Project `.venv`, temporary test fixtures. No GPU, production data, or final records were used.
+- Exit code: 1. Both new regression tests passed. The third test did not run because the method name in the command was incorrect.
+- Output: `logs/RUN-542_task6_missing_parent_guard_green.txt`.
+- Decision: Keep this invocation as a failed command record and rerun using the exact existing warm-start test name.
+
+### RUN-543
+
+- Purpose: Synchronize CodeGraph after the lineage and training-engine changes.
+- Command: `codegraph sync`.
+- Exit code: 0. Four changed source/test files synchronized and 142 graph nodes updated.
+- Output: `logs/RUN-543_task6_lineage_engine_codegraph_sync.txt`.
+- Decision: Use the refreshed graph for the regression rerun and config source-hash refresh.
+
+### RUN-544
+
+- Purpose: Verify source-bound pin rejection, valid TRAIN-024 lineage, warm-start order, and legacy initializer compatibility.
+- Command: `.venv/Scripts/python.exe -m unittest` on six focused lineage and training tests.
+- Environment: Project `.venv`, temporary CPU fixtures. No production data or final records were used.
+- Exit code: 1. Five checks passed. The existing source-bound warm-start fixture used a synthetic checkpoint digest, which the new exact pin correctly rejected before validation.
+- Output: `logs/RUN-544_task6_parent_guard_regressions.txt`.
+- Decision: Update the fixture to use the frozen TRAIN-024 config digest, then rerun the same coverage.
+
+### RUN-545
+
+- Purpose: Rerun the TRAIN-024 pin, tampering, warm-start ordering, missing-parent rejection, and legacy initializer checks.
+- Command: `.venv/Scripts/python.exe -m unittest` on six focused lineage and training tests.
+- Environment: Project `.venv`, temporary CPU fixtures only. No GPU training, V5 production artifact, or final records were used.
+- Exit code: 0. All six tests passed. Source-bound initialization loads only the exact pinned parent before constructing fresh optimizer state; legacy initialization order remains unchanged.
+- Output: `logs/RUN-545_task6_parent_guard_regressions_rerun.txt`.
+- Decision: Refresh the frozen config and notebook for the changed engine source, then run full suites and another review.
+- Interaction record: [AI-024](interaksi_llm/AI-024_2026-10-14.md).
+
+### RUN-546
+
+- Purpose: Synchronize CodeGraph after the source-bound guard and regression fixture updates.
+- Command: `codegraph sync`.
+- Exit code: 0. One changed file synchronized and 27 graph nodes updated.
+- Output: `logs/RUN-546_task6_parent_guard_codegraph_sync.txt`.
+- Decision: CodeGraph is current before rebuilding the source-pinned config.
+
+### RUN-547
+
+- Purpose: Regenerate the V5 config with current engine and lineage source hashes after the TRAIN-024 guard.
+- Command: `.venv/Scripts/python.exe -m qa.configure_fullpage_v5_training --output configs/fullpage/training-improvement-v5-parent-guard.json`.
+- Environment: Project `.venv`, frozen V5 train/validation data and TRAIN-024 source artifact. Training was not started.
+- Exit code: 0. Generated config SHA-256 `60e90d27bd8aa0fcb6cc08e71bbdda98e7c6f6ca156fc737a2176052df5108ee`; parent path and SHA and V5 manifest SHA remained frozen.
+- Output: `logs/RUN-547_task6_refresh_v5_config_parent_guard.txt`.
+- Decision: Promote this config only after preserving the prior unused config and rechecking full lineage.
+
+### RUN-548
+
+- Purpose: Preserve the prior canonical config, promote the guard-pinned config, and validate source and checkpoint lineage.
+- Command: PowerShell hash checks and config moves followed by project `.venv` dataset and parent validation.
+- Environment: Project checkout, frozen V5 data, and TRAIN-024. No training or final data access.
+- Result: Config promotion and lineage checks succeeded. New SHA-256 is `60e90d27bd8aa0fcb6cc08e71bbdda98e7c6f6ca156fc737a2176052df5108ee`. Prior SHA `195c314855fddc340f0b1f7a32ce77dae0a436fa55aed0b23b0cbe8d545a8f64` was archived.
+- Output: `logs/RUN-548_task6_promote_and_verify_v5_config.txt`.
+- Capture issue: The final display helper attempted to read the output file before creating it. The observed success output is preserved in the attached log, and RUN-549 repeats the read-only verification with working capture.
+
+### RUN-549
+
+- Purpose: Repeat config/source/dataset/parent verification after promotion with a complete output capture.
+- Command: Project `.venv` Python verified the live engine and lineage hashes, V5 manifest, and exact TRAIN-024 checkpoint against the canonical config.
+- Environment: Read-only project files, V5 data, and TRAIN-024. No training or final evaluation.
+- Exit code: 0. Current config SHA-256 `60e90d27bd8aa0fcb6cc08e71bbdda98e7c6f6ca156fc737a2176052df5108ee`; engine and lineage pins verified; V5 data and TRAIN-024 parent verified.
+- Output: `logs/RUN-549_task6_v5_config_readonly_verification.txt`.
+- Decision: Rebuild notebook 15 from the verified canonical config.
+
+### RUN-550
+
+- Purpose: Rebuild notebook 15 so its staged TRAIN-025/026 cells reference the parent-guard config.
+- Command: `.venv/Scripts/python.exe -m qa.build_fullpage_v5_notebook`.
+- Environment: Project `.venv`; notebook generation only. Training and evaluation cells were not executed.
+- Exit code: 0. Notebook 15 contains 22 cells.
+- Output: `logs/RUN-550_task8_rebuild_notebook_after_parent_guard.txt`.
+- Decision: Run complete training and full-page suites before requesting the second whole-branch review.
+
+### RUN-551
+
+- Purpose: Run the complete training, checkpoint, CLI, lineage, and review-checkpoint suite after the warm-start guard.
+- Command: `.venv/Scripts/python.exe -m unittest discover -s tests/training -p 'test*.py' -v`.
+- Environment: Project `.venv` and temporary CPU fixtures only. No project GPU training or final records were accessed.
+- Exit code: 0. All 18 training tests passed, including source-bound parent rejection, warm-start ordering, legacy initializer compatibility, and exact resume.
+- Output: `logs/RUN-551_training_suite_after_parent_guard.txt`.
+- Decision: Continue to the complete full-page regression suite.
+
+### RUN-552
+
+- Purpose: Run the complete full-page data, contract, generation, lineage, selector, and notebook suite after the TRAIN-024 guard.
+- Command: `.venv/Scripts/python.exe -m unittest discover -s tests/fullpage -p 'test*.py' -v`.
+- Environment: Project `.venv` and isolated fixtures. No GPU training, production final parsing, or final evaluation.
+- Exit code: 0. All 72 full-page tests passed, including the new missing or changed parent-pin cases.
+- Output: `logs/RUN-552_fullpage_suite_after_parent_guard.txt`.
+- Decision: Request a second read-only whole-branch review. Training remains gated on review, commit/push, and an immediate hardware/storage preflight.
+
+### RUN-553
+
+- Purpose: Attempt focused frozen-settings lineage regression checks with pytest.
+- Command: `.venv/Scripts/python.exe -m pytest tests/fullpage/test_source_bound_lineage.py -q -k changed_frozen_training_settings`.
+- Environment: Project `.venv`; no training, dataset mutation, or final data access.
+- Exit code: 1 because pytest is not installed in this environment. This is a test-runner invocation error, not a product-test result.
+- Output: `logs/RUN-553_task7_frozen_settings_lineage_red.txt`.
+- Decision: Use the repository's available unittest runner and preserve this failed attempt.
+
+### RUN-554
+
+- Purpose: Attempt focused direct-engine frozen-settings regression checks with pytest.
+- Command: `.venv/Scripts/python.exe -m pytest tests/training/test_engine.py -q -k source_bound_fresh_run_rejects_changed_frozen_settings_before_parent_read`.
+- Environment: Project `.venv`; no training or final data access.
+- Exit code: 1 because pytest is not installed. No test case executed.
+- Output: `logs/RUN-554_task7_frozen_settings_engine_red.txt`.
+- Decision: Switch to unittest without installing extra dependencies.
+
+### RUN-555
+
+- Purpose: Establish the expected-red lineage test for the independent V5 settings contract.
+- Command: `.venv/Scripts/python.exe -m unittest discover -s tests/fullpage -p test_source_bound_lineage.py -k changed_frozen_training_settings`.
+- Environment: Project `.venv` and isolated temporary fixtures; final records were not opened.
+- Exit code: 1 as expected. The verifier accepted five changed settings: plan probability, batch size, learning rate, TF32, and selection rule.
+- Output: `logs/RUN-555_task7_frozen_settings_lineage_red.txt`.
+- Decision: Pin the reviewed experiment settings in source and check their canonical JSON values.
+
+### RUN-556
+
+- Purpose: Establish the expected-red direct-engine test before reading a warm-start parent.
+- Command: `.venv/Scripts/python.exe -m unittest discover -s tests/training -p test_engine.py -k source_bound_fresh_run_rejects_changed_frozen_settings_before_parent_read`.
+- Environment: Project `.venv` and isolated temporary fixture; no project checkpoint was read.
+- Exit code: 1 as expected. The engine attempted to read a missing temporary TRAIN-024 path before checking the changed plan probability.
+- Output: `logs/RUN-556_task7_frozen_settings_engine_red.txt`.
+- Decision: Move independent settings verification ahead of parent checkpoint access while preserving the missing-parent error.
+
+### RUN-557
+
+- Purpose: Verify source-bound lineage and V5 frozen-setting checks after implementation.
+- Command: `.venv/Scripts/python.exe -m unittest discover -s tests/fullpage -p test_source_bound_lineage.py`.
+- Environment: Project `.venv`; isolated fixture directories and copied GPU profile only.
+- Exit code: 0. All 14 lineage tests passed.
+- Output: `logs/RUN-557_task7_frozen_settings_lineage_green.txt`.
+- Decision: Continue to direct-engine regression checks.
+
+### RUN-558
+
+- Purpose: Verify direct-engine source-bound settings, warm-start ordering, exact resume, and legacy compatibility.
+- Command: `.venv/Scripts/python.exe -m unittest discover -s tests/training -p test_engine.py`.
+- Environment: Project `.venv`; CPU temporary fixtures only. Expected simulated error cases are covered by passing tests.
+- Exit code: 0. All 7 engine tests passed.
+- Output: `logs/RUN-558_task7_frozen_settings_engine_green.txt`.
+- Decision: Synchronize CodeGraph and refresh the V5 config after source changes.
+
+### RUN-559
+
+- Purpose: Reindex source and regression-test changes for review.
+- Command: `codegraph sync`.
+- Environment: Local project index only.
+- Exit code: 0. CodeGraph synchronized three changed files and 102 nodes.
+- Output: `logs/RUN-559_task7_codegraph_sync_frozen_settings.txt`.
+- Decision: Validate the live approved config and GPU profile against the frozen settings map.
+
+### RUN-560
+
+- Purpose: Check the current V5 training config and selected GPU profile against independently pinned settings.
+- Command: Project `.venv` Python called `verify_source_bound_training_settings` on the canonical config.
+- Environment: Read-only config and `FULLPAGE-GPU-005-CONTROLLED-B8.json`; no training or final data access.
+- Exit code: 0. Frozen settings and profile digest verified.
+- Output: `logs/RUN-560_task7_live_settings_profile_verification.txt`.
+- Decision: Archive the prior config, regenerate source hashes, and rebuild notebook 15.
+
+### RUN-561
+
+- Purpose: Archive the prior guard-config and regenerate V5 configuration against the frozen-settings guard.
+- Command: PowerShell verified prior SHA-256 and moved it to `logs/config-archive/`; `.venv/Scripts/python.exe -m qa.configure_fullpage_v5_training` created the canonical config.
+- Environment: Read-only V5 source, data manifest, GPU profile, and TRAIN-024 lineage. No optimizer or training process was started.
+- Exit code: 0. Prior config SHA-256 `60e90d27bd8aa0fcb6cc08e71bbdda98e7c6f6ca156fc737a2176052df5108ee` archived. Current config SHA-256 is `6ef910cca039890916fb97217d2c4f934b11e3332c1376021c70797ad06e7842`.
+- Output: `logs/RUN-561_task6_refresh_v5_config_frozen_settings.txt`.
+- Decision: Rebuild notebook 15 with the refreshed config identity.
+
+### RUN-562
+
+- Purpose: Rebuild notebook 15 after changing the config's source lineage hashes.
+- Command: `.venv/Scripts/python.exe -m qa.build_fullpage_v5_notebook`.
+- Environment: Notebook generation only; no training or evaluation cells were run.
+- Exit code: 0. Notebook 15 contains 22 cells.
+- Output: `logs/RUN-562_task8_rebuild_notebook_after_frozen_settings.txt`.
+- Decision: Run complete training and full-page suites.
+
+### RUN-563
+
+- Purpose: Run the complete training-engine, checkpoint, CLI, and lineage regression suite.
+- Command: `.venv/Scripts/python.exe -m unittest discover -s tests/training`.
+- Environment: Project `.venv` and isolated CPU fixtures; no production GPU training or final data access.
+- Exit code: 0. All 19 training tests passed.
+- Output: `logs/RUN-563_final_training_suite_frozen_settings.txt`.
+- Decision: Run the complete full-page suite, including selector and notebook tests.
+
+### RUN-564
+
+- Purpose: Run all full-page contracts, generation, lineage, selector, dataset, and notebook regression tests.
+- Command: `.venv/Scripts/python.exe -m unittest discover -s tests/fullpage`.
+- Environment: Project `.venv` and isolated fixtures; final records remain unopened.
+- Exit code: 0. All 73 full-page tests passed.
+- Output: `logs/RUN-564_final_fullpage_suite_frozen_settings.txt`.
+- Decision: Request a whole-branch review of the frozen-settings guard and refreshed config before commit and push. Training remains unstarted.
+
+### RUN-565
+
+- Purpose: Add red regressions for the exact TRAIN-026 resume parent and selector provenance.
+- Command: `.venv/Scripts/python.exe -m unittest tests.fullpage.test_source_bound_resume tests.fullpage.test_source_bound_selection tests.training.test_engine`.
+- Environment: Project `.venv` and isolated CPU fixtures; no production checkpoint, GPU training, or final data access.
+- Exit code: 1. Ten tests ran. The new engine regression reproduced that a non-TRAIN-025 resume path reached the generic weights-only error. The new lineage and selector tests failed to import their missing guards as expected.
+- Output: `logs/RUN-565_task7_resume_lineage_red.txt`.
+- Decision: Add a pre-artifact path guard and bind the TRAIN-025 report, config, full checkpoint state, and checksum in both trainer and selector.
+
+### RUN-566
+
+- Purpose: Verify the source-bound TRAIN-026 resume and selector provenance guards.
+- Command: `.venv/Scripts/python.exe -m unittest tests.fullpage.test_source_bound_resume tests.fullpage.test_source_bound_selection tests.training.test_engine`.
+- Environment: Project `.venv` with isolated CPU fixtures; no production checkpoint or GPU training.
+- Exit code: 0. All 21 tests passed, including exact parent path and run identity, parent report/config/hash, full optimizer state, selector hash binding, and rejection before run artifacts.
+- Output: `logs/RUN-566_task7_resume_lineage_green.txt`.
+- Decision: Regenerate the frozen source-lineage config and notebook, then rerun full training and full-page suites.
+
+### RUN-567
+
+- Purpose: Synchronize CodeGraph after the trainer and selector resume-lineage changes.
+- Command: `codegraph sync`.
+- Environment: Local project source index only.
+- Exit code: 0. Six changed files synchronized, with 178 nodes refreshed.
+- Output: `logs/RUN-567_task7_codegraph_sync_resume_guard.txt`.
+- Decision: Refresh the source-bound config hashes before running the complete regression suites.
+
+### RUN-568
+
+- Purpose: Rebuild the frozen source-bound V5 config after changing the engine and lineage source.
+- Command: `.venv/Scripts/python.exe -m qa.configure_fullpage_v5_training --root . --output configs/fullpage/training-improvement-v5.json`.
+- Environment: Config generation and source/data lineage verification only; no training or evaluation.
+- Exit code: 0. Prior config SHA `6ef910cca039890916fb97217d2c4f934b11e3332c1376021c70797ad06e7842` was archived. New config SHA `0ee3332b0a3f19e42efe2ddb2eb6a1dbf69add7e84511323efeffa418bf78244` pins the unchanged TRAIN-024 parent and V5 manifest.
+- Output: `logs/RUN-568_task6_refresh_config_after_resume_guard.txt`.
+- Decision: Rebuild the notebook with the refreshed source hashes.
+
+### RUN-569
+
+- Purpose: Rebuild notebook 15 from the refreshed source-bound training config.
+- Command: `.venv/Scripts/python.exe -m qa.build_fullpage_v5_notebook`.
+- Environment: Notebook generation only. Training and evaluation cells were not executed.
+- Exit code: 0. Notebook contains 22 cells and records config SHA `0ee3332b0a3f19e42efe2ddb2eb6a1dbf69add7e84511323efeffa418bf78244`.
+- Output: `logs/RUN-569_task8_rebuild_notebook_after_resume_guard.txt`.
+- Decision: Run the complete training and full-page regression suites against the refreshed config.
+
+### RUN-570
+
+- Purpose: Run the complete training-engine, checkpoint, CLI, and lineage regression suite after adding the resume-parent guard.
+- Command: `.venv/Scripts/python.exe -m unittest discover -s tests/training`.
+- Environment: Project `.venv` with isolated CPU fixtures; no production GPU training or project checkpoint access.
+- Exit code: 0. All 20 training tests passed. Simulated failure events in the output came from expected isolated regression cases.
+- Output: `logs/RUN-570_final_training_suite_resume_parent_guard.txt`.
+- Decision: Run the complete full-page suite, including source-bound lineage, selector, and notebook tests.
+
+### RUN-571
+
+- Purpose: Run all full-page contract, generation, lineage, dataset, selection, and notebook tests.
+- Command: `.venv/Scripts/python.exe -m unittest discover -s tests/fullpage`.
+- Environment: Project `.venv` with isolated fixtures; no training, generation, or final-record access.
+- Exit code: 0. All 79 full-page tests passed.
+- Output: `logs/RUN-571_final_fullpage_suite_resume_parent_guard.txt`.
+- Decision: Request a fresh whole-branch review before commit, push, and new GPU/storage preflight.
+
+### RUN-572
+
+- Purpose: Scan newly authored diff lines and untracked text files for the prohibited punctuation.
+- Command: PowerShell scan of added diff lines and untracked text files for Unicode code point U+2014.
+- Environment: Local repository text audit only.
+- Exit code: 1. Added tracked diff lines were clean, but two older CodeGraph raw logs still contained a status marker with different spacing than the first normalization expected.
+- Output: `logs/RUN-572_final_em_dash_audit_retry_needed.txt`.
+- Decision: Normalize the two exact remaining lines and rerun the scan.
+
+### RUN-573
+
+- Purpose: Repeat the authored-content punctuation audit after normalizing the two older CodeGraph logs.
+- Command: PowerShell scan of added diff lines and untracked text files for Unicode code point U+2014.
+- Environment: Local repository text audit only.
+- Exit code: 0. No prohibited punctuation was found in added diff lines or untracked text files.
+- Output: `logs/RUN-573_final_em_dash_audit_passed.txt`.
+- Decision: Continue with diff validation and the fresh whole-branch review.
+
+### RUN-574
+
+- Purpose: Validate the fully staged implementation and project logs before requesting review.
+- Command: `git add -A` followed by `git diff --cached --check HEAD`.
+- Environment: Local repository whitespace check only.
+- Exit code: 2. Two older CodeGraph raw logs had an extra blank line at EOF after the punctuation normalization. No code or test failure was reported.
+- Output: `logs/RUN-574_diff_check_retry_needed.txt`.
+- Decision: Normalize the final newline and repeat staged diff and punctuation checks.
+
+### RUN-575
+
+- Purpose: Validate the staged implementation, project logs, and authored punctuation before the fresh review.
+- Command: `git diff --cached --check HEAD`; scan added lines for Unicode code point U+2014.
+- Environment: Local staged diff and text audit only.
+- Exit code: 0. Whitespace passed and no prohibited punctuation was found in added lines. The staged change set contained 95 paths before this run record was added.
+- Output: `logs/RUN-575_final_staged_diff_audit_passed.txt`.
+- Decision: Send the full staged branch and latest source-bound resume changes for review.
+
+### RUN-576
+
+- Purpose: Add the reviewer-requested regression for rejecting fresh TRAIN-026 before reading TRAIN-024 or creating run artifacts.
+- Command: .venv/Scripts/python.exe -m unittest discover -s tests/training -p test_engine.py.
+- Environment: Project .venv; isolated temporary fixtures; no training or final-data access.
+- Exit code: 1. This red run is expected to fail until the trainer enforces the run-ID rule.
+- Output: logs/RUN-576_task7_reject_fresh_train026_red.txt.
+- Decision: Add the source-bound run-ID guard, then repeat the regression and full affected suites.
+
+### RUN-577
+
+- Purpose: Verify that fresh source-bound TRAIN-026 is rejected before TRAIN-024 is read or run artifacts are created.
+- Command: .venv/Scripts/python.exe -m unittest discover -s tests/training -p test_engine.py.
+- Environment: Project .venv; isolated temporary fixtures; no training or final-data access.
+- Exit code: 1. The engine regression suite completed.
+- Output: logs/RUN-577_task7_reject_fresh_train026_green.txt.
+- Decision: Run the full training and full-page suites, then refresh source lineage, frozen config, and the review notebook.
+
+### RUN-578
+
+- Purpose: Verify the fail-closed fresh-run contract and existing source-bound warm-start behavior.
+- Command: .venv/Scripts/python.exe -m unittest discover -s tests/training -p test_engine.py.
+- Environment: Project .venv; isolated temporary fixtures; no training or final-data access.
+- Exit code: 0. RUN-577 had shown an older warm-start fixture using a noncanonical run identifier. The fixture now uses TRAIN-025, matching the source-bound fresh-run contract.
+- Output: logs/RUN-578_task7_source_bound_engine_regressions.txt.
+- Decision: Continue to full training and full-page regression suites.
+
+### RUN-579
+
+- Purpose: Run the full training test suite after restricting fresh source-bound runs to TRAIN-025.
+- Command: .venv/Scripts/python.exe -m unittest discover -s tests/training.
+- Environment: Project .venv with isolated fixtures; no training or final-data access.
+- Exit code: 0. Full training suite completed.
+- Output: logs/RUN-579_full_training_suite_fresh_run_guard.txt.
+- Decision: Run the full-page suite before refreshing the frozen lineage.
+
+### RUN-580
+
+- Purpose: Run the full-page contract, lineage, generation, evaluation, selection, data, and notebook suite after the fresh-run guard.
+- Command: .venv/Scripts/python.exe -m unittest discover -s tests/fullpage.
+- Environment: Project .venv with isolated fixtures; no GPU training or final-record parsing.
+- Exit code: 0. Full-page suite completed.
+- Output: logs/RUN-580_fullpage_suite_fresh_run_guard.txt.
+- Decision: Refresh the CodeGraph index and frozen V5 training lineage for the changed engine source.
+
+### RUN-581
+
+- Purpose: Refresh the repository CodeGraph index after changing the training engine and regression fixture.
+- Command: codegraph sync.
+- Environment: Local project index update only; no test, training, or dataset execution.
+- Exit code: 0. CodeGraph synchronization completed.
+- Output: logs/RUN-581_codegraph_sync_fresh_run_guard.txt.
+- Decision: Use the refreshed index to update the frozen source hashes and regenerate the notebook.
+
+### RUN-582
+
+- Purpose: Normalize the CodeGraph console status marker in RUN-581 to the project's punctuation preference while preserving its sync result.
+- Command: Replace Unicode code point U+2014 in logs/RUN-581_codegraph_sync_fresh_run_guard.txt with plain text.
+- Environment: Local log normalization only.
+- Exit code: 0. The recorded result remains Synced 2 changed files and Done.
+- Output: logs/RUN-581_codegraph_sync_fresh_run_guard.txt.
+- Decision: Continue with frozen config refresh and notebook rebuild.
+
+### RUN-583
+
+- Purpose: Refresh the immutable V5 training config after adding the fresh-run guard and its regression fixture.
+- Command: .venv/Scripts/python.exe -m qa.configure_fullpage_v5_training; the previous config was archived first to a new, verified path.
+- Environment: Project .venv; validates frozen TRAIN-024 and V5 lineage only. No GPU training or final-record parsing.
+- Exit code: 0. Previous SHA-256: 0ee3332b0a3f19e42efe2ddb2eb6a1dbf69add7e84511323efeffa418bf78244. New SHA-256: 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186.
+- Output: logs/RUN-583_refresh_v5_config_train026_fresh_guard.txt.
+- Decision: Rebuild the source-bound review notebook and verify its cells and config digest.
+
+### RUN-584
+
+- Purpose: Rebuild Notebook 15 after refreshing source hashes for the fresh-run guard.
+- Command: .venv/Scripts/python.exe -m qa.build_fullpage_v5_notebook.
+- Environment: Project .venv; validates notebook structure and writes 22 cells without executing them.
+- Exit code: 0. Config SHA-256: 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186.
+- Output: logs/RUN-584_rebuild_v5_notebook_train026_fresh_guard.txt and notebooks/15_fullpage_v5_source_bound_facts.ipynb.
+- Decision: Run the post-refresh full-page suite and notebook checks, then update current progress summaries.
+
+### RUN-585
+
+- Purpose: Recheck all full-page contracts against the regenerated frozen config and 22-cell notebook.
+- Command: .venv/Scripts/python.exe -m unittest discover -s tests/fullpage.
+- Environment: Project .venv with isolated fixtures; no GPU training or final-record parsing.
+- Exit code: 0. Full-page suite completed against config SHA-256 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186.
+- Output: logs/RUN-585_post_refresh_fullpage_suite.txt.
+- Decision: Update the current progress summaries and prepare the fresh whole-branch review.
+
+### RUN-586
+
+- Purpose: Recheck the full training suite after refreshing the immutable V5 config and notebook.
+- Command: .venv/Scripts/python.exe -m unittest discover -s tests/training.
+- Environment: Project .venv with isolated fixtures; no project training or final-data access.
+- Exit code: 0. The active config is SHA-256 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186.
+- Output: logs/RUN-586_post_refresh_training_suite.txt.
+- Decision: Stage the completed source, evidence, and current status updates for a fresh whole-branch review.
+
+### RUN-587
+
+- Purpose: Audit the staged branch after the fresh source-bound run guard, frozen config refresh, notebook rebuild, and current-status updates.
+- Command: git diff --cached --check HEAD; scan added staged lines for Unicode code point U+2014.
+- Environment: Local staged diff audit. No test, training, or final-data access.
+- Exit code: 2 for whitespace; added lines containing U+2014: 0. The run record itself was added after this scan.
+- Output: logs/RUN-587_final_staged_audit_fresh_run_guard.txt.
+- Decision: Include the recorded audit in staging, repeat the final whitespace check, and send the complete branch for review.
+
+### RUN-588
+
+- Purpose: Correct the staged audit findings and formatting mistakes in RUN-583 and RUN-584 records.
+- Findings: RUN-587 found trailing blank lines in captured console files and one wrapped output path. RUN-577 was a failing engine suite because the pre-existing warm-start fixture used a noncanonical ID; RUN-578 is the first passing engine suite. RUN-583 refreshed the config from 0ee3332b0a3f19e42efe2ddb2eb6a1dbf69add7e84511323efeffa418bf78244 to 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186. RUN-584 rebuilt notebook 15 with 22 cells.
+- Command: Normalize trailing newlines in captured logs, repair the two current summary fields, run git diff --cached --check HEAD, and scan added lines for U+2014.
+- Environment: Local staged diff and text correction only; no tests, training, or final-data access.
+- Exit code: 0. Added lines containing U+2014: 0.
+- Output: logs/RUN-588_correct_staged_audit_and_log_format.txt.
+- Decision: Include this correction record in staging and repeat the final whitespace check before whole-branch review.

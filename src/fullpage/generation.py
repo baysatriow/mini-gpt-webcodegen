@@ -19,15 +19,8 @@ from .curriculum import write_json
 from .source_bound_contracts import CONTRACT_VERSION, load_copy_catalog, validate_page_plan, validate_section_draft
 from .source_bound_compose import compose_source_bound_page
 from .source_bound_prompts import source_bound_plan_prompt, source_bound_section_prompt
+from .lineage import SOURCE_BOUND_LINEAGE_FILES
 
-SOURCE_BOUND_LINEAGE_FILES = (
-    "src/fullpage/source_bound_prompts.py",
-    "src/fullpage/source_bound_serialization.py",
-    "src/fullpage/source_bound_contracts.py",
-    "src/fullpage/source_bound_compose.py",
-    "src/fullpage/source_bound_resolver.py",
-    "configs/fullpage/source-bound-copy-v1.json",
-)
 SOURCE_BOUND_SCHEMA_FILES = (
     "plan-source-bound-v1.schema.json",
     "section-source-bound-v1.schema.json",

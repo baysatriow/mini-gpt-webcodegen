@@ -1,0 +1,25 @@
+E
+======================================================================
+ERROR: test_source_bound_fresh_run_rejects_changed_frozen_settings_before_parent_read (test_engine.EngineTests.test_source_bound_fresh_run_rejects_changed_frozen_settings_before_parent_read)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\training\test_engine.py", line 62, in test_source_bound_fresh_run_rejects_changed_frozen_settings_before_parent_read
+    run_training(config_path, train, val, "TRAIN-TEST-CHANGED-SETTINGS", stop_after=0, root=root)
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\training\engine.py", line 321, in run_training
+    source_bound_parent = read_checkpoint(source_bound_initial_path)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\training\engine.py", line 281, in read_checkpoint
+    payload, _ = _checkpoint_payload(Path(path))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\training\engine.py", line 255, in _checkpoint_payload
+    with path.open("rb") as handle:
+         ^^^^^^^^^^^^^^^
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Bayu S W\\AppData\\Local\\Temp\\tmpf3qe4lv5\\checkpoints\\FULLPAGE-V4\\TRAIN-024-step3600.pt'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.161s
+
+FAILED (errors=1)

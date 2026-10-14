@@ -1,0 +1,15 @@
+RUN-578 source-bound training engine regressions
+Started: 2026-10-14 21:29:35 +07:00
+Command: .venv\\Scripts\\python.exe -m unittest discover -s tests/training -p test_engine.py
+Exit code: 0
+Correction: The warm-start fixture now uses the canonical fresh source-bound run ID TRAIN-025. RUN-577 exposed that the fixture used a noncanonical identifier.
+
+{"event": "validation", "step": 0, "loss": 3.465736150741577, "perplexity": 32.0000079341402, "valid_tokens": 16, "batches": 2}
+{"event": "validation", "step": 0, "loss": 3.4789316654205322, "perplexity": 32.425062749505166, "valid_tokens": 16, "batches": 2}
+{"event": "failure", "global_step": 0, "last_committed_step": 0, "error_type": "OutOfMemoryError", "error": "SIMULATED_TEST_OOM"}
+{"event": "validation", "step": 0, "loss": 3.465736150741577, "perplexity": 32.0000079341402, "valid_tokens": 16, "batches": 2}
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 1.706s
+
+OK

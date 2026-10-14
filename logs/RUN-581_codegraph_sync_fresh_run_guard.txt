@@ -1,0 +1,16 @@
+RUN-581 synchronize CodeGraph after training guard change
+Started: 2026-10-14 21:30:30 +07:00
+Command: codegraph sync
+Exit code: 0
+
+T  Syncing CodeGraph
+|
+Scanning files...
+Parsing code...
+Resolving refs...
+|
+*  Synced 2 changed files
+|
+•  Modified: 2 - 75 nodes in 428ms
+|
+Done  Done

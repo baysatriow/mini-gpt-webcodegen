@@ -1,0 +1,5 @@
+RUN-565 RED check: source-bound TRAIN-026 resume provenance
+Command: .venv/Scripts/python.exe -m unittest tests.fullpage.test_source_bound_resume tests.fullpage.test_source_bound_selection tests.training.test_engine
+Exit code: 1
+Result: 10 tests ran. The new engine regression failed because the wrong TRAIN-024 resume path reached the generic weights-only checkpoint error instead of being rejected by the TRAIN-025 path guard. The new lineage and selector tests also failed to import the not-yet-implemented guards. Existing simulated OOM coverage behaved as expected.
+Decision: implement exact TRAIN-025 path, report, config, checkpoint digest, and full-state checks before run artifacts are created.

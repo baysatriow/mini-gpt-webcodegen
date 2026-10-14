@@ -1,0 +1,107 @@
+test_candidates_must_use_the_same_development_requests_and_manifest (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_candidates_must_use_the_same_development_requests_and_manifest) ... ok
+test_complete_page_count_precedes_cross_entropy (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_complete_page_count_precedes_cross_entropy) ... ERROR
+test_cross_entropy_breaks_a_complete_page_tie (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_cross_entropy_breaks_a_complete_page_tie) ... ERROR
+test_gate_requires_at_least_76_of_80 (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_gate_requires_at_least_76_of_80) ... ERROR
+test_input_reports_are_not_mutated (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_input_reports_are_not_mutated) ... ERROR
+test_invalid_fact_acceptance_cannot_pass_gate (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_invalid_fact_acceptance_cannot_pass_gate) ... ERROR
+test_reports_must_match_the_exact_step_and_run_identity (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_reports_must_match_the_exact_step_and_run_identity) ... ok
+
+======================================================================
+ERROR: test_complete_page_count_precedes_cross_entropy (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_complete_page_count_precedes_cross_entropy)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_selection.py", line 40, in test_complete_page_count_precedes_cross_entropy
+    result = select_v5_candidate(candidates)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 83, in select_v5_candidate
+    validated = [_validate_candidate(candidate) for candidate in candidates]
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 83, in <listcomp>
+    validated = [_validate_candidate(candidate) for candidate in candidates]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 68, in _validate_candidate
+    _digest(generation.get("checkpoint_sha256"), "Development checkpoint identity")
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 35, in _digest
+    raise ValueError(label + " must be a lowercase SHA-256 digest")
+ValueError: Development checkpoint identity must be a lowercase SHA-256 digest
+
+======================================================================
+ERROR: test_cross_entropy_breaks_a_complete_page_tie (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_cross_entropy_breaks_a_complete_page_tie)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_selection.py", line 46, in test_cross_entropy_breaks_a_complete_page_tie
+    result = select_v5_candidate(candidates)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 83, in select_v5_candidate
+    validated = [_validate_candidate(candidate) for candidate in candidates]
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 83, in <listcomp>
+    validated = [_validate_candidate(candidate) for candidate in candidates]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 68, in _validate_candidate
+    _digest(generation.get("checkpoint_sha256"), "Development checkpoint identity")
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 35, in _digest
+    raise ValueError(label + " must be a lowercase SHA-256 digest")
+ValueError: Development checkpoint identity must be a lowercase SHA-256 digest
+
+======================================================================
+ERROR: test_gate_requires_at_least_76_of_80 (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_gate_requires_at_least_76_of_80)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_selection.py", line 52, in test_gate_requires_at_least_76_of_80
+    result = select_v5_candidate(candidates)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 83, in select_v5_candidate
+    validated = [_validate_candidate(candidate) for candidate in candidates]
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 83, in <listcomp>
+    validated = [_validate_candidate(candidate) for candidate in candidates]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 68, in _validate_candidate
+    _digest(generation.get("checkpoint_sha256"), "Development checkpoint identity")
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 35, in _digest
+    raise ValueError(label + " must be a lowercase SHA-256 digest")
+ValueError: Development checkpoint identity must be a lowercase SHA-256 digest
+
+======================================================================
+ERROR: test_input_reports_are_not_mutated (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_input_reports_are_not_mutated)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_selection.py", line 77, in test_input_reports_are_not_mutated
+    select_v5_candidate(candidates)
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 83, in select_v5_candidate
+    validated = [_validate_candidate(candidate) for candidate in candidates]
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 83, in <listcomp>
+    validated = [_validate_candidate(candidate) for candidate in candidates]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 68, in _validate_candidate
+    _digest(generation.get("checkpoint_sha256"), "Development checkpoint identity")
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 35, in _digest
+    raise ValueError(label + " must be a lowercase SHA-256 digest")
+ValueError: Development checkpoint identity must be a lowercase SHA-256 digest
+
+======================================================================
+ERROR: test_invalid_fact_acceptance_cannot_pass_gate (tests.fullpage.test_source_bound_selection.SourceBoundSelectionTests.test_invalid_fact_acceptance_cannot_pass_gate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_selection.py", line 65, in test_invalid_fact_acceptance_cannot_pass_gate
+    result = select_v5_candidate([candidate, development_candidate(79, 0.6, 3600)])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 83, in select_v5_candidate
+    validated = [_validate_candidate(candidate) for candidate in candidates]
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 83, in <listcomp>
+    validated = [_validate_candidate(candidate) for candidate in candidates]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 68, in _validate_candidate
+    _digest(generation.get("checkpoint_sha256"), "Development checkpoint identity")
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\select_fullpage_v5.py", line 35, in _digest
+    raise ValueError(label + " must be a lowercase SHA-256 digest")
+ValueError: Development checkpoint identity must be a lowercase SHA-256 digest
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.002s
+
+FAILED (errors=5)
+Exit code: 1

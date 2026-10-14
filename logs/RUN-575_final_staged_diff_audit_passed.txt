@@ -1,0 +1,4 @@
+RUN-575 final staged diff audit
+Command: git diff --cached --check HEAD; scan added lines for Unicode code point U+2014.
+Exit code: 0
+Result: Whitespace check passed. No prohibited punctuation was found in added lines. The reviewed staged set contained 95 paths and 6,018 insertions, including the source-bound resume guard, refreshed config, notebook, tests, and experiment records.

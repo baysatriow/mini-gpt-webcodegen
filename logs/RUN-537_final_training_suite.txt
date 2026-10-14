@@ -1,0 +1,102 @@
+RUN-537
+Command: .venv/Scripts/python.exe -m unittest discover -s tests/training -p test*.py -v
+Environment: CPU/temporary fixtures only. No GPU training or final data access.
+{"event": "validation", "step": 0, "loss": 3.4789316654205322, "perplexity": 32.425062749505166, "valid_tokens": 16, "batches": 2}
+{"event": "train", "step": 1, "loss": 3.497948408126831, "grad_norm": 3.3596768379211426, "valid_tokens": 8, "learning_rate": 0.001, "time_unix": 1791984970.25974, "seconds": 0.10197790001984686, "tokens_per_second": 78.44836968051948, "data_cursor": 1}
+{"event": "validation", "step": 1, "loss": 3.4130717515945435, "perplexity": 30.358354504271695, "valid_tokens": 16, "batches": 2}
+test_corrupted_checkpoint_is_refused_before_model_mutation (test_checkpoint.CheckpointTests.test_corrupted_checkpoint_is_refused_before_model_mutation) ... ok
+{"event": "validation", "step": 0, "loss": 3.4789316654205322, "perplexity": 32.425062749505166, "valid_tokens": 16, "batches": 2}
+{"event": "train", "step": 1, "loss": 3.497948408126831, "grad_norm": 3.3596768379211426, "valid_tokens": 8, "learning_rate": 0.001, "time_unix": 1791984970.5424366, "seconds": 0.003792000003159046, "tokens_per_second": 2109.7046395926545, "data_cursor": 1}
+{"event": "train", "step": 2, "loss": 3.4166786670684814, "grad_norm": 3.2066521644592285, "valid_tokens": 8, "learning_rate": 0.001, "time_unix": 1791984970.546436, "seconds": 0.0035383000504225492, "tokens_per_second": 2260.972751320123, "data_cursor": 2}
+{"event": "validation", "step": 2, "loss": 3.362371802330017, "perplexity": 28.857554189330607, "valid_tokens": 16, "batches": 2}
+{"event": "train", "step": 3, "loss": 3.4130873680114746, "grad_norm": 4.437862396240234, "valid_tokens": 4, "learning_rate": 0.0007750000000000001, "time_unix": 1791984970.652192, "seconds": 0.004912499978672713, "tokens_per_second": 814.2493674026931, "data_cursor": 3}
+{"event": "train", "step": 4, "loss": 3.353144407272339, "grad_norm": 2.75575852394104, "valid_tokens": 8, "learning_rate": 0.00032500000000000015, "time_unix": 1791984970.656194, "seconds": 0.003646099998150021, "tokens_per_second": 2194.125230810753, "data_cursor": 4}
+{"event": "validation", "step": 4, "loss": 3.3244839906692505, "perplexity": 27.78465780030699, "valid_tokens": 16, "batches": 2}
+{"event": "validation", "step": 0, "loss": 3.4789316654205322, "perplexity": 32.425062749505166, "valid_tokens": 16, "batches": 2}
+{"event": "train", "step": 1, "loss": 3.497948408126831, "grad_norm": 3.3596768379211426, "valid_tokens": 8, "learning_rate": 0.001, "time_unix": 1791984970.923121, "seconds": 0.005583300022408366, "tokens_per_second": 1432.8443694396321, "data_cursor": 1}
+{"event": "train", "step": 2, "loss": 3.4166786670684814, "grad_norm": 3.2066521644592285, "valid_tokens": 8, "learning_rate": 0.001, "time_unix": 1791984970.9301212, "seconds": 0.0061042000306770205, "tokens_per_second": 1310.5730414789036, "data_cursor": 2}
+{"event": "validation", "step": 2, "loss": 3.362371802330017, "perplexity": 28.857554189330607, "valid_tokens": 16, "batches": 2}
+{"event": "validation", "step": 2, "loss": 3.362371802330017, "perplexity": 28.857554189330607, "valid_tokens": 16, "batches": 2}
+{"event": "train", "step": 3, "loss": 3.4130873680114746, "grad_norm": 4.437862396240234, "valid_tokens": 4, "learning_rate": 0.0007750000000000001, "time_unix": 1791984971.248338, "seconds": 0.004591199976857752, "tokens_per_second": 871.2319263291222, "data_cursor": 3}
+{"event": "train", "step": 4, "loss": 3.353144407272339, "grad_norm": 2.75575852394104, "valid_tokens": 8, "learning_rate": 0.00032500000000000015, "time_unix": 1791984971.2563434, "seconds": 0.006960799975786358, "tokens_per_second": 1149.2931886893136, "data_cursor": 4}
+{"event": "validation", "step": 4, "loss": 3.3244839906692505, "perplexity": 27.78465780030699, "valid_tokens": 16, "batches": 2}
+test_resume_restores_optimizer_scheduler_rng_and_next_batch (test_checkpoint.CheckpointTests.test_resume_restores_optimizer_scheduler_rng_and_next_batch) ... ok
+test_draft_sft_cannot_reach_a_training_loader (test_cli.TrainingCLITests.test_draft_sft_cannot_reach_a_training_loader) ... ok
+{"event": "validation", "step": 0, "loss": 3.465736150741577, "perplexity": 32.0000079341402, "valid_tokens": 16, "batches": 2}
+test_legacy_initializer_keeps_its_existing_optimizer_then_weights_order (test_engine.EngineTests.test_legacy_initializer_keeps_its_existing_optimizer_then_weights_order) ... ok
+test_nonfinite_loss_is_rejected_before_optimizer_update (test_engine.EngineTests.test_nonfinite_loss_is_rejected_before_optimizer_update) ... ok
+test_sft_masks_prompt_and_does_not_shift_labels_again (test_engine.EngineTests.test_sft_masks_prompt_and_does_not_shift_labels_again) ... ok
+{"event": "validation", "step": 0, "loss": 3.4789316654205322, "perplexity": 32.425062749505166, "valid_tokens": 16, "batches": 2}
+{"event": "failure", "global_step": 0, "last_committed_step": 0, "error_type": "OutOfMemoryError", "error": "SIMULATED_TEST_OOM"}
+test_simulated_oom_preserves_last_committed_checkpoint_and_failure_log (test_engine.EngineTests.test_simulated_oom_preserves_last_committed_checkpoint_and_failure_log) ... ok
+{"event": "validation", "step": 0, "loss": 3.465736150741577, "perplexity": 32.0000079341402, "valid_tokens": 16, "batches": 2}
+test_source_bound_warm_start_loads_only_weights_before_fresh_training_state (test_engine.EngineTests.test_source_bound_warm_start_loads_only_weights_before_fresh_training_state) ... ok
+test_heldout_evaluation_rejects_different_assignment_even_with_same_tokenizer (test_lineage.LineageTests.test_heldout_evaluation_rejects_different_assignment_even_with_same_tokenizer) ... ok
+test_legacy_binding_preserves_weights_and_requires_recorded_pipeline_snapshot (test_lineage.LineageTests.test_legacy_binding_preserves_weights_and_requires_recorded_pipeline_snapshot) ... ok
+test_production_prompts_require_actual_reviewed_test_membership (test_lineage.LineageTests.test_production_prompts_require_actual_reviewed_test_membership) ... ok
+test_sft_checkpoint_requires_pretraining_history (test_lineage.LineageTests.test_sft_checkpoint_requires_pretraining_history) ... ok
+test_sft_initializer_rejects_wrong_corpus_phase_and_untrained_or_smoke_parent (test_lineage.LineageTests.test_sft_initializer_rejects_wrong_corpus_phase_and_untrained_or_smoke_parent) ... ok
+complete websight_v01: 30 rows, 13647 bytes
+HTML preprocessing: accepted=30 rejected=0
+Grouped split: {'train': 24, 'validation': 3, 'test': 3}, groups=30, duplicates=0
+Training fresh byte-level BPE on train split only
+train: 1840 tokens, 2 blocks
+validation: 149 tokens, 1 blocks
+test: 282 tokens, 1 blocks
+{
+  "status": "complete",
+  "tokenization": {
+    "status": "complete",
+    "action": "trained"
+  },
+  "sft": {
+    "status": "awaiting_review",
+    "draft_queue_rows": 30,
+    "reviewed_production_rows": 0
+  },
+  "free_bytes_after": 52712681472
+}
+HTML preprocessing: accepted=30 rejected=0
+Grouped split: {'train': 24, 'validation': 3, 'test': 3}, groups=30, duplicates=0
+test_corpus_fingerprint_survives_annotation_preparation_and_test_membership_is_verified (test_lineage_integration.LineageIntegrationTests.test_corpus_fingerprint_survives_annotation_preparation_and_test_membership_is_verified) ... ok
+{
+  "status": "complete",
+  "tokenization": {
+    "status": "complete",
+    "action": "reused"
+  },
+  "sft": {
+    "status": "complete",
+    "draft_queue_rows": 30,
+    "reviewed_production_rows": 30,
+    "rejected": 0
+  },
+  "free_bytes_after": 52712067072
+}
+{"event": "validation", "step": 0, "loss": 5.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "train", "step": 1, "loss": 3.497948408126831, "grad_norm": 3.3596768379211426, "valid_tokens": 8, "learning_rate": 0.001, "time_unix": 1791984972.8032012, "seconds": 0.0039376000058837235, "tokens_per_second": 2031.6944301214119, "data_cursor": 1}
+{"event": "validation", "step": 1, "loss": 4.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "train", "step": 2, "loss": 3.4166786670684814, "grad_norm": 3.2066521644592285, "valid_tokens": 8, "learning_rate": 0.001, "time_unix": 1791984972.8602176, "seconds": 0.004620300023816526, "tokens_per_second": 1731.4892883063742, "data_cursor": 2}
+{"event": "validation", "step": 2, "loss": 3.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "train", "step": 3, "loss": 3.4130873680114746, "grad_norm": 4.437862396240234, "valid_tokens": 4, "learning_rate": 0.0007750000000000001, "time_unix": 1791984972.9262886, "seconds": 0.004715500050224364, "tokens_per_second": 848.2663466008615, "data_cursor": 3}
+{"event": "validation", "step": 3, "loss": 2.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "train", "step": 4, "loss": 3.353144407272339, "grad_norm": 2.75575852394104, "valid_tokens": 8, "learning_rate": 0.00032500000000000015, "time_unix": 1791984972.9889681, "seconds": 0.006007399992085993, "tokens_per_second": 1331.6909162930738, "data_cursor": 4}
+{"event": "validation", "step": 4, "loss": 1.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "failure", "global_step": 4, "last_committed_step": 0, "error_type": "OSError", "error": "simulated last commit failure"}
+test_best_generations_referenced_by_last_survive_more_frequent_validation (test_review_checkpoint.ReviewCheckpointTests.test_best_generations_referenced_by_last_survive_more_frequent_validation) ... ok
+test_every_failed_save_stage_retains_previous_committed_payload (test_review_checkpoint.ReviewCheckpointTests.test_every_failed_save_stage_retains_previous_committed_payload) ... ok
+{"event": "validation", "step": 0, "loss": 1.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "train", "step": 1, "loss": 3.497948408126831, "grad_norm": 3.3596768379211426, "valid_tokens": 8, "learning_rate": 0.001, "time_unix": 1791984973.366339, "seconds": 0.0051722999778576195, "tokens_per_second": 1546.7007007032917, "data_cursor": 1}
+{"event": "train", "step": 2, "loss": 3.4166786670684814, "grad_norm": 3.2066521644592285, "valid_tokens": 8, "learning_rate": 0.001, "time_unix": 1791984973.3728456, "seconds": 0.004649200011044741, "tokens_per_second": 1720.7261423460006, "data_cursor": 2}
+{"event": "validation", "step": 2, "loss": 2.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "validation", "step": 2, "loss": 2.0, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+{"event": "train", "step": 3, "loss": 3.4130873680114746, "grad_norm": 4.437862396240234, "valid_tokens": 4, "learning_rate": 0.0007750000000000001, "time_unix": 1791984973.644207, "seconds": 0.004639299993868917, "tokens_per_second": 862.199039787514, "data_cursor": 3}
+{"event": "train", "step": 4, "loss": 3.353144407272339, "grad_norm": 2.75575852394104, "valid_tokens": 8, "learning_rate": 0.00032500000000000015, "time_unix": 1791984973.650206, "seconds": 0.005600000033155084, "tokens_per_second": 1428.571420113499, "data_cursor": 4}
+{"event": "validation", "step": 4, "loss": 1.5, "perplexity": 1.0, "valid_tokens": 16, "batches": 1}
+test_resume_preserves_earlier_best_weights_and_actual_validation (test_review_checkpoint.ReviewCheckpointTests.test_resume_preserves_earlier_best_weights_and_actual_validation) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 4.804s
+
+OK
+Exit code: 0

@@ -1,0 +1,45 @@
+FFFFF
+======================================================================
+FAIL: test_source_bound_lineage_rejects_changed_frozen_training_settings (test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_changed_frozen_training_settings) (setting='plan_batch_probability')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_lineage.py", line 276, in test_source_bound_lineage_rejects_changed_frozen_training_settings
+    with self.assertRaisesRegex(ValueError, expected_name):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_source_bound_lineage_rejects_changed_frozen_training_settings (test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_changed_frozen_training_settings) (setting='batch_size')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_lineage.py", line 276, in test_source_bound_lineage_rejects_changed_frozen_training_settings
+    with self.assertRaisesRegex(ValueError, expected_name):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_source_bound_lineage_rejects_changed_frozen_training_settings (test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_changed_frozen_training_settings) (setting='learning_rate')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_lineage.py", line 276, in test_source_bound_lineage_rejects_changed_frozen_training_settings
+    with self.assertRaisesRegex(ValueError, expected_name):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_source_bound_lineage_rejects_changed_frozen_training_settings (test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_changed_frozen_training_settings) (setting='performance')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_lineage.py", line 276, in test_source_bound_lineage_rejects_changed_frozen_training_settings
+    with self.assertRaisesRegex(ValueError, expected_name):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_source_bound_lineage_rejects_changed_frozen_training_settings (test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_changed_frozen_training_settings) (setting='selection_rule')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_lineage.py", line 276, in test_source_bound_lineage_rejects_changed_frozen_training_settings
+    with self.assertRaisesRegex(ValueError, expected_name):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.629s
+
+FAILED (failures=5)

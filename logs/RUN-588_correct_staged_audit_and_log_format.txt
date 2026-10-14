@@ -1,0 +1,8 @@
+RUN-588 correct staged audit and log format
+Started: 2026-10-14 21:35:30 +07:00
+Staged paths before this run record: 109
+Whitespace check exit code: 0
+Added lines containing U+2014: 0
+Correction: RUN-577 was a failing suite due to a noncanonical warm-start fixture; RUN-578 passed all 9 engine tests.
+Correct current config SHA-256: 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186
+Notebook 15 path: notebooks/15_fullpage_v5_source_bound_facts.ipynb, 22 cells

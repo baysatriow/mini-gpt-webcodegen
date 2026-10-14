@@ -1,0 +1,2 @@
+Frozen source-bound settings and RTX 5070 profile digest verified against the canonical V5 training config.
+No dataset was changed, no training was started, and final records were not opened.

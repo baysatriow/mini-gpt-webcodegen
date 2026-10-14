@@ -1,0 +1,4 @@
+source-bound dataset and TRAIN-024 parent verified
+Current config SHA-256: 60e90d27bd8aa0fcb6cc08e71bbdda98e7c6f6ca156fc737a2176052df5108ee
+Archived previous config: F:\Generative_AI\Vibe_Coding_Proyek_1\logs\config-archive\training-improvement-v5-before-parent-guard.json
+Capture note: The command's final display helper attempted to read this output file before it had been created. Promotion and lineage validation succeeded. This record preserves the observed output; RUN-549 repeats the read-only verification with a functioning output capture.

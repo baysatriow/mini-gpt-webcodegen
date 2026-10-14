@@ -1,0 +1,58 @@
+test_source_bound_lineage_rejects_missing_or_changed_train024_pin (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_missing_or_changed_train024_pin) ... 
+  test_source_bound_lineage_rejects_missing_or_changed_train024_pin (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_missing_or_changed_train024_pin) (key='initial_checkpoint', value=None) ... FAIL
+  test_source_bound_lineage_rejects_missing_or_changed_train024_pin (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_missing_or_changed_train024_pin) (key='initial_checkpoint', value='checkpoints/UNVERIFIED/weights.pt') ... FAIL
+  test_source_bound_lineage_rejects_missing_or_changed_train024_pin (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_missing_or_changed_train024_pin) (key='initial_checkpoint_sha256', value=None) ... FAIL
+  test_source_bound_lineage_rejects_missing_or_changed_train024_pin (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_missing_or_changed_train024_pin) (key='initial_checkpoint_sha256', value='0000000000000000000000000000000000000000000000000000000000000000') ... FAIL
+{"event": "validation", "step": 0, "loss": 3.4789316654205322, "perplexity": 32.425062749505166, "valid_tokens": 16, "batches": 2}
+{"event": "train", "step": 1, "loss": 3.497948408126831, "grad_norm": 3.3596768379211426, "valid_tokens": 8, "supervised_tokens_after_position_1024": 0, "learning_rate": 0.001, "time_unix": 1791985606.5018253, "seconds": 0.08257030003005639, "tokens_per_second": 96.88713734948186, "data_cursor": 1}
+{"event": "train", "step": 2, "loss": 3.4166786670684814, "grad_norm": 3.2066521644592285, "valid_tokens": 8, "supervised_tokens_after_position_1024": 0, "learning_rate": 0.001, "time_unix": 1791985606.5063324, "seconds": 0.0036223999923095107, "tokens_per_second": 2208.4805700597108, "data_cursor": 2}
+{"event": "validation", "step": 2, "loss": 3.362371802330017, "perplexity": 28.857554189330607, "valid_tokens": 16, "batches": 2}
+{"event": "train", "step": 3, "loss": 3.4130873680114746, "grad_norm": 4.437862396240234, "valid_tokens": 4, "supervised_tokens_after_position_1024": 0, "learning_rate": 0.0007750000000000001, "time_unix": 1791985606.6341798, "seconds": 0.004807499994058162, "tokens_per_second": 832.0332823596062, "data_cursor": 3}
+{"event": "train", "step": 4, "loss": 3.353144407272339, "grad_norm": 2.75575852394104, "valid_tokens": 8, "supervised_tokens_after_position_1024": 0, "learning_rate": 0.00032500000000000015, "time_unix": 1791985606.6391797, "seconds": 0.0042758999625220895, "tokens_per_second": 1870.951161186964, "data_cursor": 4}
+{"event": "validation", "step": 4, "loss": 3.3244839906692505, "perplexity": 27.78465780030699, "valid_tokens": 16, "batches": 2}
+test_source_bound_fresh_run_requires_pinned_parent_before_creating_artifacts (tests.training.test_engine.EngineTests.test_source_bound_fresh_run_requires_pinned_parent_before_creating_artifacts) ... FAIL
+
+======================================================================
+FAIL: test_source_bound_lineage_rejects_missing_or_changed_train024_pin (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_missing_or_changed_train024_pin) (key='initial_checkpoint', value=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_lineage.py", line 262, in test_source_bound_lineage_rejects_missing_or_changed_train024_pin
+    with self.assertRaisesRegex(ValueError, "TRAIN-024"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_source_bound_lineage_rejects_missing_or_changed_train024_pin (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_missing_or_changed_train024_pin) (key='initial_checkpoint', value='checkpoints/UNVERIFIED/weights.pt')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_lineage.py", line 262, in test_source_bound_lineage_rejects_missing_or_changed_train024_pin
+    with self.assertRaisesRegex(ValueError, "TRAIN-024"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_source_bound_lineage_rejects_missing_or_changed_train024_pin (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_missing_or_changed_train024_pin) (key='initial_checkpoint_sha256', value=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_lineage.py", line 262, in test_source_bound_lineage_rejects_missing_or_changed_train024_pin
+    with self.assertRaisesRegex(ValueError, "TRAIN-024"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_source_bound_lineage_rejects_missing_or_changed_train024_pin (tests.fullpage.test_source_bound_lineage.SourceBoundLineageFixture.test_source_bound_lineage_rejects_missing_or_changed_train024_pin) (key='initial_checkpoint_sha256', value='0000000000000000000000000000000000000000000000000000000000000000')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_lineage.py", line 262, in test_source_bound_lineage_rejects_missing_or_changed_train024_pin
+    with self.assertRaisesRegex(ValueError, "TRAIN-024"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_source_bound_fresh_run_requires_pinned_parent_before_creating_artifacts (tests.training.test_engine.EngineTests.test_source_bound_fresh_run_requires_pinned_parent_before_creating_artifacts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\training\test_engine.py", line 44, in test_source_bound_fresh_run_requires_pinned_parent_before_creating_artifacts
+    with self.assertRaisesRegex(ValueError, "TRAIN-024"):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.996s
+
+FAILED (failures=5)

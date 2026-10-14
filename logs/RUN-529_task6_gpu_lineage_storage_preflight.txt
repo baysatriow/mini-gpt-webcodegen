@@ -1,0 +1,16 @@
+RUN-529
+Interpreter: F:\Generative_AI\Vibe_Coding_Proyek_1\.venv\Scripts\python.exe
+Python: 3.11.9
+PyTorch: 2.14.1+cu130
+CUDA runtime: 13.0
+GPU: NVIDIA GeForce RTX 5070
+CUDA BF16 matrix operation: passed, finite output
+Source-bound V5 dataset/config/runtime lineage: passed
+Warm-start: TRAIN-024, step 3600, weights_only=true, approved SHA-256 verified
+Training config SHA-256: b6d25313cbfceeeb6471a7191b2bc13abd0ae99ae05fc3894cfb9e20d03cddb3
+F: free bytes: 17301045248
+Required bytes including 15 GiB reserve: 16706895872
+Headroom over reserve and model checkpoint estimate: 594149376 bytes
+Final data accessed: false
+Training started: false
+Result: preflight passed. Other desktop/Jupyter GPU processes were not terminated.

@@ -1,0 +1,6 @@
+RUN-518 failed attempt
+Purpose: Validate the source-bound notebook contract and separate training stages.
+Command: Project `.venv` Python unittest for `tests.fullpage.test_source_bound_notebook`.
+Environment: Notebook written to a temporary path; no training or evaluation cell executed.
+Result: One test passed. The other expected the English word synthetic while the Indonesian notebook correctly says sintetis.
+Decision: Preserve this failed run, align the assertion with the notebook language, and rerun.

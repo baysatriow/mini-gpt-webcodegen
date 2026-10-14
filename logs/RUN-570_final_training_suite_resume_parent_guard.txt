@@ -1,0 +1,6 @@
+RUN-570 complete training suite after source-bound resume guard
+Command: .venv/Scripts/python.exe -m unittest discover -s tests/training
+Exit code: 0
+Result: All 20 training tests passed.
+Environment: Project .venv and isolated CPU fixtures. No production GPU training or project checkpoint was opened.
+Output detail: Tests emitted expected temporary fixture validation, simulated OOM, and simulated checkpoint failure events. The suite ended with OK.

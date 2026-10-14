@@ -1,0 +1,9 @@
+RUN-533
+Command: .venv/Scripts/python.exe unittest for legacy initializer order, source-bound weights-only warm-start, and exact resume.
+Environment: CPU and temporary MiniGPT/checkpoint fixtures only.
+Result: Exit code 0. All 3 tests passed.
+Legacy initializer: optimizer creation remains before initial weight loading.
+Source-bound initializer: exact parent weights load before fresh optimizer creation; optimizer, scheduler, sampler, and RNG are fresh.
+Exact resume: optimizer, scheduler, RNG, sampler and next-batch behavior remain restored.
+Project GPU training: false
+Final data accessed: false

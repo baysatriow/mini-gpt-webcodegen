@@ -1120,6 +1120,43 @@ Rancangan berikutnya yang perlu direview adalah melengkapi target process hanya 
 
 Kesimpulan: v4 memperbaiki kelulusan dari80 persen ke85 persen antara step1800 dan3600, tetapi belum mencapai95 persen. Error yang dominan pada candidate terbaik kini adalah konsistensi identity/style di plan serta penyalinan fakta merek. Gunakan pola ini untuk merancang eksperimen train-only berikutnya dengan validator strict dan final benchmark tetap tertutup.
 
+## V5 source-bound experiment: preflight passed, training not started
+
+Tujuan V5 adalah mengurangi kesalahan penyalinan identitas dengan meminta model menghasilkan referensi fakta, lalu mengisi nilai literal dari request melalui resolver dan renderer. Dataset tetap sintetis dan belum human-reviewed, sehingga hasil tidak dianggap sebagai kesiapan produksi.
+
+| TRAIN ID | Tahap | Status | Config | Parent | Target |
+| --- | --- | --- | --- | --- | --- |
+| TRAIN-025 | Source-bound SFT tahap pertama | Planned, fresh preflight required | `configs/fullpage/training-improvement-v5.json`, SHA-256 `8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186` | TRAIN-024 step 3600, weights-only | 1800 updates |
+| TRAIN-026 | Exact resume source-bound SFT | Planned | Sama persis dengan TRAIN-025 | `TRAIN-025/last.pt`, exact resume state | 3600 total updates |
+
+- Data: V5 manifest SHA-256 `90c2dc71c4d91ff9a36a3fbd1bd36bd329c127b711c69556df4c0f58381d6dd2`, 240 train families, 40 development families, 3,360/80 requests, and 33,600/800 task rows. Maximum combined prompt/target context is 1,622/1,569 tokens. No test or final rows are included in V5.
+- Model start: Load only the exact TRAIN-024 weights-only snapshot, SHA-256 `913b1b00aec040a0d51c3607cf7261288e7fe089378850fc66c131400c0f319a`. Optimizer, scheduler, sampler, and RNG begin fresh. TRAIN-026 must resume TRAIN-025 exact state.
+- Frozen configuration: microbatch 8, accumulation 6, effective batch 48, BF16, CUDA, SDPA, fused AdamW, plan probability 0.7, context 2,048, PagePlan output budget 896, section output budget 1,536, 3,600 update budget, snapshots/evaluation at 1,800 and 3,600.
+- Hardware preflight RUN-529 passed on the project `.venv` with Python 3.11.9, PyTorch 2.14.1+cu130, CUDA 13.0, and an actual finite BF16 tensor operation on RTX 5070. V5 source lineage and parent identity verified. Free disk was 17,301,045,248 bytes; reserve plus checkpoint estimate was 16,706,895,872 bytes, leaving 594,149,376 bytes above the 15 GiB reserve.
+- Other desktop/Jupyter GPU processes observed during preflight were left untouched. GPU memory showed 10,957 MiB free during the project tensor check.
+- Validation plan: compare development generation at steps 1,800 and 3,600 using complete pages and exact fact/reference checks first, validation cross entropy second. Required model gate is at least 76/80. If neither checkpoint passes, report the measured shortfall and do not claim the 95 percent target.
+- Final/held-out boundary: final records remain unopened. Only the 80 frozen V4 development requests may be used for selection. No final benchmark or human/browser review is implied.
+- Current state: Training has not started. RUN-579 passed all 21 training tests. RUN-580 and RUN-585 passed all 79 full-page tests, including a post-config-refresh check. The fresh-run guard permits source-bound initialization only as TRAIN-025 and requires TRAIN-026 to resume exact TRAIN-025 state. The first training update still waits on whole-branch review, commit/push, and a fresh reserve/GPU preflight.
+
+### Config lineage refresh before TRAIN-025
+
+- After RUN-533, code review restored the original optimizer-then-weight-load order for legacy initializers while preserving the V5 weight-load-before-fresh-optimizer path.
+- RUN-534 regenerated the config against the updated engine. RUN-535 verified the new config and retained the previous unused configuration under `logs/config-archive/`.
+- Historical config SHA-256: `60e90d27bd8aa0fcb6cc08e71bbdda98e7c6f6ca156fc737a2176052df5108ee`. RUN-549 verified its engine and lineage source pins, V5 manifest, and TRAIN-024 parent before the independent frozen-settings guard.
+- The prior config hashes `b6d25313cbfceeeb6471a7191b2bc13abd0ae99ae05fc3894cfb9e20d03cddb3` and `195c314855fddc340f0b1f7a32ce77dae0a436fa55aed0b23b0cbe8d545a8f64` were not used by training and are preserved under `logs/config-archive/`.
+- RUN-537 passed 17 training tests and RUN-538 passed 71 full-page tests before the final parent guard. RUN-545 passed six focused guard checks. RUN-550 rebuilt notebook 15 with 22 cells, without running training or evaluation cells. RUN-551 passed all 18 training tests and RUN-552 passed all 72 full-page tests after the parent guard. These results are historical; the latest suites are RUN-563 and RUN-564.
+
+### Independent frozen-settings guard follow-up
+
+- The next whole-branch review found that the selector compared candidate reports against the current config without independently pinning all approved experiment settings. A changed plan probability, batch size, learning rate, TF32 setting, or selection rule could otherwise pass through both trainer and selector.
+- Added an independent source-bound settings map for the full training config, parent identity, generation budgets, performance options, selection rule, and the RTX 5070 profile checksum. Both full lineage verification and direct `run_training` calls enforce it before dataset or checkpoint use. The selector shares full lineage verification.
+- RUN-555 reproduced five accepted setting mutations. RUN-556 showed that direct training tried to open the temporary parent before rejecting changed settings. RUN-557 passed 14 lineage tests and RUN-558 passed 7 engine tests after the fix.
+- RUN-561 archived config SHA-256 `60e90d27bd8aa0fcb6cc08e71bbdda98e7c6f6ca156fc737a2176052df5108ee` and created current config SHA-256 `6ef910cca039890916fb97217d2c4f934b11e3332c1376021c70797ad06e7842`. RUN-562 rebuilt notebook 15 with 22 cells.
+- RUN-563 passed all 19 training tests. RUN-564 passed all 73 full-page tests. A second whole-branch review is still required before commit and push. Training remains unstarted; the previous disk/GPU preflight is historical and must be repeated before TRAIN-025.
+
+- Whole-branch review found that removing the TRAIN-024 checkpoint fields could bypass fresh source-bound initialization. RUN-541 reproduced the gap in four lineage mutations and the engine guard. The tiny CPU fixture advanced four steps only inside its temporary test directory; no project training artifact was created. The regression fixture now stops at step zero. RUN-545 passed six focused checks after the lineage and engine guards were added.
+- AI-024 records the selected code change and rationale. Fresh training still has not started. RUN-547 through RUN-550 refreshed the config and notebook after the engine change.
+
 ### Diagnosis raw output development setelah v4
 
 - RUN-379 gagal karena diagnosis awal mencari `request.json` satu tingkat terlalu tinggi dari folder attempt. Kegagalan tercatat dan tidak dihapus. RUN-380 membaca struktur artifact yang benar, exit 0.
@@ -1130,3 +1167,19 @@ Kesimpulan: v4 memperbaiki kelulusan dari80 persen ke85 persen antara step1800 d
 - Diagnosis hanya membaca raw output TRAIN-024 dan request development yang telah digunakan untuk selection. Tidak ada data development yang ditambahkan ke train, tidak ada perubahan prompt, renderer, schema, validator, bobot, atau checkpoint. Final tetap tertutup.
 - RUN-379 dan RUN-380 serta output lengkapnya tercatat di `LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md` dan `logs/RUN-*.txt`. Analisis interaksi dicatat di [AI-023](interaksi_llm/AI-023_2026-10-14.md).
 - Rancangan lanjutan masih menunggu review. Bandingkan probe prompt copy eksplisit, curriculum copy identitas train-only, dan desain kontrak source-bound yang menghindari model menyalin ulang fakta identitas. Pertahankan gate 76/80, validator strict, split keluarga, serta final tertutup.
+
+### Source-bound resume lineage guard
+
+- Review branch menemukan resume TRAIN-026 belum diwajibkan berasal dari `checkpoints/TRAIN-025/last.pt` step 1800. Guard trainer sekarang membatasi run ID dan path, memverifikasi laporan TRAIN-025, konfigurasi beku, checksum checkpoint, dan state optimizer, scheduler, sampler, serta RNG sebelum membuat artifact run.
+- Selektor kini memeriksa `resume_parent` dan `resume_parent_sha256` TRAIN-026 terhadap laporan dan checkpoint TRAIN-025 yang benar.
+- RUN-565 mereproduksi celah sebelum perbaikan. RUN-566 lulus 21 regresi terarah. RUN-568 memperbarui config ke SHA-256 `0ee3332b0a3f19e42efe2ddb2eb6a1dbf69add7e84511323efeffa418bf78244`; RUN-569 membangun ulang notebook dengan 22 sel.
+- RUN-570 lulus seluruh 20 training tests dan RUN-571 lulus seluruh 79 full-page tests. Semua tes memakai fixture terisolasi. TRAIN-025 belum berjalan, review branch terbaru, commit/push, dan preflight GPU/storage baru masih harus selesai lebih dahulu. Final tetap tertutup.
+- RUN-572 mencatat audit punctuation yang masih menemukan dua status line di log CodeGraph lama. RUN-573 mengonfirmasi hasil bersih setelah kedua baris dinormalisasi.
+
+### Fresh-run TRAIN-026 guard
+
+- Review branch berikutnya menemukan bahwa pemanggil masih dapat memulai fresh run dengan ID TRAIN-026 dari TRAIN-024. Walaupun selector kemudian menolak lineage yang hilang, trainer seharusnya menolak konfigurasi itu sebelum membaca parent atau menyiapkan artifact.
+- Engine kini hanya menerima fresh source-bound run sebagai TRAIN-025. TRAIN-026 tetap hanya dapat berjalan dengan exact resume dari checkpoint TRAIN-025 step 1.800. Fixture warm-start memakai ID TRAIN-025 yang canonical.
+- RUN-576 mereproduksi celah. RUN-577 menemukan fixture warm-start ber-ID noncanonical; RUN-578 lulus 9 tes engine. RUN-579 lulus 21 tes training, RUN-580 lulus 79 tes full-page, dan RUN-585 mengulangi 79 tes setelah config dan notebook dibangun ulang.
+- RUN-583 memperbarui config beku ke SHA-256 `8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186`. RUN-584 membangun ulang notebook 15 dengan 22 sel tanpa menjalankan cell training atau evaluasi.
+- TRAIN-025 belum berjalan. Review branch baru, commit/push, dan preflight GPU/storage segar tetap wajib sebelum training. Final tetap tertutup.

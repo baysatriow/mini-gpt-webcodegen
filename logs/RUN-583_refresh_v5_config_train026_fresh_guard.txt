@@ -1,0 +1,23 @@
+RUN-583 refresh frozen V5 config after TRAIN-026 fresh-run guard
+Started: 2026-10-14 21:31:05 +07:00
+Command: .venv\\Scripts\\python.exe -m qa.configure_fullpage_v5_training
+Archived config: logs/config-archive/training-improvement-v5-before-train026-fresh-run-guard.json
+Previous config SHA-256: 0ee3332b0a3f19e42efe2ddb2eb6a1dbf69add7e84511323efeffa418bf78244
+Exit code: 0
+New config SHA-256: 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186
+
+{
+  "config": "configs/fullpage/training-improvement-v5.json",
+  "config_sha256": "8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186",
+  "initial_checkpoint": "checkpoints/FULLPAGE-V4/TRAIN-024-step3600.pt",
+  "initial_checkpoint_sha256": "913b1b00aec040a0d51c3607cf7261288e7fe089378850fc66c131400c0f319a",
+  "fullpage_manifest_sha256": "90c2dc71c4d91ff9a36a3fbd1bd36bd329c127b711c69556df4c0f58381d6dd2",
+  "plan_probability": 0.7,
+  "batch_size": 8,
+  "gradient_accumulation": 6,
+  "max_steps": 3600,
+  "output_budgets": {
+    "page_plan": 896,
+    "section_content": 1536
+  }
+}

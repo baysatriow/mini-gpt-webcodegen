@@ -1,0 +1,11 @@
+RUN-580 full-page suite after fresh-run guard
+Started: 2026-10-14 21:30:18 +07:00
+Command: .venv\\Scripts\\python.exe -m unittest discover -s tests/fullpage
+Exit code: 0
+Scope: Full-page contracts, lineage, selection, generation, evaluation, and notebook checks. No final-record parsing or GPU training.
+
+...............................................................................
+----------------------------------------------------------------------
+Ran 79 tests in 2.726s
+
+OK

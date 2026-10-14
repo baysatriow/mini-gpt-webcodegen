@@ -1,0 +1,19 @@
+Source directory: F:\Generative_AI\Vibe_Coding_Proyek_1\checkpoints\TRAIN-016
+Archive directory: E:\Generative_AI_Archive\Vibe_Coding_Proyek_1\checkpoints\TRAIN-016
+Original preserved at: E:\Generative_AI_Archive\Vibe_Coding_Proyek_1\checkpoints\TRAIN-016._verified-backup
+Link type: Junction; target: E:\Generative_AI_Archive\Vibe_Coding_Proyek_1\checkpoints\TRAIN-016
+best.pt | bytes=199 | sha256=f8c31ce667eed8ab6ff102ade34b585c8306607f407d1d34a475bc87d8f07eac
+config.json | bytes=9656 | sha256=fdd1fb76dc8f30e5872a900312dfc5fb804c8b5c2924da2da1cf98af7af56b5b
+last.pt | bytes=252 | sha256=9d45996d66928878eb1d7d6f6152cdd5b21a5d06f1162faecef747dd624622c4
+.versions\best-30325d6c5f7d4ff48e5fd6d334d46f38.json | bytes=8118 | sha256=56393c52dabf99fdc7a1a6ce8d049800875890d646dc516fbef410d27651dc3e
+.versions\best-30325d6c5f7d4ff48e5fd6d334d46f38.pt | bytes=175073113 | sha256=5386787f5a93b2be7911f3ef1c36a23a80e907f752d359ccf2ba900326b54f87
+.versions\best-d3a52625a2c341d8abb4428a269ea30f.json | bytes=8118 | sha256=d56660f2b8d8bbf9b3d014d0a9c0b0f378aaac96f0bba0c707d7a8ae72389104
+.versions\best-d3a52625a2c341d8abb4428a269ea30f.pt | bytes=175073113 | sha256=cfc929f6d270737c1f623036f4e1b71c295d399449b1f868378b6fdaebbda9d7
+.versions\last-318e9be1320c462b8da6dc78ab59e8b1.json | bytes=8118 | sha256=30cec22cb2f8dd72ceab68c0e2803cdf6a0d6bb95f45244ca2451302a910470b
+.versions\last-318e9be1320c462b8da6dc78ab59e8b1.pt | bytes=175073433 | sha256=670152e678a32a49a7b41bfa340dd789c9a2981d44db04c81b4b57259f7da6b0
+.versions\last-8de3d346133a4db48b6567644c988a56.json | bytes=8118 | sha256=5e086cf2d25393778e3be719ad73ba85e706a85d9602ac4042e32c1a3d954881
+.versions\last-8de3d346133a4db48b6567644c988a56.pt | bytes=175073433 | sha256=9542e4b738b5a73d0717326614f878ce6c518fec2787fd168bbb0768b694487b
+File count verified: 11; total bytes: 700335671
+F free bytes after move: 17301790720
+Required reserve plus checkpoint preflight bytes: 16940171264
+Decision: verified archive and active F-drive junction; training storage gate passed.
