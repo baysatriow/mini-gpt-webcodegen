@@ -1192,3 +1192,10 @@ Tujuan V5 adalah mengurangi kesalahan penyalinan identitas dengan meminta model 
 - Disk free space was 17,301,737,472 bytes. The frozen 15 GiB reserve plus estimated checkpoint allowance required 17,222,975,488 bytes, leaving 78,761,984 bytes of headroom. This passes the engine gate with a narrow margin, so disk space must be monitored during training.
 - The GPU snapshot reported 0 percent utilization, 3,367 / 12,227 MiB used, and 41 C. Other desktop processes were left untouched. Final and test data remain sealed.
 - Preflight passed. TRAIN-025 launch is the next action, using the frozen V5 config and the approved stop at step 1,800. No training update has occurred yet at this log entry.
+
+
+### TRAIN-025 training launch
+
+- RUN-590 records the approved fresh run from the verified TRAIN-024 parent, using frozen config SHA-256 `8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186` and stopping at step 1,800.
+- RUN-589 passed the fresh GPU and storage preflight. Its headroom was about 75 MiB, so monitor free storage during the run.
+- At this log entry, TRAIN-025 launch is pending. TRAIN-026 and all development/final evaluation remain closed.

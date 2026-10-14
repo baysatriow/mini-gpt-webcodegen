@@ -314,3 +314,8 @@ RUN-331 membandingkan satu target train role `process` dengan keluaran gagal TRA
 ## TRAIN-025 runtime gate
 
 RUN-589 passed the fresh RTX 5070, CUDA BF16, V5 lineage, TRAIN-024 parent, output-path, and storage checks. Storage headroom above the frozen reserve plus checkpoint estimate is 78,761,984 bytes, so it must be monitored. Commit `eb9d8d6` is pushed. TRAIN-025 launch at the approved 1,800-step boundary is next; training has not started at this entry. Final data remains closed.
+
+
+## TRAIN-025 status
+
+RUN-589 preflight passed and was pushed. RUN-590 records launch of fresh TRAIN-025 from the verified TRAIN-024 checkpoint with the frozen V5 config, stopping at step 1,800. Monitor storage due to about 75 MiB preflight headroom. TRAIN-026 and evaluations remain pending.

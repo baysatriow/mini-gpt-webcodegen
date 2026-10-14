@@ -1,0 +1,11 @@
+RUN-590 TRAIN-025 step-1800 training start
+Started: 2026-10-14 21:43:49 +0700
+Git commit: 9c36b44
+Command: .venv/Scripts/python.exe -u -m qa.train_fullpage --config configs/fullpage/training-improvement-v5.json --run-id TRAIN-025 --stop-after 1800
+Config SHA-256: 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186
+Warm-start parent: checkpoints/FULLPAGE-V4/TRAIN-024-step3600.pt
+Parent SHA-256: 913b1b00aec040a0d51c3607cf7261288e7fe089378850fc66c131400c0f319a
+Preflight: RUN-589 passed on NVIDIA GeForce RTX 5070, CUDA BF16, source lineage, parent lineage, output absence, and storage.
+Storage note: RUN-589 had 78,761,984 bytes of headroom above the frozen reserve and checkpoint estimate. Monitor free space throughout training.
+Scope: fresh TRAIN-025 only, stop at committed step 1800. Do not run TRAIN-026 or open development/final evaluation as part of this run.
+Status at record creation: launch pending.
