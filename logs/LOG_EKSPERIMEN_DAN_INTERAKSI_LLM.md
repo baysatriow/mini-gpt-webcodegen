@@ -6488,3 +6488,7 @@ TRAIN-026 step 3.600 mencapai 80/80 halaman accepted, model_gate=true, facts/lin
 ## Interaksi AI, penyebab selector mismatch
 
 Selector gagal pada pemeriksaan identitas report karena evaluasi awal diberi dataset-dir V5, sementara kontrak seleksi memang dikunci ke manifest dan path request V4. Hash byte request V4/V5 dan hash list 80 objek request sama; output generation serta checkpoint cocok. Tidak ada output selection yang tertulis. Saya akan memperbaiki pemetaan report dengan menjalankan evaluator pada request V4 memakai --resume dan destination report baru. Gambar/model tidak digenerate ulang; hanya metadata report yang diluruskan ke kontrak frozen.
+
+## Hasil eksperimen dan pemilihan kandidat
+
+Selector V5 lulus dengan 80/80 untuk TRAIN-025 step 1.800 dan TRAIN-026 step 3.600. Keduanya memenuhi required roles serta pemeriksaan facts/links/assets. Development CE masing-masing 0,004538349198307462 dan 0,005312048531726459. Karena kelengkapan setara, kandidat step 1.800 terpilih lewat CE yang lebih rendah. Report memastikan final tidak digunakan. Hasil ini adalah kelulusan generator/validator pada 80 request development; browser dan review visual manusia belum dilakukan.

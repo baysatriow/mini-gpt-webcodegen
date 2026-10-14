@@ -1261,3 +1261,12 @@ Selector berhenti karena report evaluasi menyebut path dan manifest V5, sedangka
 ### RUN-597 preflight: rebind reports to the frozen V4 request source
 
 Preflight confirms the V4 and V5 request bytes and canonical request objects are identical. All 160 candidate outputs already exist and their identities match checkpoint, request, count, and source hashes. RUN-597 will call the evaluator with the V4 dataset path and --resume, writing two new report files. Existing reports/output pages stay preserved. Then rerun the V5 selector with corrected reports. This changes report source metadata only and does not train or regenerate page artifacts.
+
+### V5 candidate selection completed
+
+| Step | Checkpoint | Complete pages | Required roles | Development CE | Model gate |
+| --- | --- | ---: | ---: | ---: | --- |
+| 1,800 | TRAIN-025 | 80/80 | 80/80 | 0.004538349198307462 | Passed |
+| 3,600 | TRAIN-026 | 80/80 | 80/80 | 0.005312048531726459 | Passed |
+
+The frozen selector status is passed and selected TRAIN-025 step 1,800. Both candidates tie at 80 complete pages, so lower ordinary development CE selects step 1,800. The exact facts/links/assets checks passed for both. inal_used=false. This proves the machine validator and development contract gate on these 80 requests. Browser and human visual review remain pending, so this is not yet a visual quality claim or final readiness claim. The first selector attempt is preserved in RUN-596; it failed only because the report was labeled with the V5 manifest/path while the selector correctly required the V4 frozen request identity. RUN-597 rebuilt report metadata by resuming the existing outputs and passed.

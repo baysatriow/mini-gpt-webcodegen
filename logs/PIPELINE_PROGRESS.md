@@ -354,3 +354,7 @@ Kandidat step 3.600 mencapai 80/80 halaman lengkap, model_gate=true, fakta/tauta
 ## Selector menolak identitas report V5, hasil tetap terjaga
 
 Percobaan selector pertama gagal dengan pemeriksaan kontrak yang benar: report dibuat dari data/processed/fullpage/v5, sedangkan selector meminta request file dan manifest V4 yang dibekukan. Byte file request V4/V5 sama, begitu juga 80 request canonical. Checkpoint, source, dan 160 hasil halaman cocok; tidak ada report selection yang dibuat. Perbaikan terbatas pada metadata: jalankan evaluator dengan dataset-dir V4 dan resume ke output yang sama, menggunakan report baru. Tidak ada perubahan model atau prompt.
+
+## V5 candidate selection: passed on development gate
+
+Kedua kandidat mendapat 80/80 halaman lengkap, 80/80 required roles, model_gate=true, dan facts/links/assets valid. CE development step 1.800 adalah 0,004538349198307462; step 3.600 adalah 0,005312048531726459. Karena jumlah halaman seri, selector memilih step 1.800 berdasarkan CE yang lebih rendah. Selector berstatus passed untuk gate development 76/80. Data final tidak digunakan. Browser review dan review visual manusia masih pending, jadi angka ini bukan klaim kualitas visual.

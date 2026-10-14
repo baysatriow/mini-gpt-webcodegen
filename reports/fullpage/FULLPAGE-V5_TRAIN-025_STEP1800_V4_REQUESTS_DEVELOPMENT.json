@@ -1,0 +1,472 @@
+{
+  "checkpoint_sha256": "c1a450149eb8f860cc42595bba283e0f9e915a436f38f967516bc5107bd1c446",
+  "requests_sha256": "e4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173",
+  "count": 80,
+  "source_sha256": {
+    "src/fullpage/generation.py": "0982e5fbbad840d681f6efba90b89251d7b75a731aeeca4266ad07ce76b60139",
+    "src/fullpage/compose.py": "64ef0dbc4d76b3a5fe2fab3ab897f17ca0631ddb21bde41b757ccc48c588a034",
+    "src/fullpage/contracts.py": "7ac7e76bbdfe512e32e12807271ea7eea5e30261c80ba2a42c15d80aff4ace84",
+    "src/fullpage/prompts.py": "c0f3255de7607e6438b36975eb96afbf48837922cd146f63093f0e72c0bdf263",
+    "src/fullpage/serialization.py": "0594b01d9baf7bab4777020c3aaef2d9a6b4ab41a4ba848200e4df96adf021f1",
+    "src/fullpage/source_bound_prompts.py": "3fa14c1da346625826c06762dd229d0517748be1e5f946ac9911c2b54660a7cb",
+    "src/fullpage/source_bound_serialization.py": "c28905429343ce1d6a94efe8eb64d8ee9e7207c360768cbbba3c6bf71ecd5708",
+    "src/fullpage/source_bound_contracts.py": "f9421d9b952acada1208e3b74286161d2b5fc3298ab8b7fbddc43f6ea88443f6",
+    "src/fullpage/source_bound_compose.py": "ec53f01cf1e1ca128e8b38eef3d48244fa24cd7cc3ced2682b273b8cb3d455d9",
+    "src/fullpage/source_bound_resolver.py": "2ad3b82d01393d0e7e6152a026de45fe2fc1a583c7197b82bd98f6fcb5cc7995",
+    "src/fullpage/lineage.py": "dbaa598f782dd246fb33c38688602d4173393fcf9a58d3a8c4d170f547ca49a0",
+    "src/fullpage/renderer.py": "860e307406bb28e638003369a303f1f50bbb89119666ea4879532fa1ad564183",
+    "src/fullpage/assets.py": "e47d6be9106d9aca8186532e7290586236aebd9eb3da0e47f3dea12dfdbd6f5c",
+    "configs/fullpage/source-bound-copy-v1.json": "edda679022803bd9ffba744d13a15d1a0259b3deeeace98fa5ad5645a6602b74",
+    "configs/fullpage/plan-source-bound-v1.schema.json": "0fd8a445f1d6aa222105b4fb67a10ba0fedf33aef45e2f71ddef5af3076363ef",
+    "configs/fullpage/section-source-bound-v1.schema.json": "f263402ffc54aa86d14d069f875446137e46bc4e151199bc7d7ff81d156fadfa"
+  },
+  "fullpage_contract_version": "source-bound-v1",
+  "complete": 80,
+  "total": 80,
+  "complete_rate": 1.0,
+  "required_roles": 80,
+  "required_roles_rate": 1.0,
+  "first_attempt_complete": 80,
+  "after_retry_complete": 80,
+  "accepted_facts_links_assets_valid": true,
+  "model_gate": true,
+  "groups": {
+    "landing_page:plain_css": {
+      "total": 20,
+      "complete": 20,
+      "first_attempt": 20
+    },
+    "landing_page:tailwind": {
+      "total": 20,
+      "complete": 20,
+      "first_attempt": 20
+    },
+    "company_profile:plain_css": {
+      "total": 20,
+      "complete": 20,
+      "first_attempt": 20
+    },
+    "company_profile:tailwind": {
+      "total": 20,
+      "complete": 20,
+      "first_attempt": 20
+    }
+  },
+  "failures": {},
+  "page_seconds": {
+    "total": 541.6466322003398,
+    "mean": 6.770582902504247
+  },
+  "generation_tokens": 129520,
+  "wall_seconds": 0.4470755000365898,
+  "output": "F:\\Generative_AI\\Vibe_Coding_Proyek_1\\outputs\\fullpage\\FULLPAGE-V5\\TRAIN-025-step1800",
+  "browser_status": "pending",
+  "human_review_status": "pending",
+  "results": [
+    {
+      "request_id": "page0240-plain_css",
+      "status": "accepted",
+      "seconds": 7.200057299982291
+    },
+    {
+      "request_id": "page0240-tailwind",
+      "status": "accepted",
+      "seconds": 8.586452200019266
+    },
+    {
+      "request_id": "page0241-plain_css",
+      "status": "accepted",
+      "seconds": 6.763354399998207
+    },
+    {
+      "request_id": "page0241-tailwind",
+      "status": "accepted",
+      "seconds": 7.021279800042976
+    },
+    {
+      "request_id": "page0242-plain_css",
+      "status": "accepted",
+      "seconds": 6.922534700017422
+    },
+    {
+      "request_id": "page0242-tailwind",
+      "status": "accepted",
+      "seconds": 7.023749599989969
+    },
+    {
+      "request_id": "page0243-plain_css",
+      "status": "accepted",
+      "seconds": 6.801905300002545
+    },
+    {
+      "request_id": "page0243-tailwind",
+      "status": "accepted",
+      "seconds": 6.95764399995096
+    },
+    {
+      "request_id": "page0244-plain_css",
+      "status": "accepted",
+      "seconds": 6.866906099952757
+    },
+    {
+      "request_id": "page0244-tailwind",
+      "status": "accepted",
+      "seconds": 6.828938500024378
+    },
+    {
+      "request_id": "page0245-plain_css",
+      "status": "accepted",
+      "seconds": 6.304980700020678
+    },
+    {
+      "request_id": "page0245-tailwind",
+      "status": "accepted",
+      "seconds": 6.767334099975415
+    },
+    {
+      "request_id": "page0246-plain_css",
+      "status": "accepted",
+      "seconds": 6.243373200006317
+    },
+    {
+      "request_id": "page0246-tailwind",
+      "status": "accepted",
+      "seconds": 6.83814759994857
+    },
+    {
+      "request_id": "page0247-plain_css",
+      "status": "accepted",
+      "seconds": 6.087281599990092
+    },
+    {
+      "request_id": "page0247-tailwind",
+      "status": "accepted",
+      "seconds": 6.754554999992251
+    },
+    {
+      "request_id": "page0248-plain_css",
+      "status": "accepted",
+      "seconds": 6.159811499994248
+    },
+    {
+      "request_id": "page0248-tailwind",
+      "status": "accepted",
+      "seconds": 7.064638400042895
+    },
+    {
+      "request_id": "page0249-plain_css",
+      "status": "accepted",
+      "seconds": 5.809984799998347
+    },
+    {
+      "request_id": "page0249-tailwind",
+      "status": "accepted",
+      "seconds": 6.841556900006253
+    },
+    {
+      "request_id": "page0250-plain_css",
+      "status": "accepted",
+      "seconds": 6.156967699993402
+    },
+    {
+      "request_id": "page0250-tailwind",
+      "status": "accepted",
+      "seconds": 6.99443489999976
+    },
+    {
+      "request_id": "page0251-plain_css",
+      "status": "accepted",
+      "seconds": 6.433327300008386
+    },
+    {
+      "request_id": "page0251-tailwind",
+      "status": "accepted",
+      "seconds": 7.071598999958951
+    },
+    {
+      "request_id": "page0252-plain_css",
+      "status": "accepted",
+      "seconds": 6.983897500031162
+    },
+    {
+      "request_id": "page0252-tailwind",
+      "status": "accepted",
+      "seconds": 7.093777499976568
+    },
+    {
+      "request_id": "page0253-plain_css",
+      "status": "accepted",
+      "seconds": 6.862216500041541
+    },
+    {
+      "request_id": "page0253-tailwind",
+      "status": "accepted",
+      "seconds": 7.083853800024372
+    },
+    {
+      "request_id": "page0254-plain_css",
+      "status": "accepted",
+      "seconds": 6.9993080999702215
+    },
+    {
+      "request_id": "page0254-tailwind",
+      "status": "accepted",
+      "seconds": 7.088880600000266
+    },
+    {
+      "request_id": "page0255-plain_css",
+      "status": "accepted",
+      "seconds": 6.789127500029281
+    },
+    {
+      "request_id": "page0255-tailwind",
+      "status": "accepted",
+      "seconds": 6.977520500018727
+    },
+    {
+      "request_id": "page0256-plain_css",
+      "status": "accepted",
+      "seconds": 6.921460599987768
+    },
+    {
+      "request_id": "page0256-tailwind",
+      "status": "accepted",
+      "seconds": 7.06600960000651
+    },
+    {
+      "request_id": "page0257-plain_css",
+      "status": "accepted",
+      "seconds": 6.769031800038647
+    },
+    {
+      "request_id": "page0257-tailwind",
+      "status": "accepted",
+      "seconds": 6.934654900047462
+    },
+    {
+      "request_id": "page0258-plain_css",
+      "status": "accepted",
+      "seconds": 6.6169849000289105
+    },
+    {
+      "request_id": "page0258-tailwind",
+      "status": "accepted",
+      "seconds": 6.765824600006454
+    },
+    {
+      "request_id": "page0259-plain_css",
+      "status": "accepted",
+      "seconds": 6.506179100018926
+    },
+    {
+      "request_id": "page0259-tailwind",
+      "status": "accepted",
+      "seconds": 6.507924000034109
+    },
+    {
+      "request_id": "page0260-plain_css",
+      "status": "accepted",
+      "seconds": 6.526817200006917
+    },
+    {
+      "request_id": "page0260-tailwind",
+      "status": "accepted",
+      "seconds": 6.762384400004521
+    },
+    {
+      "request_id": "page0261-plain_css",
+      "status": "accepted",
+      "seconds": 6.317348400014453
+    },
+    {
+      "request_id": "page0261-tailwind",
+      "status": "accepted",
+      "seconds": 6.574378399993293
+    },
+    {
+      "request_id": "page0262-plain_css",
+      "status": "accepted",
+      "seconds": 6.542892600002233
+    },
+    {
+      "request_id": "page0262-tailwind",
+      "status": "accepted",
+      "seconds": 6.778431900020223
+    },
+    {
+      "request_id": "page0263-plain_css",
+      "status": "accepted",
+      "seconds": 6.508657400030643
+    },
+    {
+      "request_id": "page0263-tailwind",
+      "status": "accepted",
+      "seconds": 6.704843400046229
+    },
+    {
+      "request_id": "page0264-plain_css",
+      "status": "accepted",
+      "seconds": 6.596602700010408
+    },
+    {
+      "request_id": "page0264-tailwind",
+      "status": "accepted",
+      "seconds": 7.206226499984041
+    },
+    {
+      "request_id": "page0265-plain_css",
+      "status": "accepted",
+      "seconds": 6.759393799991813
+    },
+    {
+      "request_id": "page0265-tailwind",
+      "status": "accepted",
+      "seconds": 6.968963099992834
+    },
+    {
+      "request_id": "page0266-plain_css",
+      "status": "accepted",
+      "seconds": 6.887407700007316
+    },
+    {
+      "request_id": "page0266-tailwind",
+      "status": "accepted",
+      "seconds": 7.165181800024584
+    },
+    {
+      "request_id": "page0267-plain_css",
+      "status": "accepted",
+      "seconds": 6.830877200001851
+    },
+    {
+      "request_id": "page0267-tailwind",
+      "status": "accepted",
+      "seconds": 7.053164099983405
+    },
+    {
+      "request_id": "page0268-plain_css",
+      "status": "accepted",
+      "seconds": 6.9291310999542475
+    },
+    {
+      "request_id": "page0268-tailwind",
+      "status": "accepted",
+      "seconds": 7.163006499991752
+    },
+    {
+      "request_id": "page0269-plain_css",
+      "status": "accepted",
+      "seconds": 6.821537400013767
+    },
+    {
+      "request_id": "page0269-tailwind",
+      "status": "accepted",
+      "seconds": 7.044516400026623
+    },
+    {
+      "request_id": "page0270-plain_css",
+      "status": "accepted",
+      "seconds": 6.95911990001332
+    },
+    {
+      "request_id": "page0270-tailwind",
+      "status": "accepted",
+      "seconds": 7.149130299978424
+    },
+    {
+      "request_id": "page0271-plain_css",
+      "status": "accepted",
+      "seconds": 5.986027900013141
+    },
+    {
+      "request_id": "page0271-tailwind",
+      "status": "accepted",
+      "seconds": 6.830336400016677
+    },
+    {
+      "request_id": "page0272-plain_css",
+      "status": "accepted",
+      "seconds": 6.190419999998994
+    },
+    {
+      "request_id": "page0272-tailwind",
+      "status": "accepted",
+      "seconds": 6.9539483999833465
+    },
+    {
+      "request_id": "page0273-plain_css",
+      "status": "accepted",
+      "seconds": 6.080105100001674
+    },
+    {
+      "request_id": "page0273-tailwind",
+      "status": "accepted",
+      "seconds": 6.764391299977433
+    },
+    {
+      "request_id": "page0274-plain_css",
+      "status": "accepted",
+      "seconds": 6.311747500032652
+    },
+    {
+      "request_id": "page0274-tailwind",
+      "status": "accepted",
+      "seconds": 6.765304800006561
+    },
+    {
+      "request_id": "page0275-plain_css",
+      "status": "accepted",
+      "seconds": 6.263922800018918
+    },
+    {
+      "request_id": "page0275-tailwind",
+      "status": "accepted",
+      "seconds": 6.661736700043548
+    },
+    {
+      "request_id": "page0276-plain_css",
+      "status": "accepted",
+      "seconds": 6.401335800008383
+    },
+    {
+      "request_id": "page0276-tailwind",
+      "status": "accepted",
+      "seconds": 6.736019899952225
+    },
+    {
+      "request_id": "page0277-plain_css",
+      "status": "accepted",
+      "seconds": 6.473481799999718
+    },
+    {
+      "request_id": "page0277-tailwind",
+      "status": "accepted",
+      "seconds": 6.690516100032255
+    },
+    {
+      "request_id": "page0278-plain_css",
+      "status": "accepted",
+      "seconds": 6.937131400045473
+    },
+    {
+      "request_id": "page0278-tailwind",
+      "status": "accepted",
+      "seconds": 7.096420699963346
+    },
+    {
+      "request_id": "page0279-plain_css",
+      "status": "accepted",
+      "seconds": 6.836682599969208
+    },
+    {
+      "request_id": "page0279-tailwind",
+      "status": "accepted",
+      "seconds": 6.9496247000060976
+    }
+  ],
+  "scope": "development",
+  "request_file": "data/processed/fullpage/v4/validation.requests.jsonl",
+  "request_file_sha256": "2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836",
+  "dataset_manifest_sha256": "aae2de8cfceb16110eb93b0668447fcda7237fdfabaa7e0c2a22ce2c3d41cf15",
+  "final_used": false
+}
