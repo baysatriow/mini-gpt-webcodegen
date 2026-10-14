@@ -115,3 +115,11 @@ TRAIN-025 step-1800 development result, checked: 2026-10-14 22:35:20 +07:00
 - Development report SHA-256: 08477f615d54f01e7c237f6852937664187903faea2306bf92fe3b596d4b65c0.
 - All 80 generated pages were accepted by the evaluator. Browser/human visual review is pending.
 - TRAIN-026 step 3,600 comparison remains in progress; do not choose the selected checkpoint until both reports pass selector validation.
+
+Before TRAIN-026 development evaluation, checked: 2026-10-14 22:35:41 +07:00
+- Free storage: 28,778,176,512 bytes (26.802 GiB).
+- Engine reserve plus checkpoint allowance: 17,222,975,488 bytes.
+- Headroom: 11,555,201,024 bytes.
+- TRAIN-026 output directory and development report destination are absent.
+- TRAIN-025 step-1800 report checkpoint identity was rechecked and matches its immutable snapshot.
+- Proceed with the exact same 80-request development set. No test/final data opened.

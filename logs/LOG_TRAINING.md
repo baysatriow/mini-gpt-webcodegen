@@ -1241,3 +1241,7 @@ Immutable weights-only snapshots passed the project snapshot utility. TRAIN-025 
 TRAIN-025 step 1,800 development result
 
 Kandidat step 1.800 mendapat 80/80 halaman lengkap, 0 kegagalan, model_gate=true, dan pemeriksaan facts/links/assets lulus. Report development memastikan inal_used=false dan checkpoint cocok dengan snapshot. Ini hasil validator/pipeline, belum review visual browser. Evaluasi step 3.600 masih diperlukan sebelum laporan seleksi final dibuat.
+
+TRAIN-026 step-3600 development preflight
+
+Sebelum evaluasi kandidat kedua, free space dicek ulang menjadi 26,802 GiB. Headroom terhadap reserve 15 GiB dan allowance checkpoint 1.116.848.128 byte adalah 11.555.201.024 byte. Folder output dan report TRAIN-026 masih kosong. Report TRAIN-025 cocok dengan snapshot. Evaluasi lanjut pada development set yang sama.
