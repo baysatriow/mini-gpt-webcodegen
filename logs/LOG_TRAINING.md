@@ -1207,3 +1207,10 @@ Tujuan V5 adalah mengurangi kesalahan penyalinan identitas dengan meminta model 
 - `checkpoints/TRAIN-025/last.pt` SHA-256 is `e7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339`. The report, config, checkpoint digest, and exact-resume state validation passed. No page development, test, or final evaluation ran.
 - RUN-591 verified the exact TRAIN-025 parent for TRAIN-026 but failed the frozen storage gate. Free space is 16,949,657,600 bytes, while reserve plus estimated checkpoint allowance is 17,222,975,488 bytes, a deficit of 273,317,888 bytes. TRAIN-026 was not launched and its output paths remain absent.
 - Resume stays pinned to TRAIN-025 step 1,800. Repeat the read-only storage gate after freeing at least 273,317,888 bytes, with additional headroom preferred. Final data remains closed.
+
+
+### TRAIN-026 fresh resume preflight rerun
+
+- RUN-591 recorded a failed storage gate at its earlier timestamp. After the user's note that F: remained safe, RUN-592 repeated the read-only check using the same disk usage call as the training engine.
+- The fresh measurement reported 23.091 GiB free against a 15 GiB reserve plus 1,116,848,128 bytes of checkpoint allowance, leaving 7,571,214,336 bytes of headroom. The storage gate now passes.
+- TRAIN-025 report, step-1800 exact-resume checkpoint, frozen config hash, source lineage, and absence of TRAIN-026 outputs all passed verification. RUN-026 resume launch is now ready from `checkpoints/TRAIN-025/last.pt`; no development, test, or final data was opened.

@@ -6458,3 +6458,8 @@ RUN-590 mencatat peluncuran fresh TRAIN-025 dari parent TRAIN-024 yang sudah div
 TRAIN-025 selesai normal pada step 1.800 dengan report `stopped_at_limit`. Loss validasi internal training 0,004538349198307462; ini bukan skor halaman development. Checkpoint `checkpoints/TRAIN-025/last.pt` SHA-256 `e7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339` cocok dengan report dan lolos validasi exact-resume. Evaluasi development, test, dan final tidak dijalankan.
 
 Preflight RUN-591 untuk resume TRAIN-026 mengonfirmasi parent dan report, tetapi gerbang storage gagal: ruang bebas 16.949.657.600 byte, kebutuhan reserve plus estimasi checkpoint 17.222.975.488 byte, defisit 273.317.888 byte. TRAIN-026 tidak dimulai dan tidak membuat artifact. Jalur resume tetap `checkpoints/TRAIN-025/last.pt`. Ulangi preflight baca-saja setelah membebaskan setidaknya 273.317.888 byte dan sediakan margin tambahan. Final tetap tertutup.
+
+
+## RUN-592, preflight ulang resume TRAIN-026
+
+Setelah pengguna mengingatkan bahwa drive F aman, preflight baca-saja diulang. Pengukuran `shutil.disk_usage(root).free` yang sama dengan engine melaporkan 23,091 GiB bebas. Kebutuhan frozen reserve 15 GiB ditambah allowance checkpoint 1.116.848.128 byte adalah 17.222.975.488 byte, dengan margin 7.571.214.336 byte. Source lineage, config, report TRAIN-025, exact checkpoint step 1.800, dan output path kosong lulus. RUN-591 mencatat snapshot sebelumnya dan tidak lagi menjadi status terbaru. GPU RTX 5070 berada pada 3 persen utilisasi, 3.350 dari 12.227 MiB terpakai, suhu 43 C. Training belum dimulai pada catatan ini. Final tetap tertutup.
