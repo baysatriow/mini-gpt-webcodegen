@@ -269,3 +269,8 @@ RUN-331 membandingkan satu target train role `process` dengan keluaran gagal TRA
 - Contact form fields and hero alternative text are static entries in the source-bound copy catalog. The composer reuses the existing semantic fact checks and fullpage schema validation before returning the complete page.
 - RUN-397 recorded the expected import failure before implementation. RUN-405 found that the first negative-test catalog fixture violated its own mapping contract before reaching the intended semantic check. The fixture was corrected without weakening validation; RUN-406 then passed all 15 focused tests across both genres and styles, including repeated service references, escaped HTML-sensitive text, missing references, and unprovided catalog items.
 - Task 2 code review and commit are pending. No dataset, checkpoint, training, UI, or backend change has been made in this task.
+
+### Task 2 commit and push
+
+- Task 2 is complete in commit 87182d0b1e43d7aca4ce8bf74d7db20e223511af, pushed to origin/feature/pipeline-data-model-training.
+- RUN-406 passed the final 15-test focused source-bound suite. RUN-412 records the commit and push. Task 3 generation dispatch is next.

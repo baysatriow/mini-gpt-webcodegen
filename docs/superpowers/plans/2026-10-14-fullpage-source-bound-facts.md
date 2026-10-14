@@ -176,7 +176,7 @@ Run: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_co
 
 Expected: every source-bound composition test passes; no test invokes a browser or exports partial output.
 
-- [ ] **Step 5: Commit and push the resolver unit.**
+- [x] **Step 5: Commit and push the resolver unit.** Completed in commit 87182d0 and pushed to the feature branch.
 
 ```powershell
 git add src/fullpage/source_bound_resolver.py src/fullpage/source_bound_compose.py tests/fullpage/test_source_bound_compose.py
