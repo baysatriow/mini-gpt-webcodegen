@@ -9,3 +9,16 @@ Preflight: RUN-589 passed on NVIDIA GeForce RTX 5070, CUDA BF16, source lineage,
 Storage note: RUN-589 had 78,761,984 bytes of headroom above the frozen reserve and checkpoint estimate. Monitor free space throughout training.
 Scope: fresh TRAIN-025 only, stop at committed step 1800. Do not run TRAIN-026 or open development/final evaluation as part of this run.
 Status at record creation: launch pending.
+
+
+Completion: 2026-10-14 21:55:05 +0700
+Process exit code: 0
+Status: stopped_at_limit at global_step 1800, last_committed_step 1800
+Final training-loop validation loss: 0.004538349198307462
+Step-1800 training loss: 0.007601676451784261
+Checkpoint: checkpoints/TRAIN-025/last.pt
+Checkpoint SHA-256: e7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339
+Report/checkpoint/config lineage validation: PASS
+Current free disk after run: 16,949,657,600 bytes
+GPU snapshot after run: 2 percent utilization, 3,141 / 12,227 MiB used, 41 C
+No development page evaluation, test evaluation, or final evaluation was run.

@@ -1,0 +1,23 @@
+RUN-591 TRAIN-026 exact-resume storage preflight
+Started: 2026-10-14 21:55:05 +0700
+Purpose: read-only gate check before resuming TRAIN-025 at step 1800 as TRAIN-026.
+Status: FAIL_STORAGE_GATE. No training command was started and no TRAIN-026 output artifact was created.
+
+Verified parent state:
+- TRAIN-025 report status: stopped_at_limit
+- Checkpoint: checkpoints/TRAIN-025/last.pt
+- Checkpoint run ID and step: TRAIN-025, 1800
+- Checkpoint SHA-256: e7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339
+- Config SHA-256: 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186
+- TRAIN-025 report, checkpoint, and frozen config lineage: PASS
+- TRAIN-026 output paths absent: PASS
+
+Storage gate:
+- Current free bytes: 16,949,657,600
+- Frozen reserve: 16,106,127,360
+- Estimated checkpoint allowance: 1,116,848,128
+- Required free bytes: 17,222,975,488
+- Deficit: 273,317,888 bytes
+- TRAIN-026 was not launched because the frozen reserve plus checkpoint estimate did not fit.
+
+No development, test, or final data was opened. Resume remains pinned to checkpoints/TRAIN-025/last.pt. Re-run this read-only storage gate after at least 273,317,888 bytes have been freed, preferably with additional headroom.

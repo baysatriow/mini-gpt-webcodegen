@@ -1199,3 +1199,11 @@ Tujuan V5 adalah mengurangi kesalahan penyalinan identitas dengan meminta model 
 - RUN-590 records the approved fresh run from the verified TRAIN-024 parent, using frozen config SHA-256 `8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186` and stopping at step 1,800.
 - RUN-589 passed the fresh GPU and storage preflight. Its headroom was about 75 MiB, so monitor free storage during the run.
 - At this log entry, TRAIN-025 launch is pending. TRAIN-026 and all development/final evaluation remain closed.
+
+
+### TRAIN-025 step-1800 result and TRAIN-026 storage gate
+
+- RUN-590 completed normally with status `stopped_at_limit`, `global_step=1800`, and `last_committed_step=1800`. The step-1800 training loss was 0.007601676451784261 and the training-loop validation loss was 0.004538349198307462. These are token losses, not the 80-page development score.
+- `checkpoints/TRAIN-025/last.pt` SHA-256 is `e7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339`. The report, config, checkpoint digest, and exact-resume state validation passed. No page development, test, or final evaluation ran.
+- RUN-591 verified the exact TRAIN-025 parent for TRAIN-026 but failed the frozen storage gate. Free space is 16,949,657,600 bytes, while reserve plus estimated checkpoint allowance is 17,222,975,488 bytes, a deficit of 273,317,888 bytes. TRAIN-026 was not launched and its output paths remain absent.
+- Resume stays pinned to TRAIN-025 step 1,800. Repeat the read-only storage gate after freeing at least 273,317,888 bytes, with additional headroom preferred. Final data remains closed.

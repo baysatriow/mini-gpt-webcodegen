@@ -319,3 +319,8 @@ RUN-589 passed the fresh RTX 5070, CUDA BF16, V5 lineage, TRAIN-024 parent, outp
 ## TRAIN-025 status
 
 RUN-589 preflight passed and was pushed. RUN-590 records launch of fresh TRAIN-025 from the verified TRAIN-024 checkpoint with the frozen V5 config, stopping at step 1,800. Monitor storage due to about 75 MiB preflight headroom. TRAIN-026 and evaluations remain pending.
+
+
+## TRAIN-025 complete, TRAIN-026 waiting on storage
+
+RUN-590 completed TRAIN-025 at step 1,800. Its report and `last.pt` passed exact-resume lineage validation. RUN-591 did not launch TRAIN-026 because free space is 273,317,888 bytes below the frozen reserve plus checkpoint estimate. Free at least this amount, preferably more, then rerun the read-only storage gate before resuming from `checkpoints/TRAIN-025/last.pt`. No development, test, or final evaluation was run. Final remains closed.
