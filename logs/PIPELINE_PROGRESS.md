@@ -228,3 +228,37 @@ RUN-331 membandingkan satu target train role `process` dengan keluaran gagal TRA
 - Inspeksi menunjukkan runner saat ini hanya menyediakan exact resume. Jalur weights-only initialization yang terpisah direncanakan supaya bobot TRAIN-024 dapat dipakai tanpa membawa optimizer, scheduler, sampler, atau RNG lama.
 - Keluarga data dan 80 prompt development tetap beku; test hanya diverifikasi dengan hash bytes dan tidak diparse. Target tetap 76/80 dan final benchmark tetap tertutup.
 - [Rencana implementasi](../docs/superpowers/plans/2026-10-14-fullpage-source-bound-facts.md), [spesifikasi](../docs/superpowers/specs/2026-10-14-fullpage-source-bound-facts-design.md), [interaksi AI-025](interaksi_llm/AI-025_2026-10-14.md). Belum ada implementasi, test, perubahan dataset/checkpoint, training, atau evaluasi.
+
+### Implementasi source-bound v1 dimulai
+
+- 14 Oktober 2026: mulai Task 1 pada branch `feature/pipeline-data-model-training` setelah persetujuan pengguna.
+- Kontrak test RED tercatat pada RUN-381 karena builder source-bound belum tersedia. Implementasi belum mulai saat pemeriksaan merah dijalankan.
+- Split dataset tetap tertutup dan training belum dimulai. Lihat AI-026 untuk keputusan implementasi yang sedang dijalankan.
+
+### Source-bound Task 1 verification
+
+- Implemented the two closed source-bound v1 schemas, catalog, PagePlan/SectionDraft validators, and an explicit schema preparation switch.
+- RUN-382 passed 6 focused tests. RUN-383 generated both new schemas. RUN-385 proved all four legacy schema hashes are unchanged. RUN-384 was a failed overbroad verification script and is preserved with its correction in RUN-385.
+- Training and dataset preparation have not started. Task 1 awaits final diff review and commit.
+
+### Source-bound Task 1 final checks
+
+- Catalog shape validation now returns an error for malformed mapping types instead of raising. SectionDraft asset references are checked against the trusted asset catalog as well as the request and PagePlan.
+- RUN-387 recorded the regression failures. RUN-388 passed all 7 focused tests. RUN-389 refreshed the CodeGraph index.
+- Task 1 can proceed to final diff review and commit. No dataset, checkpoint, or training artifacts were created.
+
+- RUN-391 completed the staged diff whitespace check with no errors after correcting the two command-output EOF blanks.
+
+### Explicit schema artifact loading
+
+- Source-bound validators now load the checked-in schema files through an explicit `source-bound-v1` mapping and verify the schemas before use.
+- RUN-392 recorded the expected RED import failure. RUN-393 passed all 8 focused tests, including generated-file equality.
+- Task 1 is ready for CodeGraph refresh and final diff review.
+
+### CodeGraph refresh before Task 1 review
+
+- RUN-394 completed with exit 0 after schema validators were changed to load the versioned artifacts directly.
+
+- RUN-395 confirmed the complete staged Task 1 diff has no whitespace errors.
+
+- RUN-396 normalized three decorative CodeGraph output separators to plain text and confirmed the staged diff remained whitespace-clean.

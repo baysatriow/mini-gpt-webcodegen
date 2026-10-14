@@ -1,0 +1,1 @@
+Normalized decorative output separators to ASCII text. Staged diff check passed with no whitespace errors.

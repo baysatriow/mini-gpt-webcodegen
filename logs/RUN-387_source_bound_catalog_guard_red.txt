@@ -1,0 +1,32 @@
+test_accepts_both_genres_and_styles (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_accepts_both_genres_and_styles) ... ok
+test_rejects_bad_role_type_variant_and_catalog_pairings (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_rejects_bad_role_type_variant_and_catalog_pairings) ... ok
+test_rejects_extra_top_level_and_nested_properties (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_rejects_extra_top_level_and_nested_properties) ... ok
+test_rejects_malformed_catalog_mappings_without_crashing (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_rejects_malformed_catalog_mappings_without_crashing) ... ERROR
+test_rejects_unknown_assets_and_duplicate_references (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_rejects_unknown_assets_and_duplicate_references) ... FAIL
+test_rejects_unknown_fact_copy_and_free_text (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_rejects_unknown_fact_copy_and_free_text) ... ok
+test_source_bound_schemas_are_closed_and_legacy_builder_is_unchanged (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_source_bound_schemas_are_closed_and_legacy_builder_is_unchanged) ... ok
+
+======================================================================
+ERROR: test_rejects_malformed_catalog_mappings_without_crashing (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_rejects_malformed_catalog_mappings_without_crashing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_contracts.py", line 62, in test_rejects_malformed_catalog_mappings_without_crashing
+    self.assertTrue(validate_page_plan(plan, request, bad_catalog))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\fullpage\source_bound_contracts.py", line 127, in validate_page_plan
+    copy_entry = copy_catalog_entries.get(copy_id)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'get'
+
+======================================================================
+FAIL: test_rejects_unknown_assets_and_duplicate_references (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_rejects_unknown_assets_and_duplicate_references)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_contracts.py", line 47, in test_rejects_unknown_assets_and_duplicate_references
+    self.assertTrue(validate_section_draft(hero_draft, hero, bad_request, catalog))
+AssertionError: [] is not true
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.010s
+
+FAILED (failures=1, errors=1)

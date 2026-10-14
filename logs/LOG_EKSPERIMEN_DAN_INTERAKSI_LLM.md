@@ -4534,3 +4534,151 @@ p=j(\"reports/training/FULLPAGE-GPU-005.json\"); print(\"GPU\",json.dumps([{k:r.
 - **Commit:** `51e8e5eda07046f23bf5cfd21434259ea669b773`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-380_train_024_development_failure_trace_rerun.txt`.
+
+### RUN-381
+
+- **Waktu:** 2026-10-14T18:04:08.9248026+07:00 sampai 2026-10-14T18:04:09.3435503+07:00.
+- **Tujuan:** Prove the new source-bound contract test fails before implementation.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_contracts -v`.
+- **Commit:** `246e2a2a96323e07b16a4c6856a2df441182022b`.
+- **Hasil:** exit 1 as expected. The test module could not import `build_source_bound_schemas`, which is not implemented yet.
+- **Output lengkap:** `logs/RUN-381_source_bound_contracts_red.txt`.
+
+### RUN-384
+
+- **Waktu:** Immediately after RUN-383; the precheck wrapper did not capture timestamps.
+- **Tujuan:** Verify legacy schema fixture hashes after adding the source-bound schemas.
+- **Command:** PowerShell hash comparison across all `configs/fullpage/*.schema.json` files.
+- **Commit:** `246e2a2a96323e07b16a4c6856a2df441182022b`.
+- **Hasil:** exit 1. The check incorrectly included the two expected new source-bound schema files, which were not in the baseline. No repository artifacts were changed by this failed check; a corrected legacy-only comparison follows as RUN-385.
+- **Output lengkap:** `logs/RUN-384_legacy_schema_hash_verification.txt`.
+
+### RUN-382
+
+- **Waktu:** 2026-10-14T18:07:28.4013599+07:00 sampai 2026-10-14T18:07:28.9320165+07:00.
+- **Tujuan:** Verify the source-bound PagePlan and SectionDraft validators after implementation.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_contracts -v`.
+- **Commit:** base `246e2a2a96323e07b16a4c6856a2df441182022b`; Task 1 code was uncommitted at run time.
+- **Hasil:** exit 0; 6 tests passed, including both genres and styles, unknown references, closed objects, compatibility checks, and unchanged legacy builder keys.
+- **Output lengkap:** `logs/RUN-382_source_bound_contracts_green.txt`.
+
+### RUN-383
+
+- **Waktu:** 2026-10-14T18:08:04.5766214+07:00 sampai 2026-10-14T18:08:04.8325377+07:00.
+- **Tujuan:** Generate the explicit source-bound v1 JSON schemas without invoking the legacy default writer.
+- **Command:** `.\.venv\Scripts\python.exe -m qa.prepare_fullpage_schemas --contract source-bound-v1`.
+- **Commit:** base `246e2a2a96323e07b16a4c6856a2df441182022b`; Task 1 code was uncommitted at run time.
+- **Hasil:** exit 0; generated `plan-source-bound-v1.schema.json` and `section-source-bound-v1.schema.json`; Draft 2020-12 schema checks passed.
+- **Output lengkap:** `logs/RUN-383_generate_source_bound_schemas.txt`.
+
+### RUN-385
+
+- **Waktu:** 2026-10-14T18:09:15.4674217+07:00 sampai 2026-10-14T18:09:15.5320926+07:00.
+- **Tujuan:** Compare the four original fullpage schema hashes with their pre-change values and verify the two new versioned artifacts exist.
+- **Command:** PowerShell SHA-256 comparison for `page.schema.json`, `plan.schema.json`, `request.schema.json`, and `section.schema.json`, plus a count of generated source-bound schemas.
+- **Commit:** base `246e2a2a96323e07b16a4c6856a2df441182022b`; Task 1 code was uncommitted at run time.
+- **Hasil:** exit 0; all four legacy schema hashes are unchanged and exactly two source-bound schemas exist.
+- **Output lengkap:** `logs/RUN-385_legacy_schema_hash_verification.txt`.
+
+
+
+
+
+### RUN-386
+
+- **Waktu:** 2026-10-14T18:11:28.8608721+07:00 sampai 2026-10-14T18:11:31.9153190+07:00.
+- **Tujuan:** Refresh the project CodeGraph index after adding the source-bound contract module.
+- **Command:** `codegraph sync .`.
+- **Commit:** base `246e2a2a96323e07b16a4c6856a2df441182022b`; Task 1 changes were uncommitted at run time.
+- **Hasil:** exit 0; synced 6 changed files and added 4/modified 2 index records.
+- **Output lengkap:** `logs/RUN-386_sync_codegraph_source_bound_v1.txt`.
+
+### RUN-387
+
+- **Waktu:** 2026-10-14T18:11:56.5180817+07:00 sampai 2026-10-14T18:11:56.8287599+07:00.
+- **Tujuan:** Add failing regression cases for malformed catalog mappings and section-level unknown asset references.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_contracts -v`.
+- **Commit:** base `246e2a2a96323e07b16a4c6856a2df441182022b`; regression tests and implementation were uncommitted at run time.
+- **Hasil:** exit 1 as expected. It exposed an AttributeError when a catalog map had the wrong container type and showed that an unrecognized asset could pass section validation if request and plan were both altered.
+- **Output lengkap:** `logs/RUN-387_source_bound_catalog_guard_red.txt`.
+
+### RUN-388
+
+- **Waktu:** 2026-10-14T18:12:09.4496650+07:00 sampai 2026-10-14T18:12:09.7653839+07:00.
+- **Tujuan:** Verify catalog-shape and asset-membership regression fixes.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_contracts -v`.
+- **Commit:** base `246e2a2a96323e07b16a4c6856a2df441182022b`; Task 1 code was uncommitted at run time.
+- **Hasil:** exit 0; all 7 focused tests passed.
+- **Output lengkap:** `logs/RUN-388_source_bound_catalog_guard_green.txt`.
+
+### RUN-389
+
+- **Waktu:** 2026-10-14T18:12:18.4634723+07:00 sampai 2026-10-14T18:12:19.5377666+07:00.
+- **Tujuan:** Refresh CodeGraph after the source-bound catalog and asset guards changed.
+- **Command:** `codegraph sync .`.
+- **Commit:** base `246e2a2a96323e07b16a4c6856a2df441182022b`; Task 1 changes were uncommitted at run time.
+- **Hasil:** exit 0; synced the 2 modified source/test files.
+- **Output lengkap:** `logs/RUN-389_sync_codegraph_source_bound_guards.txt`.
+
+### RUN-390
+
+- **Waktu:** 2026-10-14T18:12:59.4835990+07:00 sampai 2026-10-14T18:12:59.5394440+07:00.
+- **Tujuan:** Check whitespace in the staged Task 1 diff before commit.
+- **Command:** `git diff --cached --check`.
+- **Commit:** base `246e2a2a96323e07b16a4c6856a2df441182022b`; Task 1 changes were staged but uncommitted.
+- **Hasil:** exit 2. Git reported an extra blank line at EOF in the two CodeGraph output snapshots RUN-386 and RUN-389. No source-code whitespace issue was reported.
+- **Output lengkap:** `logs/RUN-390_staged_diff_check.txt`.
+
+### RUN-391
+
+- **Waktu:** 2026-10-14T18:13:23.1734345+07:00 sampai 2026-10-14T18:13:23.2282060+07:00.
+- **Tujuan:** Recheck staged Task 1 whitespace after removing the extra EOF blank lines from two command-output snapshots.
+- **Command:** `git diff --cached --check`.
+- **Commit:** base `246e2a2a96323e07b16a4c6856a2df441182022b`; Task 1 changes remain staged and uncommitted.
+- **Hasil:** exit 0; no whitespace errors.
+- **Output lengkap:** `logs/RUN-391_staged_diff_check_rerun.txt`.
+
+### RUN-392
+
+- **Waktu:** 2026-10-14T18:14:19.1786234+07:00 sampai 2026-10-14T18:14:19.4879813+07:00.
+- **Tujuan:** Add a regression test requiring explicit contract-version schema-file mapping.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_contract_version_loads_its_generated_schema_files -v`.
+- **Commit:** base `246e2a2a96323e07b16a4c6856a2df441182022b`; test was uncommitted at run time.
+- **Hasil:** exit 1 as expected. The test could not import `SCHEMA_FILES`, proving the validator had no explicit artifact mapping.
+- **Output lengkap:** `logs/RUN-392_explicit_schema_loading_red.txt`.
+
+### RUN-393
+
+- **Waktu:** 2026-10-14T18:14:33.1134344+07:00 sampai 2026-10-14T18:14:33.4323949+07:00.
+- **Tujuan:** Verify source-bound validators load the generated schema files by explicit contract version.
+- **Command:** `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_contracts -v`.
+- **Commit:** base `246e2a2a96323e07b16a4c6856a2df441182022b`; Task 1 code was uncommitted at run time.
+- **Hasil:** exit 0; all 8 focused tests passed, including exact agreement between persisted schemas and the builder.
+- **Output lengkap:** `logs/RUN-393_explicit_schema_loading_green.txt`.
+
+### RUN-394
+
+- **Waktu:** 2026-10-14T18:14:52.7579523+07:00 sampai 2026-10-14T18:14:54.9926999+07:00.
+- **Tujuan:** Refresh CodeGraph after adding explicit contract-version schema artifact loading.
+- **Command:** `codegraph sync .`.
+- **Commit:** base `246e2a2a96323e07b16a4c6856a2df441182022b`; Task 1 changes were uncommitted at run time.
+- **Hasil:** exit 0; synced the 2 changed Python files.
+- **Output lengkap:** `logs/RUN-394_sync_codegraph_explicit_schema_loading.txt`.
+
+### RUN-395
+
+- **Waktu:** 2026-10-14T18:15:28.2033696+07:00 sampai 2026-10-14T18:15:28.2677236+07:00.
+- **Tujuan:** Check all staged Task 1 source, schema, test, and log changes for whitespace errors.
+- **Command:** `git diff --cached --check`.
+- **Commit:** base `246e2a2a96323e07b16a4c6856a2df441182022b`; changes staged and uncommitted.
+- **Hasil:** exit 0; no whitespace errors.
+- **Output lengkap:** `logs/RUN-395_staged_diff_check.txt`.
+
+### RUN-396
+
+- **Waktu:** 2026-10-14T18:16:27.2683968+07:00 sampai 2026-10-14T18:16:27.3251932+07:00.
+- **Tujuan:** Normalize only the decorative CodeGraph separator in three stored output snapshots to plain ASCII text per the user's formatting preference, then check staged whitespace.
+- **Command:** Replace the decorative separator in RUN-386/RUN-389/RUN-394 output files, then `git diff --cached --check`.
+- **Commit:** base `246e2a2a96323e07b16a4c6856a2df441182022b`; Task 1 changes remain uncommitted.
+- **Hasil:** exit 0; substantive CodeGraph output lines were retained and the staged diff has no whitespace errors.
+- **Output lengkap:** `logs/RUN-396_output_normalization_and_diff_check.txt`.

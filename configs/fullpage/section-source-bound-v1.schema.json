@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mini-gpt-webcodegen.local/schemas/section-source-bound-v1.schema.json",
+  "title": "Source-bound SectionDraft v1",
+  "type": "object",
+  "required": [
+    "contract_version",
+    "section_id",
+    "fact_slots",
+    "asset_slots"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "const": "source-bound-v1"
+    },
+    "section_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "fact_slots": {
+      "type": "array",
+      "maxItems": 32,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": [
+          "slot_id",
+          "fact_id"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "slot_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "fact_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          }
+        }
+      }
+    },
+    "asset_slots": {
+      "type": "array",
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": [
+          "slot_id",
+          "asset_id"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "slot_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "asset_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          }
+        }
+      }
+    }
+  }
+}

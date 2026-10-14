@@ -1,0 +1,2 @@
+plan-source-bound-v1: configs\fullpage\plan-source-bound-v1.schema.json
+section-source-bound-v1: configs\fullpage\section-source-bound-v1.schema.json

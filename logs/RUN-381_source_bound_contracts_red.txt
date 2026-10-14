@@ -1,0 +1,19 @@
+test_source_bound_contracts (unittest.loader._FailedTest.test_source_bound_contracts) ... ERROR
+
+======================================================================
+ERROR: test_source_bound_contracts (unittest.loader._FailedTest.test_source_bound_contracts)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_source_bound_contracts
+Traceback (most recent call last):
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 162, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_contracts.py", line 4, in <module>
+    from src.fullpage.schema_definitions import build_schemas, build_source_bound_schemas
+ImportError: cannot import name 'build_source_bound_schemas' from 'src.fullpage.schema_definitions' (F:\Generative_AI\Vibe_Coding_Proyek_1\src\fullpage\schema_definitions.py)
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (errors=1)

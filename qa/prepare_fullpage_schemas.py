@@ -3,13 +3,15 @@ import argparse
 import json
 from pathlib import Path
 from jsonschema import Draft202012Validator
-from src.fullpage.schema_definitions import build_schemas, ROOT
+from src.fullpage.schema_definitions import build_schemas, build_source_bound_schemas, ROOT
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.parse_args()
-    for name, schema in build_schemas().items():
+    parser.add_argument('--contract', choices=('legacy', 'source-bound-v1'), default='legacy')
+    args = parser.parse_args()
+    schemas = build_source_bound_schemas() if args.contract == 'source-bound-v1' else build_schemas()
+    for name, schema in schemas.items():
         Draft202012Validator.check_schema(schema)
         path = ROOT / f'configs/fullpage/{name}.schema.json'
         path.parent.mkdir(parents=True, exist_ok=True)

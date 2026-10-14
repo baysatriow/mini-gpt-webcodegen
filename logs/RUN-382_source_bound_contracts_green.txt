@@ -1,0 +1,11 @@
+test_accepts_both_genres_and_styles (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_accepts_both_genres_and_styles) ... ok
+test_rejects_bad_role_type_variant_and_catalog_pairings (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_rejects_bad_role_type_variant_and_catalog_pairings) ... ok
+test_rejects_extra_top_level_and_nested_properties (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_rejects_extra_top_level_and_nested_properties) ... ok
+test_rejects_unknown_assets_and_duplicate_references (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_rejects_unknown_assets_and_duplicate_references) ... ok
+test_rejects_unknown_fact_copy_and_free_text (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_rejects_unknown_fact_copy_and_free_text) ... ok
+test_source_bound_schemas_are_closed_and_legacy_builder_is_unchanged (tests.fullpage.test_source_bound_contracts.SourceBoundContractTests.test_source_bound_schemas_are_closed_and_legacy_builder_is_unchanged) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.017s
+
+OK

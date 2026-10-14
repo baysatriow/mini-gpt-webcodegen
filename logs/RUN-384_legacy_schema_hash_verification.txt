@@ -1,0 +1,2 @@
+RUN-384 verification attempt failed due to a check-script scope error.
+The comparison included every current *.schema.json file, including the two newly generated source-bound schemas absent from the baseline. No schema was modified or deleted by the check.

@@ -76,3 +76,76 @@ def build_schemas():
     return {name: {**metadata, '$id': 'urn:mini-gpt-webcodegen:fullpage:' + name + ':1',
                    **value, '$defs': copy.deepcopy(defs)} for name, value in
             {'request': request, 'plan': plan, 'section': section, 'page': page}.items()}
+
+
+def build_source_bound_schemas():
+    """Return only the closed source-bound v1 model wire schemas."""
+    roles = (
+        "navigation", "hero", "about", "services", "benefits", "values",
+        "process", "faq", "portfolio", "contact", "footer",
+    )
+    components = (
+        "navbar", "hero", "text_section", "feature_grid", "contact_form", "footer",
+    )
+    variants = ("inline", "split", "centered", "prose", "cards", "numbered", "panel", "columns")
+    identifier = {"type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[a-z][a-z0-9_-]*$"}
+    reference = {"type": "string", "minLength": 1, "maxLength": 80}
+    fact_ids = {"type": "array", "items": reference, "uniqueItems": True, "maxItems": 32}
+    asset_ids = {"type": "array", "items": reference, "uniqueItems": True, "maxItems": 8}
+    section_descriptor = {
+        "type": "object",
+        "required": ["id", "type", "role", "variant", "copy_id", "fact_ids", "asset_ids"],
+        "additionalProperties": False,
+        "properties": {
+            "id": identifier,
+            "type": {"type": "string", "enum": list(components)},
+            "role": {"type": "string", "enum": list(roles)},
+            "variant": {"type": "string", "enum": list(variants)},
+            "copy_id": reference,
+            "fact_ids": fact_ids,
+            "asset_ids": asset_ids,
+        },
+    }
+    fact_slot = {
+        "type": "object",
+        "required": ["slot_id", "fact_id"],
+        "additionalProperties": False,
+        "properties": {"slot_id": reference, "fact_id": reference},
+    }
+    asset_slot = {
+        "type": "object",
+        "required": ["slot_id", "asset_id"],
+        "additionalProperties": False,
+        "properties": {"slot_id": reference, "asset_id": reference},
+    }
+    plan_schema = {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://mini-gpt-webcodegen.local/schemas/plan-source-bound-v1.schema.json",
+        "title": "Source-bound PagePlan v1",
+        "type": "object",
+        "required": ["contract_version", "theme_id", "sections"],
+        "additionalProperties": False,
+        "properties": {
+            "contract_version": {"const": "source-bound-v1"},
+            "theme_id": {"type": "string", "enum": ["studio-blue", "earth-warm", "editorial-ink", "soft-lilac"]},
+            "sections": {"type": "array", "minItems": 1, "maxItems": 12, "items": section_descriptor},
+        },
+    }
+    section_schema = {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://mini-gpt-webcodegen.local/schemas/section-source-bound-v1.schema.json",
+        "title": "Source-bound SectionDraft v1",
+        "type": "object",
+        "required": ["contract_version", "section_id", "fact_slots", "asset_slots"],
+        "additionalProperties": False,
+        "properties": {
+            "contract_version": {"const": "source-bound-v1"},
+            "section_id": identifier,
+            "fact_slots": {"type": "array", "maxItems": 32, "uniqueItems": True, "items": fact_slot},
+            "asset_slots": {"type": "array", "maxItems": 8, "uniqueItems": True, "items": asset_slot},
+        },
+    }
+    return {
+        "plan-source-bound-v1": plan_schema,
+        "section-source-bound-v1": section_schema,
+    }

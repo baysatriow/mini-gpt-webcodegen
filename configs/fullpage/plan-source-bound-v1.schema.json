@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mini-gpt-webcodegen.local/schemas/plan-source-bound-v1.schema.json",
+  "title": "Source-bound PagePlan v1",
+  "type": "object",
+  "required": [
+    "contract_version",
+    "theme_id",
+    "sections"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "const": "source-bound-v1"
+    },
+    "theme_id": {
+      "type": "string",
+      "enum": [
+        "studio-blue",
+        "earth-warm",
+        "editorial-ink",
+        "soft-lilac"
+      ]
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "role",
+          "variant",
+          "copy_id",
+          "fact_ids",
+          "asset_ids"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9_-]*$"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "navbar",
+              "hero",
+              "text_section",
+              "feature_grid",
+              "contact_form",
+              "footer"
+            ]
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "navigation",
+              "hero",
+              "about",
+              "services",
+              "benefits",
+              "values",
+              "process",
+              "faq",
+              "portfolio",
+              "contact",
+              "footer"
+            ]
+          },
+          "variant": {
+            "type": "string",
+            "enum": [
+              "inline",
+              "split",
+              "centered",
+              "prose",
+              "cards",
+              "numbered",
+              "panel",
+              "columns"
+            ]
+          },
+          "copy_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "fact_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            },
+            "uniqueItems": true,
+            "maxItems": 32
+          },
+          "asset_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            },
+            "uniqueItems": true,
+            "maxItems": 8
+          }
+        }
+      }
+    }
+  }
+}

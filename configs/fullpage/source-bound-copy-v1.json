@@ -1,0 +1,269 @@
+{
+  "contract_version": "source-bound-v1",
+  "themes": {
+    "studio-blue": {
+      "primary": "#2563eb",
+      "background": "#ffffff",
+      "text": "#111827",
+      "font": "sans"
+    },
+    "earth-warm": {
+      "primary": "#9a5b37",
+      "background": "#fbf7f0",
+      "text": "#30271f",
+      "font": "serif"
+    },
+    "editorial-ink": {
+      "primary": "#334155",
+      "background": "#f8fafc",
+      "text": "#0f172a",
+      "font": "serif"
+    },
+    "soft-lilac": {
+      "primary": "#7553a6",
+      "background": "#fbf9ff",
+      "text": "#251d33",
+      "font": "sans"
+    }
+  },
+  "assets": [
+    "company-shapes",
+    "studio-shapes"
+  ],
+  "required_roles": {
+    "landing_page": [
+      "navigation",
+      "hero",
+      "about",
+      "services",
+      "benefits",
+      "process",
+      "faq",
+      "contact",
+      "footer"
+    ],
+    "company_profile": [
+      "navigation",
+      "hero",
+      "about",
+      "services",
+      "values",
+      "process",
+      "portfolio",
+      "contact",
+      "footer"
+    ]
+  },
+  "roles": {
+    "navigation": {
+      "component": "navbar",
+      "variants": ["inline"],
+      "copy_ids": ["copy-navigation-primary"],
+      "fact_kinds": ["name"],
+      "required_fact_kinds": ["name"],
+      "slot_ids": ["brand"],
+      "asset_slot_ids": [],
+      "max_assets": 0
+    },
+    "hero": {
+      "component": "hero",
+      "variants": ["split", "centered"],
+      "copy_ids": ["copy-hero-standard"],
+      "fact_kinds": ["name"],
+      "required_fact_kinds": ["name"],
+      "slot_ids": ["hero_name"],
+      "asset_slot_ids": ["hero_art"],
+      "max_assets": 1
+    },
+    "about": {
+      "component": "text_section",
+      "variants": ["prose"],
+      "copy_ids": ["copy-about-standard"],
+      "fact_kinds": ["description"],
+      "required_fact_kinds": ["description"],
+      "slot_ids": ["about_description"],
+      "asset_slot_ids": [],
+      "max_assets": 0
+    },
+    "services": {
+      "component": "feature_grid",
+      "variants": ["cards"],
+      "copy_ids": ["copy-services-standard"],
+      "fact_kinds": ["service"],
+      "required_fact_kinds": ["service"],
+      "slot_ids": ["service_item"],
+      "asset_slot_ids": [],
+      "max_assets": 0
+    },
+    "benefits": {
+      "component": "feature_grid",
+      "variants": ["cards"],
+      "copy_ids": ["copy-benefits-standard"],
+      "fact_kinds": ["value"],
+      "required_fact_kinds": ["value"],
+      "slot_ids": ["benefit_value"],
+      "asset_slot_ids": [],
+      "max_assets": 0
+    },
+    "values": {
+      "component": "text_section",
+      "variants": ["prose"],
+      "copy_ids": ["copy-values-standard"],
+      "fact_kinds": ["value"],
+      "required_fact_kinds": ["value"],
+      "slot_ids": ["values_statement"],
+      "asset_slot_ids": [],
+      "max_assets": 0
+    },
+    "process": {
+      "component": "feature_grid",
+      "variants": ["numbered"],
+      "copy_ids": ["copy-process-standard"],
+      "fact_kinds": ["process"],
+      "required_fact_kinds": ["process"],
+      "slot_ids": ["process_item"],
+      "asset_slot_ids": [],
+      "max_assets": 0
+    },
+    "faq": {
+      "component": "feature_grid",
+      "variants": ["cards"],
+      "copy_ids": ["copy-faq-standard"],
+      "fact_kinds": ["faq"],
+      "required_fact_kinds": ["faq"],
+      "slot_ids": ["faq_item"],
+      "asset_slot_ids": [],
+      "max_assets": 0
+    },
+    "portfolio": {
+      "component": "feature_grid",
+      "variants": ["cards"],
+      "copy_ids": ["copy-portfolio-standard"],
+      "fact_kinds": ["project"],
+      "required_fact_kinds": ["project"],
+      "slot_ids": ["portfolio_item"],
+      "asset_slot_ids": [],
+      "max_assets": 0
+    },
+    "contact": {
+      "component": "contact_form",
+      "variants": ["panel"],
+      "copy_ids": ["copy-contact-local"],
+      "fact_kinds": [],
+      "required_fact_kinds": [],
+      "slot_ids": [],
+      "asset_slot_ids": [],
+      "max_assets": 0
+    },
+    "footer": {
+      "component": "footer",
+      "variants": ["columns"],
+      "copy_ids": ["copy-footer-standard"],
+      "fact_kinds": ["name"],
+      "required_fact_kinds": ["name"],
+      "slot_ids": ["footer_name"],
+      "asset_slot_ids": [],
+      "max_assets": 0
+    }
+  },
+  "copies": {
+    "copy-navigation-primary": {
+      "role": "navigation",
+      "component": "navbar",
+      "page_properties": ["links"],
+      "properties": {
+        "links": [
+          {"label": "Tentang", "href": "#about"},
+          {"label": "Layanan", "href": "#services"},
+          {"label": "Kontak", "href": "#contact"}
+        ]
+      }
+    },
+    "copy-hero-standard": {
+      "role": "hero",
+      "component": "hero",
+      "page_properties": ["text", "button"],
+      "properties": {
+        "text": "Kenali pilihan layanan dan mulai berdiskusi.",
+        "button": {"label": "Diskusikan kebutuhan", "href": "#contact"}
+      }
+    },
+    "copy-about-standard": {
+      "role": "about",
+      "component": "text_section",
+      "page_properties": ["heading"],
+      "properties": {"heading": "Tentang usaha"}
+    },
+    "copy-services-standard": {
+      "role": "services",
+      "component": "feature_grid",
+      "page_properties": ["heading"],
+      "properties": {"heading": "Layanan utama"}
+    },
+    "copy-benefits-standard": {
+      "role": "benefits",
+      "component": "feature_grid",
+      "page_properties": ["heading"],
+      "properties": {"heading": "Alasan untuk berdiskusi"}
+    },
+    "copy-values-standard": {
+      "role": "values",
+      "component": "text_section",
+      "page_properties": ["heading"],
+      "properties": {"heading": "Nilai usaha"}
+    },
+    "copy-process-standard": {
+      "role": "process",
+      "component": "feature_grid",
+      "page_properties": ["heading"],
+      "properties": {"heading": "Cara memulai"}
+    },
+    "copy-faq-standard": {
+      "role": "faq",
+      "component": "feature_grid",
+      "page_properties": ["heading"],
+      "properties": {"heading": "Pertanyaan umum"}
+    },
+    "copy-portfolio-standard": {
+      "role": "portfolio",
+      "component": "feature_grid",
+      "page_properties": ["heading"],
+      "properties": {"heading": "Ilustrasi proyek fiktif"}
+    },
+    "copy-contact-local": {
+      "role": "contact",
+      "component": "contact_form",
+      "page_properties": ["heading", "submit_label"],
+      "properties": {
+        "heading": "Diskusikan kebutuhan Anda",
+        "submit_label": "Kirim"
+      }
+    },
+    "copy-footer-standard": {
+      "role": "footer",
+      "component": "footer",
+      "page_properties": ["links"],
+      "properties": {
+        "links": [
+          {"label": "Tentang", "href": "#about"},
+          {"label": "Kontak", "href": "#contact"}
+        ]
+      }
+    }
+  },
+  "slots": {
+    "brand": {"role": "navigation", "component": "navbar", "property": "brand", "fact_kinds": ["name"], "value_mode": "scalar"},
+    "hero_name": {"role": "hero", "component": "hero", "property": "heading", "fact_kinds": ["name"], "value_mode": "scalar"},
+    "about_description": {"role": "about", "component": "text_section", "property": "text", "fact_kinds": ["description"], "value_mode": "scalar"},
+    "service_item": {"role": "services", "component": "feature_grid", "property": "items", "fact_kinds": ["service"], "value_mode": "record", "multiple": true},
+    "benefit_value": {"role": "benefits", "component": "feature_grid", "property": "items", "fact_kinds": ["value"], "value_mode": "text", "item_heading": "Informasi yang jelas", "multiple": true},
+    "values_statement": {"role": "values", "component": "text_section", "property": "text", "fact_kinds": ["value"], "value_mode": "scalar"},
+    "process_item": {"role": "process", "component": "feature_grid", "property": "items", "fact_kinds": ["process"], "value_mode": "record", "multiple": true},
+    "faq_item": {"role": "faq", "component": "feature_grid", "property": "items", "fact_kinds": ["faq"], "value_mode": "record", "multiple": true},
+    "portfolio_item": {"role": "portfolio", "component": "feature_grid", "property": "items", "fact_kinds": ["project"], "value_mode": "record", "multiple": true},
+    "footer_name": {"role": "footer", "component": "footer", "property": "text", "fact_kinds": ["name"], "value_mode": "scalar"}
+  },
+  "asset_slots": {
+    "hero_art": {"role": "hero", "component": "hero", "property": "media.asset_id"}
+  }
+}
