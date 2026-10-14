@@ -1,0 +1,6 @@
+RUN-488
+Started: 2026-10-14 20:00:00 +07:00
+Command: Full source-bound token preflight with targeted augmentation chosen only when no base primary exists
+Exit code: 1
+
+This run follows the correction in RUN-487. It reads only V4 train and validation requests/rows. For 960 targeted identity variants, a matching targeted row is selected only if no normal primary plan exists for that exact request. Final/test files are hash-verified as bytes only. Complete output is captured in this file.

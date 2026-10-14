@@ -1,0 +1,25 @@
+RUN-464
+Started: 2026-10-14 19:04:25 +07:00
+Command: project .venv Python count train request IDs and task example IDs for a single train family and globally
+Exit code: 0
+
+family0000 records 14 unique request_ids 14
+dict_keys(['family_id', 'request', 'split']) train family0000 page0000-plain_css Buat landing_page lengkap untuk Studio Mawikama. Gunakan aksen #2563eb dan font sans. Ini contoh fik 12
+dict_keys(['family_id', 'request', 'split']) train family0000 page0000-tailwind Buat landing_page lengkap untuk Studio Mawikama. Gunakan aksen #2563eb dan font sans. Ini contoh fik 12
+dict_keys(['augmentation', 'family_id', 'request', 'split']) train family0000 page0000-plain_css-v0 Buat landing_page lengkap untuk Studio Mawikama Nusantara. Gunakan aksen #2563eb dan font sans. Ini  12
+dict_keys(['augmentation', 'family_id', 'request', 'split']) train family0000 page0000-plain_css-v1 Buat landing_page lengkap untuk Demo Studio Mawikama. Gunakan aksen #0f766e dan font serif. Ini cont 12
+dict_keys(['augmentation', 'family_id', 'request', 'split']) train family0000 page0000-plain_css-v2 Buat landing_page lengkap untuk Studio Mawikama Utama. Gunakan aksen #7c3aed dan font sans. Ini cont 12
+dict_keys(['augmentation', 'family_id', 'request', 'split']) train family0000 page0000-plain_css-v3 Buat landing_page lengkap untuk Studio Mawikama Bersama. Gunakan aksen #b45309 dan font serif. Ini c 12
+dict_keys(['augmentation', 'family_id', 'request', 'split']) train family0000 page0000-tailwind-v0 Buat landing_page lengkap untuk Studio Mawikama Nusantara. Gunakan aksen #2563eb dan font sans. Ini  12
+dict_keys(['augmentation', 'family_id', 'request', 'split']) train family0000 page0000-tailwind-v1 Buat landing_page lengkap untuk Demo Studio Mawikama. Gunakan aksen #0f766e dan font serif. Ini cont 12
+dict_keys(['augmentation', 'family_id', 'request', 'split']) train family0000 page0000-tailwind-v2 Buat landing_page lengkap untuk Studio Mawikama Utama. Gunakan aksen #7c3aed dan font sans. Ini cont 12
+dict_keys(['augmentation', 'family_id', 'request', 'split']) train family0000 page0000-tailwind-v3 Buat landing_page lengkap untuk Studio Mawikama Bersama. Gunakan aksen #b45309 dan font serif. Ini c 12
+dict_keys(['augmentation', 'family_id', 'request', 'split']) train family0000 page0000-plain_css-v3-0 Buat landing_page lengkap untuk Studio Mawikama Harmoni. Salin nama usaha, jenis halaman, dan gaya p 12
+dict_keys(['augmentation', 'family_id', 'request', 'split']) train family0000 page0000-plain_css-v3-1 Buat landing_page lengkap untuk Studio Mawikama Sejahtera. Salin nama usaha, jenis halaman, dan gaya 12
+dict_keys(['augmentation', 'family_id', 'request', 'split']) train family0000 page0000-tailwind-v3-0 Buat landing_page lengkap untuk Studio Mawikama Harmoni. Salin nama usaha, jenis halaman, dan gaya p 12
+dict_keys(['augmentation', 'family_id', 'request', 'split']) train family0000 page0000-tailwind-v3-1 Buat landing_page lengkap untuk Studio Mawikama Sejahtera. Salin nama usaha, jenis halaman, dan gaya 12
+family0000 task records 100 unique example_ids 100 duplicate example_id rows 0
+example_id frequencies [('page0000-plain_css-0', 1), ('page0000-plain_css-0-retry', 1), ('page0000-plain_css-1', 1), ('page0000-plain_css-2', 1), ('page0000-plain_css-3', 1), ('page0000-plain_css-4', 1), ('page0000-plain_css-5', 1), ('page0000-plain_css-5-retry', 1), ('page0000-plain_css-6', 1), ('page0000-plain_css-7', 1)]
+unique train request ids total 3360
+request record keys ['family_id', 'request', 'split']
+one request record fields except facts {'family_id': 'family0000', 'split': 'train'}

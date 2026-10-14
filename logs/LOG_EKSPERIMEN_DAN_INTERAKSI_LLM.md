@@ -5262,3 +5262,394 @@ p=j(\"reports/training/FULLPAGE-GPU-005.json\"); print(\"GPU\",json.dumps([{k:r.
 - Exit code: 0
 - Output: `logs/RUN-458_task4_documentation_closeout.txt`.
 - Decision: Commit and push documentation closeout, then begin Task 5.
+
+### RUN-459
+
+- Purpose: Commit the Task 4 plan, spec, and pipeline progress closeout.
+- Command: git commit -m "docs: close out fullpage intake task".
+- Environment: Project root, feature branch.
+- Exit code: 0
+- Output: `logs/RUN-459_task4_docs_commit.txt`.
+- Decision: Push Task 4 implementation and documentation history together.
+
+### RUN-460
+
+- Purpose: Push the Task 4 plan, spec, progress, and log closeout commit.
+- Command: git push origin feature/pipeline-data-model-training.
+- Environment: Project root, configured origin.
+- Exit code: 0
+- Output: `logs/RUN-460_task4_docs_push.txt`.
+- Decision: Verify the remote branch before starting Task 5.
+
+### RUN-461
+
+- Purpose: Verify that the Task 4 documentation closeout is on the remote feature branch.
+- Command: git rev-parse HEAD; git ls-remote origin refs/heads/feature/pipeline-data-model-training.
+- Environment: Project root, configured origin.
+- Exit code: 0
+- Local and remote HEAD: 054bcf351f848096bf8607f82fee19e5edcb5c5a
+- Output: `logs/RUN-461_task4_docs_remote_verification.txt`.
+- Decision: Task 4 is fully closed; start Task 5 train-only target work.
+
+### RUN-462
+
+- Purpose: Inspect Task 5 parent manifest, train and validation request family counts, source-bound copy-slot mappings, free storage, and sealed file hashes.
+- Command: Project .venv Python parsed the V4 manifest, train and validation request files, and trusted copy catalog; it only hashed validation request, final request, and final target files as raw bytes.
+- Environment: Project root, local dataset and .venv interpreter.
+- Exit code: 0
+- Output: `logs/RUN-462_task5_parent_and_catalog_audit.txt`.
+- Decision: Use the V4 catalog and split contracts to design the target converter; no sealed records were parsed.
+
+### RUN-463
+
+- Purpose: Inspect V4 training and validation request multiplicity, row tasks, and request/example identity patterns without opening test rows.
+- Command: Project .venv Python parsed only V4 train and validation requests and task rows.
+- Environment: Project root, frozen V4 dataset.
+- Exit code: 0
+- Output: `logs/RUN-463_task5_parent_structure.txt`.
+- Decision: Resolve source-row grouping and deterministic reconstruction inputs before Task 5 implementation.
+
+### RUN-464
+
+- Purpose: Diagnose the mismatch between V4 request-record counts and task-row examples using training split records only.
+- Command: Project .venv Python summarized one train family and unique request/example identifiers across train requests and rows.
+- Environment: Project root, frozen V4 training files.
+- Exit code: 0
+- Output: `logs/RUN-464_task5_request_multiplicity_diagnostic.txt`.
+- Decision: Define V5 inputs using true request IDs and authoritative task rows, and reject inconsistent grouping.
+
+### RUN-465
+
+- Purpose: Determine which frozen train and validation requests have legacy plan and section target rows before selecting the V5 deterministic target source.
+- Command: Project .venv Python grouped only train and validation task examples against their request IDs.
+- Environment: Project root, frozen V4 train and validation files.
+- Exit code: 1
+- Output: `logs/RUN-465_task5_row_to_request_mapping.txt`.
+- Decision: Use the observed source contract to freeze the Task 5 conversion and record any justified scope interpretation in the task ledger.
+
+### RUN-466
+
+- Purpose: Rerun the train and validation request-to-target mapping diagnostic with a stable sort for mixed count-profile keys.
+- Command: Project .venv Python grouped only train and validation task examples against their request IDs.
+- Environment: Project root, frozen V4 train and validation files.
+- Exit code: 1
+- Output: `logs/RUN-466_task5_row_to_request_mapping_rerun.txt`.
+- Decision: Use the request coverage profile to define the target converter scope.
+
+### RUN-467
+
+- Purpose: Rerun train and validation target coverage analysis using stable string augmentation keys and unsorted counter output.
+- Command: Project .venv Python grouped only train and validation task examples against request IDs.
+- Environment: Project root, frozen V4 train and validation files.
+- Exit code: 0
+- Output: `logs/RUN-467_task5_row_to_request_mapping_rerun2.txt`.
+- Decision: Interpret row coverage profiles and freeze Task 5 scope.
+
+### RUN-468
+
+- Purpose: Read the role, fact-slot, asset-slot, and theme contracts needed for deterministic synthetic page reconstruction and target conversion.
+- Command: Project .venv Python parsed only the trusted source-bound copy catalog.
+- Environment: Project root, project .venv interpreter.
+- Exit code: 0
+- Output: `logs/RUN-468_task5_target_conversion_contract.txt`.
+- Decision: Use catalog-defined field mappings and avoid any learned or free-text conversion.
+
+### RUN-469
+
+- Purpose: Verify the approved family-index regeneration approach against every V4 train and validation request before constructing V5 targets.
+- Command: Project .venv Python called the deterministic family curriculum generator and compared genre, style, assets, and business facts on train and validation requests only.
+- Environment: Project root, frozen V4 dataset.
+- Exit code: 0
+- Output: `logs/RUN-469_task5_make_page_reconstruction_probe.txt`.
+- Decision: Use or refine the Task 5 deterministic page reconstruction according to exact observed mismatch classes; sealed test records remain unopened.
+
+### RUN-470
+
+- Purpose: Verify that each train and validation request has one non-retry legacy plan available as a deterministic source for its V5 plan target.
+- Command: Project .venv Python grouped only train and validation PagePlan rows by frozen request IDs, counted retries, and summarized legacy theme palettes.
+- Environment: Project root, frozen V4 train and validation files.
+- Exit code: 0
+- Output: `logs/RUN-470_task5_primary_plan_coverage.txt`.
+- Decision: Preserve the single primary legacy plan structure and map its palette only through the fixed local theme catalog.
+
+### RUN-471
+
+- Purpose: Freeze Task 5 scope and record the shared TaskDataset compatibility ruling.
+- Command: Write the Task 5 brief, baseline, data-conversion choice and ruling to the ignored execution ledger.
+- Environment: Project root, feature/pipeline-data-model-training.
+- Exit code: 1.
+- Output: logs/RUN-471_task5_brief_and_ruling.txt.
+- Failure: PowerShell root path variable resolved writes to F:\ instead of the repository. No source or runtime dataset changed. Rerun recorded as RUN-472.
+
+### RUN-472
+
+- Purpose: Freeze Task 5 scope and record the shared TaskDataset compatibility ruling.
+- Command: Write the Task 5 brief, baseline, data-conversion choice and ruling to the ignored execution ledger.
+- Environment: Project root, feature/pipeline-data-model-training.
+- Exit code: 0.
+- Output: logs/RUN-472_task5_brief_ruling_rerun.txt.
+- Decision: Use all 3,360 train requests and 80 validation requests; preserve primary plan structure and generate only source-bound fact references. Expected rows: 33,600 train and 800 validation. No test records are parsed. The RUN-471 path failure is retained.
+
+### RUN-473
+
+- Purpose: Confirm the deterministic source PagePlan shape, role fact-slot mapping and source-bound wire schemas before writing conversion tests.
+- Command: Project .venv Python inspected one V4 train request, regenerated synthetic source page, and parsed checked-in source-bound schemas and copy catalog.
+- Environment: Project root, one train request only.
+- Exit code: 0.
+- Output: logs/RUN-473_task5_converter_shape.txt.
+- Decision: Map catalog-defined fact kinds to named slots, map legacy hero layout to the allowed hero variant, and ensure targets contain only references. No validation or final rows were read.
+
+### RUN-474
+
+- Purpose: Inspect the trusted source-bound fact-slot and theme mappings for deterministic conversion.
+- Command: Project .venv Python parsed the local source-bound copy catalog only.
+- Environment: Project root.
+- Exit code: 0.
+- Output: logs/RUN-474_task5_catalog_slots_themes.txt.
+- Decision: Resolve fact kinds through the catalog slot table; map colors deterministically to one of the four fixed themes. No held-out records were opened.
+
+### RUN-475
+
+- Purpose: Confirm the frozen V4 train row field and example ID format for primary-plan lookup.
+- Command: Project .venv Python read and summarized the first three lines of V4 train.jsonl.
+- Environment: Project root, train split only.
+- Exit code: 0.
+- Output: logs/RUN-475_v4_train_row_shape.txt.
+- Decision: Use only the stable request/task/example ID contract when selecting one non-retry primary page plan.
+
+### RUN-476
+
+- Purpose: Verify Task 5 tests fail before production implementation.
+- Command: .venv Python unittest tests.fullpage.test_source_bound_data -v.
+- Environment: Project .venv, project root.
+- Exit code: 1.
+- Output: logs/RUN-476_task5_red_tests.txt.
+- Decision: Import failure is the expected RED result because both production modules are absent.
+
+### RUN-477
+
+- Purpose: Retrieve the exact TaskDataset validation lines before modifying the shared encoder.
+- Command: codegraph explore src/fullpage/dataset.py encode_task_row.
+- Environment: Project root, CodeGraph index.
+- Exit code: 0.
+- Output: logs/RUN-477_taskdataset_source_lookup.txt.
+- Decision: Use the current CodeGraph source to add explicit schema selection without changing token accounting.
+
+### RUN-478
+
+- Purpose: Preserve the CodeGraph evidence for the exact shared encoder lines before schema dispatch changes.
+- Command: codegraph explore src/fullpage/dataset.py encode_task_row with its complete response captured.
+- Environment: Project root, CodeGraph index.
+- Exit code: 0.
+- Output: logs/RUN-478_taskdataset_codegraph_output.txt and logs/RUN-478_taskdataset_source_capture.txt.
+- Decision: Change schema selection only; keep all existing tokenizer, EOS and length validations.
+
+### RUN-479
+
+- Purpose: Run focused Task 5 conversion, encoder-compatibility and immutable-output tests.
+- Command: .venv Python unittest tests.fullpage.test_source_bound_data -v.
+- Environment: Project .venv, temporary fixture and project source tree.
+- Exit code: 1.
+- Output: logs/RUN-479_task5_focused_tests.txt.
+- Decision: Resolve focused contract or fixture issues before preparing the full runtime dataset.
+
+### RUN-480
+
+- Purpose: Trace the cause of source-bound prompt context overflow before altering any prompt source.
+- Command: codegraph explore source_bound_plan_prompt and source_bound_section_prompt with complete source capture.
+- Environment: Project root, CodeGraph index.
+- Exit code: 0.
+- Output: logs/RUN-480_source_bound_prompt_codegraph_output.txt.
+- Decision: Preserve request fact semantics and current context/output budgets while removing redundant prompt tokens.
+
+### RUN-481
+
+- Purpose: Verify source-bound prompt compaction resolves the 2,048-token plan context overflow.
+- Command: .venv Python unittest tests.fullpage.test_source_bound_data -v.
+- Environment: Project .venv, temporary fixture and project source tree.
+- Exit code: 1.
+- Output: logs/RUN-481_task5_focused_tests_prompt_compaction.txt.
+- Decision: Continue to corpus-wide prompt budgets only if the focused tests pass.
+
+### RUN-482
+
+- Purpose: Confirm compact source-bound prompts fit the context while retaining the accepted structured request and catalog constraints.
+- Command: .venv Python unittest tests.fullpage.test_source_bound_data -v.
+- Environment: Project .venv, temporary fixture and project source tree.
+- Exit code: 1.
+- Output: logs/RUN-482_task5_focused_tests_prompt_v2.txt.
+- Decision: PagePlan prompt uses the accepted structured fields and removes the duplicated raw prompt. The raw request wording stays in frozen request records. Context 2048 and output limits remain unchanged.
+
+### RUN-483
+
+- Purpose: Verify reference-only PagePlan context fits without passing unused prompt or fact prose.
+- Command: .venv Python unittest tests.fullpage.test_source_bound_data -v.
+- Environment: Project .venv, temporary fixture and project source tree.
+- Exit code: 1.
+- Output: logs/RUN-483_task5_focused_tests_prompt_v3.txt.
+- Decision: Keep complete source facts in request records and resolve them at composition; the model target only chooses IDs and catalog structure.
+
+### RUN-484
+
+- Purpose: Measure source-bound prompt and target lengths with the frozen project tokenizer.
+- Command: Project .venv Python regenerated one synthetic fixture and counted prompt/target/sequence tokens for its plan and nine sections.
+- Environment: Project tokenizer and copy catalog, fixture family only.
+- Exit code: 0.
+- Output: logs/RUN-484_task5_token_budget_measurement.txt.
+- Decision: Preserve the 2,048-token context and choose the smallest approved output budget needed for complete targets.
+
+### RUN-485
+
+- Purpose: Measure full-corpus source-bound prompt and target budgets before freezing or writing V5.
+- Command: Project .venv Python converted train and validation prompts/targets in memory and calculated context requirements with the frozen tokenizer.
+- Environment: V4 train/validation only; sealed final files were hash-verified only.
+- Exit code: 1.
+- Output: logs/RUN-485_task5_corpus_token_preflight.txt.
+- Decision: Keep context 2048; increase only the PagePlan output allowance if exact maximum target size requires it. Section output allowance remains 1536.
+
+### RUN-485 correction and RUN-486
+
+- Purpose: Preserve and diagnose the failure to match 960 train-only identity-fact request IDs to primary plans.
+- Command: Review prior mapping diagnostics and match request/example IDs within V4 train only.
+- Environment: Project root, train split only.
+- Exit code: 0.
+- Output: logs/RUN-486_task5_primary_mapping_correction.txt.
+- Correction: RUN-485 did not complete its corpus budget measurement. The unmatched IDs point to a Task 5 source-mapping assumption that must be fixed before a complete run.
+- Decision: Use the exact evidence in RUN-467 and RUN-470 to derive the primary-plan mapping; do not write V5 output until every train request is matched.
+
+### RUN-487
+
+- Purpose: Measure prompt and target budgets across all frozen train and validation requests using corrected primary-plan lookup.
+- Command: Project .venv Python validated all request records and corresponding primary plans in memory, then tokenized every source-bound prompt and target.
+- Environment: Frozen V4 train and validation splits only; sealed final bytes hash-only.
+- Exit code: 1.
+- Output: logs/RUN-487_task5_corpus_token_preflight.txt.
+- Correction: Targeted identity-fact plans use the suffix -target-N; v3 primary plans may use example_id equal to request_id. Both mapping cases are now explicit.
+
+### RUN-488
+
+- Purpose: Complete full-corpus prompt and target budget analysis after fixing V4 targeted-augmentation mapping.
+- Command: Project .venv Python validated the selected primary PagePlan for every train and validation request and counted all target/prompt tokens.
+- Environment: Frozen V4 train and validation only; final artifacts byte hashes only.
+- Exit code: 1.
+- Output: logs/RUN-488_task5_corpus_token_preflight.txt.
+- Decision: Select targeted identity-fact plan rows only for requests without an ordinary primary row; ordinary rows remain preferred if available.
+
+### RUN-489
+
+- Purpose: Identify why RUN-488 still left 480 train requests unmatched after adding the targeted plan suffix.
+- Command: Project .venv Python grouped V4 train plan rows by direct, generic and targeted IDs and printed unmatched examples.
+- Environment: Frozen V4 train requests and train rows only.
+- Exit code: 0.
+- Output: logs/RUN-489_task5_primary_mapping_audit.txt.
+- Decision: Select deterministic primary rows by augmentation provenance and exact request ID, with no fallback to arbitrary rows.
+
+### RUN-490
+
+- Purpose: Complete all-request source-bound token analysis with the corrected V4 ID precedence.
+- Command: Project .venv Python checked all 3,360 train and 80 validation plans and measured all source-bound task prompts and targets.
+- Environment: V4 train/validation only; final/test artifacts hash-only.
+- Exit code: 1.
+- Output: logs/RUN-490_task5_corpus_token_preflight.txt.
+- Decision: Use a primary row's augmentation type to distinguish targeted rows, and otherwise remove a numeric sequence suffix before accepting an exact request ID.
+
+### RUN-491
+
+- Purpose: Determine whether the primary V4 plan mismatch is order-only or a different section identity set.
+- Command: Project .venv Python compared decoded primary plan descriptors with deterministic train-family PagePlan descriptors for one failing train request.
+- Environment: V4 train request and train task rows only.
+- Exit code: 0.
+- Output: logs/RUN-491_task5_plan_structure_audit.txt.
+- Decision: Preserve V4 plan structure if IDs and role/type identities remain compatible; section body regeneration is only a structural identity source.
+
+### RUN-492
+
+- Purpose: Complete all-request token and structural preflight after correcting suffix mapping and plan-order handling.
+- Command: Project .venv Python validated all primary V4 plans against request/family structures and tokenized the planned source-bound prompts/targets.
+- Environment: V4 train/validation only; sealed final bytes hash-only.
+- Exit code: 0.
+- Output: logs/RUN-492_task5_corpus_token_preflight.txt.
+- Decision: The primary PagePlan controls role order and variants. Regenerated family sections are joined by IDs, never by order.
+
+### RUN-493
+
+- Purpose: Identify every current plan/spec/test reference affected by the measured PagePlan output requirement.
+- Command: rg search for 512 and 1536 in the approved source-bound plan/spec, generation tests and serializer.
+- Environment: Project root, read-only.
+- Exit code: 0.
+- Output: logs/RUN-493_task5_budget_reference_search.txt.
+- Decision: Raise the PagePlan budget to 896 based on observed 756-token max target plus EOS, leaving 140 tokens of generation headroom. Keep section budget 1536 and context 2048.
+
+### RUN-494
+
+- Purpose: Verify V5 source-bound targets, shared encoder dispatch and existing generation behavior after measured budget changes.
+- Command: .venv Python unittest tests.fullpage.test_source_bound_data tests.fullpage.test_source_bound_generation -v.
+- Environment: Project .venv with temporary dataset fixtures.
+- Exit code: 1.
+- Output: logs/RUN-494_task5_focused_and_generation_tests.txt.
+- Decision: Keep the original user prompt for PagePlan intent; omit fact values because the plan target references IDs only. PagePlan max output is 896, section max output remains 1536, context remains 2048.
+
+### RUN-495
+
+- Purpose: Check source-bound target-schema dispatch, contract-specific output budgets, and existing staged generation.
+- Command: Project `.venv` Python unittest modules `tests.fullpage.test_source_bound_data` and `tests.fullpage.test_source_bound_generation`.
+- Environment: Project `.venv`; temporary synthetic dataset fixtures.
+- Exit code: 1.
+- Output: `logs/RUN-495_task5_focused_tests_contract_specific_budgets.txt`.
+- Decision: The conversion and generation tests passed, but the manifest assertion found the builder did not publish an explicit split list. Preserve the failure record, add `splits` to the manifest, and rerun.
+
+### RUN-496
+
+- Purpose: Rerun source-bound target-schema, contract-specific budget, immutable-output, and staged generation checks.
+- Command: Project `.venv` Python unittest modules `tests.fullpage.test_source_bound_data` and `tests.fullpage.test_source_bound_generation`.
+- Environment: Project `.venv`; temporary synthetic dataset fixtures.
+- Exit code: 0.
+- Output: `logs/RUN-496_task5_focused_tests_contract_specific_budgets.txt`.
+- Decision: All 18 focused tests passed. The V5 manifest lists train and validation splits, and fixture checks confirmed no text parsing of sealed final records.
+
+### RUN-497
+
+- Purpose: Independently preflight all source-bound task prompts and targets after restoring the original user prompt to PagePlan context.
+- Command: Project `.venv` Python inline audit over train and validation requests plus their primary PagePlans; final rows hash-only.
+- Environment: Project `.venv`; no output dataset writes.
+- Exit code: Interrupted after the terminal session did not return a tracked process handle. The verified inline Python process was stopped after the main builder began performing the same full-corpus preflight before its write phase.
+- Output: None. The wrapper did not create a log file, so no metrics from this attempt are accepted.
+- Decision: Use the completed preflight and maxima emitted by RUN-498 only if the registered V5 builder exits successfully.
+
+### RUN-498
+
+- Purpose: Prepare the immutable source-bound-v1 V5 train and validation task corpus from the frozen V4 parent.
+- Command: Project `.venv` Python `python -m qa.prepare_fullpage_v5`.
+- Environment: Project `.venv`; V4 train and validation rows parsed; validation and final raw artifacts used only for checksum verification; 15 GiB reserve enforced.
+- Exit code: 0.
+- Output: `logs/RUN-498_task5_build_v5_dataset.txt`; dataset `data/processed/fullpage/v5`; report `reports/fullpage/FULLPAGE-V5_DATA_PREPARATION.json`.
+- Evidence: 3,360 train and 80 validation requests produced 33,600 train and 800 validation task rows from 240 train and 40 validation families. Manifest SHA256 is `90c2dc71c4d91ff9a36a3fbd1bd36bd329c127b711c69556df4c0f58381d6dd2`; V4 manifest SHA256 is `aae2de8cfceb16110eb93b0668447fcda7237fdfabaa7e0c2a22ce2c3d41cf15`. Maximum context totals are 1,622 tokens for train and 1,569 for validation. Source-bound PagePlan output budget is 896, SectionDraft is 1,536, and context is 2,048.
+- Evidence: The sealed validation request, final request, and final target hashes match before and after. `human_reviewed=false`, `final_opened=false`, and V5 contains no test split. Dataset plus manifest is 61,135,963 bytes. Free disk after data write is 16,607,821,824 bytes, above the 15 GiB reserve.
+- Decision: V5 data preparation passed. This is synthetic train/development data and does not establish generation quality or the 95 percent development gate.
+
+### RUN-499
+
+- Purpose: Run the full-page test suite after the source-bound data and generation changes.
+- Command: Project `.venv` Python `python -m unittest tests.fullpage -v`.
+- Environment: Project `.venv`.
+- Exit code: 0, but zero tests were discovered.
+- Output: `logs/RUN-499_task5_fullpage_suite.txt`.
+- Decision: This invocation is not accepted as test evidence because the module shorthand discovered no tests. Rerun with explicit discovery rooted at `tests/fullpage`.
+
+### RUN-500
+
+- Purpose: Run all discovered source-bound full-page contract, data, generation, composition, and intake tests.
+- Command: Project `.venv` Python `python -m unittest discover -s tests/fullpage -p 'test*.py' -v`.
+- Environment: Project `.venv`.
+- Exit code: 0.
+- Output: `logs/RUN-500_task5_fullpage_discovery_suite.txt`.
+- Decision: All 50 discovered full-page tests passed. Together with RUN-498, Task 5 corpus preparation passed structural, split, token-budget, sealed-hash and disk-reserve checks.
+
+### RUN-501
+
+- Purpose: Synchronize the repository CodeGraph index after the Task 5 implementation.
+- Command: `codegraph sync`.
+- Environment: Project root `F:\\Generative_AI\\Vibe_Coding_Proyek_1`.
+- Exit code: 0.
+- Output: `logs/RUN-501_task5_codegraph_sync.txt`.
+- Decision: CodeGraph synchronized 9 changed files and 223 nodes. The V5 runtime dataset and preparation report remain local and ignored.

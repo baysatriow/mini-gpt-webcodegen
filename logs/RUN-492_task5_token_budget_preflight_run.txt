@@ -1,0 +1,6 @@
+RUN-492
+Started: 2026-10-14 20:11:00 +07:00
+Command: Full train/validation token preflight after exact request ID and section identity fixes
+Exit code: 0
+
+This run follows RUN-491: section order is sourced from the primary V4 plan; deterministic family pages provide section content identity, matched by ID/type. It validates and tokenizes all 3,360 train and 80 validation tasks. V4 final data was hash-verified as bytes only and never parsed.

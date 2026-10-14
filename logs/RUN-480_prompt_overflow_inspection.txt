@@ -1,0 +1,6 @@
+RUN-480
+Started: 2026-10-14 19:38:00 +07:00
+Command: Inspect source-bound prompt construction after the 2,048-token context overflow
+Exit code: 0
+
+Captured the complete CodeGraph source response in logs/RUN-480_source_bound_prompt_codegraph_output.txt. This follow-up is limited to prompt composition and preserves all request facts and the existing 2,048-token context and output budgets.

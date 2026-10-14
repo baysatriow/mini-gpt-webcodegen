@@ -1,0 +1,32 @@
+test_build_keeps_split_rows_and_never_parses_sealed_final_files (tests.fullpage.test_source_bound_data.SourceBoundDatasetPreparationTests.test_build_keeps_split_rows_and_never_parses_sealed_final_files) ... ERROR
+test_destination_must_be_new (tests.fullpage.test_source_bound_data.SourceBoundDatasetPreparationTests.test_destination_must_be_new) ... ok
+test_insufficient_disk_reserve_refuses_to_write (tests.fullpage.test_source_bound_data.SourceBoundDatasetPreparationTests.test_insufficient_disk_reserve_refuses_to_write) ... ok
+test_converter_preserves_plan_order_when_source_sections_are_reordered (tests.fullpage.test_source_bound_data.SourceBoundTargetTests.test_converter_preserves_plan_order_when_source_sections_are_reordered) ... ok
+test_converter_rejects_section_structure_that_does_not_match_plan (tests.fullpage.test_source_bound_data.SourceBoundTargetTests.test_converter_rejects_section_structure_that_does_not_match_plan) ... ok
+test_targets_reference_facts_and_compose_a_complete_page (tests.fullpage.test_source_bound_data.SourceBoundTargetTests.test_targets_reference_facts_and_compose_a_complete_page) ... ok
+test_theme_mapping_uses_only_a_catalog_theme (tests.fullpage.test_source_bound_data.SourceBoundTargetTests.test_theme_mapping_uses_only_a_catalog_theme) ... ok
+test_source_bound_and_legacy_targets_both_encode (tests.fullpage.test_source_bound_data.TaskDatasetContractDispatchTests.test_source_bound_and_legacy_targets_both_encode) ... ok
+test_contract_version_selection_defaults_to_legacy (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_contract_version_selection_defaults_to_legacy) ... ok
+test_missing_contract_version_uses_legacy_generation_path (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_missing_contract_version_uses_legacy_generation_path) ... ok
+test_renderer_failure_removes_staging_and_website (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_renderer_failure_removes_staging_and_website) ... ok
+test_request_prompt_limit_is_exactly_one_thousand_characters (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_request_prompt_limit_is_exactly_one_thousand_characters) ... ok
+test_required_eos_failure_retries_once_and_never_exports (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_required_eos_failure_retries_once_and_never_exports) ... ok
+test_section_prompt_overflow_runs_no_section_model (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_section_prompt_overflow_runs_no_section_model) ... ok
+test_source_bound_evaluation_identity_pins_all_generation_contract_sources (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_source_bound_evaluation_identity_pins_all_generation_contract_sources) ... ok
+test_source_bound_prompts_and_serializer_use_only_supported_tasks (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_source_bound_prompts_and_serializer_use_only_supported_tasks) ... ok
+test_success_report_points_to_atomic_existing_renderer_export (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_success_report_points_to_atomic_existing_renderer_export) ... ok
+test_v5_section_reference_failure_after_retry_never_exports_website (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_v5_section_reference_failure_after_retry_never_exports_website) ... ok
+
+======================================================================
+ERROR: test_build_keeps_split_rows_and_never_parses_sealed_final_files (tests.fullpage.test_source_bound_data.SourceBoundDatasetPreparationTests.test_build_keeps_split_rows_and_never_parses_sealed_final_files)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_data.py", line 225, in test_build_keeps_split_rows_and_never_parses_sealed_final_files
+    self.assertEqual({"train", "validation"}, set(manifest["splits"]))
+                                                  ~~~~~~~~^^^^^^^^^^
+KeyError: 'splits'
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.865s
+
+FAILED (errors=1)

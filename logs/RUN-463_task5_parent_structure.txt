@@ -1,0 +1,43 @@
+RUN-463
+Started: 2026-10-14 19:04:01 +07:00
+Command: project .venv Python inspect train and validation request and row structure only
+Exit code: 0
+
+train request_count= 3360 family_count= 240 requests_per_family= [(14, 240)] task_counts= {'page_plan': 5760, 'section_content': 18240} section_role_rows= {'about': 2400, 'benefits': 480, 'contact': 480, 'faq': 720, 'footer': 3360, 'hero': 5280, 'navigation': 1440, 'portfolio': 720, 'process': 1440, 'services': 1440, 'values': 480}
+request family0000 page0000-plain_css landing_page plain_css
+request family0000 page0000-tailwind landing_page tailwind
+request family0001 page0001-plain_css company_profile plain_css
+request family0001 page0001-tailwind company_profile tailwind
+request family0002 page0002-plain_css landing_page plain_css
+request family0002 page0002-tailwind landing_page tailwind
+request family0003 page0003-plain_css company_profile plain_css
+request family0003 page0003-tailwind company_profile tailwind
+request family0004 page0004-plain_css landing_page plain_css
+request family0004 page0004-tailwind landing_page tailwind
+request family0005 page0005-plain_css company_profile plain_css
+request family0005 page0005-tailwind company_profile tailwind
+request family0006 page0006-plain_css landing_page plain_css
+request family0006 page0006-tailwind landing_page tailwind
+request family0007 page0007-plain_css company_profile plain_css
+request family0007 page0007-tailwind company_profile tailwind
+example_ids= ['page0000-plain_css-0', 'page0000-plain_css-0-retry', 'page0000-plain_css-1', 'page0000-plain_css-2', 'page0000-plain_css-3', 'page0000-plain_css-4', 'page0000-plain_css-5', 'page0000-plain_css-5-retry', 'page0000-plain_css-6', 'page0000-plain_css-7', 'page0000-plain_css-8', 'page0000-plain_css-9']
+row_sample= [('page0000-plain_css-0', 'page_plan', False, None), ('page0000-plain_css-0-retry', 'page_plan', True, None), ('page0000-plain_css-1', 'section_content', False, None), ('page0000-plain_css-2', 'section_content', False, None), ('page0000-plain_css-3', 'section_content', False, None), ('page0000-plain_css-4', 'section_content', False, None), ('page0000-plain_css-5', 'section_content', False, None), ('page0000-plain_css-5-retry', 'section_content', True, None), ('page0000-plain_css-6', 'section_content', False, None), ('page0000-plain_css-7', 'section_content', False, None), ('page0000-plain_css-8', 'section_content', False, None), ('page0000-plain_css-9', 'section_content', False, None)]
+validation request_count= 80 family_count= 40 requests_per_family= [(2, 40)] task_counts= {'page_plan': 160, 'section_content': 800} section_role_rows= {'about': 80, 'benefits': 40, 'contact': 80, 'faq': 40, 'footer': 80, 'hero': 80, 'navigation': 80, 'portfolio': 40, 'process': 80, 'services': 160, 'values': 40}
+request family0240 page0240-plain_css landing_page plain_css
+request family0240 page0240-tailwind landing_page tailwind
+request family0241 page0241-plain_css company_profile plain_css
+request family0241 page0241-tailwind company_profile tailwind
+request family0242 page0242-plain_css landing_page plain_css
+request family0242 page0242-tailwind landing_page tailwind
+request family0243 page0243-plain_css company_profile plain_css
+request family0243 page0243-tailwind company_profile tailwind
+request family0244 page0244-plain_css landing_page plain_css
+request family0244 page0244-tailwind landing_page tailwind
+request family0245 page0245-plain_css company_profile plain_css
+request family0245 page0245-tailwind company_profile tailwind
+request family0246 page0246-plain_css landing_page plain_css
+request family0246 page0246-tailwind landing_page tailwind
+request family0247 page0247-plain_css company_profile plain_css
+request family0247 page0247-tailwind company_profile tailwind
+example_ids= ['page0240-plain_css-0', 'page0240-plain_css-0-retry', 'page0240-plain_css-1', 'page0240-plain_css-2', 'page0240-plain_css-3', 'page0240-plain_css-4', 'page0240-plain_css-5', 'page0240-plain_css-5-retry', 'page0240-plain_css-6', 'page0240-plain_css-7', 'page0240-plain_css-8', 'page0240-plain_css-9']
+row_sample= [('page0240-plain_css-0', 'page_plan', False, None), ('page0240-plain_css-0-retry', 'page_plan', True, None), ('page0240-plain_css-1', 'section_content', False, None), ('page0240-plain_css-2', 'section_content', False, None), ('page0240-plain_css-3', 'section_content', False, None), ('page0240-plain_css-4', 'section_content', False, None), ('page0240-plain_css-5', 'section_content', False, None), ('page0240-plain_css-5-retry', 'section_content', True, None), ('page0240-plain_css-6', 'section_content', False, None), ('page0240-plain_css-7', 'section_content', False, None), ('page0240-plain_css-8', 'section_content', False, None), ('page0240-plain_css-9', 'section_content', False, None)]

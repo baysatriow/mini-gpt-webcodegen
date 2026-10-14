@@ -12,7 +12,7 @@ from src.models.minigpt import MiniGPT
 from .assets import load_asset_catalog
 from .contracts import validate_request, validate_plan_wire, validate_section
 from .compose import compose_page, fact_errors
-from .serialization import OUTPUT_BUDGETS, check_budget, decode_plan
+from .serialization import check_budget, decode_plan, output_budget_for
 from .prompts import plan_prompt, section_prompt, retry_prompt
 from .renderer import export_fullpage
 from .curriculum import write_json
@@ -45,8 +45,8 @@ def checkpoint_contract_version(config: dict) -> str | None:
     return version
 
 
-def generate_task(model, tokenizer, prompt, *, task, config):
-    budget=OUTPUT_BUDGETS[task]; check=check_budget(tokenizer,prompt,budget)
+def generate_task(model, tokenizer, prompt, *, task, config, contract_version=None):
+    budget=output_budget_for(task,contract_version); check=check_budget(tokenizer,prompt,budget)
     prefix=[tokenizer.token_to_id('<bos>'),tokenizer.token_to_id('<prompt>')]+tokenizer.encode(prompt).ids+[tokenizer.token_to_id('<target>')]
     ids=torch.tensor([prefix],device=next(model.parameters()).device,dtype=torch.long)
     generated=[]; eos=tokenizer.token_to_id('<eos>'); stop='token_limit'; began=time.perf_counter()
@@ -156,8 +156,9 @@ class FullPageGenerator:
                       first_attempt_success=report['status']=='accepted' and not any(a['retry'] for a in attempts),browser_status='pending')
         write_json(output/'result.json',report); return report
 
-    def _execute_task(self, prompt, task):
-        return generate_task(self.model, self.tokenizer, prompt, task=task, config=self.config)
+    def _execute_task(self, prompt, task, *, contract_version=None):
+        return generate_task(self.model, self.tokenizer, prompt, task=task, config=self.config,
+                             contract_version=contract_version)
 
     def _generate_source_bound(self, request, output):
         output = Path(output)
@@ -196,7 +197,7 @@ class FullPageGenerator:
             return finish()
 
         def precheck(prompt, task):
-            return check_budget(self.tokenizer, prompt, OUTPUT_BUDGETS[task])
+            return check_budget(self.tokenizer, prompt, output_budget_for(task, self.contract_version))
 
         def stage(task, prompt, validator, identifier):
             current = prompt
@@ -204,7 +205,7 @@ class FullPageGenerator:
                 if retry:
                     current = retry_prompt(prompt, SOURCE_BOUND_RETRY_INSTRUCTION)
                 try:
-                    result = self._execute_task(current, task)
+                    result = self._execute_task(current, task, contract_version=self.contract_version)
                     result.update(task=task, stage=identifier, retry=bool(retry))
                     if result['stop_reason'] != 'eos':
                         result['errors'] = ['Missing EOS: ' + result['stop_reason']]

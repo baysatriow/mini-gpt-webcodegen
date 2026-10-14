@@ -12,7 +12,7 @@
 
 ## Global Constraints
 
-- Context stays at 2,048 tokens, with PagePlan output at most 512 tokens and SectionDraft output at most 1,536 tokens.
+- Context stays at 2,048 tokens. The legacy PagePlan limit stays 512 tokens; source-bound-v1 PagePlan uses 896 tokens; both SectionDraft contracts use 1,536 tokens.
 - Training budget is 3,600 updates with development snapshots at updates 1,800 and 3,600.
 - Keep microbatch 8, gradient accumulation 6, effective batch 48, and plan sampling probability 0.7.
 - Preserve the remaining TRAIN-024 training and GPU settings: seed 42, BF16, learning rate 5e-5, minimum 5e-6, 180 warmup updates, AdamW betas 0.9/0.95, weight decay 0.1, grad clip 1, SDPA, fused AdamW, TF32, pinned memory, supervised-only logits, allocator segments, GPU telemetry, and 15 GiB disk reserve. Keep the existing 600-update validation/checkpoint cadence and compare generation at 1,800 and 3,600.
@@ -202,7 +202,7 @@ git push origin feature/pipeline-data-model-training
 - `source_bound_section_prompt(request: dict, page_plan: dict, descriptor: dict) -> str`
 - `serialize_source_bound_task(task: str, value: dict) -> str`
 - Store `fullpage_contract_version="source-bound-v1"` in new training configuration. A checkpoint without this key uses the existing generator path.
-- Keep task names `page_plan` and `section_content` and budgets 512 and 1,536 so the current training dataset and sampler APIs remain usable.
+- Keep task names `page_plan` and `section_content` so the current training dataset and sampler APIs remain usable. Preserve the legacy output budgets at 512 and 1,536. Source-bound-v1 uses 896 for PagePlan and 1,536 for SectionDraft. RUN-492 measured a source-bound PagePlan target maximum of 756 tokens including EOS; 896 provides 140 tokens of headroom. Dataset encoding, generation prechecks and decoding must select budgets by contract version.
 - After validating a PagePlan, build every SectionDraft prompt and check its budget before invoking the model for any SectionDraft. A section prompt overflow returns internal `input_too_long`, writes no website, and runs no section stage.
 - Map raw generator results internally as `accepted`, `missing_information`, `input_too_long`, or `stage_failed`. The intake layer maps those to user statuses in Task 4.
 
@@ -335,7 +335,7 @@ git push origin feature/pipeline-data-model-training
 - Manifest includes parent v4 manifest hash, source code and schema hashes, train and validation family IDs and counts, task row counts, request hashes, prompt and target token maxima, bytes, disk checks, and `human_reviewed=false`.
 - Preserve raw-byte SHA-256 values for `validation.requests.jsonl`, `test.requests.jsonl`, and `test.jsonl` from the v4 manifest before and after preparation. Hash sealed test files as bytes only; never parse their records. The v5 output contains no test rows or copied test records.
 
-- [ ] **Step 1: Add failing target-conversion and leakage tests.** Verify a generated legacy fixture converts to a PagePlan plus SectionDraft targets that contain fact IDs and no literal business fact text. Verify family IDs stay within their source split.
+- [x] **Step 1: Add failing target-conversion and leakage tests.** Verify a generated legacy fixture converts to a PagePlan plus SectionDraft targets that contain fact IDs and no literal business fact text. Verify family IDs stay within their source split.
 
 ```python
 class SourceBoundDataTests(unittest.TestCase):
@@ -347,13 +347,13 @@ class SourceBoundDataTests(unittest.TestCase):
         self.assertNotIn('Studio Mapurana', serialized)
 ```
 
-- [ ] **Step 2: Run focused data tests and confirm the converter is absent.**
+- [x] **Step 2: Run focused data tests and confirm the converter is absent.**
 
 Run: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_data -v`
 
 Expected: import or assertion failure before implementation.
 
-- [ ] **Step 3: Implement deterministic conversion and immutable output.** Regenerate synthetic pages from each frozen request's family index, convert their plan and section facts to references, budget every prompt/target, and write train/validation files plus a manifest into a new directory. Refuse an existing destination or a changed v4 parent manifest.
+- [x] **Step 3: Implement deterministic conversion and immutable output.** Regenerate synthetic pages from each frozen request's family index, convert their plan and section facts to references, budget every prompt/target, and write train/validation files plus a manifest into a new directory. Refuse an existing destination or a changed v4 parent manifest.
 
 ```python
 if output_dir.exists():
@@ -362,7 +362,7 @@ if free_bytes < reserve_bytes + estimated_output_bytes:
     raise OSError('Insufficient storage for source-bound dataset')
 ```
 
-- [ ] **Step 4: Run data-preparation checks on a temporary fixture.** Cover train-only training rows, validation-only validation rows, unchanged parent validation/final request hashes, target and prefix budgets, manifest checksums, and refusal when the destination exists. Patch the fixture's test-file opener to fail if the builder attempts to parse a sealed test record.
+- [x] **Step 4: Run data-preparation checks on a temporary fixture.** Cover train-only training rows, validation-only validation rows, unchanged parent validation/final request hashes, target and prefix budgets, manifest checksums, and refusal when the destination exists. Patch the fixture's test-file opener to fail if the builder attempts to parse a sealed test record.
 
 Run: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_data -v`
 

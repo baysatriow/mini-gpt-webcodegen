@@ -8,22 +8,31 @@ from torch.utils.data import Dataset
 from src.data.normalize import read_jsonl
 from src.data.tokenizer import SPECIAL_TOKENS
 from src.training.engine import ResumableBatchSampler
-from .serialization import canonical, check_budget, OUTPUT_BUDGETS
+from .serialization import canonical, check_budget, OUTPUT_BUDGETS, output_budget_for
 from .contracts import schema_errors
 
 
 def encode_task_row(row, tokenizer):
     if row['task'] not in OUTPUT_BUDGETS: raise ValueError('Unknown task')
-    errors = schema_errors('plan' if row['task'] == 'page_plan' else 'section', json.loads(row['target']))
+    target = json.loads(row['target'])
+    contract_version = target.get('contract_version') if isinstance(target, dict) else None
+    if contract_version == 'source-bound-v1':
+        schema_name = 'plan-source-bound-v1' if row['task'] == 'page_plan' else 'section-source-bound-v1'
+    elif contract_version is None:
+        schema_name = 'plan' if row['task'] == 'page_plan' else 'section'
+    else:
+        raise ValueError(f'Unsupported fullpage target contract: {contract_version}')
+    errors = schema_errors(schema_name, target)
     if errors: raise ValueError(errors)
-    check_budget(tokenizer, row['prompt'], OUTPUT_BUDGETS[row['task']])
+    output_budget = output_budget_for(row['task'], contract_version)
+    check_budget(tokenizer, row['prompt'], output_budget)
     if any(t in row['target'] for t in SPECIAL_TOKENS): raise ValueError('Reserved delimiter in target')
     special = {t: tokenizer.token_to_id(t) for t in SPECIAL_TOKENS}
     if any(v is None for v in special.values()): raise ValueError('Missing tokenizer delimiter')
     if special['<pad>'] != 0: raise ValueError('Collator requires the frozen project pad ID 0')
     prefix = [special['<bos>'], special['<prompt>']] + tokenizer.encode(row['prompt']).ids + [special['<target>']]
     target = tokenizer.encode(row['target']).ids + [special['<eos>']]
-    if len(target) > OUTPUT_BUDGETS[row['task']]: raise ValueError('Target exceeds output budget')
+    if len(target) > output_budget: raise ValueError('Target exceeds output budget')
     sequence = prefix + target
     if len(sequence) > 2048: raise ValueError('Oversize task sequence')
     ids, labels = sequence[:-1], sequence[1:]

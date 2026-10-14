@@ -120,8 +120,8 @@ def fake_source_bound_generator(root, *, contract_version, model_outputs, tokeni
     outputs = iter(model_outputs)
     calls = []
 
-    def execute(prompt, task):
-        calls.append({"prompt": prompt, "task": task})
+    def execute(prompt, task, *, contract_version=None):
+        calls.append({"prompt": prompt, "task": task, "contract_version": contract_version})
         try:
             value = next(outputs)
         except StopIteration as error:
@@ -131,7 +131,8 @@ def fake_source_bound_generator(root, *, contract_version, model_outputs, tokeni
         result.setdefault("stop_reason", "eos")
         result.setdefault("generated_tokens", 1)
         result.setdefault("prefix_tokens", 1)
-        result.setdefault("max_new_tokens", 512 if task == "page_plan" else 1536)
+        default_budget = 896 if contract_version == "source-bound-v1" and task == "page_plan" else 512 if task == "page_plan" else 1536
+        result.setdefault("max_new_tokens", default_budget)
         result.setdefault("seconds", 0.0)
         return result
 

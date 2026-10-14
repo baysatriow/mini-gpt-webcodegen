@@ -1,0 +1,8 @@
+RUN-466
+Started: 2026-10-14 19:05:33 +07:00
+Command: project .venv Python group train and validation rows by request ID with deterministic mixed-key ordering
+Exit code: 1
+
+Traceback (most recent call last):
+  File "<string>", line 24, in <module>
+TypeError: '<' not supported between instances of 'int' and 'str'

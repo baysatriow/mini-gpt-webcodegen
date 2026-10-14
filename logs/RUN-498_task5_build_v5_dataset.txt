@@ -1,0 +1,33 @@
+{
+  "dataset": "data/processed/fullpage/v5",
+  "manifest_sha256": "90c2dc71c4d91ff9a36a3fbd1bd36bd329c127b711c69556df4c0f58381d6dd2",
+  "parent_manifest_sha256": "aae2de8cfceb16110eb93b0668447fcda7237fdfabaa7e0c2a22ce2c3d41cf15",
+  "request_counts": {
+    "train": 3360,
+    "validation": 80
+  },
+  "task_counts": {
+    "train": 33600,
+    "validation": 800
+  },
+  "family_counts": {
+    "train": 240,
+    "validation": 40
+  },
+  "sealed_hashes_unchanged": true,
+  "sealed_sha256_before": {
+    "validation.requests.jsonl": "2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836",
+    "test.requests.jsonl": "038845b1187bc4b588aa98db8c8e8944d1480faa16067a02e291deedc5a3ffa4",
+    "test.jsonl": "230584ac1340b7ff96ed0745bb3090c345a8516c4a6ae72dce98c6b6f6d06586"
+  },
+  "sealed_sha256_after": {
+    "validation.requests.jsonl": "2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836",
+    "test.requests.jsonl": "038845b1187bc4b588aa98db8c8e8944d1480faa16067a02e291deedc5a3ffa4",
+    "test.jsonl": "230584ac1340b7ff96ed0745bb3090c345a8516c4a6ae72dce98c6b6f6d06586"
+  },
+  "human_reviewed": false,
+  "final_opened": false,
+  "disk_free_before_bytes": 16668971008,
+  "disk_free_after_bytes": 16607821824,
+  "dataset_bytes": 61135963
+}

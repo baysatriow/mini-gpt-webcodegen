@@ -1,0 +1,6 @@
+RUN-474
+Started: 2026-10-14 19:23:00 +07:00
+Command: Inspect source-bound slot IDs and fixed theme data
+Exit code: 0
+
+The trusted local copy catalog contains four fixed themes, source-bound asset slots, and the slot definitions used to map fact kinds to renderer properties. Theme selection can be made by deterministic RGB distance plus a fixed penalty for font mismatch. No user or held-out records were opened.

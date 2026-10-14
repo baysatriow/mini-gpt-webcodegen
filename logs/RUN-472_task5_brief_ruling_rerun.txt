@@ -1,0 +1,8 @@
+RUN-472
+Started: 2026-10-14 19:19:00 +07:00
+Command: Freeze Task 5 brief and shared-encoder compatibility ruling
+Exit code: 0
+
+Baseline: 054bcf351f848096bf8607f82fee19e5edcb5c5a.
+Evidence: V4 has 3,360 train requests across 240 train families and 80 validation requests across 40 validation families. RUN-469 regenerated all request facts exactly. RUN-470 found one primary non-retry plan for every request. Expected V5 row totals are 33,600 train and 800 validation.
+Ruling: TaskDataset must dispatch target schema by explicit source-bound contract_version while retaining the legacy validation path. The task brief records the conversion and stop conditions. The preceding path error is retained in RUN-471.

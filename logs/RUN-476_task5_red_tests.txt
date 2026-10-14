@@ -1,0 +1,6 @@
+RUN-476
+Started: 2026-10-14 19:27:00 +07:00
+Command: RED check for Task 5 source-bound data conversion tests
+Exit code: 1
+
+Expected before implementation: import failure because qa.prepare_fullpage_v5 and src.fullpage.source_bound_targets do not exist. The test file was written first. Output is this command's captured log. No production code or runtime dataset was changed.

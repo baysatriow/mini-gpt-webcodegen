@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "<stdin>", line 24, in <module>
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\prepare_fullpage_v5.py", line 213, in _primary_plans
+    raise ValueError(f"Missing primary legacy PagePlan for {len(missing)} {split} requests")
+ValueError: Missing primary legacy PagePlan for 480 train requests

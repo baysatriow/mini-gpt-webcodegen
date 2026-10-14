@@ -1,0 +1,6 @@
+RUN-479
+Started: 2026-10-14 19:35:00 +07:00
+Command: Focused Task 5 target-conversion and data-preparation unit tests
+Exit code: 1
+
+Captured complete unittest output in logs/RUN-479_task5_focused_tests.txt. This run validates only the new Task 5 code and uses a temporary parent fixture whose final files contain invalid JSON bytes. The fixture patches their text opener to fail if the implementation attempts to parse them.

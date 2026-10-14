@@ -1,0 +1,6 @@
+RUN-487
+Started: 2026-10-14 19:58:00 +07:00
+Command: Full source-bound token preflight with base, v3 and targeted-plan ID mapping
+Exit code: 1
+
+This rerun follows RUN-485's uncovered mapping issue. It parses only V4 train and validation requests/rows, validates the exact primary plan for all 3,360 train and 80 validation requests, and measures all prompts and targets using the project tokenizer. V4 final/test artifacts were integrity-hashed only and no final records were parsed. Complete output is in this file.

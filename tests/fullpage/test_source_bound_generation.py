@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 
 from src.fullpage.generation import FullPageGenerator, checkpoint_contract_version
 from src.fullpage.evaluation import evaluation_source_paths
-from src.fullpage.serialization import OUTPUT_BUDGETS, check_budget
+from src.fullpage.serialization import OUTPUT_BUDGETS, SOURCE_BOUND_OUTPUT_BUDGETS, check_budget
 from src.fullpage.source_bound_prompts import source_bound_plan_prompt, source_bound_section_prompt
 from src.fullpage.source_bound_serialization import serialize_source_bound_task
 from tests.fullpage.fixtures import (
@@ -36,10 +36,13 @@ class SourceBoundGenerationTests(unittest.TestCase):
         plan_prompt = source_bound_plan_prompt(request)
         section_prompt = source_bound_section_prompt(request, plan, plan["sections"][0])
         self.assertIn("source-bound-v1", plan_prompt)
+        self.assertIn(request["prompt"], plan_prompt)
         self.assertIn("source-bound-v1", section_prompt)
         self.assertIn('"name"', section_prompt)
         self.assertEqual(512, OUTPUT_BUDGETS["page_plan"])
+        self.assertEqual(896, SOURCE_BOUND_OUTPUT_BUDGETS["page_plan"])
         self.assertEqual(1536, OUTPUT_BUDGETS["section_content"])
+        self.assertEqual(1536, SOURCE_BOUND_OUTPUT_BUDGETS["section_content"])
         self.assertEqual(
             json.dumps(plan, ensure_ascii=False, sort_keys=True, separators=(",", ":")),
             serialize_source_bound_task("page_plan", plan),
@@ -50,7 +53,7 @@ class SourceBoundGenerationTests(unittest.TestCase):
         )
         with self.assertRaises(ValueError):
             serialize_source_bound_task("unknown", {})
-        check_budget(_FixtureTokenizer(), plan_prompt, OUTPUT_BUDGETS["page_plan"])
+        check_budget(_FixtureTokenizer(), plan_prompt, SOURCE_BOUND_OUTPUT_BUDGETS["page_plan"])
 
     def test_source_bound_evaluation_identity_pins_all_generation_contract_sources(self):
         legacy_sources = set(evaluation_source_paths())
@@ -117,7 +120,7 @@ class SourceBoundGenerationTests(unittest.TestCase):
 
     def test_required_eos_failure_retries_once_and_never_exports(self):
         request, _, _, _, _ = model_outputs()
-        stopped = {"raw": "{}", "stop_reason": "token_limit", "generated_tokens": 512}
+        stopped = {"raw": "{}", "stop_reason": "token_limit", "generated_tokens": 896}
         generator = fake_source_bound_generator(
             ROOT, contract_version="source-bound-v1", model_outputs=[stopped, stopped]
         )

@@ -1,0 +1,37 @@
+RUN-462
+Started: 2026-10-14 19:03:30 +07:00
+Command: project .venv Python inspect V4 manifest, train/validation requests, copy catalog and disk; hash sealed bytes only
+Exit code: 0
+
+dataset_version: fullpage-v4
+manifest_sha256: aae2de8cfceb16110eb93b0668447fcda7237fdfabaa7e0c2a22ce2c3d41cf15
+manifest_counts: {"test": 800, "train": 24000, "validation": 960}
+free_bytes: 16669306880
+train requests= 3360 families= 240 genres= ['company_profile', 'landing_page'] styles= ['plain_css', 'tailwind']
+validation requests= 80 families= 40 genres= ['company_profile', 'landing_page'] styles= ['plain_css', 'tailwind']
+sealed_bytes validation.requests.jsonl sha256= 2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836 manifest_match= True bytes= 199700
+sealed_bytes test.requests.jsonl sha256= 038845b1187bc4b588aa98db8c8e8944d1480faa16067a02e291deedc5a3ffa4 manifest_match= True bytes= 199220
+sealed_bytes test.jsonl sha256= 230584ac1340b7ff96ed0745bb3090c345a8516c4a6ae72dce98c6b6f6d06586 manifest_match= True bytes= 1208880
+role_catalog:
+navigation {"asset_slot_ids": [], "component": "navbar", "copy_ids": ["copy-navigation-primary"], "slot_ids": ["brand"], "variants": ["inline"]}
+hero {"asset_slot_ids": ["hero_art"], "component": "hero", "copy_ids": ["copy-hero-standard"], "slot_ids": ["hero_name"], "variants": ["split", "centered"]}
+about {"asset_slot_ids": [], "component": "text_section", "copy_ids": ["copy-about-standard"], "slot_ids": ["about_description"], "variants": ["prose"]}
+services {"asset_slot_ids": [], "component": "feature_grid", "copy_ids": ["copy-services-standard"], "slot_ids": ["service_item"], "variants": ["cards"]}
+benefits {"asset_slot_ids": [], "component": "feature_grid", "copy_ids": ["copy-benefits-standard"], "slot_ids": ["benefit_value"], "variants": ["cards"]}
+values {"asset_slot_ids": [], "component": "text_section", "copy_ids": ["copy-values-standard"], "slot_ids": ["values_statement"], "variants": ["prose"]}
+process {"asset_slot_ids": [], "component": "feature_grid", "copy_ids": ["copy-process-standard"], "slot_ids": ["process_item"], "variants": ["numbered"]}
+faq {"asset_slot_ids": [], "component": "feature_grid", "copy_ids": ["copy-faq-standard"], "slot_ids": ["faq_item"], "variants": ["cards"]}
+portfolio {"asset_slot_ids": [], "component": "feature_grid", "copy_ids": ["copy-portfolio-standard"], "slot_ids": ["portfolio_item"], "variants": ["cards"]}
+contact {"asset_slot_ids": [], "component": "contact_form", "copy_ids": ["copy-contact-local"], "slot_ids": [], "variants": ["panel"]}
+footer {"asset_slot_ids": [], "component": "footer", "copy_ids": ["copy-footer-standard"], "slot_ids": ["footer_name"], "variants": ["columns"]}
+copy copy-navigation-primary {"component": "navbar", "page_properties": ["links"], "properties": {"links": [{"href": "#about", "label": "Tentang"}, {"href": "#services", "label": "Layanan"}, {"href": "#contact", "label": "Kontak"}]}, "role": "navigation"}
+copy copy-hero-standard {"component": "hero", "page_properties": ["text", "button", "media"], "properties": {"button": {"href": "#contact", "label": "Diskusikan kebutuhan"}, "media": {}, "text": "Kenali pilihan layanan dan mulai berdiskusi."}, "role": "hero"}
+copy copy-about-standard {"component": "text_section", "page_properties": ["heading"], "properties": {"heading": "Tentang usaha"}, "role": "about"}
+copy copy-services-standard {"component": "feature_grid", "page_properties": ["heading"], "properties": {"heading": "Layanan utama"}, "role": "services"}
+copy copy-benefits-standard {"component": "feature_grid", "page_properties": ["heading"], "properties": {"heading": "Alasan untuk berdiskusi"}, "role": "benefits"}
+copy copy-values-standard {"component": "text_section", "page_properties": ["heading"], "properties": {"heading": "Nilai usaha"}, "role": "values"}
+copy copy-process-standard {"component": "feature_grid", "page_properties": ["heading"], "properties": {"heading": "Cara memulai"}, "role": "process"}
+copy copy-faq-standard {"component": "feature_grid", "page_properties": ["heading"], "properties": {"heading": "Pertanyaan umum"}, "role": "faq"}
+copy copy-portfolio-standard {"component": "feature_grid", "page_properties": ["heading"], "properties": {"heading": "Ilustrasi proyek fiktif"}, "role": "portfolio"}
+copy copy-contact-local {"component": "contact_form", "page_properties": ["heading", "fields", "submit_label"], "properties": {"fields": [{"label": "Nama", "name": "name", "type": "text"}, {"label": "Email", "name": "email", "type": "email"}, {"label": "Pesan", "name": "message", "type": "textarea"}], "heading": "Diskusikan kebutuhan Anda", "submit_label": "Kirim"}, "role": "contact"}
+copy copy-footer-standard {"component": "footer", "page_properties": ["links"], "properties": {"links": [{"href": "#about", "label": "Tentang"}, {"href": "#contact", "label": "Kontak"}]}, "role": "footer"}

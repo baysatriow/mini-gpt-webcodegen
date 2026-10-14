@@ -1,0 +1,7 @@
+RUN-473
+Started: 2026-10-14 19:21:00 +07:00
+Command: Inspect one frozen V4 train request, deterministic curriculum structure and source-bound schema mapping
+Exit code: 0
+
+The first train request belongs to family0000 and has nine sections. Its plan carries section IDs, roles, types, variants, fact IDs and asset IDs. The local source-bound catalog provides one copy ID and fact slot mapping for each role. Every emitted PagePlan must match the closed source-bound schema; each SectionDraft must contain fact/asset references only.
+Inspected one train request record and the local catalog/schema configuration only. No validation or final rows were read.

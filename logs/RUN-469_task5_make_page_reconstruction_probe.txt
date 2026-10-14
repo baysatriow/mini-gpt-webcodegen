@@ -1,0 +1,7 @@
+RUN-469
+Started: 2026-10-14 19:09:09 +07:00
+Command: project .venv Python regenerate family train/validation requests with make_page and compare schema facts
+Exit code: 0
+
+reconstruction_profile= {('train', 'base', 'exact'): 480, ('train', 0, 'exact'): 480, ('train', 1, 'exact'): 480, ('train', 2, 'exact'): 480, ('train', 3, 'exact'): 480, ('train', 'targeted-identity-facts-v3', 'exact'): 960, ('validation', 'base', 'exact'): 80}
+mismatch_samples= []

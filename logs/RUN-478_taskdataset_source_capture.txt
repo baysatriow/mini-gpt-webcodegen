@@ -1,0 +1,6 @@
+RUN-478
+Started: 2026-10-14 19:30:00 +07:00
+Command: Capture TaskDataset encoder source lookup from CodeGraph
+Exit code: 0
+
+Captured the complete CodeGraph response in logs/RUN-478_taskdataset_codegraph_output.txt. It confirms the encoder currently validates JSON against only the legacy plan or section schema, then enforces unchanged token budget, EOS, delimiter, pad ID, block size and row length checks.

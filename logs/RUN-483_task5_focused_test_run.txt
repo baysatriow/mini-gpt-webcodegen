@@ -1,0 +1,6 @@
+RUN-483
+Started: 2026-10-14 19:48:00 +07:00
+Command: Focused Task 5 tests after removing unused prose values from reference-only plan context
+Exit code: 1
+
+Complete output captured in logs/RUN-483_task5_focused_tests_prompt_v3.txt. PagePlan context now includes accepted genre/style, fact IDs and kinds, asset IDs and role constraints. Request wording and fact values remain in the immutable request records but are not duplicated into a target that can only reference IDs.

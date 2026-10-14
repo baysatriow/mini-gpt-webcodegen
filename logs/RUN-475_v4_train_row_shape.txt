@@ -1,0 +1,6 @@
+RUN-475
+Started: 2026-10-14 19:25:00 +07:00
+Command: Inspect first V4 train row shapes to define strict V5 primary-plan lookup
+Exit code: 0
+
+Only the first three training lines were opened. No validation or final rows were read.

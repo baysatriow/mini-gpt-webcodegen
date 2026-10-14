@@ -1,0 +1,6 @@
+RUN-493
+Started: 2026-10-14 20:15:00 +07:00
+Command: Locate the approved PagePlan budget references for an evidence-based budget correction
+Exit code: 0
+
+Read-only search after the full-corpus preflight. The train maximum source-bound PagePlan target including EOS is 756 tokens; the longest plan prompt is 729 tokens. Together with a PagePlan output limit of 896, the total is 1,625 tokens and fits context 2,048. Section maximum target including EOS is 140, with prompt maximum 340; section output stays 1,536.

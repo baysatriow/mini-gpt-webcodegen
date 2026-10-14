@@ -4,6 +4,21 @@ from src.data.tokenizer import SPECIAL_TOKENS
 
 SECTION_FIELDS = ('id', 'type', 'role', 'variant', 'fact_ids', 'asset_ids')
 OUTPUT_BUDGETS = {'page_plan': 512, 'section_content': 1536}
+SOURCE_BOUND_OUTPUT_BUDGETS = {'page_plan': 896, 'section_content': 1536}
+SOURCE_BOUND_CONTRACT_VERSION = 'source-bound-v1'
+
+
+def output_budget_for(task, contract_version=None):
+    if contract_version is None:
+        budgets = OUTPUT_BUDGETS
+    elif contract_version == SOURCE_BOUND_CONTRACT_VERSION:
+        budgets = SOURCE_BOUND_OUTPUT_BUDGETS
+    else:
+        raise ValueError('Unsupported full-page target contract')
+    try:
+        return budgets[task]
+    except KeyError as error:
+        raise ValueError('Unknown full-page task') from error
 
 
 def canonical(value):

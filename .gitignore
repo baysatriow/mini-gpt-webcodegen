@@ -15,6 +15,7 @@ __pycache__/
 !.env.example
 data/raw/
 data/processed/
+/reports/fullpage/FULLPAGE-V5_DATA_PREPARATION.json
 /checkpoints/*
 !/checkpoints/README.md
 /outputs/*

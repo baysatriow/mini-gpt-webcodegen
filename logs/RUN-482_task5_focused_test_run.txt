@@ -1,0 +1,6 @@
+RUN-482
+Started: 2026-10-14 19:45:00 +07:00
+Command: Focused Task 5 tests after compacting PagePlan inputs to accepted structured fields
+Exit code: 1
+
+Complete output captured in logs/RUN-482_task5_focused_tests_prompt_v2.txt. Training prompts retain genre, style, all fact IDs/kinds/values, asset IDs, and catalog role constraints. Raw request wording remains in source request records but is omitted from the reference-only PagePlan generation context because it duplicates accepted structured fields and does not fit the fixed context with the output budget.

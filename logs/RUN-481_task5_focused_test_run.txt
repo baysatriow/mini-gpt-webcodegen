@@ -1,0 +1,6 @@
+RUN-481
+Started: 2026-10-14 19:42:00 +07:00
+Command: Rerun Task 5 tests after compacting shared source-bound prompts
+Exit code: 1
+
+Complete output captured in logs/RUN-481_task5_focused_tests_prompt_compaction.txt. This run checks that the compact prompt still includes the contract and all facts and fits the frozen context. Runtime V5 output was not generated.

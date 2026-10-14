@@ -1,0 +1,6 @@
+RUN-490
+Started: 2026-10-14 20:06:00 +07:00
+Command: Full source-bound token preflight with suffix precedence for V4 request IDs
+Exit code: 1
+
+This run follows RUN-489: numeric suffixes are removed before treating an example_id as an exact request ID, unless the row is a targeted identity augmentation, which removes -target-N first. It validates all train/validation primary plans and measures source-bound prompts and targets with the frozen tokenizer. Final bytes are hash-only; no final records are parsed.

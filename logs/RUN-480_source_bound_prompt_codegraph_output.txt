@@ -1,0 +1,428 @@
+**Exploration: src/fullpage/source_bound_prompts.py source_bound_plan_prompt source_bound_section_prompt**
+
+Found 34 symbols across 5 files. 1 file pinned from the query.
+
+**Blast radius — what depends on these (update/verify before editing)**
+
+- `source_bound_plan_prompt` (src/fullpage/source_bound_prompts.py:12) — 6 callers in `src/fullpage/generation.py`, `src/fullpage/intake.py`; tests: `tests/fullpage/test_source_bound_generation.py`
+- `source_bound_section_prompt` (src/fullpage/source_bound_prompts.py:56) — 4 callers in `src/fullpage/generation.py`; tests: `tests/fullpage/test_source_bound_generation.py`
+- `plan_prompt` (src/fullpage/prompts.py:5) — 9 callers in `qa/prepare_fullpage_improvement.py`, `src/fullpage/curriculum.py`, `qa/prepare_fullpage_v3.py`, `src/fullpage/generation.py`; tested via callers: `tests/fullpage/test_source_bound_generation.py`
+- `section` (src/data/curriculum.py:57) — 1 caller in `src/data/curriculum.py`; no tests found within 3 caller hops
+- `SOURCE` (qa/prepare_fullpage_v4.py:23) — 2 callers in `qa/prepare_fullpage_v4.py`; no tests found within 3 caller hops
+
+**Source Code**
+
+> The code below is the **verbatim, current on-disk source** of these files — re-read from disk on this call and line-numbered, byte-for-byte identical to what the Read tool returns. It is NOT a summary, outline, or stale cache. Treat each block as a Read you have already performed: do not Read a file shown here.
+
+**`src/fullpage/source_bound_prompts.py`** — source_bound_plan_prompt(function), source_bound_section_prompt(function), _canonical(function)
+
+```python
+1	"""Shared source-bound task prompts for training-data preparation and generation."""
+2	
+3	import json
+4	
+5	from .source_bound_contracts import load_copy_catalog
+6	
+7	
+8	def _canonical(value):
+9	    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+10	
+11	
+12	def source_bound_plan_prompt(request: dict) -> str:
+13	    catalog = load_copy_catalog()
+14	    genre = request.get("genre")
+15	    required_roles = catalog.get("required_roles", {}).get(genre, [])
+16	    allowed_roles = {}
+17	    for role in required_roles:
+18	        role_spec = catalog["roles"][role]
+19	        allowed_roles[role] = {
+20	            "component": role_spec["component"],
+21	            "variants": role_spec["variants"],
+22	            "copy_ids": role_spec["copy_ids"],
+23	            "fact_kinds": role_spec["fact_kinds"],
+24	            "slot_ids": role_spec["slot_ids"],
+25	            "asset_slot_ids": role_spec["asset_slot_ids"],
+26	            "max_assets": role_spec["max_assets"],
+27	        }
+28	    section_ids = {
+29	        "navigation": "nav",
+30	        "hero": "main",
+31	        "about": "about",
+32	        "services": "services",
+33	        "benefits": "benefits",
+34	        "values": "values",
+35	        "process": "process",
+36	        "faq": "faq",
+37	        "portfolio": "portfolio",
+38	        "contact": "contact",
+39	        "footer": "footer",
+40	    }
+41	    context = {
+42	        "request": request,
+43	        "required_roles": required_roles,
+44	        "allowed_roles": allowed_roles,
+45	        "required_section_ids": {role: section_ids[role] for role in required_roles},
+46	        "theme_ids": sorted(catalog["themes"]),
+47	    }
+48	    rules = (
+49	        "Return only a PagePlan JSON object for contract source-bound-v1. "
+50	        "Use every required role, its fixed section id, component, variant, copy id, and only the supplied fact and asset IDs. "
+51	        "Do not write factual copy, HTML, CSS, JavaScript, or any other prose."
+52	    )
+53	    return "SOURCE_BOUND_PLAN\n" + rules + "\n" + _canonical(context)
+54	
+55	
+56	def source_bound_section_prompt(request: dict, page_plan: dict, descriptor: dict) -> str:
+57	    catalog = load_copy_catalog()
+58	    role = descriptor["role"]
+59	    role_spec = catalog["roles"][role]
+60	    facts_by_id = {fact["id"]: fact for fact in request["business_facts"]}
+61	    facts = [facts_by_id[fact_id] for fact_id in descriptor["fact_ids"]]
+62	    fact_slots = {
+63	        slot_id: {
+64	            "fact_kinds": catalog["slots"][slot_id]["fact_kinds"],
+65	            "multiple": catalog["slots"][slot_id].get("multiple", False),
+66	        }
+67	        for slot_id in role_spec["slot_ids"]
+68	    }
+69	    asset_slots = {
+70	        slot_id: {"asset_id_only": True}
+71	        for slot_id in role_spec["asset_slot_ids"]
+72	    }
+73	    context = {
+74	        "request_id": request["request_id"],
+75	        "prompt": request["prompt"],
+76	        "contract_version": page_plan["contract_version"],
+77	        "theme_id": page_plan["theme_id"],
+78	        "section": descriptor,
+79	        "facts": facts,
+80	        "fact_slots": fact_slots,
+81	        "asset_slots": asset_slots,
+82	    }
+83	    rules = (
+84	        "Return only a SectionDraft JSON object for contract source-bound-v1. "
+85	        "Map every planned fact id exactly once to an allowed slot and each planned asset id to its allowed asset slot. "
+86	        "Use IDs only. Do not output copy, factual prose, HTML, CSS, JavaScript, or extra fields."
+87	    )
+88	    return "SOURCE_BOUND_SECTION\n" + rules + "\n" + _canonical(context)
+```
+
+**`src/data/curriculum.py`** — section(calls), sha256_file(calls), canonical(calls), make_example(calls), digest(calls), write_manifest(calls), +21 more
+
+```python
+17	from src.data.schema import validate_page_spec
+18	from src.data.sources import sha256_file, write_manifest
+19	
+20	ROOT = Path(__file__).resolve().parents[2]
+21	DIRECTORY = ROOT / 'data/processed/curriculum/v1'
+22	PREFIXES = ('Studio', 'Kafe', 'Toko', 'Kursus', 'Bengkel', 'Galeri', 'Kebun', 'Rumah', 'Klinik', 'Pustaka', 'Dapur', 'Komunitas')
+23	NAMES = ('Mentari', 'Nusantara', 'Pelangi', 'Cendana', 'Mutiara', 'Bintang', 'Senja', 'Purnama', 'Cahaya', 'Angkasa', 'Lestari', 'Bahagia', 'Harmoni', 'Melati', 'Kenanga', 'Sejahtera', 'Mandiri', 'Bersama', 'Utama', 'Indah', 'Ceria', 'Damai', 'Aman', 'Kreatif')
+24	RECIPES = ('profile', 'features', 'article', 'pricing', 'testimonial', 'contact', 'accordion', 'tabs', 'filter', 'modal', 'features_contact', 'pricing_contact')
+25	COLORS = ('#2563eb', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444', '#06b6d4')
+26	INTROS = ('Temukan layanan pilihan kami.', 'Kenali produk dan layanan kami.', 'Bersama membangun pengalaman terbaik.', 'Solusi sederhana untuk kebutuhan Anda.')
+27	PAIRS = (('Desain', 'Konsultasi'), ('Produk', 'Layanan'), ('Pelatihan', 'Pendampingan'), ('Kualitas', 'Kenyamanan'))
+28	OPENERS = ('Buat website', 'Rancang halaman', 'Tolong buat situs', 'Saya ingin halaman')
+29	SYLLABLES = ('ca', 'ka', 'ra', 'wa', 'la', 'ma', 'na', 'sa', 'ta', 'da', 'pa', 'ba', 'ga', 'fa', 'ha', 'ja', 'ki', 'ri', 'mi', 'ni', 'si', 'ti', 'di', 'pi', 'bi', 'gi', 'lo', 'no', 'so', 'to', 'do', 'po', 'bo', 'go', 'cak', 'raw', 'ala', 'sun', 'light', 'flow', 'code', 'craft', 'tech', 'work', 'web', 'lab', 'star', 'wave', 'green', 'blue', 'smart', 'bright')
+30	VERBS = ('membantu', 'mendampingi', 'mendukung', 'melayani')
+31	AUDIENCES = ('usaha kecil', 'tim kreatif', 'komunitas lokal', 'pelanggan baru', 'pemilik bisnis', 'pelajar Indonesia', 'mitra usaha', 'keluarga modern')
+32	PURPOSES = ('membangun identitas digital', 'menemukan solusi praktis', 'mengelola layanan secara mudah', 'memilih produk berkualitas', 'meningkatkan pengalaman pengguna', 'mengembangkan gagasan baru', 'merencanakan kegiatan bersama', 'belajar dengan nyaman')
+33	
+34	
+35	def canonical(value):
+36	    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(',', ':'))
+37	
+38	
+39	def digest(value):
+40	    return hashlib.sha256(canonical(value).encode()).hexdigest()
+41	
+42	
+43	def serialize_spec(spec, policy):
+44	    normalized = json.loads(canonical(spec))
+45	    if policy == 'sorted_keys':
+46	        return canonical(spec)
+47	    if policy != 'appearance_before_sections':
+48	        raise ValueError('Unknown serialization policy')
+49	    order = ('interactions', 'language', 'schema_version', 'style_mode', 'theme', 'sections', 'title')
+50	    # Only top-level ordering changes; nested objects retain canonical order.
+51	    return json.dumps({key: normalized[key] for key in order}, ensure_ascii=False, separators=(',', ':'))
+52	
+53	
+54	def make_example(title, recipe, style, color, font, intro, pair, menu, wording):
+55	    """Every requested fact is explicit; fixed defaults are disclosed in the contract."""
+56	    sections = []
+57	    def section(identifier, kind, props):
+58	        sections.append({'id': identifier, 'type': kind, 'props': props})
+59	    section('nav', 'navbar', {'brand': title, 'links': [{'label': 'Beranda', 'href': '#main'}]})
+60	    if recipe == 'article':
+61	        section('main', 'text_section', {'heading': 'Profil', 'text': intro})
+62	    else:
+63	        section('main', 'hero', {'heading': title, 'text': intro, 'layout': 'centered'})
+64	    interactions = [{'type': 'menu_toggle', 'target_id': 'nav'}] if menu else []
+65	    details = []
+66	    if recipe in ('features', 'accordion', 'tabs', 'filter', 'features_contact'):
+67	        section('features', 'feature_grid', {'heading': 'Layanan', 'items': [{'heading': label, 'text': 'Informasi ' + label.lower() + '.'} for label in pair]})
+68	        details.append('Tambahkan dua kartu layanan: ' + ' dan '.join(pair) + '.')
+69	        if recipe in ('accordion', 'tabs', 'filter'):
+70	            interactions.append({'type': recipe, 'target_id': 'features'})
+71	            details.append('Aktifkan interaksi ' + recipe + ' pada kartu layanan.')
+72	    if recipe in ('pricing', 'pricing_contact'):
+73	        section('pricing', 'pricing_table', {'heading': 'Paket', 'plans': [
+74	            {'name': 'Dasar', 'price': 'Rp49.000', 'features': ['Layanan dasar']},
+75	            {'name': 'Plus', 'price': 'Rp99.000', 'features': ['Layanan lengkap']}]})
+76	        details.append('Tambahkan paket Dasar Rp49.000 dengan Layanan dasar dan Plus Rp99.000 dengan Layanan lengkap.')
+77	    if recipe == 'testimonial':
+78	        section('testimonials', 'testimonial', {'heading': 'Testimoni Contoh', 'items': [{'quote': 'Ini testimoni contoh.', 'author': 'Pengguna Demo'}]})
+79	        details.append('Tambahkan testimoni fiktif berjudul Testimoni Contoh: Ini testimoni contoh. oleh Pengguna Demo.')
+80	    if recipe in ('contact', 'features_contact', 'pricing_contact'):
+81	        section('contact', 'contact_form', {'heading': 'Hubungi Kami', 'fields': [
+82	            {'name': 'nama', 'label': 'Nama', 'type': 'text'},
+83	            {'name': 'email', 'label': 'Email', 'type': 'email'},
+84	            {'name': 'pesan', 'label': 'Pesan', 'type': 'textarea'}], 'submit_label': 'Kirim'})
+85	        interactions.append({'type': 'form_validate', 'target_id': 'contact'})
+86	        details.append('Tambahkan form Hubungi Kami, kolom Nama, Email dan Pesan, tombol Kirim, serta validasi form.')
+87	    if recipe == 'modal':
+88	        interactions.append({'type': 'modal', 'target_id': 'main'})
+89	        details.append('Tambahkan modal informasi pada hero.')
+90	    section('footer', 'footer', {'text': title})
+91	    style_label = 'CSS biasa' if style == 'plain_css' else 'Tailwind'
+92	    lead = f'{OPENERS[wording]} Indonesia bernama {title} menggunakan {style_label}.'
+93	    appearance = f'Aksen {color}, latar putih, teks #111827 dan font {font}.'
+94	    body = f'Tampilkan navbar Beranda, {"teks profil" if recipe == "article" else "hero centered dengan judul nama situs"}, dan footer nama situs. Teks utama: {intro}'
+95	    behavior = 'Gunakan menu responsif.' if menu else 'Navbar statis.'
+96	    prompt = ' '.join([lead, appearance, body, behavior] + details)
+97	    spec = {'schema_version': '1.0', 'title': title, 'language': 'id', 'style_mode': style,
+98	            'theme': {'primary': color, 'background': '#ffffff', 'text': '#111827', 'font': font},
+99	            'sections': sections, 'interactions': interactions}
+100	    return {'prompt': prompt, 'target_spec': spec, 'recipe': recipe,
+101	            'annotation_status': 'programmatic_contract', 'human_reviewed': False,
+102	            'group_id': digest({'title': title}), 'example_id': digest({'prompt': prompt, 'spec': spec}),
+103	            'origin': 'project-authored fictional synthetic exercise; not a WebSight/Vulcan annotation'}
+104	
+105	
+106	def prepare(revision='v1', serialization='sorted_keys'):
+
+... (gap) ...
+
+122	            if brand not in ('Cakrawala',) and len(brand) <= 18:
+123	                brands.add(brand)
+124	        titles = [PREFIXES[i % len(PREFIXES)] + ' ' + brand for i, brand in enumerate(sorted(brands))]
+125	    random.Random(42).shuffle(titles)
+126	    train_count = 1920 if revision in ('v3', 'v4', 'v5') else 230
+127	    val_end = 2160 if revision in ('v3', 'v4', 'v5') else 259
+128	    allocation = {title: 'train' if i < train_count else 'validation' if i < val_end else 'test' for i, title in enumerate(titles)}
+
+... (gap) ...
+
+138	            intro = rng.choice(INTROS)
+139	            if revision in ('v3', 'v4', 'v5') and rng.random() < .8:
+140	                intro = f'Kami {rng.choice(VERBS)} {rng.choice(AUDIENCES)} untuk {rng.choice(PURPOSES)}.'
+141	            row = make_example(title, recipe, style, color, font,
+142	                               intro, rng.choice(PAIRS), bool(variant), rng.randrange(len(OPENERS)))
+143	            row['split'] = split
+144	            if row['example_id'] in seen:
+
+... (gap) ...
+
+166	            allocation[title] = 'train'
+167	            covered.update(tokenizer.encode(title).ids)
+168	            for style in ('plain_css', 'tailwind'):
+169	                row = make_example(title, 'profile', style, rng.choice(COLORS), rng.choice(('sans', 'serif', 'mono')),
+170	                                   rng.choice(INTROS), PAIRS[0], False, rng.randrange(len(OPENERS)))
+171	                row['split'] = 'train'
+172	                row['copy_drill'] = True
+
+... (gap) ...
+
+199	                intro = fresh_rng.choice(INTROS)
+200	                if fresh_rng.random() < .8:
+201	                    intro = f'Kami {fresh_rng.choice(VERBS)} {fresh_rng.choice(AUDIENCES)} untuk {fresh_rng.choice(PURPOSES)}.'
+202	                row = make_example(title, recipe, style, fresh_rng.choice(COLORS), fresh_rng.choice(('sans', 'serif', 'mono')),
+203	                                   intro, fresh_rng.choice(PAIRS), bool(variant), fresh_rng.randrange(len(OPENERS)))
+204	                row['split'] = 'test'; records['test'].append(row)
+205	    directory.mkdir(parents=True)
+
+... (gap) ...
+
+210	        labels = np.lib.format.open_memmap(directory / f'{split}.labels.npy', mode='w+', dtype=np.int32, shape=(len(rows), 1024))
+211	        with path.open('x', encoding='utf-8') as handle:
+212	            for index, row in enumerate(rows):
+213	                errors = validate_page_spec(row['target_spec'])
+214	                if errors: raise ValueError(errors)
+215	                x, y = encode_sft(row['prompt'], serialize_spec(row['target_spec'], serialization), tokenizer, 1024)
+216	                inputs[index], labels[index] = x, y
+217	                lengths.append(sum(value != tokenizer.token_to_id('<pad>') for value in x))
+218	                handle.write(json.dumps(row, ensure_ascii=False) + '\n')
+219	        inputs.flush(); labels.flush(); del inputs, labels
+220	        files[split] = {kind: {'path': str((directory / f'{split}.{suffix}').relative_to(ROOT)),
+221	                              'sha256': sha256_file(directory / f'{split}.{suffix}')}
+222	                       for kind, suffix in [('rows', 'jsonl'), ('inputs', 'inputs.npy'), ('labels', 'labels.npy')]}
+223	        counts[split] = {'rows': len(rows), 'families': len({r['group_id'] for r in rows})}
+224	        coverage[split] = {'sections': dict(Counter(s['type'] for r in rows for s in r['target_spec']['sections'])),
+
+... (gap) ...
+
+232	    final_path.write_text(''.join(json.dumps(r, ensure_ascii=False) + '\n' for r in final), encoding='utf-8')
+233	    manifest = {'revision': 'synthetic-contract-' + revision, 'serialization': serialization, 'status': 'complete', 'seed': 42, 'counts': counts,
+234	        'files': files, 'coverage': coverage, 'max_sequence_tokens': max(lengths),
+235	        'tokenizer_sha256': sha256_file(ROOT / 'data/tokenizer/tokenizer.json'),
+236	        'allocation': {digest({'title': title}): split for title, split in allocation.items()},
+237	        'split_policy': 'disjoint fictional title families; shared component templates across partitions',
+238	        'human_reviewed_rows': 0, 'review_kind': 'programmatic_contract',
+239	        'final_suite': {'path': str(final_path.relative_to(ROOT)), 'sha256': sha256_file(final_path), 'count': len(final)},
+240	        'acceptance': {'schema_valid_rate': 0.95, 'exact_contract_rate': 0.90, 'repair_allowed': False},
+241	        'limits': ['Synthetic template transfer only, not arbitrary real-world website generalization',
+242	                   'Not human-reviewed production SFT; existing 12 reviewed rows and all HF manifests remain unchanged',
+```
+
+**`qa/prepare_fullpage_v4.py`** — sha256_file(calls), read_jsonl(calls), read_json(calls), check_budget(calls), role_counts(calls), write_json(calls), +25 more
+
+```python
+18	from src.fullpage.prompts import section_prompt
+19	from src.fullpage.serialization import OUTPUT_BUDGETS, check_budget, decode_plan, serialize_task
+20	
+21	ROOT = Path(__file__).resolve().parents[1]
+22	RESERVE_BYTES = 15 * 1024**3
+23	SOURCE = ROOT / "data/processed/fullpage/v3"
+24	DESTINATION = ROOT / "data/processed/fullpage/v4"
+25	REPORT = ROOT / "reports/fullpage/FULLPAGE-V4_DATA_PREPARATION.json"
+26	TARGET_MARKER = "targeted-identity-facts-v3"
+
+... (gap) ...
+
+44	    counts = Counter()
+45	    for row in rows:
+46	        if row["task"] == "section_content":
+47	            counts[json.loads(row["target"]).get("role")] += 1
+48	    return dict(sorted(counts.items()))
+49	
+50	
+51	def verify_source(manifest):
+52	    if manifest.get("version") != "fullpage-v3" or manifest.get("human_reviewed") is not False:
+53	        raise ValueError("Expected the disclosed, synthetic v3 parent")
+54	    for name, info in manifest["files"].items():
+55	        path = SOURCE / name
+56	        if not path.is_file() or sha256_file(path) != info["sha256"] or path.stat().st_size != info["bytes"]:
+57	            raise ValueError("Frozen v3 parent file changed: " + name)
+58	
+59	
+60	def build_overlay():
+61	    if DESTINATION.exists() or REPORT.exists():
+62	        raise FileExistsError("V4 dataset and report destinations must be new")
+63	    source_manifest_path = SOURCE / "manifest.json"
+64	    source_manifest = read_json(source_manifest_path)
+65	    verify_source(source_manifest)
+66	
+67	    source_bytes = sum((SOURCE / name).stat().st_size for name in source_manifest["files"])
+68	    disk_before = shutil.disk_usage(ROOT).free
+69	    if disk_before < RESERVE_BYTES + source_bytes + 64 * 1024**2:
+70	        raise OSError("Insufficient storage to copy v3 while preserving the 15 GiB reserve")
+71	
+72	    requests = {}
+73	    for record in read_jsonl(SOURCE / "train.requests.jsonl"):
+74	        if record["split"] != "train":
+75	            raise ValueError("The v3 training request file contains a non-train record")
+76	        request = record["request"]
+
+... (gap) ...
+
+82	        raise ValueError(f"Expected 960 v3 train pages, found {len(requests)}")
+83	
+84	    plan_rows = {}
+85	    for row in read_jsonl(SOURCE / "train.jsonl"):
+86	        if row["task"] != "page_plan" or row.get("augmentation") != TARGET_MARKER or row.get("retry"):
+87	            continue
+88	        match = TARGETED_EXAMPLE.fullmatch(row["example_id"])
+```
+
+**`src/fullpage/source_bound_compose.py`** — build_page_spec_from_request(function), get(calls), calls(calls), compose_source_bound_page(function), validate_page_plan(calls), resolve_section_draft(calls), +3 more
+
+```python
+27	    if len(names) != 1 or not isinstance(names[0], str):
+28	        raise ValueError("Request must contain exactly one business name fact")
+29	    theme_id = page_plan.get("theme_id")
+30	    theme = copy_catalog.get("themes", {}).get(theme_id)
+31	    if not isinstance(theme, dict):
+32	        raise ValueError("PagePlan references an unknown local theme")
+33	    return {
+
+... (gap) ...
+
+38	        "style_mode": request["style_mode"],
+39	        "theme": deepcopy(theme),
+40	        "sections": sections,
+41	        "interactions": derive_interactions(sections),
+42	        "fictitious": request["fictitious"],
+43	    }
+44	
+45	
+46	def compose_source_bound_page(request: dict, page_plan: dict, drafts: list[dict], copy_catalog: dict) -> dict:
+47	    """Validate and resolve all model references before returning a complete page."""
+48	    errors = validate_page_plan(page_plan, request, copy_catalog)
+49	    if errors:
+50	        raise ValueError("Invalid source-bound PagePlan: " + "; ".join(errors))
+51	    if not isinstance(drafts, list) or len(drafts) != len(page_plan["sections"]):
+52	        raise ValueError("SectionDraft count must match the planned sections")
+53	
+54	    sections = [
+55	        resolve_section_draft(request, descriptor, draft, copy_catalog)
+56	        for descriptor, draft in zip(page_plan["sections"], drafts, strict=True)
+57	    ]
+58	    fact_findings = [
+59	        finding
+60	        for descriptor, section in zip(page_plan["sections"], sections, strict=True)
+61	        for finding in fact_errors(section, descriptor, request)
+62	    ]
+63	    if fact_findings:
+64	        raise ValueError("Resolved sections violate request facts: " + "; ".join(fact_findings))
+65	    page = build_page_spec_from_request(request, page_plan, sections, copy_catalog)
+66	    errors = validate_composed_page(page)
+67	    if errors:
+68	        raise ValueError("Resolved page violates PageSpec 2.0: " + "; ".join(errors))
+69	    return page
+70	
+```
+
+**`src/fullpage/prompts.py`** — plan_prompt(function), section_prompt(function), retry_prompt(function)
+
+```python
+1	"""Shared task input serialization for training and inference."""
+2	from .serialization import canonical
+3	
+4	
+5	def plan_prompt(request):
+6	    rules = ('Salin nilai business_facts dengan kind name secara persis ke title. '
+7	             'Salin genre dan style_mode dari request tanpa perubahan.')
+8	    return 'PLAN\n' + rules + '\n' + canonical(request)
+9	
+10	
+11	def section_prompt(request, plan, descriptor):
+12	    name = next(f['value'] for f in request['business_facts'] if f['kind'] == 'name')
+13	    facts = [f for f in request['business_facts'] if f['id'] in descriptor['fact_ids']]
+14	    summary = {'name': name, 'section': descriptor, 'facts': facts}
+15	    if descriptor['role'] in ('navigation', 'hero', 'footer', 'pricing'):
+16	        summary['links'] = [[s['id'], s['role']] for s in plan['sections']]
+17	    rules = 'Gunakan hanya fakta ini; jangan tambah item atau klaim.'
+18	    if descriptor['role'] in ('navigation', 'hero', 'footer'):
+19	        rules += f' Salin nama usaha persis: {name}.'
+20	    return 'SECTION\n' + rules + '\n' + canonical(summary)
+21	
+22	
+23	def retry_prompt(prompt, error):
+24	    return prompt + '\nRETRY\n' + str(error)[:160]
+```
+
+**Not shown above — explore these names for their source**
+
+- src/fullpage/source_bound_contracts.py: load_copy_catalog:43, CONTRACT_VERSION:8, ROOT:9, validate_page_plan:95, _schema_errors:53, _catalog_shape_errors:74, +3 more
+- src/fullpage/source_bound_serialization.py: serialize_source_bound_task:8
+- tests/fullpage/test_source_bound_compose.py: test_composes_both_genres_and_styles:14, test_composition_uses_exact_request_facts:24, test_rejects_a_section_draft_count_mismatch:50, test_rejects_catalog_items_without_request_facts:55, test_rejects_missing_role_and_unavailable_service_fact:81, test_html_sensitive_fact_is_escaped_by_existing_renderer:96, +1 more
+- src/fullpage/generation.py: _generate_source_bound:162, __init__:69, _generate_legacy:114, generation.py:1
+- src/fullpage/serialization.py: canonical:9, serialize_task:26, check_budget:32, decode_plan:17
+- src/fullpage/contracts.py: validate_request:57, validate_plan_wire:78, validate_section:113, validate_composed_page:133
+- qa/audit_vulcan.py: prompts:47, get:16, download:27, digest:43
+- src/fullpage/curriculum.py: build_curriculum:96, make_page:32, write_json:26, curriculum.py:1
+- src/fullpage/compose.py: compose_page:52, values:7, fact_errors:14
+- src/fullpage/intake.py: prepare_intake:276, _request_candidate:114, intake.py:1
+- ... and 28 more files
+
+> Some file sections were trimmed for size. For a specific symbol you still need, run another `codegraph_explore` (or `codegraph_node`) with its exact name — line-numbered source, cheaper and more complete than Read.

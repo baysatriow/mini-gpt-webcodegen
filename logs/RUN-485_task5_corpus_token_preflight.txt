@@ -1,0 +1,6 @@
+RUN-485
+Started: 2026-10-14 19:53:00 +07:00
+Command: Corpus-wide source-bound prompt and output token preflight on frozen train and validation only
+Exit code: 1
+
+The project tokenizer measured the complete 3,360 train and 80 validation requests, using one verified V4 primary plan per request and deterministic source-bound target conversion. The V4 manifest and all files were integrity-checked; sealed final files were hashed as raw bytes only and no final records were parsed.

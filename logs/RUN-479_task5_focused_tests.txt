@@ -1,0 +1,65 @@
+test_build_keeps_split_rows_and_never_parses_sealed_final_files (tests.fullpage.test_source_bound_data.SourceBoundDatasetPreparationTests.test_build_keeps_split_rows_and_never_parses_sealed_final_files) ... ERROR
+test_destination_must_be_new (tests.fullpage.test_source_bound_data.SourceBoundDatasetPreparationTests.test_destination_must_be_new) ... ok
+test_insufficient_disk_reserve_refuses_to_write (tests.fullpage.test_source_bound_data.SourceBoundDatasetPreparationTests.test_insufficient_disk_reserve_refuses_to_write) ... ERROR
+test_converter_rejects_section_structure_that_does_not_match_plan (tests.fullpage.test_source_bound_data.SourceBoundTargetTests.test_converter_rejects_section_structure_that_does_not_match_plan) ... ok
+test_targets_reference_facts_and_compose_a_complete_page (tests.fullpage.test_source_bound_data.SourceBoundTargetTests.test_targets_reference_facts_and_compose_a_complete_page) ... ok
+test_theme_mapping_uses_only_a_catalog_theme (tests.fullpage.test_source_bound_data.SourceBoundTargetTests.test_theme_mapping_uses_only_a_catalog_theme) ... ok
+test_source_bound_and_legacy_targets_both_encode (tests.fullpage.test_source_bound_data.TaskDatasetContractDispatchTests.test_source_bound_and_legacy_targets_both_encode) ... ERROR
+
+======================================================================
+ERROR: test_build_keeps_split_rows_and_never_parses_sealed_final_files (tests.fullpage.test_source_bound_data.SourceBoundDatasetPreparationTests.test_build_keeps_split_rows_and_never_parses_sealed_final_files)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_data.py", line 208, in test_build_keeps_split_rows_and_never_parses_sealed_final_files
+    report = prepare_fullpage_v5.build_v5_dataset(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\prepare_fullpage_v5.py", line 353, in build_v5_dataset
+    converted, request_maxima = _convert_request(
+                                ^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\prepare_fullpage_v5.py", line 245, in _convert_request
+    plan_row, prefix, target_tokens, total = _target_row(
+                                             ^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\prepare_fullpage_v5.py", line 201, in _target_row
+    budget = check_budget(tokenizer, prompt, OUTPUT_BUDGETS[task], block_size=BLOCK_SIZE)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\fullpage\serialization.py", line 41, in check_budget
+    raise ValueError(f'Budget overflow: prefix={prefix}, output={output_budget}, context={block_size}')
+ValueError: Budget overflow: prefix=2499, output=512, context=2048
+
+======================================================================
+ERROR: test_insufficient_disk_reserve_refuses_to_write (tests.fullpage.test_source_bound_data.SourceBoundDatasetPreparationTests.test_insufficient_disk_reserve_refuses_to_write)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_data.py", line 237, in test_insufficient_disk_reserve_refuses_to_write
+    prepare_fullpage_v5.build_v5_dataset(ROOT, self.source_dir, self.output_dir, reserve_bytes=1)
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\prepare_fullpage_v5.py", line 353, in build_v5_dataset
+    converted, request_maxima = _convert_request(
+                                ^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\prepare_fullpage_v5.py", line 245, in _convert_request
+    plan_row, prefix, target_tokens, total = _target_row(
+                                             ^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\prepare_fullpage_v5.py", line 201, in _target_row
+    budget = check_budget(tokenizer, prompt, OUTPUT_BUDGETS[task], block_size=BLOCK_SIZE)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\fullpage\serialization.py", line 41, in check_budget
+    raise ValueError(f'Budget overflow: prefix={prefix}, output={output_budget}, context={block_size}')
+ValueError: Budget overflow: prefix=2499, output=512, context=2048
+
+======================================================================
+ERROR: test_source_bound_and_legacy_targets_both_encode (tests.fullpage.test_source_bound_data.TaskDatasetContractDispatchTests.test_source_bound_and_legacy_targets_both_encode)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_data.py", line 104, in test_source_bound_and_legacy_targets_both_encode
+    source_row = _task_row(request, "family0000", "train", "page_plan", source_prompt, source_target, "source-plan")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_data.py", line 34, in _task_row
+    budget = check_budget(TOKENIZER, prompt, OUTPUT_BUDGETS[task])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\fullpage\serialization.py", line 41, in check_budget
+    raise ValueError(f'Budget overflow: prefix={prefix}, output={output_budget}, context={block_size}')
+ValueError: Budget overflow: prefix=2505, output=512, context=2048
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.273s
+
+FAILED (errors=3)

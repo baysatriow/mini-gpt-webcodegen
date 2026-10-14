@@ -1,0 +1,293 @@
+**Exploration: src/fullpage/dataset.py encode_task_row**
+
+Found 26 symbols across 3 files. 1 file pinned from the query.
+
+**Blast radius — what depends on these (update/verify before editing)**
+
+- `encode_task_row` (src/fullpage/dataset.py:15) — 5 callers in `src/fullpage/dataset.py`, `qa/prepare_fullpage_v3.py`, `qa/prepare_fullpage_v4.py`; no tests found within 3 caller hops
+- `encode_sft` (src/data/dataset.py:30) — 13 callers in `qa/diagnose_sft_generation.py`, `qa/prepare_annotation_review.py`, `qa/prepare_copy_curriculum.py`, `src/data/curriculum.py` +1 more; tests: `tests/data/test_tokenizer_dataset.py`
+- `encode_plan` (src/fullpage/serialization.py:13) — 9 callers in `qa/inspect_fullpage_contracts.py`, `src/fullpage/compose.py`, `src/fullpage/curriculum.py`, `src/fullpage/serialization.py` +1 more; tested via callers: `tests/fullpage/test_source_bound_generation.py`
+
+**Source Code**
+
+> The code below is the **verbatim, current on-disk source** of these files — re-read from disk on this call and line-numbered, byte-for-byte identical to what the Read tool returns. It is NOT a summary, outline, or stale cache. Treat each block as a Read you have already performed: do not Read a file shown here.
+
+**`src/fullpage/dataset.py`** — encode_task_row(function), TaskDataset(class), TaskBatchSampler(class), __init__(method), __len__(method), __getitem__(method), +5 more
+
+```python
+1	"""Shifted task labels and reproducible length buckets without fixed padding."""
+2	import hashlib
+3	import json
+4	import math
+5	import random
+6	import torch
+7	from torch.utils.data import Dataset
+8	from src.data.normalize import read_jsonl
+9	from src.data.tokenizer import SPECIAL_TOKENS
+10	from src.training.engine import ResumableBatchSampler
+11	from .serialization import canonical, check_budget, OUTPUT_BUDGETS
+12	from .contracts import schema_errors
+13	
+14	
+15	def encode_task_row(row, tokenizer):
+16	    if row['task'] not in OUTPUT_BUDGETS: raise ValueError('Unknown task')
+17	    errors = schema_errors('plan' if row['task'] == 'page_plan' else 'section', json.loads(row['target']))
+18	    if errors: raise ValueError(errors)
+19	    check_budget(tokenizer, row['prompt'], OUTPUT_BUDGETS[row['task']])
+20	    if any(t in row['target'] for t in SPECIAL_TOKENS): raise ValueError('Reserved delimiter in target')
+21	    special = {t: tokenizer.token_to_id(t) for t in SPECIAL_TOKENS}
+22	    if any(v is None for v in special.values()): raise ValueError('Missing tokenizer delimiter')
+23	    if special['<pad>'] != 0: raise ValueError('Collator requires the frozen project pad ID 0')
+24	    prefix = [special['<bos>'], special['<prompt>']] + tokenizer.encode(row['prompt']).ids + [special['<target>']]
+25	    target = tokenizer.encode(row['target']).ids + [special['<eos>']]
+26	    if len(target) > OUTPUT_BUDGETS[row['task']]: raise ValueError('Target exceeds output budget')
+27	    sequence = prefix + target
+28	    if len(sequence) > 2048: raise ValueError('Oversize task sequence')
+29	    ids, labels = sequence[:-1], sequence[1:]
+30	    labels[:len(prefix) - 1] = [-100] * (len(prefix) - 1)
+31	    if row['length'] != len(ids): raise ValueError('Task length metadata mismatch')
+32	    return {'input_ids': ids, 'labels': labels, 'length': len(ids)}
+33	
+34	
+35	class TaskDataset(Dataset):
+36	    def __init__(self, path, tokenizer, family_ids=None):
+37	        self.rows = [r for r in read_jsonl(path) if family_ids is None or r['family_id'] in family_ids]
+38	        if not self.rows: raise ValueError('Empty task dataset')
+39	        self.encoded = [encode_task_row(r, tokenizer) for r in self.rows]
+40	        self.lengths = [r['length'] for r in self.encoded]
+41	        self.task_kinds = [r['task'] for r in self.rows]
+42	
+43	    def __len__(self): return len(self.rows)
+44	
+45	    def __getitem__(self, index): return self.encoded[index]
+46	
+47	
+48	class TaskBatchSampler(ResumableBatchSampler):
+49	    def __init__(self, lengths, task_kinds, batch_size, seed, balanced=True, plan_probability=.3):
+50	        super().__init__(len(lengths), batch_size, seed)
+51	        if not 0 < plan_probability < 1: raise ValueError('Plan probability must be between zero and one')
+52	        self.plan_probability = plan_probability
+53	        self.balanced = balanced
+54	        identity = [lengths, task_kinds, balanced]
+55	        if plan_probability != .3: identity.append(plan_probability)
+56	        self.fingerprint = hashlib.sha256(canonical(identity).encode()).hexdigest()
+57	        self.groups = {}
+58	        for index, (length, task) in enumerate(zip(lengths, task_kinds, strict=True)):
+59	            bucket = next(b for b in (256, 512, 1024, 2048) if length <= b)
+60	            self.groups.setdefault((task, bucket), []).append(index)
+61	        if balanced and set(task_kinds) != set(OUTPUT_BUDGETS): raise ValueError('Balanced sampling requires both tasks')
+62	
+63	    def batches(self, epoch):
+64	        rng = random.Random(self.seed + epoch)
+65	        if not self.balanced:
+66	            order = list(range(self.size))
+67	            return [order[i:i+self.batch_size] for i in range(0, self.size, self.batch_size)]
+68	        batches = []
+69	        for _ in range(self.batches_per_epoch):
+70	            task = 'page_plan' if rng.random() < self.plan_probability else 'section_content'
+71	            groups = [v for (kind, bucket), v in self.groups.items() if kind == task]
+72	            pool = rng.choices(groups, weights=[len(v) for v in groups], k=1)[0]
+73	            batches.append(rng.choices(pool, k=self.batch_size))
+74	        return batches
+75	
+76	    def __iter__(self):
+77	        epoch, offset = divmod(self.cursor, self.batches_per_epoch)
+78	        for batch in self.batches(epoch)[offset:]:
+79	            self.cursor += 1
+80	            yield batch
+81	
+82	    def state_dict(self):
+83	        return {**super().state_dict(), 'fingerprint': self.fingerprint, 'balanced': self.balanced}
+84	
+85	    def load_state_dict(self, state):
+86	        if state['fingerprint'] != self.fingerprint or state['balanced'] != self.balanced:
+87	            raise ValueError('Task sampler data/ratio mismatch')
+88	        super().load_state_dict(state)
+89	
+90	
+91	def trim_collate(rows):
+92	    length = max(row['length'] for row in rows)
+93	    ids, labels = [], []
+94	    for row in rows:
+95	        pad = length - row['length']
+96	        ids.append(row['input_ids'] + [0] * pad)
+97	        labels.append(row['labels'] + [-100] * pad)
+98	    return {'input_ids': torch.tensor(ids, dtype=torch.long), 'labels': torch.tensor(labels, dtype=torch.long)}
+```
+
+**`src/data/dataset.py`** — encode_sft(function), encode_pretraining(function), _special(function), __init__(method), __getitem__(method), build_token_cache(function), +2 more
+
+```python
+1	"""Already-shifted next-token labels, instruction masks, and memory-mapped token blocks."""
+2	import array
+3	import json
+4	import math
+5	import os
+6	from pathlib import Path
+7	
+8	import numpy as np
+9	import torch
+10	from torch.utils.data import Dataset
+11	
+12	from .normalize import read_jsonl
+13	from .schema import validate_page_spec
+14	from .sources import sha256_file, write_manifest
+15	from .tokenizer import SPECIAL_TOKENS
+16	
+17	
+18	def _special(tokenizer, name):
+19	    token = tokenizer.token_to_id(name)
+20	    if token is None:
+21	        raise ValueError(f"Tokenizer missing special token {name}")
+22	    return token
+23	
+24	
+25	def encode_pretraining(text: str, tokenizer):
+26	    sequence = [_special(tokenizer, "<bos>")] + tokenizer.encode(text, add_special_tokens=False).ids + [_special(tokenizer, "<eos>")]
+27	    return sequence[:-1], sequence[1:]
+28	
+29	
+30	def encode_sft(prompt: str, target_json: str, tokenizer, block_size: int):
+31	    if not isinstance(prompt, str) or not prompt.strip():
+32	        raise ValueError("SFT prompt is empty")
+33	    if any(token in prompt or token in target_json for token in SPECIAL_TOKENS):
+34	        raise ValueError("Reserved delimiters are not allowed in instruction payloads")
+35	    errors = validate_page_spec(json.loads(target_json))
+36	    if errors:
+37	        raise ValueError("Invalid PageSpec target: " + "; ".join(errors))
+38	    prefix = [_special(tokenizer, "<bos>"), _special(tokenizer, "<prompt>")]
+39	    prefix += tokenizer.encode(prompt, add_special_tokens=False).ids + [_special(tokenizer, "<target>")]
+40	    target = tokenizer.encode(target_json, add_special_tokens=False).ids + [_special(tokenizer, "<eos>")]
+41	    sequence = prefix + target
+42	    if len(sequence) - 1 > block_size:
+43	        raise ValueError(f"SFT sequence requires {len(sequence)-1} tokens, exceeds {block_size}; JSON not truncated")
+44	    ids, labels = sequence[:-1], sequence[1:]
+45	    labels[:len(prefix)-1] = [-100] * (len(prefix)-1)
+46	    padding = block_size - len(ids)
+47	    return ids + [_special(tokenizer, "<pad>")] * padding, labels + [-100] * padding
+48	
+49	
+50	def _block(tokens, index, block_size, pad_id):
+51	    start = index * block_size
+52	    sequence = list(tokens[start:start + block_size + 1])
+53	    ids, labels = sequence[:-1], sequence[1:]
+54	    padding = block_size - len(ids)
+55	    return {"input_ids": torch.tensor(ids + [pad_id] * padding, dtype=torch.long),
+56	            "labels": torch.tensor(labels + [-100] * padding, dtype=torch.long)}
+57	
+58	
+59	class PageSpecDataset(Dataset):
+60	    def __init__(self, rows, tokenizer, mode, block_size):
+61	        if mode not in {"pretrain", "sft"} or block_size < 2:
+62	            raise ValueError("Expected pretrain/sft and block_size >= 2")
+63	        self.rows = list(rows)
+64	        self.tokenizer, self.mode, self.block_size = tokenizer, mode, block_size
+65	        self.pad_id = _special(tokenizer, "<pad>")
+66	        self.tokens = array.array("I")
+67	        if mode == "pretrain":
+68	            for row in self.rows:
+69	                x, y = encode_pretraining(row["text"], tokenizer)
+70	                self.tokens.extend(x + [y[-1]])
+71	        else:
+72	            for row in self.rows:
+73	                if row.get("annotation_status") != "reviewed":
+74	                    raise ValueError("SFT dataset refuses draft/unreviewed records")
+75	                encode_sft(row["prompt"], json.dumps(row["target_spec"], sort_keys=True, ensure_ascii=False, separators=(",", ":")), tokenizer, block_size)
+76	
+77	    def __len__(self):
+78	        return max(0, math.ceil((len(self.tokens)-1) / self.block_size)) if self.mode == "pretrain" else len(self.rows)
+79	
+80	    def __getitem__(self, index):
+81	        if index < 0 or index >= len(self):
+82	            raise IndexError(index)
+83	        if self.mode == "pretrain":
+84	            return _block(self.tokens, index, self.block_size, self.pad_id)
+85	        row = self.rows[index]
+86	        ids, labels = encode_sft(row["prompt"], json.dumps(row["target_spec"], sort_keys=True, ensure_ascii=False, separators=(",", ":")), self.tokenizer, self.block_size)
+87	        return {"input_ids": torch.tensor(ids, dtype=torch.long), "labels": torch.tensor(labels, dtype=torch.long)}
+88	
+89	
+90	class PretrainingBlockDataset(Dataset):
+91	    def __init__(self, token_file: Path, block_size: int, pad_id: int = 0):
+92	        if token_file.stat().st_size % 4 or token_file.stat().st_size < 8 or block_size < 2:
+93	            raise ValueError("Invalid uint32 token cache or block size")
+94	        self.tokens = np.memmap(token_file, dtype="<u4", mode="r")
+95	        self.block_size, self.pad_id = block_size, pad_id
+96	
+97	    def __len__(self):
+98	        return math.ceil((len(self.tokens)-1) / self.block_size)
+99	
+100	    def __getitem__(self, index):
+101	        if index < 0 or index >= len(self):
+102	            raise IndexError(index)
+103	        return _block(self.tokens, index, self.block_size, self.pad_id)
+104	
+105	
+106	def build_token_cache(input_path: Path, output_path: Path, tokenizer, block_size: int):
+107	    output_path.parent.mkdir(parents=True, exist_ok=True)
+108	    partial = output_path.with_suffix(".bin.partial")
+109	    count, rows = 0, 0
+110	    with partial.open("wb") as output:
+111	        for row in read_jsonl(input_path):
+112	            x, y = encode_pretraining(row["text"], tokenizer)
+113	            ids = x + [y[-1]]
+114	            output.write(np.asarray(ids, dtype="<u4").tobytes())
+115	            count += len(ids)
+116	            rows += 1
+117	    if count < 2:
+118	        raise ValueError("Not enough tokens for a pretraining batch")
+119	    os.replace(partial, output_path)
+120	    report = {"rows": rows, "tokens": count, "blocks": math.ceil((count-1)/block_size), "block_size": block_size,
+121	              "dtype": "uint32 little-endian", "bytes": output_path.stat().st_size,
+122	              "source_sha256": sha256_file(input_path), "sha256": sha256_file(output_path),
+123	              "label_alignment": "labels[i] is next token for input_ids[i]; do not shift again in model loss"}
+124	    write_manifest(output_path.with_suffix(".json"), report)
+125	    return report
+```
+
+**`src/fullpage/serialization.py`** — encode_plan(function), check_budget(function), serialize_task(function), SECTION_FIELDS(variable), decode_plan(function), canonical(function)
+
+```python
+1	"""Explicit plan wire codec and conservative generation token budgets."""
+2	import json
+3	from src.data.tokenizer import SPECIAL_TOKENS
+4	
+5	SECTION_FIELDS = ('id', 'type', 'role', 'variant', 'fact_ids', 'asset_ids')
+6	OUTPUT_BUDGETS = {'page_plan': 512, 'section_content': 1536}
+7	
+8	
+9	def canonical(value):
+10	    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(',', ':'))
+11	
+12	
+13	def encode_plan(plan):
+14	    return {**plan, 'sections': [[section[key] for key in SECTION_FIELDS] for section in plan['sections']]}
+15	
+16	
+17	def decode_plan(wire):
+18	    sections = []
+19	    for values in wire['sections']:
+20	        if not isinstance(values, list) or len(values) != 6:
+21	            raise ValueError('Invalid section tuple length')
+22	        sections.append(dict(zip(SECTION_FIELDS, values, strict=True)))
+23	    return {**wire, 'sections': sections}
+24	
+25	
+26	def serialize_task(task, value):
+27	    if task not in OUTPUT_BUDGETS:
+28	        raise ValueError('Unknown full-page task')
+29	    return canonical(encode_plan(value) if task == 'page_plan' else value)
+30	
+31	
+32	def check_budget(tokenizer, prompt, output_budget, block_size=2048):
+33	    if not isinstance(prompt, str) or not prompt.strip():
+34	        raise ValueError('Empty task prompt')
+35	    if any(token in prompt for token in SPECIAL_TOKENS):
+36	        raise ValueError('Reserved delimiter in task prompt')
+37	    if type(output_budget) is not int or not 1 <= output_budget <= 1536 or block_size != 2048:
+38	        raise ValueError('Full-page tasks require context 2048 and output in 1..1536')
+39	    prefix = 3 + len(tokenizer.encode(prompt, add_special_tokens=False).ids)
+40	    if prefix + output_budget > block_size:
+41	        raise ValueError(f'Budget overflow: prefix={prefix}, output={output_budget}, context={block_size}')
+42	    return {'prefix_tokens': prefix, 'max_new_tokens': output_budget, 'block_size': block_size}
+```

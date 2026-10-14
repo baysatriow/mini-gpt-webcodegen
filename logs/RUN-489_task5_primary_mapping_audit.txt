@@ -1,0 +1,30 @@
+requests 3360 normal 2400 target groups 960 still unmatched 480
+example id mapping kinds Counter({'generic': 1920, 'targeted': 960, 'direct': 480})
+MISSING family0000 page0000-plain_css-v3
+RELATED [('page0000-plain_css-v3-0', 3, False, 'page0000-plain_css-v3-0', 'direct'), ('page0000-plain_css-v3-0-target-0', 'targeted-identity-facts-v3', False, 'page0000-plain_css-v3-0', 'targeted'), ('page0000-plain_css-v3-1-target-0', 'targeted-identity-facts-v3', False, 'page0000-plain_css-v3-1', 'targeted')]
+MISSING family0000 page0000-tailwind-v3
+RELATED [('page0000-tailwind-v3-0', 3, False, 'page0000-tailwind-v3-0', 'direct'), ('page0000-tailwind-v3-0-target-0', 'targeted-identity-facts-v3', False, 'page0000-tailwind-v3-0', 'targeted'), ('page0000-tailwind-v3-1-target-0', 'targeted-identity-facts-v3', False, 'page0000-tailwind-v3-1', 'targeted')]
+MISSING family0001 page0001-plain_css-v3
+RELATED [('page0001-plain_css-v3-0', 3, False, 'page0001-plain_css-v3-0', 'direct'), ('page0001-plain_css-v3-0-target-0', 'targeted-identity-facts-v3', False, 'page0001-plain_css-v3-0', 'targeted'), ('page0001-plain_css-v3-1-target-0', 'targeted-identity-facts-v3', False, 'page0001-plain_css-v3-1', 'targeted')]
+MISSING family0001 page0001-tailwind-v3
+RELATED [('page0001-tailwind-v3-0', 3, False, 'page0001-tailwind-v3-0', 'direct'), ('page0001-tailwind-v3-0-target-0', 'targeted-identity-facts-v3', False, 'page0001-tailwind-v3-0', 'targeted'), ('page0001-tailwind-v3-1-target-0', 'targeted-identity-facts-v3', False, 'page0001-tailwind-v3-1', 'targeted')]
+MISSING family0002 page0002-plain_css-v3
+RELATED [('page0002-plain_css-v3-0', 3, False, 'page0002-plain_css-v3-0', 'direct'), ('page0002-plain_css-v3-0-target-0', 'targeted-identity-facts-v3', False, 'page0002-plain_css-v3-0', 'targeted'), ('page0002-plain_css-v3-1-target-0', 'targeted-identity-facts-v3', False, 'page0002-plain_css-v3-1', 'targeted')]
+MISSING family0002 page0002-tailwind-v3
+RELATED [('page0002-tailwind-v3-0', 3, False, 'page0002-tailwind-v3-0', 'direct'), ('page0002-tailwind-v3-0-target-0', 'targeted-identity-facts-v3', False, 'page0002-tailwind-v3-0', 'targeted'), ('page0002-tailwind-v3-1-target-0', 'targeted-identity-facts-v3', False, 'page0002-tailwind-v3-1', 'targeted')]
+MISSING family0003 page0003-plain_css-v3
+RELATED [('page0003-plain_css-v3-0', 3, False, 'page0003-plain_css-v3-0', 'direct'), ('page0003-plain_css-v3-0-target-0', 'targeted-identity-facts-v3', False, 'page0003-plain_css-v3-0', 'targeted'), ('page0003-plain_css-v3-1-target-0', 'targeted-identity-facts-v3', False, 'page0003-plain_css-v3-1', 'targeted')]
+MISSING family0003 page0003-tailwind-v3
+RELATED [('page0003-tailwind-v3-0', 3, False, 'page0003-tailwind-v3-0', 'direct'), ('page0003-tailwind-v3-0-target-0', 'targeted-identity-facts-v3', False, 'page0003-tailwind-v3-0', 'targeted'), ('page0003-tailwind-v3-1-target-0', 'targeted-identity-facts-v3', False, 'page0003-tailwind-v3-1', 'targeted')]
+MISSING family0004 page0004-plain_css-v3
+RELATED [('page0004-plain_css-v3-0', 3, False, 'page0004-plain_css-v3-0', 'direct'), ('page0004-plain_css-v3-0-target-0', 'targeted-identity-facts-v3', False, 'page0004-plain_css-v3-0', 'targeted'), ('page0004-plain_css-v3-1-target-0', 'targeted-identity-facts-v3', False, 'page0004-plain_css-v3-1', 'targeted')]
+MISSING family0004 page0004-tailwind-v3
+RELATED [('page0004-tailwind-v3-0', 3, False, 'page0004-tailwind-v3-0', 'direct'), ('page0004-tailwind-v3-0-target-0', 'targeted-identity-facts-v3', False, 'page0004-tailwind-v3-0', 'targeted'), ('page0004-tailwind-v3-1-target-0', 'targeted-identity-facts-v3', False, 'page0004-tailwind-v3-1', 'targeted')]
+MISSING family0005 page0005-plain_css-v3
+RELATED [('page0005-plain_css-v3-0', 3, False, 'page0005-plain_css-v3-0', 'direct'), ('page0005-plain_css-v3-0-target-0', 'targeted-identity-facts-v3', False, 'page0005-plain_css-v3-0', 'targeted'), ('page0005-plain_css-v3-1-target-0', 'targeted-identity-facts-v3', False, 'page0005-plain_css-v3-1', 'targeted')]
+MISSING family0005 page0005-tailwind-v3
+RELATED [('page0005-tailwind-v3-0', 3, False, 'page0005-tailwind-v3-0', 'direct'), ('page0005-tailwind-v3-0-target-0', 'targeted-identity-facts-v3', False, 'page0005-tailwind-v3-0', 'targeted'), ('page0005-tailwind-v3-1-target-0', 'targeted-identity-facts-v3', False, 'page0005-tailwind-v3-1', 'targeted')]
+TARGET page0000-plain_css-v3-0 [('page0000-plain_css-v3-0-target-0', 'targeted-identity-facts-v3')]
+TARGET page0000-plain_css-v3-1 [('page0000-plain_css-v3-1-target-0', 'targeted-identity-facts-v3')]
+TARGET page0000-tailwind-v3-0 [('page0000-tailwind-v3-0-target-0', 'targeted-identity-facts-v3')]
+TARGET page0000-tailwind-v3-1 [('page0000-tailwind-v3-1-target-0', 'targeted-identity-facts-v3')]

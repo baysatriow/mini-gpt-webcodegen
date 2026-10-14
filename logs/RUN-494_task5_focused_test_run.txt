@@ -1,0 +1,6 @@
+RUN-494
+Started: 2026-10-14 20:18:00 +07:00
+Command: Focused source-bound data and existing generation contract tests after prompt and budget changes
+Exit code: 1
+
+Complete output captured in logs/RUN-494_task5_focused_and_generation_tests.txt. This verifies that the PagePlan prompt retains the original user wording, omits literal fact values from reference-only output, and respects the measured 896-token plan and 1,536-token section budgets.

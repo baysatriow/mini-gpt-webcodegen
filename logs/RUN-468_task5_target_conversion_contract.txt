@@ -1,0 +1,20 @@
+RUN-468
+Started: 2026-10-14 19:07:29 +07:00
+Command: project .venv Python extract source-bound role fact and asset slot contracts from trusted catalog
+Exit code: 0
+
+navigation {"assets": [], "fact_kinds": ["name"], "required_fact_kinds": ["name"], "slots": {"brand": {"fact_kinds": ["name"], "item_heading": null, "multiple": null, "property": "brand", "value_mode": "scalar"}}}
+hero {"assets": ["hero_art"], "fact_kinds": ["name"], "required_fact_kinds": ["name"], "slots": {"hero_name": {"fact_kinds": ["name"], "item_heading": null, "multiple": null, "property": "heading", "value_mode": "scalar"}}}
+about {"assets": [], "fact_kinds": ["description"], "required_fact_kinds": ["description"], "slots": {"about_description": {"fact_kinds": ["description"], "item_heading": null, "multiple": null, "property": "text", "value_mode": "scalar"}}}
+services {"assets": [], "fact_kinds": ["service"], "required_fact_kinds": ["service"], "slots": {"service_item": {"fact_kinds": ["service"], "item_heading": null, "multiple": true, "property": "items", "value_mode": "record"}}}
+benefits {"assets": [], "fact_kinds": ["value"], "required_fact_kinds": ["value"], "slots": {"benefit_value": {"fact_kinds": ["value"], "item_heading": "Informasi yang jelas", "multiple": true, "property": "items", "value_mode": "text"}}}
+values {"assets": [], "fact_kinds": ["value"], "required_fact_kinds": ["value"], "slots": {"values_statement": {"fact_kinds": ["value"], "item_heading": null, "multiple": null, "property": "text", "value_mode": "scalar"}}}
+process {"assets": [], "fact_kinds": ["process"], "required_fact_kinds": ["process"], "slots": {"process_item": {"fact_kinds": ["process"], "item_heading": null, "multiple": true, "property": "items", "value_mode": "record"}}}
+faq {"assets": [], "fact_kinds": ["faq"], "required_fact_kinds": ["faq"], "slots": {"faq_item": {"fact_kinds": ["faq"], "item_heading": null, "multiple": true, "property": "items", "value_mode": "record"}}}
+portfolio {"assets": [], "fact_kinds": ["project"], "required_fact_kinds": ["project"], "slots": {"portfolio_item": {"fact_kinds": ["project"], "item_heading": null, "multiple": true, "property": "items", "value_mode": "record"}}}
+contact {"assets": [], "fact_kinds": [], "required_fact_kinds": [], "slots": {}}
+footer {"assets": [], "fact_kinds": ["name"], "required_fact_kinds": ["name"], "slots": {"footer_name": {"fact_kinds": ["name"], "item_heading": null, "multiple": null, "property": "text", "value_mode": "scalar"}}}
+theme studio-blue {"background": "#ffffff", "font": "sans", "primary": "#2563eb", "text": "#111827"}
+theme earth-warm {"background": "#fbf7f0", "font": "serif", "primary": "#9a5b37", "text": "#30271f"}
+theme editorial-ink {"background": "#f8fafc", "font": "serif", "primary": "#334155", "text": "#0f172a"}
+theme soft-lilac {"background": "#fbf9ff", "font": "sans", "primary": "#7553a6", "text": "#251d33"}

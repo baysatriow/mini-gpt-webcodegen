@@ -1,0 +1,6 @@
+RUN-484
+Started: 2026-10-14 19:50:00 +07:00
+Command: Measure real tokenizer cost for source-bound plan and section prompts/targets
+Exit code: 0
+
+The diagnostic regenerated one train-family fixture and used the project tokenizer. It did not read runtime dataset rows, validation, or final data.

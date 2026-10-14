@@ -1,0 +1,7 @@
+RUN-471
+Started: 2026-10-14 19:17:00 +07:00
+Command: Freeze Task 5 brief and shared-encoder compatibility ruling
+Exit code: 1
+
+Failure: The PowerShell automatic/root path variable resolved project-relative writes to F:\ instead of the repository. No repository source, dataset, brief, or ledger file was modified.
+Rerun: RUN-472 uses paths relative to the verified repository working directory.

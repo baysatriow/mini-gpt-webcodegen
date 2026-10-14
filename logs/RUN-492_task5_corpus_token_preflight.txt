@@ -1,0 +1,46 @@
+{
+  "parent_manifest_sha256": "aae2de8cfceb16110eb93b0668447fcda7237fdfabaa7e0c2a22ce2c3d41cf15",
+  "splits": {
+    "train": {
+      "requests": 3360,
+      "primary_plans": 3360,
+      "maxima": {
+        "plan_prompt": 729,
+        "plan_target_eos": 756,
+        "plan_sequence_with_896": 1625,
+        "section_prompt": 340,
+        "section_target_eos": 140,
+        "section_sequence_with_1536": 1876
+      },
+      "max_cases": {
+        "plan_prompt": "page0000-plain_css",
+        "plan_target_eos": "page0000-plain_css-v1",
+        "plan_sequence_with_896": "page0000-plain_css",
+        "section_prompt": "page0000-plain_css-v1:process",
+        "section_target_eos": "page0000-plain_css:process",
+        "section_sequence_with_1536": "page0000-plain_css-v1:process"
+      }
+    },
+    "validation": {
+      "requests": 80,
+      "primary_plans": 80,
+      "maxima": {
+        "plan_prompt": 729,
+        "plan_target_eos": 752,
+        "plan_sequence_with_896": 1625,
+        "section_prompt": 336,
+        "section_target_eos": 140,
+        "section_sequence_with_1536": 1872
+      },
+      "max_cases": {
+        "plan_prompt": "page0240-plain_css",
+        "plan_target_eos": "page0240-plain_css",
+        "plan_sequence_with_896": "page0240-plain_css",
+        "section_prompt": "page0240-plain_css:process",
+        "section_target_eos": "page0240-plain_css:process",
+        "section_sequence_with_1536": "page0240-plain_css:process"
+      }
+    }
+  }
+}
+Final/test bytes were hash-verified only; no test row or request record was parsed.
