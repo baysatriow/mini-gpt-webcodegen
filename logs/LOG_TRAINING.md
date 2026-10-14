@@ -1229,3 +1229,7 @@ Tujuan V5 adalah mengurangi kesalahan penyalinan identitas dengan meminta model 
 - Final training-loop validation cross-entropy is 0.005312048531726459. It is not a full-page generation score.
 - The user correctly asked for another F: storage check. The training engine's shutil.disk_usage currently reports 26.919 GiB free, about 10.879 GiB above its frozen reserve plus checkpoint allowance.
 - Candidate snapshots, generation output directories, and report paths for the 1,800 and 3,600 comparisons are absent. Continue with the approved fixed 80-request development comparison. Final/test data remain unopened.
+
+### RUN-595 launch: source-bound V5 development comparison
+
+RUN-595 creates immutable weights-only snapshots for TRAIN-025 step 1,800 and TRAIN-026 step 3,600, then evaluates both on the same 80 frozen development requests. The fixed selector chooses by complete pages, with ordinary validation cross-entropy as a tie-breaker. The 76/80 gate also requires model_gate and exact accepted facts, links, and assets. All destinations were confirmed absent. Evaluation reads the V5 validation requests only; test and final data remain closed.

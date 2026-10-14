@@ -1,0 +1,15 @@
+RUN-595 source-bound V5 candidate snapshots and 80-request development comparison
+Started: 2026-10-14 22:25:02 +07:00
+Pre-run commit: 5458e38
+Frozen config SHA-256: 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186
+Scope: development only, fixed 80 requests. No test/final data access.
+
+Snapshot commands, both destinations preflighted absent:
+.venv/Scripts/python.exe -m qa.snapshot_fullpage_checkpoint --source checkpoints/TRAIN-025/last.pt --destination checkpoints/FULLPAGE-V5/TRAIN-025-step1800.pt --run-id TRAIN-025 --step 1800
+.venv/Scripts/python.exe -m qa.snapshot_fullpage_checkpoint --source checkpoints/TRAIN-026/last.pt --destination checkpoints/FULLPAGE-V5/TRAIN-026-step3600.pt --run-id TRAIN-026 --step 3600
+
+Evaluation commands, each receives validation.requests.jsonl from data/processed/fullpage/v5:
+.venv/Scripts/python.exe -m qa.evaluate_fullpage --scope development --dataset-dir data/processed/fullpage/v5 --checkpoint checkpoints/FULLPAGE-V5/TRAIN-025-step1800.pt --output outputs/fullpage/FULLPAGE-V5/TRAIN-025-step1800 --report reports/fullpage/FULLPAGE-V5_TRAIN-025_STEP1800_DEVELOPMENT.json
+.venv/Scripts/python.exe -m qa.evaluate_fullpage --scope development --dataset-dir data/processed/fullpage/v5 --checkpoint checkpoints/FULLPAGE-V5/TRAIN-026-step3600.pt --output outputs/fullpage/FULLPAGE-V5/TRAIN-026-step3600 --report reports/fullpage/FULLPAGE-V5_TRAIN-026_STEP3600_DEVELOPMENT.json
+
+After both reports are verified, invoke qa.select_fullpage_v5 using the two generation reports and matching TRAIN-025/TRAIN-026 training reports. Selector output: reports/training/FULLPAGE-V5_DEVELOPMENT_SELECTION.json.

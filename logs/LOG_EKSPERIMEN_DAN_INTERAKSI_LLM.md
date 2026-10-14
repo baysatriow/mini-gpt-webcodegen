@@ -6472,3 +6472,7 @@ RUN-592 lulus preflight segar, termasuk source lineage, checkpoint/report TRAIN-
 ## RUN-593, hasil training TRAIN-026
 
 TRAIN-026 selesai normal pada global step 3.600 dan last_committed_step=3600. Config beku dan digest report cocok. Checkpoint parent TRAIN-025 yang digunakan saat resume ber-hash 7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339; checkpoint TRAIN-026 ber-hash cc586807fe8db32ae04f746e7684642b36f7f1652cfca3339b11cfd5b8f179c5. Loss validasi internal training 0,005312048531726459 adalah cross-entropy token, bukan nilai kualitas halaman. Cek ulang drive F menunjukkan 26,919 GiB kosong. Tahap berikutnya membandingkan snapshot step 1.800 dan 3.600 pada 80 prompt development yang sama. Data test/final tetap tertutup.
+
+## RUN-595, perbandingan development V5 dimulai
+
+RUN-595 menyiapkan snapshot bobot TRAIN-025 step 1.800 dan TRAIN-026 step 3.600, kemudian menjalankan evaluasi pada 80 request development V5 yang sama. Pemilihan kandidat memakai halaman lengkap terbanyak, CE validation sebagai tie-breaker, dan tetap mensyaratkan model_gate serta validasi facts/links/assets. Data test dan final tidak dibuka.

@@ -338,3 +338,7 @@ RUN-592 superseded the earlier storage snapshot and passed the fresh preflight. 
 ## TRAIN-026 completed, development comparison next
 
 RUN-593 completed normally at step 3,600 and the report, frozen config, exact TRAIN-025 resume parent, and checkpoint SHA-256 passed read-only verification. Training-loop validation CE is 0.005312048531726459 and is not the page-quality result. A fresh check shows 26.919 GiB free on F:, leaving about 10.879 GiB above the engine's reserve and checkpoint allowance. Snapshot and report paths for both candidates are absent. Next, create the approved snapshots and evaluate both on the same 80 development requests, then select by complete pages with CE as tie-breaker. Final/test data remain closed.
+
+## RUN-595 launched: V5 development comparison
+
+RUN-595 akan menyimpan snapshot bobot untuk TRAIN-025 step 1.800 dan TRAIN-026 step 3.600, lalu mengevaluasi keduanya pada 80 permintaan validation V5 yang sama. Aturan seleksi dan ambang 76/80 tetap beku. Evaluator hanya membuka file request development; test dan final tetap tertutup.
