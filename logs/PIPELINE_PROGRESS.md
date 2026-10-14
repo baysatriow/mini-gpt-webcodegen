@@ -220,3 +220,11 @@ RUN-331 membandingkan satu target train role `process` dengan keluaran gagal TRA
 - Spec baru mempertahankan input request terstruktur di pipeline model. Untuk UI prompt bebas yang akan dibuat kemudian, request tidak jelas atau kurang fakta wajib meminta klarifikasi; request di luar cakupan diberi pesan cakupan; tidak ada output parsial atau file.
 - Request valid menghasilkan plan dengan referensi fakta. Resolver/renderer memakai fakta literal dari request. Model tidak menghasilkan JavaScript bebas.
 - [Spec untuk review](../docs/superpowers/specs/2026-10-14-fullpage-source-bound-facts-design.md). Tidak ada implementasi atau training baru.
+
+## AI-025: Rencana implementasi source-bound fullpage, 14 Oktober 2026
+
+- Pengguna menyetujui arah spesifikasi dan meminta pekerjaan dilanjutkan. Rencana implementasi ditulis untuk ditinjau sebelum perubahan kode atau training dimulai.
+- Rencana menguraikan sepuluh bagian: schema source-bound versioned, resolver/composer, generation dan legacy dispatch, intake/status, target train-only, warm-start TRAIN-024 dengan optimizer baru, development selector, notebook, TRAIN-025 step 1.800, dan resume TRAIN-026 step 3.600.
+- Inspeksi menunjukkan runner saat ini hanya menyediakan exact resume. Jalur weights-only initialization yang terpisah direncanakan supaya bobot TRAIN-024 dapat dipakai tanpa membawa optimizer, scheduler, sampler, atau RNG lama.
+- Keluarga data dan 80 prompt development tetap beku; test hanya diverifikasi dengan hash bytes dan tidak diparse. Target tetap 76/80 dan final benchmark tetap tertutup.
+- [Rencana implementasi](../docs/superpowers/plans/2026-10-14-fullpage-source-bound-facts.md), [spesifikasi](../docs/superpowers/specs/2026-10-14-fullpage-source-bound-facts-design.md), [interaksi AI-025](interaksi_llm/AI-025_2026-10-14.md). Belum ada implementasi, test, perubahan dataset/checkpoint, training, atau evaluasi.

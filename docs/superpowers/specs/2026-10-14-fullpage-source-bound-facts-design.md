@@ -2,7 +2,7 @@
 
 Tanggal: 14 Oktober 2026
 
-Status: rancangan tertulis untuk review pengguna. Arah arsitektur sudah dipilih di chat. Implementasi, perubahan data, dan training v5 belum disetujui atau dimulai.
+Status: pengguna menyetujui arah arsitektur untuk dilanjutkan ke rencana implementasi. Implementasi, perubahan data, dan training v5 belum dimulai.
 
 Dokumen ini melanjutkan [desain generasi halaman lengkap](2026-10-13-full-page-generation-design.md). Perubahan utama adalah memisahkan fakta yang diberikan pengguna dari pilihan struktur dan presentasi yang dibuat MiniGPT.
 
@@ -127,4 +127,4 @@ Gate 76/80 hanya membuktikan kontrak pada suite sintetis development. Browser re
 
 ## 8. Gerbang berikutnya
 
-Pengguna meninjau dokumen ini sebelum rencana implementasi dibuat. Setelah spesifikasi disetujui, rencana implementasi memecah pekerjaan untuk versi schema baru, target train-only, evaluator, composer/renderer, input status, notebook, dan gate development. Belum ada code, data, schema, prompt, konfigurasi, checkpoint, training, atau UI yang diubah oleh dokumen ini.
+Pengguna menyetujui arah spesifikasi di chat sebelum rencana implementasi dibuat. Rencana implementasi memecah pekerjaan untuk versi schema baru, target train-only, evaluator, composer/renderer, input status, notebook, warm-start terpisah dari exact resume, dan gate development. Belum ada code, data, schema, prompt, konfigurasi, checkpoint, training, atau UI yang diubah oleh dokumen ini.
