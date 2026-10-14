@@ -1,8 +1,6 @@
 # Pipeline ledger: docs/superpowers/plans/2026-10-12-pipeline-data-model-training.md
 
-Status terkini AI-013: [gerbang final TRAIN-015](../reports/FINAL_GATE_2026-10-13.md). Ringkasan terbaru ditambahkan di akhir file. Semua catatan sebelumnya dipertahankan sebagai riwayat.
-
-Status terbaru: [pengembangan output AI-011](../reports/OUTPUT_DEVELOPMENT_2026-10-13.md). Catatan fase sebelumnya dipertahankan.
+Status terkini AI-022, 14 Oktober 2026: eksperimen fullpage v4 memperoleh 68/80 halaman development pada update 3.600. Target 76/80 belum tercapai. [Laporan pemilihan](../reports/training/FULLPAGE-V4_DEVELOPMENT_SELECTION.json), [notebook 14](../notebooks/14_fullpage_v4_process_role_training.ipynb), [log training](LOG_TRAINING.md), dan [interaksi AI-022](interaksi_llm/AI-022_2026-10-14.md). Catatan AI-011 dan AI-013 di bawah tetap menjadi riwayat.
 
 Tanggal: 12 Oktober 2026. Planning disetujui oleh pengguna, termasuk download dataset setelah pemeriksaan storage.
 
@@ -197,4 +195,14 @@ Paket v3, notebook, dan rekam eksperimen dipush ke branch `feature/pipeline-data
 
 ### Diagnosis raw output v3
 
-RUN-331 membandingkan satu target train role `process` dengan keluaran gagal TRAIN-020. Target menulis `id=process` dengan JSON valid, sedangkan model mengeluarkan `{"id":"props":...}` dan berhenti di EOS setelah231 token. Pada v3 role process tetap480 dari17.280 section rows, turun dari3,85 persen menjadi2,78 persen dari v2. Ini hipotesis kemungkinan data dilution, belum bukti kausal. Usulan kontrol berikutnya adalah menambah target process untuk train page yang memiliki role tersebut, dengan prompt v3 dan seluruh setting lain tetap. Belum dikerjakan, perlu review desain. Detail di [AI-021](../logs/interaksi_llm/AI-021_2026-10-14.md).
+RUN-331 membandingkan satu target train role `process` dengan keluaran gagal TRAIN-020. Target menulis `id=process` dengan JSON valid, sedangkan model mengeluarkan `{"id":"props":...}` dan berhenti di EOS setelah231 token. Pada v3 role process tetap480 dari17.280 section rows, turun dari3,85 persen menjadi2,78 persen dari v2. Ini hipotesis kemungkinan data dilution, belum bukti kausal. Usulan kontrol berikutnya adalah menambah target process untuk train page yang memiliki role tersebut, dengan prompt v3 dan seluruh setting lain tetap. Eksperimen tersebut kini tercatat di AI-022 dan hasilnya belum mencapai target. Detail di [AI-021](../logs/interaksi_llm/AI-021_2026-10-14.md).
+
+## AI-022: eksperimen fullpage v4, 14 Oktober 2026
+
+- V4 menambahkan960 target section `process` dari keluarga train saja. Train menjadi24.000 rows dan target role process naik480 ke1.440. Validation dan test tetap sama checksum.
+- RTX 5070 profile memilih microbatch8 dan accumulation6, effective batch48, untuk mempertahankan konfigurasi eksperimen yang dibekukan. Batch16 hanya2,6 persen lebih cepat pada sampel profile.
+- TRAIN-022 mendapat64/80 halaman pada update1.800. Exact resume TRAIN-024 berakhir di update3.600 dan mendapat68/80 halaman. Target95 persen memerlukan76/80, sehingga kandidat belum lolos gate.
+- Error utama candidate terbaik adalah plan identity/style mismatch, disusul mismatch fakta merek pada hero/navigation dan teks about. Validator tidak dilonggarkan; tidak ada klaim kausal dari satu eksperimen.
+- TRAIN-023 gagal pada storage preflight di update0. Checkpoint resume historis dipindahkan dengan checksum terverifikasi dan junction di lokasi awal; TRAIN-024 melanjutkan dari TRAIN-022/step1800. Semua failure/retry dicatat.
+- Notebook14 menjalankan16 sel tanpa error. Data tetap sintetis, human review dan browser visual review belum dilakukan, final benchmark tidak dibuka.
+- Laporan ranking: `reports/training/FULLPAGE-V4_DEVELOPMENT_SELECTION.json`. Detail hardware, config, lineage, metrics, errors, dan run IDs ada pada `logs/LOG_TRAINING.md` dan [AI-022](interaksi_llm/AI-022_2026-10-14.md).

@@ -1,0 +1,7 @@
+RUN-366 | 2026-10-14T13:04:12.508401+07:00 | verify_v4_resume_checkpoint_after_storage_recovery
+Command: .\.venv\Scripts\python.exe -c "import json,shutil,pathlib; from src.training.engine import read_checkpoint; root=pathlib.Path.cwd(); cfg=json.loads((root/\"configs/fullpage/training-improvement-v4.json\").read_text(encoding=\"utf-8\")); state=read_checkpoint(root/\"checkpoints/TRAIN-022/last.pt\"); assert state[\"run_id\"]==\"TRAIN-022\" and state[\"global_step\"]==1800 and not state.get(\"weights_only\"); assert state[\"config\"]==cfg; assert not (root/\"checkpoints/TRAIN-024\").exists(); free=shutil.disk_usage(root).free; mb=sum(t.numel()*t.element_size() for t in {t.data_ptr():t for t in state[\"model\"].values()}.values()); required=cfg[\"reserve_free_bytes\"]+mb*12+128*1024**2; assert free>=required; print(\"VERIFIED\",json.dumps({\"resume_run\":state[\"run_id\"],\"resume_step\":state[\"global_step\"],\"config_matches\":True,\"free_bytes\":free,\"required_bytes\":required,\"headroom_bytes\":free-required,\"next_run_id\":\"TRAIN-024\"}))"
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+VERIFIED {"resume_run": "TRAIN-022", "resume_step": 1800, "config_matches": true, "free_bytes": 18281406464, "required_bytes": 16940171264, "headroom_bytes": 1341235200, "next_run_id": "TRAIN-024"}
+
+Exit code: 0

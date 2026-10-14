@@ -1,0 +1,56 @@
+RUN-358 | 2026-10-14T13:00:39.080019+07:00 | diagnose_v4_resume_storage
+Command: .\.venv\Scripts\python.exe -c "import pathlib,shutil,os; root=pathlib.Path.cwd(); print(\"F_DISK\",shutil.disk_usage(root)); print(\"C_DISK\",shutil.disk_usage(\"C:/\"));
+for name in [\"data/processed/fullpage/v4\",\"checkpoints/INIT-2048-001\",\"checkpoints/FULLPAGE-V4\",\"checkpoints/TRAIN-022\",\"outputs/fullpage/TRAIN-022-development-step1800\",\"outputs/fullpage\",\"checkpoints\",\"outputs\",\"reports/fullpage\"]:
+ p=root/name
+ if p.exists():
+  files=[q for q in p.rglob(\"*\") if q.is_file()]; print(\"TREE\",name,\"files\",len(files),\"bytes\",sum(q.stat().st_size for q in files))
+large=[]
+for base,dirs,names in os.walk(root):
+ dirs[:]=[d for d in dirs if d not in {\".git\",\".venv\",\"__pycache__\",\"node_modules\"}]
+ for n in names:
+  p=pathlib.Path(base)/n
+  try:
+   sz=p.stat().st_size
+   if sz>=100*1024**2: large.append((sz,str(p.relative_to(root))))
+  except OSError: pass
+for size,name in sorted(large,reverse=True)[:25]: print(\"LARGE\",size,name)"
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+F_DISK usage(total=512108785664, used=495724285952, free=16384499712)
+C_DISK usage(total=521849008128, used=470818717696, free=51030290432)
+TREE data/processed/fullpage/v4 files 7 bytes 58590415
+TREE checkpoints/INIT-2048-001 files 3 bytes 58358221
+TREE checkpoints/FULLPAGE-V4 files 3 bytes 58362378
+TREE checkpoints/TRAIN-022 files 11 bytes 466931175
+TREE outputs/fullpage/TRAIN-022-development-step1800 files 1327 bytes 3058662
+TREE outputs/fullpage files 7752 bytes 16993583
+TREE checkpoints files 230 bytes 11800478441
+TREE outputs files 8257 bytes 31437156
+TREE reports/fullpage files 26 bytes 475681
+LARGE 175073689 checkpoints\TRAIN-022\.versions\last-60449c3068a345fab253c1c38cb6b997.pt
+LARGE 175073689 checkpoints\TRAIN-022\.versions\last-514cd14c958442ff90a845efe8abdb95.pt
+LARGE 175073689 checkpoints\TRAIN-019\.versions\last-5e42f70e8f3e4927b45acab3e481f0c9.pt
+LARGE 175073689 checkpoints\TRAIN-019\.versions\last-51b5722b3e684135aa190087b9eaacdd.pt
+LARGE 175073689 checkpoints\TRAIN-018\.versions\last-dbebc328e4f0425eb90a0e5641234889.pt
+LARGE 175073689 checkpoints\TRAIN-018\.versions\last-12ac227025404cfea266c96609df6c0f.pt
+LARGE 175073561 checkpoints\TRAIN-021\.versions\last-f0bac0acf5974dfd910535620c8e7b99.pt
+LARGE 175073561 checkpoints\TRAIN-021\.versions\last-37aa70b6f38d4924938bdc80b2b2c6b6.pt
+LARGE 175073561 checkpoints\TRAIN-020\.versions\last-43b512f4896f4bb68c7d28a72b1b816d.pt
+LARGE 175073561 checkpoints\TRAIN-020\.versions\last-3531dca67f244acdaed37678297f64f0.pt
+LARGE 175073497 checkpoints\TRAIN-017\.versions\last-86329031ec964b9b9643abc2b5432ab2.pt
+LARGE 175073497 checkpoints\TRAIN-017\.versions\last-82d31e5e731344dd8382820b2d5f9c04.pt
+LARGE 175073433 checkpoints\TRAIN-016\.versions\last-8de3d346133a4db48b6567644c988a56.pt
+LARGE 175073433 checkpoints\TRAIN-016\.versions\last-318e9be1320c462b8da6dc78ab59e8b1.pt
+LARGE 175073113 checkpoints\TRAIN-016\.versions\best-d3a52625a2c341d8abb4428a269ea30f.pt
+LARGE 175073113 checkpoints\TRAIN-016\.versions\best-30325d6c5f7d4ff48e5fd6d334d46f38.pt
+LARGE 170352153 checkpoints\TRAIN-015\.versions\last-f583d4843c5f4d5bbe8318316464791b.pt
+LARGE 170352153 checkpoints\TRAIN-015\.versions\last-7b19a6405e504a8291c91321c0b53371.pt
+LARGE 170352025 checkpoints\TRAIN-014\.versions\last-e5901e26542542fd9e1c924f7654a35b.pt
+LARGE 170352025 checkpoints\TRAIN-014\.versions\last-3a7adabdb1404e1f9b5d9baa98f34e2a.pt
+LARGE 170351833 checkpoints\TRAIN-015\.versions\best-ce3d619b48dc4a8fa752c07118dae0f6.pt
+LARGE 170351833 checkpoints\TRAIN-015\.versions\best-5c95708798e442cf85e162f050b2edb0.pt
+LARGE 170351449 checkpoints\TRAIN-013\.versions\last-df6351b8077c415bb66ab1560d6868b5.pt
+LARGE 170351449 checkpoints\TRAIN-013\.versions\last-867e99e68e9a402da412b0605dff4667.pt
+LARGE 170350873 checkpoints\TRAIN-006\.versions\last-3ea679bd4901479797c796c1787591c9.pt
+
+Exit code: 0

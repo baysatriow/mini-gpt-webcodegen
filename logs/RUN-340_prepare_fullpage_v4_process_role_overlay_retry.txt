@@ -1,0 +1,17 @@
+RUN-340 | 2026-10-14T07:53:48.554341+07:00 | prepare_fullpage_v4_process_role_overlay_retry
+Command: .venv\Scripts\python.exe -m qa.prepare_fullpage_v4
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\prepare_fullpage_v4.py", line 286, in <module>
+    main()
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\prepare_fullpage_v4.py", line 282, in main
+    build_overlay()
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\prepare_fullpage_v4.py", line 117, in build_overlay
+    base_request, base_plan, base_sections = make_page(
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: too many values to unpack (expected 3)
+
+Exit code: 1

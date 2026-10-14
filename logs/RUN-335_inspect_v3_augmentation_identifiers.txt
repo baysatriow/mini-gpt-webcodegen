@@ -1,0 +1,32 @@
+RUN-335 | 2026-10-14T07:50:39.404939+07:00 | inspect_v3_augmentation_identifiers
+Command: .venv\Scripts\python.exe -c "import json,collections,pathlib; p=pathlib.Path('data/processed/fullpage/v3'); reqs=[json.loads(x) for x in (p/'train.requests.jsonl').read_text(encoding='utf-8').splitlines()]; rows=[json.loads(x) for x in (p/'train.jsonl').read_text(encoding='utf-8').splitlines()];
+print('request_id_examples',*[r['request']['request_id'] for r in reqs[:8]],sep='\\n'); print('request_ids_by_marker',json.dumps({k:sum(k in r['request']['request_id'] for r in reqs) for k in ['-v3-','-alias','-style','v3']},indent=2)); print('origins',json.dumps(collections.Counter(r.get('origin') for r in rows),ensure_ascii=False,indent=2)); print('tasks',json.dumps(collections.Counter(r['task'] for r in rows),indent=2)); print('augmentation_fields',json.dumps(collections.Counter(str(r.get('augmentation')) for r in rows),ensure_ascii=False,indent=2)); print('source_id_examples',*[r['example_id'] for r in rows[:14]],sep='\\n')"
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+request_id_examples\npage0000-plain_css\npage0000-tailwind\npage0001-plain_css\npage0001-tailwind\npage0002-plain_css\npage0002-tailwind\npage0003-plain_css\npage0003-tailwind
+request_ids_by_marker {
+  "-v3-": 960,
+  "-alias": 0,
+  "-style": 0,
+  "v3": 1440
+}
+origins {
+  "project-authored synthetic fullpage curriculum": 5760,
+  "project-authored train-only fullpage augmentation": 11520,
+  "project-authored targeted synthetic identity and fact exercise": 5760
+}
+tasks {
+  "page_plan": 5760,
+  "section_content": 17280
+}
+augmentation_fields {
+  "None": 5760,
+  "0": 2880,
+  "1": 2880,
+  "2": 2880,
+  "3": 2880,
+  "targeted-identity-facts-v3": 5760
+}
+source_id_examples\npage0000-plain_css-0\npage0000-plain_css-0-retry\npage0000-plain_css-1\npage0000-plain_css-2\npage0000-plain_css-3\npage0000-plain_css-4\npage0000-plain_css-5\npage0000-plain_css-5-retry\npage0000-plain_css-6\npage0000-plain_css-7\npage0000-plain_css-8\npage0000-plain_css-9\npage0000-tailwind-0\npage0000-tailwind-0-retry
+
+Exit code: 0

@@ -1,0 +1,322 @@
+{
+  "experiment": "fullpage-process-role-augmentation-v4",
+  "dataset": "data/processed/fullpage/v4",
+  "dataset_manifest_sha256": "aae2de8cfceb16110eb93b0668447fcda7237fdfabaa7e0c2a22ce2c3d41cf15",
+  "parent_manifest_sha256": "823d09401a92093d2e6dc463753074e9775d9591ce044185c3442adb07eeb8a6",
+  "training_config": "configs/fullpage/training-improvement-v4.json",
+  "training_config_sha256": "91bc688b5c34befc33e41749f7dbb0b4513f60c513377c94a35bdd31ef5a6487",
+  "development_request_sha256": "2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836",
+  "development_total": 80,
+  "target": {
+    "minimum_complete_pages": 76,
+    "pages": 80,
+    "rate": 0.95
+  },
+  "data_change": {
+    "kind": "train-only process section target augmentation",
+    "train_rows_v3": 23040,
+    "train_rows_v4": 24000,
+    "added_rows": 960,
+    "section_process_rows_v3": 480,
+    "section_process_rows_v4": 1440,
+    "task_counts_v3": {
+      "page_plan": 5760,
+      "section_content": 17280
+    },
+    "task_counts_v4": {
+      "page_plan": 5760,
+      "section_content": 18240
+    },
+    "section_role_rows_v3": {
+      "about": 2400,
+      "benefits": 480,
+      "contact": 480,
+      "faq": 720,
+      "footer": 3360,
+      "hero": 5280,
+      "navigation": 1440,
+      "portfolio": 720,
+      "process": 480,
+      "services": 1440,
+      "values": 480
+    },
+    "section_role_rows_v4": {
+      "about": 2400,
+      "benefits": 480,
+      "contact": 480,
+      "faq": 720,
+      "footer": 3360,
+      "hero": 5280,
+      "navigation": 1440,
+      "portfolio": 720,
+      "process": 1440,
+      "services": 1440,
+      "values": 480
+    },
+    "validation_manifest_sha256_v3": "2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836",
+    "validation_manifest_sha256_v4": "2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836"
+  },
+  "training_controls": {
+    "plan_batch_probability": 0.7,
+    "batch_size": 8,
+    "gradient_accumulation": 6,
+    "effective_batch_size": 48,
+    "max_steps": 3600,
+    "precision": "bf16",
+    "device": "cuda",
+    "context_tokens": 2048,
+    "section_output_tokens": 1536,
+    "sampler_and_validation_unchanged": true
+  },
+  "historical_baseline": {
+    "run_id": "TRAIN-019",
+    "step": 3600,
+    "complete": 70,
+    "total": 80,
+    "complete_rate": 0.875,
+    "development_ce": 0.0075190683748171585,
+    "model_gate": false,
+    "context_only": true
+  },
+  "failed_preflight_run": {
+    "run_id": "TRAIN-023",
+    "status": "failed",
+    "global_step": 0,
+    "error": "Insufficient storage for last/best checkpoints while preserving reserve",
+    "weights_updated": false
+  },
+  "candidates": [
+    {
+      "run_id": "TRAIN-022",
+      "step": 1800,
+      "checkpoint": "checkpoints/FULLPAGE-V4/TRAIN-022-step1800.pt",
+      "checkpoint_sha256": "567cd73aac8d3d0eee10be54ea897e6d1d994a084150527fc107b125d3a374c0",
+      "training_status": "stopped_at_limit",
+      "development_report": "reports/fullpage/TRAIN-022_DEVELOPMENT_STEP1800.json",
+      "development_report_sha256": "0ed990e6d0e9e8fbddb40578308bb96f5b59bb610c94dd228895b076d266e089",
+      "development_complete": 64,
+      "development_total": 80,
+      "development_rate": 0.8,
+      "development_ce": 0.006403033495829851,
+      "first_attempt_complete": 62,
+      "model_gate": false,
+      "groups": {
+        "landing_page:plain_css": {
+          "total": 20,
+          "complete": 18,
+          "first_attempt": 17
+        },
+        "landing_page:tailwind": {
+          "total": 20,
+          "complete": 18,
+          "first_attempt": 17
+        },
+        "company_profile:plain_css": {
+          "total": 20,
+          "complete": 14,
+          "first_attempt": 14
+        },
+        "company_profile:tailwind": {
+          "total": 20,
+          "complete": 14,
+          "first_attempt": 14
+        }
+      },
+      "reported_failure_counts": {
+        "Brand fact mismatch": 2,
+        "section": 2,
+        "Required fact text mismatch": 4,
+        "Plan request identity/style mismatch": 6,
+        "Hero brand fact mismatch": 2
+      },
+      "page_status_counts": {
+        "accepted": 64,
+        "stage_failed": 16
+      },
+      "failed_request_ids": [
+        "page0242-plain_css",
+        "page0242-tailwind",
+        "page0243-plain_css",
+        "page0243-tailwind",
+        "page0245-plain_css",
+        "page0245-tailwind",
+        "page0249-plain_css",
+        "page0249-tailwind",
+        "page0253-plain_css",
+        "page0253-tailwind",
+        "page0257-plain_css",
+        "page0257-tailwind",
+        "page0260-plain_css",
+        "page0260-tailwind",
+        "page0271-plain_css",
+        "page0271-tailwind"
+      ],
+      "top_generation_errors": [
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "Plan request identity/style mismatch",
+          "attempts": 13,
+          "affected_pages": 7
+        },
+        {
+          "task": "section_content",
+          "stage": "about",
+          "error": "Required fact text mismatch: about",
+          "attempts": 6,
+          "affected_pages": 4
+        },
+        {
+          "task": "section_content",
+          "stage": "about",
+          "error": "section:[]: {'id': 'about', 'props': {'heading': 'Tentang Kafe Matakara adalah usaha demo fiktif di bidang minuman dan ruang berkumpul. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas.'}, 'role': 'about', 'type': 'text_section', 'variant': 'prose'} is not valid under any of the given schemas",
+          "attempts": 4,
+          "affected_pages": 2
+        },
+        {
+          "task": "section_content",
+          "stage": "main",
+          "error": "Hero brand fact mismatch",
+          "attempts": 4,
+          "affected_pages": 2
+        },
+        {
+          "task": "section_content",
+          "stage": "nav",
+          "error": "Brand fact mismatch",
+          "attempts": 4,
+          "affected_pages": 2
+        },
+        {
+          "task": "section_content",
+          "stage": "about",
+          "error": "section:[]: {'id': 'about', 'props': {'heading': 'Tentang Kursus Tidimirimi adalah usaha demo fiktif di bidang pendampingan belajar. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas.'}, 'role': 'about', 'type': 'text_section', 'variant': 'prose'} is not valid under any of the given schemas",
+          "attempts": 2,
+          "affected_pages": 2
+        },
+        {
+          "task": "section_content",
+          "stage": "about",
+          "error": "section:[]: {'id': 'about', 'props': {'heading': 'Tentang Toko Manalami adalah usaha demo fiktif di bidang produk kebutuhan harian. Kami membantu pelanggan memahami pilihan layanan, menentukan kebutuhan dan memulai konsultasi dengan informasi yang jelas.'}, 'role': 'about', 'type': 'text_section', 'variant': 'prose'} is not valid under any of the given schemas",
+          "attempts": 2,
+          "affected_pages": 2
+        },
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "Missing required page roles",
+          "attempts": 1,
+          "affected_pages": 1
+        }
+      ]
+    },
+    {
+      "run_id": "TRAIN-024",
+      "step": 3600,
+      "checkpoint": "checkpoints/FULLPAGE-V4/TRAIN-024-step3600.pt",
+      "checkpoint_sha256": "913b1b00aec040a0d51c3607cf7261288e7fe089378850fc66c131400c0f319a",
+      "training_status": "completed",
+      "development_report": "reports/fullpage/TRAIN-024_DEVELOPMENT_STEP3600.json",
+      "development_report_sha256": "386a0cbaa2dcc50be87732f4a00336ff8cc4aac91689195daa15aa2801a603fa",
+      "development_complete": 68,
+      "development_total": 80,
+      "development_rate": 0.85,
+      "development_ce": 0.007638510920557166,
+      "first_attempt_complete": 68,
+      "model_gate": false,
+      "groups": {
+        "landing_page:plain_css": {
+          "total": 20,
+          "complete": 19,
+          "first_attempt": 19
+        },
+        "landing_page:tailwind": {
+          "total": 20,
+          "complete": 19,
+          "first_attempt": 19
+        },
+        "company_profile:plain_css": {
+          "total": 20,
+          "complete": 15,
+          "first_attempt": 15
+        },
+        "company_profile:tailwind": {
+          "total": 20,
+          "complete": 15,
+          "first_attempt": 15
+        }
+      },
+      "reported_failure_counts": {
+        "Brand fact mismatch": 2,
+        "Plan request identity/style mismatch": 7,
+        "Required fact text mismatch": 1,
+        "Hero brand fact mismatch": 2
+      },
+      "page_status_counts": {
+        "accepted": 68,
+        "stage_failed": 12
+      },
+      "failed_request_ids": [
+        "page0242-plain_css",
+        "page0242-tailwind",
+        "page0247-plain_css",
+        "page0247-tailwind",
+        "page0249-plain_css",
+        "page0249-tailwind",
+        "page0253-plain_css",
+        "page0253-tailwind",
+        "page0257-plain_css",
+        "page0257-tailwind",
+        "page0271-plain_css",
+        "page0271-tailwind"
+      ],
+      "top_generation_errors": [
+        {
+          "task": "page_plan",
+          "stage": "plan",
+          "error": "Plan request identity/style mismatch",
+          "attempts": 16,
+          "affected_pages": 9
+        },
+        {
+          "task": "section_content",
+          "stage": "main",
+          "error": "Hero brand fact mismatch",
+          "attempts": 4,
+          "affected_pages": 2
+        },
+        {
+          "task": "section_content",
+          "stage": "nav",
+          "error": "Brand fact mismatch",
+          "attempts": 4,
+          "affected_pages": 2
+        },
+        {
+          "task": "section_content",
+          "stage": "about",
+          "error": "Required fact text mismatch: about",
+          "attempts": 2,
+          "affected_pages": 1
+        }
+      ]
+    }
+  ],
+  "best_observed_by_complete_pages_then_ce": "TRAIN-024",
+  "best_observed_step": 3600,
+  "model_gate_passed": false,
+  "promotable_candidate": null,
+  "final_targets_read_for_selection": false,
+  "final_opened": false,
+  "final_used": false,
+  "browser_reviewed": false,
+  "human_reviewed": false,
+  "limits": [
+    "Selection compares the two v4 checkpoints on the same 80 development requests.",
+    "TRAIN-019 is a historical reference and is not part of the v4 checkpoint ranking.",
+    "The synthetic training examples have not been reviewed by a person.",
+    "No browser, visual quality, or final benchmark evaluation was performed.",
+    "The 95 percent target is not met by either v4 checkpoint.",
+    "This experiment cannot establish that process-row augmentation alone caused the observed change."
+  ]
+}

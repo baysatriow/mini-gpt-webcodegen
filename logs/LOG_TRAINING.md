@@ -1059,3 +1059,63 @@ RUN-331 membandingkan satu target training role `process` dengan satu raw output
 Distribusi train RUN-316: v2 memiliki480 dari12.480 section rows untuk process, atau3,85 persen. V3 tetap480 process dari17.280 section rows, atau2,78 persen, turun sekitar27,8 persen sebagai porsi relatif. Ini mendukung hipotesis data dilution, tetapi belum membuktikan sebab-akibat.
 
 Rancangan berikutnya yang perlu direview adalah melengkapi target process hanya untuk train page yang mempunyai descriptor process, sambil menahan prompt v3, renderer, validator, sampler0,7, budget token, dan training setting lain tetap. Belum ada implementasi atau training v4. RUN-330 adalah kesalahan syntax pada perintah audit awal; RUN-331 mengulang pemeriksaan dan berhasil.
+
+## TRAIN-022/024, fullpage v4 process-role augmentation, 14 Oktober 2026
+
+### Tujuan dan perubahan data
+
+- Eksperimen menguji hipotesis bahwa lebih banyak target `process` pada train dapat mengurangi kegagalan isi section. Tidak ada prompt, renderer, schema, validator, atau retry yang diubah.
+- Data v4 diturunkan dari v3. Sebanyak 960 target section `process` ditambahkan hanya untuk halaman keluarga train yang memang mempunyai descriptor process. Jumlah row train naik dari 23.040 menjadi 24.000. Row target `process` naik dari 480 menjadi 1.440. Jumlah `page_plan` tetap 5.760, sedangkan `section_content` naik dari 17.280 menjadi 18.240.
+- Validation dan test tetap checksum-identik. Hash file development requests tetap `2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836`. Manifest v4 SHA-256 `aae2de8cfceb16110eb93b0668447fcda7237fdfabaa7e0c2a22ce2c3d41cf15`; parent v3 SHA-256 `823d09401a92093d2e6dc463753074e9775d9591ce044185c3442adb07eeb8a6`.
+- Semua train examples tetap sintetis dan belum ditinjau manusia. File final tidak dibuka dan tidak digunakan.
+
+### Hardware, profile, dan konfigurasi
+
+- Perangkat: NVIDIA GeForce RTX 5070. Batch 4, 8, 12, dan 16 stabil pada profile representative dengan effective batch 48.
+- Throughput terukur: batch 4 49.414 token/detik, batch 8 51.562, batch 12 52.848, batch 16 52.889. Batch 16 hanya 2,6 persen di atas batch 8, dengan peak reserved 4.183.818.240 byte dibanding 2.292.187.136 byte. Konfigurasi tetap microbatch 8 dan accumulation 6 untuk mengisolasi perubahan data dan mempertahankan setting yang disetujui. Pemilihan tersebut bukan klaim batch tercepat.
+- Konfigurasi `configs/fullpage/training-improvement-v4.json`, SHA-256 `91bc688b5c34befc33e41749f7dbb0b4513f60c513377c94a35bdd31ef5a6487`: 3.600 update, plan batch probability0,7, batch8, accumulation6, effective batch48, BF16, CUDA, konteks2.048 token, section output maksimal1.536 token, validation/checkpoint tiap600 update. Setting training lain mengikuti konfigurasi v3 yang dibekukan.
+
+### Training dan resume
+
+| Run | Global update | Status | Wall time | Token target kumulatif | Validation CE akhir | Peak allocated | Peak reserved |
+| --- | ---: | --- | ---: | ---: | ---: | ---: | ---: |
+| TRAIN-022 | 1.800 | stopped_at_limit | 565,07 detik | 29.555.524 | 0,006403 | 2.118.478.336 byte | 2.292.187.136 byte |
+| TRAIN-024 | 3.600 | completed | 588,15 detik | 59.052.905 | 0,007639 | 2.118.917.120 byte | 2.271.215.616 byte |
+
+- TRAIN-022 dimulai dari INIT-2048-001 dan checkpoint last lengkap dipertahankan untuk resume. Snapshot evaluation weights-only SHA-256 `567cd73aac8d3d0eee10be54ea897e6d1d994a084150527fc107b125d3a374c0`.
+- TRAIN-024 memulihkan optimizer, scheduler, sampler, RNG, dan konfigurasi persis dari TRAIN-022/step1800. Resume parent SHA-256 `edd14b5d4988f0c513d2754b4a790d663155f7f09712827b21668ab4d148a729`. Snapshot evaluation weights-only SHA-256 `913b1b00aec040a0d51c3607cf7261288e7fe089378850fc66c131400c0f319a`.
+- Rata-rata GPU utilization telemetry sekitar90,79 persen pada TRAIN-022 dan90,62 persen pada TRAIN-024. Suhu maksimum masing-masing70C dan69C. Tidak ada telemetry error.
+- Validation CE pada update0,600,1200,1800: 6,266233; 0,121490; 0,009746; 0,006403. Saat resume, CE pada1800,2400,3000,3600: 0,006403; 0,006491; 0,007504; 0,007639. Generation quality tetap menjadi kriteria pemilihan utama.
+
+### Insiden penyimpanan dan pemulihan
+
+- Percobaan resume pertama sebagai TRAIN-023 gagal sebelum weight update karena guard penyimpanan membutuhkan ruang untuk checkpoint sambil mempertahankan cadangan15GiB. Error penuh ada di RUN-357. Tidak ada weight update pada TRAIN-023.
+- RUN-360 berhenti sebelum pemindahan karena shell tidak memiliki Get-FileHash. RUN-361 memindahkan TRAIN-002, TRAIN-003, TRAIN-004, dan TRAIN-004-VERIFIED ke `C:\Generative_AI_Checkpoint_Archive\Vibe_Coding_Proyek_1\checkpoints`, lalu berhenti saat menemukan TRAIN-005 telah berupa junction. Hash file setelah perpindahan cocok dan junction dipertahankan di path lama.
+- TRAIN-005, TRAIN-006, dan TRAIN-007 ternyata sudah mengarah ke arsip E:, sehingga tidak dipindahkan. RUN-363 mencatat temuan itu. TRAIN-008 kemudian dipindahkan dengan checksum terverifikasi pada RUN-365. Total lima folder yang benar-benar dipindahkan adalah1.873.865.524 byte.
+- RUN-366 memverifikasi ulang checkpoint TRAIN-022 dan konfigurasi. Ruang F: sebesar18.281.406.464 byte, dengan headroom1.341.235.200 byte di atas estimasi kebutuhan model dan reserve. Karena RUN-023 sudah menyimpan kegagalan awal, resume berikut memakai ID baru TRAIN-024.
+
+### Evaluasi halaman development
+
+| Kandidat | Landing page CSS | Landing page Tailwind | Company profile CSS | Company profile Tailwind | Total | First attempt | Validation CE | Gate 76/80 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| TRAIN-022, step1800 | 18/20 | 18/20 | 14/20 | 14/20 | 64/80, 80% | 62/80 | 0,006403 | Gagal |
+| TRAIN-024, step3600 | 19/20 | 19/20 | 15/20 | 15/20 | 68/80, 85% | 68/80 | 0,007639 | Gagal |
+
+- TRAIN-024 dipilih sebagai hasil v4 terbaik berdasarkan jumlah halaman lengkap, naik4 halaman dari TRAIN-022. Target 76/80 belum tercapai, kurang8 halaman. Tidak ada candidate v4 yang lolos model gate atau dipromosikan.
+- TRAIN-024 merekam12 halaman gagal akhir. Semua68 halaman yang diterima sudah lolos pada attempt pertama; retry tidak menyelamatkan sisa halaman. Gagal akhir tersebar pada enam keluarga prompt, masing-masing dengan dua style renderer.
+- Error mentah yang dominan: plan request identity/style mismatch,16 attempts pada9 halaman; hero brand fact mismatch,4 attempts pada2 halaman; navigation brand fact mismatch,4 attempts pada2 halaman; required fact text mismatch di about,2 attempts pada1 halaman. Angka attempt tidak sama dengan jumlah halaman unik.
+- Historical baseline TRAIN-019 tetap70/80 pada request development yang sama. Baseline ini hanya referensi historis dari eksperimen lain, bukan kandidat v4 yang setara untuk ranking.
+- Perubahan dari64 ke68 halaman pada dua checkpoint v4 sama-sama memakai data v4 dan tidak mengisolasi efek data terhadap v3 melalui beberapa seed. Hasil ini tidak membuktikan kausalitas penambahan row process.
+
+### Artefak, notebook, dan bukti
+
+- Dataset dan laporan preparation: `data/processed/fullpage/v4/`, `reports/fullpage/FULLPAGE-V4_DATA_PREPARATION.json`.
+- Config: `configs/fullpage/training-improvement-v4.json`. GPU profile: `reports/training/FULLPAGE-GPU-005.json` dan `FULLPAGE-GPU-005-CONTROLLED-B8.json`.
+- Training summaries: `reports/training/TRAIN-022.json`, `reports/training/TRAIN-024.json`; loss/performance metrics: `outputs/metrics/TRAIN-022.jsonl`, `outputs/metrics/TRAIN-024.jsonl`.
+- Evaluasi: `reports/fullpage/TRAIN-022_DEVELOPMENT_STEP1800.json` dan `reports/fullpage/TRAIN-024_DEVELOPMENT_STEP3600.json`.
+- Laporan lineage dan ranking: `reports/training/FULLPAGE-V4_DEVELOPMENT_SELECTION.json`. Snapshot tersimpan di `checkpoints/FULLPAGE-V4/`.
+- Notebook [14](../notebooks/14_fullpage_v4_process_role_training.ipynb) memiliki16 sel dan berhasil dieksekusi dengan error cell dilarang. Notebook membaca artefak yang telah ada, tidak menjalankan ulang training atau evaluasi.
+- RUN utama: RUN-346 preparation; RUN-347/350 profile; RUN-351/352 config; RUN-353 training step1800; RUN-355 evaluation; RUN-357 storage preflight failure; RUN-361/365 checkpoint archive; RUN-366 resume preflight; RUN-367 resume training; RUN-368 snapshot; RUN-369 evaluation; RUN-374 selection; RUN-378 notebook. CodeGraph disinkronkan pada RUN-373 dan RUN-377.
+- Output utama tetap synthetic contract evaluation. Browser visual review, human review, deployment, dan final benchmark tidak dilakukan.
+
+Kesimpulan: v4 memperbaiki kelulusan dari80 persen ke85 persen antara step1800 dan3600, tetapi belum mencapai95 persen. Error yang dominan pada candidate terbaik kini adalah konsistensi identity/style di plan serta penyalinan fakta merek. Gunakan pola ini untuk merancang eksperimen train-only berikutnya dengan validator strict dan final benchmark tetap tertutup.

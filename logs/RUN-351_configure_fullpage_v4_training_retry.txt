@@ -1,0 +1,13 @@
+RUN-351 | 2026-10-14T07:59:11.125425+07:00 | configure_fullpage_v4_training_retry
+Command: .venv\Scripts\python.exe -m qa.configure_fullpage_training --scope main --profile reports/training/FULLPAGE-GPU-005-CONTROLLED-B8.json --output configs/fullpage/training-improvement-v4.json --dataset-dir data/processed/fullpage/v4 --plan-probability 0.7 --max-steps 3600 --warmup-steps 180 --validation-interval 600 --checkpoint-interval 600 --storage-phase-id fullpage-improvement-v4 --selection-rule "V4 train-only process-role augmentation; initialize independently from INIT-2048-001; compare development generation at steps 1800 and 3600 on the same 80 requests; rank by complete pages then ordinary development CE; preserve all other v3 training settings and keep final sealed."
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+{
+  "scope": "main",
+  "batch_size": 8,
+  "gradient_accumulation": 6,
+  "max_steps": 3600,
+  "learning_rate": 5e-05
+}
+
+Exit code: 0

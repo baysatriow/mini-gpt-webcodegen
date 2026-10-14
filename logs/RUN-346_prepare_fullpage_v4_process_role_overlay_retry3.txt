@@ -1,0 +1,29 @@
+RUN-346 | 2026-10-14T07:54:45.291429+07:00 | prepare_fullpage_v4_process_role_overlay_retry3
+Command: .venv\Scripts\python.exe -m qa.prepare_fullpage_v4
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+{
+  "dataset": "data/processed/fullpage/v4",
+  "manifest_sha256": "aae2de8cfceb16110eb93b0668447fcda7237fdfabaa7e0c2a22ce2c3d41cf15",
+  "parent_manifest_sha256": "823d09401a92093d2e6dc463753074e9775d9591ce044185c3442adb07eeb8a6",
+  "parent_train_sha256": "3f74d6faf1275a3606bc08c359e4c81f0fe4bf21efd49516639d952538df2242",
+  "train_rows_before": 23040,
+  "train_rows_after": 24000,
+  "added_process_rows": 960,
+  "process_role_rows_before": 480,
+  "process_role_rows_after": 1440,
+  "task_counts_by_split": {
+    "train": 24000,
+    "validation": 960,
+    "test": 800
+  },
+  "process_target_validation": "960/960 schema, descriptor, facts, prompt and token budget passed",
+  "validation_and_test_hashes_unchanged": true,
+  "v3_train_rows_unchanged_prefix": true,
+  "human_reviewed": false,
+  "final_opened": false,
+  "disk_free_before_bytes": 17462747136,
+  "disk_free_after_bytes": 17404137472
+}
+
+Exit code: 0

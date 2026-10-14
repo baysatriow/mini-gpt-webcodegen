@@ -1,0 +1,28 @@
+RUN-333 | 2026-10-14T07:50:16.913806+07:00 | count_v3_requests_and_tasks_by_split
+Command: .venv\Scripts\python.exe -c "import json,collections,pathlib; p=pathlib.Path('data/processed/fullpage/v3'); req=collections.Counter(); rows=collections.Counter(); roles=collections.Counter(); plans={}; names={};
+for x in (p/'train.requests.jsonl').read_text(encoding='utf-8').splitlines():
+ r=json.loads(x); req[r['split']]+=1
+for x in (p/'train.jsonl').read_text(encoding='utf-8').splitlines():
+ r=json.loads(x); rows[r['split']]+=1
+ if r['task']=='section_content': roles[(r['split'],json.loads(r['target']).get('role'))]+=1
+ if r['task']=='page_plan' and r['split']=='train': plans[r['family_id']]=plans.get(r['family_id'],0)+1
+print(json.dumps({'request_counts':req,'task_counts':rows,'role_counts':dict(roles),'plan_families':len(plans),'plan_rows':sum(plans.values())},ensure_ascii=False,indent=2))"
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+Traceback (most recent call last):
+  File "<string>", line 8, in <module>
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 202, in encode
+    chunks = list(chunks)
+             ^^^^^^^^^^^^
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 377, in _iterencode_dict
+    raise TypeError(f'keys must be str, int, float, bool or None, '
+TypeError: keys must be str, int, float, bool or None, not tuple
+
+Exit code: 1

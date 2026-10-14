@@ -1,0 +1,18 @@
+RUN-377 | 2026-10-14T13:30:48.408305+07:00 | sync_codegraph_after_notebook_evidence_update
+Command: powershell.exe -NoProfile -Command "codegraph sync ."
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+T  Syncing CodeGraph
+|
+Scanning files...
+Parsing code...
+Resolving refs...
+|
+*  Synced 1 changed files
+|
+•  Modified: 1 - 8 nodes in 496ms
+|
+—  Done
+
+
+Exit code: 0

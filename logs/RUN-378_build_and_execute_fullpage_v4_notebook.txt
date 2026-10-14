@@ -1,0 +1,12 @@
+RUN-378 | 2026-10-14T13:30:55.509779+07:00 | build_and_execute_fullpage_v4_notebook
+Command: .\.venv\Scripts\python.exe -m qa.build_fullpage_v4_notebook
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+F:\Generative_AI\Vibe_Coding_Proyek_1\.venv\Lib\site-packages\zmq\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.
+  self._get_loop()
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+Executed notebook: notebooks/14_fullpage_v4_process_role_training.ipynb
+Kernel: mini-gpt-webcodegen (Mini GPT WebCodeGen (Python 3.11 CUDA))
+Cells: 16
+
+Exit code: 0

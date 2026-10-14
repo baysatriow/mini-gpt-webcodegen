@@ -1,0 +1,22 @@
+RUN-357 | 2026-10-14T12:59:21.173565+07:00 | train_fullpage_v4_resume_1800_to3600
+Command: .\.venv\Scripts\python.exe -m qa.train_fullpage --config configs/fullpage/training-improvement-v4.json --run-id TRAIN-023 --resume checkpoints/TRAIN-022/last.pt --stop-after 3600
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+{"event": "failure", "global_step": 0, "last_committed_step": 0, "error_type": "OSError", "error": "Insufficient storage for last/best checkpoints while preserving reserve"}
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\train_fullpage.py", line 45, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\train_fullpage.py", line 41, in main
+    checkpoint=run_fullpage_training(args.root/args.config,run_id=args.run_id,resume=args.root/args.resume if args.resume else None,root=args.root,stop_after=args.stop_after)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\train_fullpage.py", line 33, in run_fullpage_training
+    return run_training(config_path,loaders['train'],loaders['validation'],run_id,resume=resume,root=root,stop_after=stop_after)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\src\training\engine.py", line 371, in run_training
+    raise OSError("Insufficient storage for last/best checkpoints while preserving reserve")
+OSError: Insufficient storage for last/best checkpoints while preserving reserve
+
+Exit code: 1

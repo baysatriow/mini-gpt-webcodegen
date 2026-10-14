@@ -1,0 +1,17 @@
+RUN-362 | 2026-10-14T13:03:11.036215+07:00 | recheck_v4_resume_storage_after_archive
+Command: .\.venv\Scripts\python.exe -c "import json,shutil,os,pathlib; from src.training.engine import read_checkpoint; cfg=json.loads(pathlib.Path(\"configs/fullpage/training-improvement-v4.json\").read_text(encoding=\"utf-8\")); state=read_checkpoint(pathlib.Path(\"checkpoints/INIT-2048-001/model.pt\")) if pathlib.Path(\"checkpoints/INIT-2048-001/model.pt\").exists() else read_checkpoint(next(pathlib.Path(\"checkpoints/INIT-2048-001\").glob(\"*.pt\"))); tensors={t.data_ptr():t for t in state[\"model\"].values()}; mb=sum(t.numel()*t.element_size() for t in tensors.values()); need=cfg[\"reserve_free_bytes\"]+mb*12+128*1024**2; free=shutil.disk_usage(pathlib.Path.cwd()).free; print(\"PREFLIGHT\",json.dumps({\"free_bytes\":free,\"model_bytes\":mb,\"required_bytes\":need,\"headroom_bytes\":free-need,\"passes\":free>=need}));
+for name in [\"TRAIN-002\",\"TRAIN-003\",\"TRAIN-004\",\"TRAIN-004-VERIFIED\",\"TRAIN-005\",\"TRAIN-006\"]:
+ p=pathlib.Path(\"checkpoints\")/name
+ try: target=os.readlink(p); print(\"LINK\",name,target)
+ except OSError: print(\"LINK\",name,\"not-a-link\")"
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+PREFLIGHT {"free_bytes": 17599975424, "model_bytes": 58318848, "required_bytes": 16940171264, "headroom_bytes": 659804160, "passes": true}
+LINK TRAIN-002 \\?\C:\Generative_AI_Checkpoint_Archive\Vibe_Coding_Proyek_1\checkpoints\TRAIN-002
+LINK TRAIN-003 \\?\C:\Generative_AI_Checkpoint_Archive\Vibe_Coding_Proyek_1\checkpoints\TRAIN-003
+LINK TRAIN-004 \\?\C:\Generative_AI_Checkpoint_Archive\Vibe_Coding_Proyek_1\checkpoints\TRAIN-004
+LINK TRAIN-004-VERIFIED \\?\C:\Generative_AI_Checkpoint_Archive\Vibe_Coding_Proyek_1\checkpoints\TRAIN-004-VERIFIED
+LINK TRAIN-005 \\?\E:\GenerativeAI_Archive\Vibe_Coding_Proyek_1\checkpoints\TRAIN-005
+LINK TRAIN-006 \\?\E:\GenerativeAI_Archive\Vibe_Coding_Proyek_1\checkpoints\TRAIN-006
+
+Exit code: 0

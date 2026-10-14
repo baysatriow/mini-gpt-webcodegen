@@ -1,0 +1,17 @@
+RUN-354 | 2026-10-14T08:09:53.105079+07:00 | snapshot_train022_step1800_for_v4_evaluation
+Command: .venv\Scripts\python.exe -m qa.snapshot_fullpage_checkpoint --source checkpoints/TRAIN-022/last.pt --destination checkpoints/FULLPAGE-V4/TRAIN-022-step1800.pt --run-id TRAIN-022 --step 1800
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+{
+  "source": "checkpoints/TRAIN-022/last.pt",
+  "source_sha256": "edd14b5d4988f0c513d2754b4a790d663155f7f09712827b21668ab4d148a729",
+  "destination": "checkpoints/FULLPAGE-V4/TRAIN-022-step1800.pt",
+  "destination_sha256": "567cd73aac8d3d0eee10be54ea897e6d1d994a084150527fc107b125d3a374c0",
+  "destination_file_sha256": "a493f03ed42f6397fb9981287f3ea234fa29a5678c8146eeeea2b4668237062a",
+  "run_id": "TRAIN-022",
+  "global_step": 1800,
+  "weights_only": true,
+  "dataset_manifest_sha256": "aae2de8cfceb16110eb93b0668447fcda7237fdfabaa7e0c2a22ce2c3d41cf15"
+}
+
+Exit code: 0

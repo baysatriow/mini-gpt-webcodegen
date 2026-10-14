@@ -1,0 +1,19 @@
+RUN-348 | 2026-10-14T07:58:37.448432+07:00 | freeze_v4_controlled_batch8_profile
+Command: .venv\Scripts\python.exe -c "import json,pathlib; root=pathlib.Path('.'); sweep=json.loads((root/'reports/training/FULLPAGE-GPU-005.json').read_text(encoding='utf-8')); child=json.loads((root/'reports/training/FULLPAGE-GPU-005-B8.json').read_text(encoding='utf-8')); assert child['status']=='stable' and child['batch']==8 and child['accumulation']==6; assert any(item['batch']==8 and item['status']=='stable' for item in sweep['results']); assert sweep['selected']['batch']==16; out=root/'reports/training/FULLPAGE-GPU-005-CONTROLLED-B8.json'; assert not out.exists(); profile={'dataset_dir':sweep['dataset_dir'],'plan_probability':sweep['plan_probability'],'results':sweep['results'],'selected':child,'worst_context_report':sweep['worst_context_report'],'final_data_opened':False,'probe_weights_discarded':True,'controlled_selection':{'source_sweep': 'FULLPAGE-GPU-005.json','measured_sweep_winner_batch':sweep['selected']['batch'],'selected_batch':8,'selected_accumulation':6,'reason':'Keep the pre-approved v3 training microbatch and effective batch fixed so the v4 treatment changes train data only.'}}; out.write_text(json.dumps(profile,ensure_ascii=False,indent=2)+'\\n',encoding='utf-8'); print(json.dumps({'report':str(out),'sweep_winner':[sweep['selected']['batch'],sweep['selected']['tokens_per_second']],'controlled_profile':[child['batch'],child['accumulation'],child['tokens_per_second']],'status':child['status']},indent=2))"
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+{
+  "report": "reports\\training\\FULLPAGE-GPU-005-CONTROLLED-B8.json",
+  "sweep_winner": [
+    16,
+    52889.338219884536
+  ],
+  "controlled_profile": [
+    8,
+    6,
+    51562.48013841579
+  ],
+  "status": "stable"
+}
+
+Exit code: 0

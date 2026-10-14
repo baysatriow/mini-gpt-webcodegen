@@ -1,0 +1,46 @@
+RUN-336 | 2026-10-14T07:50:54.614643+07:00 | inspect_one_v3_page_task_lineage
+Command: .venv\Scripts\python.exe -c "import json,pathlib; p=pathlib.Path('data/processed/fullpage/v3'); reqs=[json.loads(x) for x in (p/'train.requests.jsonl').read_text(encoding='utf-8').splitlines()]; rows=[json.loads(x) for x in (p/'train.jsonl').read_text(encoding='utf-8').splitlines()]; req=next(x['request'] for x in reqs if '-v3-' in x['request']['request_id']); matches=[r for r in rows if r['example_id'].startswith(req['request_id']+'-')]; print(json.dumps({'request_id':req['request_id'],'matched_rows':[{'example_id':r['example_id'],'task':r['task'],'target':r['target'][:500]} for r in matches]},ensure_ascii=False,indent=2))"
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+{
+  "request_id": "page0000-plain_css-v3-0",
+  "matched_rows": [
+    {
+      "example_id": "page0000-plain_css-v3-0-retry",
+      "task": "page_plan",
+      "target": "{\"genre\":\"landing_page\",\"language\":\"id\",\"schema_version\":\"1.0\",\"sections\":[[\"nav\",\"navbar\",\"navigation\",\"inline\",[\"name\"],[]],[\"main\",\"hero\",\"hero\",\"split\",[\"name\"],[\"studio-shapes\"]],[\"process\",\"feature_grid\",\"process\",\"numbered\",[\"step0\",\"step1\",\"step2\"],[]],[\"faq\",\"feature_grid\",\"faq\",\"cards\",[\"faq0\",\"faq1\",\"faq2\"],[]],[\"benefits\",\"feature_grid\",\"benefits\",\"cards\",[\"values\"],[]],[\"about\",\"text_section\",\"about\",\"prose\",[\"about\"],[]],[\"services\",\"feature_grid\",\"services\",\"cards\",[\"srv0\",\"srv1\","
+    },
+    {
+      "example_id": "page0000-plain_css-v3-0-target-0",
+      "task": "page_plan",
+      "target": "{\"genre\":\"landing_page\",\"language\":\"id\",\"schema_version\":\"1.0\",\"sections\":[[\"nav\",\"navbar\",\"navigation\",\"inline\",[\"name\"],[]],[\"main\",\"hero\",\"hero\",\"split\",[\"name\"],[\"studio-shapes\"]],[\"benefits\",\"feature_grid\",\"benefits\",\"cards\",[\"values\"],[]],[\"process\",\"feature_grid\",\"process\",\"numbered\",[\"step0\",\"step1\",\"step2\"],[]],[\"faq\",\"feature_grid\",\"faq\",\"cards\",[\"faq0\",\"faq1\",\"faq2\"],[]],[\"about\",\"text_section\",\"about\",\"prose\",[\"about\"],[]],[\"services\",\"feature_grid\",\"services\",\"cards\",[\"srv0\",\"srv1\","
+    },
+    {
+      "example_id": "page0000-plain_css-v3-0-target-1",
+      "task": "section_content",
+      "target": "{\"id\":\"nav\",\"props\":{\"brand\":\"Studio Mawikama Harmoni\",\"links\":[{\"href\":\"#about\",\"label\":\"Tentang\"},{\"href\":\"#services\",\"label\":\"Layanan\"},{\"href\":\"#contact\",\"label\":\"Kontak\"}]},\"role\":\"navigation\",\"type\":\"navbar\",\"variant\":\"inline\"}"
+    },
+    {
+      "example_id": "page0000-plain_css-v3-0-target-2",
+      "task": "section_content",
+      "target": "{\"id\":\"main\",\"props\":{\"button\":{\"href\":\"#contact\",\"label\":\"Diskusikan kebutuhan\"},\"heading\":\"Studio Mawikama Harmoni\",\"layout\":\"split\",\"media\":{\"alt\":\"Ilustrasi usaha demo fiktif\",\"asset_id\":\"studio-shapes\"},\"text\":\"Kenali layanan desain dan komunikasi dan diskusikan kebutuhan Anda. Demo fiktif.\"},\"role\":\"hero\",\"type\":\"hero\",\"variant\":\"split\"}"
+    },
+    {
+      "example_id": "page0000-plain_css-v3-0-target-3",
+      "task": "section_content",
+      "target": "{\"id\":\"services\",\"props\":{\"heading\":\"Layanan utama\",\"items\":[{\"heading\":\"Desain identitas\",\"text\":\"Desain identitas disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.\"},{\"heading\":\"Konten usaha\",\"text\":\"Konten usaha disusun sesuai kebutuhan pelanggan. Diskusikan tujuan, pilihan dan lingkup layanan sebelum memulai agar prosesnya dapat dipahami.\"},{\"heading\":\"Halaman informasi\",\"text\":\"Halaman informasi disusun sesuai k"
+    },
+    {
+      "example_id": "page0000-plain_css-v3-0-target-4",
+      "task": "section_content",
+      "target": "{\"id\":\"faq\",\"props\":{\"heading\":\"Pertanyaan umum\",\"items\":[{\"heading\":\"Bagaimana cara memulai?\",\"text\":\"Isi formulir konsultasi untuk menyampaikan kebutuhan. Kami membahas informasi dan pilihan layanan sebelum Anda mengambil keputusan.\"},{\"heading\":\"Apakah layanan dapat disesuaikan?\",\"text\":\"Kebutuhan dan materi dibahas terlebih dahulu. Pilihan penyesuaian mengikuti lingkup yang disepakati bersama.\"},{\"heading\":\"Apakah formulir ini mengirim pesan?\",\"text\":\"Ini halaman demo fiktif. Formulir memval"
+    },
+    {
+      "example_id": "page0000-plain_css-v3-0-target-5",
+      "task": "section_content",
+      "target": "{\"id\":\"footer\",\"props\":{\"links\":[{\"href\":\"#about\",\"label\":\"Tentang\"},{\"href\":\"#contact\",\"label\":\"Kontak\"}],\"text\":\"Studio Mawikama Harmoni\"},\"role\":\"footer\",\"type\":\"footer\",\"variant\":\"columns\"}"
+    }
+  ]
+}
+
+Exit code: 0

@@ -1,0 +1,6 @@
+RUN-344 | 2026-10-14T07:54:39.573717+07:00 | compile_fullpage_v4_manifest_fix
+Command: .venv\Scripts\python.exe -m py_compile qa\prepare_fullpage_v4.py
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+
+Exit code: 0

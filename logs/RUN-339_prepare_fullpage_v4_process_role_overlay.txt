@@ -1,0 +1,10 @@
+RUN-339 | 2026-10-14T07:53:42.608857+07:00 | prepare_fullpage_v4_process_role_overlay
+Command: .venv\Scripts\python.exe qa\prepare_fullpage_v4.py
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\qa\prepare_fullpage_v4.py", line 12, in <module>
+    from src.data.sources import sha256_file
+ModuleNotFoundError: No module named 'src'
+
+Exit code: 1

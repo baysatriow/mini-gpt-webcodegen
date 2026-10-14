@@ -1,0 +1,19 @@
+RUN-373 | 2026-10-14T13:28:33.015678+07:00 | sync_codegraph_after_v4_source_changes_retry
+Command: powershell.exe -NoProfile -Command "codegraph sync ."
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+T  Syncing CodeGraph
+|
+Scanning files...
+Parsing code...
+Resolving refs...
+Linking dynamic dispatch...
+|
+*  Synced 2 changed files
+|
+•  Added: 2 - 28 nodes in 640ms
+|
+—  Done
+
+
+Exit code: 0

@@ -1,0 +1,5 @@
+RUN-372 | 2026-10-14T13:28:26.371512+07:00 | sync_codegraph_after_v4_source_changes
+Command: codegraph sync .
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+Correction note: the direct sync launch failed before it began because Windows could not start the .cmd file as a process. The PowerShell retry is recorded as RUN-373 and synchronized both new source files.

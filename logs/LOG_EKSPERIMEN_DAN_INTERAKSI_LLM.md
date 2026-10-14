@@ -14,7 +14,7 @@ Zona waktu pencatatan: Asia/Jakarta
 - Jangan masukkan API key, password, token, atau data pribadi ke log.
 - Jika ada koreksi setelah dicatat, tambahkan catatan koreksi baru yang merujuk ID lama. Jangan menghapus atau mengubah riwayat run.
 
-Ringkasan terbaru AI-011: pipeline menghasilkan dua Studio Cakrawala sesuai prompt, CSS dan Tailwind/JS, dalam mode research tervalidasi per output. Model keseluruhan gagal43/48exact89,58% vs target90%; Senandika ditolak. Weighted TRAIN-013 tidak meningkatkan validation; beststep0 identik parent. Enam notebook48sel tanpaerror, browser belum diverifikasi. [Interaksi AI-011](interaksi_llm/AI-011_2026-10-13.md), [hasil](../reports/OUTPUT_DEVELOPMENT_2026-10-13.md), [dua website](../examples/generated/AI-011/index.html). RUN mengikuti ID tertinggi logs/RUN-*.txt; interaksi berikutnya AI-012.
+Ringkasan terbaru AI-022: v4 menambah960 target `process` train-only. TRAIN-022 memperoleh64/80 pada update1.800 dan TRAIN-024 memperoleh68/80 pada update3.600; target76/80 belum tercapai. Final benchmark tetap tertutup, browser dan human review belum dilakukan. [Interaksi AI-022](interaksi_llm/AI-022_2026-10-14.md), [notebook14](../notebooks/14_fullpage_v4_process_role_training.ipynb), [laporan pemilihan](../reports/training/FULLPAGE-V4_DEVELOPMENT_SELECTION.json). RUN berikutnya mengikuti ID tertinggi pada logs/RUN-*.txt.
 
 Ringkasan fase AI-010: pengguna menyetujui 12 kandidat pilot v2, preparation SFT 4/4/4 selesai; TRAIN-005 smoke 3 update dan TRAIN-006 pilot 40 update selesai. Validation target loss 7,512 ke 3,739, test loss 3,488 / PPL 32,729, JSON/schema valid 0/4. Lima notebook, 38 sel kode tanpa error, aplikasi needs-more-data-and-model-work. [Interaksi AI-010](interaksi_llm/AI-010_2026-10-13.md), [hasil SFT](../reports/SFT_PILOT_SUMMARY_2026-10-13.md). Saat fase tersebut, interaksi berikutnya AI-011.
 
@@ -4037,3 +4037,478 @@ print({'notebook':str(path.relative_to(root)),'code_cells':sum(c.cell_type=='cod
 - **Commit:** `aa29b4dc264587cddbe4294f957eb3c548804087`.
 - **Hasil:** exit 0.
 - **Output lengkap:** `logs/RUN-331_compare_process_training_target_with_raw_development_failure_after_inl.txt`.
+
+### RUN-332
+
+- **Waktu:** 2026-10-14T07:49:49.752539+07:00 sampai 2026-10-14T07:49:50.379805+07:00.
+- **Tujuan:** inspect_v3_process_role_candidates.
+- **Command:** `.venv\Scripts\python.exe -c "import json,collections,pathlib; p=pathlib.Path('data/processed/fullpage/v3'); m=json.loads((p/'manifest.json').read_text(encoding='utf-8')); tasks=[json.loads(x) for x in (p/'train.jsonl').read_text(encoding='utf-8').splitlines()]; reqs=[json.loads(x) for x in (p/'train.requests.jsonl').read_text(encoding='utf-8').splitlines()]; roles=collections.Counter(json.loads(r['target']).get('role') for r in tasks if r['task']=='section_content'); print(json.dumps({'manifest_version':m.get('version'),'manifest_counts':m.get('task_counts'),'rows':len(tasks),'requests':len(reqs),'families':len({r['family_id'] for r in tasks}),'roles':roles,'task_keys':list(tasks[0]),'request_keys':list(reqs[0]),'request_example':reqs[0]},ensure_ascii=False,indent=2))"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-332_inspect_v3_process_role_candidates.txt`.
+
+### RUN-333
+
+- **Waktu:** 2026-10-14T07:50:16.913806+07:00 sampai 2026-10-14T07:50:17.319521+07:00.
+- **Tujuan:** count_v3_requests_and_tasks_by_split.
+- **Command:** `.venv\Scripts\python.exe -c "import json,collections,pathlib; p=pathlib.Path('data/processed/fullpage/v3'); req=collections.Counter(); rows=collections.Counter(); roles=collections.Counter(); plans={}; names={};
+for x in (p/'train.requests.jsonl').read_text(encoding='utf-8').splitlines():
+ r=json.loads(x); req[r['split']]+=1
+for x in (p/'train.jsonl').read_text(encoding='utf-8').splitlines():
+ r=json.loads(x); rows[r['split']]+=1
+ if r['task']=='section_content': roles[(r['split'],json.loads(r['target']).get('role'))]+=1
+ if r['task']=='page_plan' and r['split']=='train': plans[r['family_id']]=plans.get(r['family_id'],0)+1
+print(json.dumps({'request_counts':req,'task_counts':rows,'role_counts':dict(roles),'plan_families':len(plans),'plan_rows':sum(plans.values())},ensure_ascii=False,indent=2))"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-333_count_v3_requests_and_tasks_by_split.txt`.
+
+### RUN-334
+
+- **Waktu:** 2026-10-14T07:50:22.971637+07:00 sampai 2026-10-14T07:50:23.342054+07:00.
+- **Tujuan:** count_v3_requests_and_tasks_by_split_retry.
+- **Command:** `.venv\Scripts\python.exe -c "import json,collections,pathlib; p=pathlib.Path('data/processed/fullpage/v3'); req=collections.Counter(); rows=collections.Counter(); roles=collections.Counter(); plans=collections.Counter();
+for x in (p/'train.requests.jsonl').read_text(encoding='utf-8').splitlines():
+ r=json.loads(x); req[r['split']]+=1
+for x in (p/'train.jsonl').read_text(encoding='utf-8').splitlines():
+ r=json.loads(x); rows[r['split']]+=1
+ if r['task']=='section_content': roles[r['split']+'/'+json.loads(r['target']).get('role')]+=1
+ if r['task']=='page_plan' and r['split']=='train': plans[r['family_id']]+=1
+print(json.dumps({'request_counts':dict(req),'task_counts':dict(rows),'role_counts':dict(roles),'plan_families':len(plans),'plan_rows':sum(plans.values()),'plan_distribution':dict(plans)},ensure_ascii=False,indent=2))"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-334_count_v3_requests_and_tasks_by_split_retry.txt`.
+
+### RUN-335
+
+- **Waktu:** 2026-10-14T07:50:39.404939+07:00 sampai 2026-10-14T07:50:39.846501+07:00.
+- **Tujuan:** inspect_v3_augmentation_identifiers.
+- **Command:** `.venv\Scripts\python.exe -c "import json,collections,pathlib; p=pathlib.Path('data/processed/fullpage/v3'); reqs=[json.loads(x) for x in (p/'train.requests.jsonl').read_text(encoding='utf-8').splitlines()]; rows=[json.loads(x) for x in (p/'train.jsonl').read_text(encoding='utf-8').splitlines()];
+print('request_id_examples',*[r['request']['request_id'] for r in reqs[:8]],sep='\\n'); print('request_ids_by_marker',json.dumps({k:sum(k in r['request']['request_id'] for r in reqs) for k in ['-v3-','-alias','-style','v3']},indent=2)); print('origins',json.dumps(collections.Counter(r.get('origin') for r in rows),ensure_ascii=False,indent=2)); print('tasks',json.dumps(collections.Counter(r['task'] for r in rows),indent=2)); print('augmentation_fields',json.dumps(collections.Counter(str(r.get('augmentation')) for r in rows),ensure_ascii=False,indent=2)); print('source_id_examples',*[r['example_id'] for r in rows[:14]],sep='\\n')"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-335_inspect_v3_augmentation_identifiers.txt`.
+
+### RUN-336
+
+- **Waktu:** 2026-10-14T07:50:54.614643+07:00 sampai 2026-10-14T07:50:55.053144+07:00.
+- **Tujuan:** inspect_one_v3_page_task_lineage.
+- **Command:** `.venv\Scripts\python.exe -c "import json,pathlib; p=pathlib.Path('data/processed/fullpage/v3'); reqs=[json.loads(x) for x in (p/'train.requests.jsonl').read_text(encoding='utf-8').splitlines()]; rows=[json.loads(x) for x in (p/'train.jsonl').read_text(encoding='utf-8').splitlines()]; req=next(x['request'] for x in reqs if '-v3-' in x['request']['request_id']); matches=[r for r in rows if r['example_id'].startswith(req['request_id']+'-')]; print(json.dumps({'request_id':req['request_id'],'matched_rows':[{'example_id':r['example_id'],'task':r['task'],'target':r['target'][:500]} for r in matches]},ensure_ascii=False,indent=2))"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-336_inspect_one_v3_page_task_lineage.txt`.
+
+### RUN-337
+
+- **Waktu:** 2026-10-14T07:53:20.840120+07:00 sampai 2026-10-14T07:53:21.000670+07:00.
+- **Tujuan:** compile_fullpage_v4_preparer.
+- **Command:** `.venv\Scripts\python.exe -m py_compile qa\prepare_fullpage_v4.py`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-337_compile_fullpage_v4_preparer.txt`.
+
+### RUN-338
+
+- **Waktu:** 2026-10-14T07:53:25.160551+07:00 sampai 2026-10-14T07:53:26.463633+07:00.
+- **Tujuan:** sync_codegraph_after_v4_preparer.
+- **Command:** `cmd.exe /c codegraph sync .`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-338_sync_codegraph_after_v4_preparer.txt`.
+
+### RUN-339
+
+- **Waktu:** 2026-10-14T07:53:42.608857+07:00 sampai 2026-10-14T07:53:42.814091+07:00.
+- **Tujuan:** prepare_fullpage_v4_process_role_overlay.
+- **Command:** `.venv\Scripts\python.exe qa\prepare_fullpage_v4.py`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-339_prepare_fullpage_v4_process_role_overlay.txt`.
+
+### RUN-340
+
+- **Waktu:** 2026-10-14T07:53:48.554341+07:00 sampai 2026-10-14T07:53:53.344109+07:00.
+- **Tujuan:** prepare_fullpage_v4_process_role_overlay_retry.
+- **Command:** `.venv\Scripts\python.exe -m qa.prepare_fullpage_v4`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-340_prepare_fullpage_v4_process_role_overlay_retry.txt`.
+
+### RUN-341
+
+- **Waktu:** 2026-10-14T07:54:06.096087+07:00 sampai 2026-10-14T07:54:06.231689+07:00.
+- **Tujuan:** compile_fullpage_v4_preparer_retry.
+- **Command:** `.venv\Scripts\python.exe -m py_compile qa\prepare_fullpage_v4.py`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-341_compile_fullpage_v4_preparer_retry.txt`.
+
+### RUN-342
+
+- **Waktu:** 2026-10-14T07:54:10.483777+07:00 sampai 2026-10-14T07:54:11.538113+07:00.
+- **Tujuan:** sync_codegraph_after_v4_preparer_fix.
+- **Command:** `cmd.exe /c codegraph sync .`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-342_sync_codegraph_after_v4_preparer_fix.txt`.
+
+### RUN-343
+
+- **Waktu:** 2026-10-14T07:54:16.122809+07:00 sampai 2026-10-14T07:54:23.714392+07:00.
+- **Tujuan:** prepare_fullpage_v4_process_role_overlay_retry2.
+- **Command:** `.venv\Scripts\python.exe -m qa.prepare_fullpage_v4`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-343_prepare_fullpage_v4_process_role_overlay_retry2.txt`.
+
+### RUN-344
+
+- **Waktu:** 2026-10-14T07:54:39.573717+07:00 sampai 2026-10-14T07:54:39.705784+07:00.
+- **Tujuan:** compile_fullpage_v4_manifest_fix.
+- **Command:** `.venv\Scripts\python.exe -m py_compile qa\prepare_fullpage_v4.py`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-344_compile_fullpage_v4_manifest_fix.txt`.
+
+### RUN-345
+
+- **Waktu:** 2026-10-14T07:54:41.977107+07:00 sampai 2026-10-14T07:54:43.062437+07:00.
+- **Tujuan:** sync_codegraph_after_v4_manifest_fix.
+- **Command:** `cmd.exe /c codegraph sync .`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-345_sync_codegraph_after_v4_manifest_fix.txt`.
+
+### RUN-346
+
+- **Waktu:** 2026-10-14T07:54:45.291429+07:00 sampai 2026-10-14T07:54:53.787606+07:00.
+- **Tujuan:** prepare_fullpage_v4_process_role_overlay_retry3.
+- **Command:** `.venv\Scripts\python.exe -m qa.prepare_fullpage_v4`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-346_prepare_fullpage_v4_process_role_overlay_retry3.txt`.
+
+### RUN-347
+
+- **Waktu:** 2026-10-14T07:55:16.816335+07:00 sampai 2026-10-14T07:57:48.525429+07:00.
+- **Tujuan:** profile_fullpage_v4_rtx5070_representative.
+- **Command:** `.venv\Scripts\python.exe -m qa.profile_fullpage_training --report-id FULLPAGE-GPU-005 --dataset-dir data/processed/fullpage/v4 --plan-probability 0.7 --representative`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-347_profile_fullpage_v4_rtx5070_representative.txt`.
+
+### RUN-348
+
+- **Waktu:** 2026-10-14T07:58:37.448432+07:00 sampai 2026-10-14T07:58:37.567065+07:00.
+- **Tujuan:** freeze_v4_controlled_batch8_profile.
+- **Command:** `.venv\Scripts\python.exe -c "import json,pathlib; root=pathlib.Path('.'); sweep=json.loads((root/'reports/training/FULLPAGE-GPU-005.json').read_text(encoding='utf-8')); child=json.loads((root/'reports/training/FULLPAGE-GPU-005-B8.json').read_text(encoding='utf-8')); assert child['status']=='stable' and child['batch']==8 and child['accumulation']==6; assert any(item['batch']==8 and item['status']=='stable' for item in sweep['results']); assert sweep['selected']['batch']==16; out=root/'reports/training/FULLPAGE-GPU-005-CONTROLLED-B8.json'; assert not out.exists(); profile={'dataset_dir':sweep['dataset_dir'],'plan_probability':sweep['plan_probability'],'results':sweep['results'],'selected':child,'worst_context_report':sweep['worst_context_report'],'final_data_opened':False,'probe_weights_discarded':True,'controlled_selection':{'source_sweep': 'FULLPAGE-GPU-005.json','measured_sweep_winner_batch':sweep['selected']['batch'],'selected_batch':8,'selected_accumulation':6,'reason':'Keep the pre-approved v3 training microbatch and effective batch fixed so the v4 treatment changes train data only.'}}; out.write_text(json.dumps(profile,ensure_ascii=False,indent=2)+'\\n',encoding='utf-8'); print(json.dumps({'report':str(out),'sweep_winner':[sweep['selected']['batch'],sweep['selected']['tokens_per_second']],'controlled_profile':[child['batch'],child['accumulation'],child['tokens_per_second']],'status':child['status']},indent=2))"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-348_freeze_v4_controlled_batch8_profile.txt`.
+
+### RUN-349
+
+- **Waktu:** 2026-10-14T07:58:43.557266+07:00 sampai 2026-10-14T07:58:45.971840+07:00.
+- **Tujuan:** configure_fullpage_v4_training.
+- **Command:** `.venv\Scripts\python.exe -m qa.configure_fullpage_training --scope main --profile reports/training/FULLPAGE-GPU-005-CONTROLLED-B8.json --output configs/fullpage/training-improvement-v4.json --dataset-dir data/processed/fullpage/v4 --plan-probability 0.7 --max-steps 3600 --warmup-steps 180 --validation-interval 600 --checkpoint-interval 600 --storage-phase-id fullpage-improvement-v4 --selection-rule "V4 train-only process-role augmentation; initialize independently from INIT-2048-001; compare development generation at steps 1800 and 3600 on the same 80 requests; rank by complete pages then ordinary development CE; preserve all other v3 training settings and keep final sealed."`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-349_configure_fullpage_v4_training.txt`.
+
+### RUN-350
+
+- **Waktu:** 2026-10-14T07:59:05.324076+07:00 sampai 2026-10-14T07:59:05.437208+07:00.
+- **Tujuan:** freeze_v4_controlled_batch8_profile_retry.
+- **Command:** `.venv\Scripts\python.exe -c "import json,pathlib; root=pathlib.Path('.'); sweep=json.loads((root/'reports/training/FULLPAGE-GPU-005.json').read_text(encoding='utf-8')); child=json.loads((root/'reports/training/FULLPAGE-GPU-005-B8.json').read_text(encoding='utf-8')); assert child['status']=='stable' and child['batch']==8 and child['accumulation']==6; assert any(item['batch']==8 and item['status']=='stable' for item in sweep['results']); assert sweep['selected']['batch']==16; out=root/'reports/training/FULLPAGE-GPU-005-CONTROLLED-B8.json'; assert not out.exists(); profile={'dataset_dir':sweep['dataset_dir'],'plan_probability':sweep['plan_probability'],'results':sweep['results'],'selected':child,'worst_context_report':sweep['worst_context_report'],'final_data_opened':False,'probe_weights_discarded':True,'controlled_selection':{'source_sweep':'FULLPAGE-GPU-005.json','measured_sweep_winner_batch':sweep['selected']['batch'],'selected_batch':8,'selected_accumulation':6,'reason':'Keep the pre-approved v3 training microbatch and effective batch fixed so the v4 treatment changes train data only.'}}; out.write_text(json.dumps(profile,ensure_ascii=False,indent=2),encoding='utf-8'); print(json.dumps({'report':str(out),'sweep_winner':[sweep['selected']['batch'],sweep['selected']['tokens_per_second']],'controlled_profile':[child['batch'],child['accumulation'],child['tokens_per_second']],'status':child['status']},indent=2))"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-350_freeze_v4_controlled_batch8_profile_retry.txt`.
+
+### RUN-351
+
+- **Waktu:** 2026-10-14T07:59:11.125425+07:00 sampai 2026-10-14T07:59:13.430028+07:00.
+- **Tujuan:** configure_fullpage_v4_training_retry.
+- **Command:** `.venv\Scripts\python.exe -m qa.configure_fullpage_training --scope main --profile reports/training/FULLPAGE-GPU-005-CONTROLLED-B8.json --output configs/fullpage/training-improvement-v4.json --dataset-dir data/processed/fullpage/v4 --plan-probability 0.7 --max-steps 3600 --warmup-steps 180 --validation-interval 600 --checkpoint-interval 600 --storage-phase-id fullpage-improvement-v4 --selection-rule "V4 train-only process-role augmentation; initialize independently from INIT-2048-001; compare development generation at steps 1800 and 3600 on the same 80 requests; rank by complete pages then ordinary development CE; preserve all other v3 training settings and keep final sealed."`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-351_configure_fullpage_v4_training_retry.txt`.
+
+### RUN-352
+
+- **Waktu:** 2026-10-14T07:59:28.066057+07:00 sampai 2026-10-14T07:59:28.197194+07:00.
+- **Tujuan:** validate_v4_config_and_storage_preflight.
+- **Command:** `.venv\Scripts\python.exe -c "import hashlib,json,pathlib,shutil; root=pathlib.Path('.'); v2=json.loads((root/'configs/fullpage/training-improvement-v3.json').read_text(encoding='utf-8')); v4=json.loads((root/'configs/fullpage/training-improvement-v4.json').read_text(encoding='utf-8')); m=json.loads((root/'data/processed/fullpage/v4/manifest.json').read_text(encoding='utf-8')); path=root/'data/processed/fullpage/v4/manifest.json'; assert v4['lineage']['fullpage_manifest_sha256']==hashlib.sha256(path.read_bytes()).hexdigest(); expected={'scope':'main','dataset_dir':'data/processed/fullpage/v4','plan_batch_probability':0.7,'batch_size':8,'gradient_accumulation':6,'max_steps':3600,'warmup_steps':180,'validation_interval':600,'checkpoint_interval':600,'learning_rate':5e-5,'min_learning_rate':5e-6,'device':'cuda','precision':'bf16','block_size':2048}; assert all(v4.get(k)==value for k,value in expected.items()), {k:(v4.get(k),value) for k,value in expected.items() if v4.get(k)!=value}; keys=['seed','device','precision','batch_size','gradient_accumulation','max_steps','warmup_steps','learning_rate','min_learning_rate','betas','weight_decay','grad_clip','validation_interval','validation_batches','checkpoint_interval','log_interval','reserve_free_bytes','block_size','model_config']; changed=[k for k in keys if v2.get(k)!=v4.get(k)]; assert not changed, changed; free=shutil.disk_usage(root).free; print(json.dumps({'v4_config_matches_v3_fixed_training_settings':True,'batch_size':v4['batch_size'],'gradient_accumulation':v4['gradient_accumulation'],'updates':v4['max_steps'],'warmup':v4['warmup_steps'],'sampler_probability':v4['plan_batch_probability'],'manifest_sha256':v4['lineage']['fullpage_manifest_sha256'],'disk_free_bytes':free,'reserve_bytes':15*1024**3,'task_counts':m['task_counts'],'only_intended_dataset_and_provenance_differences':True},indent=2))"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-352_validate_v4_config_and_storage_preflight.txt`.
+
+### RUN-353
+
+- **Waktu:** 2026-10-14T07:59:44.594856+07:00 sampai 2026-10-14T08:09:38.722080+07:00.
+- **Tujuan:** train_fullpage_v4_from_init_to_step1800.
+- **Command:** `.venv\Scripts\python.exe -m qa.train_fullpage --config configs/fullpage/training-improvement-v4.json --run-id TRAIN-022 --stop-after 1800`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-353_train_fullpage_v4_from_init_to_step1800.txt`.
+
+### RUN-354
+
+- **Waktu:** 2026-10-14T08:09:53.105079+07:00 sampai 2026-10-14T08:09:56.089346+07:00.
+- **Tujuan:** snapshot_train022_step1800_for_v4_evaluation.
+- **Command:** `.venv\Scripts\python.exe -m qa.snapshot_fullpage_checkpoint --source checkpoints/TRAIN-022/last.pt --destination checkpoints/FULLPAGE-V4/TRAIN-022-step1800.pt --run-id TRAIN-022 --step 1800`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-354_snapshot_train022_step1800_for_v4_evaluation.txt`.
+
+### RUN-355
+
+- **Waktu:** 2026-10-14T08:10:03.048929+07:00 sampai 2026-10-14T08:20:11.321111+07:00.
+- **Tujuan:** evaluate_train022_step1800_frozen_development80.
+- **Command:** `.venv\Scripts\python.exe -m qa.evaluate_fullpage --scope development --dataset-dir data/processed/fullpage/v4 --checkpoint checkpoints/FULLPAGE-V4/TRAIN-022-step1800.pt --output outputs/fullpage/TRAIN-022-development-step1800 --report reports/fullpage/TRAIN-022_DEVELOPMENT_STEP1800.json`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-355_evaluate_train022_step1800_frozen_development80.txt`.
+
+### RUN-356
+
+- **Waktu:** 2026-10-14T12:59:03.144437+07:00 sampai 2026-10-14T12:59:07.375066+07:00.
+- **Tujuan:** v4_step1800_failure_diagnosis.
+- **Command:** `python -c "import json,pathlib,collections; p=pathlib.Path(\"reports/fullpage/TRAIN-022_DEVELOPMENT_STEP1800.json\"); x=json.loads(p.read_text(encoding=\"utf-8\")); print(\"REPORT\",json.dumps({k:v for k,v in x.items() if k not in (\"source_sha256\",)},ensure_ascii=False,indent=2)); root=pathlib.Path(x[\"output\"]); s=collections.Counter(); e=collections.Counter(); failed=[]; [None for _ in ()]; pages=sorted(q for q in root.iterdir() if q.is_dir());
+for page in pages:
+ a=sorted(q for q in page.glob(\"attempt-*\") if q.is_dir());
+ if not a: continue
+ d=a[-1]; r=json.loads((d/\"result.json\").read_text(encoding=\"utf-8\")); s[r[\"status\"]]+=1;
+ if r[\"status\"]!=\"complete\": failed.append({\"request_id\":r.get(\"request_id\"),\"status\":r[\"status\"],\"attempt\":r.get(\"attempt\"),\"page\":page.name});
+ for f in d.glob(\"attempt-*.json\"):
+  z=json.loads(f.read_text(encoding=\"utf-8\"));
+  for q in z.get(\"errors\",[]): e[(z.get(\"task\"),z.get(\"stage\"),q)]+=1
+print(\"STATUS\",dict(s)); print(\"FAILED_PAGES\",json.dumps(failed,ensure_ascii=False)); print(\"ERRORS\",json.dumps([{\"task\":k[0],\"stage\":k[1],\"error\":k[2],\"count\":v} for k,v in e.most_common(20)],ensure_ascii=False,indent=2))"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-356_v4_step1800_failure_diagnosis.txt`.
+
+### RUN-357
+
+- **Waktu:** 2026-10-14T12:59:21.173565+07:00 sampai 2026-10-14T12:59:55.411712+07:00.
+- **Tujuan:** train_fullpage_v4_resume_1800_to3600.
+- **Command:** `.\.venv\Scripts\python.exe -m qa.train_fullpage --config configs/fullpage/training-improvement-v4.json --run-id TRAIN-023 --resume checkpoints/TRAIN-022/last.pt --stop-after 3600`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-357_train_fullpage_v4_resume_1800_to3600.txt`.
+
+### RUN-358
+
+- **Waktu:** 2026-10-14T13:00:39.080019+07:00 sampai 2026-10-14T13:00:46.062249+07:00.
+- **Tujuan:** diagnose_v4_resume_storage.
+- **Command:** `.\.venv\Scripts\python.exe -c "import pathlib,shutil,os; root=pathlib.Path.cwd(); print(\"F_DISK\",shutil.disk_usage(root)); print(\"C_DISK\",shutil.disk_usage(\"C:/\"));
+for name in [\"data/processed/fullpage/v4\",\"checkpoints/INIT-2048-001\",\"checkpoints/FULLPAGE-V4\",\"checkpoints/TRAIN-022\",\"outputs/fullpage/TRAIN-022-development-step1800\",\"outputs/fullpage\",\"checkpoints\",\"outputs\",\"reports/fullpage\"]:
+ p=root/name
+ if p.exists():
+  files=[q for q in p.rglob(\"*\") if q.is_file()]; print(\"TREE\",name,\"files\",len(files),\"bytes\",sum(q.stat().st_size for q in files))
+large=[]
+for base,dirs,names in os.walk(root):
+ dirs[:]=[d for d in dirs if d not in {\".git\",\".venv\",\"__pycache__\",\"node_modules\"}]
+ for n in names:
+  p=pathlib.Path(base)/n
+  try:
+   sz=p.stat().st_size
+   if sz>=100*1024**2: large.append((sz,str(p.relative_to(root))))
+  except OSError: pass
+for size,name in sorted(large,reverse=True)[:25]: print(\"LARGE\",size,name)"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-358_diagnose_v4_resume_storage.txt`.
+
+### RUN-359
+
+- **Waktu:** 2026-10-14T13:01:20.367404+07:00 sampai 2026-10-14T13:01:20.707092+07:00.
+- **Tujuan:** map_checkpoint_archive_candidates.
+- **Command:** `.\.venv\Scripts\python.exe -c "import pathlib,json; r=pathlib.Path(\"checkpoints\");
+for p in sorted(r.iterdir()):
+ if p.is_dir():
+  fs=[x for x in p.rglob(\"*\") if x.is_file()]; b=sum(x.stat().st_size for x in fs); cfg=p/\"config.json\"; c=json.loads(cfg.read_text(encoding=\"utf-8\")) if cfg.is_file() else {}; print(p.name,\"bytes\",b,\"files\",len(fs),\"run\",c.get(\"storage_phase_id\"),c.get(\"run_id\"))
+ elif p.is_file(): print(p.name,p.stat().st_size)"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-359_map_checkpoint_archive_candidates.txt`.
+
+### RUN-360
+
+- **Waktu:** 2026-10-14T13:02:11.397309+07:00 sampai 2026-10-14T13:02:12.294064+07:00.
+- **Tujuan:** archive_old_checkpoints_with_reversible_junctions.
+- **Command:** `powershell.exe -NoProfile -Command "$ErrorActionPreference=\"Stop\"; $repo=\".\"; $checkpoints=Join-Path $repo \"checkpoints\"; $archive=\"C:\Generative_AI_Checkpoint_Archive\Vibe_Coding_Proyek_1\checkpoints\"; if ([System.IO.Path]::GetFullPath($checkpoints) -ne \".\checkpoints\") { throw \"Unexpected source root\" }; $archiveFull=[System.IO.Path]::GetFullPath($archive); if (-not $archiveFull.StartsWith(\"C:\\\",[System.StringComparison]::OrdinalIgnoreCase)) { throw \"Archive must be on C:\" }; New-Item -ItemType Directory -Path $archiveFull -Force | Out-Null; foreach ($name in @(\"TRAIN-002\",\"TRAIN-003\",\"TRAIN-004\",\"TRAIN-004-VERIFIED\",\"TRAIN-005\",\"TRAIN-006\")) { $source=Join-Path $checkpoints $name; $target=Join-Path $archiveFull $name; if (-not (Test-Path -LiteralPath $source -PathType Container)) { throw \"Missing checkpoint folder: $source\" }; if (Test-Path -LiteralPath $target) { throw \"Archive destination already exists: $target\" }; $sourceItem=Get-Item -LiteralPath $source -Force; if ($sourceItem.LinkType) { throw \"Source is already a link: $source\" }; $before=@{}; Get-ChildItem -LiteralPath $source -File -Recurse | ForEach-Object { $rel=$_.FullName.Substring($source.Length+1); $before[$rel]=(Get-FileHash -Algorithm SHA256 -LiteralPath $_.FullName).Hash }; Move-Item -LiteralPath $source -Destination $target; try { $after=@{}; Get-ChildItem -LiteralPath $target -File -Recurse | ForEach-Object { $rel=$_.FullName.Substring($target.Length+1); $after[$rel]=(Get-FileHash -Algorithm SHA256 -LiteralPath $_.FullName).Hash }; if ($before.Count -ne $after.Count) { throw \"File count changed for $name\" }; foreach ($rel in $before.Keys) { if (-not $after.ContainsKey($rel) -or $before[$rel] -ne $after[$rel]) { throw \"Hash mismatch for $name/$rel\" } }; New-Item -ItemType Junction -Path $source -Target $target | Out-Null; if (-not (Test-Path -LiteralPath $source -PathType Container)) { throw \"Junction unavailable for $name\" }; $bytes=(Get-ChildItem -LiteralPath $target -File -Recurse | Measure-Object Length -Sum).Sum; Write-Output (\"ARCHIVED_AND_VERIFIED \" + $name + \" files=\" + $before.Count + \" bytes=\" + $bytes + \" via=\" + $source) } catch { if (-not (Test-Path -LiteralPath $source)) { Move-Item -LiteralPath $target -Destination $source }; throw } }"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-360_archive_old_checkpoints_with_reversible_junctions.txt`.
+
+### RUN-361
+
+- **Waktu:** 2026-10-14T13:02:27.870894+07:00 sampai 2026-10-14T13:02:44.196596+07:00.
+- **Tujuan:** archive_old_checkpoints_with_reversible_junctions_retry.
+- **Command:** `powershell.exe -NoProfile -Command "$ErrorActionPreference=\"Stop\"; function Hash-File([string]$path) { $stream=[System.IO.File]::OpenRead($path); $sha=[System.Security.Cryptography.SHA256]::Create(); try { [System.BitConverter]::ToString($sha.ComputeHash($stream)).Replace(\"-\",\"\") } finally { $sha.Dispose(); $stream.Dispose() } }; $repo=\".\"; $checkpoints=Join-Path $repo \"checkpoints\"; $archive=\"C:\Generative_AI_Checkpoint_Archive\Vibe_Coding_Proyek_1\checkpoints\"; if ([System.IO.Path]::GetFullPath($checkpoints) -ne \".\checkpoints\") { throw \"Unexpected source root\" }; $archiveFull=[System.IO.Path]::GetFullPath($archive); if (-not $archiveFull.StartsWith(\"C:\\\",[System.StringComparison]::OrdinalIgnoreCase)) { throw \"Archive must be on C:\" }; New-Item -ItemType Directory -Path $archiveFull -Force | Out-Null; foreach ($name in @(\"TRAIN-002\",\"TRAIN-003\",\"TRAIN-004\",\"TRAIN-004-VERIFIED\",\"TRAIN-005\",\"TRAIN-006\")) { $source=Join-Path $checkpoints $name; $target=Join-Path $archiveFull $name; if (-not (Test-Path -LiteralPath $source -PathType Container)) { throw \"Missing checkpoint folder: $source\" }; if (Test-Path -LiteralPath $target) { throw \"Archive destination already exists: $target\" }; $sourceItem=Get-Item -LiteralPath $source -Force; if ($sourceItem.LinkType) { throw \"Source is already a link: $source\" }; $before=@{}; Get-ChildItem -LiteralPath $source -File -Recurse | ForEach-Object { $rel=$_.FullName.Substring($source.Length+1); $before[$rel]=(Hash-File -path $_.FullName) }; Move-Item -LiteralPath $source -Destination $target; try { $after=@{}; Get-ChildItem -LiteralPath $target -File -Recurse | ForEach-Object { $rel=$_.FullName.Substring($target.Length+1); $after[$rel]=(Hash-File -path $_.FullName) }; if ($before.Count -ne $after.Count) { throw \"File count changed for $name\" }; foreach ($rel in $before.Keys) { if (-not $after.ContainsKey($rel) -or $before[$rel] -ne $after[$rel]) { throw \"Hash mismatch for $name/$rel\" } }; New-Item -ItemType Junction -Path $source -Target $target | Out-Null; if (-not (Test-Path -LiteralPath $source -PathType Container)) { throw \"Junction unavailable for $name\" }; $bytes=(Get-ChildItem -LiteralPath $target -File -Recurse | Measure-Object Length -Sum).Sum; Write-Output (\"ARCHIVED_AND_VERIFIED \" + $name + \" files=\" + $before.Count + \" bytes=\" + $bytes + \" via=\" + $source) } catch { if (-not (Test-Path -LiteralPath $source)) { Move-Item -LiteralPath $target -Destination $source }; throw } }"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-361_archive_old_checkpoints_with_reversible_junctions_retry.txt`.
+
+### RUN-362
+
+- **Waktu:** 2026-10-14T13:03:11.036215+07:00 sampai 2026-10-14T13:03:13.265121+07:00.
+- **Tujuan:** recheck_v4_resume_storage_after_archive.
+- **Command:** `.\.venv\Scripts\python.exe -c "import json,shutil,os,pathlib; from src.training.engine import read_checkpoint; cfg=json.loads(pathlib.Path(\"configs/fullpage/training-improvement-v4.json\").read_text(encoding=\"utf-8\")); state=read_checkpoint(pathlib.Path(\"checkpoints/INIT-2048-001/model.pt\")) if pathlib.Path(\"checkpoints/INIT-2048-001/model.pt\").exists() else read_checkpoint(next(pathlib.Path(\"checkpoints/INIT-2048-001\").glob(\"*.pt\"))); tensors={t.data_ptr():t for t in state[\"model\"].values()}; mb=sum(t.numel()*t.element_size() for t in tensors.values()); need=cfg[\"reserve_free_bytes\"]+mb*12+128*1024**2; free=shutil.disk_usage(pathlib.Path.cwd()).free; print(\"PREFLIGHT\",json.dumps({\"free_bytes\":free,\"model_bytes\":mb,\"required_bytes\":need,\"headroom_bytes\":free-need,\"passes\":free>=need}));
+for name in [\"TRAIN-002\",\"TRAIN-003\",\"TRAIN-004\",\"TRAIN-004-VERIFIED\",\"TRAIN-005\",\"TRAIN-006\"]:
+ p=pathlib.Path(\"checkpoints\")/name
+ try: target=os.readlink(p); print(\"LINK\",name,target)
+ except OSError: print(\"LINK\",name,\"not-a-link\")"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-362_recheck_v4_resume_storage_after_archive.txt`.
+
+### RUN-363
+
+- **Waktu:** 2026-10-14T13:03:35.932198+07:00 sampai 2026-10-14T13:03:36.231943+07:00.
+- **Tujuan:** archive_checkpoint_train007_with_verified_junction.
+- **Command:** `powershell.exe -NoProfile -Command "$ErrorActionPreference=\"Stop\"; function Hash-File([string]$path) { $stream=[System.IO.File]::OpenRead($path); $sha=[System.Security.Cryptography.SHA256]::Create(); try { [System.BitConverter]::ToString($sha.ComputeHash($stream)).Replace(\"-\",\"\") } finally { $sha.Dispose(); $stream.Dispose() } }; $checkpoints=\".\checkpoints\"; $name=\"TRAIN-007\"; $source=Join-Path $checkpoints $name; $archive=\"C:\Generative_AI_Checkpoint_Archive\Vibe_Coding_Proyek_1\checkpoints\"; $target=Join-Path $archive $name; if (-not (Test-Path -LiteralPath $source -PathType Container) -or (Test-Path -LiteralPath $target)) { throw \"Source missing or archive target already exists\" }; $item=Get-Item -LiteralPath $source -Force; if ($item.LinkType) { throw \"Source is already a link\" }; $before=@{}; Get-ChildItem -LiteralPath $source -File -Recurse | ForEach-Object { $rel=$_.FullName.Substring($source.Length+1); $before[$rel]=(Hash-File -path $_.FullName) }; Move-Item -LiteralPath $source -Destination $target; try { $after=@{}; Get-ChildItem -LiteralPath $target -File -Recurse | ForEach-Object { $rel=$_.FullName.Substring($target.Length+1); $after[$rel]=(Hash-File -path $_.FullName) }; if ($before.Count -ne $after.Count) { throw \"File count changed\" }; foreach ($rel in $before.Keys) { if (-not $after.ContainsKey($rel) -or $before[$rel] -ne $after[$rel]) { throw \"Hash mismatch: $rel\" } }; New-Item -ItemType Junction -Path $source -Target $target | Out-Null; if (-not (Test-Path -LiteralPath $source -PathType Container)) { throw \"Junction unavailable\" }; Write-Output (\"ARCHIVED_AND_VERIFIED \" + $name + \" files=\" + $before.Count + \" bytes=\" + ((Get-ChildItem -LiteralPath $target -File -Recurse | Measure-Object Length -Sum).Sum)) } catch { if (-not (Test-Path -LiteralPath $source)) { Move-Item -LiteralPath $target -Destination $source }; throw }"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 1.
+- **Output lengkap:** `logs/RUN-363_archive_checkpoint_train007_with_verified_junction.txt`.
+
+### RUN-364
+
+- **Waktu:** 2026-10-14T13:03:45.022448+07:00 sampai 2026-10-14T13:03:47.081155+07:00.
+- **Tujuan:** map_existing_checkpoint_junctions_and_headroom.
+- **Command:** `.\.venv\Scripts\python.exe -c "import pathlib,os,shutil,json; from src.training.engine import read_checkpoint; cfg=json.loads(pathlib.Path(\"configs/fullpage/training-improvement-v4.json\").read_text(encoding=\"utf-8\")); s=read_checkpoint(next(pathlib.Path(\"checkpoints/INIT-2048-001\").glob(\"*.pt\"))); mb=sum(t.numel()*t.element_size() for t in {t.data_ptr():t for t in s[\"model\"].values()}.values()); req=cfg[\"reserve_free_bytes\"]+mb*12+128*1024**2; free=shutil.disk_usage(pathlib.Path.cwd()).free; print(\"HEADROOM\",json.dumps({\"free_bytes\":free,\"required_bytes\":req,\"margin_bytes\":free-req,\"passes\":free>=req}));
+for p in sorted(pathlib.Path(\"checkpoints\").iterdir()):
+ if p.is_dir():
+  try: print(\"LINK\",p.name,os.readlink(p))
+  except OSError: pass"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-364_map_existing_checkpoint_junctions_and_headroom.txt`.
+
+### RUN-365
+
+- **Waktu:** 2026-10-14T13:03:59.573801+07:00 sampai 2026-10-14T13:04:02.011700+07:00.
+- **Tujuan:** archive_checkpoint_train008_with_verified_junction.
+- **Command:** `powershell.exe -NoProfile -Command "$ErrorActionPreference=\"Stop\"; function Hash-File([string]$path) { $stream=[System.IO.File]::OpenRead($path); $sha=[System.Security.Cryptography.SHA256]::Create(); try { [System.BitConverter]::ToString($sha.ComputeHash($stream)).Replace(\"-\",\"\") } finally { $sha.Dispose(); $stream.Dispose() } }; $checkpoints=\".\checkpoints\"; $name=\"TRAIN-008\"; $source=Join-Path $checkpoints $name; $target=Join-Path \"C:\Generative_AI_Checkpoint_Archive\Vibe_Coding_Proyek_1\checkpoints\" $name; if (-not (Test-Path -LiteralPath $source -PathType Container) -or (Test-Path -LiteralPath $target)) { throw \"Source missing or archive target already exists\" }; $item=Get-Item -LiteralPath $source -Force; if ($item.LinkType) { throw \"Source is already a link\" }; $before=@{}; Get-ChildItem -LiteralPath $source -File -Recurse | ForEach-Object { $rel=$_.FullName.Substring($source.Length+1); $before[$rel]=(Hash-File -path $_.FullName) }; Move-Item -LiteralPath $source -Destination $target; try { $after=@{}; Get-ChildItem -LiteralPath $target -File -Recurse | ForEach-Object { $rel=$_.FullName.Substring($target.Length+1); $after[$rel]=(Hash-File -path $_.FullName) }; if ($before.Count -ne $after.Count) { throw \"File count changed\" }; foreach ($rel in $before.Keys) { if (-not $after.ContainsKey($rel) -or $before[$rel] -ne $after[$rel]) { throw \"Hash mismatch: $rel\" } }; New-Item -ItemType Junction -Path $source -Target $target | Out-Null; if (-not (Test-Path -LiteralPath $source -PathType Container)) { throw \"Junction unavailable\" }; Write-Output (\"ARCHIVED_AND_VERIFIED \" + $name + \" files=\" + $before.Count + \" bytes=\" + ((Get-ChildItem -LiteralPath $target -File -Recurse | Measure-Object Length -Sum).Sum)) } catch { if (-not (Test-Path -LiteralPath $source)) { Move-Item -LiteralPath $target -Destination $source }; throw }"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-365_archive_checkpoint_train008_with_verified_junction.txt`.
+
+### RUN-366
+
+- **Waktu:** 2026-10-14T13:04:12.508401+07:00 sampai 2026-10-14T13:04:14.907682+07:00.
+- **Tujuan:** verify_v4_resume_checkpoint_after_storage_recovery.
+- **Command:** `.\.venv\Scripts\python.exe -c "import json,shutil,pathlib; from src.training.engine import read_checkpoint; root=pathlib.Path.cwd(); cfg=json.loads((root/\"configs/fullpage/training-improvement-v4.json\").read_text(encoding=\"utf-8\")); state=read_checkpoint(root/\"checkpoints/TRAIN-022/last.pt\"); assert state[\"run_id\"]==\"TRAIN-022\" and state[\"global_step\"]==1800 and not state.get(\"weights_only\"); assert state[\"config\"]==cfg; assert not (root/\"checkpoints/TRAIN-024\").exists(); free=shutil.disk_usage(root).free; mb=sum(t.numel()*t.element_size() for t in {t.data_ptr():t for t in state[\"model\"].values()}.values()); required=cfg[\"reserve_free_bytes\"]+mb*12+128*1024**2; assert free>=required; print(\"VERIFIED\",json.dumps({\"resume_run\":state[\"run_id\"],\"resume_step\":state[\"global_step\"],\"config_matches\":True,\"free_bytes\":free,\"required_bytes\":required,\"headroom_bytes\":free-required,\"next_run_id\":\"TRAIN-024\"}))"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-366_verify_v4_resume_checkpoint_after_storage_recovery.txt`.
+
+### RUN-367
+
+- **Waktu:** 2026-10-14T13:04:20.528802+07:00 sampai 2026-10-14T13:14:33.903889+07:00.
+- **Tujuan:** train_fullpage_v4_resume_step1800_to3600.
+- **Command:** `.\.venv\Scripts\python.exe -m qa.train_fullpage --config configs/fullpage/training-improvement-v4.json --run-id TRAIN-024 --resume checkpoints/TRAIN-022/last.pt --stop-after 3600`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-367_train_fullpage_v4_resume_step1800_to3600.txt`.
+
+### RUN-368
+
+- **Waktu:** 2026-10-14T13:14:42.155907+07:00 sampai 2026-10-14T13:14:45.477680+07:00.
+- **Tujuan:** snapshot_fullpage_v4_train024_step3600.
+- **Command:** `.\.venv\Scripts\python.exe -m qa.snapshot_fullpage_checkpoint --source checkpoints/TRAIN-024/last.pt --destination checkpoints/FULLPAGE-V4/TRAIN-024-step3600.pt --run-id TRAIN-024 --step 3600`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-368_snapshot_fullpage_v4_train024_step3600.txt`.
+
+### RUN-369
+
+- **Waktu:** 2026-10-14T13:14:50.356786+07:00 sampai 2026-10-14T13:25:00.618750+07:00.
+- **Tujuan:** evaluate_fullpage_v4_train024_development_step3600.
+- **Command:** `.\.venv\Scripts\python.exe -m qa.evaluate_fullpage --scope development --dataset-dir data/processed/fullpage/v4 --checkpoint checkpoints/FULLPAGE-V4/TRAIN-024-step3600.pt --output outputs/fullpage/TRAIN-024-development-step3600 --report reports/fullpage/TRAIN-024_DEVELOPMENT_STEP3600.json`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-369_evaluate_fullpage_v4_train024_development_step3600.txt`.
+
+### RUN-370
+
+- **Waktu:** 2026-10-14T13:26:31.081901+07:00 sampai 2026-10-14T13:26:31.694372+07:00.
+- **Tujuan:** summarize_v4_eval_training_and_profile_artifacts.
+- **Command:** `.\.venv\Scripts\python.exe -c "import json,pathlib; root=pathlib.Path.cwd(); paths=[\"reports/training/TRAIN-022.json\",\"reports/training/TRAIN-024.json\",\"reports/fullpage/TRAIN-022_DEVELOPMENT_STEP1800.json\",\"reports/fullpage/TRAIN-024_DEVELOPMENT_STEP3600.json\",\"reports/training/FULLPAGE-GPU-005.json\",\"reports/training/FULLPAGE-GPU-005-CONTROLLED-B8.json\",\"reports/training/TRAIN-019.json\",\"reports/fullpage/TRAIN-019_DEVELOPMENT.json\"];
+for name in paths:
+ p=root/name; x=json.loads(p.read_text(encoding=\"utf-8\")); keys=[\"run_id\",\"status\",\"global_step\",\"last_committed_step\",\"resume_parent_sha256\",\"final_validation\",\"scope\",\"complete\",\"total\",\"complete_rate\",\"groups\",\"failures\",\"required_roles\",\"model_gate\",\"final_used\",\"request_file_sha256\",\"dataset_manifest_sha256\",\"batch\",\"selected_batch\",\"selected_batch_size\",\"tokens_per_second\",\"results\",\"config_sha256\"]; print(\"ARTIFACT\",name,json.dumps({k:x[k] for k in keys if k in x},ensure_ascii=False,default=lambda o:str(o))[:5000])"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-370_summarize_v4_eval_training_and_profile_artifacts.txt`.
+
+### RUN-371
+
+- **Waktu:** 2026-10-14T13:28:20.045688+07:00 sampai 2026-10-14T13:28:20.619780+07:00.
+- **Tujuan:** inspect_codegraph_cli_for_index_sync.
+- **Command:** `powershell.exe -NoProfile -Command "Get-Command codegraph -ErrorAction SilentlyContinue | Format-List Name,Source,CommandType; if (Get-Command codegraph -ErrorAction SilentlyContinue) { codegraph --help }"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-371_inspect_codegraph_cli_for_index_sync.txt`.
+
+### RUN-373
+
+- **Waktu:** 2026-10-14T13:28:33.015678+07:00 sampai 2026-10-14T13:28:38.878545+07:00.
+- **Tujuan:** sync_codegraph_after_v4_source_changes_retry.
+- **Command:** `powershell.exe -NoProfile -Command "codegraph sync ."`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-373_sync_codegraph_after_v4_source_changes_retry.txt`.
+
+### RUN-374
+
+- **Waktu:** 2026-10-14T13:28:51.751771+07:00 sampai 2026-10-14T13:29:00.692252+07:00.
+- **Tujuan:** select_fullpage_v4_development_checkpoint.
+- **Command:** `.\.venv\Scripts\python.exe -m qa.select_fullpage_v4`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-374_select_fullpage_v4_development_checkpoint.txt`.
+
+### RUN-375
+
+- **Waktu:** 2026-10-14T13:29:08.466697+07:00 sampai 2026-10-14T13:29:08.581842+07:00.
+- **Tujuan:** summarize_v4_selection_error_patterns.
+- **Command:** `.\.venv\Scripts\python.exe -c "import json,pathlib; p=pathlib.Path(\"reports/training/FULLPAGE-V4_DEVELOPMENT_SELECTION.json\"); r=json.loads(p.read_text(encoding=\"utf-8\")); print(\"DATA\",json.dumps(r[\"data_change\"],ensure_ascii=False));
+for c in r[\"candidates\"]:
+ print(\"CANDIDATE\",c[\"run_id\"],c[\"development_complete\"],\"/\",c[\"development_total\"],\"CE\",c[\"development_ce\"],\"status\",c[\"page_status_counts\"]); print(\"GROUPS\",json.dumps(c[\"groups\"],ensure_ascii=False)); print(\"FAIL_IDS\",c[\"failed_request_ids\"]); print(\"ERRORS\",json.dumps([{**{k:e[k] for k in (\"task\",\"stage\",\"attempts\",\"affected_pages\")},\"error\":e[\"error\"][:180]} for e in c[\"top_generation_errors\"][:8]],ensure_ascii=False))
+print(\"CONTROL\",json.dumps(r[\"training_controls\"],ensure_ascii=False)); print(\"PRECHECK\",json.dumps(r[\"failed_preflight_run\"],ensure_ascii=False)); print(\"SELECTION\",r[\"best_observed_by_complete_pages_then_ce\"],\"gate\",r[\"model_gate_passed\"])"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-375_summarize_v4_selection_error_patterns.txt`.
+
+### RUN-376
+
+- **Waktu:** 2026-10-14T13:30:12.140760+07:00 sampai 2026-10-14T13:30:14.776694+07:00.
+- **Tujuan:** extract_v4_comprehensive_log_metrics.
+- **Command:** `.\.venv\Scripts\python.exe -c "import json,pathlib,hashlib; from src.training.engine import checkpoint_sha256,read_checkpoint; root=pathlib.Path.cwd(); j=lambda p:json.loads((root/p).read_text(encoding=\"utf-8\"));
+for rid in [\"TRAIN-022\",\"TRAIN-024\"]:
+ s=j(f\"reports/training/{rid}.json\"); m=[json.loads(x) for x in (root/f\"outputs/metrics/{rid}.jsonl\").read_text(encoding=\"utf-8\").splitlines() if x.strip()]; val=[{\"step\":x[\"step\"],\"loss\":x[\"loss\"]} for x in m if x.get(\"event\")==\"validation\"]; print(\"TRAIN\",json.dumps({\"run\":rid,\"status\":s.get(\"status\"),\"step\":s.get(\"global_step\"),\"wall_seconds\":s.get(\"wall_seconds\"),\"total_train_tokens\":s.get(\"total_train_tokens\"),\"final_train_loss\":s.get(\"final_train_loss\"),\"validations\":val,\"peak_allocated_bytes\":s.get(\"peak_allocated_bytes\"),\"peak_reserved_bytes\":s.get(\"peak_reserved_bytes\"),\"resume_parent_sha256\":s.get(\"resume_parent_sha256\"),\"gpu_telemetry\":s.get(\"gpu_telemetry\")},ensure_ascii=False));
+for p in [\"reports/fullpage/TRAIN-022_DEVELOPMENT_STEP1800.json\",\"reports/fullpage/TRAIN-024_DEVELOPMENT_STEP3600.json\"]:
+ x=j(p); print(\"EVAL\",json.dumps({k:x.get(k) for k in (\"complete\",\"total\",\"complete_rate\",\"required_roles\",\"first_attempt_complete\",\"groups\",\"failures\",\"page_seconds\",\"generation_tokens\",\"wall_seconds\",\"checkpoint_sha256\",\"dataset_manifest_sha256\",\"request_file_sha256\",\"final_used\",\"browser_status\",\"human_review_status\")},ensure_ascii=False));
+for p in [\"checkpoints/FULLPAGE-V4/TRAIN-022-step1800.pt\",\"checkpoints/FULLPAGE-V4/TRAIN-024-step3600.pt\"]: print(\"SNAPSHOT\",p,\"content\",checkpoint_sha256(root/p),\"file\",hashlib.sha256((root/p).read_bytes()).hexdigest(),\"meta\",{k:read_checkpoint(root/p).get(k) for k in [\"run_id\",\"global_step\",\"weights_only\"]});
+p=j(\"reports/training/FULLPAGE-GPU-005.json\"); print(\"GPU\",json.dumps([{k:r.get(k) for k in [\"batch\",\"accumulation\",\"effective_batch\",\"status\",\"tokens_per_second\",\"peak_allocated_bytes\",\"peak_reserved_bytes\",\"gpu\"]} for r in p[\"results\"]],ensure_ascii=False)); q=j(\"reports/training/FULLPAGE-GPU-005-CONTROLLED-B8.json\"); print(\"CONTROLLED\",json.dumps(q,ensure_ascii=False)[:900]); d=j(\"reports/fullpage/FULLPAGE-V4_DATA_PREPARATION.json\"); print(\"DATA_PREP\",json.dumps(d,ensure_ascii=False)[:1600])"`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-376_extract_v4_comprehensive_log_metrics.txt`.
+
+### RUN-377
+
+- **Waktu:** 2026-10-14T13:30:48.408305+07:00 sampai 2026-10-14T13:30:50.250024+07:00.
+- **Tujuan:** sync_codegraph_after_notebook_evidence_update.
+- **Command:** `powershell.exe -NoProfile -Command "codegraph sync ."`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-377_sync_codegraph_after_notebook_evidence_update.txt`.
+
+### RUN-378
+
+- **Waktu:** 2026-10-14T13:30:55.509779+07:00 sampai 2026-10-14T13:31:01.089327+07:00.
+- **Tujuan:** build_and_execute_fullpage_v4_notebook.
+- **Command:** `.\.venv\Scripts\python.exe -m qa.build_fullpage_v4_notebook`.
+- **Commit:** `74e49ee09691ba10c8db718e136275cc6314fa9b`.
+- **Hasil:** exit 0.
+- **Output lengkap:** `logs/RUN-378_build_and_execute_fullpage_v4_notebook.txt`.

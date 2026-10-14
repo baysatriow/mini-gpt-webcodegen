@@ -1,0 +1,37 @@
+RUN-359 | 2026-10-14T13:01:20.367404+07:00 | map_checkpoint_archive_candidates
+Command: .\.venv\Scripts\python.exe -c "import pathlib,json; r=pathlib.Path(\"checkpoints\");
+for p in sorted(r.iterdir()):
+ if p.is_dir():
+  fs=[x for x in p.rglob(\"*\") if x.is_file()]; b=sum(x.stat().st_size for x in fs); cfg=p/\"config.json\"; c=json.loads(cfg.read_text(encoding=\"utf-8\")) if cfg.is_file() else {}; print(p.name,\"bytes\",b,\"files\",len(fs),\"run\",c.get(\"storage_phase_id\"),c.get(\"run_id\"))
+ elif p.is_file(): print(p.name,p.stat().st_size)"
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+FULLPAGE-V3 bytes 116724500 files 6 run None None
+FULLPAGE-V4 bytes 58362378 files 3 run None None
+INIT-2048-001 bytes 58358221 files 3 run None None
+README.md 503
+TRAIN-002 bytes 340697980 files 5 run None None
+TRAIN-003 bytes 340698010 files 5 run None None
+TRAIN-004 bytes 340698012 files 5 run None None
+TRAIN-004-VERIFIED bytes 170347948 files 3 run None None
+TRAIN-005 bytes 681426262 files 11 run None None
+TRAIN-006 bytes 681426274 files 11 run None None
+TRAIN-007 bytes 567870010 files 11 run None None
+TRAIN-008 bytes 681423574 files 11 run None None
+TRAIN-009 bytes 681423578 files 11 run None None
+TRAIN-010 bytes 681423891 files 11 run None None
+TRAIN-011 bytes 681423901 files 11 run None None
+TRAIN-012 bytes 681426424 files 11 run None None
+TRAIN-013 bytes 397520368 files 9 run None None
+TRAIN-014 bytes 397519091 files 9 run None None
+TRAIN-015 bytes 681432271 files 11 run None None
+TRAIN-016 bytes 700335671 files 11 run None None
+TRAIN-017 bytes 466930067 files 11 run None None
+TRAIN-018 bytes 525293396 files 14 run fullpage-improvement-v2 None
+TRAIN-019 bytes 525293396 files 14 run fullpage-improvement-v2 None
+TRAIN-020 bytes 466930538 files 11 run fullpage-improvement-v3 None
+TRAIN-021 bytes 408551102 files 9 run fullpage-improvement-v3 None
+TRAIN-022 bytes 466931175 files 11 run fullpage-improvement-v4 None
+TRAIN-023 bytes 9900 files 1 run fullpage-improvement-v4 None
+
+Exit code: 0

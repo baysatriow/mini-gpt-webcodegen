@@ -1,0 +1,18 @@
+RUN-364 | 2026-10-14T13:03:45.022448+07:00 | map_existing_checkpoint_junctions_and_headroom
+Command: .\.venv\Scripts\python.exe -c "import pathlib,os,shutil,json; from src.training.engine import read_checkpoint; cfg=json.loads(pathlib.Path(\"configs/fullpage/training-improvement-v4.json\").read_text(encoding=\"utf-8\")); s=read_checkpoint(next(pathlib.Path(\"checkpoints/INIT-2048-001\").glob(\"*.pt\"))); mb=sum(t.numel()*t.element_size() for t in {t.data_ptr():t for t in s[\"model\"].values()}.values()); req=cfg[\"reserve_free_bytes\"]+mb*12+128*1024**2; free=shutil.disk_usage(pathlib.Path.cwd()).free; print(\"HEADROOM\",json.dumps({\"free_bytes\":free,\"required_bytes\":req,\"margin_bytes\":free-req,\"passes\":free>=req}));
+for p in sorted(pathlib.Path(\"checkpoints\").iterdir()):
+ if p.is_dir():
+  try: print(\"LINK\",p.name,os.readlink(p))
+  except OSError: pass"
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+HEADROOM {"free_bytes": 17599963136, "required_bytes": 16940171264, "margin_bytes": 659791872, "passes": true}
+LINK TRAIN-002 \\?\C:\Generative_AI_Checkpoint_Archive\Vibe_Coding_Proyek_1\checkpoints\TRAIN-002
+LINK TRAIN-003 \\?\C:\Generative_AI_Checkpoint_Archive\Vibe_Coding_Proyek_1\checkpoints\TRAIN-003
+LINK TRAIN-004 \\?\C:\Generative_AI_Checkpoint_Archive\Vibe_Coding_Proyek_1\checkpoints\TRAIN-004
+LINK TRAIN-004-VERIFIED \\?\C:\Generative_AI_Checkpoint_Archive\Vibe_Coding_Proyek_1\checkpoints\TRAIN-004-VERIFIED
+LINK TRAIN-005 \\?\E:\GenerativeAI_Archive\Vibe_Coding_Proyek_1\checkpoints\TRAIN-005
+LINK TRAIN-006 \\?\E:\GenerativeAI_Archive\Vibe_Coding_Proyek_1\checkpoints\TRAIN-006
+LINK TRAIN-007 \\?\E:\GenerativeAI_Archive\Vibe_Coding_Proyek_1\checkpoints\TRAIN-007
+
+Exit code: 0

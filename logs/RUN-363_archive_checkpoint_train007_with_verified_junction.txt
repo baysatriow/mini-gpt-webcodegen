@@ -1,0 +1,13 @@
+RUN-363 | 2026-10-14T13:03:35.932198+07:00 | archive_checkpoint_train007_with_verified_junction
+Command: powershell.exe -NoProfile -Command "$ErrorActionPreference=\"Stop\"; function Hash-File([string]$path) { $stream=[System.IO.File]::OpenRead($path); $sha=[System.Security.Cryptography.SHA256]::Create(); try { [System.BitConverter]::ToString($sha.ComputeHash($stream)).Replace(\"-\",\"\") } finally { $sha.Dispose(); $stream.Dispose() } }; $checkpoints=\".\checkpoints\"; $name=\"TRAIN-007\"; $source=Join-Path $checkpoints $name; $archive=\"C:\Generative_AI_Checkpoint_Archive\Vibe_Coding_Proyek_1\checkpoints\"; $target=Join-Path $archive $name; if (-not (Test-Path -LiteralPath $source -PathType Container) -or (Test-Path -LiteralPath $target)) { throw \"Source missing or archive target already exists\" }; $item=Get-Item -LiteralPath $source -Force; if ($item.LinkType) { throw \"Source is already a link\" }; $before=@{}; Get-ChildItem -LiteralPath $source -File -Recurse | ForEach-Object { $rel=$_.FullName.Substring($source.Length+1); $before[$rel]=(Hash-File -path $_.FullName) }; Move-Item -LiteralPath $source -Destination $target; try { $after=@{}; Get-ChildItem -LiteralPath $target -File -Recurse | ForEach-Object { $rel=$_.FullName.Substring($target.Length+1); $after[$rel]=(Hash-File -path $_.FullName) }; if ($before.Count -ne $after.Count) { throw \"File count changed\" }; foreach ($rel in $before.Keys) { if (-not $after.ContainsKey($rel) -or $before[$rel] -ne $after[$rel]) { throw \"Hash mismatch: $rel\" } }; New-Item -ItemType Junction -Path $source -Target $target | Out-Null; if (-not (Test-Path -LiteralPath $source -PathType Container)) { throw \"Junction unavailable\" }; Write-Output (\"ARCHIVED_AND_VERIFIED \" + $name + \" files=\" + $before.Count + \" bytes=\" + ((Get-ChildItem -LiteralPath $target -File -Recurse | Measure-Object Length -Sum).Sum)) } catch { if (-not (Test-Path -LiteralPath $source)) { Move-Item -LiteralPath $target -Destination $source }; throw }"
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+Source is already a link
+At line:1 char:762
++ ... Force; if ($item.LinkType) { throw "Source is already a link" }; $bef ...
++                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Source is already a link:String) [], RuntimeException
+    + FullyQualifiedErrorId : Source is already a link
+ 
+
+Exit code: 1

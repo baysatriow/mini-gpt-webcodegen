@@ -1,0 +1,30 @@
+RUN-374 | 2026-10-14T13:28:51.751771+07:00 | select_fullpage_v4_development_checkpoint
+Command: .\.venv\Scripts\python.exe -m qa.select_fullpage_v4
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+{
+  "report": "reports/training/FULLPAGE-V4_DEVELOPMENT_SELECTION.json",
+  "historical_baseline": [
+    70,
+    80
+  ],
+  "candidates": [
+    [
+      "TRAIN-022",
+      64,
+      80,
+      0.006403033495829851
+    ],
+    [
+      "TRAIN-024",
+      68,
+      80,
+      0.007638510920557166
+    ]
+  ],
+  "best_observed": "TRAIN-024",
+  "promotable_candidate": null,
+  "final_opened": false
+}
+
+Exit code: 0

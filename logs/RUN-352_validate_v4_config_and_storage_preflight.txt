@@ -1,0 +1,23 @@
+RUN-352 | 2026-10-14T07:59:28.066057+07:00 | validate_v4_config_and_storage_preflight
+Command: .venv\Scripts\python.exe -c "import hashlib,json,pathlib,shutil; root=pathlib.Path('.'); v2=json.loads((root/'configs/fullpage/training-improvement-v3.json').read_text(encoding='utf-8')); v4=json.loads((root/'configs/fullpage/training-improvement-v4.json').read_text(encoding='utf-8')); m=json.loads((root/'data/processed/fullpage/v4/manifest.json').read_text(encoding='utf-8')); path=root/'data/processed/fullpage/v4/manifest.json'; assert v4['lineage']['fullpage_manifest_sha256']==hashlib.sha256(path.read_bytes()).hexdigest(); expected={'scope':'main','dataset_dir':'data/processed/fullpage/v4','plan_batch_probability':0.7,'batch_size':8,'gradient_accumulation':6,'max_steps':3600,'warmup_steps':180,'validation_interval':600,'checkpoint_interval':600,'learning_rate':5e-5,'min_learning_rate':5e-6,'device':'cuda','precision':'bf16','block_size':2048}; assert all(v4.get(k)==value for k,value in expected.items()), {k:(v4.get(k),value) for k,value in expected.items() if v4.get(k)!=value}; keys=['seed','device','precision','batch_size','gradient_accumulation','max_steps','warmup_steps','learning_rate','min_learning_rate','betas','weight_decay','grad_clip','validation_interval','validation_batches','checkpoint_interval','log_interval','reserve_free_bytes','block_size','model_config']; changed=[k for k in keys if v2.get(k)!=v4.get(k)]; assert not changed, changed; free=shutil.disk_usage(root).free; print(json.dumps({'v4_config_matches_v3_fixed_training_settings':True,'batch_size':v4['batch_size'],'gradient_accumulation':v4['gradient_accumulation'],'updates':v4['max_steps'],'warmup':v4['warmup_steps'],'sampler_probability':v4['plan_batch_probability'],'manifest_sha256':v4['lineage']['fullpage_manifest_sha256'],'disk_free_bytes':free,'reserve_bytes':15*1024**3,'task_counts':m['task_counts'],'only_intended_dataset_and_provenance_differences':True},indent=2))"
+Commit: 74e49ee09691ba10c8db718e136275cc6314fa9b
+
+{
+  "v4_config_matches_v3_fixed_training_settings": true,
+  "batch_size": 8,
+  "gradient_accumulation": 6,
+  "updates": 3600,
+  "warmup": 180,
+  "sampler_probability": 0.7,
+  "manifest_sha256": "aae2de8cfceb16110eb93b0668447fcda7237fdfabaa7e0c2a22ce2c3d41cf15",
+  "disk_free_bytes": 17403969536,
+  "reserve_bytes": 16106127360,
+  "task_counts": {
+    "train": 24000,
+    "validation": 960,
+    "test": 800
+  },
+  "only_intended_dataset_and_provenance_differences": true
+}
+
+Exit code: 0
