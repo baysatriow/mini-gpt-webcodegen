@@ -4837,3 +4837,116 @@ p=j(\"reports/training/FULLPAGE-GPU-005.json\"); print(\"GPU\",json.dumps([{k:r.
 - Commit: dasar 87182d0; catatan penutupan belum di-commit.
 - Hasil: exit 0; STAGED CHECK EXIT=0  STAGED STAT:  .../plans/2026-10-14-fullpage-source-bound-facts.md     |  2 +-  logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md                | 17 +++++++++++++++++  logs/PIPELINE_PROGRESS.md                               |  5 +++++  logs/RUN-412_commit_push_task_2.txt                     |  7 +++++++  4 files changed, 30 insertions(+), 1 deletion(-)
 - Output lengkap: logs/RUN-413_task_2_completion_docs_check.txt.
+### RUN-414
+
+- Waktu: 2026-10-14T18:30:10.7017457+07:00 sampai 2026-10-14T18:30:15.4913037+07:00.
+- Tujuan: Membuat brief operasional Task 3 dari rencana source-bound fullpage.
+- Command: wsl.exe -e bash -lc task-brief plan 3.
+- Commit: BASE d90dc13e917d513590e56041e824e435ee53e7b2; branch origin sinkron sebelum Task 3.
+- Hasil: exit 0; wrote /mnt/f/Generative_AI/Vibe_Coding_Proyek_1/.superpowers/sdd/2026-10-14-fullpage-source-bound-facts/task-3-brief.md: 68 lines
+- Output lengkap: logs/RUN-414_task_3_brief.txt.
+### RUN-415
+
+- Waktu: 2026-10-14T18:34:52.6788953+07:00 sampai 2026-10-14T18:34:54.8133189+07:00.
+- Tujuan: Menjalankan uji RED untuk dispatch source-bound, prompt/serializer, retry, batas budget, dan atomic export sebelum implementasi Task 3.
+- Command: .\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_generation -v
+- Commit: BASE d90dc13e917d513590e56041e824e435ee53e7b2; uji Task 3 belum di-commit.
+- Hasil: exit 1; test_source_bound_generation (unittest.loader._FailedTest.test_source_bound_generation) ... ERROR  ====================================================================== ERROR: test_source_bound_generation (unittest.loader._FailedTest.test_source_bound_generation) ---------------------------------------------------------------------- ImportError: Failed to import test module: test_source_bound_generation Traceback (most recent call last):   File "C:\Users\Bayu S W\AppData\Local\Programs\Python\Python311\Lib\unittest\loader.py", line 162, in loadTestsFromName     module = __import__(module_name)              ^^^^^^^^^^^^^^^^^^^^^^^   File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_generation.py", line 7, in <module>     from src.fullpage.generation import FullPageGenerator, checkpoint_contract_version ImportError: cannot import name 'checkpoint_contract_version' from 'src.fullpage.generation' (F:\Generative_AI\Vibe_Coding_Proyek_1\src\fullpage\generation.py)   ---------------------------------------------------------------------- Ran 1 test in 0.000s  FAILED (errors=1)
+- Output lengkap: logs/RUN-415_source_bound_generation_red.txt.
+### RUN-416
+
+- Waktu: 2026-10-14T18:36:28.6972017+07:00 sampai 2026-10-14T18:36:29.9562811+07:00.
+- Tujuan: Memperbarui CodeGraph untuk modul prompt/serializer source-bound, dispatch generation, dan sumber identitas evaluasi.
+- Command: codegraph sync .
+- Commit: BASE d90dc13e917d513590e56041e824e435ee53e7b2; perubahan Task 3 belum di-commit.
+- Hasil: exit 0; T  Syncing CodeGraph | Scanning files... Parsing code... Resolving refs... Linking dynamic dispatch... | *  Synced 6 changed files | •  Added: 3, Modified: 3 - 97 nodes in 482ms | -  Done
+- Output lengkap: logs/RUN-416_sync_source_bound_generation.txt.
+
+### RUN-417
+
+- Purpose: Run focused source-bound generation tests after Task 3 implementation.
+- Command: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_generation -v`
+- Environment: Windows PowerShell, project `.venv` interpreter.
+- Exit code: 1
+- Output: `logs/RUN-417_source_bound_generation_test.txt`
+- Decision: Use the failure to guide a narrow correction, then rerun with a new RUN id.
+
+### RUN-418
+
+- Purpose: Repeat RUN-417 with PowerShell output capture corrected after the snapshot contained only an array type label.
+- Command: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_generation -v`
+- Environment: Windows PowerShell, project `.venv` interpreter.
+- Exit code: 1
+- Output: `logs/RUN-418_source_bound_generation_test_capture_fix.txt`
+- Decision: Captured output is the evidence for the focused test result.
+
+### RUN-419
+
+- Purpose: Inspect the accepted result and actual exported file tree from the failing Task 3 success test.
+- Command: inline Python reproduction using tests.fullpage.test_source_bound_generation.model_outputs and fake_source_bound_generator
+- Environment: Windows PowerShell, project `.venv` interpreter.
+- Exit code: 1
+- Output: `logs/RUN-419_renderer_export_repro.txt`
+- Decision: Use returned status and file tree to isolate whether dispatch, composition, or renderer output is inconsistent.
+
+### RUN-420
+
+- Purpose: Repeat the renderer export reproduction with the fixture helper called according to its keyword-only signature.
+- Command: inline Python reproduction using tests.fullpage.test_source_bound_generation.model_outputs and keyword-only fake generator arguments
+- Environment: Windows PowerShell, project `.venv` interpreter.
+- Exit code: 0
+- Output: `logs/RUN-420_renderer_export_repro.txt`
+- Decision: Use the report and exported files to determine why the accepted output path lacks expected files.
+
+### RUN-421
+
+- Purpose: Verify Task 3 source-bound dispatch, compatibility, atomic rendering, and evaluation source identity after fixing the temporary-directory assertion.
+- Command: `.\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_generation -v`
+- Environment: Windows PowerShell, project `.venv` interpreter.
+- Exit code: 0
+- Output: `logs/RUN-421_source_bound_generation_focused.txt`
+- Decision: Focused Task 3 tests passed; proceed to adjacent generation/evaluation regression coverage.
+
+### RUN-422
+
+- Purpose: Run all full-page tests to check source-bound changes against existing contracts, composition, renderer, and curriculum behavior.
+- Command: `.\.venv\Scripts\python.exe -m unittest discover -s tests/fullpage -v`
+- Environment: Windows PowerShell, project `.venv` interpreter.
+- Exit code: 0
+- Output: `logs/RUN-422_fullpage_regression.txt`
+- Decision: Full-page regression suite passed.
+
+### RUN-423
+
+- Purpose: Refresh the repository CodeGraph index after source-bound generation edits.
+- Command: `codegraph sync .`
+- Environment: Project root, PowerShell.
+- Exit code: 0
+- Output: `logs/RUN-423_codegraph_sync_task3.txt`
+- Decision: Index is synchronized with current source.
+
+## AI-028: Source-Bound Generation Dispatch, 14 October 2026
+
+- User approved continuing the source-bound generation plan through the intended complete page output. Task 3 adds checkpoint-versioned dispatch and preserves the legacy path.
+- The source-bound generator asks for closed catalog and request references, enforces request and task budgets, requires EOS, retries once, validates all section prompts before section generation, resolves trusted facts, and promotes the existing renderer output atomically.
+- RUN-417 through RUN-420 record capture and fixture-debugging issues. The production export was complete; the success test was checking after its temporary directory had been deleted. The assertion was moved inside the directory lifetime.
+- RUN-421 passed 10 focused tests. RUN-422 passed all 25 full-page tests. RUN-423 synchronized CodeGraph. No real checkpoint generation, visual review, dataset, training, UI, or backend change is claimed.
+- Full interaction record: `logs/interaksi_llm/AI-028_2026-10-14.md`.
+
+### RUN-424
+
+- Purpose: Review Task 3 worktree scope, whitespace, and newly added text before commit.
+- Command: `git status --short`, `git diff --stat`, `git diff --check`, and em dash scan of additions and new artifacts.
+- Environment: Project root, PowerShell.
+- Exit code: 0
+- Output: `logs/RUN-424_task3_precommit_review.txt`
+- Decision: Stage only Task 3 implementation, tests, plan/status documentation, AI entry, and RUN evidence.
+
+### RUN-425
+
+- Purpose: Final staged whitespace and scope review for the Task 3 generation unit.
+- Command: `git diff --cached --check`.
+- Environment: Project root, PowerShell.
+- Exit code: 0
+- Output: `logs/RUN-425_task3_staged_review.txt`
+- Decision: Continue to commit only when the staged check exits 0.

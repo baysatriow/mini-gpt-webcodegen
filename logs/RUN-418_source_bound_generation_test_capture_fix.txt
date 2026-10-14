@@ -1,0 +1,27 @@
+RUN-418
+Started: 2026-10-14 18:38:02 +07:00
+Command: .\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_generation -v
+Exit code: 1
+
+test_contract_version_selection_defaults_to_legacy (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_contract_version_selection_defaults_to_legacy) ... ok
+test_missing_contract_version_uses_legacy_generation_path (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_missing_contract_version_uses_legacy_generation_path) ... ok
+test_renderer_failure_removes_staging_and_website (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_renderer_failure_removes_staging_and_website) ... ok
+test_request_prompt_limit_is_exactly_one_thousand_characters (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_request_prompt_limit_is_exactly_one_thousand_characters) ... ok
+test_required_eos_failure_retries_once_and_never_exports (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_required_eos_failure_retries_once_and_never_exports) ... ok
+test_section_prompt_overflow_runs_no_section_model (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_section_prompt_overflow_runs_no_section_model) ... ok
+test_source_bound_prompts_and_serializer_use_only_supported_tasks (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_source_bound_prompts_and_serializer_use_only_supported_tasks) ... ok
+test_success_report_points_to_atomic_existing_renderer_export (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_success_report_points_to_atomic_existing_renderer_export) ... FAIL
+test_v5_section_reference_failure_after_retry_never_exports_website (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_v5_section_reference_failure_after_retry_never_exports_website) ... ok
+
+======================================================================
+FAIL: test_success_report_points_to_atomic_existing_renderer_export (tests.fullpage.test_source_bound_generation.SourceBoundGenerationTests.test_success_report_points_to_atomic_existing_renderer_export)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "F:\Generative_AI\Vibe_Coding_Proyek_1\tests\fullpage\test_source_bound_generation.py", line 153, in test_success_report_points_to_atomic_existing_renderer_export
+    self.assertTrue((website / "index.html").is_file())
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.198s
+
+FAILED (failures=1)

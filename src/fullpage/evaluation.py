@@ -4,11 +4,34 @@ import json
 import time
 from collections import Counter
 from pathlib import Path
-from .generation import FullPageGenerator
+from .generation import CONTRACT_VERSION, FullPageGenerator, checkpoint_contract_version
 from .curriculum import write_json
 from .serialization import canonical
 from src.data.sources import sha256_file
 from src.training.engine import checkpoint_sha256,read_checkpoint
+
+
+def evaluation_source_paths(contract_version=None):
+    paths = [
+        'src/fullpage/generation.py',
+        'src/fullpage/compose.py',
+        'src/fullpage/contracts.py',
+        'src/fullpage/prompts.py',
+    ]
+    if contract_version == CONTRACT_VERSION:
+        paths.extend([
+            'src/fullpage/source_bound_prompts.py',
+            'src/fullpage/source_bound_serialization.py',
+            'src/fullpage/source_bound_contracts.py',
+            'src/fullpage/source_bound_compose.py',
+            'src/fullpage/source_bound_resolver.py',
+            'src/fullpage/renderer.py',
+            'src/fullpage/assets.py',
+            'configs/fullpage/plan-source-bound-v1.schema.json',
+            'configs/fullpage/section-source-bound-v1.schema.json',
+            'configs/fullpage/source-bound-copy-v1.json',
+        ])
+    return tuple(paths)
 
 
 def claim_final_evaluation(path, identity, *, resume=False):
@@ -29,8 +52,13 @@ def claim_final_evaluation(path, identity, *, resume=False):
 
 def evaluate_requests(requests,*,checkpoint,root,output,resume=False):
     root,output=Path(root),Path(output); checkpoint=Path(checkpoint)
+    checkpoint_config = read_checkpoint(checkpoint)['config']
+    contract_version = checkpoint_contract_version(checkpoint_config)
+    source_paths = evaluation_source_paths(contract_version)
     identity={'checkpoint_sha256':checkpoint_sha256(checkpoint),'requests_sha256':hashlib.sha256(canonical(requests).encode()).hexdigest(),'count':len(requests),
-              'source_sha256':{p:sha256_file(root/p) for p in ('src/fullpage/generation.py','src/fullpage/compose.py','src/fullpage/contracts.py','src/fullpage/prompts.py')}}
+              'source_sha256':{p:sha256_file(root/p) for p in source_paths}}
+    if contract_version:
+        identity['fullpage_contract_version'] = contract_version
     if output.exists():
         if not resume or json.loads((output/'identity.json').read_text(encoding='utf-8'))!=identity: raise ValueError('Evaluation output/identity differs')
     else: output.mkdir(parents=True); write_json(output/'identity.json',identity)

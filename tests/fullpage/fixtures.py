@@ -83,3 +83,58 @@ def full_source_bound_fixture(genre="company_profile", style="plain_css"):
             "asset_slots": asset_slots,
         })
     return request, catalog, plan, drafts
+
+
+class _FixtureTokenizer:
+    def __init__(self, token_count=None):
+        self.token_count = token_count or (lambda text: (len(text) + 3) // 4)
+
+    def encode(self, text, add_special_tokens=False):
+        from types import SimpleNamespace
+
+        return SimpleNamespace(ids=[0] * self.token_count(text))
+
+
+def fake_source_bound_generator(root, *, contract_version, model_outputs, tokenizer=None):
+    from pathlib import Path
+
+    from src.fullpage.assets import load_asset_catalog
+    from src.fullpage.generation import FullPageGenerator
+    from src.fullpage.source_bound_contracts import load_copy_catalog
+
+    generator = object.__new__(FullPageGenerator)
+    generator.root = Path(root).resolve()
+    generator.checkpoint = generator.root / "fake-checkpoint.pt"
+    generator.config = {"precision": "bf16", "temperature": 0, "seed": 42}
+    generator.contract_version = contract_version
+    generator.model = object()
+    generator.tokenizer = tokenizer or _FixtureTokenizer()
+    generator.catalog = load_asset_catalog(generator.root)
+    generator.copy_catalog = load_copy_catalog(generator.root)
+    generator.metadata = {
+        "checkpoint_sha256": "0" * 64,
+        "checkpoint_run_id": "FAKE",
+        "checkpoint_step": 1800,
+        "fullpage_contract_version": contract_version,
+    }
+    outputs = iter(model_outputs)
+    calls = []
+
+    def execute(prompt, task):
+        calls.append({"prompt": prompt, "task": task})
+        try:
+            value = next(outputs)
+        except StopIteration as error:
+            raise AssertionError("Fake model output list was exhausted") from error
+        result = dict(value) if isinstance(value, dict) else {"raw": value}
+        result.setdefault("raw", "")
+        result.setdefault("stop_reason", "eos")
+        result.setdefault("generated_tokens", 1)
+        result.setdefault("prefix_tokens", 1)
+        result.setdefault("max_new_tokens", 512 if task == "page_plan" else 1536)
+        result.setdefault("seconds", 0.0)
+        return result
+
+    generator._execute_task = execute
+    generator._fixture_calls = calls
+    return generator

@@ -274,3 +274,10 @@ RUN-331 membandingkan satu target train role `process` dengan keluaran gagal TRA
 
 - Task 2 is complete in commit 87182d0b1e43d7aca4ce8bf74d7db20e223511af, pushed to origin/feature/pipeline-data-model-training.
 - RUN-406 passed the final 15-test focused source-bound suite. RUN-412 records the commit and push. Task 3 generation dispatch is next.
+
+### Source-bound Task 3 implementation
+
+- Added checkpoint-versioned source-bound prompts and canonical JSON serialization. Checkpoints without `fullpage_contract_version` retain the legacy generator path.
+- The v1 path validates request and prompt budgets, requires EOS, retries once, prechecks every planned section prompt before any section generation, resolves only validated catalog and request references, and exports through the existing renderer using a temporary directory promoted only after success.
+- Evaluation identity now hashes the source-bound prompts, serializer, validators, resolver, composer, renderer, asset catalog code, versioned schemas, and copy catalog. A focused test protects the legacy and source-bound identity split.
+- RUN-421 passed 10 focused generation tests. RUN-422 passed all 25 full-page tests. RUN-423 synchronized CodeGraph. No dataset, checkpoint, training run, UI, or backend changed in Task 3. Real checkpoint generation and browser review remain pending.

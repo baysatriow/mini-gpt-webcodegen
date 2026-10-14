@@ -1,0 +1,8 @@
+RUN-419
+Started: 2026-10-14 18:38:40 +07:00
+Command: inline Python reproduction using tests.fullpage.test_source_bound_generation.model_outputs and fake_source_bound_generator
+Exit code: 1
+
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+TypeError: fake_source_bound_generator() takes 1 positional argument but 3 were given

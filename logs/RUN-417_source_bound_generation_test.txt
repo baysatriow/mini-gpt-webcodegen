@@ -1,0 +1,6 @@
+RUN-417
+Started: 2026-10-14 18:37:45 +07:00
+Command: .\.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_generation -v
+Exit code: 1
+
+System.Object[]
