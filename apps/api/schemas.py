@@ -38,6 +38,49 @@ class RequestDraft(APIModel):
 
 
 class IntakeEnvelope(APIModel):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "examples": [
+                {
+                    "prompt": "Buat landing page untuk studio keramik bernama Ruang Tanah.",
+                    "draft": {
+                        "contract_version": SOURCE_DRAFT_CONTRACT,
+                        "prompt": "Buat landing page untuk studio keramik bernama Ruang Tanah.",
+                        "genre": "landing_page",
+                        "style_mode": "tailwind",
+                        "business_facts": [
+                            {
+                                "id": "nama-usaha",
+                                "kind": "name",
+                                "value": "Ruang Tanah",
+                                "evidence": {"user_confirmed": True},
+                            },
+                            {
+                                "id": "deskripsi",
+                                "kind": "description",
+                                "value": "Studio keramik untuk kelas dan karya pesanan.",
+                                "evidence": {"user_confirmed": True},
+                            },
+                            {
+                                "id": "layanan-kelas",
+                                "kind": "service",
+                                "value": {
+                                    "title": "Kelas keramik",
+                                    "title_evidence": {"user_confirmed": True},
+                                    "text": "Kelas untuk pemula.",
+                                    "text_evidence": {"user_confirmed": True},
+                                },
+                            },
+                        ],
+                        "requested_features": [],
+                        "asset_ids": [],
+                        "fictitious": True,
+                    },
+                }
+            ]
+        }
+    )
+
     prompt: StrictStr
     draft: RequestDraft
 
@@ -51,6 +94,32 @@ class IntakeResponse(APIModel):
     message: StrictStr
     missing_fields: list[StrictStr] = Field(default_factory=list)
     request: dict[str, Any] | None = None
+
+
+class ErrorResponse(APIModel):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "examples": [
+                {
+                    "code": "generation_in_progress",
+                    "message": "Generation lain sedang berjalan.",
+                    "missing_fields": [],
+                }
+            ]
+        }
+    )
+
+    code: StrictStr
+    message: StrictStr
+    missing_fields: list[StrictStr] = Field(default_factory=list)
+
+
+class SourceResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid", populate_by_name=True)
+
+    index_html: StrictStr = Field(alias="index.html")
+    styles_css: StrictStr = Field(alias="styles.css")
+    app_js: StrictStr = Field(alias="app.js")
 
 
 class CatalogOption(APIModel):
@@ -80,10 +149,35 @@ class CatalogResponse(APIModel):
     assets: list[AssetMetadata]
 
 
+class HealthResponse(APIModel):
+    status: Literal["ok"]
+    contract_version: StrictStr
+    model_loaded: StrictBool
+
+
 class GenerationResponse(APIModel):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "examples": [
+                {
+                    "status": "completed",
+                    "generation_id": "123e4567-e89b-42d3-a456-426614174000",
+                    "message": "Halaman berhasil dibuat dan siap ditinjau.",
+                    "missing_fields": [],
+                    "section_count": 7,
+                    "preview_url": "http://127.0.0.1:8000/api/v1/generations/123e4567-e89b-42d3-a456-426614174000/preview/index.html",
+                    "download_url": "http://127.0.0.1:8000/api/v1/generations/123e4567-e89b-42d3-a456-426614174000/download.zip",
+                    "files": ["index.html", "styles.css", "app.js"],
+                }
+            ]
+        }
+    )
+
     status: GenerationStatus
     generation_id: UUID | None = None
     message: StrictStr
+    missing_fields: list[StrictStr] = Field(default_factory=list)
+    section_count: Annotated[StrictInt, Field(ge=0)] | None = None
     preview_url: StrictStr | None = None
     download_url: StrictStr | None = None
     files: list[SOURCE_FILES] = Field(default_factory=list)

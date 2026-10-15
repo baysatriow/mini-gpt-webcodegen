@@ -6574,3 +6574,14 @@ Pengemas akan mensyaratkan report seleksi TRAIN-025 step 1.800 lulus, 80/80, `fi
 - Ringkasan publik memetakan status internal ke pesan aman dan mengambil hanya field ringkasan yang diizinkan. Field `api_summary` akan diisi oleh route generation pada task API berikutnya; report pipeline mentah tidak dikirim ke browser.
 - Batas: route ini hanya membaca artefak dan belum menjalankan server, dependency install, inference, training, test, atau build. Data test dan final tidak dibuka.
 - Rujukan interaksi: percakapan Codex pada 15 Oktober 2026. Tautan share atau ekspor chat tidak dibuat.
+
+### AI-032, route API dan generation lazy
+
+- Tanggal: 15 Oktober 2026, zona waktu Asia/Jakarta.
+- Tujuan: menyambungkan UI lokal ke health, katalog, intake, generation, ringkasan, source, preview, dan ZIP melalui satu kontrak FastAPI.
+- Perubahan yang dipilih: health hanya membaca flag model yang sudah ada; katalog dan intake tetap pada jalur non-inference. CORS memakai exact origin lokal dari settings, tanpa wildcard.
+- Route generation memvalidasi RequestDraft kembali, memakai hanya request internal hasil validator, mengganti request ID dengan UUID server, serta memakai lock non-blocking agar satu generation berjalan dalam satu proses. Generator diakses satu kali hanya setelah intake siap.
+- Status pipeline dipetakan ke response aman. Report menyimpan ringkasan API yang dibentuk dari request tervalidasi; raw error, traceback, prompt internal, path absolut, dan output parsial tidak dikirim ke browser.
+- Code-path review statis mengonfirmasi health, katalog, dan intake tidak memanggil `get_generator`. Pemanggilan itu hanya ada pada handler POST generation. Ini adalah pemeriksaan source, bukan bukti HTTP runtime.
+- Batas: server belum dijalankan, dependency belum dipasang, tidak ada inference, training, test, atau build. Data test dan final tidak dibuka.
+- Rujukan interaksi: percakapan Codex pada 15 Oktober 2026. Tautan share atau ekspor chat tidak dibuat.

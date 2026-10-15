@@ -2,18 +2,35 @@
 
 from __future__ import annotations
 
+from datetime import datetime, timezone
+import json
+import logging
+import os
 from io import BytesIO
 from pathlib import Path
 
 from fastapi import APIRouter, HTTPException
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import Response
 
-from apps.api.schemas import GenerationSummary
-from apps.api.services.artifacts import ArtifactNotFoundError, ArtifactStore
+from apps.api.schemas import (
+    ErrorResponse,
+    GenerationRequest,
+    GenerationResponse,
+    GenerationSummary,
+    SourceResponse,
+)
+from apps.api.services.artifacts import ArtifactNotFoundError, ArtifactStore, new_generation_id
+from apps.api.services.intake import validate_intake
 from apps.api.services.runtime import get_runtime
 
 
 router = APIRouter(prefix="/api/v1/generations", tags=["generations"])
+logger = logging.getLogger(__name__)
+
+
+def _api_origin(host: str, port: int) -> str:
+    rendered_host = f"[{host}]" if ":" in host else host
+    return f"http://{rendered_host}:{port}"
 
 
 def _store() -> ArtifactStore:
@@ -21,11 +38,15 @@ def _store() -> ArtifactStore:
     return ArtifactStore(
         output_root=runtime.settings.generation_output_dir,
         project_root=runtime.project_root,
+        api_origin=_api_origin(runtime.settings.host, runtime.settings.port),
     )
 
 
 def _not_found() -> HTTPException:
-    return HTTPException(status_code=404, detail="Generation artifact not found")
+    return HTTPException(
+        status_code=404,
+        detail=ErrorResponse(code="generation_not_found", message="Generation artifact not found").model_dump(),
+    )
 
 
 def _generation_directory(store: ArtifactStore, generation_id: str) -> Path:
@@ -37,8 +58,21 @@ def _generation_directory(store: ArtifactStore, generation_id: str) -> Path:
 
 @router.get(
     "/{generation_id}/preview/{relative_path:path}",
+    response_class=Response,
     summary="Show one accepted preview file",
     response_description="Renderer HTML, CSS, JavaScript, or a referenced local SVG asset",
+    responses={
+        200: {
+            "description": "One fixed-type accepted renderer file",
+            "content": {
+                "text/html": {},
+                "text/css": {},
+                "application/javascript": {},
+                "image/svg+xml": {},
+            },
+        },
+        404: {"model": ErrorResponse, "description": "Generation or preview file not found"},
+    },
 )
 def preview_file(generation_id: str, relative_path: str) -> Response:
     store = _store()
@@ -48,9 +82,7 @@ def preview_file(generation_id: str, relative_path: str) -> Response:
     except ArtifactNotFoundError as error:
         raise _not_found() from error
 
-    settings = get_runtime().settings
-    host = f"[{settings.host}]" if ":" in settings.host else settings.host
-    api_origin = f"http://{host}:{settings.port}"
+    api_origin = _api_origin(get_runtime().settings.host, get_runtime().settings.port)
     headers = {
         "Content-Security-Policy": (
             "default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; "
@@ -65,26 +97,35 @@ def preview_file(generation_id: str, relative_path: str) -> Response:
 
 @router.get(
     "/{generation_id}/source",
+    response_model=SourceResponse,
     summary="Read accepted HTML, CSS, and JavaScript",
     response_description="Exactly the three renderer source files",
+    responses={404: {"model": ErrorResponse, "description": "Accepted source files not found"}},
 )
-def source_files(generation_id: str) -> JSONResponse:
+def source_files(generation_id: str, response: Response) -> SourceResponse:
     store = _store()
     generation_dir = _generation_directory(store, generation_id)
     try:
         source = store.read_accepted_source(generation_dir)
     except ArtifactNotFoundError as error:
         raise _not_found() from error
-    return JSONResponse(
-        content=source,
-        headers={"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"},
-    )
+    response.headers["Cache-Control"] = "no-store"
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    return SourceResponse.model_validate(source)
 
 
 @router.get(
     "/{generation_id}/download.zip",
+    response_class=Response,
     summary="Download accepted renderer output and referenced assets",
     response_description="A ZIP containing only the accepted renderer files and attribution",
+    responses={
+        200: {
+            "description": "Accepted source and asset ZIP",
+            "content": {"application/zip": {"schema": {"type": "string", "format": "binary"}}},
+        },
+        404: {"model": ErrorResponse, "description": "Accepted ZIP not found"},
+    },
 )
 def download_zip(generation_id: str) -> Response:
     store = _store()
@@ -109,7 +150,7 @@ def download_zip(generation_id: str) -> Response:
     "/{generation_id}",
     response_model=GenerationSummary,
     summary="Read a safe generation summary",
-    responses={404: {"description": "Generation not found"}},
+    responses={404: {"model": ErrorResponse, "description": "Generation not found"}},
 )
 def generation_summary(generation_id: str) -> GenerationSummary:
     store = _store()
@@ -118,3 +159,208 @@ def generation_summary(generation_id: str) -> GenerationSummary:
         return store.public_generation_summary(generation_dir)
     except ArtifactNotFoundError as error:
         raise _not_found() from error
+
+
+def _http_error(
+    status_code: int,
+    code: str,
+    message: str,
+    missing_fields: list[str] | None = None,
+) -> HTTPException:
+    payload = ErrorResponse(
+        code=code,
+        message=message,
+        missing_fields=missing_fields or [],
+    )
+    return HTTPException(status_code=status_code, detail=payload.model_dump())
+
+
+def _api_summary(request: dict, created_at: str) -> dict[str, str]:
+    facts = request.get("business_facts", [])
+    business_name = next(
+        (
+            fact.get("value")
+            for fact in facts
+            if isinstance(fact, dict) and fact.get("kind") == "name" and isinstance(fact.get("value"), str)
+        ),
+        None,
+    )
+    summary = {
+        "genre": request.get("genre"),
+        "style_mode": request.get("style_mode"),
+        "business_name": business_name,
+        "created_at": created_at,
+    }
+    return {key: value for key, value in summary.items() if isinstance(value, str)}
+
+
+def _persist_result(output_dir: Path, report: dict) -> None:
+    result_path = output_dir / "result.json"
+    temporary = output_dir / f".result-{new_generation_id()}.tmp"
+    try:
+        with temporary.open("x", encoding="utf-8", newline="\n") as handle:
+            json.dump(report, handle, ensure_ascii=False, indent=2)
+            handle.write("\n")
+        os.replace(temporary, result_path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def _generation_failure(
+    generation_id: str,
+    message: str,
+    missing_fields: list[str] | None = None,
+) -> GenerationResponse:
+    return GenerationResponse(
+        status="generation_failed",
+        generation_id=generation_id,
+        message=message,
+        missing_fields=missing_fields or [],
+    )
+
+
+@router.post(
+    "",
+    response_model=GenerationResponse,
+    summary="Generate one page from a revalidated request",
+    description=(
+        "Runs one blocking local generation after source-bound intake passes. "
+        "The model is loaded only by this explicit endpoint."
+    ),
+    responses={
+        409: {"model": ErrorResponse, "description": "Intake is not ready or another generation is active"},
+        413: {"model": ErrorResponse, "description": "Request exceeds the supported context budget"},
+        422: {"model": ErrorResponse, "description": "Request does not match the API JSON schema"},
+        503: {"model": ErrorResponse, "description": "Selected local model is unavailable"},
+        500: {"model": ErrorResponse, "description": "Local generation service failed"},
+    },
+)
+def create_generation(body: GenerationRequest) -> GenerationResponse:
+    runtime = get_runtime()
+    if not runtime.generation_lock.acquire(blocking=False):
+        raise _http_error(
+            409,
+            "generation_in_progress",
+            "Generation lain sedang berjalan. Tunggu sampai selesai sebelum mencoba kembali.",
+        )
+
+    try:
+        intake = validate_intake(
+            body.prompt,
+            body.draft.model_dump(exclude_none=True),
+            runtime=runtime,
+        )
+        if intake.status != "ready" or intake.request is None:
+            too_long = intake.status == "input_too_long"
+            status_code = 413 if too_long else 409
+            raise _http_error(
+                status_code,
+                intake.status,
+                intake.message,
+                intake.missing_fields,
+            )
+
+        request = dict(intake.request)
+        generation_id = new_generation_id()
+        request["request_id"] = generation_id
+        created_at = datetime.now(timezone.utc).isoformat()
+        api_summary = _api_summary(request, created_at)
+
+        output_root = runtime.settings.generation_output_dir.resolve(strict=False)
+        try:
+            output_root.mkdir(parents=True, exist_ok=True)
+        except OSError as error:
+            logger.exception("Generation output root is unavailable")
+            raise _http_error(
+                500,
+                "generation_storage_unavailable",
+                "Penyimpanan lokal generation tidak tersedia.",
+            ) from error
+
+        output_dir = output_root / generation_id
+        for _ in range(3):
+            if not output_dir.exists() and not output_dir.is_symlink():
+                break
+            generation_id = new_generation_id()
+            request["request_id"] = generation_id
+            api_summary = _api_summary(request, created_at)
+            output_dir = output_root / generation_id
+        else:
+            raise _http_error(
+                500,
+                "generation_id_unavailable",
+                "ID generation lokal tidak dapat dialokasikan.",
+            )
+
+        try:
+            generator = runtime.get_generator()
+        except Exception as error:
+            logger.exception("Selected generator could not be initialized")
+            raise _http_error(503, "model_unavailable", "Model lokal belum siap untuk generation.") from error
+
+        try:
+            report = generator.generate(request, output_dir)
+        except Exception as error:
+            logger.exception("Generation %s failed before a report was returned", generation_id)
+            try:
+                output_dir.mkdir(parents=False, exist_ok=True)
+                _persist_result(
+                    output_dir,
+                    {
+                        "request_id": generation_id,
+                        "status": "stage_failed",
+                        "api_summary": api_summary,
+                        "errors": ["Generation failed; see the local API log."],
+                    },
+                )
+            except OSError:
+                logger.exception("Could not persist failure record for generation %s", generation_id)
+            return _generation_failure(
+                generation_id,
+                "Generation gagal pada pemeriksaan internal. Periksa request lalu coba kembali.",
+            )
+
+        if not isinstance(report, dict):
+            logger.error("Generation %s returned an invalid report", generation_id)
+            report = {"request_id": generation_id, "status": "stage_failed"}
+        report["api_summary"] = api_summary
+        try:
+            _persist_result(output_dir, report)
+        except OSError:
+            logger.exception("Could not persist safe summary for generation %s", generation_id)
+
+        status = report.get("status")
+        if status == "accepted":
+            return GenerationResponse(
+                status="completed",
+                generation_id=generation_id,
+                message="Halaman berhasil dibuat dan siap ditinjau.",
+                section_count=report.get("sections") if type(report.get("sections")) is int else None,
+                preview_url=(
+                    f"{_api_origin(runtime.settings.host, runtime.settings.port)}"
+                    f"/api/v1/generations/{generation_id}/preview/index.html"
+                ),
+                download_url=(
+                    f"{_api_origin(runtime.settings.host, runtime.settings.port)}"
+                    f"/api/v1/generations/{generation_id}/download.zip"
+                ),
+                files=["index.html", "styles.css", "app.js"],
+            )
+        if status == "input_too_long":
+            return GenerationResponse(
+                status="input_too_long",
+                generation_id=generation_id,
+                message="Request melebihi batas konteks. Ringkas prompt atau fakta secara manual.",
+            )
+        if status == "missing_information":
+            return _generation_failure(
+                generation_id,
+                "Informasi usaha belum lengkap. Lengkapi fakta yang diminta sebelum mencoba kembali.",
+                ["business_facts"],
+            )
+        return _generation_failure(
+            generation_id,
+            "Generation gagal pada pemeriksaan internal. Periksa request lalu coba kembali.",
+        )
+    finally:
+        runtime.generation_lock.release()

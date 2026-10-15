@@ -21,10 +21,15 @@ class Runtime:
         self._intake_catalog: dict[str, Any] | None = None
         self._generator: Any | None = None
         self._lock = threading.RLock()
+        self.generation_lock = threading.Lock()
 
     @property
     def project_root(self) -> Path:
         return self.settings.project_root
+
+    @property
+    def model_loaded(self) -> bool:
+        return self._generator is not None
 
     def ensure_project_importable(self) -> None:
         root = str(self.project_root)

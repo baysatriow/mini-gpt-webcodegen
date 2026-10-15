@@ -49,9 +49,10 @@ def new_generation_id() -> str:
 class ArtifactStore:
     """Resolve generation artifacts under fixed local and trusted asset roots."""
 
-    def __init__(self, output_root: Path, project_root: Path) -> None:
+    def __init__(self, output_root: Path, project_root: Path, api_origin: str) -> None:
         self.output_root = Path(output_root).expanduser()
         self.project_root = Path(project_root).expanduser()
+        self.api_origin = api_origin.rstrip("/")
 
     @staticmethod
     def _validate_generation_id(generation_id: str) -> str:
@@ -134,6 +135,7 @@ class ArtifactStore:
         if (
             not parts
             or PurePosixPath(relative_path).is_absolute()
+            or PurePosixPath(relative_path).as_posix() != relative_path
             or "\\" in relative_path
             or any(part in ("", ".", "..") for part in parts)
         ):
@@ -290,8 +292,16 @@ class ArtifactStore:
             business_name=safe_text("business_name"),
             section_count=section_count,
             created_at=created_at,
-            preview_url=(f"/api/v1/generations/{identifier}/preview/index.html" if completed else None),
-            download_url=(f"/api/v1/generations/{identifier}/download.zip" if completed else None),
+            preview_url=(
+                f"{self.api_origin}/api/v1/generations/{identifier}/preview/index.html"
+                if completed
+                else None
+            ),
+            download_url=(
+                f"{self.api_origin}/api/v1/generations/{identifier}/download.zip"
+                if completed
+                else None
+            ),
             files=list(_SOURCE_NAMES) if completed else [],
         )
 
@@ -319,6 +329,7 @@ class ArtifactStore:
             len(parts) != 2
             or parts[0] != "assets"
             or not parts[1].endswith(".svg")
+            or PurePosixPath(relative_path).as_posix() != relative_path
             or "\\" in relative_path
             or PurePosixPath(relative_path).is_absolute()
         ):
