@@ -6516,6 +6516,17 @@ Selector V5 lulus dengan 80/80 untuk TRAIN-025 step 1.800 dan TRAIN-026 step 3.6
 - Rencana dan spesifikasi: [roadmap aplikasi](../docs/superpowers/plans/2026-10-15-generator-app-roadmap.md), [desain](../docs/superpowers/specs/2026-10-15-generator-chat-application-design.md), [paket TRAIN-025](../docs/superpowers/plans/2026-10-15-train-025-selected-bundle.md), [rencana FastAPI](../docs/superpowers/plans/2026-10-15-fastapi-generator-api.md), dan [rencana UI](../docs/superpowers/plans/2026-10-15-nextjs-generator-chat-ui.md).
 - Rujukan interaksi: percakapan Codex pada 15 Oktober 2026. Tautan share atau ekspor chat tidak dibuat.
 
+### AI-029, kontrak dasar FastAPI
+
+- Tanggal: 15 Oktober 2026, zona waktu Asia/Jakarta.
+- Tujuan: menyiapkan pengaturan lokal dan skema JSON untuk intake, katalog, generation, serta ringkasan aman.
+- Versi direct dependency yang dipilih: FastAPI 0.143.1 dan Uvicorn 0.53.0, berdasarkan rilis PyPI resmi yang tersedia saat pekerjaan ini. Belum dipasang dan tidak mengubah PyTorch.
+- Perubahan yang dipilih: Pydantic schema menolak properti tambahan, memodelkan bukti source span atau konfirmasi pengguna, membatasi jenis fakta, dan menyediakan status workflow JSON. Settings hanya menerima bind loopback dan dua origin UI lokal yang ditetapkan.
+- Perubahan yang ditunda: belum ada route, service intake, model runtime, atau generation. Prompt lebih dari 1.000 karakter akan dipetakan ke status `input_too_long` pada lapisan API, supaya tidak menjadi error HTTP transport.
+- Batas: tidak ada training, inference, tes, build, atau akses test/final.
+- Referensi versi: [FastAPI di PyPI](https://pypi.org/project/fastapi/) dan [Uvicorn di PyPI](https://pypi.org/project/uvicorn/).
+- Rujukan interaksi: percakapan Codex pada 15 Oktober 2026. Tautan share atau ekspor chat tidak dibuat.
+
 ### AI-028, dokumentasi paket runtime terpilih
 
 - Tanggal: 15 Oktober 2026, zona waktu Asia/Jakarta.
