@@ -29,3 +29,7 @@ Training code remains under `src/`, canonical checkpoints remain under `checkpoi
 ## Evaluation limits
 
 The bundle passed the frozen development selection gate. Browser inspection and human visual review have not been completed. This result does not establish 95 percent visual quality or production readiness.
+
+## Application integration
+
+The approved local application plan uses this package from the FastAPI adapter in `apps/api`, with a chat interface in `apps/web`. Read the [application design](../../../docs/superpowers/specs/2026-10-15-generator-chat-application-design.md) and [implementation roadmap](../../../docs/superpowers/plans/2026-10-15-generator-app-roadmap.md) for the integration boundary and current implementation order.

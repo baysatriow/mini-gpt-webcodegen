@@ -2,6 +2,14 @@
 
 Mini GPT WebCodeGen adalah proyek kuliah untuk membangun model generatif decoder-only dari bobot acak yang menghasilkan rancangan website. Model menulis spesifikasi halaman berbentuk JSON, aplikasi memvalidasinya, lalu renderer tahap akhir membuat HTML, CSS, dan JavaScript untuk preview serta unduhan.
 
+## Aplikasi chat generator, implementasi berjalan
+
+Rancangan aplikasi lokal memakai Next.js dan shadcn di `apps/web`, FastAPI di `apps/api`, serta pipeline source-bound yang sudah ada. Pengguna melengkapi fakta usaha melalui chat dan mengonfirmasi ringkasan sebelum meminta halaman dibuat. Model memilih rancangan dari katalog; renderer lokal tetap menghasilkan HTML, CSS, JavaScript, dan aset yang tervalidasi.
+
+Kandidat runtime yang dipaketkan adalah TRAIN-025 step 1.800. Panduan dan provenance ada di [paket runtime terpilih](training/selected/fullpage-v5/README.md). Salinan model dan output development hanya ada secara lokal dan diabaikan Git. Kode training tetap di `src/`, sedangkan checkpoint kanonis tetap di `checkpoints/`.
+
+Kandidat lolos gerbang validator pada 80 dari 80 request development. Review browser dan visual manusia masih pending; hasil ini tidak membuktikan kualitas visual 95 persen. Rencana aplikasi ada di [roadmap generator](docs/superpowers/plans/2026-10-15-generator-app-roadmap.md) dan [desain aplikasi](docs/superpowers/specs/2026-10-15-generator-chat-application-design.md). Implementasi belum selesai dan inference aplikasi belum dijalankan.
+
 ## Halaman utuh, AI-018
 
 Generasi bertahap sudah diimplementasikan: request terstruktur → plan512 → isi section1536 → validasi fakta/komposer → HTML/CSS biasa atau Tailwind/JavaScript lokal. Context2048. TRAIN-016600 dan TRAIN-0172400 updates selesai di RTX5070 dengan batch16/accum3.

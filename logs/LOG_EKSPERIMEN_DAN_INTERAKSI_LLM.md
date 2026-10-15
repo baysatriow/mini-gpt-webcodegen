@@ -6516,6 +6516,15 @@ Selector V5 lulus dengan 80/80 untuk TRAIN-025 step 1.800 dan TRAIN-026 step 3.6
 - Rencana dan spesifikasi: [roadmap aplikasi](../docs/superpowers/plans/2026-10-15-generator-app-roadmap.md), [desain](../docs/superpowers/specs/2026-10-15-generator-chat-application-design.md), [paket TRAIN-025](../docs/superpowers/plans/2026-10-15-train-025-selected-bundle.md), [rencana FastAPI](../docs/superpowers/plans/2026-10-15-fastapi-generator-api.md), dan [rencana UI](../docs/superpowers/plans/2026-10-15-nextjs-generator-chat-ui.md).
 - Rujukan interaksi: percakapan Codex pada 15 Oktober 2026. Tautan share atau ekspor chat tidak dibuat.
 
+### AI-028, dokumentasi paket runtime terpilih
+
+- Tanggal: 15 Oktober 2026, zona waktu Asia/Jakarta.
+- Tujuan: membuat paket runtime TRAIN-025 dan rancangan aplikasi mudah ditemukan dari README root, indeks dokumentasi, serta README paket.
+- Perubahan yang dipilih: menambahkan tautan ke desain/roadmap aplikasi, menjelaskan lokasi kode training dan checkpoint kanonis, serta menegaskan bahwa model/output development lokal diabaikan Git.
+- Batas klaim: 80/80 hanya merujuk pada request development yang diterima validator. Review visual browser/manusia tetap pending dan tidak ada klaim kualitas visual 95 persen.
+- Status: dokumentasi diperbarui. Tidak ada data test/final, training, inference, tes, atau build yang dijalankan.
+- Rujukan interaksi: percakapan Codex pada 15 Oktober 2026. Tautan share atau ekspor chat tidak dibuat.
+
 ## RUN-596, rencana salin paket runtime TRAIN-025
 
 Catatan ini ditulis sebelum menjalankan pengemas. Perintah yang direncanakan adalah `.venv/Scripts/python.exe qa/package_selected_fullpage_v5.py`. Pra-pemeriksaan baca-saja menemukan ruang kosong F sebesar 19.583.844.352 byte, payload checkpoint 58.358.591 byte, pointer 213 byte, manifest 11.212 byte, dan output development 1.521 berkas dengan total 3.386.944 byte. Salinan serta buffer 32 MiB diperkirakan 95.311.392 byte, sehingga reserve 15 GiB tetap menjadi syarat sebelum dan sesudah penyalinan. Paket tujuan belum ada.
