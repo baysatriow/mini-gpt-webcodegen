@@ -6585,3 +6585,13 @@ Pengemas akan mensyaratkan report seleksi TRAIN-025 step 1.800 lulus, 80/80, `fi
 - Code-path review statis mengonfirmasi health, katalog, dan intake tidak memanggil `get_generator`. Pemanggilan itu hanya ada pada handler POST generation. Ini adalah pemeriksaan source, bukan bukti HTTP runtime.
 - Batas: server belum dijalankan, dependency belum dipasang, tidak ada inference, training, test, atau build. Data test dan final tidak dibuka.
 - Rujukan interaksi: percakapan Codex pada 15 Oktober 2026. Tautan share atau ekspor chat tidak dibuat.
+
+### AI-033, panduan operasi API lokal
+
+- Tanggal: 15 Oktober 2026, zona waktu Asia/Jakarta.
+- Tujuan: menjelaskan pemasangan dependency API pada `.venv` proyek, cara start/stop satu worker, dokumentasi OpenAPI, dan batas tiap route.
+- Perubahan yang dipilih: README API memuat command pip yang hanya merujuk pin FastAPI/Uvicorn, host loopback, CORS exact origin lokal, perilaku lazy-load, output yang diterima saja, serta peran compiler Tailwind yang sudah dipatok.
+- Pemeriksaan lokal menemukan `tooling/tailwind/node_modules` dan `package-lock.json` sudah ada. Karena itu `npm ci` tidak dijalankan. Dependency API juga belum dipasang; PyTorch tidak diubah.
+- Status dokumentasi menyatakan source API telah dibuat, tetapi runtime belum dijalankan. Tidak ada klaim tes, build, atau inference.
+- Batas: tidak membuka test/final dan tidak menjalankan server, install, training, inference, test, atau build.
+- Rujukan interaksi: percakapan Codex pada 15 Oktober 2026. Tautan share atau ekspor chat tidak dibuat.

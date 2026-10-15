@@ -7,6 +7,7 @@ Dokumen di sini menjelaskan ruang lingkup, persyaratan tugas, sumber dataset, en
 - [Desain aplikasi chat generator](superpowers/specs/2026-10-15-generator-chat-application-design.md): alur chat, RequestDraft source-bound, batas model, API, preview, dan unduhan.
 - [Roadmap aplikasi generator](superpowers/plans/2026-10-15-generator-app-roadmap.md): urutan paket TRAIN-025, FastAPI, lalu UI Next.js/shadcn.
 - [Paket runtime terpilih](../training/selected/fullpage-v5/README.md): provenance kandidat TRAIN-025 step 1.800 dan batas review visualnya.
+- [API lokal generator](../apps/api/README.md): setup `.venv`, server satu worker, CORS, rute, dan batas lazy-load model.
 - [Ruang lingkup dan rancangan pipeline](PROJECT_SCOPE_AND_PIPELINE.md): target, batas, interface modul, evaluasi, risiko, dan tahapan.
 - [Rencana implementasi data, model, dan training](superpowers/plans/2026-10-12-pipeline-data-model-training.md): tugas implementasi serta verifikasi yang harus ditinjau sebelum mulai coding.
 - [Analisis dataset awal](ANALISIS_DATASET_2026-10-12.md): isi, akses, lisensi, dan keterbatasan Webdev, WebMC, serta WebSight.
@@ -26,5 +27,7 @@ Dokumen di sini menjelaskan ruang lingkup, persyaratan tugas, sumber dataset, en
 ## Status
 
 Environment, pipeline data, Mini GPT dan training/evaluator tersedia. CLI dan dua contoh CSS/Tailwind menghasilkan output diterima validator. Overall model gate belum lulus43/48exact; research per output berbeda dari production readiness. Lihat [hasil terbaru](../reports/OUTPUT_DEVELOPMENT_2026-10-13.md). UI input/preview sandbox tahap akhir. Data/BPE/checkpoint lokal; code, log, laporan dan dua snapshot website di Git.
+
+API generator sudah memiliki skema, intake, health, generation, dan pembatas artefak di branch implementasi. Dokumentasi API ada di [panduan API lokal](../apps/api/README.md). Server, dependency, test, build, dan inference aplikasi belum dijalankan; UI Next.js masih menunggu implementasi.
 
 Sebelum mengambil atau merilis data, periksa lagi revision, lisensi, atribusi, dan ketentuan penggunaan saat itu.
