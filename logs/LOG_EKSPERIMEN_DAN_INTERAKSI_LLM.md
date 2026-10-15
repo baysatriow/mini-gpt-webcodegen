@@ -6503,3 +6503,32 @@ Selector V5 lulus dengan 80/80 untuk TRAIN-025 step 1.800 dan TRAIN-026 step 3.6
 - Dokumen: [spesifikasi aplikasi](../docs/superpowers/specs/2026-10-15-generator-chat-application-design.md), [roadmap](../docs/superpowers/plans/2026-10-15-generator-app-roadmap.md), [rencana bundle TRAIN-025](../docs/superpowers/plans/2026-10-15-train-025-selected-bundle.md), [rencana FastAPI](../docs/superpowers/plans/2026-10-15-fastapi-generator-api.md), dan [rencana UI Next.js](../docs/superpowers/plans/2026-10-15-nextjs-generator-chat-ui.md).
 - Status: spesifikasi sudah disetujui. Paket rencana implementasi menunggu review pengguna. Belum ada source aplikasi, dependency, model, atau output yang dibuat maupun dipindahkan. Tidak ada install, build, test, training, atau inference. Data test dan final tetap tertutup.
 - Rujukan interaksi: percakapan Codex pada 15 Oktober 2026. Tautan share eksternal atau ekspor chat tidak dibuat.
+
+### AI-027, implementasi aplikasi generator lokal
+
+- Tanggal: 15 Oktober 2026, zona waktu Asia/Jakarta.
+- Permintaan: melanjutkan implementasi setelah pengguna menyetujui paket spesifikasi dan rencana aplikasi.
+- Model sesi implementasi: Codex. Preferensi pengguna sebelumnya untuk implementasi dengan Sol dicatat, tetapi sesi ini tidak berjalan pada Sol dan model aktif tidak diklaim berubah.
+- Arah yang diterapkan: paket lokal kandidat TRAIN-025 step 1.800, FastAPI di `apps/api`, lalu chat Next.js dan shadcn di `apps/web`, sesuai rencana yang disetujui.
+- Keputusan yang dipertahankan: validasi RequestDraft sebelum generation, sumber fakta harus terkonfirmasi, model lazy-load hanya saat generate, preview dan file unduhan hanya untuk output yang diterima.
+- Batas pekerjaan: tidak membuka data test/final, tidak mengubah training/checkpoint kanonis, serta tidak menjalankan training, inference, tes, atau build selama implementasi ini.
+- Status: implementasi dimulai dari paket runtime lokal. Pemeriksaan awal menemukan laporan seleksi menggunakan `selected.generation_report.output`; percobaan baca dengan nama properti lama tidak menulis atau mengubah berkas.
+- Rencana dan spesifikasi: [roadmap aplikasi](../docs/superpowers/plans/2026-10-15-generator-app-roadmap.md), [desain](../docs/superpowers/specs/2026-10-15-generator-chat-application-design.md), [paket TRAIN-025](../docs/superpowers/plans/2026-10-15-train-025-selected-bundle.md), [rencana FastAPI](../docs/superpowers/plans/2026-10-15-fastapi-generator-api.md), dan [rencana UI](../docs/superpowers/plans/2026-10-15-nextjs-generator-chat-ui.md).
+- Rujukan interaksi: percakapan Codex pada 15 Oktober 2026. Tautan share atau ekspor chat tidak dibuat.
+
+## RUN-596, rencana salin paket runtime TRAIN-025
+
+Catatan ini ditulis sebelum menjalankan pengemas. Perintah yang direncanakan adalah `.venv/Scripts/python.exe qa/package_selected_fullpage_v5.py`. Pra-pemeriksaan baca-saja menemukan ruang kosong F sebesar 19.583.844.352 byte, payload checkpoint 58.358.591 byte, pointer 213 byte, manifest 11.212 byte, dan output development 1.521 berkas dengan total 3.386.944 byte. Salinan serta buffer 32 MiB diperkirakan 95.311.392 byte, sehingga reserve 15 GiB tetap menjadi syarat sebelum dan sesudah penyalinan. Paket tujuan belum ada.
+
+Pengemas akan mensyaratkan report seleksi TRAIN-025 step 1.800 lulus, 80/80, `final_used=false`, review browser/manusia pending, hash identitas cocok, dan pointer `.versions` tervalidasi. Tidak ada file test/final yang dibaca atau disalin. Status perintah: menunggu eksekusi.
+
+### Hasil RUN-596
+
+- Perintah: `.venv/Scripts/python.exe qa/package_selected_fullpage_v5.py`.
+- Exit code: 0.
+- Paket lokal dibuat di `training/selected/fullpage-v5`; salinan berisi pointer, payload `.versions`, manifest checkpoint, dan 1.521 file output development.
+- Checkpoint SHA-256: `c1a450149eb8f860cc42595bba283e0f9e915a436f38f967516bc5107bd1c446`.
+- Selection report SHA-256: `f637c04e80f01d55ff6b37d6b0f2e6b1434a50da572597fd57a80b32bb83f512`.
+- Development identity SHA-256: `4cd88d9a29d9f1826ae5beeb87a62ada6f01b5c61684bdb3fe3816b3dda47d1a`.
+- Data copy: 61.756.960 byte. Ruang kosong berubah dari 19.583.844.352 menjadi 19.524.993.024 byte, masih di atas reserve 15 GiB.
+- Gerbang pemilihan mencatat 80/80, `final_used=false`, browser review pending, dan human review pending. Test/final tidak dibuka. Tidak ada training, inference, tes, atau build.

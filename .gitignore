@@ -23,6 +23,8 @@ data/processed/
 !/outputs/dataset_audit/
 /outputs/dataset_audit/*
 !/outputs/dataset_audit/*.json
+/training/selected/fullpage-v5/model/
+/training/selected/fullpage-v5/development-output/
 qa/docx_render/
 docs/referensi/
 docs/CATATAN_LOKASI_FILE_LAMA.txt

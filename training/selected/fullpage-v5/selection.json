@@ -1,0 +1,17 @@
+{
+  "package_format_version": 1,
+  "selected_run_id": "TRAIN-025",
+  "selected_step": 1800,
+  "checkpoint_sha256": "c1a450149eb8f860cc42595bba283e0f9e915a436f38f967516bc5107bd1c446",
+  "selection_report_path": "reports/training/FULLPAGE-V5_DEVELOPMENT_SELECTION.json",
+  "selection_report_sha256": "f637c04e80f01d55ff6b37d6b0f2e6b1434a50da572597fd57a80b32bb83f512",
+  "development_request_sha256": "e4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173",
+  "development_request_file_sha256": "2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836",
+  "development_output_relative_path": "outputs/fullpage/FULLPAGE-V5/TRAIN-025-step1800",
+  "development_identity_sha256": "4cd88d9a29d9f1826ae5beeb87a62ada6f01b5c61684bdb3fe3816b3dda47d1a",
+  "development_count": 80,
+  "development_final_used": false,
+  "final_used": false,
+  "browser_status": "pending",
+  "human_review_status": "pending"
+}
