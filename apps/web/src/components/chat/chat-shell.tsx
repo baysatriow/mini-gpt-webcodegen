@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { PanelLeft, PanelRight, PanelTop, Sparkles } from "lucide-react";
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
+import { PanelLeft, PanelRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -11,28 +11,38 @@ import {
 import { Composer } from "@/components/chat/composer";
 import { HistorySidebar } from "@/components/chat/history-sidebar";
 import { MessageList } from "@/components/chat/message-list";
-import { ApiClientError, getCatalog, validateIntake } from "@/lib/api-client";
-import type { CatalogResponse, RequestDraft } from "@/lib/api-types";
+import { ResultWorkspace, type WorkspaceView } from "@/components/results/result-workspace";
+import type { SourceLoadState } from "@/components/results/source-tabs";
+import { ApiClientError, downloadSourceFile, generate, getCatalog, getSource, validateIntake } from "@/lib/api-client";
+import type { CatalogResponse, GenerationSummary, RequestDraft, SourceFilename } from "@/lib/api-types";
 import {
   chatReducer,
   createChatSession,
   createMessage,
   initialChatState,
   type ClarificationMessage,
+  type GenerationStatusMessage,
   type RequestSummaryMessage,
 } from "@/lib/chat-state";
 import { readChatHistory, writeChatHistory } from "@/lib/history-storage";
-import { SOURCE_DRAFT_CONTRACT } from "@/lib/request-draft";
+import { getFactValue, SOURCE_DRAFT_CONTRACT } from "@/lib/request-draft";
+import { isValidGenerationId } from "@/lib/preview-url";
 
-type MobilePanel = "conversation" | "preview";
+type MobilePanel = "conversation" | WorkspaceView;
 
 export function ChatShell() {
   const [state, dispatch] = useReducer(chatReducer, initialChatState);
   const [prompt, setPrompt] = useState("");
   const [catalog, setCatalog] = useState<CatalogResponse | null>(null);
   const [mobilePanel, setMobilePanel] = useState<MobilePanel>("conversation");
+  const [workspaceView, setWorkspaceView] = useState<WorkspaceView>("preview");
+  const [sourceByGeneration, setSourceByGeneration] = useState<Record<string, SourceLoadState>>({});
   const [historyOpen, setHistoryOpen] = useState(false);
   const didRestore = useRef(false);
+  const activeSessionIdRef = useRef<string | null>(null);
+  const generationAttempts = useRef(new Set<string>());
+  const sourceRequests = useRef(new Set<string>());
+  const sourceCache = useRef(new Map<string, SourceLoadState>());
 
   useEffect(() => {
     if (didRestore.current) return;
@@ -70,11 +80,67 @@ export function ChatShell() {
     () => state.sessions.find((session) => session.id === state.activeSessionId) ?? null,
     [state.sessions, state.activeSessionId],
   );
+  activeSessionIdRef.current = activeSession?.id ?? null;
+  const latestGenerationMessage = useMemo(() => {
+    const messages = activeSession?.messages ?? [];
+    for (let index = messages.length - 1; index >= 0; index -= 1) {
+      const message = messages[index];
+      if (message.type === "generation_status") return message;
+    }
+    return null;
+  }, [activeSession?.messages]);
+  const acceptedSummary = latestGenerationMessage?.status === "completed"
+    ? latestGenerationMessage.summary ?? null
+    : null;
+  const canViewCode = Boolean(acceptedSummary && isValidGenerationId(acceptedSummary.generation_id));
+
+  const loadSource = useCallback((generationId: string, force = false) => {
+    if (!isValidGenerationId(generationId) || sourceRequests.current.has(generationId)) return;
+    const cached = sourceCache.current.get(generationId);
+    if (!force && cached && cached.status !== "error") return;
+    sourceRequests.current.add(generationId);
+    const loading: SourceLoadState = { status: "loading" };
+    sourceCache.current.set(generationId, loading);
+    setSourceByGeneration((current) => ({ ...current, [generationId]: loading }));
+
+    void getSource(generationId)
+      .then((source) => {
+        const loaded: SourceLoadState = { status: "loaded", source };
+        sourceCache.current.set(generationId, loaded);
+        setSourceByGeneration((current) => ({ ...current, [generationId]: loaded }));
+      })
+      .catch((error: unknown) => {
+        const failed: SourceLoadState = {
+          status: "error",
+          message: error instanceof ApiClientError
+            ? error.message
+            : "Source tidak dapat dimuat dari API lokal. Coba lagi.",
+        };
+        sourceCache.current.set(generationId, failed);
+        setSourceByGeneration((current) => ({ ...current, [generationId]: failed }));
+      })
+      .finally(() => sourceRequests.current.delete(generationId));
+  }, []);
+
+  const downloadAcceptedSource = useCallback(async (generationId: string, filename: SourceFilename) => {
+    if (!isValidGenerationId(generationId)) throw new Error("Referensi hasil tidak valid.");
+    const blob = await downloadSourceFile(generationId, filename);
+    const objectUrl = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = objectUrl;
+    link.download = filename;
+    link.hidden = true;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => window.URL.revokeObjectURL(objectUrl), 1000);
+  }, []);
 
   function startNewSession() {
     dispatch({ type: "new_session", session: createChatSession() });
     setPrompt("");
     setMobilePanel("conversation");
+    setWorkspaceView("preview");
     setHistoryOpen(false);
   }
 
@@ -89,6 +155,7 @@ export function ChatShell() {
     dispatch({ type: "set_active_session", sessionId });
     setPrompt("");
     setMobilePanel("conversation");
+    setWorkspaceView("preview");
     setHistoryOpen(false);
   }
 
@@ -198,17 +265,127 @@ export function ChatShell() {
     dispatch({ type: "replace_message", message: clarification, sessionId: activeSession?.id });
   }
 
-  function confirmSummary(message: RequestSummaryMessage) {
+  function failGeneration(
+    sessionId: string,
+    request: RequestSummaryMessage,
+    pending: GenerationStatusMessage,
+    status: "generation_failed" | "input_too_long",
+    content: string,
+  ) {
     dispatch({
       type: "replace_message",
-      sessionId: activeSession?.id,
+      sessionId,
       message: {
-        ...message,
-        state: "confirmed",
-        content: "Rancangan dikonfirmasi. Fakta dan jenis halaman akan tetap mengikuti ringkasan ini.",
+        ...request,
+        state: "ready_to_confirm",
+        content: request.validation.message,
         createdAt: new Date().toISOString(),
       },
     });
+    dispatch({
+      type: "replace_message",
+      sessionId,
+      message: { ...pending, status, content, createdAt: new Date().toISOString() },
+    });
+    generationAttempts.current.delete(request.id);
+    if (activeSessionIdRef.current === sessionId) {
+      setWorkspaceView("preview");
+      setMobilePanel("conversation");
+    }
+  }
+
+  async function runGeneration(sessionId: string, request: RequestSummaryMessage, pending: GenerationStatusMessage) {
+    try {
+      const response = await generate(request.prompt, request.draft);
+      const requiredFiles: SourceFilename[] = ["index.html", "styles.css", "app.js"];
+      const filesReady = requiredFiles.every((filename) => response.files.includes(filename));
+
+      if (response.status !== "completed") {
+        const status = response.status === "input_too_long" ? "input_too_long" : "generation_failed";
+        failGeneration(
+          sessionId,
+          request,
+          pending,
+          status,
+          response.message || (status === "input_too_long"
+            ? "Ringkas prompt atau fakta secara manual lalu coba kembali."
+            : "Halaman belum berhasil dibuat. Periksa ringkasan dan coba lagi."),
+        );
+        return;
+      }
+
+      if (!isValidGenerationId(response.generation_id) || !filesReady) {
+        failGeneration(
+          sessionId,
+          request,
+          pending,
+          "generation_failed",
+          "Respons API belum berisi ID hasil dan tiga file yang diperlukan. Tidak ada preview atau unduhan yang ditampilkan.",
+        );
+        return;
+      }
+
+      const createdAt = new Date().toISOString();
+      const summary: GenerationSummary = {
+        ...response,
+        generation_id: response.generation_id,
+        genre: request.draft.genre ?? null,
+        style_mode: request.draft.style_mode ?? null,
+        business_name: getFactValue(request.draft, "name") || null,
+        created_at: createdAt,
+      };
+      const completed: GenerationStatusMessage = {
+        ...pending,
+        status: "completed",
+        generationId: response.generation_id,
+        summary,
+        content: response.message || "Halaman berhasil dibuat dan siap ditinjau.",
+        createdAt,
+      };
+      dispatch({ type: "replace_message", sessionId, message: completed });
+      dispatch({ type: "set_generation", sessionId, generationId: response.generation_id, updatedAt: createdAt });
+      if (activeSessionIdRef.current === sessionId) {
+        setWorkspaceView("preview");
+        setMobilePanel("preview");
+      }
+    } catch (error) {
+      failGeneration(
+        sessionId,
+        request,
+        pending,
+        "generation_failed",
+        error instanceof ApiClientError
+          ? error.message
+          : "Pembuatan halaman gagal terhubung ke API lokal. Periksa layanan lalu coba lagi.",
+      );
+    }
+  }
+
+  function confirmSummary(message: RequestSummaryMessage) {
+    const sessionId = activeSession?.id;
+    if (!sessionId || message.state !== "ready_to_confirm" || generationAttempts.current.has(message.id)) return;
+    generationAttempts.current.add(message.id);
+    const now = new Date().toISOString();
+    const pending = createMessage({
+      type: "generation_status",
+      requestSummaryId: message.id,
+      status: "pending",
+      content: "Mengirim rancangan yang disetujui ke API lokal. Tunggu hasilnya sebelum meninggalkan sesi.",
+    });
+    dispatch({
+      type: "replace_message",
+      sessionId,
+      message: {
+        ...message,
+        state: "confirmed",
+        content: "Ringkasan disetujui. Halaman dibuat berdasarkan fakta dan ruang lingkup di atas.",
+        createdAt: now,
+      },
+    });
+    dispatch({ type: "append_message", sessionId, message: pending });
+    setWorkspaceView("preview");
+    setMobilePanel("preview");
+    void runGeneration(sessionId, message, pending);
   }
 
   function editPrompt(value: string) {
@@ -235,6 +412,17 @@ export function ChatShell() {
     onSelect: selectSession,
     onDelete: removeSession,
   };
+
+  const sourceState = acceptedSummary
+    ? sourceByGeneration[acceptedSummary.generation_id] ?? { status: "idle" as const }
+    : { status: "idle" as const };
+  const canvasStatusLabel = latestGenerationMessage?.status === "completed"
+    ? acceptedSummary ? "Halaman diterima" : "Hasil tidak tersedia"
+    : latestGenerationMessage?.status === "pending"
+      ? "Menunggu API lokal"
+      : latestGenerationMessage
+        ? "Perlu diperbaiki"
+        : "Belum ada hasil";
 
   return (
     <main className="h-svh min-h-svh overflow-hidden bg-frost text-harbor-ink">
@@ -295,46 +483,36 @@ export function ChatShell() {
             </div>
           </section>
 
-          <section className={`${mobilePanel === "preview" ? "flex" : "hidden"} min-h-0 min-w-0 flex-1 flex-col bg-frost pb-16 lg:flex lg:pb-0`} aria-label="Kanvas hasil">
+          <section className={`${mobilePanel !== "conversation" ? "flex" : "hidden"} min-h-0 min-w-0 flex-1 flex-col bg-frost pb-16 lg:flex lg:pb-0`} aria-label="Kanvas hasil">
             <div className="flex h-[62px] shrink-0 items-center justify-between border-b border-border bg-white/70 px-4 sm:px-6">
               <div>
                 <p className="text-sm font-semibold text-harbor-ink">Kanvas halaman</p>
-                <p className="hidden text-xs text-slate-note sm:block">Pratinjau hasil yang sudah diterima</p>
+                <p className="hidden max-w-[36ch] truncate text-xs text-slate-note sm:block">
+                  {acceptedSummary?.business_name || "Pratinjau muncul setelah hasil diterima"}
+                </p>
               </div>
-              <span className="rounded-full border border-border bg-white px-2.5 py-1 text-[11px] text-slate-note">
-                Belum ada hasil
+              <span className={`rounded-full border px-2.5 py-1 text-[11px] ${acceptedSummary ? "border-verified/20 bg-verified/5 text-verified" : "border-border bg-white text-slate-note"}`}>
+                {canvasStatusLabel}
               </span>
             </div>
-
-            <div className="flex min-h-0 flex-1 flex-col items-center justify-center px-5 py-8 sm:px-8">
-              <div className="w-full max-w-[740px] overflow-hidden rounded-xl border border-border bg-white shadow-[0_16px_48px_rgba(30,45,69,0.08)]">
-                <div className="flex h-10 items-center gap-1.5 border-b border-border bg-white px-4">
-                  <span className="size-2 rounded-full bg-[#E5A19B]" aria-hidden="true" />
-                  <span className="size-2 rounded-full bg-[#E9CB86]" aria-hidden="true" />
-                  <span className="size-2 rounded-full bg-[#8CC7B5]" aria-hidden="true" />
-                  <span className="ml-3 h-5 flex-1 rounded-md bg-frost" aria-hidden="true" />
-                </div>
-                <div className="grid min-h-[340px] place-items-center px-6 py-12 text-center sm:min-h-[420px]">
-                  <div className="max-w-sm">
-                    <div className="mx-auto grid size-12 place-items-center rounded-2xl bg-frost text-slate-note">
-                      <PanelTop aria-hidden="true" className="size-5" />
-                    </div>
-                    <h2 className="mt-4 text-base font-semibold text-harbor-ink">Pratinjau akan muncul di sini</h2>
-                    <p className="mt-2 text-sm leading-6 text-slate-note">
-                      Lengkapi fakta usaha, tinjau ringkasan, lalu setujui pembuatan halaman.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <p className="mt-4 max-w-md text-center text-xs leading-5 text-slate-note">
-                Hanya hasil yang lolos validasi renderer yang akan ditampilkan.
-              </p>
-            </div>
+            <ResultWorkspace
+              summary={acceptedSummary}
+              status={latestGenerationMessage?.status ?? null}
+              statusMessage={latestGenerationMessage?.content ?? null}
+              view={workspaceView}
+              onViewChange={(view) => {
+                setWorkspaceView(view);
+                setMobilePanel(view);
+              }}
+              sourceState={sourceState}
+              onLoadSource={loadSource}
+              onDownloadSource={downloadAcceptedSource}
+            />
           </section>
         </div>
 
         <div className="fixed inset-x-0 bottom-0 z-20 flex justify-center border-t border-border bg-white/95 p-2 backdrop-blur lg:hidden">
-          <div className="flex w-full max-w-sm rounded-xl bg-frost p-1">
+          <div className={`flex w-full rounded-xl bg-frost p-1 ${canViewCode ? "max-w-lg" : "max-w-sm"}`} role="group" aria-label="Pilih tampilan">
             <Button
               type="button"
               variant={mobilePanel === "conversation" ? "secondary" : "ghost"}
@@ -351,12 +529,30 @@ export function ChatShell() {
               variant={mobilePanel === "preview" ? "secondary" : "ghost"}
               size="sm"
               aria-pressed={mobilePanel === "preview"}
-              onClick={() => setMobilePanel("preview")}
+              onClick={() => {
+                setMobilePanel("preview");
+                setWorkspaceView("preview");
+              }}
               className="flex-1 gap-2 rounded-lg"
             >
               <PanelRight aria-hidden="true" className="size-3.5" />
               Kanvas
             </Button>
+            {canViewCode ? (
+              <Button
+                type="button"
+                variant={mobilePanel === "code" ? "secondary" : "ghost"}
+                size="sm"
+                aria-pressed={mobilePanel === "code"}
+                onClick={() => {
+                  setMobilePanel("code");
+                  setWorkspaceView("code");
+                }}
+                className="flex-1 gap-2 rounded-lg"
+              >
+                Kode
+              </Button>
+            ) : null}
           </div>
         </div>
       </div>

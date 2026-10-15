@@ -140,6 +140,10 @@ export function downloadZip(generationId: string): Promise<Blob> {
   return requestBlob(`${generationPath(generationId)}/download.zip`);
 }
 
+export function downloadSourceFile(generationId: string, filename: SourceFilename): Promise<Blob> {
+  return requestBlob(`${generationPath(generationId)}/preview/${encodeURIComponent(filename)}`);
+}
+
 export function isApiErrorResponse(value: unknown): value is ApiErrorResponse {
   if (typeof value !== "object" || value === null) return false;
   const candidate = value as Record<string, unknown>;

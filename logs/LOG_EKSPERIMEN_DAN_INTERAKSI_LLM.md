@@ -6663,3 +6663,22 @@ Catatan ditulis sebelum menjalankan CLI. Perintah terencana dari `apps/web`: `np
 - Penyimpanan riwayat menerima status percakapan/form yang dikenal saja, membuang skema lama atau malformed, dan tidak menyimpan HTML/CSS/JavaScript hasil.
 - Batas: request katalog/intake tidak memuat model; tidak ada generation, build, lint, test, inference, atau akses data test/final. Review ini bersifat source-level saja.
 - Status perubahan: siap direview dan dicommit.
+
+## RUN-601, komponen tab untuk preview dan source
+
+Catatan ditulis sebelum menjalankan CLI. Perintah terencana dari `apps/web`: `npx --yes shadcn@4.21.5 add tabs`. CLI menyalin komponen tab untuk berpindah antara pratinjau dan tiga file source. Tidak menjalankan build, lint, test, server, atau inference. Status: menunggu eksekusi.
+
+### Hasil RUN-601
+
+Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working tree. Output CLI terpotong, sehingga exit code tidak tercatat. Tidak ada perubahan package atau lockfile. Tidak ada build, lint, test, server, atau inference.
+
+## AI-037, generation dan workspace hasil
+
+- Tanggal: 15 Oktober 2026, zona waktu Asia/Jakarta.
+- Tujuan: menghubungkan persetujuan ringkasan ke generation eksplisit dan menyajikan hanya hasil yang diterima API.
+- Perubahan: tombol persetujuan sekarang memulai satu request JSON ke FastAPI dan menampilkan status menunggu tanpa progres buatan. Status gagal atau status tak dikenal tidak membuka preview, source, atau unduhan dan mengembalikan ringkasan ke kondisi siap diperiksa ulang. Status pending yang tersimpan saat halaman ditutup dipulihkan sebagai proses terputus, bukan dianggap masih berjalan.
+- Workspace hasil menampilkan preview dalam iframe `sandbox="allow-scripts"` tanpa izin `allow-same-origin`, pilihan lebar desktop/mobile, tab `index.html`, `styles.css`, dan `app.js`, unduhan file melalui route preview yang diizinkan, serta ZIP dari endpoint API. Source baru diminta ketika tampilan kode dibuka. Error source dan preview memiliki tindakan pemulihan tanpa mengulang generation.
+- URL preview dan ZIP dibangun dari UUID hasil dan origin API lokal, bukan memakai URL yang tersimpan sebagai HTML. Source ditampilkan sebagai teks React biasa dan tidak disimpan ke riwayat browser.
+- Kontrak `apps/api` tidak diubah. Endpoint generation tidak dipanggil selama implementasi ini.
+- Pemeriksaan: review source dan `git diff --check` untuk whitespace lulus. Pencarian source tidak menemukan `allow-same-origin` atau `dangerouslySetInnerHTML`. Tidak menjalankan build, lint, test, server, inference, atau membuka data test/final. Review visual browser belum dilakukan.
+- Status perubahan: siap dicommit dan dipush ke `feature/pipeline-data-model-training`.

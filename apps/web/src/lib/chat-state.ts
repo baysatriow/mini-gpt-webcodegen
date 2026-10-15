@@ -42,6 +42,7 @@ export type GenerationStatusMessage = MessageBase & {
   type: "generation_status";
   content: string;
   status: "pending" | GenerationStatus;
+  requestSummaryId?: string;
   generationId?: string;
   summary?: GenerationSummary;
 };
@@ -115,6 +116,42 @@ export function createMessage(message: NewChatMessage): ChatMessage {
   return { ...message, id: createId(), createdAt: new Date().toISOString() } as ChatMessage;
 }
 
+function recoverInterruptedGenerations(session: ChatSession): ChatSession {
+  const pendingSummaryIds = new Set(
+    session.messages
+      .filter((message): message is GenerationStatusMessage =>
+        message.type === "generation_status" && message.status === "pending",
+      )
+      .map((message) => message.requestSummaryId)
+      .filter((id): id is string => typeof id === "string"),
+  );
+
+  if (pendingSummaryIds.size === 0 && !session.messages.some(
+    (message) => message.type === "generation_status" && message.status === "pending",
+  )) {
+    return session;
+  }
+
+  return {
+    ...session,
+    messages: session.messages.map((message) => {
+      if (message.type === "generation_status" && message.status === "pending") {
+        return {
+          ...message,
+          status: "generation_failed",
+          content: "Proses terputus saat halaman dimuat ulang. Ringkasan tetap tersedia untuk diperiksa dan dicoba kembali.",
+          generationId: undefined,
+          summary: undefined,
+        };
+      }
+      if (message.type === "request_summary" && pendingSummaryIds.has(message.id)) {
+        return { ...message, state: "ready_to_confirm" };
+      }
+      return message;
+    }),
+  };
+}
+
 function sessionWithUpdatedMessage(session: ChatSession, message: ChatMessage): ChatSession {
   const firstUserMessage = message.type === "user" && session.messages.length === 0;
   const title = firstUserMessage
@@ -132,7 +169,7 @@ export function chatReducer(state: ChatState, action: ChatAction): ChatState {
   switch (action.type) {
     case "restore_session":
       return {
-        sessions: action.sessions,
+        sessions: action.sessions.map(recoverInterruptedGenerations),
         activeSessionId: action.activeSessionId,
         restored: true,
       };

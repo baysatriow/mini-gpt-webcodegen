@@ -1,8 +1,9 @@
 "use client";
 
-import { Bot, Building2, CheckCircle2, CircleAlert, Coffee, LoaderCircle, Palette, Sparkles } from "lucide-react";
+import { Bot, Building2, Coffee, Palette, Sparkles } from "lucide-react";
 import { IntakeCard } from "@/components/chat/intake-card";
 import { RequestSummary } from "@/components/chat/request-summary";
+import { GenerationStatus } from "@/components/results/generation-status";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { CatalogResponse, RequestDraft } from "@/lib/api-types";
 import type { ChatMessage, ClarificationMessage, RequestSummaryMessage } from "@/lib/chat-state";
@@ -130,24 +131,7 @@ function MessageRow({
   }
 
   if (message.type === "generation_status") {
-    const pending = message.status === "pending";
-    const failed = message.status === "generation_failed" || message.status === "input_too_long";
-    return (
-      <article className="flex items-start gap-3" aria-label="Status pembuatan halaman">
-        <MessageMark />
-        <div className="min-w-0 flex-1 pt-1">
-          <p className="whitespace-pre-wrap break-words text-[15px] leading-7 text-harbor-ink">
-            {message.content}
-          </p>
-          <div className={`mt-2 inline-flex items-center gap-2 text-xs ${failed ? "text-destructive" : "text-slate-note"}`}>
-            {pending ? <LoaderCircle className="size-3.5 animate-spin" aria-hidden="true" /> : null}
-            {failed ? <CircleAlert className="size-3.5" aria-hidden="true" /> : null}
-            {message.status === "completed" ? <CheckCircle2 className="size-3.5 text-verified" aria-hidden="true" /> : null}
-            <span>{pending ? "Sedang diproses" : message.status === "completed" ? "Selesai" : "Perlu ditinjau"}</span>
-          </div>
-        </div>
-      </article>
-    );
+    return <GenerationStatus message={message} />;
   }
 
   if (message.type === "clarification") {

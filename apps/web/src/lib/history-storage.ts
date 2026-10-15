@@ -1,5 +1,6 @@
 import type { ChatMessage, ChatSession, ChatState } from "@/lib/chat-state";
 import type { RequestDraft } from "@/lib/api-types";
+import { isValidGenerationId } from "@/lib/preview-url";
 
 const STORAGE_KEY = "rancang.chat-history";
 const STORAGE_VERSION = 1;
@@ -27,8 +28,8 @@ function isDraft(value: unknown): value is RequestDraft {
 
 function isGenerationSummary(value: unknown): boolean {
   if (!isRecord(value)) return false;
-  return typeof value.generation_id === "string"
-    && GENERATION_STATUSES.has(String(value.status))
+  return isValidGenerationId(value.generation_id)
+    && value.status === "completed"
     && typeof value.message === "string"
     && (value.genre === null || typeof value.genre === "string")
     && (value.style_mode === null || typeof value.style_mode === "string")
@@ -66,6 +67,8 @@ function isChatMessage(value: unknown): value is ChatMessage {
         && ["editing", "ready_to_confirm", "confirmed"].includes(value.state);
     case "generation_status":
       return (value.status === "pending" || (typeof value.status === "string" && GENERATION_STATUSES.has(value.status)))
+        && (value.requestSummaryId === undefined || typeof value.requestSummaryId === "string")
+        && (value.generationId === undefined || typeof value.generationId === "string")
         && (value.summary === undefined || isGenerationSummary(value.summary));
     default:
       return false;

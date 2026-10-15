@@ -94,14 +94,14 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
                   Ubah fakta
                 </Button>
                 <Button type="button" size="sm" onClick={() => onConfirm(message)} className="rounded-lg">
-                  Konfirmasi ringkasan
+                  Setujui dan buat halaman
                 </Button>
               </>
             )}
           </div>
         </div>
         <p className="mt-2 text-[11px] leading-5 text-slate-note">
-          Konfirmasi ini menyetujui fakta dan ruang lingkup di atas. Generation hanya dimulai lewat tindakan pengguna berikutnya.
+          Setelah disetujui, API lokal mulai membuat halaman dari fakta dan ruang lingkup di atas.
         </p>
       </div>
     </article>
