@@ -6552,3 +6552,14 @@ Pengemas akan mensyaratkan report seleksi TRAIN-025 step 1.800 lulus, 80/80, `fi
 - Development identity SHA-256: `4cd88d9a29d9f1826ae5beeb87a62ada6f01b5c61684bdb3fe3816b3dda47d1a`.
 - Data copy: 61.756.960 byte. Ruang kosong berubah dari 19.583.844.352 menjadi 19.524.993.024 byte, masih di atas reserve 15 GiB.
 - Gerbang pemilihan mencatat 80/80, `final_used=false`, browser review pending, dan human review pending. Test/final tidak dibuka. Tidak ada training, inference, tes, atau build.
+
+### AI-030, runtime non-inference dan intake API
+
+- Tanggal: 15 Oktober 2026, zona waktu Asia/Jakarta.
+- Tujuan: memisahkan pemuatan tokenizer/katalog dari generator dan menyediakan service intake yang tidak membuat output halaman.
+- Perubahan yang dipilih: runtime menyimpan tokenizer/katalog setelah dipakai; `FullPageGenerator` hanya diimpor, hash checkpoint serta report diperiksa, dan generator dibuat melalui `get_generator()`.
+- Intake meneruskan validasi ke `prepare_intake`, mengecek batas prompt dan kecocokan prompt sebelum validasi pipeline, menjaga `missing_fields`, serta mengganti pesan internal dengan panduan aman.
+- Keputusan schema: RequestDraft Pydantic dibuat parsial agar field yang belum lengkap dapat menghasilkan status klarifikasi. Schema pipeline source-bound tetap menjadi validator otoritatif untuk fakta dan evidence.
+- Katalog publik hanya memuat ID, label, dimensi, asal dan lisensi aset; path file tidak diekspos.
+- Batas: route health dan route API akan dibuat pada task berikutnya. Pemeriksaan laziness untuk route health diteruskan ke task routing; tidak ada training, inference, tes, build, atau akses test/final.
+- Rujukan interaksi: percakapan Codex pada 15 Oktober 2026. Tautan share atau ekspor chat tidak dibuat.

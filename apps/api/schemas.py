@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Annotated, Any, Literal, Union
+from typing import Annotated, Any, Literal
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, StringConstraints, model_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 
 
 MAX_PROMPT_CHARS = 1000
@@ -17,111 +17,29 @@ SOURCE_FILES = Literal["index.html", "styles.css", "app.js"]
 IntakeStatus = Literal["needs_clarification", "unsupported_request", "input_too_long", "ready"]
 GenerationStatus = Literal["completed", "generation_failed", "input_too_long"]
 
-FactId = Annotated[StrictStr, StringConstraints(pattern=r"^[a-z][a-z0-9_-]{0,63}$")]
-CapabilityId = Annotated[StrictStr, StringConstraints(pattern=r"^[a-z][a-z0-9_-]{0,63}$")]
-NonEmptyText = Annotated[StrictStr, Field(min_length=1)]
-
-
 class APIModel(BaseModel):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=False)
 
 
-class SourceSpan(APIModel):
-    start: Annotated[StrictInt, Field(ge=0)]
-    end: Annotated[StrictInt, Field(ge=1)]
-
-
-class CapabilitySourceSpan(SourceSpan):
-    quote: Annotated[StrictStr, Field(min_length=1, max_length=100)]
-
-
-class FactEvidence(APIModel):
-    source_span: SourceSpan | None = None
-    user_confirmed: Literal[True] | None = None
-
-    @model_validator(mode="after")
-    def require_one_evidence_source(self) -> FactEvidence:
-        if (self.source_span is None) == (self.user_confirmed is None):
-            raise ValueError("Provide exactly one source span or user confirmation")
-        return self
-
-
-class CapabilityEvidence(APIModel):
-    source_span: CapabilitySourceSpan | None = None
-    user_confirmed: Literal[True] | None = None
-
-    @model_validator(mode="after")
-    def require_one_evidence_source(self) -> CapabilityEvidence:
-        if (self.source_span is None) == (self.user_confirmed is None):
-            raise ValueError("Provide exactly one source span or user confirmation")
-        return self
-
-
-class TitledFact(APIModel):
-    title: Annotated[StrictStr, Field(min_length=1, max_length=100)]
-    title_evidence: FactEvidence
-    text: Annotated[StrictStr, Field(min_length=1, max_length=1000)]
-    text_evidence: FactEvidence
-
-
-class NameFact(APIModel):
-    id: FactId
-    kind: Literal["name"]
-    value: Annotated[StrictStr, Field(min_length=1, max_length=100)]
-    evidence: FactEvidence
-
-
-class DescriptionFact(APIModel):
-    id: FactId
-    kind: Literal["description"]
-    value: Annotated[StrictStr, Field(min_length=1, max_length=3000)]
-    evidence: FactEvidence
-
-
-class ValueFact(APIModel):
-    id: FactId
-    kind: Literal["value"]
-    value: Annotated[StrictStr, Field(min_length=1, max_length=1000)]
-    evidence: FactEvidence
-
-
-class StructuredFact(APIModel):
-    id: FactId
-    kind: Literal["service", "project", "process", "faq"]
-    value: TitledFact
-
-
-BusinessFact = Annotated[
-    Union[NameFact, DescriptionFact, ValueFact, StructuredFact],
-    Field(discriminator="kind"),
-]
-
-
-class RequestedFeature(APIModel):
-    capability_id: CapabilityId
-    evidence: CapabilityEvidence
-
-
 class RequestDraft(APIModel):
-    contract_version: Literal[SOURCE_DRAFT_CONTRACT]
-    prompt: Annotated[NonEmptyText, Field(max_length=MAX_PROMPT_CHARS)]
-    genre: Annotated[StrictStr, Field(min_length=1, max_length=100)]
-    style_mode: Annotated[StrictStr, Field(min_length=1, max_length=100)]
-    business_facts: Annotated[list[BusinessFact], Field(min_length=3, max_length=24)]
-    requested_features: Annotated[list[RequestedFeature], Field(max_length=32)]
-    asset_ids: Annotated[list[CapabilityId], Field(max_length=8)]
-    fictitious: StrictBool
+    """Partial user draft; the source-bound pipeline owns semantic validation."""
+
+    contract_version: StrictStr | None = None
+    prompt: StrictStr | None = Field(
+        default=None,
+        description="Must match the envelope prompt. Intake returns a workflow status for missing or oversized text.",
+    )
+    genre: StrictStr | None = None
+    style_mode: StrictStr | None = None
+    business_facts: list[dict[str, Any]] = Field(default_factory=list, max_length=24)
+    requested_features: list[dict[str, Any]] = Field(default_factory=list, max_length=32)
+    asset_ids: list[StrictStr] = Field(default_factory=list, max_length=8)
+    fictitious: StrictBool | None = None
 
 
 class IntakeEnvelope(APIModel):
-    prompt: NonEmptyText
+    prompt: StrictStr
     draft: RequestDraft
-
-    @model_validator(mode="after")
-    def prompt_matches_draft(self) -> IntakeEnvelope:
-        if self.prompt != self.draft.prompt:
-            raise ValueError("prompt must match draft.prompt exactly")
-        return self
 
 
 class GenerationRequest(IntakeEnvelope):
@@ -141,12 +59,12 @@ class CatalogOption(APIModel):
 
 
 class CapabilityLabel(APIModel):
-    id: CapabilityId
+    id: StrictStr
     label: StrictStr
 
 
 class AssetMetadata(APIModel):
-    id: CapabilityId
+    id: StrictStr
     width: Annotated[StrictInt, Field(gt=0)]
     height: Annotated[StrictInt, Field(gt=0)]
     origin: StrictStr
