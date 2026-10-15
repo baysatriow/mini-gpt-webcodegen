@@ -116,7 +116,8 @@ export type GenerationResponse = {
   files: SourceFilename[];
 };
 
-export type GenerationSummary = GenerationResponse & {
+export type GenerationSummary = Omit<GenerationResponse, "generation_id"> & {
+  generation_id: string;
   genre: string | null;
   style_mode: string | null;
   business_name: string | null;

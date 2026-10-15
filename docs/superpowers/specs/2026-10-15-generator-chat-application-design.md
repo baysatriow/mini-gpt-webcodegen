@@ -38,7 +38,7 @@ Akibatnya, aplikasi dapat menghasilkan halaman lengkap dengan struktur dan isi y
 
 ### Tidak termasuk
 
-- Backend atau database yang dibuat oleh model, autentikasi, akun, kolaborasi, atau deployment publik.
+- Backend atau database yang dibuat oleh model, autentikasi, akun, pembayaran atau transaksi online, kolaborasi, atau deployment publik.
 - Generator React, Vue, atau framework frontend lain.
 - HTML, CSS, JavaScript bebas yang ditulis atau dijalankan langsung oleh model.
 - Script CDN, script eksternal, koneksi keluar, dan form website yang benar-benar mengirim data.

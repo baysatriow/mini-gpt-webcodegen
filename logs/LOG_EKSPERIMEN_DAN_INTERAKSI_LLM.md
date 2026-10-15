@@ -6683,6 +6683,19 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Pemeriksaan: review source dan `git diff --check` untuk whitespace lulus. Pencarian source tidak menemukan `allow-same-origin` atau `dangerouslySetInnerHTML`. Tidak menjalankan build, lint, test, server, inference, atau membuka data test/final. Review visual browser belum dilakukan.
 - Status perubahan: siap dicommit dan dipush ke `feature/pipeline-data-model-training`.
 
+## AI-039, perbaikan setelah review seluruh branch
+
+- Tanggal: 16 Oktober 2026, zona waktu Asia/Jakarta.
+- Tujuan: menutup temuan source review sebelum aplikasi dipakai untuk evaluasi runtime.
+- Temuan: reviewer mengidentifikasi tipe ID hasil yang masih nullable, pemilihan fitur request yang kosong, retry preview yang bergantung pada event iframe, intake yang tersangkut setelah reload, validasi nested localStorage yang longgar, dan lebar desktop yang belum merepresentasikan viewport desktop.
+- Perubahan: GenerationSummary sekarang mewajibkan ID string. Form mencatat pilihan fitur dengan ID katalog dan bukti konfirmasi, katalog kemampuan menambahkan cakupan login, pembayaran, pengiriman formulir, dan integrasi API, sedangkan intake mencocokkan frasa katalog pada prompt sebagai pengaman tambahan. Pencocokan ini deterministik, bukan klasifikasi semantik umum.
+- Pemulihan: intake yang terputus saat reload kembali menjadi form yang dapat diperiksa dan divalidasi ulang. Riwayat lokal memvalidasi struktur fakta bersarang, evidence, daftar fitur, aset, status hasil, dan ID generation sebelum dipakai.
+- Preview: UI memeriksa respons HTTP route preview yang diterima sebelum membuka iframe sandbox, menampilkan retry untuk kegagalan request, dan menyediakan lebar desktop 1280 piksel serta mobile 390 piksel. Retry tidak menjalankan generation.
+- Dokumentasi: README API dan web menjelaskan pemeriksaan kemampuan serta perilaku preview; spesifikasi memperjelas bahwa pembayaran online di luar cakupan.
+- Pemeriksaan: review perubahan secara source-level dan git diff --check lulus. Tidak menjalankan test, build, lint, server, inference, training, atau membuka data test/final. Tidak ada pemeriksaan visual browser atau end-to-end.
+- Batas: frasa kemampuan yang terdeteksi hanya yang tercantum pada katalog. Sebutan yang dinegasikan tetap dapat memerlukan prompt yang dirumuskan ulang; pemeriksaan ini bukan pemahaman konteks bahasa.
+- Status: perbaikan source siap dicommit ke branch kerja; kelulusan build, integrasi live, dan kualitas visual belum dibuktikan.
+
 ## AI-038, dokumentasi pengoperasian frontend
 
 - Tanggal: 15 Oktober 2026, zona waktu Asia/Jakarta.

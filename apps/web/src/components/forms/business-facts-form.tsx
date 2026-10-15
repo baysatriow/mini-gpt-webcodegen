@@ -24,6 +24,7 @@ type FormFields = {
   description: string;
   services: ServiceFields[];
   additionalFacts: ConfirmedStructuredFact[];
+  requestedFeatureIds: string[];
   assetIds: string[];
   fictitious: "" | "true" | "false";
 };
@@ -58,6 +59,7 @@ function fromDraft(draft: RequestDraft): FormFields {
     description: getFactValue(draft, "description"),
     services: services.length ? services : [{ title: "", text: "" }],
     additionalFacts,
+    requestedFeatureIds: draft.requested_features.map((feature) => feature.capability_id),
     assetIds: draft.asset_ids,
     fictitious,
   };
@@ -114,6 +116,7 @@ export function BusinessFactsForm({
       description: fields.description,
       services: fields.services,
       additionalFacts: fields.additionalFacts,
+      requestedFeatureIds: fields.requestedFeatureIds,
       assetIds: fields.assetIds,
       fictitious: fields.fictitious === "true",
     };
@@ -139,6 +142,18 @@ export function BusinessFactsForm({
         assetIds: selected
           ? current.assetIds.filter((id) => id !== assetId)
           : [...current.assetIds, assetId],
+      };
+    });
+  }
+
+  function toggleRequestedFeature(capabilityId: string) {
+    setFields((current) => {
+      const selected = current.requestedFeatureIds.includes(capabilityId);
+      return {
+        ...current,
+        requestedFeatureIds: selected
+          ? current.requestedFeatureIds.filter((id) => id !== capabilityId)
+          : [...current.requestedFeatureIds, capabilityId],
       };
     });
   }
@@ -405,13 +420,26 @@ export function BusinessFactsForm({
         )}
 
         {catalog?.unsupported_capabilities.length ? (
-          <div className="rounded-xl border border-[#E5D6B1] bg-[#FBF8F0] px-3.5 py-3">
-            <p className="text-xs font-semibold text-harbor-ink">Batas fitur generator lokal</p>
-            <p className="mt-1 text-xs leading-5 text-slate-note">{catalog.scope_message}</p>
-            <ul className="mt-2 list-disc space-y-1 pl-4 text-xs leading-5 text-slate-note">
-              {catalog.unsupported_capabilities.map((item) => <li key={item.id}>{item.label}</li>)}
-            </ul>
-          </div>
+          <fieldset className="space-y-2 rounded-xl border border-[#E5D6B1] bg-[#FBF8F0] px-3.5 py-3">
+            <legend className="px-1 text-xs font-semibold text-harbor-ink">Periksa kebutuhan fitur</legend>
+            <p className="text-xs leading-5 text-slate-note">
+              Tandai jika prompt meminta salah satu kemampuan berikut. Intake akan menjelaskan batasnya sebelum halaman dibuat.
+            </p>
+            <div className="space-y-1.5">
+              {catalog.unsupported_capabilities.map((item) => (
+                <label key={item.id} className="flex cursor-pointer items-start gap-2 text-xs leading-5 text-slate-note">
+                  <input
+                    type="checkbox"
+                    checked={fields.requestedFeatureIds.includes(item.id)}
+                    onChange={() => toggleRequestedFeature(item.id)}
+                    className="mt-1 accent-primary"
+                  />
+                  <span>{item.label}</span>
+                </label>
+              ))}
+            </div>
+            <p className="pt-1 text-xs leading-5 text-slate-note">{catalog.scope_message}</p>
+          </fieldset>
         ) : null}
 
         {error ? (

@@ -111,7 +111,13 @@ export function ResultWorkspace({
             <span className="hidden text-xs text-slate-note sm:inline">Source hanya dari renderer lokal yang diterima</span>
           </div>
           <div className="min-h-0 flex-1 overflow-auto bg-[#E9EEF5] p-3 sm:p-5">
-            <PreviewFrame key={previewUrl} src={previewUrl} title={summary.business_name || "hasil generator"} viewport={viewport} />
+            <PreviewFrame
+              key={previewUrl}
+              generationId={summary.generation_id}
+              src={previewUrl}
+              title={summary.business_name || "hasil generator"}
+              viewport={viewport}
+            />
           </div>
         </TabsContent>
 

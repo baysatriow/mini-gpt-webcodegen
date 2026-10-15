@@ -19,6 +19,7 @@
         "backend",
         "server-side",
         "server side",
+        "database",
         "database backend"
       ]
     },
@@ -40,6 +41,64 @@
         "free-form javascript",
         "javascript bebas",
         "kode javascript bebas"
+      ]
+    },
+    {
+      "id": "authentication",
+      "label": "login, autentikasi, atau akun pengguna",
+      "evidence_phrases": [
+        "login",
+        "log in",
+        "sign in",
+        "sign-in",
+        "sign up",
+        "sign-up",
+        "authentication",
+        "autentikasi",
+        "akun pengguna",
+        "masuk ke akun",
+        "daftar akun"
+      ]
+    },
+    {
+      "id": "payment_processing",
+      "label": "pembayaran online atau transaksi",
+      "evidence_phrases": [
+        "payment gateway",
+        "payment processing",
+        "payment",
+        "online payment",
+        "checkout",
+        "pembayaran online",
+        "pembayaran",
+        "proses pembayaran",
+        "transaksi online"
+      ]
+    },
+    {
+      "id": "form_submission",
+      "label": "pengiriman formulir atau pesan kontak",
+      "evidence_phrases": [
+        "form submission",
+        "submit form",
+        "send contact form",
+        "send a message",
+        "mengirim formulir",
+        "kirim formulir",
+        "mengirim pesan",
+        "formulir kontak mengirim"
+      ]
+    },
+    {
+      "id": "external_api",
+      "label": "integrasi API atau layanan eksternal",
+      "evidence_phrases": [
+        "external api",
+        "third-party api",
+        "api integration",
+        "integrasi api",
+        "menghubungkan api",
+        "integrasi layanan eksternal"
       ]
     }
   ]

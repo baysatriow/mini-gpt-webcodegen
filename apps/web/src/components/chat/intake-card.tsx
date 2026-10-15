@@ -77,7 +77,7 @@ export function IntakeCard({ message, catalog, onValidate, onEditPrompt }: Intak
           <Button type="button" variant="outline" size="sm" onClick={() => onEditPrompt(message.prompt)} className="mt-3 rounded-lg">
             Edit prompt
           </Button>
-          {message.status === "input_too_long" ? (
+          {message.status === "input_too_long" || message.status === "unsupported_request" ? (
             <BusinessFactsForm
               prompt={message.prompt}
               initialDraft={message.draft}

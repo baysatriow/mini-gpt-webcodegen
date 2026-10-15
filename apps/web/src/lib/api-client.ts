@@ -132,6 +132,27 @@ export function getPreviewFileUrl(generationId: string, filename: SourceFilename
   return `${API_BASE_URL}${generationPath(generationId)}/preview/${encodeURIComponent(filename)}`;
 }
 
+export async function checkPreviewAvailability(generationId: string, signal: AbortSignal): Promise<void> {
+  let response: Response;
+  try {
+    response = await fetch(getPreviewFileUrl(generationId, "index.html"), {
+      cache: "no-store",
+      signal,
+    });
+  } catch (error) {
+    if (signal.aborted) throw error;
+    throw new ApiClientError("Pratinjau tidak dapat dijangkau dari API lokal.", {
+      code: "preview_unreachable",
+    });
+  }
+
+  if (!response.ok) {
+    const payload: unknown = await response.json().catch(() => null);
+    throw safeError(payload, response.status);
+  }
+  if (response.body) await response.body.cancel().catch(() => undefined);
+}
+
 export function getDownloadZipUrl(generationId: string): string {
   return `${API_BASE_URL}${generationPath(generationId)}/download.zip`;
 }

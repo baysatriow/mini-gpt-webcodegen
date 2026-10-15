@@ -20,6 +20,7 @@ export type ConfirmedBusinessFacts = {
   description: string;
   services: Array<{ title: string; text: string }>;
   additionalFacts: ConfirmedStructuredFact[];
+  requestedFeatureIds: string[];
   assetIds: string[];
   fictitious: boolean;
 };
@@ -98,6 +99,10 @@ export function createDraft(prompt: string, facts: ConfirmedBusinessFacts): Requ
   }
   const assetIds = [...new Set(facts.assetIds)];
   if (assetIds.length > 8) throw new DraftValidationError("Pilih maksimal delapan aset lokal.");
+  const requestedFeatureIds = [...new Set(facts.requestedFeatureIds)];
+  if (requestedFeatureIds.length > 32) {
+    throw new DraftValidationError("Jumlah fitur yang diminta melebihi batas.");
+  }
 
   return {
     contract_version: SOURCE_DRAFT_CONTRACT,
@@ -105,9 +110,10 @@ export function createDraft(prompt: string, facts: ConfirmedBusinessFacts): Requ
     genre: facts.genre,
     style_mode: facts.styleMode,
     business_facts: businessFacts,
-    // The public API catalog currently publishes no selectable supported capability IDs.
-    // Keep this empty rather than inventing IDs; intake validates prompt scope server-side.
-    requested_features: [],
+    requested_features: requestedFeatureIds.map((capability_id) => ({
+      capability_id,
+      evidence: { user_confirmed: true },
+    })),
     asset_ids: assetIds,
     fictitious: facts.fictitious,
   };

@@ -175,6 +175,15 @@ def _prompt_mentions_value(prompt, value):
     return re.search(pattern, prompt, flags=re.IGNORECASE) is not None
 
 
+def _prompt_mentions_capability(prompt, item):
+    """Match catalog phrases so unsupported scope cannot pass as an empty feature list."""
+    phrases = item.get("evidence_phrases", [])
+    return any(
+        isinstance(phrase, str) and _prompt_mentions_value(prompt, phrase)
+        for phrase in phrases
+    )
+
+
 def _requested_capabilities(draft, prompt, by_id):
     unsupported = []
     missing = []
@@ -200,6 +209,9 @@ def _requested_capabilities(draft, prompt, by_id):
             unsupported.append(item)
         else:
             missing.append(f"requested_features.{capability_id}.evidence")
+    for capability_id, item in by_id.items():
+        if capability_id not in seen and _prompt_mentions_capability(prompt, item):
+            unsupported.append(item)
     return unsupported, missing
 
 

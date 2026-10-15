@@ -126,9 +126,13 @@ function recoverInterruptedGenerations(session: ChatSession): ChatSession {
       .filter((id): id is string => typeof id === "string"),
   );
 
-  if (pendingSummaryIds.size === 0 && !session.messages.some(
+  const hasPendingGeneration = session.messages.some(
     (message) => message.type === "generation_status" && message.status === "pending",
-  )) {
+  );
+  const hasInterruptedIntake = session.messages.some(
+    (message) => message.type === "clarification" && message.isValidating === true,
+  );
+  if (!hasPendingGeneration && !hasInterruptedIntake) {
     return session;
   }
 
@@ -146,6 +150,14 @@ function recoverInterruptedGenerations(session: ChatSession): ChatSession {
       }
       if (message.type === "request_summary" && pendingSummaryIds.has(message.id)) {
         return { ...message, state: "ready_to_confirm" };
+      }
+      if (message.type === "clarification" && message.isValidating === true) {
+        return {
+          ...message,
+          content: "Validasi terputus saat halaman dimuat ulang. Fakta tetap tersimpan, silakan periksa lalu validasi kembali.",
+          isValidating: false,
+          isError: false,
+        };
       }
       return message;
     }),

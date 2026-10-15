@@ -40,6 +40,8 @@ Tekan `Ctrl+C` untuk menghentikan server. API hanya menerima bind loopback. Defa
 
 Health, katalog, dan intake tidak memuat bobot. Model dimuat secara lazy saat permintaan generation yang lolos intake dijalankan. Endpoint generation menjalankan inference GPU secara sinkron; responsnya JSON biasa dan tidak mengklaim progres streaming.
 
+Intake menerima pilihan kemampuan dengan ID dari katalog dan bukti konfirmasi pengguna. Sebagai pengaman untuk prompt yang tidak memilih checkbox, validator juga mencocokkan frasa yang telah ditetapkan pada katalog kemampuan di luar cakupan. Pemeriksaan ini deterministik dan bukan klasifikasi semantik umum.
+
 Generation menyimpan berkas di `outputs/webapp/generations`, yang diabaikan Git. Preview, source, dan ZIP hanya tersedia jika laporan renderer berstatus `accepted` dan hash berkas cocok. Route preview memakai CSP ketat, content type tetap, dan cache `no-store`. Data prompt dan artefak tetap lokal.
 
 ## Tailwind untuk halaman hasil
