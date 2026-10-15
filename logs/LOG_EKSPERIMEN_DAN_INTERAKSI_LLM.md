@@ -6563,3 +6563,14 @@ Pengemas akan mensyaratkan report seleksi TRAIN-025 step 1.800 lulus, 80/80, `fi
 - Katalog publik hanya memuat ID, label, dimensi, asal dan lisensi aset; path file tidak diekspos.
 - Batas: route health dan route API akan dibuat pada task berikutnya. Pemeriksaan laziness untuk route health diteruskan ke task routing; tidak ada training, inference, tes, build, atau akses test/final.
 - Rujukan interaksi: percakapan Codex pada 15 Oktober 2026. Tautan share atau ekspor chat tidak dibuat.
+
+### AI-031, batas artefak dan preview lokal
+
+- Tanggal: 15 Oktober 2026, zona waktu Asia/Jakarta.
+- Tujuan: membatasi akses browser ke hasil renderer yang sudah diterima dan menyediakan source, preview, serta ZIP lokal.
+- Perubahan yang dipilih: ID generation berupa UUID yang dibuat server; resolver menolak ID/path malformed, symlink yang keluar dari akar yang ditetapkan, status selain `accepted`, serta berkas yang hash-nya berbeda dari manifest renderer.
+- Preview hanya menyediakan `index.html`, `styles.css`, `app.js`, dan SVG dari katalog lokal yang benar-benar dirujuk `page_spec.json`. Content type tetap, respons memakai CSP ketat, `nosniff`, dan `no-store`.
+- ZIP menggunakan allowlist tetap: tiga berkas renderer, `page_spec.json`, `asset_attribution.json`, dan aset terverifikasi. Berkas lain yang berada di folder generation tidak dibaca atau diarsipkan.
+- Ringkasan publik memetakan status internal ke pesan aman dan mengambil hanya field ringkasan yang diizinkan. Field `api_summary` akan diisi oleh route generation pada task API berikutnya; report pipeline mentah tidak dikirim ke browser.
+- Batas: route ini hanya membaca artefak dan belum menjalankan server, dependency install, inference, training, test, atau build. Data test dan final tidak dibuka.
+- Rujukan interaksi: percakapan Codex pada 15 Oktober 2026. Tautan share atau ekspor chat tidak dibuat.
