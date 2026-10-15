@@ -6595,3 +6595,40 @@ Pengemas akan mensyaratkan report seleksi TRAIN-025 step 1.800 lulus, 80/80, `fi
 - Status dokumentasi menyatakan source API telah dibuat, tetapi runtime belum dijalankan. Tidak ada klaim tes, build, atau inference.
 - Batas: tidak membuka test/final dan tidak menjalankan server, install, training, inference, test, atau build.
 - Rujukan interaksi: percakapan Codex pada 15 Oktober 2026. Tautan share atau ekspor chat tidak dibuat.
+
+## RUN-597, scaffold aplikasi Next.js
+
+Catatan dibuat sebelum menjalankan scaffold. Folder `apps/web` belum ada, root repository sudah menjadi Git checkout, dan ruang kosong F sebesar 19.473.018.880 byte. Node.js `22.23.3` dan npm `11.6.0` tersedia. Package registry menampilkan Next.js `16.4.1`, `create-next-app` `16.4.1`, React `19.3.1`, TypeScript `7.0.2`, ESLint `10.12.0`, Tailwind CSS `4.3.3`, serta shadcn CLI `4.21.5`. Perintah yang direncanakan dari root repository: `npx --yes create-next-app@16.4.1 apps/web --typescript --tailwind --eslint --app --src-dir --use-npm --import-alias "@/*" --yes --no-agents-md --disable-git`. Scaffolding memasang dependency web ke `apps/web` dan tidak menyentuh `.venv` atau PyTorch. Status: menunggu eksekusi.
+
+### Hasil RUN-597
+
+- Perintah scaffold selesai dengan exit code 0 dan membuat `apps/web` dengan 437 package. Konfigurasi TypeScript, App Router, Tailwind CSS, serta ESLint tersedia.
+- Audit: `npm audit` menemukan lima temuan high pada pohon dependency pengembangan melalui konfigurasi ESLint/Next. `npm audit --omit=dev` menemukan nol. Opsi perbaikan otomatis menurunkan `eslint-config-next` ke major 14, sehingga tidak diterapkan pada proyek Next.js 16. Risiko dependency dev dicatat untuk ditinjau terpisah.
+- Catatan rencana RUN-598 sempat gagal ditulis karena path relatif dieksekusi dari `apps/web`; kegagalan path dicatat di RUN-598. Perintah shadcn berjalan sesuai versi pin meski catatan rencana tersebut baru ditulis setelahnya.
+- Tidak ada build, test, inference, atau server yang dijalankan.
+
+### Hasil RUN-598
+
+- Perintah: `npx --yes shadcn@4.21.5 init --defaults` dari `apps/web`.
+- Exit code: 0. CLI mendeteksi Next.js dan Tailwind v4, menulis `components.json`, memasang dependency, memperbarui font serta `src/app/globals.css`, dan membuat `src/components/ui/button.tsx` serta `src/lib/utils.ts`.
+- Status: berhasil. Inisialisasi menggunakan konfigurasi default CLI sebagai basis; token dan tampilan akan diselaraskan lagi dengan spesifikasi.
+- Tidak ada build, test, inference, atau server yang dijalankan.
+
+## RUN-599, sinkronisasi plugin Tailwind CSS
+
+Catatan ditulis sebelum instalasi dependency. Setelah membandingkan scaffold Next.js yang dibuat CLI dengan panduan framework Tailwind saat ini, konfigurasi frontend dipindahkan ke integrasi PostCSS resmi: menambah `@tailwindcss/postcss@4.3.3`, menghapus adapter Turbopack khusus, dan mempertahankan Tailwind CSS `4.3.3`. Perintah yang direncanakan dari `apps/web`: `npm install --ignore-scripts --no-audit --no-fund`. Semua dependency langsung telah dipatok ke versi yang sudah ada di lockfile; pemasangan ini menyinkronkan adapter dan lockfile saja. Tidak menjalankan lint, build, test, server, atau inference. Status: menunggu eksekusi.
+
+### Hasil RUN-599
+
+- `npm install --ignore-scripts --no-audit --no-fund` selesai dengan exit code 0; menambah satu dependency, menghapus satu adapter, dan memperbarui lockfile.
+- Tidak ada lifecycle script package yang dijalankan. Tidak menjalankan lint, build, test, inference, atau server.
+
+### AI-034, fondasi frontend Next.js dan klien API
+
+- Tanggal: 15 Oktober 2026, zona waktu Asia/Jakarta.
+- Tujuan: menyiapkan paket UI Next.js/shadcn dan kontrak TypeScript agar layar chat dapat menggunakan route FastAPI yang telah dibuat.
+- Perubahan: dependency langsung web dipatok ke versi lockfile; shadcn memakai preset CLI; plugin Tailwind memakai PostCSS; token UI frost, paper, harbor, slate, cobalt, dan verified teal ditambahkan; metadata dan bahasa dokumen memakai Bahasa Indonesia; IBM Plex Sans/Mono didefinisikan dengan `next/font`; `.env.example`, tipe JSON API, klien fetch yang memetakan error menjadi pesan aman, dan README awal dibuat.
+- URL API default `http://127.0.0.1:8000`; preview/source/download dibatasi ke endpoint generation yang telah diterima oleh API. Hasil source akan ditampilkan sebagai teks, bukan dieksekusi di halaman aplikasi.
+- Temuan setup: template Next.js menggunakan font Geist dan aset demonstrasi; konfigurasi itu diganti atau dibuang. Scaffold Tailwind awal menggunakan adapter khusus Turbopack, lalu diselaraskan ke plugin PostCSS resmi sesuai panduan framework saat ini.
+- Batas: API belum dijalankan; tidak ada build, lint, test, inference, atau perubahan model/checkpoint. Data test dan final tetap tertutup.
+- Referensi teknis: [Next.js Font Optimization](https://nextjs.org/docs/app/getting-started/fonts), [shadcn Next.js](https://ui.shadcn.com/docs/installation/next), dan [Tailwind CSS untuk Next.js](https://tailwindcss.com/docs/installation/framework-guides/nextjs). Status perubahan: siap direview dan dicommit.
