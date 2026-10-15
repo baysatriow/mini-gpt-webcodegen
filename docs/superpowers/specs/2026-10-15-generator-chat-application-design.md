@@ -2,7 +2,7 @@
 
 Tanggal: 15 Oktober 2026
 
-Status: menunggu review spesifikasi dari pengguna. Arah chat terarah dan batas arsitektur telah disetujui untuk dituangkan ke spesifikasi. Implementasi belum dimulai.
+Status: disetujui pengguna pada 15 Oktober 2026 untuk dilanjutkan ke rencana implementasi. Rencana implementasi masih menunggu review. Implementasi belum dimulai.
 
 Dokumen ini menetapkan lingkup, pengalaman pengguna, batas model, dan kontrak integrasi aplikasi website generator. Dokumen ini meneruskan pipeline source-bound yang telah dipilih untuk TRAIN-025.
 
@@ -135,7 +135,7 @@ API memakai JSON dan skema bertipe. FastAPI menerbitkan dokumen OpenAPI dari imp
 | `POST /api/v1/intake/validate` | Memvalidasi prompt dan `RequestDraft`; mengembalikan klarifikasi, cakupan, atau status siap | Tidak membuat halaman dan tidak memuat model |
 | `POST /api/v1/generations` | Memvalidasi ulang request terkonfirmasi lalu menjalankan generation | Satu output lokal hanya jika renderer sukses |
 | `GET /api/v1/generations/{generation_id}` | Mengambil ringkasan hasil yang aman untuk riwayat lokal | Tidak memuat model |
-| `GET /api/v1/generations/{generation_id}/preview` | Menampilkan `index.html` yang diterima untuk iframe | Hanya membaca output allowlist |
+| `GET /api/v1/generations/{generation_id}/preview/{relative_path:path}` | Menampilkan `index.html` yang diterima dan file CSS, JavaScript, serta aset lokal yang dirujuknya | Hanya membaca output allowlist |
 | `GET /api/v1/generations/{generation_id}/source` | Mengambil sumber HTML/CSS/JS untuk tab kode | Hanya membaca output allowlist |
 | `GET /api/v1/generations/{generation_id}/download.zip` | Mengunduh hasil renderer dan aset yang terkait | Membaca berkas generation tersebut saja |
 
@@ -169,7 +169,7 @@ Response intake memiliki `status`, `message`, `missing_fields`, dan `request` ha
 
 ### Request generation dan hasil
 
-`POST /api/v1/generations` menerima objek request terstruktur yang siap. Server mengulang validasi intake sebelum model dijalankan. Hasil sukses memiliki status `completed`, ID generation, jumlah section yang diterima, URL preview, URL ZIP, serta daftar nama sumber yang tersedia. Endpoint source mengembalikan hanya `index.html`, `styles.css`, dan `app.js`.
+`POST /api/v1/generations` menerima `prompt` dan `RequestDraft` yang sama seperti validasi intake, lalu server mengulang `prepare_intake` sebelum model dijalankan. Generator hanya menerima objek request internal hasil validasi server. Hasil sukses memiliki status `completed`, ID generation, jumlah section yang diterima, URL preview yang berakhir dengan `/preview/index.html`, URL ZIP, serta daftar nama sumber yang tersedia. Endpoint source mengembalikan hanya `index.html`, `styles.css`, dan `app.js`.
 
 Hasil gagal memakai status UI `generation_failed` atau `input_too_long`, pesan aman, dan daftar field/action yang relevan jika tersedia. Raw output model, prompt internal, path absolut, dan traceback tidak dikirim ke browser. Expected workflow status dibedakan dari error transport atau service, yang menggunakan kode HTTP sesuai OpenAPI.
 

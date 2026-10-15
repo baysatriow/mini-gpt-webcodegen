@@ -6492,3 +6492,14 @@ Selector gagal pada pemeriksaan identitas report karena evaluasi awal diberi dat
 ## Hasil eksperimen dan pemilihan kandidat
 
 Selector V5 lulus dengan 80/80 untuk TRAIN-025 step 1.800 dan TRAIN-026 step 3.600. Keduanya memenuhi required roles serta pemeriksaan facts/links/assets. Development CE masing-masing 0,004538349198307462 dan 0,005312048531726459. Karena kelengkapan setara, kandidat step 1.800 terpilih lewat CE yang lebih rendah. Report memastikan final tidak digunakan. Hasil ini adalah kelulusan generator/validator pada 80 request development; browser dan review visual manusia belum dilakukan.
+
+### AI-026, spesifikasi dan rencana aplikasi generator lokal
+
+- Tanggal: 15 Oktober 2026, zona waktu Asia/Jakarta.
+- Pengguna menyetujui spesifikasi aplikasi chat generator dan meminta lanjut ke rencana implementasi. Arah yang disetujui: Next.js dengan shadcn di `apps/web`, FastAPI di `apps/api`, serta paket kandidat TRAIN-025 step 1.800 di `training/selected/fullpage-v5`. Model dan output development tetap lokal dan diabaikan Git. Model dimuat hanya setelah permintaan generate yang sudah dikonfirmasi. Pengguna meminta tidak menjalankan inference saat ini.
+- Rencana mencakup urutan packaging kandidat, API, lalu UI; kontrak RequestDraft source-bound; klarifikasi fakta usaha; preview sandbox; source tabs; unduhan ZIP; batas path dan respons API; serta arahan visual untuk ruang kerja chat.
+- CodeGraph mengonfirmasi renderer menghasilkan `index.html`, `styles.css`, `app.js`, dan merujuk aset SVG relatif. Rencana API menetapkan rute preview ber-allowlist dan Content Security Policy untuk file hasil renderer.
+- Compiler Tailwind lokal telah tersedia dengan lockfile dan versi `tailwindcss` serta `@tailwindcss/cli` 4.3.3. Rencana mempertahankan toolchain itu untuk style generated `tailwind`.
+- Dokumen: [spesifikasi aplikasi](../docs/superpowers/specs/2026-10-15-generator-chat-application-design.md), [roadmap](../docs/superpowers/plans/2026-10-15-generator-app-roadmap.md), [rencana bundle TRAIN-025](../docs/superpowers/plans/2026-10-15-train-025-selected-bundle.md), [rencana FastAPI](../docs/superpowers/plans/2026-10-15-fastapi-generator-api.md), dan [rencana UI Next.js](../docs/superpowers/plans/2026-10-15-nextjs-generator-chat-ui.md).
+- Status: spesifikasi sudah disetujui. Paket rencana implementasi menunggu review pengguna. Belum ada source aplikasi, dependency, model, atau output yang dibuat maupun dipindahkan. Tidak ada install, build, test, training, atau inference. Data test dan final tetap tertutup.
+- Rujukan interaksi: percakapan Codex pada 15 Oktober 2026. Tautan share eksternal atau ekspor chat tidak dibuat.
