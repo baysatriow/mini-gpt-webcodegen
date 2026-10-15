@@ -6632,3 +6632,22 @@ Catatan ditulis sebelum instalasi dependency. Setelah membandingkan scaffold Nex
 - Temuan setup: template Next.js menggunakan font Geist dan aset demonstrasi; konfigurasi itu diganti atau dibuang. Scaffold Tailwind awal menggunakan adapter khusus Turbopack, lalu diselaraskan ke plugin PostCSS resmi sesuai panduan framework saat ini.
 - Batas: API belum dijalankan; tidak ada build, lint, test, inference, atau perubahan model/checkpoint. Data test dan final tetap tertutup.
 - Referensi teknis: [Next.js Font Optimization](https://nextjs.org/docs/app/getting-started/fonts), [shadcn Next.js](https://ui.shadcn.com/docs/installation/next), dan [Tailwind CSS untuk Next.js](https://tailwindcss.com/docs/installation/framework-guides/nextjs). Status perubahan: siap direview dan dicommit.
+
+## RUN-600, komponen interaksi chat shadcn
+
+Catatan ditulis sebelum menjalankan CLI. Perintah terencana dari `apps/web`: `npx --yes shadcn@4.21.5 add separator textarea scroll-area tooltip sheet`. CLI hanya menyalin komponen UI yang dipakai shell chat dan memasang dependency langsung bila diperlukan. Tidak menjalankan build, lint, test, server, atau inference. Status: menunggu eksekusi.
+
+### Hasil RUN-600
+
+- Perintah selesai dengan exit code 0. Lima komponen shadcn dibuat (`separator`, `textarea`, `scroll-area`, `tooltip`, `sheet`); `button` sudah ada dari inisialisasi.
+- Tidak ada build, lint, test, inference, atau server yang dijalankan.
+
+### AI-035, shell chat dan riwayat lokal
+
+- Tanggal: 15 Oktober 2026, zona waktu Asia/Jakarta.
+- Tujuan: membuat layout workspace percakapan, area kanvas hasil, composer, contoh prompt, dan riwayat percakapan lokal.
+- Perubahan: layout desktop memakai rail riwayat, kolom percakapan, dan kanvas; layar kecil memakai drawer riwayat serta pemilih percakapan/kanvas. Composer membatasi prompt sampai 1.000 karakter, mendukung Enter untuk kirim dan Shift+Enter untuk baris baru, serta memiliki label aksesibel.
+- Reducer memuat aksi sesi baru, pilih/hapus sesi, tambah/ganti pesan, pemulihan sesi, dan pencatatan referensi generation. Penyimpanan browser memakai versi skema, membatasi 40 sesi, menolak struktur rusak/versi lama secara aman, dan hanya aktif setelah pemulihan sisi klien selesai.
+- Pesan dan ringkasan dirender sebagai teks React biasa. Belum ada iframe, preview, generation, pemanggilan API, atau penyimpanan source code di localStorage.
+- Batas: shell masih menampilkan respons lokal sementara; koneksi intake dan form fakta dikerjakan pada task berikutnya. Tidak ada build, lint, test, inference, atau data test/final.
+- Status perubahan: siap direview dan dicommit.
