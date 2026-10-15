@@ -1,5 +1,4 @@
 import type {
-  CatalogResponse,
   GenerationStatus,
   GenerationSummary,
   IntakeResponse,
@@ -26,7 +25,8 @@ export type ClarificationMessage = MessageBase & {
   draft: RequestDraft;
   status: IntakeResponse["status"];
   missingFields: string[];
-  catalog?: CatalogResponse;
+  isValidating?: boolean;
+  isError?: boolean;
 };
 
 export type RequestSummaryMessage = MessageBase & {
@@ -106,6 +106,11 @@ export function createChatSession(title = "Obrolan baru"): ChatSession {
   };
 }
 
+export function createMessage(message: Omit<UserMessage, keyof MessageBase>): UserMessage;
+export function createMessage(message: Omit<AssistantMessage, keyof MessageBase>): AssistantMessage;
+export function createMessage(message: Omit<ClarificationMessage, keyof MessageBase>): ClarificationMessage;
+export function createMessage(message: Omit<RequestSummaryMessage, keyof MessageBase>): RequestSummaryMessage;
+export function createMessage(message: Omit<GenerationStatusMessage, keyof MessageBase>): GenerationStatusMessage;
 export function createMessage(message: NewChatMessage): ChatMessage {
   return { ...message, id: createId(), createdAt: new Date().toISOString() } as ChatMessage;
 }

@@ -6651,3 +6651,15 @@ Catatan ditulis sebelum menjalankan CLI. Perintah terencana dari `apps/web`: `np
 - Pesan dan ringkasan dirender sebagai teks React biasa. Belum ada iframe, preview, generation, pemanggilan API, atau penyimpanan source code di localStorage.
 - Batas: shell masih menampilkan respons lokal sementara; koneksi intake dan form fakta dikerjakan pada task berikutnya. Tidak ada build, lint, test, inference, atau data test/final.
 - Status perubahan: siap direview dan dicommit.
+
+### AI-036, intake terpandu dan persetujuan rancangan
+
+- Tanggal: 15 Oktober 2026, zona waktu Asia/Jakarta.
+- Tujuan: mengubah chat menjadi alur klarifikasi yang menjaga fakta bisnis tetap berasal dari pengguna.
+- Perubahan: prompt dikirim ke `POST /api/v1/intake/validate` dengan RequestDraft parsial; hanya setelah validasi API, kartu klarifikasi meminta jenis halaman, gaya, nama, deskripsi, minimal satu layanan, status fiktif/nyata, fakta tambahan opsional, dan aset yang tersedia. Status unsupported, input terlalu panjang, dan error transport memiliki tindakan pemulihan yang berbeda.
+- `createDraft` membuat ID fakta stabil dan bukti `user_confirmed` hanya ketika form dikirim. Nilai tidak diekstrak otomatis dari prompt, fakta setengah terisi ditolak, panjang/count field mengikuti schema, dan bukti prompt asli dikirim kembali untuk validasi server.
+- Status `ready` berubah menjadi ringkasan yang dapat diedit dan perlu konfirmasi eksplisit. Konfirmasi ini belum menjalankan generation; endpoint generation dan workspace hasil berada di task berikutnya.
+- Catatan kontrak: `requested_features` tetap kosong karena endpoint katalog publik hanya menyediakan jenis halaman, gaya, daftar kemampuan yang tidak didukung, dan metadata aset, tanpa ID fitur yang dapat dipilih. Sistem tidak membuat ID fitur sendiri; validator intake server memeriksa permintaan dalam prompt.
+- Penyimpanan riwayat menerima status percakapan/form yang dikenal saja, membuang skema lama atau malformed, dan tidak menyimpan HTML/CSS/JavaScript hasil.
+- Batas: request katalog/intake tidak memuat model; tidak ada generation, build, lint, test, inference, atau akses data test/final. Review ini bersifat source-level saja.
+- Status perubahan: siap direview dan dicommit.

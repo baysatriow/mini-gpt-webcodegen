@@ -4,6 +4,9 @@ import type { RequestDraft } from "@/lib/api-types";
 const STORAGE_KEY = "rancang.chat-history";
 const STORAGE_VERSION = 1;
 const MAX_SESSIONS = 40;
+const INTAKE_STATUSES = new Set(["needs_clarification", "unsupported_request", "input_too_long", "ready"]);
+const GENERATION_STATUSES = new Set(["completed", "generation_failed", "input_too_long"]);
+const SOURCE_FILES = new Set(["index.html", "styles.css", "app.js"]);
 
 type StoredHistory = {
   version: number;
@@ -22,6 +25,22 @@ function isDraft(value: unknown): value is RequestDraft {
     && Array.isArray(value.asset_ids);
 }
 
+function isGenerationSummary(value: unknown): boolean {
+  if (!isRecord(value)) return false;
+  return typeof value.generation_id === "string"
+    && GENERATION_STATUSES.has(String(value.status))
+    && typeof value.message === "string"
+    && (value.genre === null || typeof value.genre === "string")
+    && (value.style_mode === null || typeof value.style_mode === "string")
+    && (value.business_name === null || typeof value.business_name === "string")
+    && (value.section_count === null || typeof value.section_count === "number")
+    && (value.created_at === null || typeof value.created_at === "string")
+    && (value.preview_url === null || typeof value.preview_url === "string")
+    && (value.download_url === null || typeof value.download_url === "string")
+    && Array.isArray(value.files)
+    && value.files.every((file) => typeof file === "string" && SOURCE_FILES.has(file));
+}
+
 function isChatMessage(value: unknown): value is ChatMessage {
   if (!isRecord(value) || typeof value.id !== "string" || typeof value.createdAt !== "string") return false;
   if (typeof value.content !== "string") return false;
@@ -33,14 +52,21 @@ function isChatMessage(value: unknown): value is ChatMessage {
       return typeof value.prompt === "string"
         && isDraft(value.draft)
         && Array.isArray(value.missingFields)
-        && typeof value.status === "string";
+        && value.missingFields.every((field) => typeof field === "string")
+        && typeof value.status === "string"
+        && INTAKE_STATUSES.has(value.status);
     case "request_summary":
       return typeof value.prompt === "string"
         && isDraft(value.draft)
         && isRecord(value.validation)
-        && typeof value.state === "string";
+        && value.validation.status === "ready"
+        && typeof value.validation.message === "string"
+        && Array.isArray(value.validation.missing_fields)
+        && typeof value.state === "string"
+        && ["editing", "ready_to_confirm", "confirmed"].includes(value.state);
     case "generation_status":
-      return typeof value.status === "string";
+      return (value.status === "pending" || (typeof value.status === "string" && GENERATION_STATUSES.has(value.status)))
+        && (value.summary === undefined || isGenerationSummary(value.summary));
     default:
       return false;
   }

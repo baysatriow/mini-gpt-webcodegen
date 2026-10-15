@@ -1,8 +1,11 @@
 "use client";
 
 import { Bot, Building2, CheckCircle2, CircleAlert, Coffee, LoaderCircle, Palette, Sparkles } from "lucide-react";
+import { IntakeCard } from "@/components/chat/intake-card";
+import { RequestSummary } from "@/components/chat/request-summary";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import type { ChatMessage } from "@/lib/chat-state";
+import type { CatalogResponse, RequestDraft } from "@/lib/api-types";
+import type { ChatMessage, ClarificationMessage, RequestSummaryMessage } from "@/lib/chat-state";
 
 const PROMPT_SUGGESTIONS = [
   {
@@ -25,9 +28,22 @@ const PROMPT_SUGGESTIONS = [
 type MessageListProps = {
   messages: ChatMessage[];
   onUsePrompt: (prompt: string) => void;
+  catalog: CatalogResponse | null;
+  onValidate: (message: ClarificationMessage, draft: RequestDraft) => Promise<void>;
+  onEditPrompt: (prompt: string) => void;
+  onEditSummary: (message: RequestSummaryMessage) => void;
+  onConfirmSummary: (message: RequestSummaryMessage) => void;
 };
 
-export function MessageList({ messages, onUsePrompt }: MessageListProps) {
+export function MessageList({
+  messages,
+  onUsePrompt,
+  catalog,
+  onValidate,
+  onEditPrompt,
+  onEditSummary,
+  onConfirmSummary,
+}: MessageListProps) {
   return (
     <ScrollArea className="min-h-0 flex-1">
       <div role="log" aria-label="Percakapan" aria-live="polite" className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-6 sm:px-6 sm:py-8">
@@ -69,14 +85,40 @@ export function MessageList({ messages, onUsePrompt }: MessageListProps) {
             </div>
           </div>
         ) : (
-          messages.map((message) => <MessageRow key={message.id} message={message} />)
+          messages.map((message) => (
+            <MessageRow
+              key={message.id}
+              message={message}
+              catalog={catalog}
+              onValidate={onValidate}
+              onEditPrompt={onEditPrompt}
+              onEditSummary={onEditSummary}
+              onConfirmSummary={onConfirmSummary}
+            />
+          ))
         )}
       </div>
     </ScrollArea>
   );
 }
 
-function MessageRow({ message }: { message: ChatMessage }) {
+type MessageRowProps = {
+  message: ChatMessage;
+  catalog: CatalogResponse | null;
+  onValidate: (message: ClarificationMessage, draft: RequestDraft) => Promise<void>;
+  onEditPrompt: (prompt: string) => void;
+  onEditSummary: (message: RequestSummaryMessage) => void;
+  onConfirmSummary: (message: RequestSummaryMessage) => void;
+};
+
+function MessageRow({
+  message,
+  catalog,
+  onValidate,
+  onEditPrompt,
+  onEditSummary,
+  onConfirmSummary,
+}: MessageRowProps) {
   if (message.type === "user") {
     return (
       <article className="flex justify-end" aria-label="Pesan Anda">
@@ -108,6 +150,28 @@ function MessageRow({ message }: { message: ChatMessage }) {
     );
   }
 
+  if (message.type === "clarification") {
+    return (
+      <IntakeCard
+        message={message}
+        catalog={catalog}
+        onValidate={onValidate}
+        onEditPrompt={onEditPrompt}
+      />
+    );
+  }
+
+  if (message.type === "request_summary") {
+    return (
+      <RequestSummary
+        message={message}
+        catalog={catalog}
+        onEdit={onEditSummary}
+        onConfirm={onConfirmSummary}
+      />
+    );
+  }
+
   return (
     <article className="flex items-start gap-3" aria-label="Pesan Rancang">
       <MessageMark />
@@ -115,16 +179,6 @@ function MessageRow({ message }: { message: ChatMessage }) {
         <p className={`whitespace-pre-wrap break-words text-[15px] leading-7 ${message.type === "assistant" && message.tone === "error" ? "text-destructive" : "text-harbor-ink"}`}>
           {message.content}
         </p>
-        {message.type === "clarification" ? (
-          <div className="mt-3 rounded-xl border border-border bg-paper px-4 py-3 text-sm text-slate-note">
-            Form kelengkapan informasi akan muncul di sini.
-          </div>
-        ) : null}
-        {message.type === "request_summary" ? (
-          <div className="mt-3 rounded-xl border border-border bg-paper px-4 py-3 text-sm text-slate-note">
-            Ringkasan request akan ditampilkan sebelum halaman dibuat.
-          </div>
-        ) : null}
       </div>
     </article>
   );

@@ -1,0 +1,434 @@
+"use client";
+
+import { useState, type FormEvent } from "react";
+import { Plus, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import type { CatalogResponse, PageGenre, RequestDraft, StyleMode } from "@/lib/api-types";
+import {
+  createDraft,
+  DraftValidationError,
+  getAdditionalFacts,
+  getFactValue,
+  getStructuredFacts,
+  type ConfirmedBusinessFacts,
+  type ConfirmedStructuredFact,
+} from "@/lib/request-draft";
+import { describeMissingFields } from "@/lib/intake-copy";
+
+type ServiceFields = { title: string; text: string };
+type FormFields = {
+  genre: PageGenre;
+  styleMode: StyleMode;
+  name: string;
+  description: string;
+  services: ServiceFields[];
+  additionalFacts: ConfirmedStructuredFact[];
+  assetIds: string[];
+  fictitious: "" | "true" | "false";
+};
+
+type BusinessFactsFormProps = {
+  prompt: string;
+  initialDraft: RequestDraft;
+  catalog: CatalogResponse | null;
+  missingFields: string[];
+  onSubmit: (draft: RequestDraft) => Promise<void>;
+};
+
+const FALLBACK_GENRES = [
+  { id: "landing_page", label: "Landing page" },
+  { id: "company_profile", label: "Company profile" },
+];
+const FALLBACK_STYLES = [
+  { id: "plain_css", label: "CSS biasa" },
+  { id: "tailwind", label: "Tailwind CSS" },
+];
+const INPUT_CLASS = "mt-1.5 min-h-11 w-full rounded-xl border border-input bg-white px-3.5 py-2.5 text-sm text-harbor-ink placeholder:text-slate-note/70 focus-visible:border-primary";
+const TEXTAREA_CLASS = "mt-1.5 min-h-[86px] resize-y rounded-xl border-input bg-white px-3.5 py-2.5 text-sm leading-6 text-harbor-ink placeholder:text-slate-note/70 focus-visible:border-primary";
+
+function fromDraft(draft: RequestDraft): FormFields {
+  const services = getStructuredFacts(draft, "service");
+  const additionalFacts = getAdditionalFacts(draft);
+  const fictitious = draft.fictitious === true ? "true" : draft.fictitious === false ? "false" : "";
+  return {
+    genre: draft.genre === "company_profile" ? "company_profile" : "landing_page",
+    styleMode: draft.style_mode === "plain_css" ? "plain_css" : "tailwind",
+    name: getFactValue(draft, "name"),
+    description: getFactValue(draft, "description"),
+    services: services.length ? services : [{ title: "", text: "" }],
+    additionalFacts,
+    assetIds: draft.asset_ids,
+    fictitious,
+  };
+}
+
+function hasMissingField(missingFields: string[], keys: string[]): boolean {
+  return missingFields.some((field) => keys.includes(field));
+}
+
+export function BusinessFactsForm({
+  prompt,
+  initialDraft,
+  catalog,
+  missingFields,
+  onSubmit,
+}: BusinessFactsFormProps) {
+  const [fields, setFields] = useState<FormFields>(() => fromDraft(initialDraft));
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const genres = catalog?.supported_genres.length ? catalog.supported_genres : FALLBACK_GENRES;
+  const styles = catalog?.supported_style_modes.length ? catalog.supported_style_modes : FALLBACK_STYLES;
+  const assets = catalog?.assets ?? [];
+  const missingLabels = describeMissingFields(missingFields);
+
+  function updateService(index: number, key: keyof ServiceFields, value: string) {
+    setFields((current) => ({
+      ...current,
+      services: current.services.map((service, serviceIndex) =>
+        serviceIndex === index ? { ...service, [key]: value } : service,
+      ),
+    }));
+  }
+
+  function updateAdditionalFact(index: number, patch: Partial<ConfirmedStructuredFact>) {
+    setFields((current) => ({
+      ...current,
+      additionalFacts: current.additionalFacts.map((fact, factIndex) =>
+        factIndex === index ? { ...fact, ...patch } : fact,
+      ),
+    }));
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError("");
+    if (fields.fictitious === "") {
+      setError("Pilih apakah usaha ini fiktif atau nyata.");
+      return;
+    }
+    const confirmed: ConfirmedBusinessFacts = {
+      genre: fields.genre,
+      styleMode: fields.styleMode,
+      name: fields.name,
+      description: fields.description,
+      services: fields.services,
+      additionalFacts: fields.additionalFacts,
+      assetIds: fields.assetIds,
+      fictitious: fields.fictitious === "true",
+    };
+    try {
+      const draft = createDraft(prompt, confirmed);
+      setIsSubmitting(true);
+      await onSubmit(draft);
+    } catch (submitError) {
+      setError(submitError instanceof DraftValidationError
+        ? submitError.message
+        : "Draft belum berhasil divalidasi. Periksa koneksi API lokal lalu coba lagi.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  function toggleAsset(assetId: string) {
+    setFields((current) => {
+      const selected = current.assetIds.includes(assetId);
+      if (!selected && current.assetIds.length >= 8) return current;
+      return {
+        ...current,
+        assetIds: selected
+          ? current.assetIds.filter((id) => id !== assetId)
+          : [...current.assetIds, assetId],
+      };
+    });
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="mt-4 overflow-hidden rounded-2xl border border-border bg-paper shadow-[0_8px_30px_rgba(30,45,69,0.05)]">
+      <div className="border-b border-border bg-[#F8FAFC] px-4 py-3.5 sm:px-5">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <p className="text-sm font-semibold text-harbor-ink">Lengkapi fakta halaman</p>
+            <p className="mt-0.5 text-xs leading-5 text-slate-note">
+              Isi sendiri detail yang akan dipakai. Tidak ada fakta bisnis yang ditebak dari prompt.
+            </p>
+          </div>
+          <span className="rounded-full bg-verified/10 px-2.5 py-1 text-[11px] font-medium text-verified">
+            Dikonfirmasi saat dikirim
+          </span>
+        </div>
+      </div>
+
+      {missingFields.length > 0 ? (
+        <div className="flex flex-wrap gap-1.5 border-b border-border px-4 py-3 sm:px-5" aria-label="Field yang perlu dilengkapi">
+          {missingLabels.map((field) => (
+            <span key={field} className="rounded-full border border-border bg-frost px-2.5 py-1 text-[11px] text-slate-note">
+              {field}
+            </span>
+          ))}
+        </div>
+      ) : null}
+
+      <div className="space-y-5 px-4 py-4 sm:px-5 sm:py-5">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label htmlFor="page-genre" className="text-sm font-medium text-harbor-ink">Jenis halaman</label>
+            <select
+              id="page-genre"
+              value={fields.genre}
+              onChange={(event) => setFields((current) => ({ ...current, genre: event.target.value as PageGenre }))}
+              className={INPUT_CLASS}
+            >
+              {genres.map((option) => <option key={option.id} value={option.id}>{option.label}</option>)}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="style-mode" className="text-sm font-medium text-harbor-ink">Gaya hasil</label>
+            <select
+              id="style-mode"
+              value={fields.styleMode}
+              onChange={(event) => setFields((current) => ({ ...current, styleMode: event.target.value as StyleMode }))}
+              className={INPUT_CLASS}
+            >
+              {styles.map((option) => <option key={option.id} value={option.id}>{option.label}</option>)}
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="business-name" className="text-sm font-medium text-harbor-ink">Nama usaha <span className="text-destructive">*</span></label>
+          <input
+            id="business-name"
+            value={fields.name}
+            onChange={(event) => setFields((current) => ({ ...current, name: event.target.value }))}
+            maxLength={100}
+            required
+            aria-invalid={hasMissingField(missingFields, ["business_facts.name"])}
+            className={INPUT_CLASS}
+            placeholder="Contoh: Ruang Tanah"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="business-description" className="text-sm font-medium text-harbor-ink">Deskripsi usaha <span className="text-destructive">*</span></label>
+          <Textarea
+            id="business-description"
+            value={fields.description}
+            onChange={(event) => setFields((current) => ({ ...current, description: event.target.value }))}
+            maxLength={3000}
+            required
+            aria-invalid={hasMissingField(missingFields, ["business_facts.description"])}
+            className={TEXTAREA_CLASS}
+            placeholder="Jelaskan usaha ini dengan kata-kata Anda."
+          />
+          <p className="mt-1 text-right text-[11px] tabular-nums text-slate-note">{fields.description.length}/3000</p>
+        </div>
+
+        <fieldset className="space-y-3">
+          <div className="flex items-end justify-between gap-3">
+            <div>
+              <legend className="text-sm font-medium text-harbor-ink">Layanan <span className="text-destructive">*</span></legend>
+              <p className="mt-0.5 text-xs text-slate-note">Tambahkan minimal satu layanan yang benar.</p>
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              disabled={fields.services.length >= 5}
+              onClick={() => setFields((current) => ({ ...current, services: [...current.services, { title: "", text: "" }] }))}
+              className="shrink-0 gap-1.5 rounded-lg"
+            >
+              <Plus aria-hidden="true" className="size-3.5" />
+              Tambah layanan
+            </Button>
+          </div>
+          {fields.services.map((service, index) => (
+            <div key={`service-${index}`} className="rounded-xl border border-border bg-white p-3.5">
+              <div className="mb-2 flex items-center justify-between">
+                <p className="text-xs font-medium text-slate-note">Layanan {index + 1}</p>
+                {fields.services.length > 1 ? (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon-sm"
+                    aria-label={`Hapus layanan ${index + 1}`}
+                    onClick={() => setFields((current) => ({ ...current, services: current.services.filter((_, itemIndex) => itemIndex !== index) }))}
+                    className="text-slate-note hover:text-destructive"
+                  >
+                    <Trash2 aria-hidden="true" className="size-3.5" />
+                  </Button>
+                ) : null}
+              </div>
+              <label htmlFor={`service-title-${index}`} className="sr-only">Nama layanan {index + 1}</label>
+              <input
+                id={`service-title-${index}`}
+                value={service.title}
+                onChange={(event) => updateService(index, "title", event.target.value)}
+                maxLength={100}
+                required
+                className={INPUT_CLASS}
+                placeholder="Nama layanan"
+              />
+              <label htmlFor={`service-text-${index}`} className="sr-only">Deskripsi layanan {index + 1}</label>
+              <Textarea
+                id={`service-text-${index}`}
+                value={service.text}
+                onChange={(event) => updateService(index, "text", event.target.value)}
+                maxLength={1000}
+                required
+                className={`${TEXTAREA_CLASS} min-h-[72px]`}
+                placeholder="Jelaskan layanan tersebut."
+              />
+            </div>
+          ))}
+        </fieldset>
+
+        <fieldset className="space-y-3">
+          <div className="flex items-end justify-between gap-3">
+            <div>
+              <legend className="text-sm font-medium text-harbor-ink">Fakta tambahan <span className="font-normal text-slate-note">(opsional)</span></legend>
+              <p className="mt-0.5 text-xs text-slate-note">Proyek, proses, atau FAQ yang Anda berikan sendiri.</p>
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              disabled={fields.additionalFacts.length >= 12}
+              onClick={() => setFields((current) => ({
+                ...current,
+                additionalFacts: [...current.additionalFacts, { kind: "project", title: "", text: "" }],
+              }))}
+              className="shrink-0 gap-1.5 rounded-lg"
+            >
+              <Plus aria-hidden="true" className="size-3.5" />
+              Tambah fakta
+            </Button>
+          </div>
+          {fields.additionalFacts.map((fact, index) => (
+            <div key={`fact-${index}`} className="grid gap-2 rounded-xl border border-border bg-white p-3.5 sm:grid-cols-[145px_1fr]">
+              <label htmlFor={`fact-kind-${index}`} className="sr-only">Jenis fakta {index + 1}</label>
+              <select
+                id={`fact-kind-${index}`}
+                value={fact.kind}
+                onChange={(event) => updateAdditionalFact(index, { kind: event.target.value as ConfirmedStructuredFact["kind"] })}
+                className={INPUT_CLASS}
+              >
+                <option value="project">Proyek</option>
+                <option value="process">Proses</option>
+                <option value="faq">FAQ</option>
+              </select>
+              <div className="space-y-2">
+                <label htmlFor={`fact-title-${index}`} className="sr-only">Judul fakta {index + 1}</label>
+                <input
+                  id={`fact-title-${index}`}
+                  value={fact.title}
+                  onChange={(event) => updateAdditionalFact(index, { title: event.target.value })}
+                  maxLength={100}
+                  className={INPUT_CLASS}
+                  placeholder="Judul"
+                />
+                <label htmlFor={`fact-text-${index}`} className="sr-only">Isi fakta {index + 1}</label>
+                <Textarea
+                  id={`fact-text-${index}`}
+                  value={fact.text}
+                  onChange={(event) => updateAdditionalFact(index, { text: event.target.value })}
+                  maxLength={1000}
+                  className={`${TEXTAREA_CLASS} min-h-[72px]`}
+                  placeholder="Informasi yang benar tentang usaha"
+                />
+              </div>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-sm"
+                aria-label={`Hapus fakta tambahan ${index + 1}`}
+                onClick={() => setFields((current) => ({ ...current, additionalFacts: current.additionalFacts.filter((_, itemIndex) => itemIndex !== index) }))}
+                className="justify-self-start text-slate-note hover:text-destructive sm:col-start-1 sm:row-start-2"
+              >
+                <Trash2 aria-hidden="true" className="size-3.5" />
+              </Button>
+            </div>
+          ))}
+        </fieldset>
+
+        <fieldset className="space-y-2">
+          <legend className="text-sm font-medium text-harbor-ink">Status usaha <span className="text-destructive">*</span></legend>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {[
+              { value: "true", label: "Usaha fiktif atau demo" },
+              { value: "false", label: "Usaha nyata" },
+            ].map((option) => (
+              <label key={option.value} className="flex min-h-11 cursor-pointer items-center gap-2.5 rounded-xl border border-border bg-white px-3.5 text-sm text-harbor-ink hover:border-primary/40">
+                <input
+                  type="radio"
+                  name="business-status"
+                  value={option.value}
+                  checked={fields.fictitious === option.value}
+                  onChange={(event) => setFields((current) => ({ ...current, fictitious: event.target.value as FormFields["fictitious"] }))}
+                  required
+                  className="accent-primary"
+                />
+                {option.label}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        {assets.length > 0 ? (
+          <fieldset className="space-y-2">
+            <legend className="text-sm font-medium text-harbor-ink">Aset lokal <span className="font-normal text-slate-note">(opsional, maks. 8)</span></legend>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {assets.map((asset) => {
+                const selected = fields.assetIds.includes(asset.id);
+                return (
+                  <label key={asset.id} className="flex cursor-pointer items-start gap-2.5 rounded-xl border border-border bg-white px-3 py-2.5 text-xs hover:border-primary/40">
+                    <input
+                      type="checkbox"
+                      checked={selected}
+                      disabled={!selected && fields.assetIds.length >= 8}
+                      onChange={() => toggleAsset(asset.id)}
+                      className="mt-0.5 accent-primary"
+                    />
+                    <span className="min-w-0">
+                      <span className="block break-all font-medium text-harbor-ink">{asset.id}</span>
+                      <span className="mt-0.5 block leading-5 text-slate-note">{asset.width} × {asset.height} · {asset.license}</span>
+                    </span>
+                  </label>
+                );
+              })}
+            </div>
+          </fieldset>
+        ) : (
+          <p className="rounded-xl bg-frost px-3.5 py-3 text-xs leading-5 text-slate-note">
+            Katalog aset belum tersedia. Pilihan aset dapat diperiksa setelah API lokal terhubung.
+          </p>
+        )}
+
+        {catalog?.unsupported_capabilities.length ? (
+          <div className="rounded-xl border border-[#E5D6B1] bg-[#FBF8F0] px-3.5 py-3">
+            <p className="text-xs font-semibold text-harbor-ink">Batas fitur generator lokal</p>
+            <p className="mt-1 text-xs leading-5 text-slate-note">{catalog.scope_message}</p>
+            <ul className="mt-2 list-disc space-y-1 pl-4 text-xs leading-5 text-slate-note">
+              {catalog.unsupported_capabilities.map((item) => <li key={item.id}>{item.label}</li>)}
+            </ul>
+          </div>
+        ) : null}
+
+        {error ? (
+          <p role="alert" className="rounded-lg border border-destructive/25 bg-destructive/5 px-3.5 py-2.5 text-sm text-destructive">
+            {error}
+          </p>
+        ) : null}
+
+        <div className="flex flex-col-reverse gap-3 border-t border-border pt-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-sm text-[11px] leading-5 text-slate-note">
+            Nilai yang Anda kirim ditandai sebagai konfirmasi pengguna untuk validasi ini.
+          </p>
+          <Button type="submit" disabled={isSubmitting} className="shrink-0 gap-2 rounded-xl px-4">
+            {isSubmitting ? "Memeriksa fakta…" : "Periksa dan tinjau"}
+          </Button>
+        </div>
+      </div>
+    </form>
+  );
+}

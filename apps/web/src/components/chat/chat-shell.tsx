@@ -11,19 +11,25 @@ import {
 import { Composer } from "@/components/chat/composer";
 import { HistorySidebar } from "@/components/chat/history-sidebar";
 import { MessageList } from "@/components/chat/message-list";
+import { ApiClientError, getCatalog, validateIntake } from "@/lib/api-client";
+import type { CatalogResponse, RequestDraft } from "@/lib/api-types";
 import {
   chatReducer,
   createChatSession,
   createMessage,
   initialChatState,
+  type ClarificationMessage,
+  type RequestSummaryMessage,
 } from "@/lib/chat-state";
 import { readChatHistory, writeChatHistory } from "@/lib/history-storage";
+import { SOURCE_DRAFT_CONTRACT } from "@/lib/request-draft";
 
 type MobilePanel = "conversation" | "preview";
 
 export function ChatShell() {
   const [state, dispatch] = useReducer(chatReducer, initialChatState);
   const [prompt, setPrompt] = useState("");
+  const [catalog, setCatalog] = useState<CatalogResponse | null>(null);
   const [mobilePanel, setMobilePanel] = useState<MobilePanel>("conversation");
   const [historyOpen, setHistoryOpen] = useState(false);
   const didRestore = useRef(false);
@@ -40,6 +46,20 @@ export function ChatShell() {
     if (saved.sessions.length === 0) {
       dispatch({ type: "new_session", session: createChatSession() });
     }
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    getCatalog()
+      .then((result) => {
+        if (active) setCatalog(result);
+      })
+      .catch(() => {
+        if (active) setCatalog(null);
+      });
+    return () => {
+      active = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -72,6 +92,75 @@ export function ChatShell() {
     setHistoryOpen(false);
   }
 
+  function emptyDraft(value: string): RequestDraft {
+    return {
+      contract_version: SOURCE_DRAFT_CONTRACT,
+      prompt: value,
+      business_facts: [],
+      requested_features: [],
+      asset_ids: [],
+    };
+  }
+
+  async function validateDraft(
+    sessionId: string,
+    message: ClarificationMessage,
+    draft: RequestDraft,
+  ) {
+    const pending: ClarificationMessage = {
+      ...message,
+      content: "Memeriksa kelengkapan fakta dan cakupan halaman…",
+      draft,
+      status: "needs_clarification",
+      missingFields: [],
+      isValidating: true,
+      isError: false,
+      createdAt: new Date().toISOString(),
+    };
+    dispatch({ type: "replace_message", message: pending, sessionId });
+
+    try {
+      const response = await validateIntake(message.prompt, draft);
+      if (response.status === "ready" && response.request) {
+        const summary: RequestSummaryMessage = {
+          id: message.id,
+          createdAt: new Date().toISOString(),
+          type: "request_summary",
+          content: response.message,
+          prompt: message.prompt,
+          draft,
+          state: "ready_to_confirm",
+          validation: response,
+        };
+        dispatch({ type: "replace_message", message: summary, sessionId });
+        return;
+      }
+      const clarification: ClarificationMessage = {
+        ...pending,
+        content: response.status === "ready"
+          ? "Validasi belum memberikan ringkasan lengkap. Periksa fakta dan kirim kembali."
+          : response.message,
+        status: response.status === "ready" ? "needs_clarification" : response.status,
+        missingFields: response.missing_fields,
+        isValidating: false,
+        isError: false,
+        createdAt: new Date().toISOString(),
+      };
+      dispatch({ type: "replace_message", message: clarification, sessionId });
+    } catch (error) {
+      const clarification: ClarificationMessage = {
+        ...pending,
+        content: error instanceof ApiClientError
+          ? error.message
+          : "Validasi intake gagal. Periksa koneksi API lokal lalu coba lagi.",
+        isValidating: false,
+        isError: true,
+        createdAt: new Date().toISOString(),
+      };
+      dispatch({ type: "replace_message", message: clarification, sessionId });
+    }
+  }
+
   function sendPrompt(value: string) {
     if (!activeSession || !value.trim()) return;
     const cleanPrompt = value.trim();
@@ -80,16 +169,52 @@ export function ChatShell() {
       message: createMessage({ type: "user", content: cleanPrompt }),
       sessionId: activeSession.id,
     });
-    dispatch({
-      type: "append_message",
-      message: createMessage({
-        type: "assistant",
-        content:
-          "Brief sudah tersimpan di riwayat lokal. Saya akan membantu melengkapi fakta usaha, memeriksa ringkasan, lalu menunggu persetujuan Anda sebelum membuat halaman.",
-      }),
-      sessionId: activeSession.id,
+    const firstDraft = emptyDraft(cleanPrompt);
+    const intakeMessage = createMessage({
+      type: "clarification",
+      content: "Memeriksa kelengkapan fakta dan cakupan halaman…",
+      prompt: cleanPrompt,
+      draft: firstDraft,
+      status: "needs_clarification",
+      missingFields: [],
+      isValidating: true,
     });
+    dispatch({ type: "append_message", message: intakeMessage, sessionId: activeSession.id });
+    void validateDraft(activeSession.id, intakeMessage, firstDraft);
     setPrompt("");
+  }
+
+  function editSummary(message: RequestSummaryMessage) {
+    const clarification: ClarificationMessage = {
+      id: message.id,
+      createdAt: new Date().toISOString(),
+      type: "clarification",
+      content: "Perbarui bagian yang ingin diubah, lalu validasi lagi sebelum menyetujui ringkasan.",
+      prompt: message.prompt,
+      draft: message.draft,
+      status: "needs_clarification",
+      missingFields: [],
+    };
+    dispatch({ type: "replace_message", message: clarification, sessionId: activeSession?.id });
+  }
+
+  function confirmSummary(message: RequestSummaryMessage) {
+    dispatch({
+      type: "replace_message",
+      sessionId: activeSession?.id,
+      message: {
+        ...message,
+        state: "confirmed",
+        content: "Rancangan dikonfirmasi. Fakta dan jenis halaman akan tetap mengikuti ringkasan ini.",
+        createdAt: new Date().toISOString(),
+      },
+    });
+  }
+
+  function editPrompt(value: string) {
+    setPrompt(value);
+    setMobilePanel("conversation");
+    window.requestAnimationFrame(() => document.getElementById("chat-prompt")?.focus());
   }
 
   if (!state.restored || !activeSession) {
@@ -160,6 +285,11 @@ export function ChatShell() {
               <MessageList
                 messages={activeSession.messages}
                 onUsePrompt={(suggestion) => setPrompt(suggestion)}
+                catalog={catalog}
+                onValidate={(message, draft) => validateDraft(activeSession.id, message, draft)}
+                onEditPrompt={editPrompt}
+                onEditSummary={editSummary}
+                onConfirmSummary={confirmSummary}
               />
               <Composer value={prompt} onChange={setPrompt} onSubmit={sendPrompt} />
             </div>
