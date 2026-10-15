@@ -2,7 +2,7 @@
 
 Tanggal: 15 Oktober 2026
 
-Status: disetujui pengguna pada 15 Oktober 2026 untuk dilanjutkan ke rencana implementasi. Rencana implementasi masih menunggu review. Implementasi belum dimulai.
+Status: spesifikasi dan rencana implementasi disetujui pengguna pada 15 Oktober 2026. Implementasi source Task 1-5 sudah dikerjakan pada branch `feature/pipeline-data-model-training`. Build, server, review browser, end-to-end, dan inference aplikasi belum dijalankan.
 
 Dokumen ini menetapkan lingkup, pengalaman pengguna, batas model, dan kontrak integrasi aplikasi website generator. Dokumen ini meneruskan pipeline source-bound yang telah dipilih untuk TRAIN-025.
 

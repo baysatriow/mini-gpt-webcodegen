@@ -28,6 +28,6 @@ Dokumen di sini menjelaskan ruang lingkup, persyaratan tugas, sumber dataset, en
 
 Environment, pipeline data, Mini GPT dan training/evaluator tersedia. CLI dan dua contoh CSS/Tailwind menghasilkan output diterima validator. Overall model gate belum lulus43/48exact; research per output berbeda dari production readiness. Lihat [hasil terbaru](../reports/OUTPUT_DEVELOPMENT_2026-10-13.md). UI input/preview sandbox tahap akhir. Data/BPE/checkpoint lokal; code, log, laporan dan dua snapshot website di Git.
 
-API generator sudah memiliki skema, intake, health, generation, dan pembatas artefak di branch implementasi. Dokumentasi API ada di [panduan API lokal](../apps/api/README.md). Server, dependency, test, build, dan inference aplikasi belum dijalankan; UI Next.js masih menunggu implementasi.
+API generator sudah memiliki skema, intake, health, generation, dan pembatas artefak di branch implementasi. Dokumentasi setup API ada di [panduan API lokal](../apps/api/README.md). Source UI Next.js kini mencakup alur chat terpandu, persetujuan ringkasan, generation eksplisit, preview sandbox, source, serta unduhan. Panduan UI ada di [apps/web/README.md](../apps/web/README.md). Dependency API dan server belum disiapkan atau dijalankan. UI belum direview secara visual di browser dan belum diverifikasi end-to-end; build, test, dan inference aplikasi juga belum dijalankan.
 
 Sebelum mengambil atau merilis data, periksa lagi revision, lisensi, atribusi, dan ketentuan penggunaan saat itu.

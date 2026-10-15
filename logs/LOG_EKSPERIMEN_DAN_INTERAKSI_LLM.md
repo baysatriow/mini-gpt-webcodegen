@@ -6682,3 +6682,11 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Kontrak `apps/api` tidak diubah. Endpoint generation tidak dipanggil selama implementasi ini.
 - Pemeriksaan: review source dan `git diff --check` untuk whitespace lulus. Pencarian source tidak menemukan `allow-same-origin` atau `dangerouslySetInnerHTML`. Tidak menjalankan build, lint, test, server, inference, atau membuka data test/final. Review visual browser belum dilakukan.
 - Status perubahan: siap dicommit dan dipush ke `feature/pipeline-data-model-training`.
+
+## AI-038, dokumentasi pengoperasian frontend
+
+- Tanggal: 15 Oktober 2026, zona waktu Asia/Jakarta.
+- Tujuan: mendokumentasikan setup UI lokal dan memperbarui status source aplikasi sesuai implementasi pada branch.
+- Perubahan: README frontend menjelaskan salinan `.env.example`, instalasi dari lockfile, cara menjalankan UI, alamat konfigurasi FastAPI, perilaku riwayat lokal, batas inference, serta kapan generation dimulai. README root dan indeks dokumentasi merujuk ke panduan UI dan membedakan source implementasi dari runtime yang belum dijalankan. Metadata status pada spesifikasi diperbarui tanpa mengubah kontrak produk.
+- Pemeriksaan: review isi dokumen dan target link secara source-level. Tidak menjalankan command setup, server, build, lint, test, inference, atau evaluasi data test/final.
+- Status perubahan: siap dicommit dan dipush ke `feature/pipeline-data-model-training`.

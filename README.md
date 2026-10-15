@@ -6,11 +6,11 @@ Mini GPT WebCodeGen adalah proyek kuliah untuk membangun model generatif decoder
 
 Rancangan aplikasi lokal memakai Next.js dan shadcn di `apps/web`, FastAPI di `apps/api`, serta pipeline source-bound yang sudah ada. Pengguna melengkapi fakta usaha melalui chat dan mengonfirmasi ringkasan sebelum meminta halaman dibuat. Model memilih rancangan dari katalog; renderer lokal tetap menghasilkan HTML, CSS, JavaScript, dan aset yang tervalidasi.
 
-Panduan pengoperasian API dan rute lokal ada di [apps/api/README.md](apps/api/README.md). Source rute API sudah dibuat, tetapi dependency belum dipasang dan server belum dijalankan. UI Next.js masih dalam implementasi.
+Source UI Next.js dan adapter FastAPI sudah tersedia di branch implementasi. UI mencakup chat, klarifikasi fakta, persetujuan eksplisit, status generation, preview sandbox, tampilan source, dan unduhan. Panduan lokal ada di [apps/web/README.md](apps/web/README.md) dan [apps/api/README.md](apps/api/README.md). Dependency API dan server belum disiapkan atau dijalankan. UI belum ditinjau di browser dan belum diverifikasi end-to-end.
 
 Kandidat runtime yang dipaketkan adalah TRAIN-025 step 1.800. Panduan dan provenance ada di [paket runtime terpilih](training/selected/fullpage-v5/README.md). Salinan model dan output development hanya ada secara lokal dan diabaikan Git. Kode training tetap di `src/`, sedangkan checkpoint kanonis tetap di `checkpoints/`.
 
-Kandidat lolos gerbang validator pada 80 dari 80 request development. Review browser dan visual manusia masih pending; hasil ini tidak membuktikan kualitas visual 95 persen. Rencana aplikasi ada di [roadmap generator](docs/superpowers/plans/2026-10-15-generator-app-roadmap.md) dan [desain aplikasi](docs/superpowers/specs/2026-10-15-generator-chat-application-design.md). Implementasi belum selesai dan inference aplikasi belum dijalankan.
+Kandidat lolos gerbang validator pada 80 dari 80 request development. Review browser dan visual manusia masih pending; hasil ini tidak membuktikan kualitas visual 95 persen. Rencana aplikasi ada di [roadmap generator](docs/superpowers/plans/2026-10-15-generator-app-roadmap.md) dan [desain aplikasi](docs/superpowers/specs/2026-10-15-generator-chat-application-design.md). Source implementasi aplikasi tersedia pada branch ini. Runtime, review visual browser, verifikasi end-to-end, dan inference aplikasi belum dijalankan.
 
 ## Halaman utuh, AI-018
 
