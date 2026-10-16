@@ -1397,3 +1397,10 @@ The frozen selector status is passed and selected TRAIN-025 step 1,800. Both can
 - Rencana dan ledger menandai Task 4 selesai dengan commit `5adb0e1`. Training/evaluasi extractor dan API safety replay masih terbuka.
 - Dokumentasi membatasi klaim pada bukti yang ada. Tidak ada klaim bahwa extractor sudah dipilih, inference prompt-first sudah diuji end-to-end, atau target visual 95 persen sudah tercapai.
 - Tidak ada dataset, checkpoint, secret, atau keluaran generation yang ditambahkan ke Git. Rincian: `logs/RUN-658_prompt_first_documentation_review.txt`.
+
+### RUN-659: pemulihan route API saat raw evaluation berjalan
+
+- Proses FastAPI lama belum memuat route prompt-first yang sudah tercatat di source. API direstart dari `.venv`; GET OpenAPI kini memuat `/api/v1/intake/extract` dan GET health mengembalikan `ok`.
+- API berjalan tanpa generator atau extractor yang dimuat. Kandidat REQUEST-EXTRACT-V1 belum dipilih, jadi ekstraksi tetap fail-closed. Tidak ada API inference atau generation.
+- Evaluasi development GPU terpisah tidak dihentikan. Progress terakhir yang terlihat pada output pemeriksaan adalah 8.700/15.200 scope; laporan akhir belum ada. Final/test tetap tertutup.
+- Detail insiden: `logs/RUN-659_stale_api_route_recovery.txt`.

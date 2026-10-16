@@ -7157,3 +7157,12 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Status UI build, review browser, extractor yang belum dipromosikan, serta test/final yang tetap tertutup dicatat sesuai bukti. Tidak ada klaim end-to-end baru atau target visual 95 persen.
 - Rencana dan ledger menandai Task 4 selesai pada commit `5adb0e1`; Task 2/3 gates dan final diff review tetap terbuka.
 - Referensi run: `logs/RUN-658_prompt_first_documentation_review.txt`.
+
+## AI-044, pemulihan route intake yang belum termuat
+
+- Tanggal/waktu: 17 Oktober 2026, 01:08-01:09, Asia/Jakarta.
+- Screenshot UI memperlihatkan `Resource not found` setelah brief disimpan. Penyebabnya adalah proses FastAPI aktif memuat source lama: route `/api/v1/intake/extract` ada di source dan frontend, tetapi tidak ada pada OpenAPI yang dilayani proses lama.
+- API lokal direstart dari `.venv` tanpa menghentikan evaluasi GPU terpisah. OpenAPI kini mencantumkan route ekstraksi; health API menjawab `ok` dengan seluruh flag model bernilai false.
+- Kandidat extractor belum tersedia di paket seleksi, jadi route yang sudah aktif masih fail-closed sampai development gate selesai. Tidak ada prompt yang dikirim ke model, tidak ada generation, dan tab browser tidak di-refresh.
+- Pemeriksaan terakhir menerima progress raw development 8.700/15.200; belum ada laporan akhir. Final/test tetap tertutup.
+- Rincian: `logs/RUN-659_stale_api_route_recovery.txt`.
