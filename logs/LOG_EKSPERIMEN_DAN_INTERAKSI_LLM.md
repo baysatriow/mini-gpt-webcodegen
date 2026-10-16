@@ -6714,4 +6714,10 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Dependency API: perintah `.\.venv\Scripts\python.exe -m pip install -r apps/api/requirements-api.txt` dicatat sebelum dijalankan dan selesai dengan exit code 0. Versi terpasang: FastAPI `0.143.1` dan Uvicorn `0.53.0`.
 - Environment model: PyTorch `2.14.1+cu130`, `torch.cuda.is_available()` mengembalikan `True`, perangkat terdeteksi sebagai NVIDIA GeForce RTX 5070. Pemeriksaan ini tidak menjalankan tensor generation atau inference.
 - Startup berikutnya: API memakai `.\.venv\Scripts\python.exe -m uvicorn apps.api.main:app --host 127.0.0.1 --port 8000 --workers 1`; UI memakai `npm run dev -- --hostname 127.0.0.1` dari `apps/web`.
-- Status: preflight dan pemasangan dependency selesai; startup lokal belum dijalankan.
+- Startup: FastAPI selesai startup di `http://127.0.0.1:8000` dan Next.js siap di `http://127.0.0.1:3000`; keduanya bind ke loopback.
+- HTTP: `GET /api/v1/health`, `GET /api/v1/catalog`, `GET /openapi.json`, dan `GET /` berhasil dengan status 200. Health tetap melaporkan `model_loaded: false` sebelum dan sesudah intake.
+- Intake browser: prompt generik membuka form klarifikasi. Setelah memasukkan fakta contoh fiktif `Kedai Demo`, validasi intake menghasilkan status `Siap ditinjau` dan menampilkan tombol persetujuan generation. Tombol tidak ditekan dan endpoint generation tidak dipanggil.
+- Visual: halaman awal, form fakta, ringkasan tervalidasi, dan batas persetujuan terlihat di browser pada viewport sekitar 624 × 858 piksel. Review ini mencakup alur intake; preview website hasil generation dan kualitas visual 95 persen belum dinilai.
+- Artefak dev: Next.js membuat `apps/web/AGENTS.md` saat startup. File panduan yang dibuat framework ini disertakan agar working tree kembali bersih.
+- Tidak dijalankan: build, lint, test suite, training, generation, inference, atau evaluasi final.
+- Status: startup lokal dan integrasi intake berhasil pada pemeriksaan ini; uji visual atas halaman hasil dan penilaian manusia tetap menunggu.
