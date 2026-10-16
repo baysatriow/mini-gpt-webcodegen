@@ -6862,3 +6862,17 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Tanggal: 16 Oktober 2026, sekitar 15:00, Asia/Jakarta.
 - Perintah: audit proses ngrok dan listener port 3000 serta 8000.
 - Hasil: tidak ada proses ngrok; Next.js mendengarkan di `127.0.0.1:3000` dan FastAPI di `127.0.0.1:8000`. Tidak ada endpoint publik yang aktif.
+
+## RUN-623, tunnel ngrok terlindungi dimulai
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 15:05, Asia/Jakarta.
+- Proses: ngrok v3.39.11 dengan Traffic Policy Basic Auth meneruskan Next.js pada 127.0.0.1:3000. Inspeksi request ngrok dinonaktifkan.
+- Hasil: sesi tunnel tersambung dan endpoint HTTPS dibuat. URL publik serta kredensial tidak disimpan di log atau repository.
+- Batas akses: hanya frontend yang diteruskan. FastAPI tetap di 127.0.0.1:8000.
+
+## RUN-624, pemeriksaan akses endpoint tunnel
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 15:06, Asia/Jakarta.
+- Pemeriksaan: akses tanpa autentikasi dan dengan Basic Auth ke halaman utama; health dan catalog melalui proxy same-origin; target tunnel; serta alamat listener FastAPI.
+- Hasil: halaman tanpa autentikasi mendapat HTTP 401; halaman terautentikasi mendapat HTTP 200; health dan catalog terautentikasi mendapat HTTP 200. Target ngrok adalah http://127.0.0.1:3000, sementara FastAPI hanya mendengarkan di 127.0.0.1.
+- Batas: ini membuktikan proteksi akses dasar dan konektivitas saat diperiksa, bukan inference jarak jauh atau uji beban. URL dan kredensial tidak dicatat.

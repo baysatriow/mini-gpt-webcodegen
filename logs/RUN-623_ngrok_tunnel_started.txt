@@ -1,0 +1,4 @@
+RUN-623, tunnel ngrok terlindungi dimulai
+Tanggal/waktu: 16 Oktober 2026, sekitar 15:05 Asia/Jakarta
+Hasil: ngrok v3.39.11 tersambung ke Next.js pada 127.0.0.1:3000 dengan Traffic Policy Basic Auth sementara. URL publik dan rahasia tidak dicatat.
+Batas: FastAPI tetap hanya bind ke 127.0.0.1:8000. Tidak ada generation tambahan.
