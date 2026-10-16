@@ -6876,3 +6876,16 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Pemeriksaan: akses tanpa autentikasi dan dengan Basic Auth ke halaman utama; health dan catalog melalui proxy same-origin; target tunnel; serta alamat listener FastAPI.
 - Hasil: halaman tanpa autentikasi mendapat HTTP 401; halaman terautentikasi mendapat HTTP 200; health dan catalog terautentikasi mendapat HTTP 200. Target ngrok adalah http://127.0.0.1:3000, sementara FastAPI hanya mendengarkan di 127.0.0.1.
 - Batas: ini membuktikan proteksi akses dasar dan konektivitas saat diperiksa, bukan inference jarak jauh atau uji beban. URL dan kredensial tidak dicatat.
+
+## RUN-625, rotasi kredensial tunnel
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 15:09, Asia/Jakarta.
+- Proses: endpoint pertama dihentikan dan Traffic Policy Basic Auth sementara diperbarui sebelum kredensial disampaikan kepada pengguna.
+- Hasil: tunnel baru tersambung ke Next.js pada loopback port 3000. Detail URL dan rahasia tidak disimpan.
+- Batas: FastAPI tetap lokal pada loopback port 8000. Tidak ada generation tambahan.
+## RUN-626, pemeriksaan ulang tunnel setelah rotasi
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 15:10, Asia/Jakarta.
+- Pemeriksaan: akses publik tanpa dan dengan Basic Auth, health dan catalog API, target tunnel, serta alamat listener FastAPI.
+- Hasil: halaman tanpa autentikasi mendapat HTTP 401; halaman, health, dan catalog dengan autentikasi mendapat HTTP 200. Tunnel menuju 127.0.0.1:3000 dan FastAPI hanya mendengarkan di 127.0.0.1:8000.
+- Batas: tidak menjalankan generation baru, inference jarak jauh, atau uji beban. URL dan kredensial tidak dicatat.
