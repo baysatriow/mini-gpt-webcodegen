@@ -7080,3 +7080,11 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Dibekukan config baru `training-request-extract-v1-r1.json`, SHA-256 `9bc454c2eeb420e48136b356bfd14e0a38d23039e7fd79d37bce38ac6d93cee0`. Config lama dan bukti run gagal tidak dihapus.
 - Checkpoint pemulihan dijadwalkan setiap 600 update; perbandingan kandidat tetap pada 1.800 dan 3.600.
 - Belum ada preflight r1, retry training, generation/inference, atau akses final/test. Rincian: `logs/RUN-650_reqext_sampler_fix_config_r1.txt`.
+
+## RUN-651, preflight r1 akan dijalankan
+
+- Tanggal/waktu: 16 Oktober 2026, 23:17, Asia/Jakarta.
+- Perbaikan iterator dan config r1 sudah dipush pada commit `59dab7e`.
+- Preflight mengukur batch train terpanjang dan pemeriksaan GPU/storage memakai report baru yang belum ada. Failed attempt1 tetap dipertahankan.
+- Training retry akan bergantung pada preflight. Final/test tetap tertutup.
+- Rincian: `logs/RUN-651_request_extract_preflight_r1_launch.txt`.

@@ -1,0 +1,10 @@
+RUN-651, r1 RTX 5070/storage preflight launch
+Tanggal/waktu: 16 Oktober 2026, 23:17, Asia/Jakarta.
+
+Commit perbaikan sampler dan config r1 sudah dipush: `59dab7e fix: resume prompt extractor by length bucket`.
+Config SHA-256: `9bc454c2eeb420e48136b356bfd14e0a38d23039e7fd79d37bce38ac6d93cee0`.
+GPU preflight report tujuan `outputs/request_extract/v1/GPU_PREFLIGHT-R1.json` belum ada. F: melaporkan 17,393,930,240 byte free sebelum pemeriksaan baru.
+
+Preflight akan menjalankan satu optimizer update disposable pada batch train terpanjang, memastikan iterator memakai batch bucket dan mengukur storage, RTX 5070, BF16, serta VRAM. Tidak ada checkpoint disimpan. Failed attempt1 masih utuh di canonical path dan akan diarsip sebelum retry training.
+
+Training ulang hanya dilanjutkan jika preflight r1 lulus. Development tidak dipakai pada update atau inference. Final/test tetap tertutup.

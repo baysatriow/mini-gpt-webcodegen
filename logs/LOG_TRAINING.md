@@ -1336,3 +1336,10 @@ The frozen selector status is passed and selected TRAIN-025 step 1,800. Both can
 - Config baru `training-request-extract-v1-r1.json` berhasil dibuat dengan hash `9bc454c2eeb420e48136b356bfd14e0a38d23039e7fd79d37bce38ac6d93cee0`. File config lama tetap dipertahankan untuk mengikat failed attempt.
 - Checkpoint interval recovery diubah ke 600 update; snapshot kandidat tetap di 1.800/3.600.
 - Bytecode compilation dan diff check lulus. Belum ada preflight r1, retry training, inference, atau akses final/test. Detail: `logs/RUN-650_reqext_sampler_fix_config_r1.txt`.
+
+### RUN-651: r1 GPU preflight launch
+
+- Commit `59dab7e` berisi iterator bucket dan config r1 sudah dipush.
+- Konfigurasi preflight baru memakai path report kosong. F: free 17,393,930,240 byte sebelum pemeriksaan.
+- Preflight akan menjalankan satu update disposable dan tidak menyimpan checkpoint. Training retry menunggu hasil gate.
+- Detail launch: `logs/RUN-651_request_extract_preflight_r1_launch.txt`.
