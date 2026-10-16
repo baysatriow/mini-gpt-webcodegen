@@ -6982,3 +6982,9 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Hasil: reviewer independen menyatakan spesifikasi siap untuk persetujuan pengguna setelah kontrak provenance, setting, pembatalan capability, dan gate evaluasi dilengkapi.
 - Batas: perubahan hanya pada dokumen dan log. Implementasi aplikasi/API/model belum dimulai. Tidak menjalankan test, training, inference, atau membuka partisi final.
 - Status: menunggu keputusan pengguna atas scope sebelum scaffolding implementasi.
+
+## RUN-639, review akhir prompt-first siap untuk persetujuan pengguna
+
+- Tanggal/waktu: 16 Oktober 2026, sekitar 18:05, Asia/Jakarta.
+- Hasil review final: gate untuk retraction genre/style tanpa pengganti memiliki bucket minimal 50 keluarga dan target klarifikasi 100 persen. Reviewer menyatakan spesifikasi siap untuk persetujuan pengguna.
+- Status: dokumen sudah didorong ke branch fitur; menunggu keputusan jumlah fakta wajib sebelum implementasi. Belum mengubah aplikasi, API implementasi, extractor, atau checkpoint. Tidak menjalankan test/training/inference. Partisi final tetap tertutup.

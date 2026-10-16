@@ -1,0 +1,11 @@
+RUN-639, review akhir prompt-first siap untuk persetujuan pengguna
+Tanggal/waktu: 16 Oktober 2026, sekitar 18:05, Asia/Jakarta
+
+Hasil review
+- Reviewer independen mengonfirmasi bahwa gate untuk retraction genre/style tanpa pengganti menutup bucket evaluasi terakhir.
+- Spesifikasi prompt-first dinyatakan siap untuk persetujuan pengguna.
+
+Status pekerjaan
+- Dokumen rancangan dan log sudah dipush pada commit dokumentasi terpisah.
+- Menunggu keputusan pengguna tentang jumlah fakta wajib sebelum implementasi. Belum ada perubahan aplikasi, API implementasi, extractor, atau checkpoint.
+- Tidak menjalankan test, training, maupun inference. Partisi final tetap tertutup.
