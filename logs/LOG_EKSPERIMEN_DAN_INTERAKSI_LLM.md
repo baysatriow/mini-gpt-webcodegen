@@ -6694,7 +6694,7 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Dokumentasi: README API dan web menjelaskan pemeriksaan kemampuan serta perilaku preview; spesifikasi memperjelas bahwa pembayaran online di luar cakupan.
 - Pemeriksaan: review perubahan secara source-level dan git diff --check lulus. Tidak menjalankan test, build, lint, server, inference, training, atau membuka data test/final. Tidak ada pemeriksaan visual browser atau end-to-end.
 - Batas: frasa kemampuan yang terdeteksi hanya yang tercantum pada katalog. Sebutan yang dinegasikan tetap dapat memerlukan prompt yang dirumuskan ulang; pemeriksaan ini bukan pemahaman konteks bahasa.
-- Status: perbaikan source siap dicommit ke branch kerja; kelulusan build, integrasi live, dan kualitas visual belum dibuktikan.
+- Status: perbaikan source tercatat pada commit `e6c86e4` dan telah dipush. Kelulusan build, integrasi live, dan kualitas visual belum dibuktikan.
 
 ## AI-038, dokumentasi pengoperasian frontend
 
@@ -6702,4 +6702,12 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Tujuan: mendokumentasikan setup UI lokal dan memperbarui status source aplikasi sesuai implementasi pada branch.
 - Perubahan: README frontend menjelaskan salinan `.env.example`, instalasi dari lockfile, cara menjalankan UI, alamat konfigurasi FastAPI, perilaku riwayat lokal, batas inference, serta kapan generation dimulai. README root dan indeks dokumentasi merujuk ke panduan UI dan membedakan source implementasi dari runtime yang belum dijalankan. Metadata status pada spesifikasi diperbarui tanpa mengubah kontrak produk.
 - Pemeriksaan: review isi dokumen dan target link secara source-level. Tidak menjalankan command setup, server, build, lint, test, inference, atau evaluasi data test/final.
-- Status perubahan: siap dicommit dan dipush ke `feature/pipeline-data-model-training`.
+- Status perubahan: tercatat pada commit `095d2dc` dan telah dipush ke `feature/pipeline-data-model-training`.
+
+## RUN-601, pemeriksaan runtime lokal tanpa inference
+
+- Tanggal: 16 Oktober 2026, zona waktu Asia/Jakarta.
+- Tujuan: melanjutkan pekerjaan setelah implementasi aplikasi digabung ke `main`, dengan memeriksa kesiapan dependency dan menjalankan UI serta API lokal.
+- Batas pemeriksaan: tidak memanggil endpoint generation, tidak menjalankan training atau evaluasi final, dan tidak membuka data test/final.
+- Pemeriksaan yang direncanakan: cek import dependency FastAPI/Uvicorn/PyTorch, cek runtime Node/Next, jalankan server API dan UI, lalu akses health, catalog, intake validation tanpa membuat generation.
+- Status: dicatat sebelum pemeriksaan runtime; hasil akan ditambahkan setelah dijalankan.
