@@ -1358,3 +1358,11 @@ The frozen selector status is passed and selected TRAIN-025 step 1,800. Both can
 - Memulai ulang fresh dari TRAIN-025 step 1.800 sampai update 1.800. Recovery checkpoint setiap 600 update; snapshot kandidat tetap pada step 1.800.
 - Storage free terbaru 17,393,397,760 byte. Engine tetap menjaga reserve 15 GiB dan guard per write. Final/test tetap tertutup.
 - Rincian: `logs/RUN-653_reqext_1800_retry_launch.txt`.
+
+### RUN-654: REQEXT-V1-1800 passed
+
+- Retry mencapai global/last committed step 1.800 dengan status `stopped_at_limit`, sesuai stage pertama dari config 3.600 update. Checkpoint SHA-256: `ed3c98d2da77998c257230bef3a93e24479aa67971664c1fa8d384b46a287b21`.
+- Development validation CE turun dari 5.7648178093 ke 1.4613933164 pada 1.900 batch. Ini loss token, bukan skor ekstraksi atau visual.
+- Sampler melewati batas epoch yang menyebabkan RUN-649 tanpa error. Checkpoint recovery step 1.200 terverifikasi.
+- F: free 16,924,983,296 byte. Belum ada generation/inference extractor, final/test tetap tertutup.
+- Catatan: `logs/RUN-654_reqext_1800_training_pass.txt`.

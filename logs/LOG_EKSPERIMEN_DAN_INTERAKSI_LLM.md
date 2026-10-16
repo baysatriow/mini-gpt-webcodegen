@@ -7104,3 +7104,10 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - R1 preflight lulus. Retry dimulai fresh dari parent TRAIN-025 step 1.800 menggunakan recovery checkpoint setiap 600 update.
 - Storage free 17,393,397,760 byte sebelum training. Final/test tertutup.
 - Rincian config dan arsip: `logs/RUN-653_reqext_1800_retry_launch.txt`.
+
+## RUN-654, tahap training step 1.800 selesai
+
+- Tanggal/waktu: 16 Oktober 2026, 23:36, Asia/Jakarta.
+- Retry berhasil melewati batas epoch tanpa batch kosong dan mencapai step 1.800. Checkpoint terverifikasi dengan SHA-256 `ed3c98d2da77998c257230bef3a93e24479aa67971664c1fa8d384b46a287b21`.
+- Development CE awal 5.7648 dan 1.800 sebesar 1.4614. Ini hanya CE pada development, belum membuktikan ekstraksi fakta ataupun kualitas halaman.
+- Belum ada extractor generation. Final/test tetap tertutup. Laporan lengkap ada di `logs/RUN-654_reqext_1800_training_pass.txt`.
