@@ -1404,3 +1404,9 @@ The frozen selector status is passed and selected TRAIN-025 step 1,800. Both can
 - API berjalan tanpa generator atau extractor yang dimuat. Kandidat REQUEST-EXTRACT-V1 belum dipilih, jadi ekstraksi tetap fail-closed. Tidak ada API inference atau generation.
 - Evaluasi development GPU terpisah tidak dihentikan. Progress terakhir yang terlihat pada output pemeriksaan adalah 8.700/15.200 scope; laporan akhir belum ada. Final/test tetap tertutup.
 - Detail insiden: `logs/RUN-659_stale_api_route_recovery.txt`.
+
+### RUN-660: request UI ditolak sampai extractor terpilih
+
+- API route aktif, tetapi selection REQUEST-EXTRACT-V1 belum ada. Runtime menolak sebelum membuat model extractor dan API mengembalikan fallback manual.
+- Tidak ada inference atau website generation pada request ini. Raw development evaluation berlangsung sampai output terakhir 9.200/15.200; tidak ada promosi. Final/test tertutup.
+- Detail: `logs/RUN-660_prompt_extractor_not_selected.txt`.

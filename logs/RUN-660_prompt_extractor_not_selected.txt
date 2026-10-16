@@ -1,0 +1,18 @@
+RUN-660, prompt-first ditolak sebelum extractor tersedia
+Tanggal/waktu: 17 Oktober 2026, 01:13-01:14 Asia/Jakarta.
+
+Pemicu
+- Pengguna mengirim brief melalui UI lokal setelah API restart. UI menyimpan brief dan menampilkan `Ekstraksi belum dapat dipercaya. Gunakan editor detail manual sementara.`
+
+Temuan
+- Endpoint `/api/v1/intake/extract` sudah ada dan API merespons normal.
+- Paket `training/selected/request-extract-v1/selection.json` tidak ada. Health API melaporkan `extractor_available=false`, `extractor_loaded=false`, dan `model_loaded=false`.
+- Runtime `get_extractor()` berhenti dengan `FileNotFoundError` karena belum ada kandidat yang melewati gate. Adapter membungkus kondisi ini menjadi `PromptExtractionFailure` dan mengembalikan HTTP 503 dengan fallback manual.
+- Request tidak mencapai `RequestExtractor.extract()`. Tidak ada inferensi extractor atau generation website pada interaksi ini. Isi brief tidak disalin ke log.
+
+Status evaluasi
+- Evaluasi raw REQUEST-EXTRACT-V1 step 1800 masih berlangsung pada development. Output terakhir yang terlihat: 9.200 dari 15.200 scope.
+- Belum ada selection/promotion. Final/test tetap tertutup.
+
+Batas verifikasi
+- Penyebab error terlihat dari health, ketiadaan selection file, stack API lokal, dan pemetaan error pada source. Tidak ada request yang dikirim ulang sebagai tes.

@@ -7166,3 +7166,11 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Kandidat extractor belum tersedia di paket seleksi, jadi route yang sudah aktif masih fail-closed sampai development gate selesai. Tidak ada prompt yang dikirim ke model, tidak ada generation, dan tab browser tidak di-refresh.
 - Pemeriksaan terakhir menerima progress raw development 8.700/15.200; belum ada laporan akhir. Final/test tetap tertutup.
 - Rincian: `logs/RUN-659_stale_api_route_recovery.txt`.
+
+## AI-045, prompt kembali ke editor karena extractor belum dipilih
+
+- Tanggal/waktu: 17 Oktober 2026, 01:13-01:14, Asia/Jakarta.
+- Setelah API route dipulihkan, pengguna mencoba brief di chat. API menemukan route, tetapi paket selection extractor belum tersedia. `get_extractor()` berhenti sebelum model dibuat; `FileNotFoundError` dibungkus sebagai `PromptExtractionFailure`, lalu UI menampilkan fallback manual.
+- Tidak terjadi inferensi model atau generation. Brief tidak disalin ke log; data tetap tersimpan pada UI lokal.
+- Raw development evaluation masih berlangsung, terakhir terlihat 9.200/15.200 scope. Final/test tetap tertutup.
+- Rincian: `logs/RUN-660_prompt_extractor_not_selected.txt`.
