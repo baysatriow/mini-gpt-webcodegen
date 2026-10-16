@@ -1322,3 +1322,17 @@ The frozen selector status is passed and selected TRAIN-025 step 1,800. Both can
 - Memulai fresh SFT dari parent TRAIN-025 step 1.800 hingga extractor global step 1.800. Training memakai train split; development hanya menghitung validation loss pada titik tetap.
 - Engine memeriksa reserve 15 GiB dan budget lokal saat penulisan. Jika guard storage gagal, run berhenti dan checkpoint yang ada tetap dipertahankan.
 - Tidak menjalankan generation/inference dan tidak membuka test/final. Catatan launch: `logs/RUN-648_reqext_1800_launch.txt`.
+
+### RUN-649: REQEXT-V1-1800 attempt 1 gagal
+
+- Training berhenti pada global step 1.440 karena sampler menghasilkan batch kosong di batas epoch. Root cause dikonfirmasi pada iterator inherited yang tidak memakai batch-per-bucket subclass.
+- Checkpoint terakhir yang committed adalah inisialisasi step 0. Folder dan report gagal dipertahankan; tidak ada file dihapus. F: masih memiliki 17,394,282,496 byte free.
+- Tidak melakukan development generation atau membuka final/test. Belum ada kandidat 1.800.
+- Perbaikan akan memakai iterator per-bucket dan checkpoint pemulihan setiap 300 update, sambil menjaga kandidat perbandingan tetap 1.800 dan 3.600. Rincian: `logs/RUN-649_reqext_1800_failed_sampler.txt`.
+
+### RUN-650: sampler diperbaiki, config r1 dibekukan
+
+- Iterator extractor sekarang memakai `batches(epoch)` per length bucket dan menyimpan cursor terhadap jumlah batch bucket, memperbaiki root cause RUN-649.
+- Config baru `training-request-extract-v1-r1.json` berhasil dibuat dengan hash `9bc454c2eeb420e48136b356bfd14e0a38d23039e7fd79d37bce38ac6d93cee0`. File config lama tetap dipertahankan untuk mengikat failed attempt.
+- Checkpoint interval recovery diubah ke 600 update; snapshot kandidat tetap di 1.800/3.600.
+- Bytecode compilation dan diff check lulus. Belum ada preflight r1, retry training, inference, atau akses final/test. Detail: `logs/RUN-650_reqext_sampler_fix_config_r1.txt`.

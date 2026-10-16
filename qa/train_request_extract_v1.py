@@ -64,7 +64,7 @@ def run_request_extract_training(config_path: Path, *, run_id: str, root: Path, 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=ROOT)
-    parser.add_argument("--config", type=Path, default=Path("configs/fullpage/training-request-extract-v1.json"))
+    parser.add_argument("--config", type=Path, default=Path("configs/fullpage/training-request-extract-v1-r1.json"))
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--resume", type=Path)
     parser.add_argument("--stop-after", type=int)

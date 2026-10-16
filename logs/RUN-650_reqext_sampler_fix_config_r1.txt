@@ -1,0 +1,10 @@
+RUN-650, iterator bucket diperbaiki dan config r1 dibekukan
+Tanggal/waktu: 16 Oktober 2026, 23:16, Asia/Jakarta.
+
+Root cause RUN-649 telah diperbaiki: `RequestExtractBatchSampler.__iter__` sekarang memakai urutan batch hasil bucket per epoch, dengan cursor resumable yang sama polanya seperti `TaskBatchSampler`.
+
+Config lama tidak ditimpa. Konfigurasi baru `configs/fullpage/training-request-extract-v1-r1.json` berhasil dibuat dan mengikat source hashes setelah perubahan, dataset, tokenizer, serta parent TRAIN-025 step 1.800. SHA-256 config r1: `9bc454c2eeb420e48136b356bfd14e0a38d23039e7fd79d37bce38ac6d93cee0`.
+
+Checkpoint interval menjadi 600 untuk menyimpan recovery state berkala. Kandidat evaluasi dan snapshot tetap fixed pada step 1.800 dan 3.600. Output preflight r1 belum dibuat. Attempt gagal pertama tetap utuh di lokasi canonical dan akan dipindahkan ke arsip lokal sebelum retry, tanpa dihapus.
+
+Bytecode compilation dan `git diff --check` lulus. Tidak menambah atau menjalankan test suite. Belum ada retry training, inference, atau akses final/test.

@@ -1,0 +1,10 @@
+RUN-649, REQEXT-V1-1800 attempt 1 gagal pada batas epoch
+Tanggal/waktu: 16 Oktober 2026, 23:14, Asia/Jakarta.
+
+Training dimulai dari parent TRAIN-025 dan berhenti pada global_step 1.440 dengan `ValueError: Cannot collate an empty request-extraction batch`. Error terjadi sebelum validasi atau checkpoint kandidat step 1.800. Report engine menyatakan `last_committed_step=0`; checkpoint last dan best yang ada adalah inisialisasi step 0. Direktori checkpoint berukuran 116,755,105 byte dan sengaja dipertahankan. Ruang F: sesudah run 17,394,282,496 byte.
+
+Root cause dari call stack dan perbandingan sampler: `RequestExtractBatchSampler` mengganti `batches_per_epoch` menjadi jumlah ceil per bucket, tetapi mewarisi `ResumableBatchSampler.__iter__`, yang membentuk satu permutation lalu membaginya dengan ceil ukuran dataset. Jumlah batch per bucket lebih besar dari pembagian global, sehingga iterator dasar menylice melewati akhir permutation dan menghasilkan list kosong. Collator menangkapnya sebagai error. `TaskBatchSampler` yang sudah bekerja menyelesaikan pola yang sama dengan override `__iter__` dan `self.batches(epoch)`.
+
+Training memakai RTX 5070/BF16. Sampai step 1.400, update berukuran kira-kira 0.30 sampai 0.34 detik, dengan telemetri sekitar 94 sampai 95 persen GPU utilization. Ini bukan bukti kualitas. Tidak ada development generation, selection, API/UI integration, atau akses final/test.
+
+Rencana koreksi: implementasikan iterator resumable yang benar-benar memakai batch per bucket; tingkatkan checkpoint pemulihan last menjadi setiap 300 update tanpa mengubah kandidat evaluasi 1.800/3.600; pertahankan direktori dan report attempt ini dalam arsip lokal, lalu bekukan config revisi dengan path baru. Tidak menghapus atau menimpa bukti kegagalan.

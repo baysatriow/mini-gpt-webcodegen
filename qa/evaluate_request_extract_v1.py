@@ -24,7 +24,7 @@ from src.training.engine import checkpoint_sha256, read_checkpoint
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CONFIG = Path("configs/fullpage/training-request-extract-v1.json")
+CONFIG = Path("configs/fullpage/training-request-extract-v1-r1.json")
 DATA_DIR = Path("data/processed/request_extract/v1")
 ALIASES = Path("configs/fullpage/request-extract-v1-aliases.json")
 CATALOG = Path("configs/fullpage/capability-catalog-v1.json")

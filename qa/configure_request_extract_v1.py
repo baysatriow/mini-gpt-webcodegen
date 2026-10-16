@@ -18,7 +18,7 @@ from src.fullpage.request_extract_lineage import (
 
 ROOT = Path(__file__).resolve().parents[1]
 DATASET_DIR = Path("data/processed/request_extract/v1")
-OUTPUT = Path("configs/fullpage/training-request-extract-v1.json")
+OUTPUT = Path("configs/fullpage/training-request-extract-v1-r1.json")
 RESERVE_BYTES = 15 * 1024**3
 SOURCE_FILES = (
     "configs/fullpage/request-extract-v1-aliases.json",
@@ -111,7 +111,7 @@ def build_training_config(root: Path = ROOT, dataset_dir: Path = DATASET_DIR) ->
         "grad_clip": 1.0,
         "validation_interval": 1800,
         "validation_batches": None,
-        "checkpoint_interval": 1800,
+        "checkpoint_interval": 600,
         "log_interval": 100,
         "reserve_free_bytes": RESERVE_BYTES,
         "checkpoint_artifact_budget_bytes": 2 * 1024**3,

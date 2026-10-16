@@ -70,7 +70,7 @@ class RequestExtractor:
         self.checkpoint_path = self.checkpoint_path.resolve()
         if not self.checkpoint_path.is_relative_to(self.root) or not self.checkpoint_path.is_file():
             raise RequestExtractionError("Selected extractor checkpoint is missing or outside the project")
-        self.config_path = Path(config_path or "configs/fullpage/training-request-extract-v1.json")
+        self.config_path = Path(config_path or "configs/fullpage/training-request-extract-v1-r1.json")
         self.config_path = self.config_path if self.config_path.is_absolute() else self.root / self.config_path
         self.config_path = self.config_path.resolve()
         self.device = torch.device(device)

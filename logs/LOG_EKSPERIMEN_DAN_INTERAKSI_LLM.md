@@ -7064,3 +7064,19 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Setelah pemeriksaan ruang terbaru dan ketiadaan output run, training fresh dimulai dari parent TRAIN-025 step 1.800 dengan target tepat global step 1.800.
 - Validation CE memakai development tanpa gradient update. Tidak ada generator inference atau akses final/test.
 - Detail command dan pengamanan storage tercatat di `logs/RUN-648_reqext_1800_launch.txt`.
+
+## RUN-649, attempt pertama berhenti di batas epoch
+
+- Tanggal/waktu: 16 Oktober 2026, 23:14, Asia/Jakarta.
+- Training berhenti pada global step 1.440 dengan batch kosong. Penelusuran kode mengonfirmasi iterator dasar memakai satu permutation dataset, sedangkan sampler extractor mengubah jumlah batch menjadi jumlah ceil per bucket tanpa override iterator. Implementasi `TaskBatchSampler` menunjukkan pola override yang benar.
+- Last committed checkpoint masih step 0 dan seluruh artefak dipertahankan. Ruang disk F: 17,394,282,496 byte.
+- Akan diperbaiki dengan iterator resumable per bucket dan checkpoint pemulihan tiap 300 update. Kandidat tetap dibandingkan pada 1.800 dan 3.600. Tidak ada inference atau pembukaan final/test.
+- Rincian: `logs/RUN-649_reqext_1800_failed_sampler.txt`.
+
+## RUN-650, iterator diperbaiki dan config r1 dibekukan
+
+- Tanggal/waktu: 16 Oktober 2026, 23:16, Asia/Jakarta.
+- Akar error telah dipetakan ke iterator dataloader yang mengabaikan batch per-bucket. Extractor kini memakai iterator resumable dari bucket yang sebenarnya.
+- Dibekukan config baru `training-request-extract-v1-r1.json`, SHA-256 `9bc454c2eeb420e48136b356bfd14e0a38d23039e7fd79d37bce38ac6d93cee0`. Config lama dan bukti run gagal tidak dihapus.
+- Checkpoint pemulihan dijadwalkan setiap 600 update; perbandingan kandidat tetap pada 1.800 dan 3.600.
+- Belum ada preflight r1, retry training, generation/inference, atau akses final/test. Rincian: `logs/RUN-650_reqext_sampler_fix_config_r1.txt`.

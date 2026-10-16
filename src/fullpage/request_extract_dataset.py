@@ -156,6 +156,13 @@ class RequestExtractBatchSampler(ResumableBatchSampler):
         rng.shuffle(batches)
         return batches
 
+    def __iter__(self):
+        """Resume over the subclass's bucketed batches, not the base flat permutation."""
+        epoch, offset = divmod(self.cursor, self.batches_per_epoch)
+        for batch in self.batches(epoch)[offset:]:
+            self.cursor += 1
+            yield batch
+
     def state_dict(self) -> dict:
         return {**super().state_dict(), "fingerprint": self.fingerprint, "length_buckets": list(LENGTH_BUCKETS)}
 

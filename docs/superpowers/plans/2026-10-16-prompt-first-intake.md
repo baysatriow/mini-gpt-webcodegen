@@ -76,7 +76,7 @@
 - Create: `src/fullpage/request_extract_model.py`
 - Create: `qa/configure_request_extract_v1.py`
 - Create: `qa/preflight_request_extract_v1.py`
-- Create: `configs/fullpage/training-request-extract-v1.json`
+- Create: `configs/fullpage/training-request-extract-v1-r1.json` (the original frozen config remains tied to the failed sampler attempt).
 - Create: `qa/train_request_extract_v1.py`
 - Create: `qa/evaluate_request_extract_v1.py`
 - Create: `qa/snapshot_request_extract_v1.py`
@@ -87,6 +87,7 @@
 - The sixteen fixed scopes each have an output budget measured from the frozen corpus; every exact input prefix plus its scope budget must fit within 2,048 tokens. FAQ, project, service, and process scopes select one item by first-presentation order, with explicit corrections replacing that item's value.
 - `RequestExtractor(checkpoint: Path, root: Path).extract(messages: list[dict[str, str]]) -> dict` runs one greedy call per scope over the same ordered message list and returns a merged, validated JSON object only; any malformed scope raises a controlled extraction error. This requires sixteen sequential decodes per API request; development reports will include per-brief decode latency before promotion.
 - `run_request_extract_training(...)` pins initialization to the exact selected TRAIN-025 step-1800 checkpoint and the audited extractor manifest.
+- Last-state checkpoints are written every 600 updates for recovery; scored comparison snapshots remain fixed at 1,800 and 3,600.
 - Development selection uses only the new development file and the thresholds in the approved spec. Final remains closed.
 
 - [x] Add a distinct dataset encoder and sampler for scoped `request_extract` rows without changing the existing two-task full-page sampler behavior.

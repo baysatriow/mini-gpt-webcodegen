@@ -12,7 +12,7 @@ from src.training.engine import checkpoint_sha256, read_checkpoint
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CONFIG = Path("configs/fullpage/training-request-extract-v1.json")
+CONFIG = Path("configs/fullpage/training-request-extract-v1-r1.json")
 STEPS = (1800, 3600)
 MINIMUM_BUCKET_FAMILIES = 50
 

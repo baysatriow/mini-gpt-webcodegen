@@ -12,8 +12,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CONFIG = Path("configs/fullpage/training-request-extract-v1.json")
-DEFAULT_REPORT = Path("outputs/request_extract/v1/GPU_PREFLIGHT.json")
+DEFAULT_CONFIG = Path("configs/fullpage/training-request-extract-v1-r1.json")
+DEFAULT_REPORT = Path("outputs/request_extract/v1/GPU_PREFLIGHT-R1.json")
 
 
 def run_preflight(root: Path, config_path: Path, report_path: Path) -> dict:
