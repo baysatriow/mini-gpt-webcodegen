@@ -106,6 +106,7 @@
 - Modify: `apps/api/services/intake.py`
 - Modify: `apps/api/services/runtime.py`
 - Modify: `apps/api/routers/health.py`
+- Create: `qa/evaluate_request_extract_api_v1.py`
 - Modify: `src/fullpage/intake.py` only for the shared brief-limit constant if needed
 - Modify: `docs/api/openapi.json` or the repository's current API contract artifact, if one exists
 

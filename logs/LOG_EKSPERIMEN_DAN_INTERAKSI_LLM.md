@@ -7127,3 +7127,13 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Batas prompt generation diselaraskan menjadi 4.000 karakter. OpenAPI dan kompilasi statis lulus; PyTorch belum dimuat saat startup. Ruff tidak terpasang, test suite dan API inference tidak dijalankan.
 - Evaluasi raw step 1.800 masih berlangsung pada development. Fitur tetap fail-closed sampai API safety gate serta selection lulus. Final/test tertutup.
 - Catatan lengkap: `logs/RUN-656_prompt_first_extraction_api_implementation.txt`.
+
+## AI-041, evaluasi keselamatan resolver API
+
+- Tanggal/waktu: 17 Oktober 2026, 00:05, Asia/Jakarta.
+- Konteks: pengguna ingin mengirim satu brief bebas dan mempertahankan seluruh fakta wajib, dengan satu klarifikasi gabungan. Extractor perlu melewati pemeriksaan resolver API sebelum dapat dipilih.
+- Perubahan: ditambahkan `qa/evaluate_request_extract_api_v1.py` untuk menggabungkan hasil development beku dari enam belas scope dan memutarnya melalui resolver produksi tanpa menjalankan inference model. Skrip mengikat hash checkpoint, config, corpus, dan manifest, memeriksa bukti sumber, status klarifikasi, koreksi, unsupported, serta setiap bucket minimal lima puluh keluarga.
+- Gate diperketat agar semua brief dengan maksud fitur yang ambigu meminta klarifikasi. Keluaran yang tidak punya bukti sumber, lolos sebagai unsupported request aktif, atau salah menghubungkan artefak development akan gagal tertutup.
+- Validasi saat ini: `py_compile` dan `git diff --check` lulus. Replay API belum dijalankan karena raw inference development 15.200 baris masih berjalan. Belum ada seleksi atau promosi extractor. Final/test tetap tertutup.
+- Perubahan yang tidak dipilih: tidak mengulangi inference GPU di gate API, tidak mengubah checkpoint/config/data, dan tidak membuat extractor otomatis aktif sebelum seluruh gate lulus.
+- Referensi: `qa/evaluate_request_extract_api_v1.py`; tidak ada tautan berbagi atau ekspor sesi.
