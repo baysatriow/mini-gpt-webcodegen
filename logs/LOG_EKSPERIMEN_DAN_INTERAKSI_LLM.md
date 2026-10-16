@@ -6909,3 +6909,10 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Perubahan: cloudflared diperbarui melalui winget ke versi 2026.10.1; flag allowed-mail tersedia.
 - Hasil: kesiapan Quick Tunnel terverifikasi. Tunnel Cloudflare belum dibuka karena alamat email penerima OTP belum diberikan secara lengkap. Tunnel ngrok yang sudah terlindungi tetap berjalan.
 - Kredensial dan alamat email tidak disimpan di repository.
+## RUN-630, Cloudflare Quick Tunnel dengan OTP email
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 17:22, Asia/Jakarta.
+- Permintaan: jalankan tunnel Cloudflare menuju Next.js lokal, dibatasi OTP email untuk alamat yang diberikan pengguna.
+- Proses: cloudflared 2026.10.1 diteruskan ke 127.0.0.1:3000 dengan allowed-mail. Alamat email dan URL publik tidak dicatat di repository.
+- Hasil: koneksi tunnel terdaftar; akses tanpa autentikasi diarahkan ke alur Cloudflare Access (HTTP 302). FastAPI tetap di 127.0.0.1:8000, dan tunnel ngrok tetap aktif.
+- Batas: belum menjalankan generation atau inference baru.

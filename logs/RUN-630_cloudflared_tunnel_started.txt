@@ -1,0 +1,6 @@
+RUN-630, Cloudflare Quick Tunnel dengan OTP email
+Tanggal/waktu: 16 Oktober 2026, sekitar 17:22 Asia/Jakarta
+Permintaan: jalankan Cloudflare Tunnel menuju antarmuka Next.js lokal dengan pembatasan email OTP.
+Proses: cloudflared 2026.10.1 dimulai menuju http://127.0.0.1:3000 dengan allowed-mail untuk alamat yang diberikan pengguna. Alamat tidak dicatat.
+Hasil: tunnel terdaftar dan URL publik diterbitkan. Permintaan tanpa autentikasi dialihkan ke alur Cloudflare Access (HTTP 302). FastAPI tetap lokal pada 127.0.0.1:8000. Tunnel ngrok yang ada juga tetap berjalan.
+Batas: URL disampaikan dalam chat dan tidak dimasukkan ke repository. Belum menjalankan generation atau inference baru.
