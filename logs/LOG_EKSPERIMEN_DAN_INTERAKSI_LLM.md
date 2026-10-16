@@ -6710,6 +6710,8 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Tujuan: melanjutkan pekerjaan setelah implementasi aplikasi digabung ke `main`, dengan memeriksa kesiapan dependency dan menjalankan UI serta API lokal.
 - Batas pemeriksaan: tidak memanggil endpoint generation, tidak menjalankan training atau evaluasi final, dan tidak membuka data test/final.
 - Pemeriksaan yang direncanakan: cek import dependency FastAPI/Uvicorn/PyTorch, cek runtime Node/Next, jalankan server API dan UI, lalu akses health, catalog, intake validation tanpa membuat generation.
-- Preflight: Node `v22.23.3`, npm `11.6.0`, dan Next.js `v16.4.1` tersedia. Import FastAPI gagal dengan `ModuleNotFoundError`; port 3000 dan 8000 tidak memiliki listener saat diperiksa.
-- Dependency API yang akan dipasang sebelum startup: `.\.venv\Scripts\python.exe -m pip install -r apps/api/requirements-api.txt` dari root repository.
-- Status: dependency API belum dipasang; perintah instalasi dicatat sebelum dijalankan.
+- Preflight awal: Node `v22.23.3`, npm `11.6.0`, dan Next.js `v16.4.1` tersedia. FastAPI awalnya belum terpasang; port 3000 dan 8000 tidak memiliki listener saat diperiksa.
+- Dependency API: perintah `.\.venv\Scripts\python.exe -m pip install -r apps/api/requirements-api.txt` dicatat sebelum dijalankan dan selesai dengan exit code 0. Versi terpasang: FastAPI `0.143.1` dan Uvicorn `0.53.0`.
+- Environment model: PyTorch `2.14.1+cu130`, `torch.cuda.is_available()` mengembalikan `True`, perangkat terdeteksi sebagai NVIDIA GeForce RTX 5070. Pemeriksaan ini tidak menjalankan tensor generation atau inference.
+- Startup berikutnya: API memakai `.\.venv\Scripts\python.exe -m uvicorn apps.api.main:app --host 127.0.0.1 --port 8000 --workers 1`; UI memakai `npm run dev -- --hostname 127.0.0.1` dari `apps/web`.
+- Status: preflight dan pemasangan dependency selesai; startup lokal belum dijalankan.
