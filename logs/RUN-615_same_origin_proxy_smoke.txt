@@ -1,0 +1,4 @@
+RUN-615 | 16 Oktober 2026 | Asia/Jakarta
+Jenis: Local app routes
+Perintah/proses: same_origin_proxy_smoke
+Hasil: GET `/api/v1/health`, `/api/v1/catalog`, and `/` through port 3000 all returned 200. Health was `ok`; model was unloaded before the first request. The rewrite reached FastAPI.

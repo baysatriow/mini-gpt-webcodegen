@@ -22,6 +22,7 @@ type FormFields = {
   styleMode: StyleMode;
   name: string;
   description: string;
+  value: string;
   services: ServiceFields[];
   additionalFacts: ConfirmedStructuredFact[];
   requestedFeatureIds: string[];
@@ -48,19 +49,49 @@ const FALLBACK_STYLES = [
 const INPUT_CLASS = "mt-1.5 min-h-11 w-full rounded-xl border border-input bg-white px-3.5 py-2.5 text-sm text-harbor-ink placeholder:text-slate-note/70 focus-visible:border-primary";
 const TEXTAREA_CLASS = "mt-1.5 min-h-[86px] resize-y rounded-xl border-input bg-white px-3.5 py-2.5 text-sm leading-6 text-harbor-ink placeholder:text-slate-note/70 focus-visible:border-primary";
 
+function defaultAssetForGenre(genre: PageGenre): string {
+  return genre === "landing_page" ? "studio-shapes" : "company-shapes";
+}
+
+function ensureRequiredServices(services: ServiceFields[]): ServiceFields[] {
+  const result = [...services];
+  while (result.length < 3) result.push({ title: "", text: "" });
+  return result;
+}
+
+function ensureRequiredAdditionalFacts(
+  facts: ConfirmedStructuredFact[],
+  genre: PageGenre,
+): ConfirmedStructuredFact[] {
+  const required = genre === "landing_page"
+    ? { process: 3, faq: 3 }
+    : { process: 3, project: 2 };
+  const requiredKinds = new Set(Object.keys(required));
+  const result = facts.filter((fact) => fact.title.trim() || fact.text.trim() || requiredKinds.has(fact.kind));
+  for (const [kind, count] of Object.entries(required) as Array<[ConfirmedStructuredFact["kind"], number]>) {
+    const existing = result.filter((fact) => fact.kind === kind).length;
+    for (let index = existing; index < count; index += 1) {
+      result.push({ kind, title: "", text: "" });
+    }
+  }
+  return result;
+}
+
 function fromDraft(draft: RequestDraft): FormFields {
+  const genre = draft.genre === "company_profile" ? "company_profile" : "landing_page";
   const services = getStructuredFacts(draft, "service");
-  const additionalFacts = getAdditionalFacts(draft);
+  const additionalFacts = ensureRequiredAdditionalFacts(getAdditionalFacts(draft), genre);
   const fictitious = draft.fictitious === true ? "true" : draft.fictitious === false ? "false" : "";
   return {
-    genre: draft.genre === "company_profile" ? "company_profile" : "landing_page",
+    genre,
     styleMode: draft.style_mode === "plain_css" ? "plain_css" : "tailwind",
     name: getFactValue(draft, "name"),
     description: getFactValue(draft, "description"),
-    services: services.length ? services : [{ title: "", text: "" }],
+    value: getFactValue(draft, "value"),
+    services: ensureRequiredServices(services),
     additionalFacts,
     requestedFeatureIds: draft.requested_features.map((feature) => feature.capability_id),
-    assetIds: draft.asset_ids,
+    assetIds: [...new Set([defaultAssetForGenre(genre), ...draft.asset_ids])],
     fictitious,
   };
 }
@@ -114,6 +145,7 @@ export function BusinessFactsForm({
       styleMode: fields.styleMode,
       name: fields.name,
       description: fields.description,
+      value: fields.value,
       services: fields.services,
       additionalFacts: fields.additionalFacts,
       requestedFeatureIds: fields.requestedFeatureIds,
@@ -144,6 +176,18 @@ export function BusinessFactsForm({
           : [...current.assetIds, assetId],
       };
     });
+  }
+
+  function updateGenre(genre: PageGenre) {
+    setFields((current) => ({
+      ...current,
+      genre,
+      additionalFacts: ensureRequiredAdditionalFacts(current.additionalFacts, genre),
+      assetIds: [...new Set([
+        defaultAssetForGenre(genre),
+        ...current.assetIds.filter((assetId) => assetId !== defaultAssetForGenre(current.genre)),
+      ])],
+    }));
   }
 
   function toggleRequestedFeature(capabilityId: string) {
@@ -191,7 +235,7 @@ export function BusinessFactsForm({
             <select
               id="page-genre"
               value={fields.genre}
-              onChange={(event) => setFields((current) => ({ ...current, genre: event.target.value as PageGenre }))}
+              onChange={(event) => updateGenre(event.target.value as PageGenre)}
               className={INPUT_CLASS}
             >
               {genres.map((option) => <option key={option.id} value={option.id}>{option.label}</option>)}
@@ -239,11 +283,25 @@ export function BusinessFactsForm({
           <p className="mt-1 text-right text-[11px] tabular-nums text-slate-note">{fields.description.length}/3000</p>
         </div>
 
+        <div>
+          <label htmlFor="business-value" className="text-sm font-medium text-harbor-ink">Nilai utama atau keunggulan <span className="text-destructive">*</span></label>
+          <Textarea
+            id="business-value"
+            value={fields.value}
+            onChange={(event) => setFields((current) => ({ ...current, value: event.target.value }))}
+            maxLength={1000}
+            required
+            aria-invalid={hasMissingField(missingFields, ["business_facts.value"])}
+            className={TEXTAREA_CLASS}
+            placeholder="Apa yang penting atau berbeda dari usaha ini?"
+          />
+        </div>
+
         <fieldset className="space-y-3">
           <div className="flex items-end justify-between gap-3">
             <div>
               <legend className="text-sm font-medium text-harbor-ink">Layanan <span className="text-destructive">*</span></legend>
-              <p className="mt-0.5 text-xs text-slate-note">Tambahkan minimal satu layanan yang benar.</p>
+              <p className="mt-0.5 text-xs text-slate-note">Isi 3 layanan yang benar untuk ditampilkan di halaman.</p>
             </div>
             <Button
               type="button"
@@ -261,7 +319,7 @@ export function BusinessFactsForm({
             <div key={`service-${index}`} className="rounded-xl border border-border bg-white p-3.5">
               <div className="mb-2 flex items-center justify-between">
                 <p className="text-xs font-medium text-slate-note">Layanan {index + 1}</p>
-                {fields.services.length > 1 ? (
+                {fields.services.length > 3 ? (
                   <Button
                     type="button"
                     variant="ghost"
@@ -301,8 +359,12 @@ export function BusinessFactsForm({
         <fieldset className="space-y-3">
           <div className="flex items-end justify-between gap-3">
             <div>
-              <legend className="text-sm font-medium text-harbor-ink">Fakta tambahan <span className="font-normal text-slate-note">(opsional)</span></legend>
-              <p className="mt-0.5 text-xs text-slate-note">Proyek, proses, atau FAQ yang Anda berikan sendiri.</p>
+              <legend className="text-sm font-medium text-harbor-ink">Rincian untuk halaman <span className="text-destructive">*</span></legend>
+              <p className="mt-0.5 text-xs leading-5 text-slate-note">
+                {fields.genre === "landing_page"
+                  ? "Isi 3 langkah proses dan 3 FAQ. Semua rincian harus berasal dari Anda."
+                  : "Isi 3 langkah proses dan 2 proyek atau karya. Semua rincian harus berasal dari Anda."}
+              </p>
             </div>
             <Button
               type="button"
@@ -311,7 +373,11 @@ export function BusinessFactsForm({
               disabled={fields.additionalFacts.length >= 12}
               onClick={() => setFields((current) => ({
                 ...current,
-                additionalFacts: [...current.additionalFacts, { kind: "project", title: "", text: "" }],
+                additionalFacts: [...current.additionalFacts, {
+                  kind: current.genre === "landing_page" ? "faq" : "project",
+                  title: "",
+                  text: "",
+                }],
               }))}
               className="shrink-0 gap-1.5 rounded-lg"
             >
@@ -391,16 +457,17 @@ export function BusinessFactsForm({
 
         {assets.length > 0 ? (
           <fieldset className="space-y-2">
-            <legend className="text-sm font-medium text-harbor-ink">Aset lokal <span className="font-normal text-slate-note">(opsional, maks. 8)</span></legend>
+            <legend className="text-sm font-medium text-harbor-ink">Aset lokal <span className="font-normal text-slate-note">(ilustrasi sesuai jenis halaman dipilih otomatis)</span></legend>
             <div className="grid gap-2 sm:grid-cols-2">
               {assets.map((asset) => {
                 const selected = fields.assetIds.includes(asset.id);
+                const requiredAsset = asset.id === defaultAssetForGenre(fields.genre);
                 return (
                   <label key={asset.id} className="flex cursor-pointer items-start gap-2.5 rounded-xl border border-border bg-white px-3 py-2.5 text-xs hover:border-primary/40">
                     <input
                       type="checkbox"
                       checked={selected}
-                      disabled={!selected && fields.assetIds.length >= 8}
+                      disabled={requiredAsset || (!selected && fields.assetIds.length >= 8)}
                       onChange={() => toggleAsset(asset.id)}
                       className="mt-0.5 accent-primary"
                     />

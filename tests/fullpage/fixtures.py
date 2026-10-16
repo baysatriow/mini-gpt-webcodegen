@@ -147,6 +147,7 @@ def intake_fixture(
     include_name=True,
     evidence="confirmed",
     tokenizer=None,
+    genre="company_profile",
 ):
     from src.fullpage.intake import load_intake_catalog
 
@@ -212,14 +213,68 @@ def intake_fixture(
             },
         ]
     )
+    for index in (1, 2):
+        facts.append(
+            {
+                "id": f"srv{index}",
+                "kind": "service",
+                "value": {
+                    "title": f"Layanan {index + 1}",
+                    "title_evidence": {"user_confirmed": True},
+                    "text": f"Penjelasan layanan {index + 1}.",
+                    "text_evidence": {"user_confirmed": True},
+                },
+            }
+        )
+        facts.append(
+            {
+                "id": f"step{index}",
+                "kind": "process",
+                "value": {
+                    "title": f"Tahap {index + 1}",
+                    "title_evidence": {"user_confirmed": True},
+                    "text": f"Penjelasan tahap {index + 1}.",
+                    "text_evidence": {"user_confirmed": True},
+                },
+            }
+        )
+    if genre == "company_profile":
+        facts = [fact for fact in facts if fact["kind"] != "faq"]
+        facts.append(
+            {
+                "id": "project1",
+                "kind": "project",
+                "value": {
+                    "title": "Vas senja",
+                    "title_evidence": {"user_confirmed": True},
+                    "text": "Contoh karya keramik kedua.",
+                    "text_evidence": {"user_confirmed": True},
+                },
+            }
+        )
+    else:
+        facts = [fact for fact in facts if fact["kind"] != "project"]
+        for index in (1, 2):
+            facts.append(
+                {
+                    "id": f"faq{index}",
+                    "kind": "faq",
+                    "value": {
+                        "title": f"Pertanyaan {index + 1}",
+                        "title_evidence": {"user_confirmed": True},
+                        "text": f"Jawaban pertanyaan {index + 1}.",
+                        "text_evidence": {"user_confirmed": True},
+                    },
+                }
+            )
     draft = {
         "contract_version": "request-draft-source-bound-v1",
         "prompt": prompt,
-        "genre": "company_profile",
+        "genre": genre,
         "style_mode": "plain_css",
         "business_facts": facts,
         "requested_features": [],
-        "asset_ids": ["company-shapes"],
+        "asset_ids": ["company-shapes" if genre == "company_profile" else "studio-shapes"],
         "fictitious": True,
     }
     return draft, tokenizer or _FixtureTokenizer(), load_intake_catalog(ROOT)

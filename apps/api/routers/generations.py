@@ -262,7 +262,6 @@ def create_generation(body: GenerationRequest) -> GenerationResponse:
 
         request = dict(intake.request)
         generation_id = new_generation_id()
-        request["request_id"] = generation_id
         created_at = datetime.now(timezone.utc).isoformat()
         api_summary = _api_summary(request, created_at)
 
@@ -282,7 +281,6 @@ def create_generation(body: GenerationRequest) -> GenerationResponse:
             if not output_dir.exists() and not output_dir.is_symlink():
                 break
             generation_id = new_generation_id()
-            request["request_id"] = generation_id
             api_summary = _api_summary(request, created_at)
             output_dir = output_root / generation_id
         else:
@@ -307,7 +305,7 @@ def create_generation(body: GenerationRequest) -> GenerationResponse:
                 _persist_result(
                     output_dir,
                     {
-                        "request_id": generation_id,
+                        "request_id": request["request_id"],
                         "status": "stage_failed",
                         "api_summary": api_summary,
                         "errors": ["Generation failed; see the local API log."],
@@ -322,7 +320,7 @@ def create_generation(body: GenerationRequest) -> GenerationResponse:
 
         if not isinstance(report, dict):
             logger.error("Generation %s returned an invalid report", generation_id)
-            report = {"request_id": generation_id, "status": "stage_failed"}
+            report = {"request_id": request["request_id"], "status": "stage_failed"}
         report["api_summary"] = api_summary
         try:
             _persist_result(output_dir, report)

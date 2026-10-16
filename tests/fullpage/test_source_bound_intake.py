@@ -6,6 +6,107 @@ from tests.fullpage.fixtures import _FixtureTokenizer, intake_fixture
 
 
 class SourceBoundIntakeTests(unittest.TestCase):
+    def test_incomplete_page_facts_are_requested_before_intake_is_ready(self):
+        draft, tokenizer, catalog = intake_fixture()
+        draft["business_facts"] = [
+            fact for fact in draft["business_facts"]
+            if fact["kind"] in {"name", "description"}
+            or (fact["kind"] == "service" and fact["id"] == "srv0")
+        ]
+        draft["asset_ids"] = []
+
+        result = prepare_intake(draft["prompt"], draft, tokenizer, catalog)
+
+        self.assertEqual("needs_clarification", result.status)
+        self.assertIn("business_facts.value", result.missing_fields)
+        self.assertIn("business_facts.service", result.missing_fields)
+        self.assertIn("business_facts.process", result.missing_fields)
+        self.assertIn("business_facts.project", result.missing_fields)
+        self.assertIn("asset_ids", result.missing_fields)
+
+    def test_landing_page_requests_faq_facts_without_requesting_projects(self):
+        draft, tokenizer, catalog = intake_fixture(genre="landing_page")
+        draft["business_facts"] = [
+            fact for fact in draft["business_facts"]
+            if fact["kind"] != "faq" or fact["id"] == "faq0"
+        ]
+
+        result = prepare_intake(draft["prompt"], draft, tokenizer, catalog)
+
+        self.assertEqual("needs_clarification", result.status)
+        self.assertIn("business_facts.faq", result.missing_fields)
+        self.assertNotIn("business_facts.project", result.missing_fields)
+
+    def test_ui_fact_ids_are_normalized_to_the_trained_fullpage_ids(self):
+        draft, tokenizer, catalog = intake_fixture()
+        draft["business_facts"] = [
+            {
+                "id": "business-name",
+                "kind": "name",
+                "value": "Studio Mapurana",
+                "evidence": {"user_confirmed": True},
+            },
+            {
+                "id": "business-description",
+                "kind": "description",
+                "value": "Studio Mapurana membuat keramik untuk rumah.",
+                "evidence": {"user_confirmed": True},
+            },
+            {
+                "id": "value-1",
+                "kind": "value",
+                "value": "Bahan dan proses dijelaskan secara terbuka.",
+                "evidence": {"user_confirmed": True},
+            },
+            *[
+                {
+                    "id": f"service-{index + 1}",
+                    "kind": "service",
+                    "value": {
+                        "title": f"Layanan {index + 1}",
+                        "title_evidence": {"user_confirmed": True},
+                        "text": f"Penjelasan layanan {index + 1}.",
+                        "text_evidence": {"user_confirmed": True},
+                    },
+                }
+                for index in range(3)
+            ],
+            *[
+                {
+                    "id": f"process-{index + 1}",
+                    "kind": "process",
+                    "value": {
+                        "title": f"Tahap {index + 1}",
+                        "title_evidence": {"user_confirmed": True},
+                        "text": f"Penjelasan tahap {index + 1}.",
+                        "text_evidence": {"user_confirmed": True},
+                    },
+                }
+                for index in range(3)
+            ],
+            *[
+                {
+                    "id": f"project-{index + 1}",
+                    "kind": "project",
+                    "value": {
+                        "title": f"Proyek {index + 1}",
+                        "title_evidence": {"user_confirmed": True},
+                        "text": f"Penjelasan proyek {index + 1}.",
+                        "text_evidence": {"user_confirmed": True},
+                    },
+                }
+                for index in range(2)
+            ],
+        ]
+
+        result = prepare_intake(draft["prompt"], draft, tokenizer, catalog)
+
+        self.assertEqual("ready", result.status)
+        self.assertEqual(
+            ["name", "about", "values", "srv0", "srv1", "srv2", "step0", "step1", "step2", "project0", "project1"],
+            [fact["id"] for fact in result.request["business_facts"]],
+        )
+
     def test_missing_business_name_requests_clarification(self):
         prompt = "Buat company profile studio keramik."
         draft, tokenizer, catalog = intake_fixture(prompt, include_name=False)

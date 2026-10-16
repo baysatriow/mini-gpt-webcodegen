@@ -80,7 +80,9 @@ export function ChatShell() {
     () => state.sessions.find((session) => session.id === state.activeSessionId) ?? null,
     [state.sessions, state.activeSessionId],
   );
-  activeSessionIdRef.current = activeSession?.id ?? null;
+  useEffect(() => {
+    activeSessionIdRef.current = activeSession?.id ?? null;
+  }, [activeSession?.id]);
   const latestGenerationMessage = useMemo(() => {
     const messages = activeSession?.messages ?? [];
     for (let index = messages.length - 1; index >= 0; index -= 1) {

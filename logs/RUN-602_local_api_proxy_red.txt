@@ -1,0 +1,4 @@
+RUN-602 | 16 Oktober 2026 | Asia/Jakarta
+Jenis: Origin routing precheck
+Perintah/proses: local_api_proxy_red
+Hasil: GET Next.js `/api/v1/health` returned 404 while direct FastAPI health returned 200. This exposed the missing same-origin rewrite before public tunneling. No generation was triggered.

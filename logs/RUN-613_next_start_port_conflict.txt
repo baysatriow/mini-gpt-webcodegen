@@ -1,0 +1,4 @@
+RUN-613 | 16 Oktober 2026 | Asia/Jakarta
+Jenis: Production frontend startup, first attempt
+Perintah/proses: next_start_port_conflict
+Hasil: `npm run start -- --hostname 127.0.0.1` returned EADDRINUSE because the previous development server still owned port 3000. The old server session was stopped before retry.

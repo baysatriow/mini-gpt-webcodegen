@@ -1,0 +1,4 @@
+RUN-609 | 16 Oktober 2026 | Asia/Jakarta
+Jenis: Production build, first attempt
+Perintah/proses: web_build_summary_type_error
+Hasil: Command: `npm run build`. Compilation passed, then TypeScript failed because `summary` could be null in the result workspace event handler.

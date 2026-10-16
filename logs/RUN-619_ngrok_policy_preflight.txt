@@ -1,0 +1,4 @@
+RUN-619 | 16 Oktober 2026 | Asia/Jakarta
+Jenis: Tunnel capability check
+Perintah/proses: ngrok_policy_preflight
+Hasil: `ngrok http --help` confirmed support for `--traffic-policy-file`. Official Next.js and ngrok docs were reviewed for rewrites and Basic Auth. No public endpoint was created.

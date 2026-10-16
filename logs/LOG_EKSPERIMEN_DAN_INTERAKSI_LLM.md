@@ -6721,3 +6721,125 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Artefak dev: Next.js membuat `apps/web/AGENTS.md` saat startup. File panduan yang dibuat framework ini disertakan agar working tree kembali bersih.
 - Tidak dijalankan: build, lint, test suite, training, generation, inference, atau evaluasi final.
 - Status: startup lokal dan integrasi intake berhasil pada pemeriksaan ini; uji visual atas halaman hasil dan penilaian manusia tetap menunggu.
+
+## RUN-602, Origin routing precheck
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: local_api_proxy_red.
+- Hasil: GET Next.js `/api/v1/health` returned 404 while direct FastAPI health returned 200. This exposed the missing same-origin rewrite before public tunneling. No generation was triggered.
+
+## RUN-603, Python focused checks
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: source_bound_intake_tests.
+- Hasil: Command: `.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_intake tests.api.test_generation_request_id`. Result: 21 tests passed.
+
+## RUN-604, Frontend request checks
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: web_request_draft_tests.
+- Hasil: Command: `node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test apps/web/tests/request-draft.test.mjs`. Result: 3 tests passed.
+
+## RUN-605, Test selection attempt
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: lineage_test_selector_error.
+- Hasil: The dotted unittest selector used the wrong fixture class name and stopped with AttributeError before running the selected test. Corrected by invoking the test module in RUN-606.
+
+## RUN-606, Frozen training-lineage guard
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: source_bound_lineage_suite.
+- Hasil: Command: `.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_lineage`. Result: 13 passed, 1 error. The existing frozen profile file does not match its pinned checksum. No profile, hash, checkpoint, or training data was changed.
+
+## RUN-607, Frontend lint, first attempt
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: web_lint_ref_error.
+- Hasil: Command: `npm run lint`. Result: failed on `activeSessionIdRef.current` being updated during React render in `chat-shell.tsx`.
+
+## RUN-608, Frontend lint after ref fix
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: web_lint_ref_fix.
+- Hasil: Command: `npm run lint`. Result: passed after moving the ref update into an effect.
+
+## RUN-609, Production build, first attempt
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: web_build_summary_type_error.
+- Hasil: Command: `npm run build`. Compilation passed, then TypeScript failed because `summary` could be null in the result workspace event handler.
+
+## RUN-610, Frontend lint after result guard
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: web_lint_final.
+- Hasil: Command: `npm run lint`. Result: passed.
+
+## RUN-611, Frontend production build
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: web_build_final.
+- Hasil: Command: `npm run build`. Result: passed with Next.js 16.4.1; `/` and `/_not-found` were generated.
+
+## RUN-612, FastAPI local session
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: api_local_restart.
+- Hasil: Restarted API with `.venv\Scripts\python.exe -m uvicorn apps.api.main:app --host 127.0.0.1 --port 8000 --workers 1`. Startup passed. API remains bound to loopback.
+
+## RUN-613, Production frontend startup, first attempt
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: next_start_port_conflict.
+- Hasil: `npm run start -- --hostname 127.0.0.1` returned EADDRINUSE because the previous development server still owned port 3000. The old server session was stopped before retry.
+
+## RUN-614, Production frontend session
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: next_production_local.
+- Hasil: Restarted with `npm run start -- --hostname 127.0.0.1`. Next.js 16.4.1 reported ready at `http://127.0.0.1:3000`.
+
+## RUN-615, Local app routes
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: same_origin_proxy_smoke.
+- Hasil: GET `/api/v1/health`, `/api/v1/catalog`, and `/` through port 3000 all returned 200. Health was `ok`; model was unloaded before the first request. The rewrite reached FastAPI.
+
+## RUN-616, Local UI model generation
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: local_ui_generation.
+- Hasil: Submitted a user-confirmed fictitious Kedai Demo landing page through the browser UI. Intake and generation returned 200. TRAIN-025 step 1800 accepted 9 sections, first-attempt success true, 10 stages including plan plus 9 sections, 1637 generated tokens, no stage errors. Output: `outputs/webapp/generations/bbfb4be1-9e5f-4ce2-84f6-b3eafb47b1da`.
+
+## RUN-617, Generated artifact check
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: preview_and_zip_verification.
+- Hasil: Browser loaded preview HTML, CSS, JavaScript, and local SVG successfully. Mobile preview was visually inspected; browser console had no errors. Summary status was completed. ZIP returned 200, `application/zip`, 8268 bytes. This is one fictitious demo, not a visual quality score.
+
+## RUN-618, Tunnel configuration check
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: ngrok_config_preflight.
+- Hasil: `ngrok config check` reported a valid local configuration. No tunnel was opened.
+
+## RUN-619, Tunnel capability check
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: ngrok_policy_preflight.
+- Hasil: `ngrok http --help` confirmed support for `--traffic-policy-file`. Official Next.js and ngrok docs were reviewed for rewrites and Basic Auth. No public endpoint was created.
+
+## AI-040, uji generation lokal dan kesiapan tunnel
+
+# AI-040, uji generation lokal dan kesiapan tunnel
+
+- Tanggal: 16 Oktober 2026, zona waktu Asia/Jakarta.
+- Permintaan: setelah aplikasi siap, uji generation model lokal, jalankan FastAPI di komputer ini, lalu siapkan tunnel ngrok dan beri tahu pengguna.
+- Tujuan debugging: menutup kegagalan request ID, intake yang belum meminta fakta sesuai kontrak source-bound, dan origin API yang tidak bisa dipakai melalui tunnel frontend.
+- Perubahan terpilih: API mempertahankan request ID intake yang tervalidasi; validator intake meminta fakta minimum menurut jenis halaman dan menormalisasi ID fakta UI ke ID yang dipakai model; form meminta nilai usaha, tiga layanan, tiga langkah proses, serta tiga FAQ untuk landing page atau dua proyek untuk company profile, dan memilih aset lokal yang sesuai; Next.js meneruskan `/api/*` ke FastAPI loopback; ref sesi dipindah dari render ke effect dan callback workspace menjaga null-safety.
+- Keputusan yang tidak diambil: tidak mengubah profil training yang checksum-nya terkunci; tidak menjalankan training atau membuka data test/final; tidak mengubah API agar bind ke alamat publik.
+- Verifikasi: 21 tes intake/API dan 3 tes request frontend lulus; lint dan production build lulus; health, catalog, dan halaman Next.js memberi 200; generation UI memakai TRAIN-025 step 1800 dan diterima sebagai 9 section; preview mobile tampil; ZIP 200; browser console tanpa error.
+- Batas: hasil generation hanya satu usaha fiktif untuk uji jalur lokal. Ini bukan evaluasi development baru, review manusia, atau bukti target visual 95 persen.
+- Status tunnel: konfigurasi ngrok valid dan Traffic Policy tersedia. Endpoint belum dibuka. Pemeriksaan menemukan aturan saat-action confirmation untuk public exposure, sehingga persetujuan spesifik diminta sebelum membuka URL publik. FastAPI tetap lokal.
+- Lokasi catatan interaksi: `logs/interaksi_llm/AI-040_2026-10-16.md`. Share link tidak dibuat.

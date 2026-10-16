@@ -76,7 +76,7 @@ export function ResultWorkspace({
   function changeView(value: string | null) {
     if (value !== "preview" && value !== "code") return;
     onViewChange(value);
-    if (value === "code") onLoadSource(summary.generation_id);
+    if (value === "code" && summary) onLoadSource(summary.generation_id);
   }
 
   return (

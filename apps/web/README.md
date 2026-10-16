@@ -4,7 +4,7 @@ Frontend Next.js untuk meminta landing page atau company profile melalui chat, m
 
 ## Menjalankan secara lokal
 
-Pastikan FastAPI sudah disiapkan dan berjalan pada `http://127.0.0.1:8000`. Ikuti [panduan API lokal](../api/README.md) untuk dependency dan perintah server. Referensi API tersedia di [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
+Pastikan FastAPI sudah disiapkan dan berjalan pada `http://127.0.0.1:8000`. Ikuti [panduan API lokal](../api/README.md) untuk dependency dan perintah server. Referensi API tersedia di [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs). Next.js meneruskan `/api/*` ke FastAPI melalui rewrite server, sehingga browser dan tunnel cukup mengakses origin Next.js.
 
 Dari folder `apps/web`, salin konfigurasi contoh saat pertama kali menyiapkan frontend:
 
@@ -14,7 +14,7 @@ npm ci
 npm run dev
 ```
 
-Buka [http://localhost:3000](http://localhost:3000). `NEXT_PUBLIC_API_BASE_URL` pada `.env.local` menentukan origin FastAPI; nilai contoh memakai `http://127.0.0.1:8000`. Jika API berjalan pada origin lain, ubah nilai ini dan pastikan origin frontend tersebut diizinkan oleh konfigurasi CORS API.
+Buat `.env.local` dari `.env.example`, lalu jalankan frontend. Buka [http://localhost:3000](http://localhost:3000). `API_SERVER_ORIGIN` menentukan origin FastAPI yang dipakai rewrite Next.js dan secara default menunjuk ke `http://127.0.0.1:8000`. Biarkan `NEXT_PUBLIC_API_BASE_URL` kosong agar panggilan dari browser memakai origin yang sama, termasuk saat frontend dibagikan lewat tunnel.
 
 ## Batas runtime
 
