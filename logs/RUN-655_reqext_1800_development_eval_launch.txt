@@ -1,0 +1,10 @@
+RUN-655, snapshot dan evaluasi development kandidat step 1.800
+Tanggal/waktu: 16 Oktober 2026, 23:37, Asia/Jakarta.
+
+Commit terakhir dipush: `b60bc4c docs: record prompt extractor step 1800 training`. Source checkpoint `checkpoints/REQEXT-V1-1800/last.pt` terverifikasi step 1.800, report config hash cocok, checksum `ed3c98d2da77998c257230bef3a93e24479aa67971664c1fa8d384b46a287b21`.
+
+Tujuan snapshot baru: `checkpoints/REQUEST-EXTRACT-V1/step1800.pt`. Tujuan development output baru: `outputs/request_extract/v1/REQEXT-V1-1800_DEVELOPMENT.jsonl`; report baru: `reports/request_extract/REQEXT-V1-1800_DEVELOPMENT.json`. Ketiganya dipastikan belum ada. Ruang disk terbaru 16,924,725,248 byte.
+
+Setelah snapshot weights-only, evaluator menjalankan inference greedy hanya pada 15.200 scope di synthetic development. Ia melaporkan exact field precision/recall, source validity, seluruh safety bucket, dan decode/validation time per brief. Laporan raw ini belum memenuhi API resolver gate dan tidak mempromosikan extractor.
+
+Tidak membaca existing validation, test, atau final. Tidak ada generation website. Final/test tetap tertutup.

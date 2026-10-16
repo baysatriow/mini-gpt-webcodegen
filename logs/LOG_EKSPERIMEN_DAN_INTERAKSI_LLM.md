@@ -7111,3 +7111,11 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Retry berhasil melewati batas epoch tanpa batch kosong dan mencapai step 1.800. Checkpoint terverifikasi dengan SHA-256 `ed3c98d2da77998c257230bef3a93e24479aa67971664c1fa8d384b46a287b21`.
 - Development CE awal 5.7648 dan 1.800 sebesar 1.4614. Ini hanya CE pada development, belum membuktikan ekstraksi fakta ataupun kualitas halaman.
 - Belum ada extractor generation. Final/test tetap tertutup. Laporan lengkap ada di `logs/RUN-654_reqext_1800_training_pass.txt`.
+
+## RUN-655, evaluasi development step 1.800 diluncurkan
+
+- Tanggal/waktu: 16 Oktober 2026, 23:37, Asia/Jakarta.
+- Snapshot weights-only baru dan output evaluasi dipastikan belum ada.
+- Raw extractor akan menjalankan 15.200 scope pada synthetic development untuk mengukur fakta bersumber, field exactness, safety buckets, dan latensi per brief.
+- Report ini belum melewati safety resolver API dan tidak dapat mempromosikan extractor. Final/test tetap tertutup.
+- Rincian: `logs/RUN-655_reqext_1800_development_eval_launch.txt`.

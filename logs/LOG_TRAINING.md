@@ -1366,3 +1366,10 @@ The frozen selector status is passed and selected TRAIN-025 step 1,800. Both can
 - Sampler melewati batas epoch yang menyebabkan RUN-649 tanpa error. Checkpoint recovery step 1.200 terverifikasi.
 - F: free 16,924,983,296 byte. Belum ada generation/inference extractor, final/test tetap tertutup.
 - Catatan: `logs/RUN-654_reqext_1800_training_pass.txt`.
+
+### RUN-655: candidate step 1.800 snapshot/evaluation launch
+
+- Training report dan checkpoint step 1.800 terverifikasi. Snapshot, JSONL evaluation, dan report path dipastikan belum ada.
+- Membuat snapshot weights-only, lalu menjalankan raw greedy extraction hanya pada 15.200 scope development. Evaluasi melaporkan field exactness, source validity, safety buckets, serta waktu decode per brief.
+- Evaluasi raw tidak meluluskan API safety gate dan tidak mempromosikan model. Test/final tetap tertutup.
+- Rincian: `logs/RUN-655_reqext_1800_development_eval_launch.txt`.
