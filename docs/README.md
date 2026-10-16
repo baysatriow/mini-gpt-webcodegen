@@ -5,6 +5,7 @@ Dokumen di sini menjelaskan ruang lingkup, persyaratan tugas, sumber dataset, en
 ## Dokumen utama
 
 - [Desain aplikasi chat generator](superpowers/specs/2026-10-15-generator-chat-application-design.md): alur chat, RequestDraft source-bound, batas model, API, preview, dan unduhan.
+- [Desain prompt-first dan intake ringkas](superpowers/specs/2026-10-16-prompt-first-intake-design.md): analisis kemampuan model saat ini, ekstraksi fakta terverifikasi, klarifikasi gabungan, dan UI prompt-first.
 - [Roadmap aplikasi generator](superpowers/plans/2026-10-15-generator-app-roadmap.md): urutan paket TRAIN-025, FastAPI, lalu UI Next.js/shadcn.
 - [Paket runtime terpilih](../training/selected/fullpage-v5/README.md): provenance kandidat TRAIN-025 step 1.800 dan batas review visualnya.
 - [API lokal generator](../apps/api/README.md): setup `.venv`, server satu worker, CORS, rute, dan batas lazy-load model.

@@ -1,0 +1,16 @@
+RUN-636, pembatalan capability dan klarifikasi setting
+Tanggal/waktu: 16 Oktober 2026, sekitar 18:00, Asia/Jakarta
+
+Pemicu
+Review independen final meminta alur untuk membatalkan permintaan unsupported yang sebelumnya aktif dan memastikan koreksi genre/style hanya merujuk setting aktif yang sudah terselesaikan.
+
+Revisi yang dicatat
+- Intent `retracted` berlaku untuk capability known-catalog dan out-of-catalog hanya pada pesan sesudah permintaan aktif terdahulu. Cue pembatalan harus tercantum pada allowlist berversi dan terverifikasi dalam context sumber.
+- Status capability diproses menurut urutan pesan; retraction menonaktifkan permintaan, lalu re-request yang lebih baru mengaktifkannya kembali. Kombinasi request/retraction dalam satu pesan meminta klarifikasi.
+- Ditambahkan minimum keluarga pembatalan untuk known dan unknown serta metrik retraction-overblocking tersendiri.
+- Koreksi genre/style harus menunjuk nilai aktif yang sebelumnya sudah diselesaikan. Retraction setting tanpa pengganti meminta klarifikasi, dan tidak membuat default atau mempertahankan nilai lama secara diam-diam.
+- Kontrak menegaskan input extractor adalah pesan terstruktur ber-ID; `canonical_prompt` dibuat server untuk draft, validasi, dan generation dari isi serta urutan pesan yang sama.
+
+Status
+- Menunggu konfirmasi reviewer atas aturan setting-retraction dan persetujuan pengguna sebelum implementasi.
+- Tidak mengubah aplikasi, API implementasi, model, atau checkpoint; tidak menjalankan inference/training. Partisi final tetap tertutup.

@@ -1,0 +1,13 @@
+RUN-637, gate untuk pembatalan genre/style
+Tanggal/waktu: 16 Oktober 2026, sekitar 18:03, Asia/Jakarta
+
+Pemicu
+Review independen menyetujui aturan bahwa penegasian setting aktif tanpa pengganti harus meminta klarifikasi, namun meminta bucket development tersendiri agar kasus ini tidak terlewat pada evaluasi.
+
+Revisi yang dicatat
+- Tambahkan sedikitnya 50 keluarga development unik untuk retraction genre/style tanpa nilai pengganti.
+- Gate bucket tersebut 100 persen menghasilkan `needs_clarification` dan tidak mempertahankan atau mengubah setting diam-diam.
+
+Status
+- Menunggu konfirmasi reviewer singkat atas gate tambahan dan persetujuan pengguna sebelum implementasi.
+- Tidak mengubah aplikasi/API/model, tidak menjalankan inference atau training, dan partisi final tetap tertutup.

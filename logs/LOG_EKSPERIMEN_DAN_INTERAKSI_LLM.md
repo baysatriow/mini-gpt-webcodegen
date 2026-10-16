@@ -6916,3 +6916,69 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Proses: cloudflared 2026.10.1 diteruskan ke 127.0.0.1:3000 dengan allowed-mail. Alamat email dan URL publik tidak dicatat di repository.
 - Hasil: koneksi tunnel terdaftar; akses tanpa autentikasi diarahkan ke alur Cloudflare Access (HTTP 302). FastAPI tetap di 127.0.0.1:8000, dan tunnel ngrok tetap aktif.
 - Batas: belum menjalankan generation atau inference baru.
+
+## RUN-631, analisis model dan desain prompt-first
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 17:25, Asia/Jakarta.
+- Permintaan: sederhanakan chat generator, kurangi pertanyaan berulang, dan analisis kemampuan model menerima fakta melalui satu prompt.
+- Temuan: form UI mewajibkan fakta per bagian; endpoint intake hanya memvalidasi draft dan tidak mengekstrak fakta dari prompt. Checkpoint saat ini dilatih untuk PagePlan dan SectionDraft, bukan ekstraksi RequestDraft. Renderer menyusun HTML, CSS, dan JavaScript.
+- Artefak: draft desain prompt-first dan intake ringkas dibuat di `docs/superpowers/specs/2026-10-16-prompt-first-intake-design.md`.
+- Status: menunggu review desain serta persetujuan pengguna. Belum mengubah kode aplikasi, API, training, atau checkpoint, dan tidak menjalankan inference baru.
+
+## RUN-632, revisi analisis prompt-first dan validasi bukti fakta
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 17:33, Asia/Jakarta.
+- Pemicu: pengguna menjelaskan bahwa pengisian fakta halaman yang berulang terasa terlalu panjang dan meminta analisis apakah model cukup menerima seluruh fakta itu.
+- Pemeriksaan tambahan: kontrak source-bound mewajibkan fakta untuk role halaman. Copy catalog memakai nilai fakta yang diberikan, sedangkan resolver menempatkan nilai ke komponen lokal. Model saat ini tidak mengekstrak nilai fakta dari prompt bebas.
+- Revisi desain: tegaskan bahwa 2.048 token bukan bukti kemampuan ekstraksi; budget prompt efektif dihitung setelah instruksi dan output JSON. Draft extractor mengembalikan nilai salinan persis, server mencocokkan nilai ke brief dan membuat rentang bukti sendiri. Brief dibatasi keras 4.000 karakter dan ditolak bila tidak muat, tanpa pemotongan diam-diam.
+- Gate eksperimen yang diusulkan: precision exact-value minimal 95 persen, recall fakta eksplisit minimal 90 persen, nol fakta tanpa bukti valid, dan development generation gate yang ada tetap lulus. Checkpoint extractor dipisah dari checkpoint generator TRAIN-025 step 1800.
+- Status: menunggu review independen putaran kedua dan persetujuan pengguna. Tidak ada kode, training, atau inference yang dijalankan. Final tetap tertutup.
+
+## RUN-633, provenance prompt-first dan audit development gate
+
+- Tanggal/waktu: 16 Oktober 2026, sekitar 17:52, Asia/Jakarta.
+- Pemicu: review independen putaran keenam meminta aturan deterministik untuk mention capability berulang, bukti sumber dari beberapa pesan, dan audit pemisahan keluarga development.
+- Revisi desain: intake memakai pesan terstruktur dengan format kanonis berversi dan segment map server. Fakta serta mention menyebut ID pesan; server memverifikasi kutipan, mengembalikan atribusi sumber, dan menyediakan rentang UTF-16 untuk UI serta rentang Python untuk validator. Koreksi harus mengacu pada tepat satu fakta lama dan menempatkan pengganti serta cue koreksi dalam pesan yang sama.
+- Revisi capability: hanya ID unsupported yang diketahui boleh menjadi requested feature. Mention dinilai per kejadian; satu mention aktif memblokir generation, unclear meminta klarifikasi, dan semua mention nonaktif tidak memblokir. False-rejection dihitung per keluarga prompt unik dengan denominator known-catalog, out-of-catalog, dan unclear terpisah.
+- Revisi data: manifest beku dan skrip audit harus membuktikan keluarga sumber serta pola prompt development tidak beririsan dengan TRAIN-025 atau partisi extractor. Hitungan gate memakai keluarga unik, bukan baris.
+- Status: menunggu review independen lanjutan dan persetujuan pengguna. Tidak mengubah aplikasi, API implementasi, model, atau checkpoint; tidak menjalankan inference/training. Partisi final tetap tertutup.
+
+## RUN-634, kontrak input extractor dan occurrence mapping
+
+- Tanggal/waktu: 16 Oktober 2026, sekitar 17:54, Asia/Jakarta.
+- Pemicu: review independen meminta kepastian bahwa ID pesan terlihat oleh extractor serta mention identik dapat dipetakan ke occurrence yang tepat.
+- Revisi desain: `request_extract` menerima serialized structured-message JSON berversi yang sama pada training dan inference. Segment map dari objek pesan asli tetap menjadi sumber bukti authoritative.
+- Revisi mention: catatan capability dan out-of-catalog menyertakan `occurrence_index` berbasis nol untuk phrase identik pada pesan sumber. Catatan duplikat atau mismatch jumlah occurrence meminta klarifikasi.
+- Status: menunggu review independen final dan persetujuan pengguna. Tidak mengubah aplikasi/API/model, tidak menjalankan inference/training. Partisi final tetap tertutup.
+
+## RUN-635, resolusi konflik genre dan style
+
+- Tanggal/waktu: 16 Oktober 2026, sekitar 17:56, Asia/Jakarta.
+- Pemicu: review independen menandai bahwa enum genre/style yang didukung bisa menyembunyikan konflik antar-giliran jika extractor hanya memberi satu nilai.
+- Revisi desain: extractor melaporkan mention genre/style satu per kemunculan dengan enum, phrase sumber, ID pesan, dan intent. Server memakai default hanya jika tak ada mention aktif. Nilai aktif yang berbeda memerlukan koreksi eksplisit tervalidasi atau meminta klarifikasi; nilai terbaru tidak menang otomatis.
+- Revisi evaluasi: alias setting dibekukan dalam catalog berversi dan contoh minimum/gate development memasukkan konflik serta koreksi genre/style.
+- Status: menunggu review independen final dan persetujuan pengguna. Tidak mengubah aplikasi/API/model, tidak menjalankan inference/training. Partisi final tetap tertutup.
+
+## RUN-636, pembatalan capability dan klarifikasi setting
+
+- Tanggal/waktu: 16 Oktober 2026, sekitar 18:00, Asia/Jakarta.
+- Pemicu: review independen meminta alur pembatalan permintaan unsupported lintas giliran serta validasi nilai lama saat koreksi genre/style.
+- Revisi desain: capability `retracted` harus mengikuti permintaan aktif sebelumnya, dibuktikan dengan cue allowlist dalam pesan berikutnya, dan menonaktifkan status hingga ada permintaan aktif baru. Campuran request/retraction satu pesan meminta klarifikasi.
+- Revisi evaluasi: sedikitnya 50 keluarga untuk pembatalan known dan out-of-catalog; retraction-overblocking memiliki denominator dan gate sendiri.
+- Revisi setting: koreksi harus menunjuk setting aktif terdahulu yang sudah terselesaikan; retraction tanpa replacement meminta klarifikasi dan tidak menerapkan default diam-diam.
+- Kontrak input: extractor menerima struktur pesan ber-ID; `canonical_prompt` server digunakan `RequestDraft`, validasi, dan generation dengan isi dan urutan yang sama.
+- Status: menunggu konfirmasi reviewer dan persetujuan pengguna. Tidak mengubah aplikasi/API/model, tidak menjalankan inference/training. Partisi final tetap tertutup.
+
+## RUN-637, gate untuk pembatalan genre/style
+
+- Tanggal/waktu: 16 Oktober 2026, sekitar 18:03, Asia/Jakarta.
+- Pemicu: reviewer meminta bucket development eksplisit bagi setting genre/style yang diretract tanpa pengganti.
+- Revisi gate: minimal 50 keluarga unik; 100 persen harus menghasilkan `needs_clarification`, tanpa mempertahankan setting lama atau memilih default secara diam-diam.
+- Status: menunggu konfirmasi reviewer singkat dan persetujuan pengguna. Tidak mengubah aplikasi/API/model, tidak menjalankan inference/training. Partisi final tetap tertutup.
+
+## RUN-638, review spesifikasi prompt-first selesai
+
+- Tanggal/waktu: 16 Oktober 2026, sekitar 18:05, Asia/Jakarta.
+- Hasil: reviewer independen menyatakan spesifikasi siap untuk persetujuan pengguna setelah kontrak provenance, setting, pembatalan capability, dan gate evaluasi dilengkapi.
+- Batas: perubahan hanya pada dokumen dan log. Implementasi aplikasi/API/model belum dimulai. Tidak menjalankan test, training, inference, atau membuka partisi final.
+- Status: menunggu keputusan pengguna atas scope sebelum scaffolding implementasi.

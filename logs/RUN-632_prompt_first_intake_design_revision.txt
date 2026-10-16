@@ -1,0 +1,25 @@
+RUN-632, revisi analisis prompt-first dan validasi bukti fakta
+Tanggal/waktu: 16 Oktober 2026, sekitar 17:33 Asia/Jakarta
+
+Tujuan
+Menjawab kendala pengguna yang merasa pengisian fakta halaman berulang dan menilai kemampuan Mini GPT saat ini menerima seluruh fakta melalui prompt bebas.
+
+Pemeriksaan
+- Menelusuri kontrak source-bound, kebutuhan fakta per role, prompt generator, dan resolver lokal.
+- Memastikan generator saat ini memakai RequestDraft berstruktur. Model memilih struktur serta referensi fakta, sementara resolver memasukkan nilai pengguna ke slot halaman.
+- Memastikan checkpoint generator belum dilatih untuk mengekstrak fakta RequestDraft dari prompt bebas.
+
+Revisi spesifikasi
+- Satu prompt bebas, satu klarifikasi gabungan, ringkasan ringkas, dan satu tombol Generate website.
+- Nilai extractor harus disalin dari teks pengguna. Server mencocokkan nilainya pada brief dan menetapkan bukti sumber sendiri.
+- Budget efektif ditentukan tokenizer setelah instruksi dan output disisihkan. Batas 4.000 karakter menjadi pagar transport, bukan jaminan muat. Prompt yang tak muat ditolak tanpa pemotongan diam-diam.
+- Checkpoint ekstraksi terpisah dari generator TRAIN-025 step 1800. Usulan development gate: precision exact-value minimal 95 persen, recall fakta eksplisit minimal 90 persen, nol fakta tanpa bukti valid, dan gate generation tetap lulus.
+- Jumlah fakta wajib masih sama pada tahap pertama. Ini mengurangi pengisian per-field dan jumlah giliran, bukan jumlah informasi. Pengurangan fakta wajib perlu eksperimen kontrak role terpisah.
+
+Artefak
+- docs/superpowers/specs/2026-10-16-prompt-first-intake-design.md
+- docs/README.md
+- logs/interaksi_llm/AI-043_2026-10-16.md
+
+Status
+Menunggu review independen putaran kedua dan persetujuan pengguna sebelum perubahan aplikasi atau model. Tidak menjalankan tests, training, atau inference. Partisi final tetap tertutup.

@@ -1,0 +1,14 @@
+RUN-634, kontrak input extractor dan occurrence mapping
+Tanggal/waktu: 16 Oktober 2026, sekitar 17:54, Asia/Jakarta
+
+Pemicu
+Review independen menemukan bahwa model harus menerima ID pesan secara eksplisit agar sumber yang dikembalikan bisa divalidasi. Review juga meminta aturan untuk mention identik yang muncul beberapa kali pada satu pesan.
+
+Revisi yang dicatat
+- `request_extract` memakai serialized structured-message JSON berversi yang memuat ID, jenis, dan teks pesan; format train dan inference harus sama.
+- Segment map dari objek pesan asli tetap menjadi sumber kebenaran server. Model mengembalikan ID, sedangkan server memverifikasi kutipan dan mencari rentang.
+- Capability dan out-of-catalog mention membawa `occurrence_index` berbasis nol di antara phrase identik pada pesan sumber. Catatan ganda atau ketidakcocokan jumlah occurrence meminta klarifikasi.
+
+Status
+- Menunggu review independen final serta persetujuan pengguna sebelum implementasi.
+- Tidak mengubah kode aplikasi/API/model, tidak menjalankan inference atau training, dan partisi final tetap tertutup.
