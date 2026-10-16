@@ -6902,3 +6902,10 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Pemeriksaan: akses root tanpa autentikasi dan dengan kredensial pilihan pengguna; health dan catalog API; target tunnel; serta alamat listener FastAPI.
 - Hasil: tanpa autentikasi mendapat HTTP 401; root, health, dan catalog terautentikasi mendapat HTTP 200. Tunnel menuju 127.0.0.1:3000; FastAPI hanya mendengarkan di 127.0.0.1:8000.
 - Batas: tidak menjalankan generation baru, inference, atau uji beban. Password tidak dicatat.
+## RUN-629, preflight Cloudflare Tunnel terlindungi email
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 15:20, Asia/Jakarta.
+- Pemeriksaan awal: cloudflared 2026.3.0 tidak mendukung flag pembatas email OTP.
+- Perubahan: cloudflared diperbarui melalui winget ke versi 2026.10.1; flag allowed-mail tersedia.
+- Hasil: kesiapan Quick Tunnel terverifikasi. Tunnel Cloudflare belum dibuka karena alamat email penerima OTP belum diberikan secara lengkap. Tunnel ngrok yang sudah terlindungi tetap berjalan.
+- Kredensial dan alamat email tidak disimpan di repository.
