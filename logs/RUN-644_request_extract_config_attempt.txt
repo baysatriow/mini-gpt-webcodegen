@@ -1,0 +1,8 @@
+RUN-644, konfigurasi extractor ditolak oleh pemeriksaan parent
+Tanggal/waktu: 16 Oktober 2026, 22:53, Asia/Jakarta.
+
+Perintah konfigurasi berhenti sebelum menulis file karena verifier extractor mencari nama metrik yang berbeda dari struktur laporan seleksi V5 yang sebenarnya. Laporan dan paket parent tetap utuh. Nilai seleksi aktual adalah TRAIN-025 step 1.800, `complete=80`, `required_roles=80`, dan `model_gate=true`; konfigurasi baru menunggu perbaikan verifier agar memeriksa field yang benar.
+
+Tidak ada konfigurasi beku, checkpoint, update training, inference, atau perubahan data. Final/test tetap tertutup. Kegagalan dicatat tanpa menimpa laporan atau artefak.
+
+Tindakan berikutnya: perbaiki pemeriksaan field parent, jalankan ulang kompilasi statis, lalu coba konfigurasi pada output yang masih belum ada.

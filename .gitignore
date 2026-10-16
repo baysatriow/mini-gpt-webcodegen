@@ -16,6 +16,9 @@ __pycache__/
 data/raw/
 data/processed/
 /reports/fullpage/FULLPAGE-V5_DATA_PREPARATION.json
+/reports/request_extract/
+/reports/training/REQEXT-V1-*.json
+/reports/training/REQUEST-EXTRACT-V1_SELECTION.json
 /checkpoints/*
 !/checkpoints/README.md
 /outputs/*
@@ -25,6 +28,7 @@ data/processed/
 !/outputs/dataset_audit/*.json
 /training/selected/fullpage-v5/model/
 /training/selected/fullpage-v5/development-output/
+/training/selected/request-extract-v1/
 qa/docx_render/
 docs/referensi/
 docs/CATATAN_LOKASI_FILE_LAMA.txt

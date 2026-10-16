@@ -1279,3 +1279,25 @@ The frozen selector status is passed and selected TRAIN-025 step 1,800. Both can
 - Audit lineage dan bukti lulus. Irisan keluarga train/development = 0; irisan pola prompt = 0; final dibuka/digunakan = false.
 - Manifest SHA-256 `e561564c3ffb75e25b6a6fdc6feadaca5a7ec1f9fecf3f6f799311dea4cf36dc`. Data train dan development tetap lokal serta diabaikan Git.
 - Ini baru membuktikan corpus dan budget statis lolos audit. Belum ada training, inference, selection, atau klaim kemampuan extractor. Lihat `logs/RUN-642_prompt_extract_dataset_v1.txt`.
+
+### RUN-643: request extractor trainer preparation
+
+- Tanggal/waktu: 16 Oktober 2026, 22:52, Asia/Jakarta.
+- Menambahkan dataset compact-array, collator tensor, sampler bucket resumable, verifier lineage, trainer dua tahap, preflight RTX 5070, snapshot weights-only, evaluasi development, dan selector fail-closed.
+- Pemeriksaan statis menemukan ketidakcocokan tipe pada collator umum. Perbaikan dibuat sebelum training.
+- Python bytecode compilation dan `git diff --check` lulus. Tidak menambah atau menjalankan test suite.
+- Belum membekukan konfigurasi, menjalankan preflight GPU, menyimpan update, melakukan training/inference, atau membuka final/test.
+- Rincian: `logs/RUN-643_request_extract_trainer_prep.txt`.
+
+### RUN-644: konfigurasi parent ditolak
+
+- Percobaan membekukan config berhenti sebelum menulis file karena verifier membaca nama metrik yang tidak sesuai dengan laporan selection V5.
+- Nilai di report tetap membuktikan TRAIN-025 step 1.800, 80 halaman lengkap, 80 required roles, dan model gate lulus. Kode verifier akan disesuaikan ke struktur yang disimpan.
+- Tidak ada training, inference, atau akses final/test. Lihat `logs/RUN-644_request_extract_config_attempt.txt`.
+
+### RUN-645: config extractor dibekukan
+
+- Config berhasil dibuat dengan hash sumber, data, tokenizer, dan parent yang diverifikasi. SHA-256: `15ac854334e31c64b5a2adffbfcdb90efc8ce697101ae4db18f339fe9a9b83bb`.
+- Parent adalah TRAIN-025 step 1.800, weights-only. Dataset manifest sesuai hash RUN-642. Config menetapkan 3.600 update dalam dua tahap dan reserve 15 GiB.
+- RUN-644 tetap dicatat sebagai kegagalan pemetaan nama field dan tidak menulis config.
+- Belum ada GPU preflight, training/inference, atau pembukaan final/test. Lihat `logs/RUN-645_request_extract_config_frozen.txt`.

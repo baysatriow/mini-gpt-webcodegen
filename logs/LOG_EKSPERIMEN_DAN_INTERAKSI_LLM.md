@@ -7017,3 +7017,27 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Hasil: 84.320 baris lokal. Audit lulus atas 240 keluarga train dan 950 keluarga development. Lima belas bucket safety masing-masing memiliki 50 keluarga unik. Total prefix plus budget terbesar adalah 1.952 dari 2.048 token.
 - Batas bukti: belum menjalankan training atau inference. Corpus belum ditinjau manusia. Final/test tetap tertutup. Extractor belum diintegrasikan dan belum menjadi default aplikasi.
 - RUN-642 mencatat kegagalan pemanggilan, perubahan scope, hash, audit, storage, dan langkah berikutnya.
+
+## RUN-643, persiapan trainer extractor
+
+- Tanggal/waktu: 16 Oktober 2026, 22:52, Asia/Jakarta.
+- Keputusan pengguna tetap berlaku: semua fakta wajib dipertahankan. Pengalaman yang dituju mengumpulkan satu brief bebas, mengajukan satu klarifikasi gabungan, lalu menampilkan review fakta dengan bukti sumber sebelum pembuatan halaman.
+- Kode trainer terpisah dikunci ke dua kandidat, update 1.800 dan exact resume sampai 3.600. Evaluasi development melaporkan latensi per brief untuk enam belas scope internal.
+- Pemeriksaan statis menemukan dan memperbaiki penggunaan collator list pada dataset tensor. Bytecode compilation dan pemeriksaan whitespace lulus.
+- Belum ada preflight GPU, training, inference, evaluasi extractor, atau integrasi API/UI. Extractor belum dipromosikan. Final/test tetap tertutup.
+- Rincian teknis tercatat append-only di `logs/RUN-643_request_extract_trainer_prep.txt`.
+
+## RUN-644, konfigurasi parent extractor gagal aman
+
+- Tanggal/waktu: 16 Oktober 2026, 22:53, Asia/Jakarta.
+- Generator konfigurasi berhenti sebelum menulis config karena verifier meminta nama field yang tidak ada pada laporan seleksi parent. Laporan menunjukkan `complete=80`, `required_roles=80`, dan `model_gate=true`.
+- Tidak ada perubahan pada dataset atau checkpoint, tidak ada training/inference, dan final/test tetap tertutup.
+- Langkah lanjut: perbaiki verifier sesuai format report yang dibekukan, lalu ulang konfigurasi dengan tujuan yang masih kosong. Catatan lengkap ada di `logs/RUN-644_request_extract_config_attempt.txt`.
+
+## RUN-645, konfigurasi extractor dibekukan
+
+- Tanggal/waktu: 16 Oktober 2026, 22:54, Asia/Jakarta.
+- Setelah field verifier dicocokkan dengan laporan seleksi yang benar, config berhasil dibentuk dan mengikat 16 scope, data extractor, tokenizer, source code, serta parent TRAIN-025 step 1.800.
+- SHA-256 config `15ac854334e31c64b5a2adffbfcdb90efc8ce697101ae4db18f339fe9a9b83bb`; reserve yang dibekukan 15 GiB; training direncanakan 3.600 update dengan checkpoint per 1.800.
+- Belum menjalankan GPU preflight atau update disposable, training, inference, development scoring, atau selection. Final/test tetap tertutup.
+- Rincian: `logs/RUN-645_request_extract_config_frozen.txt`.

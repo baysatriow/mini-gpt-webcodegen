@@ -64,28 +64,32 @@
 - [x] Generate an independent development family and prompt-pattern bank and record family and pattern intersections in the manifest.
 - [x] Add a read-only audit that checks hashes, schema, provenance substrings, token budgets, family uniqueness, bucket counts, and zero train/development overlap.
 - [x] Add a notebook displaying corpus counts, one redacted training example, budget distribution, and audit results; extend it with training/evaluation reports in Task 2.
-- [ ] Commit and push Task 1 as `feat: add prompt extraction data pipeline`.
+- [x] Commit and push Task 1 as `feat: add prompt extraction data pipeline` (`c535786`).
 
 ### Task 2: Extractor Training and Development Gate
 
 **Files:**
-- Modify: `src/fullpage/serialization.py`
 - Modify: `src/training/engine.py`
 - Modify: `notebooks/request_extract_v1.ipynb`
 - Create: `src/fullpage/request_extract_dataset.py`
+- Create: `src/fullpage/request_extract_lineage.py`
 - Create: `src/fullpage/request_extract_model.py`
+- Create: `qa/configure_request_extract_v1.py`
+- Create: `qa/preflight_request_extract_v1.py`
 - Create: `configs/fullpage/training-request-extract-v1.json`
 - Create: `qa/train_request_extract_v1.py`
 - Create: `qa/evaluate_request_extract_v1.py`
+- Create: `qa/snapshot_request_extract_v1.py`
+- Create: `qa/select_request_extract_v1.py`
 - Create locally, ignored by Git: `checkpoints/REQUEST-EXTRACT-V1`, `outputs/request_extract/v1`, and `training/selected/request-extract-v1`
 
 **Interfaces:**
 - The sixteen fixed scopes each have an output budget measured from the frozen corpus; every exact input prefix plus its scope budget must fit within 2,048 tokens. FAQ, project, service, and process scopes select one item by first-presentation order, with explicit corrections replacing that item's value.
-- `RequestExtractor(checkpoint: Path, root: Path).extract(messages: list[dict[str, str]]) -> dict` runs one greedy call per scope over the same ordered message list and returns a merged, validated JSON object only; any malformed scope raises a controlled extraction error. This may require up to sixteen sequential decodes per API request and must be measured for latency before promotion.
+- `RequestExtractor(checkpoint: Path, root: Path).extract(messages: list[dict[str, str]]) -> dict` runs one greedy call per scope over the same ordered message list and returns a merged, validated JSON object only; any malformed scope raises a controlled extraction error. This requires sixteen sequential decodes per API request; development reports will include per-brief decode latency before promotion.
 - `run_request_extract_training(...)` pins initialization to the exact selected TRAIN-025 step-1800 checkpoint and the audited extractor manifest.
 - Development selection uses only the new development file and the thresholds in the approved spec. Final remains closed.
 
-- [ ] Add a distinct dataset encoder and sampler for scoped `request_extract` rows without changing the existing two-task full-page sampler behavior.
+- [x] Add a distinct dataset encoder and sampler for scoped `request_extract` rows without changing the existing two-task full-page sampler behavior.
 - [ ] Add exact selected-parent verification, tokenizer/model-shape checks, training lineage, CUDA memory/storage preflight, and configurable checkpoint budgets.
 - [ ] Train the separate extractor candidate on the RTX 5070 only after storage and CUDA preflight pass; record every run or failure in `logs/LOG_TRAINING.md` and a `RUN-*.txt` record.
 - [ ] Evaluate exact field precision/recall, source validity, correction handling, conflict abstention, unsupported-request behavior, and every minimum-size safety bucket using development only.

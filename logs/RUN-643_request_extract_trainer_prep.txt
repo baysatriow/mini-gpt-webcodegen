@@ -1,0 +1,17 @@
+RUN-643, persiapan trainer extractor prompt-first
+Tanggal/waktu: 16 Oktober 2026, 22:52, Asia/Jakarta.
+
+Scope: membangun encoder, sampler, lineage, konfigurasi, preflight GPU/storage, trainer, snapshot, evaluasi development, dan selector untuk extractor terpisah. Pengguna telah menyetujui semua fakta wajib tetap dipertahankan, dengan satu brief bebas dan satu klarifikasi gabungan.
+
+Perubahan statis:
+- Dataset compact-array memakai collator tensor khusus. Pemeriksaan kode menemukan collator umum menggabungkan tensor seperti list, sehingga berisiko gagal saat batch pertama; jalur train dan preflight sekarang memakai collator yang sesuai.
+- Trainer dikunci ke kandidat fresh sampai update 1.800 dan exact resume dari `checkpoints/REQEXT-V1-1800/last.pt` sampai 3.600.
+- Evaluasi development mengukur waktu gabungan generation, parsing, dan validasi sumber per brief untuk menilai biaya 16 scope sequential.
+- Runtime extractor tetap gated pada paket seleksi; belum ada `selection.json` extractor, sehingga aplikasi tetap memakai detail editor manual.
+- Artefak checkpoint, laporan extractor, dan paket seleksi ditambahkan ke aturan ignore agar tidak terunggah ke Git.
+
+Pemeriksaan: Python bytecode compilation lulus untuk seluruh modul Python Task 2 yang dibuat atau diubah. `git diff --check` lulus. Tidak menambah atau menjalankan test suite.
+
+Batas hasil: konfigurasi belum dibekukan. GPU/storage preflight, update disposable, training, inference, evaluasi development, dan seleksi belum dijalankan. Final/test tetap tertutup. Dataset dan checkpoint tetap lokal.
+
+Langkah berikutnya: tinjau diff final, verifikasi ignore, freeze source hash, commit dan push kode Task 2, lalu jalankan preflight GPU/storage. Training hanya dimulai jika preflight lulus.
