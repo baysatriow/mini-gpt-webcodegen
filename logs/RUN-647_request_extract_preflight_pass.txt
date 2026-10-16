@@ -1,0 +1,18 @@
+RUN-647, RTX 5070 preflight lulus
+Tanggal/waktu: 16 Oktober 2026, 22:59, Asia/Jakarta.
+
+Config SHA-256: `15ac854334e31c64b5a2adffbfcdb90efc8ce697101ae4db18f339fe9a9b83bb`.
+Parent TRAIN-025 step 1.800 SHA-256: `c1a450149eb8f860cc42595bba283e0f9e915a436f38f967516bc5107bd1c446`.
+GPU report SHA-256: `c4d38f6f7b2f0757099261b146e1257e3d78a596894556aceb67fb06ca48faac`.
+
+Hasil:
+- RTX 5070 terdeteksi dengan VRAM total 12,820,480,000 byte dan BF16 didukung.
+- Ruang disk sebelum update 17,568,010,240 byte. Setelah reserve 15 GiB dan estimasi checkpoint 1,116,848,128 byte, headroom tetap 345,034,752 byte.
+- Batch train terpanjang berukuran 8 x 1,813 token. Update optimizer disposable selesai dalam 0.7401 detik, loss 5.9433, grad norm 33.4498.
+- GPU incremental reserved 1,799,356,416 byte; headroom sesudah batch 9,683,599,360 byte.
+- Status passed. `training_step_saved=false`, `checkpoint_written=false`, dan ruang disk aktual sesudahnya 17,568,006,144 byte.
+- Output `checkpoints/REQEXT-V1-1800` dan `checkpoints/REQEXT-V1-3600` belum ada.
+
+Batas: langkah ini hanya mengukur satu update yang dibuang. Angka loss dan grad norm bukan hasil training. Development tidak dipakai untuk update. Final/test tertutup. Training dua tahap belum dimulai.
+
+Langkah berikutnya: jalankan REQEXT-V1-1800 sampai step 1.800 sesuai config, dengan pemantauan guard ruang saat menyimpan checkpoint.

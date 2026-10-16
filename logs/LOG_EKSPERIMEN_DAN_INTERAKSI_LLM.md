@@ -7049,3 +7049,11 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Preflight memakai satu update disposable pada batch train terpanjang untuk mengukur GPU dan menyaring kemampuan storage sebelum training. Tidak menyimpan checkpoint.
 - Development dibaca untuk lineage/loader, tetapi tidak dipakai untuk update atau inference. Final/test tetap tertutup.
 - Rincian: `logs/RUN-646_request_extract_preflight_launch.txt`.
+
+## RUN-647, preflight RTX 5070 lulus
+
+- Tanggal/waktu: 16 Oktober 2026, 22:59, Asia/Jakarta.
+- GPU RTX 5070, BF16, batch terpanjang 8 x 1.813 token, dan satu update disposable lulus. Durasi langkah 0.7401 detik. Tidak ada update yang disimpan.
+- GPU headroom setelah peak 9,683,599,360 byte. Ruang disk tetap 17,568,006,144 byte sesudah preflight; guard membandingkan reserve 15 GiB, estimasi checkpoint, dan headroom 345,034,752 byte.
+- Angka loss preflight tidak dipakai sebagai hasil model. Development hanya dimuat untuk loader/lineage. Final/test tetap tertutup.
+- Rincian ada di `logs/RUN-647_request_extract_preflight_pass.txt`.

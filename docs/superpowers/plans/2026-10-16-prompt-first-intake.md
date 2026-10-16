@@ -90,7 +90,7 @@
 - Development selection uses only the new development file and the thresholds in the approved spec. Final remains closed.
 
 - [x] Add a distinct dataset encoder and sampler for scoped `request_extract` rows without changing the existing two-task full-page sampler behavior.
-- [ ] Add exact selected-parent verification, tokenizer/model-shape checks, training lineage, CUDA memory/storage preflight, and configurable checkpoint budgets.
+- [x] Add exact selected-parent verification, tokenizer/model-shape checks, training lineage, CUDA memory/storage preflight, and configurable checkpoint budgets.
 - [ ] Train the separate extractor candidate on the RTX 5070 only after storage and CUDA preflight pass; record every run or failure in `logs/LOG_TRAINING.md` and a `RUN-*.txt` record.
 - [ ] Evaluate exact field precision/recall, source validity, correction handling, conflict abstention, unsupported-request behavior, and every minimum-size safety bucket using development only.
 - [ ] Update the notebook with the frozen training config, preflight, training checkpoints, development comparisons, and selection result.

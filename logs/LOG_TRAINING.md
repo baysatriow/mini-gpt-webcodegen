@@ -1308,3 +1308,10 @@ The frozen selector status is passed and selected TRAIN-025 step 1,800. Both can
 - Preflight yang akan dijalankan memverifikasi storage, RTX 5070, BF16, dan satu update disposable pada batch train terpanjang. Path laporan dipastikan belum ada.
 - Tidak menyimpan update disposable sebagai training dan tidak menulis checkpoint. Final/test tertutup.
 - Catatan launch: `logs/RUN-646_request_extract_preflight_launch.txt`.
+
+### RUN-647: RTX 5070 preflight passed
+
+- CUDA/BF16 pada RTX 5070 lulus. Satu update disposable pada batch train 8 x 1.813 token memerlukan 0.7401 detik dan tidak disimpan.
+- GPU headroom setelah peak: 9,683,599,360 byte. Ruang F: 17,568,010,240 byte sebelum update, dengan 345,034,752 byte di atas reserve 15 GiB plus estimasi checkpoint. Free sesudah update 17,568,006,144 byte.
+- Tidak ada checkpoint ditulis. Direktori run 1.800 dan 3.600 masih belum ada. Final/test tertutup.
+- Rincian/hash: `logs/RUN-647_request_extract_preflight_pass.txt`.
