@@ -7057,3 +7057,10 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - GPU headroom setelah peak 9,683,599,360 byte. Ruang disk tetap 17,568,006,144 byte sesudah preflight; guard membandingkan reserve 15 GiB, estimasi checkpoint, dan headroom 345,034,752 byte.
 - Angka loss preflight tidak dipakai sebagai hasil model. Development hanya dimuat untuk loader/lineage. Final/test tetap tertutup.
 - Rincian ada di `logs/RUN-647_request_extract_preflight_pass.txt`.
+
+## RUN-648, extractor step 1.800 diluncurkan
+
+- Tanggal/waktu: 16 Oktober 2026, 23:00, Asia/Jakarta.
+- Setelah pemeriksaan ruang terbaru dan ketiadaan output run, training fresh dimulai dari parent TRAIN-025 step 1.800 dengan target tepat global step 1.800.
+- Validation CE memakai development tanpa gradient update. Tidak ada generator inference atau akses final/test.
+- Detail command dan pengamanan storage tercatat di `logs/RUN-648_reqext_1800_launch.txt`.

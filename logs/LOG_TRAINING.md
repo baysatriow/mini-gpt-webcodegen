@@ -1315,3 +1315,10 @@ The frozen selector status is passed and selected TRAIN-025 step 1,800. Both can
 - GPU headroom setelah peak: 9,683,599,360 byte. Ruang F: 17,568,010,240 byte sebelum update, dengan 345,034,752 byte di atas reserve 15 GiB plus estimasi checkpoint. Free sesudah update 17,568,006,144 byte.
 - Tidak ada checkpoint ditulis. Direktori run 1.800 dan 3.600 masih belum ada. Final/test tertutup.
 - Rincian/hash: `logs/RUN-647_request_extract_preflight_pass.txt`.
+
+### RUN-648: REQEXT-V1-1800 launch
+
+- Fresh disk check: 17,567,727,616 byte free. Checkpoint run directories belum ada. Frozen config hash tetap sama.
+- Memulai fresh SFT dari parent TRAIN-025 step 1.800 hingga extractor global step 1.800. Training memakai train split; development hanya menghitung validation loss pada titik tetap.
+- Engine memeriksa reserve 15 GiB dan budget lokal saat penulisan. Jika guard storage gagal, run berhenti dan checkpoint yang ada tetap dipertahankan.
+- Tidak menjalankan generation/inference dan tidak membuka test/final. Catatan launch: `logs/RUN-648_reqext_1800_launch.txt`.
