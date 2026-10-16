@@ -1,0 +1,3 @@
+RUN-622 | 16 Oktober 2026 | sekitar 15:00 Asia/Jakarta
+Perintah: audit proses ngrok dan listener port 3000 serta 8000
+Hasil: tidak ada proses ngrok. Next.js hanya pada 127.0.0.1:3000 dan FastAPI hanya pada 127.0.0.1:8000.

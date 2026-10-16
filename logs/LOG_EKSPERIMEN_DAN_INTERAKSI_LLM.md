@@ -6850,3 +6850,15 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Perintah: `git commit -m "feat: enable local full-page model generation"` lalu `git push origin feature/pipeline-data-model-training`.
 - Hasil: commit `b4cc624` berhasil dipush ke branch `feature/pipeline-data-model-training`. Pesan commit tidak memiliki trailer co-author. Working tree bersih setelah push.
 - Cakupan: perbaikan intake dan request ID, proxy Next.js ke API loopback, kesiapan UI, test regresi, dokumentasi, dan log RUN/AI-040.
+
+## RUN-621, pemeriksaan proses ngrok pertama
+
+- Tanggal: 16 Oktober 2026, sekitar 15:00, Asia/Jakarta.
+- Perintah: audit PowerShell untuk proses ngrok dan listener aplikasi.
+- Hasil: command berhenti di parser sebelum pemeriksaan berjalan karena elemen pipe kosong. Dicoba ulang dengan RUN-622.
+
+## RUN-622, pemeriksaan proses ngrok dan listener
+
+- Tanggal: 16 Oktober 2026, sekitar 15:00, Asia/Jakarta.
+- Perintah: audit proses ngrok dan listener port 3000 serta 8000.
+- Hasil: tidak ada proses ngrok; Next.js mendengarkan di `127.0.0.1:3000` dan FastAPI di `127.0.0.1:8000`. Tidak ada endpoint publik yang aktif.
