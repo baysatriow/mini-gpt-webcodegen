@@ -2,6 +2,7 @@
 
 import { BadgeCheck, PencilLine, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SourceEvidenceDisclosure } from "@/components/chat/source-evidence";
 import type { CatalogResponse, RequestDraft } from "@/lib/api-types";
 import type { RequestSummaryMessage } from "@/lib/chat-state";
 import { getAdditionalFacts, getFactValue, getStructuredFacts } from "@/lib/request-draft";
@@ -42,6 +43,11 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
           </span>
         </div>
         <p className="mt-1 text-[15px] leading-7 text-harbor-ink">{message.content}</p>
+        <SourceEvidenceDisclosure
+          evidence={message.sourceEvidence ?? []}
+          sourceMessages={message.sourceMessages}
+          summary="Periksa kutipan sumber"
+        />
 
         <div className="mt-3 overflow-hidden rounded-2xl border border-border bg-paper">
           <div className="grid gap-3 border-b border-border bg-[#F8FAFC] p-4 sm:grid-cols-2 sm:px-5">
@@ -91,17 +97,17 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
               <>
                 <Button type="button" variant="outline" size="sm" onClick={() => onEdit(message)} className="gap-2 rounded-lg">
                   <PencilLine aria-hidden="true" className="size-3.5" />
-                  Ubah fakta
+                  Edit detail
                 </Button>
                 <Button type="button" size="sm" onClick={() => onConfirm(message)} className="rounded-lg">
-                  Setujui dan buat halaman
+                  Generate website
                 </Button>
               </>
             )}
           </div>
         </div>
         <p className="mt-2 text-[11px] leading-5 text-slate-note">
-          Setelah disetujui, API lokal mulai membuat halaman dari fakta dan ruang lingkup di atas.
+          Periksa fakta dan kutipannya bila perlu. Klik Generate website saat siap.
         </p>
       </div>
     </article>

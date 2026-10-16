@@ -13,8 +13,8 @@ import { HistorySidebar } from "@/components/chat/history-sidebar";
 import { MessageList } from "@/components/chat/message-list";
 import { ResultWorkspace, type WorkspaceView } from "@/components/results/result-workspace";
 import type { SourceLoadState } from "@/components/results/source-tabs";
-import { ApiClientError, downloadSourceFile, generate, getCatalog, getSource, validateIntake } from "@/lib/api-client";
-import type { CatalogResponse, GenerationSummary, RequestDraft, SourceFilename } from "@/lib/api-types";
+import { ApiClientError, downloadSourceFile, extractPromptMessages, generate, getCatalog, getSource, validateIntake } from "@/lib/api-client";
+import type { CatalogResponse, GenerationSummary, PromptMessage, RequestDraft, SourceEvidence, SourceFilename } from "@/lib/api-types";
 import {
   chatReducer,
   createChatSession,
@@ -38,6 +38,7 @@ export function ChatShell() {
   const [workspaceView, setWorkspaceView] = useState<WorkspaceView>("preview");
   const [sourceByGeneration, setSourceByGeneration] = useState<Record<string, SourceLoadState>>({});
   const [historyOpen, setHistoryOpen] = useState(false);
+  const [promptRewrite, setPromptRewrite] = useState(false);
   const didRestore = useRef(false);
   const activeSessionIdRef = useRef<string | null>(null);
   const generationAttempts = useRef(new Set<string>());
@@ -141,6 +142,7 @@ export function ChatShell() {
   function startNewSession() {
     dispatch({ type: "new_session", session: createChatSession() });
     setPrompt("");
+    setPromptRewrite(false);
     setMobilePanel("conversation");
     setWorkspaceView("preview");
     setHistoryOpen(false);
@@ -156,6 +158,7 @@ export function ChatShell() {
   function selectSession(sessionId: string) {
     dispatch({ type: "set_active_session", sessionId });
     setPrompt("");
+    setPromptRewrite(false);
     setMobilePanel("conversation");
     setWorkspaceView("preview");
     setHistoryOpen(false);
@@ -175,6 +178,11 @@ export function ChatShell() {
     sessionId: string,
     message: ClarificationMessage,
     draft: RequestDraft,
+    context?: {
+      sourceEvidence?: SourceEvidence[];
+      sourceMessages?: PromptMessage[];
+      extractionToken?: string | null;
+    },
   ) {
     const pending: ClarificationMessage = {
       ...message,
@@ -184,12 +192,14 @@ export function ChatShell() {
       missingFields: [],
       isValidating: true,
       isError: false,
+      sourceEvidence: context?.sourceEvidence ?? message.sourceEvidence,
+      sourceMessages: context?.sourceMessages ?? message.sourceMessages,
       createdAt: new Date().toISOString(),
     };
     dispatch({ type: "replace_message", message: pending, sessionId });
 
     try {
-      const response = await validateIntake(message.prompt, draft);
+      const response = await validateIntake(message.prompt, draft, context?.extractionToken);
       if (response.status === "ready" && response.request) {
         const summary: RequestSummaryMessage = {
           id: message.id,
@@ -200,6 +210,9 @@ export function ChatShell() {
           draft,
           state: "ready_to_confirm",
           validation: response,
+          sourceEvidence: context?.sourceEvidence ?? message.sourceEvidence,
+          sourceMessages: context?.sourceMessages ?? message.sourceMessages,
+          extractionToken: context?.extractionToken ?? undefined,
         };
         dispatch({ type: "replace_message", message: summary, sessionId });
         return;
@@ -213,6 +226,8 @@ export function ChatShell() {
         missingFields: response.missing_fields,
         isValidating: false,
         isError: false,
+        allowManualEditor: true,
+        showOnlyMissing: true,
         createdAt: new Date().toISOString(),
       };
       dispatch({ type: "replace_message", message: clarification, sessionId });
@@ -224,33 +239,105 @@ export function ChatShell() {
           : "Validasi intake gagal. Periksa koneksi API lokal lalu coba lagi.",
         isValidating: false,
         isError: true,
+        allowManualEditor: true,
+        showOnlyMissing: true,
         createdAt: new Date().toISOString(),
       };
       dispatch({ type: "replace_message", message: clarification, sessionId });
     }
   }
 
-  function sendPrompt(value: string) {
-    if (!activeSession || !value.trim()) return;
-    const cleanPrompt = value.trim();
-    dispatch({
-      type: "append_message",
-      message: createMessage({ type: "user", content: cleanPrompt }),
-      sessionId: activeSession.id,
-    });
-    const firstDraft = emptyDraft(cleanPrompt);
-    const intakeMessage = createMessage({
+  async function runExtraction(sessionId: string, messages: PromptMessage[]) {
+    const promptText = messages.map((message) => message.text).join("\n");
+    const pending = createMessage({
       type: "clarification",
-      content: "Memeriksa kelengkapan fakta dan cakupan halaman…",
-      prompt: cleanPrompt,
-      draft: firstDraft,
+      content: "Membaca brief dan memeriksa fakta yang Anda berikan…",
+      prompt: promptText,
+      draft: emptyDraft(promptText),
       status: "needs_clarification",
       missingFields: [],
       isValidating: true,
+      sourceMessages: messages,
     });
-    dispatch({ type: "append_message", message: intakeMessage, sessionId: activeSession.id });
-    void validateDraft(activeSession.id, intakeMessage, firstDraft);
+    dispatch({ type: "append_message", message: pending, sessionId });
+
+    try {
+      const response = await extractPromptMessages(messages);
+      const responseDraft = response.draft
+        ? { ...response.draft, prompt: promptText }
+        : emptyDraft(promptText);
+      if (response.status === "ready" && response.draft) {
+        await validateDraft(sessionId, pending, responseDraft, {
+          sourceEvidence: response.evidence,
+          sourceMessages: messages,
+          extractionToken: response.resolution_token,
+        });
+        return;
+      }
+
+      const clarification: ClarificationMessage = {
+        ...pending,
+        content: response.message,
+        draft: responseDraft,
+        status: response.status === "unsupported" ? "unsupported_request" : "needs_clarification",
+        missingFields: response.missing_fields,
+        isValidating: false,
+        isError: false,
+        allowManualEditor: response.status === "needs_clarification" && messages.length > 1,
+        showOnlyMissing: response.status === "needs_clarification" && messages.length > 1,
+        sourceEvidence: response.evidence,
+        sourceMessages: messages,
+        conflicts: response.conflicts,
+        unsupportedRequests: response.unsupported_requests,
+        createdAt: new Date().toISOString(),
+      };
+      dispatch({ type: "replace_message", sessionId, message: clarification });
+    } catch (error) {
+      const status = error instanceof ApiClientError && error.status === 413
+        ? "input_too_long"
+        : "needs_clarification";
+      const explanation = error instanceof ApiClientError
+        ? error.message
+        : "Brief belum berhasil diproses. Periksa API lokal lalu coba lagi.";
+      const clarification: ClarificationMessage = {
+        ...pending,
+        content: `${explanation} Brief tetap tersimpan. Anda dapat melengkapi detail lewat editor manual.`,
+        status,
+        isValidating: false,
+        isError: true,
+        allowManualEditor: true,
+        showOnlyMissing: false,
+        createdAt: new Date().toISOString(),
+      };
+      dispatch({ type: "replace_message", sessionId, message: clarification });
+    }
+  }
+
+  function sendPrompt(value: string) {
+    if (!activeSession || !value.trim()) return;
+    const cleanPrompt = value.trim();
+    let lastBoundary = -1;
+    activeSession.messages.forEach((message, index) => {
+      if (message.type === "request_summary" || message.type === "generation_status") {
+        lastBoundary = index;
+      }
+    });
+    const previousUserMessages = activeSession.messages
+      .slice(lastBoundary + 1)
+      .filter((message) => message.type === "user")
+      .map((message) => ({ id: message.id, text: message.content }));
+    const userMessage = createMessage({ type: "user", content: cleanPrompt });
+    dispatch({
+      type: "append_message",
+      message: userMessage,
+      sessionId: activeSession.id,
+    });
+    void runExtraction(activeSession.id, [
+      ...(promptRewrite ? [] : previousUserMessages),
+      { id: userMessage.id, text: cleanPrompt },
+    ]);
     setPrompt("");
+    setPromptRewrite(false);
   }
 
   function editSummary(message: RequestSummaryMessage) {
@@ -263,6 +350,8 @@ export function ChatShell() {
       draft: message.draft,
       status: "needs_clarification",
       missingFields: [],
+      allowManualEditor: true,
+      showOnlyMissing: false,
     };
     dispatch({ type: "replace_message", message: clarification, sessionId: activeSession?.id });
   }
@@ -298,7 +387,7 @@ export function ChatShell() {
 
   async function runGeneration(sessionId: string, request: RequestSummaryMessage, pending: GenerationStatusMessage) {
     try {
-      const response = await generate(request.prompt, request.draft);
+      const response = await generate(request.prompt, request.draft, request.extractionToken);
       const requiredFiles: SourceFilename[] = ["index.html", "styles.css", "app.js"];
       const filesReady = requiredFiles.every((filename) => response.files.includes(filename));
 
@@ -392,6 +481,7 @@ export function ChatShell() {
 
   function editPrompt(value: string) {
     setPrompt(value);
+    setPromptRewrite(true);
     setMobilePanel("conversation");
     window.requestAnimationFrame(() => document.getElementById("chat-prompt")?.focus());
   }
@@ -425,6 +515,10 @@ export function ChatShell() {
       : latestGenerationMessage
         ? "Perlu diperbaiki"
         : "Belum ada hasil";
+  const latestMessage = activeSession.messages.at(-1) ?? null;
+  const composerDisabled =
+    (latestMessage?.type === "clarification" && (latestMessage.isValidating || (latestMessage.allowManualEditor && !promptRewrite)))
+    || (latestMessage?.type === "generation_status" && latestMessage.status === "pending");
 
   return (
     <main className="h-svh min-h-svh overflow-hidden bg-frost text-harbor-ink">
@@ -481,7 +575,7 @@ export function ChatShell() {
                 onEditSummary={editSummary}
                 onConfirmSummary={confirmSummary}
               />
-              <Composer value={prompt} onChange={setPrompt} onSubmit={sendPrompt} />
+              <Composer value={prompt} onChange={setPrompt} onSubmit={sendPrompt} disabled={composerDisabled} />
             </div>
           </section>
 

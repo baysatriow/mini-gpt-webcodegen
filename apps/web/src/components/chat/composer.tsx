@@ -17,7 +17,7 @@ export function Composer({
   onChange,
   onSubmit,
   disabled = false,
-  maxLength = 1000,
+  maxLength = 4000,
 }: ComposerProps) {
   const canSubmit = value.trim().length > 0 && !disabled;
 
@@ -62,7 +62,7 @@ export function Composer({
                 <Sparkles aria-hidden="true" className="size-3.5 text-cobalt-action" />
               </span>
               <span id="composer-guidance" className="truncate">
-                Saya akan bertanya jika fakta usaha belum lengkap.
+                Satu brief. Jika perlu, semua kekurangan dirangkum sekaligus.
               </span>
             </div>
             <div className="flex shrink-0 items-center gap-2">
@@ -82,7 +82,7 @@ export function Composer({
           </div>
         </div>
         <p className="mt-2 text-center text-[11px] leading-5 text-slate-note">
-          Rancang memakai fakta yang Anda berikan dan komponen lokal yang tersedia.
+          Brief tersimpan di perangkat ini. Generate hanya berjalan setelah Anda meninjau fakta.
         </p>
       </form>
     </div>

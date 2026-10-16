@@ -63,6 +63,48 @@ export type RequestDraft = {
 export type IntakeEnvelope = {
   prompt: string;
   draft: RequestDraft;
+  extraction_token?: string | null;
+};
+
+export type PromptMessage = { id: string; text: string };
+
+export type SourceEvidence = {
+  field: string;
+  source_message_id: string;
+  quote: string;
+  start: number;
+  end: number;
+  utf16_start: number;
+  utf16_end: number;
+  prompt_start: number;
+  prompt_end: number;
+};
+
+export type IntakeConflict = {
+  field: string;
+  message: string;
+  candidates: Array<Record<string, unknown>>;
+};
+
+export type UnsupportedRequest = {
+  kind: "known_capability" | "out_of_catalog";
+  id: string | null;
+  label: string;
+  phrase: string;
+  context: string;
+  intent: "requested" | "retracted" | "negated" | "future" | "reference" | "unclear";
+  evidence: SourceEvidence;
+};
+
+export type IntakeExtractResponse = {
+  status: "ready" | "needs_clarification" | "unsupported";
+  message: string;
+  missing_fields: string[];
+  draft: RequestDraft | null;
+  evidence: SourceEvidence[];
+  conflicts: IntakeConflict[];
+  unsupported_requests: UnsupportedRequest[];
+  resolution_token: string | null;
 };
 
 export type IntakeResponse = {
@@ -101,6 +143,9 @@ export type HealthResponse = {
   status: "ok";
   contract_version: string;
   model_loaded: boolean;
+  extractor_available?: boolean;
+  extractor_loaded?: boolean;
+  generator_loaded?: boolean;
 };
 
 export type GenerationRequest = IntakeEnvelope;

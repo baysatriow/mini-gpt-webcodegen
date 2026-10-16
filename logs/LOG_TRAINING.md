@@ -1380,3 +1380,12 @@ The frozen selector status is passed and selected TRAIN-025 step 1,800. Both can
 - Kompilasi Python dan pembentukan OpenAPI berhasil; import aplikasi tidak memuat PyTorch. Test suite dan inference API tidak dijalankan.
 - Raw development extraction checkpoint 1.800 masih berlangsung. Model belum dipromosikan; final/test tetap tertutup.
 - Rincian: `logs/RUN-656_prompt_first_extraction_api_implementation.txt`.
+
+### RUN-657: prompt-first UI build and responsive review
+
+- Tanggal/waktu: 17 Oktober 2026, 00:17, Asia/Jakarta.
+- Production build Next.js berhasil setelah server web diperbarui dari build lama. TypeScript, ESLint, dan `git diff --check` juga lulus.
+- Browser review pada viewport default 624 x 864 dan 1440 x 900 menunjukkan composer brief, tiga contoh prompt, rail riwayat desktop, kanvas preview, dan navigasi percakapan/kanvas pada lebar mobile. Ukuran viewport direset setelah review.
+- Tidak ada permintaan yang dikirim ke endpoint ekstraksi atau generation. Evaluasi raw development checkpoint step 1.800 berlanjut terpisah dan saat pencatatan telah mencapai 3.700 dari 15.200 scope. Final/test tetap tertutup.
+- API lokal tetap aktif di `127.0.0.1:8000`; Next.js dilayani di `127.0.0.1:3000` dari build terbaru.
+- Rincian: `logs/RUN-657_prompt_first_ui_build_review.txt`.

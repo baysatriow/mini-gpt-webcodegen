@@ -53,13 +53,13 @@ export function MessageList({
             <div className="mb-6 grid size-12 place-items-center rounded-2xl bg-accent text-cobalt-action">
               <Sparkles aria-hidden="true" className="size-5" />
             </div>
-            <p className="text-sm font-medium text-cobalt-action">Workspace generator lokal</p>
+            <p className="text-sm font-medium text-primary">Rancang · studio website lokal</p>
             <h1 className="mt-2 max-w-xl text-3xl font-semibold leading-tight tracking-tight text-harbor-ink sm:text-[36px]">
-              Website seperti apa yang ingin Anda buat?
+              Ceritakan website yang ingin Anda buat.
             </h1>
             <p className="mt-3 max-w-xl text-[15px] leading-7 text-slate-note">
-              Mulai dari ide. Rancang akan membantu melengkapi detail usaha,
-              menampilkan ringkasan, lalu menunggu persetujuan Anda.
+              Mulai dengan satu brief. Rancang menangkap fakta yang Anda sebutkan,
+              mengumpulkan kekurangan dalam satu balasan, lalu menyiapkan halaman untuk Anda tinjau.
             </p>
             <div className="mt-8 grid gap-2 sm:grid-cols-2">
               {PROMPT_SUGGESTIONS.map((suggestion) => {
@@ -71,7 +71,7 @@ export function MessageList({
                     onClick={() => onUsePrompt(suggestion.prompt)}
                     className="group flex min-h-[76px] items-start gap-3 rounded-xl border border-border bg-paper px-3.5 py-3 text-left transition-colors hover:border-primary/35 hover:bg-white"
                   >
-                    <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-lg bg-frost text-slate-note">
+                    <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-lg bg-accent text-primary">
                       <SuggestionIcon aria-hidden="true" className="size-3.5" />
                     </span>
                     <span className="min-w-0">
@@ -123,7 +123,7 @@ function MessageRow({
   if (message.type === "user") {
     return (
       <article className="flex justify-end" aria-label="Pesan Anda">
-        <div className="max-w-[88%] rounded-2xl rounded-br-md bg-[#E7EEF9] px-4 py-3 text-[15px] leading-7 text-harbor-ink sm:max-w-[82%]">
+        <div className="max-w-[88%] rounded-2xl rounded-br-md bg-[#E7EEE8] px-4 py-3 text-[15px] leading-7 text-harbor-ink sm:max-w-[82%]">
           <p className="whitespace-pre-wrap break-words">{message.content}</p>
         </div>
       </article>

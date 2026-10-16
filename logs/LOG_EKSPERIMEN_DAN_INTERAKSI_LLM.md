@@ -7137,3 +7137,14 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Validasi saat ini: `py_compile` dan `git diff --check` lulus. Replay API belum dijalankan karena raw inference development 15.200 baris masih berjalan. Belum ada seleksi atau promosi extractor. Final/test tetap tertutup.
 - Perubahan yang tidak dipilih: tidak mengulangi inference GPU di gate API, tidak mengubah checkpoint/config/data, dan tidak membuat extractor otomatis aktif sebelum seluruh gate lulus.
 - Referensi: `qa/evaluate_request_extract_api_v1.py`; tidak ada tautan berbagi atau ekspor sesi.
+
+## AI-042, penyederhanaan chat prompt-first
+
+- Tanggal/waktu: 17 Oktober 2026, 00:17, Asia/Jakarta.
+- Konteks: pengguna merasa intake terlalu banyak bertanya dan meminta chat serta UI/UX yang lebih ringkas. Fakta lengkap tetap wajib, satu balasan klarifikasi gabungan diperbolehkan, dan halaman hanya dibuat setelah fakta diperiksa.
+- Perubahan: brief bebas menjadi titik awal, tiga contoh prompt tetap tersedia, composer dibatasi 4.000 karakter, pesan sesi dikirim sebagai riwayat terstruktur ke endpoint ekstraksi, sumber fakta dapat diperiksa, dan balasan tidak lengkap kedua membuka editor hanya untuk bagian yang masih kurang. API tidak membuat halaman selama ekstraksi.
+- Pengamanan: semua nilai tetap harus bersumber dari pesan pengguna dan melewati validasi intake yang ada. Jika extractor belum tersedia, brief disimpan dan editor manual dibuka. Ekstraksi otomatis tetap bergantung pada gate development dan seleksi kandidat.
+- Tampilan: tema kertas hangat dan hijau diterapkan. Review browser pada sesi kosong menunjukkan satu area prompt, tiga contoh, status satu klarifikasi, dan preview kosong sebelum generation. Ukuran default sekitar 624 x 864 dan viewport desktop 1440 x 900 ditinjau; viewport dikembalikan ke ukuran default.
+- Verifikasi: TypeScript, ESLint, production build, dan `git diff --check` lulus. Review UI tidak mengirim prompt dan tidak memanggil endpoint ekstraksi atau generation. Raw evaluation development yang terpisah masih berjalan pada checkpoint step 1.800.
+- Batas bukti: kandidat belum dipromosikan, jadi kecukupan model belum dinyatakan. Hasil generate end-to-end belum diperiksa melalui alur prompt baru. Final/test tetap tertutup.
+- Referensi run: `logs/RUN-657_prompt_first_ui_build_review.txt`.

@@ -1,0 +1,34 @@
+RUN-657: prompt-first UI build and responsive review
+Date: 2026-10-17 00:17 Asia/Jakarta
+Branch: feature/pipeline-data-model-training
+
+Purpose
+- Simplify the prompt intake while retaining every required fact and source evidence.
+- Verify the approved UI changes without sending a prompt through the extractor or website generator.
+
+Changes reviewed
+- One free-form brief is the starting point, with three example prompts.
+- Composer copy sets the expectation of one grouped clarification when needed.
+- The chat sends ordered source messages to the extraction API and carries the server resolution token into validation and generation.
+- A second incomplete clarification opens the remaining-fields editor. If extraction is unavailable, the brief remains saved and manual editing is offered.
+- Source evidence is available for user review before the single Generate website action.
+- Warm paper and forest palette replaces the previous blue theme.
+
+Verification
+- `npx tsc --noEmit`: passed.
+- `npm run lint`: passed.
+- `npm run build`: passed. Next.js 16.4.1 compiled and prerendered the home and not-found routes.
+- `git diff --check`: passed before log append.
+- Local HTTP response from `http://127.0.0.1:3000/`: status 200 after restarting the web server with the new build.
+- Browser visual review: default viewport about 624 x 864 showed the mobile conversation/preview navigation, brief composer, three examples, and updated colors. Viewport 1440 x 900 showed the history rail, conversation panel, and preview canvas side by side. Temporary viewport override was reset.
+- No extractor API request, generation request, or new user prompt was sent during UI verification. No automated test suite was run, as required by the approved plan.
+
+Evidence boundary
+- This proves the web package builds and the empty-session responsive layouts render at the reviewed viewport sizes. It does not prove extractor quality, API extraction behavior, or end-to-end generation.
+- The separate raw development evaluation at checkpoint step 1,800 remained active. Last observed progress was 3,700 / 15,200 scope rows. Only synthetic development data is in that evaluation; final/test remain closed.
+- Extractor selection and promotion remain pending the frozen raw and API safety gates. The user-facing flow must retain manual editing until the candidate passes.
+
+Runtime
+- Next.js production server: `127.0.0.1:3000`, process 58008 at time of review.
+- FastAPI server remained on `127.0.0.1:8000`, process 40336.
+- This record contains no model token, credentials, dataset rows, or checkpoint files.

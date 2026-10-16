@@ -35,6 +35,7 @@ type BusinessFactsFormProps = {
   initialDraft: RequestDraft;
   catalog: CatalogResponse | null;
   missingFields: string[];
+  onlyMissing?: boolean;
   onSubmit: (draft: RequestDraft) => Promise<void>;
 };
 
@@ -105,6 +106,7 @@ export function BusinessFactsForm({
   initialDraft,
   catalog,
   missingFields,
+  onlyMissing = false,
   onSubmit,
 }: BusinessFactsFormProps) {
   const [fields, setFields] = useState<FormFields>(() => fromDraft(initialDraft));
@@ -114,6 +116,15 @@ export function BusinessFactsForm({
   const styles = catalog?.supported_style_modes.length ? catalog.supported_style_modes : FALLBACK_STYLES;
   const assets = catalog?.assets ?? [];
   const missingLabels = describeMissingFields(missingFields);
+  function showField(keys: string[]) {
+    return !onlyMissing
+      || missingFields.length === 0
+      || missingFields.includes("business_facts")
+      || hasMissingField(missingFields, keys);
+  }
+  const visibleAdditionalFacts = fields.additionalFacts
+    .map((fact, index) => ({ fact, index }))
+    .filter(({ fact }) => showField([`business_facts.${fact.kind}`]));
 
   function updateService(index: number, key: keyof ServiceFields, value: string) {
     setFields((current) => ({
@@ -204,12 +215,14 @@ export function BusinessFactsForm({
 
   return (
     <form onSubmit={handleSubmit} className="mt-4 overflow-hidden rounded-2xl border border-border bg-paper shadow-[0_8px_30px_rgba(30,45,69,0.05)]">
-      <div className="border-b border-border bg-[#F8FAFC] px-4 py-3.5 sm:px-5">
+      <div className="border-b border-border bg-[#F4F2EC] px-4 py-3.5 sm:px-5">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div>
             <p className="text-sm font-semibold text-harbor-ink">Lengkapi fakta halaman</p>
             <p className="mt-0.5 text-xs leading-5 text-slate-note">
-              Isi sendiri detail yang akan dipakai. Tidak ada fakta bisnis yang ditebak dari prompt.
+              {onlyMissing
+                ? "Lengkapi bagian yang masih kosong. Fakta yang sudah ditemukan tetap dipertahankan."
+                : "Isi detail yang belum tersedia. Tidak ada fakta bisnis yang ditebak dari prompt."}
             </p>
           </div>
           <span className="rounded-full bg-verified/10 px-2.5 py-1 text-[11px] font-medium text-verified">
@@ -229,8 +242,8 @@ export function BusinessFactsForm({
       ) : null}
 
       <div className="space-y-5 px-4 py-4 sm:px-5 sm:py-5">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div>
+        {showField(["genre", "style_mode"]) ? <div className="grid gap-4 sm:grid-cols-2">
+          {showField(["genre"]) ? <div>
             <label htmlFor="page-genre" className="text-sm font-medium text-harbor-ink">Jenis halaman</label>
             <select
               id="page-genre"
@@ -240,8 +253,8 @@ export function BusinessFactsForm({
             >
               {genres.map((option) => <option key={option.id} value={option.id}>{option.label}</option>)}
             </select>
-          </div>
-          <div>
+          </div> : null}
+          {showField(["style_mode"]) ? <div>
             <label htmlFor="style-mode" className="text-sm font-medium text-harbor-ink">Gaya hasil</label>
             <select
               id="style-mode"
@@ -251,10 +264,10 @@ export function BusinessFactsForm({
             >
               {styles.map((option) => <option key={option.id} value={option.id}>{option.label}</option>)}
             </select>
-          </div>
-        </div>
+          </div> : null}
+        </div> : null}
 
-        <div>
+        {showField(["business_facts.name"]) ? <div>
           <label htmlFor="business-name" className="text-sm font-medium text-harbor-ink">Nama usaha <span className="text-destructive">*</span></label>
           <input
             id="business-name"
@@ -266,9 +279,9 @@ export function BusinessFactsForm({
             className={INPUT_CLASS}
             placeholder="Contoh: Ruang Tanah"
           />
-        </div>
+        </div> : null}
 
-        <div>
+        {showField(["business_facts.description"]) ? <div>
           <label htmlFor="business-description" className="text-sm font-medium text-harbor-ink">Deskripsi usaha <span className="text-destructive">*</span></label>
           <Textarea
             id="business-description"
@@ -281,9 +294,9 @@ export function BusinessFactsForm({
             placeholder="Jelaskan usaha ini dengan kata-kata Anda."
           />
           <p className="mt-1 text-right text-[11px] tabular-nums text-slate-note">{fields.description.length}/3000</p>
-        </div>
+        </div> : null}
 
-        <div>
+        {showField(["business_facts.value"]) ? <div>
           <label htmlFor="business-value" className="text-sm font-medium text-harbor-ink">Nilai utama atau keunggulan <span className="text-destructive">*</span></label>
           <Textarea
             id="business-value"
@@ -295,9 +308,9 @@ export function BusinessFactsForm({
             className={TEXTAREA_CLASS}
             placeholder="Apa yang penting atau berbeda dari usaha ini?"
           />
-        </div>
+        </div> : null}
 
-        <fieldset className="space-y-3">
+        {showField(["business_facts.service", "business_facts.services"]) ? <fieldset className="space-y-3">
           <div className="flex items-end justify-between gap-3">
             <div>
               <legend className="text-sm font-medium text-harbor-ink">Layanan <span className="text-destructive">*</span></legend>
@@ -354,9 +367,9 @@ export function BusinessFactsForm({
               />
             </div>
           ))}
-        </fieldset>
+        </fieldset> : null}
 
-        <fieldset className="space-y-3">
+        {visibleAdditionalFacts.length > 0 ? <fieldset className="space-y-3">
           <div className="flex items-end justify-between gap-3">
             <div>
               <legend className="text-sm font-medium text-harbor-ink">Rincian untuk halaman <span className="text-destructive">*</span></legend>
@@ -385,7 +398,7 @@ export function BusinessFactsForm({
               Tambah fakta
             </Button>
           </div>
-          {fields.additionalFacts.map((fact, index) => (
+          {visibleAdditionalFacts.map(({ fact, index }) => (
             <div key={`fact-${index}`} className="grid gap-2 rounded-xl border border-border bg-white p-3.5 sm:grid-cols-[145px_1fr]">
               <label htmlFor={`fact-kind-${index}`} className="sr-only">Jenis fakta {index + 1}</label>
               <select
@@ -430,9 +443,9 @@ export function BusinessFactsForm({
               </Button>
             </div>
           ))}
-        </fieldset>
+        </fieldset> : null}
 
-        <fieldset className="space-y-2">
+        {showField(["fictitious"]) ? <fieldset className="space-y-2">
           <legend className="text-sm font-medium text-harbor-ink">Status usaha <span className="text-destructive">*</span></legend>
           <div className="grid gap-2 sm:grid-cols-2">
             {[
@@ -453,9 +466,9 @@ export function BusinessFactsForm({
               </label>
             ))}
           </div>
-        </fieldset>
+        </fieldset> : null}
 
-        {assets.length > 0 ? (
+        {showField(["asset_ids"]) && assets.length > 0 ? (
           <fieldset className="space-y-2">
             <legend className="text-sm font-medium text-harbor-ink">Aset lokal <span className="font-normal text-slate-note">(ilustrasi sesuai jenis halaman dipilih otomatis)</span></legend>
             <div className="grid gap-2 sm:grid-cols-2">
@@ -486,7 +499,7 @@ export function BusinessFactsForm({
           </p>
         )}
 
-        {catalog?.unsupported_capabilities.length ? (
+        {showField(["requested_features"]) && catalog?.unsupported_capabilities.length ? (
           <fieldset className="space-y-2 rounded-xl border border-[#E5D6B1] bg-[#FBF8F0] px-3.5 py-3">
             <legend className="px-1 text-xs font-semibold text-harbor-ink">Periksa kebutuhan fitur</legend>
             <p className="text-xs leading-5 text-slate-note">
@@ -520,7 +533,7 @@ export function BusinessFactsForm({
             Nilai yang Anda kirim ditandai sebagai konfirmasi pengguna untuk validasi ini.
           </p>
           <Button type="submit" disabled={isSubmitting} className="shrink-0 gap-2 rounded-xl px-4">
-            {isSubmitting ? "Memeriksa fakta…" : "Periksa dan tinjau"}
+            {isSubmitting ? "Memeriksa fakta…" : onlyMissing ? "Periksa detail" : "Periksa dan tinjau"}
           </Button>
         </div>
       </div>

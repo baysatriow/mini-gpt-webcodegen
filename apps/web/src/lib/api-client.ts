@@ -4,7 +4,9 @@ import type {
   GenerationResponse,
   GenerationSummary,
   HealthResponse,
+  IntakeExtractResponse,
   IntakeResponse,
+  PromptMessage,
   RequestDraft,
   SourceFilename,
   SourceResponse,
@@ -106,17 +108,40 @@ export function getCatalog(): Promise<CatalogResponse> {
   return requestJson("/api/v1/catalog");
 }
 
-export function validateIntake(prompt: string, draft: RequestDraft): Promise<IntakeResponse> {
-  return requestJson("/api/v1/intake/validate", {
+function intakeEnvelope(prompt: string, draft: RequestDraft, extractionToken?: string | null) {
+  return {
+    prompt,
+    draft,
+    ...(extractionToken ? { extraction_token: extractionToken } : {}),
+  };
+}
+
+export function extractPromptMessages(messages: PromptMessage[]): Promise<IntakeExtractResponse> {
+  return requestJson("/api/v1/intake/extract", {
     method: "POST",
-    body: JSON.stringify({ prompt, draft }),
+    body: JSON.stringify({ canonical_format: "prompt-messages-v1", messages }),
   });
 }
 
-export function generate(prompt: string, draft: RequestDraft): Promise<GenerationResponse> {
+export function validateIntake(
+  prompt: string,
+  draft: RequestDraft,
+  extractionToken?: string | null,
+): Promise<IntakeResponse> {
+  return requestJson("/api/v1/intake/validate", {
+    method: "POST",
+    body: JSON.stringify(intakeEnvelope(prompt, draft, extractionToken)),
+  });
+}
+
+export function generate(
+  prompt: string,
+  draft: RequestDraft,
+  extractionToken?: string | null,
+): Promise<GenerationResponse> {
   return requestJson("/api/v1/generations", {
     method: "POST",
-    body: JSON.stringify({ prompt, draft }),
+    body: JSON.stringify(intakeEnvelope(prompt, draft, extractionToken)),
   });
 }
 
