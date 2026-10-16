@@ -6999,3 +6999,12 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Catatan tool: skrip workspace skill memakai Bash, tetapi pemanggilan dari PowerShell gagal menyelesaikan path Windows. Workspace ledger dibuat manual di lokasi yang sama. Ini tidak mengubah repo atau data.
 - Batas verifikasi: hanya inspeksi sumber, kontrak, manifest training, dan spesifikasi. Tidak menambah atau menjalankan test, training, inference, build, atau evaluasi. Final/test tetap tertutup.
 - Status: implementasi belum dimulai.
+
+## RUN-641, rencana prompt-first dipublikasikan
+
+- Tanggal/waktu: 16 Oktober 2026, 22:12, Asia/Jakarta.
+- Perubahan: rencana lima task dan arah visual ditambahkan ke dokumentasi serta indeks docs.
+- Pemeriksaan: `git diff --check` lulus; tidak menjalankan test, build, training, atau inference.
+- Commit: `9af289c docs: plan prompt-first intake implementation`.
+- Push: berhasil ke `origin/feature/pipeline-data-model-training`.
+- Status: Task 1 implementasi kontrak extractor dan corpus menjadi langkah berikutnya.
