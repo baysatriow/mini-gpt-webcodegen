@@ -7096,3 +7096,11 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - GPU headroom 9,683,599,360 byte. Disk free sesudah preflight 17,393,664,000 byte. Margin di atas reserve ditambah conservative checkpoint estimate adalah 170,696,704 byte.
 - Attempt1 tetap dipertahankan. Development tidak dipakai untuk update atau inference; final/test tertutup.
 - Catatan lengkap: `logs/RUN-652_request_extract_preflight_r1_pass.txt`.
+
+## RUN-653, retry step 1.800 diluncurkan
+
+- Tanggal/waktu: 16 Oktober 2026, 23:21, Asia/Jakarta.
+- Failed attempt 1 diarsip lokal dengan sebelas artefak dan manifest hash, tidak dihapus. Canonical run/report paths sudah kosong.
+- R1 preflight lulus. Retry dimulai fresh dari parent TRAIN-025 step 1.800 menggunakan recovery checkpoint setiap 600 update.
+- Storage free 17,393,397,760 byte sebelum training. Final/test tertutup.
+- Rincian config dan arsip: `logs/RUN-653_reqext_1800_retry_launch.txt`.
