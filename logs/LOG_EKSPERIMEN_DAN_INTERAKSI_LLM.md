@@ -6988,3 +6988,14 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Tanggal/waktu: 16 Oktober 2026, sekitar 18:05, Asia/Jakarta.
 - Hasil review final: gate untuk retraction genre/style tanpa pengganti memiliki bucket minimal 50 keluarga dan target klarifikasi 100 persen. Reviewer menyatakan spesifikasi siap untuk persetujuan pengguna.
 - Status: dokumen sudah didorong ke branch fitur; menunggu keputusan jumlah fakta wajib sebelum implementasi. Belum mengubah aplikasi, API implementasi, extractor, atau checkpoint. Tidak menjalankan test/training/inference. Partisi final tetap tertutup.
+
+## RUN-640, preflight implementasi prompt-first
+
+- Tanggal/waktu: 16 Oktober 2026, 22:09, Asia/Jakarta.
+- Branch dan kondisi awal: `feature/pipeline-data-model-training`, bersih pada `fe388d1`; spesifikasi prompt-first telah disetujui dan pengguna memilih mempertahankan seluruh fakta wajib.
+- Audit sumber: TRAIN-025 step 1800 menghasilkan PagePlan dan SectionDraft dari RequestDraft terstruktur. Kode tidak memuat task `request_extract`; API dan composer membatasi prompt ke 1.000 karakter, konteks model 2.048 token.
+- Keputusan: siapkan extractor terpisah dengan bukti sumber, gated development-only, dan fallback editor manual. Tidak mengubah generator halaman atau membuka partisi final.
+- Rencana: `docs/superpowers/plans/2026-10-16-prompt-first-intake.md`; workspace ledger berada di `.superpowers/sdd/2026-10-16-prompt-first-intake/progress.md`.
+- Catatan tool: skrip workspace skill memakai Bash, tetapi pemanggilan dari PowerShell gagal menyelesaikan path Windows. Workspace ledger dibuat manual di lokasi yang sama. Ini tidak mengubah repo atau data.
+- Batas verifikasi: hanya inspeksi sumber, kontrak, manifest training, dan spesifikasi. Tidak menambah atau menjalankan test, training, inference, build, atau evaluasi. Final/test tetap tertutup.
+- Status: implementasi belum dimulai.

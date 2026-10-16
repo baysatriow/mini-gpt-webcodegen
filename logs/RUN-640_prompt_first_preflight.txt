@@ -1,0 +1,30 @@
+RUN-640, preflight implementasi prompt-first
+Tanggal: 2026-10-16 22:09 Asia/Jakarta
+Branch: feature/pipeline-data-model-training
+HEAD awal: fe388d1 docs: record prompt-first review approval gate
+
+Pemicu
+- Pengguna menyetujui mempertahankan semua fakta wajib, dengan satu brief bebas dan satu klarifikasi gabungan.
+- Pengguna sebelumnya meminta penyederhanaan alur chat, redesign UI/UX, dan analisis apakah checkpoint saat ini bisa menerima prompt lengkap.
+
+Pemeriksaan
+- Working tree awal bersih.
+- Spesifikasi yang disetujui: docs/superpowers/specs/2026-10-16-prompt-first-intake-design.md.
+- Checkpoint TRAIN-025 step 1800 berlatih pada task PagePlan dan SectionDraft dari RequestDraft terstruktur; kode saat ini belum memiliki request_extract.
+- Intake API dan composer saat ini membatasi prompt ke 1000 karakter; block size model adalah 2048 token.
+- Data V5 hanya diperiksa pada train.requests.jsonl untuk memastikan format; file development/final tidak dibuka untuk pekerjaan extractor.
+
+Keputusan
+- Model generator yang dipilih belum memiliki bukti pelatihan atau evaluasi ekstraksi prompt bebas. Jangan klaim mampu mengekstrak fakta hanya dari konteks model.
+- Rencana memakai checkpoint extractor terpisah, verifikasi rentang sumber oleh server, gate development baru, dan fallback editor manual.
+- Kebutuhan fakta penuh tetap dipertahankan. Prompt over-budget ditolak tanpa pemotongan.
+
+Perubahan
+- Membuat docs/superpowers/plans/2026-10-16-prompt-first-intake.md dan menautkannya di docs/README.md.
+- Menambahkan ledger rencana di .superpowers/sdd/2026-10-16-prompt-first-intake/progress.md.
+- Bash helper sdd-workspace gagal dipanggil dari PowerShell karena path Windows tidak ter-resolve; workspace yang sama dibuat manual.
+
+Batas
+- Tidak ada test file ditambah atau test suite dijalankan.
+- Belum menjalankan training, inference, evaluasi model, build, atau browser review.
+- Partisi development lama, test, dan final tidak digunakan untuk extractor; final tetap tertutup.
