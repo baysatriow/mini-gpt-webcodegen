@@ -7088,3 +7088,11 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Preflight mengukur batch train terpanjang dan pemeriksaan GPU/storage memakai report baru yang belum ada. Failed attempt1 tetap dipertahankan.
 - Training retry akan bergantung pada preflight. Final/test tetap tertutup.
 - Rincian: `logs/RUN-651_request_extract_preflight_r1_launch.txt`.
+
+## RUN-652, preflight r1 lulus
+
+- Tanggal/waktu: 16 Oktober 2026, 23:20, Asia/Jakarta.
+- GPU RTX 5070/BF16 dan satu update disposable pada batch 8 x 1.813 token lulus. Durasi 0.5829 detik, tanpa menyimpan update atau checkpoint.
+- GPU headroom 9,683,599,360 byte. Disk free sesudah preflight 17,393,664,000 byte. Margin di atas reserve ditambah conservative checkpoint estimate adalah 170,696,704 byte.
+- Attempt1 tetap dipertahankan. Development tidak dipakai untuk update atau inference; final/test tertutup.
+- Catatan lengkap: `logs/RUN-652_request_extract_preflight_r1_pass.txt`.

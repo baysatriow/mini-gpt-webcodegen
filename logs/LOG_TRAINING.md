@@ -1343,3 +1343,10 @@ The frozen selector status is passed and selected TRAIN-025 step 1,800. Both can
 - Konfigurasi preflight baru memakai path report kosong. F: free 17,393,930,240 byte sebelum pemeriksaan.
 - Preflight akan menjalankan satu update disposable dan tidak menyimpan checkpoint. Training retry menunggu hasil gate.
 - Detail launch: `logs/RUN-651_request_extract_preflight_r1_launch.txt`.
+
+### RUN-652: r1 RTX 5070 preflight passed
+
+- Config r1 dan parent hash cocok. RTX 5070/BF16 lulus; batch terpanjang 8 x 1.813 token menyelesaikan update disposable dalam 0.5829 detik.
+- GPU headroom setelah peak 9,683,599,360 byte. F: free 17,393,672,192 byte sebelum update, menyisakan 170,696,704 byte di atas reserve 15 GiB ditambah checkpoint estimate. Free setelahnya 17,393,664,000 byte.
+- Tidak ada checkpoint tersimpan. Attempt1 tetap dipertahankan dan akan diarsip sebelum retry. Final/test tertutup.
+- Rincian: `logs/RUN-652_request_extract_preflight_r1_pass.txt`.
