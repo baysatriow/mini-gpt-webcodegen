@@ -6710,4 +6710,6 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Tujuan: melanjutkan pekerjaan setelah implementasi aplikasi digabung ke `main`, dengan memeriksa kesiapan dependency dan menjalankan UI serta API lokal.
 - Batas pemeriksaan: tidak memanggil endpoint generation, tidak menjalankan training atau evaluasi final, dan tidak membuka data test/final.
 - Pemeriksaan yang direncanakan: cek import dependency FastAPI/Uvicorn/PyTorch, cek runtime Node/Next, jalankan server API dan UI, lalu akses health, catalog, intake validation tanpa membuat generation.
-- Status: dicatat sebelum pemeriksaan runtime; hasil akan ditambahkan setelah dijalankan.
+- Preflight: Node `v22.23.3`, npm `11.6.0`, dan Next.js `v16.4.1` tersedia. Import FastAPI gagal dengan `ModuleNotFoundError`; port 3000 dan 8000 tidak memiliki listener saat diperiksa.
+- Dependency API yang akan dipasang sebelum startup: `..\.venv\Scripts\python.exe -m pip install -r apps/api/requirements-api.txt` dari root repository.
+- Status: dependency API belum dipasang; perintah instalasi dicatat sebelum dijalankan.
