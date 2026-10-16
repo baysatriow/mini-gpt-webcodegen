@@ -1,0 +1,10 @@
+RUN-646, rencana RTX 5070 dan storage preflight
+Tanggal/waktu: 16 Oktober 2026, 22:55, Asia/Jakarta.
+
+Commit kode/config yang dipush: `0dd9a84 feat: prepare prompt extractor training pipeline`. Branch: `feature/pipeline-data-model-training`.
+
+Tujuan: menjalankan preflight beku dari `configs/fullpage/training-request-extract-v1.json` dengan hash `15ac854334e31c64b5a2adffbfcdb90efc8ce697101ae4db18f339fe9a9b83bb`. Preflight memverifikasi parent dan hash data, mengukur ruang disk dan VRAM, memeriksa RTX 5070/BF16, lalu menjalankan satu update optimizer disposable pada batch train dengan urutan terpanjang.
+
+Laporan tujuan `outputs/request_extract/v1/GPU_PREFLIGHT.json` dipastikan belum ada. Update disposable tidak disimpan sebagai langkah training dan tidak menulis checkpoint. Development hanya dibaca untuk lineage dan pembuatan loader, tidak dipakai dalam update atau inference. Final/test tetap tertutup.
+
+Jika preflight gagal, tidak meluncurkan training. Hasil atau kegagalan akan dicatat pada run record berikutnya.

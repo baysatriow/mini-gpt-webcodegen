@@ -7041,3 +7041,11 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - SHA-256 config `15ac854334e31c64b5a2adffbfcdb90efc8ce697101ae4db18f339fe9a9b83bb`; reserve yang dibekukan 15 GiB; training direncanakan 3.600 update dengan checkpoint per 1.800.
 - Belum menjalankan GPU preflight atau update disposable, training, inference, development scoring, atau selection. Final/test tetap tertutup.
 - Rincian: `logs/RUN-645_request_extract_config_frozen.txt`.
+
+## RUN-646, preflight RTX 5070 akan dijalankan
+
+- Tanggal/waktu: 16 Oktober 2026, 22:55, Asia/Jakarta.
+- Kode dan config sudah dipush pada commit `0dd9a84`. Laporan preflight belum ada.
+- Preflight memakai satu update disposable pada batch train terpanjang untuk mengukur GPU dan menyaring kemampuan storage sebelum training. Tidak menyimpan checkpoint.
+- Development dibaca untuk lineage/loader, tetapi tidak dipakai untuk update atau inference. Final/test tetap tertutup.
+- Rincian: `logs/RUN-646_request_extract_preflight_launch.txt`.

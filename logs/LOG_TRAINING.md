@@ -1301,3 +1301,10 @@ The frozen selector status is passed and selected TRAIN-025 step 1,800. Both can
 - Parent adalah TRAIN-025 step 1.800, weights-only. Dataset manifest sesuai hash RUN-642. Config menetapkan 3.600 update dalam dua tahap dan reserve 15 GiB.
 - RUN-644 tetap dicatat sebagai kegagalan pemetaan nama field dan tidak menulis config.
 - Belum ada GPU preflight, training/inference, atau pembukaan final/test. Lihat `logs/RUN-645_request_extract_config_frozen.txt`.
+
+### RUN-646: RTX 5070 preflight launch
+
+- Commit `0dd9a84` berisi pipeline dan config beku sudah dipush ke branch fitur.
+- Preflight yang akan dijalankan memverifikasi storage, RTX 5070, BF16, dan satu update disposable pada batch train terpanjang. Path laporan dipastikan belum ada.
+- Tidak menyimpan update disposable sebagai training dan tidak menulis checkpoint. Final/test tertutup.
+- Catatan launch: `logs/RUN-646_request_extract_preflight_launch.txt`.
