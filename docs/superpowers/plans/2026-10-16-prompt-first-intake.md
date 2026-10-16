@@ -55,22 +55,23 @@
 **Interfaces:**
 - `validate_request_extract(value: object) -> list[str]` checks only the extractor wire schema and closed enums.
 - `build_request_extract_dataset(root: Path, output_dir: Path) -> dict` reads only `data/processed/fullpage/v5/train.requests.jsonl` for training families and generates a disjoint synthetic development family bank with prompt templates not used for training.
-- Each row contains `example_id`, `family_id`, `split`, `messages`, `target`, `source_family_ids`, `prompt_pattern_id`, and tokenizer budget metadata.
+- Each row contains `example_id`, `family_id`, `split`, `scope`, `messages`, scoped `target`, `source_family_ids`, `prompt_pattern_id`, and tokenizer budget metadata.
 - Train at least 100 distinct examples for every fact kind and 100 distinct brief families per page genre. Development safety buckets use at least 50 distinct families each, per the approved spec.
 - Frozen development gates: exact-value precision at least 95 percent, explicit-fact recall at least 90 percent, zero accepted facts without valid evidence, at least 95 percent correct explicit corrections and retractions, 100 percent ambiguous single-value conflicts held for confirmation, zero active unsupported requests passed to generation, and no more than 5 percent false rejection or retraction-overblocking in each specified denominator. Unclear-only requests and genre/style retraction without replacement must return clarification for 100 percent of their families.
 
-- [ ] Freeze the compact `request-extract-v1` target shape for scalar facts, structured facts, setting mentions, capability mentions, out-of-catalog mentions, and corrections.
-- [ ] Build training rows exclusively from the frozen training request file; do not read its validation request file.
-- [ ] Generate an independent development family and prompt-pattern bank and record family and pattern intersections in the manifest.
-- [ ] Add a read-only audit that checks hashes, schema, provenance substrings, token budgets, family uniqueness, bucket counts, and zero train/development overlap.
-- [ ] Add a notebook that displays corpus counts, one redacted training example, budget distribution, manifest checks, and later training/evaluation reports.
-- [ ] Commit and push as `feat: add prompt extraction data pipeline`.
+- [x] Freeze the compact `request-extract-v1` target shape for scalar facts, structured facts, setting mentions, capability mentions, out-of-catalog mentions, and corrections.
+- [x] Build training rows exclusively from the frozen training request file; do not read its validation request file.
+- [x] Generate an independent development family and prompt-pattern bank and record family and pattern intersections in the manifest.
+- [x] Add a read-only audit that checks hashes, schema, provenance substrings, token budgets, family uniqueness, bucket counts, and zero train/development overlap.
+- [x] Add a notebook displaying corpus counts, one redacted training example, budget distribution, and audit results; extend it with training/evaluation reports in Task 2.
+- [ ] Commit and push Task 1 as `feat: add prompt extraction data pipeline`.
 
 ### Task 2: Extractor Training and Development Gate
 
 **Files:**
 - Modify: `src/fullpage/serialization.py`
 - Modify: `src/training/engine.py`
+- Modify: `notebooks/request_extract_v1.ipynb`
 - Create: `src/fullpage/request_extract_dataset.py`
 - Create: `src/fullpage/request_extract_model.py`
 - Create: `configs/fullpage/training-request-extract-v1.json`
@@ -79,15 +80,16 @@
 - Create locally, ignored by Git: `checkpoints/REQUEST-EXTRACT-V1`, `outputs/request_extract/v1`, and `training/selected/request-extract-v1`
 
 **Interfaces:**
-- `request_extract` output budget is 896 tokens, separate from the existing `page_plan` and `section_content` sampler contracts.
-- `RequestExtractor(checkpoint: Path, root: Path).extract(messages: list[dict[str, str]]) -> dict` uses greedy generation and returns raw validated JSON only; malformed output raises a controlled extraction error.
+- The sixteen fixed scopes each have an output budget measured from the frozen corpus; every exact input prefix plus its scope budget must fit within 2,048 tokens. FAQ, project, service, and process scopes select one item by first-presentation order, with explicit corrections replacing that item's value.
+- `RequestExtractor(checkpoint: Path, root: Path).extract(messages: list[dict[str, str]]) -> dict` runs one greedy call per scope over the same ordered message list and returns a merged, validated JSON object only; any malformed scope raises a controlled extraction error. This may require up to sixteen sequential decodes per API request and must be measured for latency before promotion.
 - `run_request_extract_training(...)` pins initialization to the exact selected TRAIN-025 step-1800 checkpoint and the audited extractor manifest.
 - Development selection uses only the new development file and the thresholds in the approved spec. Final remains closed.
 
-- [ ] Add a distinct dataset encoder and sampler for the single `request_extract` task without changing the existing two-task full-page sampler behavior.
+- [ ] Add a distinct dataset encoder and sampler for scoped `request_extract` rows without changing the existing two-task full-page sampler behavior.
 - [ ] Add exact selected-parent verification, tokenizer/model-shape checks, training lineage, CUDA memory/storage preflight, and configurable checkpoint budgets.
 - [ ] Train the separate extractor candidate on the RTX 5070 only after storage and CUDA preflight pass; record every run or failure in `logs/LOG_TRAINING.md` and a `RUN-*.txt` record.
 - [ ] Evaluate exact field precision/recall, source validity, correction handling, conflict abstention, unsupported-request behavior, and every minimum-size safety bucket using development only.
+- [ ] Update the notebook with the frozen training config, preflight, training checkpoints, development comparisons, and selection result.
 - [ ] Write `selection.json` only if all frozen gates pass; otherwise leave automatic extraction unpromoted and keep manual editing available.
 - [ ] Commit and push as `feat: train source-verified prompt extractor` without committing model/data outputs.
 

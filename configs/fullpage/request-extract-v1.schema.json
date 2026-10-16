@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:mini-gpt-webcodegen:fullpage:request-extract-v1",
+  "title": "Prompt-first extraction output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "fact_mentions",
+    "setting_mentions",
+    "business_status_mentions",
+    "capability_mentions",
+    "out_of_catalog_mentions",
+    "corrections"
+  ],
+  "properties": {
+    "contract_version": { "const": "request-extract-v1" },
+    "fact_mentions": {
+      "type": "array",
+      "maxItems": 24,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "value", "source_message_id"],
+            "properties": {
+              "kind": { "enum": ["name", "description", "value"] },
+              "value": { "type": "string", "minLength": 1, "maxLength": 2000 },
+              "source_message_id": { "type": "string", "minLength": 1, "maxLength": 100 }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "title", "text", "title_source_message_id", "text_source_message_id"],
+            "properties": {
+              "kind": { "enum": ["service", "project", "process", "faq"] },
+              "title": { "type": "string", "minLength": 1, "maxLength": 300 },
+              "text": { "type": "string", "minLength": 1, "maxLength": 2000 },
+              "title_source_message_id": { "type": "string", "minLength": 1, "maxLength": 100 },
+              "text_source_message_id": { "type": "string", "minLength": 1, "maxLength": 100 }
+            }
+          }
+        ]
+      }
+    },
+    "setting_mentions": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "oneOf": [
+          { "$ref": "#/$defs/genreMention" },
+          { "$ref": "#/$defs/styleMention" }
+        ]
+      }
+    },
+    "business_status_mentions": {
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["value", "phrase", "context", "source_message_id", "occurrence_index", "intent"],
+        "properties": {
+          "value": { "type": "boolean" },
+          "phrase": { "type": "string", "minLength": 1, "maxLength": 160 },
+          "context": { "type": "string", "minLength": 1, "maxLength": 360 },
+          "source_message_id": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "occurrence_index": { "type": "integer", "minimum": 0 },
+          "intent": { "$ref": "#/$defs/intent" }
+        }
+      }
+    },
+    "capability_mentions": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["capability_id", "phrase", "context", "source_message_id", "occurrence_index", "intent"],
+        "properties": {
+          "capability_id": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "phrase": { "type": "string", "minLength": 1, "maxLength": 160 },
+          "context": { "type": "string", "minLength": 1, "maxLength": 360 },
+          "source_message_id": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "occurrence_index": { "type": "integer", "minimum": 0 },
+          "intent": { "$ref": "#/$defs/intent" }
+        }
+      }
+    },
+    "out_of_catalog_mentions": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["phrase", "context", "source_message_id", "occurrence_index", "intent"],
+        "properties": {
+          "phrase": { "type": "string", "minLength": 1, "maxLength": 160 },
+          "context": { "type": "string", "minLength": 1, "maxLength": 360 },
+          "source_message_id": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "occurrence_index": { "type": "integer", "minimum": 0 },
+          "intent": { "$ref": "#/$defs/intent" }
+        }
+      }
+    },
+    "corrections": {
+      "type": "array",
+      "maxItems": 24,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "previous_value", "replacement_value", "correction_phrase", "source_message_id"],
+        "properties": {
+          "kind": {
+            "enum": ["name", "description", "value", "service", "project", "process", "faq", "genre", "style_mode", "fictitious"]
+          },
+          "previous_value": { "$ref": "#/$defs/correctableValue" },
+          "replacement_value": { "$ref": "#/$defs/correctableValue" },
+          "correction_phrase": { "type": "string", "minLength": 1, "maxLength": 240 },
+          "source_message_id": { "type": "string", "minLength": 1, "maxLength": 100 }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "intent": {
+      "enum": ["requested", "retracted", "negated", "future", "reference", "unclear"]
+    },
+    "genreMention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "value", "phrase", "context", "source_message_id", "occurrence_index", "intent"],
+      "properties": {
+        "kind": { "const": "genre" },
+        "value": { "enum": ["landing_page", "company_profile"] },
+        "phrase": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "context": { "type": "string", "minLength": 1, "maxLength": 360 },
+        "source_message_id": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "occurrence_index": { "type": "integer", "minimum": 0 },
+        "intent": { "$ref": "#/$defs/intent" }
+      }
+    },
+    "styleMention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "value", "phrase", "context", "source_message_id", "occurrence_index", "intent"],
+      "properties": {
+        "kind": { "const": "style_mode" },
+        "value": { "enum": ["tailwind", "plain_css"] },
+        "phrase": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "context": { "type": "string", "minLength": 1, "maxLength": 360 },
+        "source_message_id": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "occurrence_index": { "type": "integer", "minimum": 0 },
+        "intent": { "$ref": "#/$defs/intent" }
+      }
+    },
+    "correctableValue": {
+      "oneOf": [
+        { "type": "string", "minLength": 1, "maxLength": 2000 },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["title", "text"],
+          "properties": {
+            "title": { "type": "string", "minLength": 1, "maxLength": 300 },
+            "text": { "type": "string", "minLength": 1, "maxLength": 2000 }
+          }
+        },
+        { "type": "boolean" }
+      ]
+    }
+  }
+}

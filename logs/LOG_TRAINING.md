@@ -1270,3 +1270,12 @@ Preflight confirms the V4 and V5 request bytes and canonical request objects are
 | 3,600 | TRAIN-026 | 80/80 | 80/80 | 0.005312048531726459 | Passed |
 
 The frozen selector status is passed and selected TRAIN-025 step 1,800. Both candidates tie at 80 complete pages, so lower ordinary development CE selects step 1,800. The exact facts/links/assets checks passed for both. inal_used=false. This proves the machine validator and development contract gate on these 80 requests. Browser and human visual review remain pending, so this is not yet a visual quality claim or final readiness claim. The first selector attempt is preserved in RUN-596; it failed only because the report was labeled with the V5 manifest/path while the selector correctly required the V4 frozen request identity. RUN-597 rebuilt report metadata by resuming the existing outputs and passed.
+
+### RUN-642: prompt extractor corpus prepared, no training yet
+
+- Dataset lokal `data/processed/request_extract/v1`: 69.120 baris train dari 240 keluarga V5 train dan 15.200 baris development dari 950 keluarga sintetis baru.
+- Corpus memiliki 16 scope output agar target setiap decode tetap muat pada konteks 2.048 token. Budget terberat 543 token, dengan prefix terberat pada scope yang sama 1.409 token. Total maksimum scope tersebut 1.952 token.
+- Coverage train per keluarga: nama/deskripsi/nilai/layanan/proses masing-masing 240; FAQ 120; proyek 120; tiap jenis halaman 120. Lima belas bucket safety development memiliki 50 keluarga unik per bucket.
+- Audit lineage dan bukti lulus. Irisan keluarga train/development = 0; irisan pola prompt = 0; final dibuka/digunakan = false.
+- Manifest SHA-256 `e561564c3ffb75e25b6a6fdc6feadaca5a7ec1f9fecf3f6f799311dea4cf36dc`. Data train dan development tetap lokal serta diabaikan Git.
+- Ini baru membuktikan corpus dan budget statis lolos audit. Belum ada training, inference, selection, atau klaim kemampuan extractor. Lihat `logs/RUN-642_prompt_extract_dataset_v1.txt`.

@@ -1,0 +1,17 @@
+{
+  "contract_version": "request-extract-v1-aliases",
+  "genres": {
+    "landing_page": ["landing page", "halaman arahan", "halaman promosi"],
+    "company_profile": ["company profile", "profil perusahaan", "profil usaha"]
+  },
+  "styles": {
+    "tailwind": ["tailwind css", "tailwind"],
+    "plain_css": ["css biasa", "plain css", "css murni"]
+  },
+  "business_status": {
+    "fictitious_true": ["usaha fiktif", "bisnis fiktif", "contoh fiktif", "fiktif"],
+    "fictitious_false": ["usaha nyata", "bisnis nyata", "usaha asli", "bisnis asli"]
+  },
+  "correction_cues": ["koreksi", "bukan", "yang benar", "seharusnya", "ganti menjadi", "ubah menjadi"],
+  "retraction_cues": ["batalkan", "jangan sertakan", "tidak perlu", "tidak usah", "hapus permintaan"]
+}

@@ -7008,3 +7008,12 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Commit: `9af289c docs: plan prompt-first intake implementation`.
 - Push: berhasil ke `origin/feature/pipeline-data-model-training`.
 - Status: Task 1 implementasi kontrak extractor dan corpus menjadi langkah berikutnya.
+
+## RUN-642, corpus extractor prompt-first diaudit
+
+- Tanggal/waktu: 16 Oktober 2026, 22:34, Asia/Jakarta.
+- Keputusan pengguna yang dibawa ke implementasi: pertahankan semua fakta wajib. Sederhanakan pengalaman menjadi satu brief bebas dan satu klarifikasi gabungan, lalu tampilkan review fakta bersumber sebelum generation.
+- Perubahan: kontrak extractor `request-extract-v1`, generator corpus terisolasi, development sintetis, audit lineage/token/provenance, dan notebook inspeksi dibuat. Layanan/proses/FAQ/proyek menggunakan scope per posisi agar target tidak menghabiskan konteks.
+- Hasil: 84.320 baris lokal. Audit lulus atas 240 keluarga train dan 950 keluarga development. Lima belas bucket safety masing-masing memiliki 50 keluarga unik. Total prefix plus budget terbesar adalah 1.952 dari 2.048 token.
+- Batas bukti: belum menjalankan training atau inference. Corpus belum ditinjau manusia. Final/test tetap tertutup. Extractor belum diintegrasikan dan belum menjadi default aplikasi.
+- RUN-642 mencatat kegagalan pemanggilan, perubahan scope, hash, audit, storage, dan langkah berikutnya.
