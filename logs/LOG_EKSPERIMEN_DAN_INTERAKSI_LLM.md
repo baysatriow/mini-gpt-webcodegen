@@ -7119,3 +7119,11 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Raw extractor akan menjalankan 15.200 scope pada synthetic development untuk mengukur fakta bersumber, field exactness, safety buckets, dan latensi per brief.
 - Report ini belum melewati safety resolver API dan tidak dapat mempromosikan extractor. Final/test tetap tertutup.
 - Rincian: `logs/RUN-655_reqext_1800_development_eval_launch.txt`.
+
+## RUN-656, API extraction source-grounded
+
+- Tanggal/waktu: 16 Oktober 2026, 23:55, Asia/Jakarta.
+- Pengguna ingin alur brief bebas dan satu klarifikasi sambil tetap mempertahankan semua fakta wajib. API kini menerima riwayat pesan terstruktur, memeriksa span sumber, menampilkan konflik, dan memakai satu lock untuk dua model.
+- Batas prompt generation diselaraskan menjadi 4.000 karakter. OpenAPI dan kompilasi statis lulus; PyTorch belum dimuat saat startup. Ruff tidak terpasang, test suite dan API inference tidak dijalankan.
+- Evaluasi raw step 1.800 masih berlangsung pada development. Fitur tetap fail-closed sampai API safety gate serta selection lulus. Final/test tertutup.
+- Catatan lengkap: `logs/RUN-656_prompt_first_extraction_api_implementation.txt`.

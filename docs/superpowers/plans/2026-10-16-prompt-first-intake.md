@@ -115,11 +115,12 @@
 - `Runtime.get_extractor()` and `Runtime.get_generator()` share `inference_lock`; each switches out the other model before loading its own verified selected bundle.
 - Existing `POST /api/v1/intake/validate` and `POST /api/v1/generations` continue to revalidate using `prepare_intake()`.
 
-- [ ] Add versioned Pydantic request/response schemas and document request/response examples in OpenAPI.
-- [ ] Add canonical message serialization and deterministic source-span construction with Python and UTF-16 offsets.
-- [ ] Add a service that rejects malformed output and resolves correction, setting, and capability mentions conservatively.
-- [ ] Add the extraction endpoint with explicit inference-lock handling and controlled `503`, `409`, and input-budget responses.
-- [ ] Make runtime health report extractor and generator load state without loading either model.
+- [x] Add versioned Pydantic request/response schemas and document request/response examples in OpenAPI.
+- [x] Add canonical message serialization and deterministic source-span construction with Python and UTF-16 offsets.
+- [x] Add a service that rejects malformed output and resolves correction, setting, and capability mentions conservatively.
+- [x] Add the extraction endpoint with explicit inference-lock handling and controlled `503`, `409`, and input-budget responses.
+- [x] Make runtime health report extractor and generator load state without loading either model.
+- [ ] Replay frozen development predictions through the API resolver and record the per-bucket API safety gate before selecting a candidate.
 - [ ] Commit and push as `feat: add safe prompt extraction API`.
 
 ### Task 4: Prompt-First Chat and Evidence Review

@@ -1373,3 +1373,10 @@ The frozen selector status is passed and selected TRAIN-025 step 1,800. Both can
 - Membuat snapshot weights-only, lalu menjalankan raw greedy extraction hanya pada 15.200 scope development. Evaluasi melaporkan field exactness, source validity, safety buckets, serta waktu decode per brief.
 - Evaluasi raw tidak meluluskan API safety gate dan tidak mempromosikan model. Test/final tetap tertutup.
 - Rincian: `logs/RUN-655_reqext_1800_development_eval_launch.txt`.
+
+### RUN-656: prompt-first extraction API implementation
+
+- Source API sekarang memiliki route extraction dengan brief bebas, bukti sumber deterministik, grouped clarification, token konteks bertanda tangan, dan lock bersama untuk model GPU.
+- Kompilasi Python dan pembentukan OpenAPI berhasil; import aplikasi tidak memuat PyTorch. Test suite dan inference API tidak dijalankan.
+- Raw development extraction checkpoint 1.800 masih berlangsung. Model belum dipromosikan; final/test tetap tertutup.
+- Rincian: `logs/RUN-656_prompt_first_extraction_api_implementation.txt`.

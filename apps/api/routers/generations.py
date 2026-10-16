@@ -243,12 +243,20 @@ def create_generation(body: GenerationRequest) -> GenerationResponse:
             "generation_in_progress",
             "Generation lain sedang berjalan. Tunggu sampai selesai sebelum mencoba kembali.",
         )
+    if not runtime.inference_lock.acquire(blocking=False):
+        runtime.generation_lock.release()
+        raise _http_error(
+            409,
+            "model_busy",
+            "Model sedang digunakan untuk proses lain. Coba lagi setelah proses selesai.",
+        )
 
     try:
         intake = validate_intake(
             body.prompt,
             body.draft.model_dump(exclude_none=True),
             runtime=runtime,
+            extraction_token=body.extraction_token,
         )
         if intake.status != "ready" or intake.request is None:
             too_long = intake.status == "input_too_long"
@@ -361,4 +369,5 @@ def create_generation(body: GenerationRequest) -> GenerationResponse:
             "Generation gagal pada pemeriksaan internal. Periksa request lalu coba kembali.",
         )
     finally:
+        runtime.inference_lock.release()
         runtime.generation_lock.release()

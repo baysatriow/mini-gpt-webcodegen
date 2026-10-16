@@ -15,7 +15,7 @@ from .source_bound_prompts import source_bound_plan_prompt
 
 ROOT = Path(__file__).resolve().parents[2]
 DRAFT_SCHEMA_PATH = ROOT / "configs/fullpage/request-draft-source-bound-v1.schema.json"
-MAX_PROMPT_CHARS = 1000
+MAX_PROMPT_CHARS = 4000
 CONTRACT_VERSION = "request-draft-source-bound-v1"
 _DRAFT_SCHEMA = json.loads(DRAFT_SCHEMA_PATH.read_text(encoding="utf-8"))
 Draft202012Validator.check_schema(_DRAFT_SCHEMA)
@@ -204,16 +204,36 @@ def _prompt_mentions_value(prompt, value):
     return re.search(pattern, prompt, flags=re.IGNORECASE) is not None
 
 
-def _prompt_mentions_capability(prompt, item):
-    """Match catalog phrases so unsupported scope cannot pass as an empty feature list."""
-    phrases = item.get("evidence_phrases", [])
-    return any(
-        isinstance(phrase, str) and _prompt_mentions_value(prompt, phrase)
-        for phrase in phrases
-    )
+def _prompt_capability_occurrences(prompt, item):
+    """Find catalog phrases with exact spans for conservative mention handling."""
+    for phrase in item.get("evidence_phrases", []):
+        if not isinstance(phrase, str) or not phrase.strip():
+            continue
+        pattern = r"(?<!\w)" + re.escape(phrase.strip()) + r"(?!\w)"
+        for match in re.finditer(pattern, prompt, flags=re.IGNORECASE):
+            yield phrase, match.start(), match.end()
 
 
-def _requested_capabilities(draft, prompt, by_id):
+def _prompt_mentions_capability(prompt, item, capability_id, assessments=None):
+    """Keep unclassified catalog mentions fail-closed, while honoring verified inactive spans."""
+    inactive_intents = {"retracted", "negated", "future", "reference", "unclear"}
+    for phrase, start, end in _prompt_capability_occurrences(prompt, item):
+        suppressed = any(
+            isinstance(assessment, dict)
+            and assessment.get("capability_id") == capability_id
+            and assessment.get("start") == start
+            and assessment.get("end") == end
+            and isinstance(assessment.get("phrase"), str)
+            and assessment.get("phrase", "").casefold() == phrase.casefold()
+            and assessment.get("intent") in inactive_intents
+            for assessment in assessments or []
+        )
+        if not suppressed:
+            return True
+    return False
+
+
+def _requested_capabilities(draft, prompt, by_id, capability_assessments=None):
     unsupported = []
     missing = []
     features = draft.get("requested_features") if isinstance(draft, dict) else None
@@ -239,7 +259,9 @@ def _requested_capabilities(draft, prompt, by_id):
         else:
             missing.append(f"requested_features.{capability_id}.evidence")
     for capability_id, item in by_id.items():
-        if capability_id not in seen and _prompt_mentions_capability(prompt, item):
+        if capability_id not in seen and _prompt_mentions_capability(
+            prompt, item, capability_id, capability_assessments
+        ):
             unsupported.append(item)
     return unsupported, missing
 
@@ -319,7 +341,14 @@ def _unsupported(message):
     return IntakeResult("unsupported_request", message, (), None)
 
 
-def prepare_intake(prompt: str, draft: dict, tokenizer, request_catalog: dict) -> IntakeResult:
+def prepare_intake(
+    prompt: str,
+    draft: dict,
+    tokenizer,
+    request_catalog: dict,
+    *,
+    capability_assessments: list[dict] | None = None,
+) -> IntakeResult:
     """Validate one user-provided RequestDraft without extracting facts from prose."""
     if not isinstance(prompt, str) or not prompt.strip():
         return _clarification(["prompt"])
@@ -351,7 +380,9 @@ def prepare_intake(prompt: str, draft: dict, tokenizer, request_catalog: dict) -
     if not isinstance(draft, dict):
         return _clarification(["request_draft"])
 
-    unsupported_capabilities, capability_missing = _requested_capabilities(draft, prompt, capability_by_id)
+    unsupported_capabilities, capability_missing = _requested_capabilities(
+        draft, prompt, capability_by_id, capability_assessments
+    )
     genre, style = draft.get("genre"), draft.get("style_mode")
     unsupported_genre = (
         isinstance(genre, str)

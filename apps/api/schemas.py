@@ -6,11 +6,14 @@ from datetime import datetime
 from typing import Annotated, Any, Literal
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator, model_validator
 
 
-MAX_PROMPT_CHARS = 1000
+MAX_PROMPT_CHARS = 4000
+MAX_BRIEF_CHARS = 4000
+MAX_PROMPT_MESSAGES = 16
 SOURCE_DRAFT_CONTRACT = "request-draft-source-bound-v1"
+PROMPT_MESSAGES_CONTRACT = "prompt-messages-v1"
 CAPABILITY_CATALOG_CONTRACT = "capability-catalog-v1"
 SOURCE_FILES = Literal["index.html", "styles.css", "app.js"]
 
@@ -83,6 +86,47 @@ class IntakeEnvelope(APIModel):
 
     prompt: StrictStr
     draft: RequestDraft
+    extraction_token: StrictStr | None = Field(default=None, max_length=24000)
+
+
+class PromptMessage(APIModel):
+    id: Annotated[StrictStr, Field(min_length=1, max_length=100)]
+    text: Annotated[StrictStr, Field(min_length=1, max_length=MAX_BRIEF_CHARS * MAX_PROMPT_MESSAGES)]
+
+    @field_validator("id", "text")
+    @classmethod
+    def require_non_whitespace(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("Message ID and text must not be blank")
+        return value
+
+
+class IntakeExtractRequest(APIModel):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "examples": [
+                {
+                    "canonical_format": "prompt-messages-v1",
+                    "messages": [
+                        {
+                            "id": "brief-1",
+                            "text": "Buat landing page untuk studio keramik Ruang Tanah. Gunakan Tailwind CSS."
+                        }
+                    ],
+                }
+            ]
+        }
+    )
+
+    canonical_format: Literal[PROMPT_MESSAGES_CONTRACT]
+    messages: list[PromptMessage] = Field(min_length=1, max_length=MAX_PROMPT_MESSAGES)
+
+    @model_validator(mode="after")
+    def require_unique_message_ids(self) -> "IntakeExtractRequest":
+        identifiers = [message.id for message in self.messages]
+        if len(set(identifiers)) != len(identifiers):
+            raise ValueError("Message IDs must be unique")
+        return self
 
 
 class GenerationRequest(IntakeEnvelope):
@@ -94,6 +138,71 @@ class IntakeResponse(APIModel):
     message: StrictStr
     missing_fields: list[StrictStr] = Field(default_factory=list)
     request: dict[str, Any] | None = None
+
+
+class SourceEvidence(APIModel):
+    field: StrictStr
+    source_message_id: StrictStr
+    quote: StrictStr
+    start: Annotated[StrictInt, Field(ge=0)]
+    end: Annotated[StrictInt, Field(gt=0)]
+    utf16_start: Annotated[StrictInt, Field(ge=0)]
+    utf16_end: Annotated[StrictInt, Field(gt=0)]
+    prompt_start: Annotated[StrictInt, Field(ge=0)]
+    prompt_end: Annotated[StrictInt, Field(gt=0)]
+
+
+class IntakeConflict(APIModel):
+    field: StrictStr
+    message: StrictStr
+    candidates: list[dict[str, Any]] = Field(default_factory=list)
+
+
+class UnsupportedRequest(APIModel):
+    kind: Literal["known_capability", "out_of_catalog"]
+    id: StrictStr | None = None
+    label: StrictStr
+    phrase: StrictStr
+    context: StrictStr
+    intent: Literal["requested", "retracted", "negated", "future", "reference", "unclear"]
+    evidence: SourceEvidence
+
+
+class IntakeExtractResponse(APIModel):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "examples": [
+                {
+                    "status": "needs_clarification",
+                    "message": "Lengkapi fakta yang ditandai dalam satu balasan.",
+                    "missing_fields": ["business_facts.description", "business_facts.service"],
+                    "draft": {
+                        "contract_version": SOURCE_DRAFT_CONTRACT,
+                        "prompt": "Buat landing page untuk studio keramik Ruang Tanah. Gunakan Tailwind CSS.",
+                        "genre": "landing_page",
+                        "style_mode": "tailwind",
+                        "business_facts": [],
+                        "requested_features": [],
+                        "asset_ids": ["studio-shapes"],
+                        "fictitious": True,
+                    },
+                    "evidence": [],
+                    "conflicts": [],
+                    "unsupported_requests": [],
+                    "resolution_token": None,
+                }
+            ]
+        }
+    )
+
+    status: Literal["ready", "needs_clarification", "unsupported"]
+    message: StrictStr
+    missing_fields: list[StrictStr] = Field(default_factory=list)
+    draft: RequestDraft | None = None
+    evidence: list[SourceEvidence] = Field(default_factory=list)
+    conflicts: list[IntakeConflict] = Field(default_factory=list)
+    unsupported_requests: list[UnsupportedRequest] = Field(default_factory=list)
+    resolution_token: StrictStr | None = None
 
 
 class ErrorResponse(APIModel):
@@ -153,6 +262,9 @@ class HealthResponse(APIModel):
     status: Literal["ok"]
     contract_version: StrictStr
     model_loaded: StrictBool
+    extractor_available: StrictBool = False
+    extractor_loaded: StrictBool = False
+    generator_loaded: StrictBool = False
 
 
 class GenerationResponse(APIModel):

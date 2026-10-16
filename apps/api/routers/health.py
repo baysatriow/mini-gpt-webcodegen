@@ -21,4 +21,7 @@ def health() -> HealthResponse:
         status="ok",
         contract_version=SOURCE_DRAFT_CONTRACT,
         model_loaded=runtime.model_loaded,
+        extractor_available=runtime.extractor_available,
+        extractor_loaded=runtime.extractor_loaded,
+        generator_loaded=runtime.generator_loaded,
     )

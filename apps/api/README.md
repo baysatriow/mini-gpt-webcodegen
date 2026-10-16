@@ -29,8 +29,9 @@ Tekan `Ctrl+C` untuk menghentikan server. API hanya menerima bind loopback. Defa
 
 | Method | Path | Kegunaan |
 | --- | --- | --- |
-| `GET` | `/api/v1/health` | Status API dan apakah generator sudah dimuat |
+| `GET` | `/api/v1/health` | Status API, ketersediaan extractor, dan status muat kedua model |
 | `GET` | `/api/v1/catalog` | Katalog jenis halaman, gaya, kemampuan, dan aset |
+| `POST` | `/api/v1/intake/extract` | Ekstraksi brief bebas menjadi draft bersumber dan satu klarifikasi gabungan |
 | `POST` | `/api/v1/intake/validate` | Klarifikasi dan validasi tanpa menjalankan generation |
 | `POST` | `/api/v1/generations` | Validasi ulang, lalu membuat satu halaman dengan model lokal |
 | `GET` | `/api/v1/generations/{generation_id}` | Ringkasan status yang aman |
@@ -38,9 +39,9 @@ Tekan `Ctrl+C` untuk menghentikan server. API hanya menerima bind loopback. Defa
 | `GET` | `/api/v1/generations/{generation_id}/source` | Tiga berkas source hasil renderer |
 | `GET` | `/api/v1/generations/{generation_id}/download.zip` | Source, spesifikasi halaman, atribusi aset, dan aset terpakai |
 
-Health, katalog, dan intake tidak memuat bobot. Model dimuat secara lazy saat permintaan generation yang lolos intake dijalankan. Endpoint generation menjalankan inference GPU secara sinkron; responsnya JSON biasa dan tidak mengklaim progres streaming.
+Health dan katalog tidak memuat bobot. Endpoint `intake/extract` menerima sampai 16 pesan dengan total maksimal 4.000 karakter, lalu menjalankan extractor hanya jika paket checkpoint sudah melewati gate development. Ekstraksi memakai 16 scope berurutan di dalam satu giliran API dan berbagi lock inferensi dengan generator. Endpoint ini tidak membuat berkas website. Bila extractor belum dipromosikan, gagal, atau brief melewati budget tokenizer, API mengembalikan error terkontrol agar UI memakai editor manual.
 
-Intake menerima pilihan kemampuan dengan ID dari katalog dan bukti konfirmasi pengguna. Sebagai pengaman untuk prompt yang tidak memilih checkbox, validator juga mencocokkan frasa yang telah ditetapkan pada katalog kemampuan di luar cakupan. Pemeriksaan ini deterministik dan bukan klasifikasi semantik umum.
+Setiap nilai draft harus muncul persis pada pesan sumber yang dirujuk. Respons menyertakan rentang karakter Python dan UTF-16, konflik yang perlu dikonfirmasi, fitur di luar cakupan, serta daftar fakta yang masih kurang. Klarifikasi yang belum lengkap dikembalikan sekaligus. Saat draft siap, API mengirim token bertanda tangan yang mengikat penilaian fitur ke brief yang sama. Endpoint validasi dan generation tetap menjalankan `prepare_intake()` serta pemeriksaan sumber sebelum menerima draft.
 
 Generation menyimpan berkas di `outputs/webapp/generations`, yang diabaikan Git. Preview, source, dan ZIP hanya tersedia jika laporan renderer berstatus `accepted` dan hash berkas cocok. Route preview memakai CSP ketat, content type tetap, dan cache `no-store`. Data prompt dan artefak tetap lokal.
 
@@ -50,4 +51,4 @@ Jika `style_mode` bernilai `tailwind`, renderer memakai compiler yang dipatok di
 
 ## Status implementasi
 
-Source API, kontrak JSON, dan rute telah ditambahkan. Dependency API belum dipasang, server belum dijalankan, dan tidak ada test, build, atau inference yang dijalankan selama tahap ini. Model hanya akan dipanggil ketika endpoint generation digunakan.
+Route extraction, kontrak Pydantic, resolver bukti, token validasi ulang, dan status model di health sudah ditambahkan. Kompilasi statis Python dan pembuatan skema OpenAPI berhasil. Test suite, build web, inference endpoint, dan review browser belum dijalankan. Extractor tetap nonaktif sampai gate development dan API safety gate lulus.
