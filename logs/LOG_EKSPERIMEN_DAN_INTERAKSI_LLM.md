@@ -7148,3 +7148,12 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Verifikasi: TypeScript, ESLint, production build, dan `git diff --check` lulus. Review UI tidak mengirim prompt dan tidak memanggil endpoint ekstraksi atau generation. Raw evaluation development yang terpisah masih berjalan pada checkpoint step 1.800.
 - Batas bukti: kandidat belum dipromosikan, jadi kecukupan model belum dinyatakan. Hasil generate end-to-end belum diperiksa melalui alur prompt baru. Final/test tetap tertutup.
 - Referensi run: `logs/RUN-657_prompt_first_ui_build_review.txt`.
+
+## AI-043, sinkronisasi dokumentasi dan status gate
+
+- Tanggal/waktu: 17 Oktober 2026, 00:21, Asia/Jakarta.
+- README root, docs, aplikasi web, dan API membedakan TRAIN-025 sebagai generator draft terstruktur dari kandidat REQUEST-EXTRACT-V1 untuk brief bebas.
+- Dokumentasi menjelaskan training dari keluarga train saja, gate raw dan API, seleksi paket, lazy-load dengan lock bersama, fallback manual, satu klarifikasi gabungan, dan persetujuan generation.
+- Status UI build, review browser, extractor yang belum dipromosikan, serta test/final yang tetap tertutup dicatat sesuai bukti. Tidak ada klaim end-to-end baru atau target visual 95 persen.
+- Rencana dan ledger menandai Task 4 selesai pada commit `5adb0e1`; Task 2/3 gates dan final diff review tetap terbuka.
+- Referensi run: `logs/RUN-658_prompt_first_documentation_review.txt`.

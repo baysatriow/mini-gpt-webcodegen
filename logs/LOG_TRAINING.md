@@ -1389,3 +1389,11 @@ The frozen selector status is passed and selected TRAIN-025 step 1,800. Both can
 - Tidak ada permintaan yang dikirim ke endpoint ekstraksi atau generation. Evaluasi raw development checkpoint step 1.800 berlanjut terpisah dan saat pencatatan telah mencapai 3.700 dari 15.200 scope. Final/test tetap tertutup.
 - API lokal tetap aktif di `127.0.0.1:8000`; Next.js dilayani di `127.0.0.1:3000` dari build terbaru.
 - Rincian: `logs/RUN-657_prompt_first_ui_build_review.txt`.
+
+### RUN-658: prompt-first documentation review
+
+- Tanggal/waktu: 17 Oktober 2026, 00:21, Asia/Jakarta.
+- README root, docs, aplikasi web, dan API diselaraskan dengan kontrak satu brief, bukti sumber, klarifikasi gabungan, fallback manual, dan status gate model yang belum selesai.
+- Rencana dan ledger menandai Task 4 selesai dengan commit `5adb0e1`. Training/evaluasi extractor dan API safety replay masih terbuka.
+- Dokumentasi membatasi klaim pada bukti yang ada. Tidak ada klaim bahwa extractor sudah dipilih, inference prompt-first sudah diuji end-to-end, atau target visual 95 persen sudah tercapai.
+- Tidak ada dataset, checkpoint, secret, atau keluaran generation yang ditambahkan ke Git. Rincian: `logs/RUN-658_prompt_first_documentation_review.txt`.

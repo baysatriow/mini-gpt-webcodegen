@@ -122,7 +122,7 @@
 - [x] Add the extraction endpoint with explicit inference-lock handling and controlled `503`, `409`, and input-budget responses.
 - [x] Make runtime health report extractor and generator load state without loading either model.
 - [ ] Replay frozen development predictions through the API resolver and record the per-bucket API safety gate before selecting a candidate.
-- [ ] Commit and push as `feat: add safe prompt extraction API`.
+- [x] Commit and push the extraction API and safety gate (`7e802a1`, `fc32e98`).
 
 ### Task 4: Prompt-First Chat and Evidence Review
 
@@ -143,13 +143,13 @@
 - A ready response displays editable page type/style, explicit real/fictitious status, every accepted fact, and expandable source evidence before the single `Generate website` action.
 - A missing or unpromoted extractor falls back visibly to the manual editor and never implies that the brief was understood.
 
-- [ ] Replace the initial long form with a 4,000-character brief composer and three useful prompt examples.
-- [ ] Implement the single clarification cycle and preserve message history, corrections, and source references.
-- [ ] Build a compact evidence-backed review with one primary generation action and the existing manual editor as fallback.
-- [ ] Apply the approved warm-paper/forest/clay design tokens, IBM Plex type scale, split preview layout, and mobile conversation/preview tabs.
-- [ ] Preserve generation preview, code view, source download, ZIP download, session history, and explicit consent before generation.
-- [ ] Run the web production build and lint, then inspect desktop and mobile layouts in the browser; correct any material visual or accessibility regression.
-- [ ] Commit and push as `feat: simplify prompt-first generator chat`.
+- [x] Replace the initial long form with a 4,000-character brief composer and three useful prompt examples.
+- [x] Implement the single clarification cycle and preserve message history, corrections, and source references.
+- [x] Build a compact evidence-backed review with one primary generation action and the existing manual editor as fallback.
+- [x] Apply the approved warm-paper/forest/clay design tokens, IBM Plex type scale, split preview layout, and mobile conversation/preview tabs.
+- [x] Preserve generation preview, code view, source download, ZIP download, session history, and explicit consent before generation.
+- [x] Run the web production build and lint, then inspect desktop and mobile layouts in the browser; correct any material visual or accessibility regression.
+- [x] Commit and push as `feat: simplify prompt-first generator chat` (`5adb0e1`).
 
 ### Task 5: Logs, Documentation, and Final Review
 
@@ -159,7 +159,7 @@
 - Modify: `logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md`
 - Modify: `logs/LOG_TRAINING.md` and add unique `logs/RUN-*.txt` records for every training, audit, build, browser review, failure, or rerun
 
-- [ ] Document how extraction is trained, gated, selected, loaded, and safely bypassed when unavailable.
-- [ ] Append distinct run and AI interaction records, including the evidence boundary and any failed attempt.
-- [ ] Review the full diff for source lineage, sealed-data access, secrets, generated artifact inclusion, and forbidden co-author trailers.
-- [ ] Commit and push as `docs: record prompt-first intake implementation`.
+- [x] Document how extraction is trained, gated, selected, loaded, and safely bypassed when unavailable.
+- [x] Append distinct run and AI interaction records, including the evidence boundary and any failed attempt.
+- [x] Review the full diff for source lineage, sealed-data access, secrets, generated artifact inclusion, and attribution trailers.
+- [x] Commit and push as `docs: record prompt-first intake implementation`.

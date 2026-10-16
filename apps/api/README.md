@@ -43,6 +43,8 @@ Health dan katalog tidak memuat bobot. Endpoint `intake/extract` menerima sampai
 
 Setiap nilai draft harus muncul persis pada pesan sumber yang dirujuk. Respons menyertakan rentang karakter Python dan UTF-16, konflik yang perlu dikonfirmasi, fitur di luar cakupan, serta daftar fakta yang masih kurang. Klarifikasi yang belum lengkap dikembalikan sekaligus. Saat draft siap, API mengirim token bertanda tangan yang mengikat penilaian fitur ke brief yang sama. Endpoint validasi dan generation tetap menjalankan `prepare_intake()` serta pemeriksaan sumber sebelum menerima draft.
 
+Extractor dilatih dari keluarga training saja. Synthetic development dipakai untuk gate raw extraction dan replay safety API. `qa/select_request_extract_v1.py` hanya menghasilkan paket `training/selected/request-extract-v1` bila semua ambang development lulus. Runtime memverifikasi manifest/checkpoint dan memuat extractor secara lazy di bawah inference lock bersama generator; health tidak memuat model. Jika paket belum lolos verifikasi atau belum ada, extraction mengembalikan respons fail-closed dan UI mempertahankan brief untuk editor manual. Test/final tidak dipakai untuk training atau pemilihan.
+
 Generation menyimpan berkas di `outputs/webapp/generations`, yang diabaikan Git. Preview, source, dan ZIP hanya tersedia jika laporan renderer berstatus `accepted` dan hash berkas cocok. Route preview memakai CSP ketat, content type tetap, dan cache `no-store`. Data prompt dan artefak tetap lokal.
 
 ## Tailwind untuk halaman hasil
@@ -51,4 +53,6 @@ Jika `style_mode` bernilai `tailwind`, renderer memakai compiler yang dipatok di
 
 ## Status implementasi
 
-Route extraction, kontrak Pydantic, resolver bukti, token validasi ulang, dan status model di health sudah ditambahkan. Kompilasi statis Python dan pembuatan skema OpenAPI berhasil. Test suite, build web, inference endpoint, dan review browser belum dijalankan. Extractor tetap nonaktif sampai gate development dan API safety gate lulus.
+Route extraction, kontrak Pydantic, resolver bukti, token validasi ulang, dan status model di health sudah ditambahkan. Kompilasi statis Python dan pembuatan skema OpenAPI berhasil. Candidate `REQUEST-EXTRACT-V1` step 1.800 sedang dievaluasi pada development. Raw gate belum selesai dan replay API safety gate menunggu hasil raw; extractor belum dipromosikan dan endpoint tetap fail-closed sampai kedua gate lulus.
+
+Frontend prompt-first lulus TypeScript, lint, production build, dan review visual sesi kosong pada viewport sekitar 624 x 864 dan 1440 x 900 pada 17 Oktober 2026. Pemeriksaan tersebut tidak mengirim prompt ke endpoint extraction atau generation. Jalur prompt-first belum diverifikasi end-to-end. Final/test tetap tertutup.
