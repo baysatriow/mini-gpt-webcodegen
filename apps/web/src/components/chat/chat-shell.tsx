@@ -293,6 +293,30 @@ export function ChatShell() {
       };
       dispatch({ type: "replace_message", sessionId, message: clarification });
     } catch (error) {
+      if (error instanceof ApiClientError && error.status === 503 && error.code === "extractor_unavailable") {
+        try {
+          const fallback = await validateIntake(promptText, emptyDraft(promptText));
+          const fallbackStatus = fallback.status === "ready" ? "needs_clarification" : fallback.status;
+          const clarification: ClarificationMessage = {
+            ...pending,
+            content: "Model ekstraksi belum aktif. Brief tetap tersimpan. Lengkapi fakta yang diminta dalam satu form, lalu tinjau rancangan sebelum membuat halaman.",
+            draft: emptyDraft(promptText),
+            status: fallbackStatus,
+            missingFields: fallback.missing_fields.filter((field) => field !== "request_draft"),
+            isValidating: false,
+            isError: false,
+            allowManualEditor: fallbackStatus === "needs_clarification" || fallbackStatus === "unsupported_request",
+            showOnlyMissing: true,
+            sourceMessages: messages,
+            createdAt: new Date().toISOString(),
+          };
+          dispatch({ type: "replace_message", sessionId, message: clarification });
+          return;
+        } catch {
+          // Keep the existing error path if the validation fallback is also unavailable.
+        }
+      }
+
       const status = error instanceof ApiClientError && error.status === 413
         ? "input_too_long"
         : "needs_clarification";

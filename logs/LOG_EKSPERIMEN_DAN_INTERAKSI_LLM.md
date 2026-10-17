@@ -7185,3 +7185,13 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Cache development step 1.800 berisi 15.200 row unik, tetapi laporan agregat dan selection tidak tersedia. Rebuild report tidak diteruskan karena source hash evaluator harus tetap cocok dengan lineage. Tidak ada training, generation produksi, atau akses final/test.
 - Pesan batas prompt dikoreksi dari 1.000 menjadi 4.000 karakter, test API dilengkapi inference_lock, dan test batas diperbarui ke 4.001. Percobaan scorer yang mengubah sumber beku dikembalikan.
 - Catatan rinci: logs/RUN-661_safety_recheck.txt.
+
+## AI-047, fallback klarifikasi prompt diperbaiki
+
+- Tanggal/waktu: 17 Oktober 2026, 21:07, Asia/Jakarta.
+- Brief contoh kedai kopi mencapai endpoint ekstraksi, tetapi API mengembalikan 503 `extractor_unavailable` karena model extractor belum lolos selection gate. UI kini menangani kode ini secara khusus, meminta endpoint validasi menyiapkan daftar field kosong, lalu menampilkan satu editor fakta biasa tanpa status error merah.
+- Form tetap meminta fakta lengkap dan tidak mengarang informasi usaha. Field agregat `request_draft` tetap berasal dari kontrak API, tetapi disembunyikan dari daftar visual karena tidak memiliki input tersendiri.
+- Di browser lokal, prompt contoh menghasilkan form klarifikasi tunggal. Isian demo yang secara eksplisit ditandai fiktif berhasil melewati validasi dan mencapai ringkasan `Siap ditinjau`. Tombol `Generate website` tidak ditekan.
+- Health setelah percobaan: generator utama termuat; `extractor_available=false` dan `extractor_loaded=false`. Belum ada inference extractor atau website yang dihasilkan. Pemakaian prompt-only tetap menunggu kandidat extractor yang lolos evaluasi dan seleksi.
+- ESLint, production build Next.js, dan dua regression test API/scorer lulus. UI localhost menjawab HTTP 200. Final/test tetap tertutup.
+- Rincian: `logs/RUN-663_prompt_first_fallback_ui_fix.txt`.

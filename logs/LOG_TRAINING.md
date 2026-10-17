@@ -1423,3 +1423,14 @@ The frozen selector status is passed and selected TRAIN-025 step 1,800. Both can
 - Pesan batas prompt dikoreksi ke 4.000 karakter, test batas diperbarui ke 4.001, dan fixture API dilengkapi `inference_lock`.
 - Tidak ada training atau generation produksi. Dataset final/test tetap tertutup. Tidak ada selection dibuat atau dipromosikan.
 - Catatan rinci: `logs/RUN-661_safety_recheck.txt`.
+
+### RUN-662: REQEXT-V1-3600 continuation, completed
+
+- Waktu: 17 Oktober 2026, 20:48 sampai 20:59, Asia/Jakarta.
+- REQEXT-V1-3600 melanjutkan `checkpoints/REQEXT-V1-1800/last.pt` sampai global step 3.600 pada RTX 5070. Mode BF16, SDPA, fused AdamW, batch size 8, akumulasi gradien 6, dan blok 2.048 dipertahankan sesuai konfigurasi beku.
+- Status training `completed`, 3.600 update, durasi 623,49 detik, total 32.820.813 token. Loss train terakhir 0,000662.
+- Validation loss naik dari 1,461393 pada checkpoint resume ke 1,544953 pada akhir run. Checkpoint validasi terbaik tetap step 1.800, loss 1,461393. Hasil ini tidak menunjukkan perbaikan generalisasi dan tidak cukup sebagai alasan promosi.
+- Ringkasan lengkap: `reports/training/REQEXT-V1-3600.json`. Snapshot bobot: `checkpoints/REQUEST-EXTRACT-V1/step3600.pt`, payload SHA-256 `033d919c9709d99dfc2c1da11cf962e14763e563bfcdb55121f4c06cdb65812f`.
+- API gate development untuk kandidat step 1.800 berstatus `not_passed`, tidak eligible untuk seleksi, exact precision dan recall 0, serta resolver error pada 950 dari 950 keluarga. Laporan: `reports/request_extract/REQEXT-V1-1800_API_GATE.json`.
+- Step 3.600 belum menjalani raw development inference atau API gate. Tidak dibuat selection dan tidak ada checkpoint extractor yang dipromosikan. Final/test tetap tertutup.
+- Detail run: `logs/RUN-662_reqext_v1_3600_resume.txt`.
