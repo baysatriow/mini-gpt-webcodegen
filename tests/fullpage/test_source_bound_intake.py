@@ -259,13 +259,17 @@ class SourceBoundIntakeTests(unittest.TestCase):
                 self.assertEqual("needs_clarification", result.status)
                 self.assertIsNone(result.request)
 
-    def test_input_over_one_thousand_characters_is_not_truncated(self):
-        prompt = "x" * 1001
+    def test_prompt_over_contract_limit_is_not_truncated(self):
+        prompt = "x" * 4001
         draft, tokenizer, catalog = intake_fixture(prompt)
 
         result = prepare_intake(prompt, draft, tokenizer, catalog)
 
         self.assertEqual("input_too_long", result.status)
+        self.assertEqual(
+            "Prompt melebihi 4.000 karakter. Ringkas prompt secara manual; sistem tidak memotong teks.",
+            result.message,
+        )
         self.assertIsNone(result.request)
         self.assertEqual(prompt, draft["prompt"])
 

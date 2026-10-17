@@ -28,6 +28,7 @@ class _Runtime:
             port=8000,
         )
         self.generation_lock = threading.Lock()
+        self.inference_lock = threading.Lock()
         self.generator = _CapturingGenerator()
 
     def get_generator(self):

@@ -355,7 +355,7 @@ def prepare_intake(
     if len(prompt) > MAX_PROMPT_CHARS:
         return IntakeResult(
             "input_too_long",
-            "Prompt melebihi 1.000 karakter. Ringkas prompt secara manual; sistem tidak memotong teks.",
+            "Prompt melebihi 4.000 karakter. Ringkas prompt secara manual; sistem tidak memotong teks.",
             (),
             None,
         )

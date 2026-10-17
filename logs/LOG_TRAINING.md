@@ -1410,3 +1410,16 @@ The frozen selector status is passed and selected TRAIN-025 step 1,800. Both can
 - API route aktif, tetapi selection REQUEST-EXTRACT-V1 belum ada. Runtime menolak sebelum membuat model extractor dan API mengembalikan fallback manual.
 - Tidak ada inference atau website generation pada request ini. Raw development evaluation berlangsung sampai output terakhir 9.200/15.200; tidak ada promosi. Final/test tertutup.
 - Detail: `logs/RUN-660_prompt_extractor_not_selected.txt`.
+
+
+### RUN-661: safety recheck aplikasi dan pipeline
+
+- Unit suite menjalankan 147 test: 146 lulus, 1 error pada `test_source_bound_dataset_lineage_is_verified_without_final_parsing` karena checksum profil training berbeda dari pin.
+- Checksum pin adalah `8a101fa71916993c3beb47c81c18255bb645ebe11862fa82fc93983ef02c2998`; file profil yang tercatat di Git memiliki hash `2614d9bbbaad76c4622790bb86affcb5858fa8fc9fd7984e4b03c09dbeb297f8`. Tidak ada file tracked dengan hash pin. Pin dan gate tidak diubah.
+- `npm run lint` dan `npm run build` lulus. UI root menjawab HTTP 200; API health menjawab 200 dan OpenAPI memuat route extraction serta generation.
+- POST brief sintetis ke route extraction mengembalikan 503 `extractor_unavailable`. Health setelah request menunjukkan semua flag model false, sesuai fallback manual fail-closed.
+- Cache development extractor step 1.800 berisi 15.200 row unik dan payload checkpoint tersedia. Laporan agregat serta `training/selected/request-extract-v1/selection.json` belum ada.
+- Rebuild laporan resmi dihentikan guard source hash ketika menggunakan scorer sementara yang berbeda. Scorer tersebut dikembalikan untuk menjaga lineage; scorer beku sebelumnya diketahui crash pada output malformed dengan `KeyError: kind`.
+- Pesan batas prompt dikoreksi ke 4.000 karakter, test batas diperbarui ke 4.001, dan fixture API dilengkapi `inference_lock`.
+- Tidak ada training atau generation produksi. Dataset final/test tetap tertutup. Tidak ada selection dibuat atau dipromosikan.
+- Catatan rinci: `logs/RUN-661_safety_recheck.txt`.

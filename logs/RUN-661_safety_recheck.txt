@@ -1,0 +1,29 @@
+RUN-661: safety recheck, 2026-10-17 14:46 Asia/Jakarta
+
+Tujuan
+- Menjalankan ulang pemeriksaan aplikasi dan pipeline setelah laporan UI menunjukkan fallback ekstraksi.
+
+Perubahan yang dipertahankan
+- Pesan input terlalu panjang pada src/fullpage/intake.py kini menyebut batas kontrak 4.000 karakter, bukan 1.000.
+- Test intake memeriksa brief 4.001 karakter tidak dipotong dan mendapat pesan batas yang benar.
+- Test double API diberi inference_lock sesuai Runtime produksi.
+- Percobaan perbaikan scorer request-extract tidak dipertahankan. File scorer merupakan sumber yang dipin oleh lineage evaluator; mengubahnya menyebabkan guard menolak evaluasi. Tidak ada perubahan checksum atau gate.
+
+Pemeriksaan
+- Unit suite: 147 test dijalankan, 146 lulus, 1 error.
+- Satu error: test_source_bound_dataset_lineage_is_verified_without_final_parsing berhenti pada Frozen source-bound training profile checksum changed.
+- Checksum yang dipin: 8a101fa71916993c3beb47c81c18255bb645ebe11862fa82fc93983ef02c2998.
+- Checksum file profil Git reports/training/FULLPAGE-GPU-005-CONTROLLED-B8.json: 2614d9bbbaad76c4622790bb86affcb5858fa8fc9fd7984e4b03c09dbeb297f8. Tidak ditemukan file tracked dengan hash yang dipin. Hash dan konfigurasi beku tidak diubah.
+- npm run lint: lulus.
+- npm run build: lulus. Next.js merender route / dan /_not-found.
+- GET API health: 200, status ok. OpenAPI memuat route extraction dan generation.
+- HEAD UI localhost:3000: 200.
+- POST sintetis ke /api/v1/intake/extract: 503 extractor_unavailable. Ini adalah fallback fail-closed yang diharapkan ketika selection belum ada.
+- Health setelah request: model_loaded=false, extractor_available=false, extractor_loaded=false, generator_loaded=false.
+- Cache development extractor berisi 15.200 row unik. Payload step 1.800 ada. Laporan agregat dan training/selected/request-extract-v1/selection.json tidak ada.
+- Rebuild report berhenti sebelum model dimuat karena source hash evaluator sementara tidak cocok. Perubahan scorer lalu dikembalikan. Evaluasi resmi tetap belum selesai; scorer beku sebelumnya diketahui gagal pada output malformed dengan KeyError: kind.
+- Tidak menjalankan training atau generation model produksi. Dataset final/test tetap tertutup. Tidak membuat atau mempromosikan selection.
+
+Kesimpulan
+- UI dan API hidup. Fallback manual bekerja dengan aman karena extractor belum melewati selection gate.
+- Pipeline belum dapat dinyatakan seluruhnya aman atau siap otomatis karena satu tes lineage gagal dan laporan extractor resmi belum tersedia.

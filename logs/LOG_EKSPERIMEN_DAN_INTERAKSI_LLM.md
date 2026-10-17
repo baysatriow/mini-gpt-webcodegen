@@ -7174,3 +7174,14 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Tidak terjadi inferensi model atau generation. Brief tidak disalin ke log; data tetap tersimpan pada UI lokal.
 - Raw development evaluation masih berlangsung, terakhir terlihat 9.200/15.200 scope. Final/test tetap tertutup.
 - Rincian: `logs/RUN-660_prompt_extractor_not_selected.txt`.
+
+
+## AI-046, safety recheck aplikasi dan pipeline
+
+- Tanggal/waktu: 17 Oktober 2026, 14:46, Asia/Jakarta.
+- Unit suite menjalankan 147 test: 146 lulus, 1 error pada checksum frozen profile. Hash pin 8a101fa71916993c3beb47c81c18255bb645ebe11862fa82fc93983ef02c2998 berbeda dari hash file profil yang ada, 2614d9bbbaad76c4622790bb86affcb5858fa8fc9fd7984e4b03c09dbeb297f8. Checksum/gate tidak diubah.
+- ESLint dan production build Next.js lulus. Root UI HTTP 200, API health 200, dan OpenAPI mencantumkan route extraction serta generation.
+- POST brief sintetis mengembalikan 503 extractor_unavailable karena belum ada selection. Runtime tetap dengan seluruh flag model false. Ini fallback manual fail-closed yang diharapkan.
+- Cache development step 1.800 berisi 15.200 row unik, tetapi laporan agregat dan selection tidak tersedia. Rebuild report tidak diteruskan karena source hash evaluator harus tetap cocok dengan lineage. Tidak ada training, generation produksi, atau akses final/test.
+- Pesan batas prompt dikoreksi dari 1.000 menjadi 4.000 karakter, test API dilengkapi inference_lock, dan test batas diperbarui ke 4.001. Percobaan scorer yang mengubah sumber beku dikembalikan.
+- Catatan rinci: logs/RUN-661_safety_recheck.txt.
