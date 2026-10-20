@@ -7206,3 +7206,15 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Verifikasi: katalog berisi 100 ID unik; ESLint, TypeScript production build, dan `git diff --check` lulus. Review browser berhasil mengacak tiga ide dan membuka template Toko pakaian preloved dengan field terisi serta status fiktif terpilih. Form tidak dikirim.
 - Batas bukti: konten contoh bersifat generik dan perlu disesuaikan dengan fakta usaha sebelum digunakan. API pada `127.0.0.1:8000` tidak berjalan saat review; pemilihan template tetap bekerja lokal, tetapi validasi intake dan generation tidak tersedia. Review visual dilakukan pada tampilan desktop; responsivitas mobile belum ditinjau untuk perubahan ini.
 - Rincian: `logs/RUN-664_randomized_website_templates.txt`.
+
+## AI-049, pengujian ulang rekomendasi template
+
+- Tanggal/waktu: 20 Oktober 2026, 20:15, Asia/Jakarta.
+- Pengguna meminta pengujian dan pemeriksaan fitur 100 rekomendasi yang dapat diacak.
+- Pengujian data TypeScript memastikan jumlah 100, ID dan label unik, tujuh kategori, tiga layanan dan tiga proses pada semua template, aturan FAQ atau proyek sesuai jenis halaman, serta helper lookup dan guard ID. Seluruh assertion lulus.
+- Suite unit `apps/web/tests/request-draft.test.mjs`: 3/3 lulus. Node menampilkan peringatan ringan bahwa package belum menyatakan `type: module`; tidak ada test yang gagal.
+- `npm run lint`: lulus. `npm run build`: lulus, termasuk kompilasi Next.js, TypeScript, dan static generation.
+- Review browser lokal: percakapan uji baru menampilkan tiga rekomendasi awal. Tombol acak menggantinya dengan tiga rekomendasi lain. Memilih `Studio produksi video` mengisi prompt dan form company profile, Tailwind, tiga layanan, tiga proses, dua proyek, serta status usaha fiktif. Setelah reload, percakapan dan form tetap tersedia di local history.
+- Next.js lokal menjawab HTTP 200 setelah build dan server dev dinyalakan kembali. FastAPI pada `127.0.0.1:8000` tidak listening. Karena itu katalog backend, validasi intake, generation, dan inference model tidak diuji. Form tidak dikirim.
+- `git fetch origin` berhasil sebelum pemeriksaan; branch fitur awalnya sinkron dengan remote. Pemeriksaan ini hanya menambahkan dokumentasi hasil test, tanpa mengubah kode aplikasi atau model.
+- Rincian: `logs/RUN-665_randomized_template_verification.txt`.
