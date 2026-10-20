@@ -15,6 +15,7 @@ import {
   type ConfirmedStructuredFact,
 } from "@/lib/request-draft";
 import { describeMissingFields } from "@/lib/intake-copy";
+import { getWebsiteTemplate, type WebsiteTemplateId } from "@/lib/website-templates";
 
 type ServiceFields = { title: string; text: string };
 type FormFields = {
@@ -36,6 +37,7 @@ type BusinessFactsFormProps = {
   catalog: CatalogResponse | null;
   missingFields: string[];
   onlyMissing?: boolean;
+  templateId?: WebsiteTemplateId;
   onSubmit: (draft: RequestDraft) => Promise<void>;
 };
 
@@ -97,6 +99,22 @@ function fromDraft(draft: RequestDraft): FormFields {
   };
 }
 
+function fromTemplate(templateId: WebsiteTemplateId): FormFields {
+  const template = getWebsiteTemplate(templateId);
+  return {
+    genre: template.genre,
+    styleMode: template.styleMode,
+    name: template.name,
+    description: template.description,
+    value: template.value,
+    services: template.services.map((service) => ({ ...service })),
+    additionalFacts: template.additionalFacts.map((fact) => ({ ...fact })),
+    requestedFeatureIds: [],
+    assetIds: [defaultAssetForGenre(template.genre)],
+    fictitious: "true",
+  };
+}
+
 function hasMissingField(missingFields: string[], keys: string[]): boolean {
   return missingFields.some((field) => keys.includes(field));
 }
@@ -107,9 +125,10 @@ export function BusinessFactsForm({
   catalog,
   missingFields,
   onlyMissing = false,
+  templateId,
   onSubmit,
 }: BusinessFactsFormProps) {
-  const [fields, setFields] = useState<FormFields>(() => fromDraft(initialDraft));
+  const [fields, setFields] = useState<FormFields>(() => templateId ? fromTemplate(templateId) : fromDraft(initialDraft));
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const genres = catalog?.supported_genres.length ? catalog.supported_genres : FALLBACK_GENRES;
@@ -218,15 +237,17 @@ export function BusinessFactsForm({
       <div className="border-b border-border bg-[#F4F2EC] px-4 py-3.5 sm:px-5">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div>
-            <p className="text-sm font-semibold text-harbor-ink">Lengkapi fakta halaman</p>
+            <p className="text-sm font-semibold text-harbor-ink">{templateId ? `Template ${getWebsiteTemplate(templateId).label}` : "Lengkapi fakta halaman"}</p>
             <p className="mt-0.5 text-xs leading-5 text-slate-note">
-              {onlyMissing
+              {templateId
+                ? "Data contoh fiktif sudah terisi. Sesuaikan fakta dengan usaha Anda sebelum melanjutkan."
+                : onlyMissing
                 ? "Lengkapi bagian yang masih kosong. Fakta yang sudah ditemukan tetap dipertahankan."
                 : "Isi detail yang belum tersedia. Tidak ada fakta bisnis yang ditebak dari prompt."}
             </p>
           </div>
           <span className="rounded-full bg-verified/10 px-2.5 py-1 text-[11px] font-medium text-verified">
-            Dikonfirmasi saat dikirim
+            {templateId ? "Contoh fiktif" : "Dikonfirmasi saat dikirim"}
           </span>
         </div>
       </div>
@@ -314,7 +335,9 @@ export function BusinessFactsForm({
           <div className="flex items-end justify-between gap-3">
             <div>
               <legend className="text-sm font-medium text-harbor-ink">Layanan <span className="text-destructive">*</span></legend>
-              <p className="mt-0.5 text-xs text-slate-note">Isi 3 layanan yang benar untuk ditampilkan di halaman.</p>
+              <p className="mt-0.5 text-xs text-slate-note">
+                {templateId ? "Contoh layanan sudah terisi. Ganti dengan layanan yang benar sebelum melanjutkan." : "Isi 3 layanan yang benar untuk ditampilkan di halaman."}
+              </p>
             </div>
             <Button
               type="button"
@@ -374,7 +397,9 @@ export function BusinessFactsForm({
             <div>
               <legend className="text-sm font-medium text-harbor-ink">Rincian untuk halaman <span className="text-destructive">*</span></legend>
               <p className="mt-0.5 text-xs leading-5 text-slate-note">
-                {fields.genre === "landing_page"
+                {templateId
+                  ? "Contoh proses dan rincian halaman sudah terisi. Sesuaikan dengan informasi yang benar sebelum melanjutkan."
+                  : fields.genre === "landing_page"
                   ? "Isi 3 langkah proses dan 3 FAQ. Semua rincian harus berasal dari Anda."
                   : "Isi 3 langkah proses dan 2 proyek atau karya. Semua rincian harus berasal dari Anda."}
               </p>

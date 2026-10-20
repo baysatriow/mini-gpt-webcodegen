@@ -1,6 +1,6 @@
 # Aplikasi web lokal
 
-Frontend Next.js untuk meminta landing page atau company profile lewat satu brief. Extractor mengambil fakta yang benar-benar tertulis di pesan, menyatukan kekurangan dalam satu klarifikasi, dan menyediakan editor manual bila extractor belum tersedia atau satu balasan belum melengkapi fakta. Pengguna memeriksa fakta dan kutipan sumber, lalu memilih **Generate website**. UI hanya menampilkan preview, source, dan unduhan setelah API mengembalikan status `completed`.
+Frontend Next.js untuk membuat landing page atau company profile dari satu brief. Layar awal menyediakan 100 ide contoh fiktif dan menampilkan tiga ide sekaligus; tombol **Acak ide** menggantinya. Memilih ide mengisi form fakta otomatis, dan semua data tetap dapat diedit sebelum validasi. Brief bebas tetap menggunakan extractor dan editor manual bila extractor belum tersedia. Pengguna memeriksa fakta dan kutipan sumber, lalu memilih **Generate website**. UI hanya menampilkan preview, source, dan unduhan setelah API mengembalikan status `completed`.
 
 ## Menjalankan secara lokal
 
@@ -19,6 +19,7 @@ Buat `.env.local` dari `.env.example`, lalu jalankan frontend. Buka [http://loca
 ## Batas runtime
 
 - Membuka UI hanya mengambil katalog lokal dan tidak menjalankan model.
+- Memilih salah satu template adalah pilihan eksplisit untuk memakai data contoh fiktif. Pemilihan dan pengacakan ide berlangsung di browser tanpa memanggil extractor atau membuat halaman.
 - Mengirim brief memanggil `POST /api/v1/intake/extract` jika extractor telah melewati gate dan dipilih. Extractor tidak membuat halaman; setiap fakta yang diterima harus memiliki bukti pada pesan sumber.
 - Jika extractor belum dipromosikan, tidak tersedia, atau menolak input, brief tetap tersimpan dan UI mengarahkan pengguna ke editor manual. Tidak ada fakta usaha yang boleh direka untuk mengisi kekurangan.
 - Semua fakta wajib tetap dibutuhkan. Satu jawaban klarifikasi mengisi kekurangan yang dirangkum; jika masih belum lengkap, editor hanya menampilkan bagian yang tersisa.

@@ -45,6 +45,7 @@ export function IntakeCard({ message, catalog, onValidate, onEditPrompt }: Intak
               catalog={catalog}
               missingFields={message.missingFields}
               onlyMissing={message.showOnlyMissing}
+              templateId={message.templateId}
               onSubmit={(draft) => onValidate(message, draft)}
             />
           ) : null}
@@ -91,6 +92,7 @@ export function IntakeCard({ message, catalog, onValidate, onEditPrompt }: Intak
               catalog={catalog}
               missingFields={message.missingFields}
               onlyMissing={message.showOnlyMissing}
+              templateId={message.templateId}
               onSubmit={(draft) => onValidate(message, draft)}
             />
           ) : null}
@@ -101,12 +103,12 @@ export function IntakeCard({ message, catalog, onValidate, onEditPrompt }: Intak
 
   const missingLabels = describeMissingFields(message.missingFields);
   return (
-    <article className="flex items-start gap-3" aria-label="Lengkapi informasi permintaan">
+    <article className="flex items-start gap-3" aria-label={message.templateId ? "Template website siap diedit" : "Lengkapi informasi permintaan"}>
       <span className="grid size-8 shrink-0 place-items-center rounded-xl border border-primary/15 bg-accent text-primary">
         <CheckCircle2 aria-hidden="true" className="size-4" />
       </span>
       <div className="min-w-0 flex-1 pt-1">
-        <p className="text-xs font-semibold text-slate-note">{INTAKE_STATUS_LABEL[message.status]}</p>
+        <p className="text-xs font-semibold text-slate-note">{message.templateId ? "Template siap disunting" : INTAKE_STATUS_LABEL[message.status]}</p>
         <p className="mt-1 whitespace-pre-wrap break-words text-[15px] leading-7 text-harbor-ink">{message.content}</p>
         {missingLabels.length > 0 ? (
           <p className="mt-2 text-xs leading-5 text-slate-note">
@@ -136,6 +138,7 @@ export function IntakeCard({ message, catalog, onValidate, onEditPrompt }: Intak
             catalog={catalog}
             missingFields={message.missingFields}
             onlyMissing={message.showOnlyMissing}
+            templateId={message.templateId}
             onSubmit={(draft) => onValidate(message, draft)}
           />
         ) : message.status === "needs_clarification" ? (

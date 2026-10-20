@@ -8,6 +8,7 @@ import type {
   SourceEvidence,
   UnsupportedRequest,
 } from "@/lib/api-types";
+import type { WebsiteTemplateId } from "@/lib/website-templates";
 
 export type MessageBase = { id: string; createdAt: string };
 
@@ -33,6 +34,7 @@ export type ClarificationMessage = MessageBase & {
   isError?: boolean;
   allowManualEditor?: boolean;
   showOnlyMissing?: boolean;
+  templateId?: WebsiteTemplateId;
   sourceEvidence?: SourceEvidence[];
   sourceMessages?: PromptMessage[];
   conflicts?: IntakeConflict[];

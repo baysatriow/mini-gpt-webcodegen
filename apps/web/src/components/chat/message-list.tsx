@@ -1,34 +1,27 @@
 "use client";
 
-import { Bot, Building2, Coffee, Palette, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { Bot, Building2, Coffee, Palette, RefreshCw, Sparkles } from "lucide-react";
 import { IntakeCard } from "@/components/chat/intake-card";
 import { RequestSummary } from "@/components/chat/request-summary";
 import { GenerationStatus } from "@/components/results/generation-status";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { CatalogResponse, RequestDraft } from "@/lib/api-types";
 import type { ChatMessage, ClarificationMessage, RequestSummaryMessage } from "@/lib/chat-state";
+import { getWebsiteTemplate, WEBSITE_TEMPLATES, type WebsiteTemplateId } from "@/lib/website-templates";
 
-const PROMPT_SUGGESTIONS = [
-  {
-    label: "Landing page kedai kopi",
-    prompt: "Buat landing page untuk kedai kopi dengan nuansa hangat dan sederhana.",
-    icon: Coffee,
-  },
-  {
-    label: "Company profile studio desain",
-    prompt: "Buat company profile studio desain dengan tampilan bersih dan profesional.",
-    icon: Building2,
-  },
-  {
-    label: "Halaman jasa kreatif",
-    prompt: "Saya ingin halaman untuk usaha kreatif dengan daftar layanan dan kontak.",
-    icon: Palette,
-  },
-];
+const INITIAL_TEMPLATE_IDS: WebsiteTemplateId[] = ["coffee-shop", "design-studio", "content-studio"];
+
+function iconForCategory(category: string) {
+  if (category === "food") return Coffee;
+  if (category === "creative") return Palette;
+  if (category === "retail") return Building2;
+  return Sparkles;
+}
 
 type MessageListProps = {
   messages: ChatMessage[];
-  onUsePrompt: (prompt: string) => void;
+  onUseTemplate: (templateId: WebsiteTemplateId) => void;
   catalog: CatalogResponse | null;
   onValidate: (message: ClarificationMessage, draft: RequestDraft) => Promise<void>;
   onEditPrompt: (prompt: string) => void;
@@ -38,13 +31,27 @@ type MessageListProps = {
 
 export function MessageList({
   messages,
-  onUsePrompt,
+  onUseTemplate,
   catalog,
   onValidate,
   onEditPrompt,
   onEditSummary,
   onConfirmSummary,
 }: MessageListProps) {
+  const [visibleTemplateIds, setVisibleTemplateIds] = useState(INITIAL_TEMPLATE_IDS);
+
+  function shuffleTemplates() {
+    const currentIds = new Set(visibleTemplateIds);
+    const choices = WEBSITE_TEMPLATES
+      .filter((template) => !currentIds.has(template.id))
+      .map((template) => template.id);
+    for (let index = choices.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [choices[index], choices[randomIndex]] = [choices[randomIndex], choices[index]];
+    }
+    setVisibleTemplateIds(choices.slice(0, 3));
+  }
+
   return (
     <ScrollArea className="min-h-0 flex-1">
       <div role="log" aria-label="Percakapan" aria-live="polite" className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-6 sm:px-6 sm:py-8">
@@ -58,26 +65,38 @@ export function MessageList({
               Ceritakan website yang ingin Anda buat.
             </h1>
             <p className="mt-3 max-w-xl text-[15px] leading-7 text-slate-note">
-              Mulai dengan satu brief. Rancang menangkap fakta yang Anda sebutkan,
-              mengumpulkan kekurangan dalam satu balasan, lalu menyiapkan halaman untuk Anda tinjau.
+              Tulis brief sendiri atau pilih satu dari 100 ide. Template mengisi contoh fiktif otomatis dan bisa Anda ubah sebelum ditinjau.
             </p>
-            <div className="mt-8 grid gap-2 sm:grid-cols-2">
-              {PROMPT_SUGGESTIONS.map((suggestion) => {
-                const SuggestionIcon = suggestion.icon;
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
+              <p className="text-xs text-slate-note">100 ide contoh fiktif, pilih satu untuk isi form otomatis.</p>
+              <button
+                type="button"
+                onClick={shuffleTemplates}
+                className="inline-flex min-h-9 items-center gap-2 rounded-lg border border-border bg-white px-3 text-xs font-medium text-harbor-ink transition-colors hover:border-primary/35 hover:bg-paper"
+                aria-label="Acak tiga ide lain dari 100 rekomendasi"
+              >
+                <RefreshCw aria-hidden="true" className="size-3.5" />
+                Acak ide
+              </button>
+            </div>
+            <div className="mt-3 grid gap-2 sm:grid-cols-2" aria-live="polite" aria-label="Rekomendasi website">
+              {visibleTemplateIds.map((templateId) => {
+                const template = getWebsiteTemplate(templateId);
+                const SuggestionIcon = iconForCategory(template.category);
                 return (
                   <button
-                    key={suggestion.label}
+                    key={template.id}
                     type="button"
-                    onClick={() => onUsePrompt(suggestion.prompt)}
+                    onClick={() => onUseTemplate(template.id)}
                     className="group flex min-h-[76px] items-start gap-3 rounded-xl border border-border bg-paper px-3.5 py-3 text-left transition-colors hover:border-primary/35 hover:bg-white"
                   >
                     <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-lg bg-accent text-primary">
                       <SuggestionIcon aria-hidden="true" className="size-3.5" />
                     </span>
                     <span className="min-w-0">
-                      <span className="block text-sm font-medium text-harbor-ink">{suggestion.label}</span>
+                      <span className="block text-sm font-medium text-harbor-ink">{template.label}</span>
                       <span className="mt-1 block text-xs leading-5 text-slate-note">
-                        Gunakan sebagai titik awal
+                        {template.genre === "company_profile" ? "Company profile" : "Landing page"} · isi otomatis
                       </span>
                     </span>
                   </button>

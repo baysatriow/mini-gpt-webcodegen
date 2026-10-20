@@ -26,6 +26,7 @@ import {
 } from "@/lib/chat-state";
 import { readChatHistory, writeChatHistory } from "@/lib/history-storage";
 import { getFactValue, SOURCE_DRAFT_CONTRACT } from "@/lib/request-draft";
+import { getWebsiteTemplate, type WebsiteTemplateId } from "@/lib/website-templates";
 import { isValidGenerationId } from "@/lib/preview-url";
 
 type MobilePanel = "conversation" | WorkspaceView;
@@ -188,6 +189,7 @@ export function ChatShell() {
       ...message,
       content: "Memeriksa kelengkapan fakta dan cakupan halaman…",
       draft,
+      templateId: undefined,
       status: "needs_clarification",
       missingFields: [],
       isValidating: true,
@@ -360,6 +362,27 @@ export function ChatShell() {
       ...(promptRewrite ? [] : previousUserMessages),
       { id: userMessage.id, text: cleanPrompt },
     ]);
+    setPrompt("");
+    setPromptRewrite(false);
+  }
+
+  function useTemplate(templateId: WebsiteTemplateId) {
+    if (!activeSession || activeSession.messages.length > 0) return;
+    const template = getWebsiteTemplate(templateId);
+    const userMessage = createMessage({ type: "user", content: template.prompt });
+    const clarification = createMessage({
+      type: "clarification",
+      content: "Template fiktif sudah diisi otomatis. Periksa dan ubah detailnya sebelum meninjau rancangan.",
+      prompt: template.prompt,
+      draft: emptyDraft(template.prompt),
+      status: "needs_clarification",
+      missingFields: [],
+      allowManualEditor: true,
+      showOnlyMissing: false,
+      templateId,
+    });
+    dispatch({ type: "append_message", message: userMessage, sessionId: activeSession.id });
+    dispatch({ type: "append_message", message: clarification, sessionId: activeSession.id });
     setPrompt("");
     setPromptRewrite(false);
   }
@@ -592,7 +615,7 @@ export function ChatShell() {
             <div className="flex min-h-0 flex-1 flex-col">
               <MessageList
                 messages={activeSession.messages}
-                onUsePrompt={(suggestion) => setPrompt(suggestion)}
+                onUseTemplate={useTemplate}
                 catalog={catalog}
                 onValidate={(message, draft) => validateDraft(activeSession.id, message, draft)}
                 onEditPrompt={editPrompt}

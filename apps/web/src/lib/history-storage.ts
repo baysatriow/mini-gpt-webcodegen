@@ -1,6 +1,7 @@
 import type { ChatMessage, ChatSession, ChatState } from "@/lib/chat-state";
 import type { RequestDraft } from "@/lib/api-types";
 import { isValidGenerationId } from "@/lib/preview-url";
+import { isWebsiteTemplateId } from "@/lib/website-templates";
 
 const STORAGE_KEY = "rancang.chat-history";
 const STORAGE_VERSION = 1;
@@ -154,7 +155,8 @@ function isChatMessage(value: unknown): value is ChatMessage {
         && typeof value.status === "string"
         && INTAKE_STATUSES.has(value.status)
         && (value.isValidating === undefined || typeof value.isValidating === "boolean")
-        && (value.isError === undefined || typeof value.isError === "boolean");
+        && (value.isError === undefined || typeof value.isError === "boolean")
+        && (value.templateId === undefined || isWebsiteTemplateId(value.templateId));
     case "request_summary":
       return typeof value.prompt === "string"
         && value.prompt.length > 0

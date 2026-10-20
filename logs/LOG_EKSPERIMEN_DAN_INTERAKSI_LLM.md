@@ -7195,3 +7195,14 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Health setelah percobaan: generator utama termuat; `extractor_available=false` dan `extractor_loaded=false`. Belum ada inference extractor atau website yang dihasilkan. Pemakaian prompt-only tetap menunggu kandidat extractor yang lolos evaluasi dan seleksi.
 - ESLint, production build Next.js, dan dua regression test API/scorer lulus. UI localhost menjawab HTTP 200. Final/test tetap tertutup.
 - Rincian: `logs/RUN-663_prompt_first_fallback_ui_fix.txt`.
+
+## AI-048, rekomendasi template acak dan isi otomatis
+
+- Tanggal/waktu: 20 Oktober 2026, 20:07, Asia/Jakarta.
+- Konteks: pengguna meminta pilihan ide yang lebih sederhana, lalu mengarahkan agar tersedia 100 rekomendasi yang dapat diacak dan diganti.
+- Perubahan: layar awal menyediakan kumpulan 100 ide website. Tiga kartu ditampilkan sekaligus dan tombol **Acak ide** menggantinya dengan tiga ide lain. Memilih ide membuka form lengkap yang terisi otomatis.
+- Data template: seluruh nilai diberi label contoh fiktif dan status usaha default `fiktif`. Landing page mengisi tiga layanan, tiga langkah, dan tiga FAQ; company profile mengisi tiga layanan, tiga langkah, dan dua proyek. Nilai tetap dapat diedit sebelum validasi.
+- Batas alur: pemilihan dan pengacakan template hanya mengubah state lokal browser. Prompt bebas tetap memakai alur extractor yang tersedia. Tidak ada ekstraksi model, validasi intake, atau generation dalam review ini.
+- Verifikasi: katalog berisi 100 ID unik; ESLint, TypeScript production build, dan `git diff --check` lulus. Review browser berhasil mengacak tiga ide dan membuka template Toko pakaian preloved dengan field terisi serta status fiktif terpilih. Form tidak dikirim.
+- Batas bukti: konten contoh bersifat generik dan perlu disesuaikan dengan fakta usaha sebelum digunakan. API pada `127.0.0.1:8000` tidak berjalan saat review; pemilihan template tetap bekerja lokal, tetapi validasi intake dan generation tidak tersedia. Review visual dilakukan pada tampilan desktop; responsivitas mobile belum ditinjau untuk perubahan ini.
+- Rincian: `logs/RUN-664_randomized_website_templates.txt`.
