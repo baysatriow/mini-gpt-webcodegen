@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { Plus, Trash2 } from "lucide-react";
+import { ChevronDown, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import type { CatalogResponse, PageGenre, RequestDraft, StyleMode } from "@/lib/api-types";
@@ -51,6 +51,8 @@ const FALLBACK_STYLES = [
 ];
 const INPUT_CLASS = "mt-1.5 min-h-11 w-full rounded-xl border border-input bg-white px-3.5 py-2.5 text-sm text-harbor-ink placeholder:text-slate-note/70 focus-visible:border-primary";
 const TEXTAREA_CLASS = "mt-1.5 min-h-[86px] resize-y rounded-xl border-input bg-white px-3.5 py-2.5 text-sm leading-6 text-harbor-ink placeholder:text-slate-note/70 focus-visible:border-primary";
+const DISCLOSURE_CLASS = "group rounded-xl border border-border bg-white";
+const DISCLOSURE_SUMMARY_CLASS = "flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 rounded-xl px-3.5 py-3 transition-colors hover:bg-frost/70 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-primary [&::-webkit-details-marker]:hidden";
 
 function defaultAssetForGenre(genre: PageGenre): string {
   return genre === "landing_page" ? "studio-shapes" : "company-shapes";
@@ -144,6 +146,35 @@ export function BusinessFactsForm({
   const visibleAdditionalFacts = fields.additionalFacts
     .map((fact, index) => ({ fact, index }))
     .filter(({ fact }) => showField([`business_facts.${fact.kind}`]));
+  const showCoreFields = showField([
+    "genre",
+    "style_mode",
+    "business_facts.name",
+    "business_facts.description",
+    "business_facts.value",
+  ]);
+  const showServiceFields = showField(["business_facts.service", "business_facts.services"]);
+  const showBusinessSettings = showField(["fictitious", "asset_ids", "requested_features"]);
+  const completedServices = fields.services.filter((service) => service.title.trim() && service.text.trim()).length;
+  const requiredAdditionalFactCounts = fields.genre === "landing_page"
+    ? { process: 3, faq: 3 }
+    : { process: 3, project: 2 };
+  const requiredAdditionalFactCount = Object.values(requiredAdditionalFactCounts).reduce((total, count) => total + count, 0);
+  const completedAdditionalFactCount = Object.entries(requiredAdditionalFactCounts).reduce((total, [kind, count]) => {
+    const completeCount = fields.additionalFacts.filter(
+      (fact) => fact.kind === kind && fact.title.trim() && fact.text.trim(),
+    ).length;
+    return total + Math.min(count, completeCount);
+  }, 0);
+  const genreLabel = genres.find((option) => option.id === fields.genre)?.label ?? fields.genre;
+  const styleLabel = styles.find((option) => option.id === fields.styleMode)?.label ?? fields.styleMode;
+  const settingsSummary = `${fields.fictitious === "" ? "Status usaha belum dipilih" : fields.fictitious === "true" ? "Usaha fiktif" : "Usaha nyata"} · ${fields.assetIds.length} aset`;
+
+  function revealInvalidSection(event: FormEvent<HTMLFormElement>) {
+    if (!(event.target instanceof HTMLElement)) return;
+    const section = event.target.closest("details");
+    if (section instanceof HTMLDetailsElement) section.open = true;
+  }
 
   function updateService(index: number, key: keyof ServiceFields, value: string) {
     setFields((current) => ({
@@ -166,6 +197,7 @@ export function BusinessFactsForm({
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
+    const form = event.currentTarget;
     if (fields.fictitious === "") {
       setError("Pilih apakah usaha ini fiktif atau nyata.");
       return;
@@ -187,9 +219,14 @@ export function BusinessFactsForm({
       setIsSubmitting(true);
       await onSubmit(draft);
     } catch (submitError) {
-      setError(submitError instanceof DraftValidationError
-        ? submitError.message
-        : "Draft belum berhasil divalidasi. Periksa koneksi API lokal lalu coba lagi.");
+      if (submitError instanceof DraftValidationError) {
+        setError(submitError.message);
+        form.querySelectorAll("details").forEach((section) => {
+          section.open = true;
+        });
+      } else {
+        setError("Draft belum berhasil divalidasi. Periksa koneksi API lokal lalu coba lagi.");
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -233,7 +270,7 @@ export function BusinessFactsForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4 overflow-hidden rounded-2xl border border-border bg-paper shadow-[0_8px_30px_rgba(30,45,69,0.05)]">
+    <form onSubmit={handleSubmit} onInvalidCapture={revealInvalidSection} className="mt-4 overflow-hidden rounded-2xl border border-border bg-paper shadow-[0_8px_30px_rgba(30,45,69,0.05)]">
       <div className="border-b border-border bg-[#F4F2EC] px-4 py-3.5 sm:px-5">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div>
@@ -262,7 +299,18 @@ export function BusinessFactsForm({
         </div>
       ) : null}
 
-      <div className="space-y-5 px-4 py-4 sm:px-5 sm:py-5">
+      <div className="space-y-3 px-4 py-4 sm:px-5 sm:py-5">
+        {showCoreFields ? <details open className={DISCLOSURE_CLASS}>
+          <summary className={DISCLOSURE_SUMMARY_CLASS}>
+            <span className="min-w-0">
+              <span className="block text-sm font-semibold text-harbor-ink">Usaha dan tampilan</span>
+              <span className="mt-0.5 block truncate text-xs text-slate-note">
+                {fields.name.trim() || "Nama usaha belum diisi"} · {genreLabel} · {styleLabel}
+              </span>
+            </span>
+            <ChevronDown aria-hidden="true" className="size-4 shrink-0 text-slate-note transition-transform group-open:rotate-180" />
+          </summary>
+          <div className="grid gap-4 border-t border-border p-3.5 sm:p-4">
         {showField(["genre", "style_mode"]) ? <div className="grid gap-4 sm:grid-cols-2">
           {showField(["genre"]) ? <div>
             <label htmlFor="page-genre" className="text-sm font-medium text-harbor-ink">Jenis halaman</label>
@@ -330,8 +378,19 @@ export function BusinessFactsForm({
             placeholder="Apa yang penting atau berbeda dari usaha ini?"
           />
         </div> : null}
+          </div>
+        </details> : null}
 
-        {showField(["business_facts.service", "business_facts.services"]) ? <fieldset className="space-y-3">
+        {showServiceFields ? <details className={DISCLOSURE_CLASS}>
+          <summary className={DISCLOSURE_SUMMARY_CLASS}>
+            <span>
+              <span className="block text-sm font-semibold text-harbor-ink">Layanan</span>
+              <span className="mt-0.5 block text-xs text-slate-note">{completedServices} dari {fields.services.length} lengkap</span>
+            </span>
+            <ChevronDown aria-hidden="true" className="size-4 shrink-0 text-slate-note transition-transform group-open:rotate-180" />
+          </summary>
+          <div className="border-t border-border p-3.5 sm:p-4">
+        <fieldset className="space-y-3">
           <div className="flex items-end justify-between gap-3">
             <div>
               <legend className="text-sm font-medium text-harbor-ink">Layanan <span className="text-destructive">*</span></legend>
@@ -390,9 +449,20 @@ export function BusinessFactsForm({
               />
             </div>
           ))}
-        </fieldset> : null}
+        </fieldset>
+          </div>
+        </details> : null}
 
-        {visibleAdditionalFacts.length > 0 ? <fieldset className="space-y-3">
+        {visibleAdditionalFacts.length > 0 ? <details className={DISCLOSURE_CLASS}>
+          <summary className={DISCLOSURE_SUMMARY_CLASS}>
+            <span>
+              <span className="block text-sm font-semibold text-harbor-ink">Isi halaman</span>
+              <span className="mt-0.5 block text-xs text-slate-note">{completedAdditionalFactCount} dari {requiredAdditionalFactCount} rincian wajib lengkap</span>
+            </span>
+            <ChevronDown aria-hidden="true" className="size-4 shrink-0 text-slate-note transition-transform group-open:rotate-180" />
+          </summary>
+          <div className="border-t border-border p-3.5 sm:p-4">
+        <fieldset className="space-y-3">
           <div className="flex items-end justify-between gap-3">
             <div>
               <legend className="text-sm font-medium text-harbor-ink">Rincian untuk halaman <span className="text-destructive">*</span></legend>
@@ -468,8 +538,19 @@ export function BusinessFactsForm({
               </Button>
             </div>
           ))}
-        </fieldset> : null}
+        </fieldset>
+          </div>
+        </details> : null}
 
+        {showBusinessSettings ? <details className={DISCLOSURE_CLASS}>
+          <summary className={DISCLOSURE_SUMMARY_CLASS}>
+            <span>
+              <span className="block text-sm font-semibold text-harbor-ink">Pengaturan tambahan</span>
+              <span className="mt-0.5 block text-xs text-slate-note">{settingsSummary}</span>
+            </span>
+            <ChevronDown aria-hidden="true" className="size-4 shrink-0 text-slate-note transition-transform group-open:rotate-180" />
+          </summary>
+          <div className="space-y-4 border-t border-border p-3.5 sm:p-4">
         {showField(["fictitious"]) ? <fieldset className="space-y-2">
           <legend className="text-sm font-medium text-harbor-ink">Status usaha <span className="text-destructive">*</span></legend>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -546,6 +627,8 @@ export function BusinessFactsForm({
             <p className="pt-1 text-xs leading-5 text-slate-note">{catalog.scope_message}</p>
           </fieldset>
         ) : null}
+          </div>
+        </details> : null}
 
         {error ? (
           <p role="alert" className="rounded-lg border border-destructive/25 bg-destructive/5 px-3.5 py-2.5 text-sm text-destructive">

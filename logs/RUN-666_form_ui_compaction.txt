@@ -1,0 +1,26 @@
+RUN-666, peringkasan editor fakta halaman
+Tanggal/waktu: 26 Oktober 2026, 00:29, Asia/Jakarta
+
+Cakupan
+- Ringkas form fakta halaman dengan bagian native yang dapat dibuka atau ditutup.
+- Pertahankan field, template, nilai, dan validasi draft yang sudah ada.
+- Periksa lint, TypeScript, unit test, production build, dan diff Git.
+
+Perubahan
+- Bagian usaha dan tampilan terbuka saat form dimuat. Layanan, isi halaman, dan pengaturan tambahan dapat dibuka terpisah.
+- Ringkasan bagian menampilkan nama, jenis halaman, dan gaya hasil; jumlah layanan lengkap; jumlah rincian wajib lengkap; atau status usaha dan jumlah aset.
+- Event validasi HTML membuka bagian yang berisi kontrol tidak valid. Jika validator draft menolak isian, semua bagian dibuka supaya rincian yang perlu diperbaiki terlihat.
+- Isi usaha, jumlah layanan, fakta halaman, serta aturan validasi tetap menggunakan implementasi sebelumnya.
+
+Hasil pemeriksaan
+- `npm run lint`: lulus, exit 0.
+- `node --experimental-strip-types --test tests/request-draft.test.mjs`: 3/3 lulus. Node menampilkan warning package type yang sama seperti run sebelumnya.
+- `npx tsc --noEmit`: lulus, exit 0.
+- `npx next build` pada salinan aplikasi terisolasi: lulus, exit 0; Next.js mengompilasi dan membuat halaman statis. Salinan berada di `.tmp/ui-build-review-20261026002736` agar build tidak memakai direktori `.next` dari dev server yang aktif.
+- `git diff --check` dan audit em dash pada baris tambahan: lulus.
+- Git fetch origin berhasil sebelum commit.
+
+Batas verifikasi
+- Browser menolak inspeksi ke `http://127.0.0.1:3000/` berdasarkan kebijakan URL. Tidak ada screenshot atau interaksi browser untuk perubahan ini.
+- API FastAPI, model, inference, dan generation tidak dipanggil.
+- Pemeriksaan langsung melalui browser dan visual mobile masih belum tersedia.

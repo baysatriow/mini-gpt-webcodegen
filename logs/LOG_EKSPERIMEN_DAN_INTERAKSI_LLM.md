@@ -7218,3 +7218,12 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Next.js lokal menjawab HTTP 200 setelah build dan server dev dinyalakan kembali. FastAPI pada `127.0.0.1:8000` tidak listening. Karena itu katalog backend, validasi intake, generation, dan inference model tidak diuji. Form tidak dikirim.
 - `git fetch origin` berhasil sebelum pemeriksaan; branch fitur awalnya sinkron dengan remote. Pemeriksaan ini hanya menambahkan dokumentasi hasil test, tanpa mengubah kode aplikasi atau model.
 - Rincian: `logs/RUN-665_randomized_template_verification.txt`.
+
+## AI-050, peringkasan editor fakta halaman
+
+- Tanggal/waktu: 26 Oktober 2026, 00:29, Asia/Jakarta.
+- Konteks: pengguna menyetujui form yang lebih ringkas dengan bagian buka-tutup, semua fakta wajib dan validasi tetap dipertahankan.
+- Perubahan: editor fakta dikelompokkan menjadi usaha dan tampilan, layanan, isi halaman, serta pengaturan tambahan. Ringkasan tiap bagian memperlihatkan jenis halaman, jumlah layanan lengkap, jumlah rincian wajib lengkap, atau status usaha dan jumlah aset. Bagian usaha terbuka saat form dimuat. Kelompok dengan kontrol HTML wajib dibuka oleh event validasi; `DraftValidationError` juga membuka kelompok form agar isian yang belum lengkap terlihat.
+- Verifikasi: ESLint lulus, pemeriksaan tipe TypeScript lulus, unit test request draft 3/3 lulus, production build Next.js lulus dari salinan aplikasi terisolasi agar output dev server port 3000 tidak tertimpa, dan `git diff --check` lulus.
+- Batas bukti: kebijakan browser menghalangi inspeksi visual ke `127.0.0.1:3000`, sehingga tampilan langsung, toggle keyboard, dan interaksi form belum dikonfirmasi melalui browser. Tidak ada API, GPU, inference, atau generation yang dipanggil.
+- Rincian: `logs/RUN-666_form_ui_compaction.txt`.
