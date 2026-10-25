@@ -7227,3 +7227,14 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Verifikasi: ESLint lulus, pemeriksaan tipe TypeScript lulus, unit test request draft 3/3 lulus, production build Next.js lulus dari salinan aplikasi terisolasi agar output dev server port 3000 tidak tertimpa, dan `git diff --check` lulus.
 - Batas bukti: kebijakan browser menghalangi inspeksi visual ke `127.0.0.1:3000`, sehingga tampilan langsung, toggle keyboard, dan interaksi form belum dikonfirmasi melalui browser. Tidak ada API, GPU, inference, atau generation yang dipanggil.
 - Rincian: `logs/RUN-666_form_ui_compaction.txt`.
+
+## AI-051, menjalankan server lokal dan smoke test aplikasi
+
+- Tanggal/waktu: 26 Oktober 2026, 00:39, Asia/Jakarta.
+- Next.js sudah berjalan pada `127.0.0.1:3000`. FastAPI dijalankan satu worker melalui `.venv` pada `127.0.0.1:8000`; keduanya tetap terikat ke loopback dan tidak memakai tunnel.
+- ESLint, TypeScript, dan tes draft frontend lulus. Tes API berbasis `unittest` lulus 2/2. `pytest` tidak tersedia di `.venv`, sehingga tidak dipasang untuk pemeriksaan ini.
+- Health API menjawab `ok` dengan generator dan extractor belum dimuat. Katalog memuat dua jenis halaman, dua gaya, dan tujuh capability di luar cakupan. OpenAPI memuat seluruh route utama.
+- Draft landing page fiktif dengan fakta lengkap melewati `/intake/validate` dengan status `ready` tanpa fakta yang kurang. `/intake/extract` menjawab 503 `extractor_unavailable`, sesuai karena selection extractor belum tersedia. Health sesudahnya tetap menunjukkan semua model belum dimuat.
+- Tidak dijalankan training atau generation model. RTX 5070 sedang menunjukkan 3.846 MiB terpakai dan proses Python lain terdaftar; tidak ada inferensi baru agar tidak berbagi GPU saat proses tersebut berlangsung. Data test dan final tetap tertutup.
+- Batas bukti: Next.js terdeteksi listening, tetapi inspeksi browser ke port 3000 ditolak kebijakan, jadi review visual dan interaksi antarmuka belum diverifikasi. Build terisolasi tercatat di RUN-666, bukan dijalankan ulang pada run ini.
+- Rincian: `logs/RUN-667_local_ui_api_smoke_tests.txt`.

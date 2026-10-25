@@ -1,0 +1,34 @@
+RUN-667, menjalankan server lokal dan smoke test aplikasi
+Tanggal/waktu: 26 Oktober 2026, 00:39, Asia/Jakarta
+
+Cakupan
+- Menjalankan FastAPI secara lokal dan memeriksa server Next.js yang sudah aktif.
+- Memeriksa lint, tipe TypeScript, unit test draft, kontrak dasar API, dan validasi draft halaman fiktif.
+- Tidak membuka tunnel, tidak menjalankan training, dan tidak memakai data test atau final.
+
+Server
+- Next.js ditemukan listening pada 127.0.0.1:3000, PID 62980.
+- FastAPI dijalankan dengan perintah `.venv\Scripts\python.exe -m uvicorn apps.api.main:app --host 127.0.0.1 --port 8000 --workers 1`, PID 51596.
+- Kedua server hanya bind ke loopback. FastAPI tetap berjalan setelah pemeriksaan.
+- Environment proyek melaporkan Python 3.11.9, PyTorch 2.14.1+cu130, CUDA tersedia, dan NVIDIA GeForce RTX 5070.
+
+Pemeriksaan frontend
+- `npm run lint`: lulus, exit 0.
+- `npx tsc --noEmit`: lulus, exit 0.
+- `node --experimental-strip-types --test tests/request-draft.test.mjs`: 3/3 lulus. Node menampilkan warning bahwa `package.json` belum menetapkan `type: module`; tidak ada test yang gagal.
+
+Pemeriksaan API
+- `python -m unittest discover -s tests/api -p 'test*.py' -v`: 2/2 lulus.
+- GET `/api/v1/health`: HTTP berhasil, status `ok`; `model_loaded`, `generator_loaded`, `extractor_available`, dan `extractor_loaded` semuanya `false`.
+- GET `/api/v1/catalog`: berhasil; dua genre, dua mode gaya, dan tujuh capability di luar cakupan tersedia.
+- GET `/openapi.json`: route health, catalog, intake validate, intake extract, dan generation tersedia.
+- POST `/api/v1/intake/validate` untuk satu brief landing page fiktif dengan semua fakta wajib: `ready`, `missing_fields` kosong.
+- POST `/api/v1/intake/extract` untuk brief sintetis: HTTP 503 `extractor_unavailable`, sesuai gate karena `training/selected/request-extract-v1/selection.json` belum ada.
+- GET health setelah kedua request: semua flag model tetap `false`, membuktikan pemeriksaan ini tidak memuat model.
+- `pytest` tidak terpasang di `.venv`; paket tidak ditambahkan karena suite API yang ada berbasis `unittest` dan berhasil.
+
+Batas verifikasi
+- Tidak menjalankan inference atau generation. RTX 5070 menunjukkan pemakaian 3.846 MiB dan PID Python 59176 juga tercatat pada daftar proses GPU; proses tersebut tidak dihentikan atau diubah.
+- Tidak meninjau UI melalui browser. Kebijakan sebelumnya menolak inspeksi `http://127.0.0.1:3000/`, jadi status listening tidak dianggap bukti tampilan atau interaksi visual.
+- Build production terisolasi sudah tercatat pada RUN-666 dan tidak dijalankan ulang.
+- Tidak membaca atau mengubah data test/final. Validasi menggunakan fakta fiktif yang dibuat khusus untuk smoke test ini.
