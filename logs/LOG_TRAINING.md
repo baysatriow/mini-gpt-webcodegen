@@ -1225,7 +1225,7 @@ Tujuan V5 adalah mengurangi kesalahan penyalinan identitas dengan meminta model 
 
 - RUN-593 completed normally at global_step=3600 and last_committed_step=3600. The report and exact-resume checkpoint verification passed.
 - The current V5 config SHA-256 and report config SHA-256 both equal 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186.
-- TRAIN-026 resumed from checkpoints/TRAIN-025/last.pt, whose verified digest is 7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339. The completed checkpoint digest is cc586807fe8db32ae04f746e7684642b36f7f1652cfca3339b11cfd5b8f179c5.
+- TRAIN-026 resumed from checkpoints/TRAIN-025/last.pt, whose verified digest is e7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339. The completed checkpoint digest is cc586807fe8db32ae04f746e7684642b36f7f1652cfca3339b11cfd5b8f179c5.
 - Final training-loop validation cross-entropy is 0.005312048531726459. It is not a full-page generation score.
 - The user correctly asked for another F: storage check. The training engine's shutil.disk_usage currently reports 26.919 GiB free, about 10.879 GiB above its frozen reserve plus checkpoint allowance.
 - Candidate snapshots, generation output directories, and report paths for the 1,800 and 3,600 comparisons are absent. Continue with the approved fixed 80-request development comparison. Final/test data remain unopened.
@@ -1240,7 +1240,7 @@ Immutable weights-only snapshots passed the project snapshot utility. TRAIN-025 
 
 TRAIN-025 step 1,800 development result
 
-Kandidat step 1.800 mendapat 80/80 halaman lengkap, 0 kegagalan, model_gate=true, dan pemeriksaan facts/links/assets lulus. Report development memastikan inal_used=false dan checkpoint cocok dengan snapshot. Ini hasil validator/pipeline, belum review visual browser. Evaluasi step 3.600 masih diperlukan sebelum laporan seleksi final dibuat.
+Kandidat step 1.800 mendapat 80/80 halaman lengkap, 0 kegagalan, model_gate=true, dan pemeriksaan facts/links/assets lulus. Report development memastikan final_used=false dan checkpoint cocok dengan snapshot. Ini hasil validator/pipeline, belum review visual browser. Evaluasi step 3.600 masih diperlukan sebelum laporan seleksi final dibuat.
 
 TRAIN-026 step-3600 development preflight
 
@@ -1248,15 +1248,15 @@ Sebelum evaluasi kandidat kedua, free space dicek ulang menjadi 26,802 GiB. Head
 
 TRAIN-026 step 3.600 development result
 
-Kandidat step 3.600 memperoleh 80/80 halaman lengkap, 0 kegagalan, model_gate=true, dan pemeriksaan facts/links/assets lulus. Request SHA-256 cocok dengan kandidat step 1.800. Report memastikan inal_used=false. Kedua kandidat mencapai gate, sehingga selector beku akan memakai jumlah halaman lengkap, lalu CE ordinary sebagai tie-breaker, dan step lebih awal jika tetap seri. Review visual browser belum dilakukan.
+Kandidat step 3.600 memperoleh 80/80 halaman lengkap, 0 kegagalan, model_gate=true, dan pemeriksaan facts/links/assets lulus. Request SHA-256 cocok dengan kandidat step 1.800. Report memastikan final_used=false. Kedua kandidat mencapai gate, sehingga selector beku akan memakai jumlah halaman lengkap, lalu CE ordinary sebagai tie-breaker, dan step lebih awal jika tetap seri. Review visual browser belum dilakukan.
 
 ### RUN-596 selector preflight
 
-Dua report development cocok pada 80 request yang sama, 80/80 lengkap, model_gate=true, facts/links/assets valid, dan inal_used=false. Checkpoint dan hash report training sudah tertaut lewat snapshot masing-masing. Output selector belum ada dan tidak akan menimpa file. Berikutnya jalankan selector resmi dengan aturan beku: halaman lengkap terbanyak, CE biasa sebagai tie-breaker, lalu step lebih awal jika seri. Test/final tetap tertutup.
+Dua report development cocok pada 80 request yang sama, 80/80 lengkap, model_gate=true, facts/links/assets valid, dan final_used=false. Checkpoint dan hash report training sudah tertaut lewat snapshot masing-masing. Output selector belum ada dan tidak akan menimpa file. Berikutnya jalankan selector resmi dengan aturan beku: halaman lengkap terbanyak, CE biasa sebagai tie-breaker, lalu step lebih awal jika seri. Test/final tetap tertutup.
 
 ### RUN-596 selector attempt 1: rejected report identity, no selection
 
-Selector berhenti karena report evaluasi menyebut path dan manifest V5, sedangkan kontrak selection membekukan path dan manifest V4. Ini bukan kegagalan halaman atau data yang berubah. Hash file request validation V4 dan V5 identik (2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836) dan hash canonical 80 request identik (4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173). Semua 160 halaman hasil generation dan identitas checkpoint cocok. Selector tidak menulis laporan pilihan. Berikutnya evaluator dijalankan ulang dengan path dataset V4 dan --resume ke folder hasil yang sama, memakai report path baru. Dengan begitu metadata report memenuhi kontrak V4 dan output halaman digunakan kembali. Final tetap tertutup.
+Selector berhenti karena report evaluasi menyebut path dan manifest V5, sedangkan kontrak selection membekukan path dan manifest V4. Ini bukan kegagalan halaman atau data yang berubah. Hash file request validation V4 dan V5 identik (2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836) dan hash canonical 80 request identik (e4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173). Semua 160 halaman hasil generation dan identitas checkpoint cocok. Selector tidak menulis laporan pilihan. Berikutnya evaluator dijalankan ulang dengan path dataset V4 dan --resume ke folder hasil yang sama, memakai report path baru. Dengan begitu metadata report memenuhi kontrak V4 dan output halaman digunakan kembali. Final tetap tertutup.
 
 ### RUN-597 preflight: rebind reports to the frozen V4 request source
 
@@ -1269,7 +1269,7 @@ Preflight confirms the V4 and V5 request bytes and canonical request objects are
 | 1,800 | TRAIN-025 | 80/80 | 80/80 | 0.004538349198307462 | Passed |
 | 3,600 | TRAIN-026 | 80/80 | 80/80 | 0.005312048531726459 | Passed |
 
-The frozen selector status is passed and selected TRAIN-025 step 1,800. Both candidates tie at 80 complete pages, so lower ordinary development CE selects step 1,800. The exact facts/links/assets checks passed for both. inal_used=false. This proves the machine validator and development contract gate on these 80 requests. Browser and human visual review remain pending, so this is not yet a visual quality claim or final readiness claim. The first selector attempt is preserved in RUN-596; it failed only because the report was labeled with the V5 manifest/path while the selector correctly required the V4 frozen request identity. RUN-597 rebuilt report metadata by resuming the existing outputs and passed.
+The frozen selector status is passed and selected TRAIN-025 step 1,800. Both candidates tie at 80 complete pages, so lower ordinary development CE selects step 1,800. The exact facts/links/assets checks passed for both. final_used=false. This proves the machine validator and development contract gate on these 80 requests. Browser and human visual review remain pending, so this is not yet a visual quality claim or final readiness claim. The first selector attempt is preserved in RUN-596; it failed only because the report was labeled with the V5 manifest/path while the selector correctly required the V4 frozen request identity. RUN-597 rebuilt report metadata by resuming the existing outputs and passed.
 
 ### RUN-642: prompt extractor corpus prepared, no training yet
 

@@ -4688,7 +4688,7 @@ p=j(\"reports/training/FULLPAGE-GPU-005.json\"); print(\"GPU\",json.dumps([{k:r.
 - **Waktu:** 2026-10-14T18:19:34.3451387+07:00 sampai 2026-10-14T18:19:42.8726404+07:00.
 - **Tujuan:** Menjalankan uji komposisi source-bound sebelum komposer tersedia untuk membuktikan perilaku gagal yang diharapkan.
 - **Command:**  .\\.venv\\Scripts\\python.exe -m unittest tests.fullpage.test_source_bound_compose -v .
-- **Commit:** base 6e45e486ae8b3a0bda1d208ef3bfe855baf8531; uji dan fixture belum di-commit.
+- **Commit:** base a6e45e486ae8b3a0bda1d208ef3bfe855baf8531; uji dan fixture belum di-commit.
 - **Hasil:** exit 1; gagal pada impor modul komposer yang belum dibuat, seperti diharapkan.
 - **Output lengkap:** $outPath.
 ### RUN-398
@@ -6471,7 +6471,7 @@ RUN-592 lulus preflight segar, termasuk source lineage, checkpoint/report TRAIN-
 
 ## RUN-593, hasil training TRAIN-026
 
-TRAIN-026 selesai normal pada global step 3.600 dan last_committed_step=3600. Config beku dan digest report cocok. Checkpoint parent TRAIN-025 yang digunakan saat resume ber-hash 7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339; checkpoint TRAIN-026 ber-hash cc586807fe8db32ae04f746e7684642b36f7f1652cfca3339b11cfd5b8f179c5. Loss validasi internal training 0,005312048531726459 adalah cross-entropy token, bukan nilai kualitas halaman. Cek ulang drive F menunjukkan 26,919 GiB kosong. Tahap berikutnya membandingkan snapshot step 1.800 dan 3.600 pada 80 prompt development yang sama. Data test/final tetap tertutup.
+TRAIN-026 selesai normal pada global step 3.600 dan last_committed_step=3600. Config beku dan digest report cocok. Checkpoint parent TRAIN-025 yang digunakan saat resume ber-hash e7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339; checkpoint TRAIN-026 ber-hash cc586807fe8db32ae04f746e7684642b36f7f1652cfca3339b11cfd5b8f179c5. Loss validasi internal training 0,005312048531726459 adalah cross-entropy token, bukan nilai kualitas halaman. Cek ulang drive F menunjukkan 26,919 GiB kosong. Tahap berikutnya membandingkan snapshot step 1.800 dan 3.600 pada 80 prompt development yang sama. Data test/final tetap tertutup.
 
 ## RUN-595, perbandingan development V5 dimulai
 
@@ -6479,11 +6479,11 @@ RUN-595 menyiapkan snapshot bobot TRAIN-025 step 1.800 dan TRAIN-026 step 3.600,
 
 ## Hasil kandidat step 1.800
 
-Evaluasi development TRAIN-025 mencapai 80/80 halaman accepted dari 80 request, tanpa kegagalan, model_gate=true, dan pemeriksaan fakta/tautan/aset lulus. Request set SHA-256 4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173; checkpoint SHA-256 c1a450149eb8f860cc42595bba283e0f9e915a436f38f967516bc5107bd1c446. Final tidak digunakan. Pemeriksaan visual manusia/browser belum dijalankan. Lanjutkan evaluasi step 3.600 sebelum menentukan kandidat terpilih.
+Evaluasi development TRAIN-025 mencapai 80/80 halaman accepted dari 80 request, tanpa kegagalan, model_gate=true, dan pemeriksaan fakta/tautan/aset lulus. Request set SHA-256 e4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173; checkpoint SHA-256 c1a450149eb8f860cc42595bba283e0f9e915a436f38f967516bc5107bd1c446. Final tidak digunakan. Pemeriksaan visual manusia/browser belum dijalankan. Lanjutkan evaluasi step 3.600 sebelum menentukan kandidat terpilih.
 
 ## Hasil kandidat step 3.600
 
-TRAIN-026 step 3.600 mencapai 80/80 halaman accepted, model_gate=true, facts/links/assets valid, dan inal_used=false. Request SHA-256 identik dengan evaluasi step 1.800: 4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173. Kedua kandidat memenuhi gate. Jalankan selector resmi sebelum menetapkan kandidat terpilih. Belum ada review visual browser.
+TRAIN-026 step 3.600 mencapai 80/80 halaman accepted, model_gate=true, facts/links/assets valid, dan final_used=false. Request SHA-256 identik dengan evaluasi step 1.800: e4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173. Kedua kandidat memenuhi gate. Jalankan selector resmi sebelum menetapkan kandidat terpilih. Belum ada review visual browser.
 
 ## Interaksi AI, penyebab selector mismatch
 
@@ -7270,3 +7270,13 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Lint, TypeScript, build, tes web 11/11, API unittest 2/2, dan `git diff --check` lulus. Peringatan Node pada tes terkait deteksi module type dan tidak menggagalkan tes.
 - Batas bukti: generation/inference end-to-end dan inspeksi visual browser tidak dilakukan. Koneksi tunnel tidak dianggap bukti halaman publik berfungsi. Data test/final tidak dibuka.
 - Rincian: `logs/RUN-670_ui_followup_rebuild.txt`.
+## AI-055, audit kebersihan GitHub dan karantina file
+
+- Tanggal/waktu: 26 Oktober 2026, 11:55-12:00, Asia/Jakarta.
+- Branch feature sudah di-fetch dan sama dengan origin sebelum perubahan.
+- Audit menemukan komponen Tooltip tidak memiliki pemakai UI. File dipindahkan dari `apps/web/src/components/ui/tooltip.tsx` ke `sampah/apps/web/src/components/ui/tooltip.tsx`, dan `TooltipProvider` dilepas dari layout global.
+- Indeks `sampah/README.md` menjelaskan alasan dan cara pemulihan. File tidak dihapus.
+- Log, laporan, dataset, notebook, provenance, dan gallery AI-018 lama dipertahankan karena masih dirujuk atau merekam bukti eksperimen.
+- Karakter kontrol pada tiga log historis dipulihkan berdasarkan hash di objek commit, report/config, dan catatan training terkait. Pemindaian ulang 3.268 file teks tidak menemukan karakter kontrol tersisa.
+- Lint, TypeScript, pencarian referensi aktif, dan `git diff --check` lulus. Test suite, production build, dan inspeksi browser tidak dijalankan; server yang berjalan tidak direstart.
+- Rincian: `logs/RUN-671_github_cleanup_audit.txt`.
