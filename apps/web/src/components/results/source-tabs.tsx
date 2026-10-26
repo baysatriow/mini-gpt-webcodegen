@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check, Copy, Download, FileCode, LoaderCircle, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { SourceFilename, SourceResponse } from "@/lib/api-types";
 import { copyTextToClipboard } from "@/lib/clipboard";
+import { formatSourceCode } from "@/lib/source-format";
 
 export type SourceLoadState =
   | { status: "idle" }
@@ -33,6 +34,33 @@ export function SourceTabs({ generationId, state, onRetry, onDownload }: SourceT
   const [downloading, setDownloading] = useState(false);
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
   const [downloadError, setDownloadError] = useState<string | null>(null);
+  const [formattedSource, setFormattedSource] = useState<Partial<Record<SourceFilename, {
+    original: string;
+    display: string;
+    status: "formatted" | "fallback";
+  }>>>({});
+
+  useEffect(() => {
+    if (state.status !== "loaded") return;
+
+    let active = true;
+    const source = state.source;
+    void Promise.all(SOURCE_FILES.map(async (file) => {
+      const original = source[file] || "";
+      try {
+        return { file, original, display: await formatSourceCode(file, original), status: "formatted" as const };
+      } catch {
+        return { file, original, display: original, status: "fallback" as const };
+      }
+    })).then((entries) => {
+      if (!active) return;
+      setFormattedSource(Object.fromEntries(entries.map(({ file, ...entry }) => [file, entry])));
+    });
+
+    return () => {
+      active = false;
+    };
+  }, [state]);
 
   async function downloadCurrentFile() {
     setDownloading(true);
@@ -48,7 +76,9 @@ export function SourceTabs({ generationId, state, onRetry, onDownload }: SourceT
 
   async function copyCurrentCode() {
     if (state.status !== "loaded") return;
-    const code = state.source[filename];
+    const original = state.source[filename] || "";
+    const formatted = formattedSource[filename];
+    const code = formatted?.original === original ? formatted.display : original;
     if (!code) return;
     const copied = await copyTextToClipboard(code);
     setCopyStatus(copied ? "copied" : "failed");
@@ -129,15 +159,29 @@ export function SourceTabs({ generationId, state, onRetry, onDownload }: SourceT
 
           {/* Code Content */}
           {SOURCE_FILES.map((file) => {
-            const content = state.source[file] || "";
+            const original = state.source[file] || "";
+            const formatted = formattedSource[file];
+            const content = formatted?.original === original ? formatted.display : original;
             const lines = content.split("\n").length;
             return (
               <TabsContent key={file} value={file} className="m-0 min-h-0 flex-1 overflow-auto p-4 sm:p-5">
-                <div className="mb-2 flex items-center justify-between text-[11px] text-slate-400 font-mono border-b border-white/5 pb-2">
+                <div className="mb-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-b border-white/5 pb-2 font-mono text-[11px] text-slate-400">
                   <span>{file}</span>
-                  <span>{lines} baris · {content.length} karakter</span>
+                  <div className="flex flex-wrap items-center justify-end gap-x-2">
+                    <span>{lines} baris · {original.length} karakter</span>
+                    <span
+                      title="Source ditata untuk dibaca. Berkas unduhan tetap menggunakan artefak asli."
+                      aria-live="polite"
+                    >
+                      {formatted?.original !== original
+                        ? "Memformat…"
+                        : formatted.status === "fallback"
+                          ? "Source asli"
+                          : "Tampilan terformat"}
+                    </span>
+                  </div>
                 </div>
-                <pre className="min-w-0 font-mono text-xs leading-6 text-slate-200 selection:bg-blue-600/40 sm:text-[13px]">
+                <pre className="min-w-0 whitespace-pre-wrap break-words font-mono text-xs leading-6 text-slate-200 selection:bg-blue-600/40 sm:text-[13px]">
                   <code>{content}</code>
                 </pre>
               </TabsContent>

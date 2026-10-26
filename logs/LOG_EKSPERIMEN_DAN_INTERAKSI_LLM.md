@@ -7308,3 +7308,22 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Pemeriksaan publik tanpa login: `/` mengarah ke `/login` dengan 307, `/login` memberi 200, dan `/api/v1/health` memberi 401. Browser memuat form login HTTPS. Uji sesi valid dan API Usage dilakukan lokal tanpa menyertakan kredensial di log.
 - Batas deployment: ini tunnel preview sementara, bukan hosting produksi dengan uptime tetap. URL akan berubah setelah proses tunnel berhenti atau dimulai ulang. Kredensial akses disampaikan terpisah kepada pemilik.
 - Batas fungsi: health API tetap menunjukkan model dan extractor belum tersedia. Tidak ada generation atau inference selama deploy.
+
+## AI-057, diagnosis source viewer dan pratinjau website
+
+- Tanggal/waktu: 26 Oktober 2026, 13:29, Asia/Jakarta.
+- Penyebab kode tampak satu baris: renderer menyusun HTML tanpa pemformatan, Tailwind CLI menyimpan CSS dalam mode minify, dan panel Kode sebelumnya menampilkan source mentah langsung.
+- Panel Kode kini memformat HTML, CSS, dan JavaScript secara lazy untuk tampilan dengan Prettier. Pengaturan memakai lebar target 100 karakter dan indentasi dua spasi. Jika parsing gagal, panel kembali menampilkan source asli. Tombol Salin memakai format yang terlihat; unduhan file per tab dan ZIP tetap mengambil artefak asli.
+- Contoh tersimpan `examples/generated/AI-018-last-v2/page0279-tailwind` memiliki status generation `accepted`. Referensi lokal ke `styles.css`, `app.js`, dan ilustrasi tersedia. CSS berisi rule layout dan utility Tailwind yang dipakai halaman; hook menu dan formulir hadir di HTML serta JavaScript. Ini pemeriksaan struktur source, bukan bukti visual browser.
+- Browser memperlihatkan halaman awal generator pada tunnel lama, bukan hasil generate. Tab localhost tidak dapat diinspeksi oleh browser tool dalam sesi ini. Tidak ada generation atau inference baru; laporan terakhir RUN-672 mencatat model dan extractor unavailable.
+- Tes formatter regresi pertama gagal karena modul formatter belum dibuat, lalu tiga tes formatter lulus. Setelah perubahan, tes web 21/21, ESLint, TypeScript, dan production build Next.js 16.4.1 lulus. Tes Node menampilkan peringatan module type pada file TypeScript yang diimpor langsung oleh test runner.
+- `npm install` melaporkan 5 advisory pada dependency tree, terdiri dari 1 moderate dan 4 high. Advisory belum dianalisis dalam pekerjaan ini.
+- Pemeriksaan visual aktual pada hasil AI tetap menunggu halaman hasil yang bisa diamati. Data test/final dan pipeline training tidak diubah.
+
+## RUN-674, muat ulang server setelah pembaruan code viewer
+
+- Tanggal/waktu: 26 Oktober 2026, 13:32, Asia/Jakarta.
+- Production build terakhir lulus. Tes web 21/21, ESLint, dan TypeScript lulus.
+- Next.js production dimulai ulang sesudah build pada `127.0.0.1:3000`, PID 53612. Listener FastAPI tetap pada `127.0.0.1:8000`, PID 58012. Proses Cloudflare Tunnel PID 37708 tetap berjalan.
+- Log tunnel mengeluarkan satu timeout DNS saat menyegarkan resolver `region1.v2.argotunnel.com`; pembacaan berikutnya belum mengonfirmasi koneksi publik pulih. Tidak ada pemeriksaan melalui tunnel yang dianggap berhasil.
+- Pengamatan visual lokal masih diblokir kebijakan URL browser. Generation/inference tidak dijalankan dan source/model training tidak diubah.
