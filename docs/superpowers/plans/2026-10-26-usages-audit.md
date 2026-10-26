@@ -134,10 +134,10 @@
 
 - [x] **Step 1: Append a dated project interaction/audit log entry** with scope, checks, outcomes, and limits; no prompt content or secrets.
 - [x] **Step 2: Run the focused API and full frontend verification commands** and inspect `git diff --check`, `git status`, and the exact staged diff.
-- [ ] **Step 3: Commit with a plain message and no co-author trailer, then push the current feature branch**; verify remote SHA and branch state.
+- [x] **Step 3: Commit with a plain message and no co-author trailer, then push the current feature branch**; verify remote SHA and branch state.
 - [x] **Step 4: Prepare an ignored local auth environment with a fresh high-entropy temporary password and session secret; stop/restart services only after confirming listeners and preserving current browser drafts.**
 - [x] **Step 5: Verify unauthenticated UI redirect and API 401, valid login, authenticated health/Usage summary, and no model load/inference from Usage.**
-- [ ] **Step 6: Start or reuse Cloudflare Quick Tunnel to Next.js port 3000 only after the auth gate succeeds; verify the HTTPS URL, communicate the temporary credentials privately in the final answer, and state that the URL expires or changes when the tunnel restarts.**
+- [x] **Step 6: Start or reuse Cloudflare Quick Tunnel to Next.js port 3000 only after the auth gate succeeds; verify the HTTPS URL, communicate the temporary credentials privately in the final answer, and state that the URL expires or changes when the tunnel restarts.**
 
 ## Self-Review
 

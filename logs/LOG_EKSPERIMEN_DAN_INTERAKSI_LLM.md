@@ -7298,3 +7298,13 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Health API `ok`; `model_loaded`, `extractor_available`, `extractor_loaded`, dan `generator_loaded` semuanya `false`. GPU current terdeteksi sebagai NVIDIA GeForce RTX 5070. Riwayat kosong karena tidak ada inference yang dijalankan.
 - Batas bukti: generasi dan inference tidak diuji. Full Python suite yang dijalankan sebelumnya menghasilkan 163/164 lulus; satu kegagalan baseline pada `fullpage.test_source_bound_lineage.SourceBoundLineageFixture` berasal dari checksum fixture training yang berbeda dari hash yang dikunci di `src/fullpage/lineage.py`. Kedua file bersih dari perubahan dan data training tidak diubah.
 - Rincian: spesifikasi `docs/superpowers/specs/2026-10-26-usages-audit-design.md` dan rencana `docs/superpowers/plans/2026-10-26-usages-audit.md`.
+
+## RUN-673, push dan tunnel preview terautentikasi
+
+- Tanggal/waktu: 26 Oktober 2026, 13:15, Asia/Jakarta.
+- Commit `9f0a570` (`Add Usage audit dashboard and access gate`) sudah dipush ke `origin/feature/pipeline-data-model-training` tanpa trailer co-author. Catatan tahap deploy ini menyusul sebagai commit dokumentasi.
+- Production server Next.js 16.4.1 dimulai ulang setelah build terbaru pada `127.0.0.1:3000`. FastAPI tetap pada `127.0.0.1:8000`; kedua listener hanya bind ke loopback.
+- Cloudflare Quick Tunnel aktif melalui QUIC ke Next.js port 3000: `https://banner-volumes-basketball-taxi.trycloudflare.com`. FastAPI tidak dipublikasikan langsung.
+- Pemeriksaan publik tanpa login: `/` mengarah ke `/login` dengan 307, `/login` memberi 200, dan `/api/v1/health` memberi 401. Browser memuat form login HTTPS. Uji sesi valid dan API Usage dilakukan lokal tanpa menyertakan kredensial di log.
+- Batas deployment: ini tunnel preview sementara, bukan hosting produksi dengan uptime tetap. URL akan berubah setelah proses tunnel berhenti atau dimulai ulang. Kredensial akses disampaikan terpisah kepada pemilik.
+- Batas fungsi: health API tetap menunjukkan model dan extractor belum tersedia. Tidak ada generation atau inference selama deploy.
