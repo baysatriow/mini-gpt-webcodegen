@@ -117,7 +117,7 @@ export function Composer({
         </div>
 
         <p className="mt-2 text-center text-[11px] leading-4 text-muted-foreground">
-          Enter untuk kirim · Shift+Enter untuk baris baru · Hasil dibuat secara lokal di perangkat Anda.
+          Brief tersimpan secara lokal · Generate perlu model dan extractor aktif.
         </p>
       </form>
     </div>

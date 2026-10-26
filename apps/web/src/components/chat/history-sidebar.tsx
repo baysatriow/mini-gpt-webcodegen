@@ -3,11 +3,11 @@
 import { useMemo, useState } from "react";
 import {
   Clock3,
+  Globe,
   MessageSquare,
   Plus,
   Search,
   Trash2,
-  WandSparkles,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -46,7 +46,7 @@ export function HistorySidebar({
       <div className="flex items-center justify-between px-4 pb-4 pt-5">
         <div className="flex items-center gap-3">
           <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white shadow-sm shadow-blue-500/25">
-            <WandSparkles aria-hidden="true" className="size-4.5" />
+            <Globe aria-hidden="true" className="size-4.5" />
           </span>
           <div className="min-w-0">
             <div className="flex items-center gap-1.5">
@@ -64,15 +64,10 @@ export function HistorySidebar({
       <div className="px-3 pt-1">
         <Button
           onClick={onNew}
-          className="h-9.5 w-full justify-between rounded-xl bg-primary text-primary-foreground shadow-sm shadow-primary/20 hover:bg-primary/90 transition-all font-medium text-xs px-3"
+          className="h-9.5 w-full justify-center gap-2 rounded-xl bg-primary text-primary-foreground shadow-sm shadow-primary/20 hover:bg-primary/90 transition-all font-medium text-xs px-3"
         >
-          <span className="flex items-center gap-2">
-            <Plus aria-hidden="true" className="size-4" />
-            Percakapan Baru
-          </span>
-          <kbd className="hidden sm:inline-block rounded bg-primary-foreground/20 px-1.5 py-0.5 text-[10px] text-primary-foreground/80 font-mono">
-            Baru
-          </kbd>
+          <Plus aria-hidden="true" className="size-4" />
+          <span>Percakapan Baru</span>
         </Button>
       </div>
 

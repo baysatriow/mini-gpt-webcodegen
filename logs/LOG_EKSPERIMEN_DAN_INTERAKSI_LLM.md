@@ -7259,3 +7259,14 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - ESLint, TypeScript, production build, `git diff --check`, tes web 11/11, dan unittest API 2/2 lulus.
 - Batas bukti: generator belum dimuat dan extractor belum tersedia, sehingga generation dan inference tidak diuji. Tampilan browser dan halaman publik tunnel tidak dibuka; koneksi server dan tunnel saja tidak membuktikan tampilan atau interaksi end-to-end.
 - Rincian: `logs/RUN-669_ui_ux_runtime_recheck.txt`.
+
+## AI-054, tindak lanjut source UI dan rebuild production
+
+- Tanggal/waktu: 26 Oktober 2026, 11:47-11:51, Asia/Jakarta.
+- Pemeriksaan tambahan pada source terbaru menemukan import ikon pemuatan yang tersisa setelah UI beralih ke `LoaderCircle`. Import dibersihkan dan lint serta TypeScript kembali lulus.
+- Copy composer dibuat jujur terhadap status runtime: brief tersimpan lokal, sedangkan generate memerlukan model dan extractor aktif.
+- Build produksi Next.js 16.4.1 berhasil dan server aktif pada `127.0.0.1:3000`, PID 58716. FastAPI aktif pada `127.0.0.1:8000`, PID 62792; Quick Tunnel tetap terhubung lewat proses cloudflared PID 29040.
+- Health API `ok`, contract `request-draft-source-bound-v1`, tetapi `model_loaded`, `extractor_available`, `extractor_loaded`, dan `generator_loaded` bernilai `false`.
+- Lint, TypeScript, build, tes web 11/11, API unittest 2/2, dan `git diff --check` lulus. Peringatan Node pada tes terkait deteksi module type dan tidak menggagalkan tes.
+- Batas bukti: generation/inference end-to-end dan inspeksi visual browser tidak dilakukan. Koneksi tunnel tidak dianggap bukti halaman publik berfungsi. Data test/final tidak dibuka.
+- Rincian: `logs/RUN-670_ui_followup_rebuild.txt`.

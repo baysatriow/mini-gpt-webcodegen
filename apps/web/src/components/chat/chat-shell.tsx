@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { PanelLeft, PanelRight, Sparkles } from "lucide-react";
+import { Code2, Layout, LoaderCircle, MessageSquare, PanelLeft, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -536,8 +536,8 @@ export function ChatShell() {
   if (!state.restored || !activeSession) {
     return (
       <main className="grid min-h-svh place-items-center bg-frost text-sm text-slate-note" aria-busy="true">
-        <div className="flex items-center gap-2 rounded-xl border border-border bg-paper px-4 py-3">
-          <Sparkles aria-hidden="true" className="size-4 text-cobalt-action" />
+        <div className="flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-3 shadow-xs">
+          <LoaderCircle aria-hidden="true" className="size-4 animate-spin text-primary" />
           Menyiapkan workspace lokal…
         </div>
       </main>
@@ -616,7 +616,7 @@ export function ChatShell() {
                   onClick={startNewSession}
                   className="gap-1.5 text-xs text-muted-foreground hover:text-foreground rounded-lg h-8 px-2.5"
                 >
-                  <Sparkles className="size-3.5 text-primary" />
+                  <Plus className="size-3.5 text-primary" />
                   <span className="hidden sm:inline">Percakapan</span> Baru
                 </Button>
                 <span className="hidden items-center gap-1.5 rounded-full border border-border bg-slate-50 px-2.5 py-1 text-[11px] text-muted-foreground sm:inline-flex">
@@ -699,7 +699,7 @@ export function ChatShell() {
                 mobilePanel === "conversation" ? "bg-white text-foreground shadow-2xs font-semibold" : "text-muted-foreground"
               }`}
             >
-              <Sparkles aria-hidden="true" className="size-3.5 text-primary" />
+              <MessageSquare aria-hidden="true" className="size-3.5 text-primary" />
               Percakapan
             </Button>
             <Button
@@ -715,7 +715,7 @@ export function ChatShell() {
                 mobilePanel === "preview" ? "bg-white text-foreground shadow-2xs font-semibold" : "text-muted-foreground"
               }`}
             >
-              <PanelRight aria-hidden="true" className="size-3.5" />
+              <Layout aria-hidden="true" className="size-3.5" />
               Kanvas
             </Button>
             {canViewCode ? (
@@ -732,6 +732,7 @@ export function ChatShell() {
                   mobilePanel === "code" ? "bg-white text-foreground shadow-2xs font-semibold" : "text-muted-foreground"
                 }`}
               >
+                <Code2 aria-hidden="true" className="size-3.5" />
                 Kode
               </Button>
             ) : null}
