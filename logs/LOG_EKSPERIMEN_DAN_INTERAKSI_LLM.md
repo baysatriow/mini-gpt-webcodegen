@@ -7238,3 +7238,13 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Tidak dijalankan training atau generation model. RTX 5070 sedang menunjukkan 3.846 MiB terpakai dan proses Python lain terdaftar; tidak ada inferensi baru agar tidak berbagi GPU saat proses tersebut berlangsung. Data test dan final tetap tertutup.
 - Batas bukti: Next.js terdeteksi listening, tetapi inspeksi browser ke port 3000 ditolak kebijakan, jadi review visual dan interaksi antarmuka belum diverifikasi. Build terisolasi tercatat di RUN-666, bukan dijalankan ulang pada run ini.
 - Rincian: `logs/RUN-667_local_ui_api_smoke_tests.txt`.
+
+## AI-052, Cloudflare Quick Tunnel untuk preview aplikasi
+
+- Tanggal/waktu: 26 Oktober 2026, 11:20, Asia/Jakarta.
+- Atas permintaan pengguna, `cloudflared tunnel --url http://127.0.0.1:3000 --no-autoupdate` membuka Quick Tunnel ke Next.js. Tunnel terhubung melalui QUIC; pemeriksaan DNS, UDP, TCP, dan Cloudflare API lulus.
+- FastAPI tetap berjalan pada `127.0.0.1:8000`. Rewrite Next.js meneruskan `/api/*` ke API lokal, sehingga satu hostname tunnel dipakai oleh UI dan route API. Port API tidak dibuka langsung ke Internet.
+- Pengguna memilih Quick Tunnel setelah diberi tahu bahwa URL sementara tidak memiliki OTP dan dapat diakses siapa pun yang memiliki URL. URL hanya dikirim dalam chat dan sengaja tidak ditulis di repo karena berfungsi sebagai akses publik.
+- Health API `ok`; generator dan extractor belum dimuat. Paket extractor belum dipilih, sedangkan generator bekerja lazy saat generation diminta. Tidak ada training atau inference pada run tunnel.
+- Batas bukti: setelah koneksi terdaftar, log mencatat satu timeout lookup DNS. Pemeriksaan metrik lokal sesudahnya menunjukkan satu koneksi aktif dan nol error proxy; halaman publik tidak dibuka atau diuji melalui browser pada run ini. Quick Tunnel hanya hidup selama proses cloudflared dan server lokal berjalan.
+- Rincian: `logs/RUN-668_cloudflare_quick_tunnel.txt`.
