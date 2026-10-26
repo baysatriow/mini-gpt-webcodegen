@@ -49,10 +49,10 @@ const FALLBACK_STYLES = [
   { id: "plain_css", label: "CSS biasa" },
   { id: "tailwind", label: "Tailwind CSS" },
 ];
-const INPUT_CLASS = "mt-1.5 min-h-11 w-full rounded-xl border border-input bg-white px-3.5 py-2.5 text-sm text-harbor-ink placeholder:text-slate-note/70 focus-visible:border-primary";
-const TEXTAREA_CLASS = "mt-1.5 min-h-[86px] resize-y rounded-xl border-input bg-white px-3.5 py-2.5 text-sm leading-6 text-harbor-ink placeholder:text-slate-note/70 focus-visible:border-primary";
-const DISCLOSURE_CLASS = "group rounded-xl border border-border bg-white";
-const DISCLOSURE_SUMMARY_CLASS = "flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 rounded-xl px-3.5 py-3 transition-colors hover:bg-frost/70 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-primary [&::-webkit-details-marker]:hidden";
+const INPUT_CLASS = "mt-1.5 min-h-10 w-full rounded-xl border border-border bg-white px-3.5 py-2 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground/60 transition-all focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/10";
+const TEXTAREA_CLASS = "mt-1.5 min-h-[80px] resize-y rounded-xl border border-border bg-white px-3.5 py-2 text-xs sm:text-sm leading-6 text-foreground placeholder:text-muted-foreground/60 transition-all focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/10";
+const DISCLOSURE_CLASS = "group rounded-xl border border-border/80 bg-white shadow-2xs overflow-hidden";
+const DISCLOSURE_SUMMARY_CLASS = "flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 rounded-xl px-3.5 py-2.5 transition-colors hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-primary [&::-webkit-details-marker]:hidden";
 
 function defaultAssetForGenre(genre: PageGenre): string {
   return genre === "landing_page" ? "studio-shapes" : "company-shapes";

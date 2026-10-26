@@ -7248,3 +7248,14 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Health API `ok`; generator dan extractor belum dimuat. Paket extractor belum dipilih, sedangkan generator bekerja lazy saat generation diminta. Tidak ada training atau inference pada run tunnel.
 - Batas bukti: setelah koneksi terdaftar, log mencatat satu timeout lookup DNS. Pemeriksaan metrik lokal sesudahnya menunjukkan satu koneksi aktif dan nol error proxy; halaman publik tidak dibuka atau diuji melalui browser pada run ini. Quick Tunnel hanya hidup selama proses cloudflared dan server lokal berjalan.
 - Rincian: `logs/RUN-668_cloudflare_quick_tunnel.txt`.
+
+## AI-053, audit UI/UX dan restart runtime
+
+- Tanggal/waktu: 26 Oktober 2026, 11:45, Asia/Jakarta.
+- Review UI menemukan pengacakan rekomendasi terlalu bergantung pada huruf awal ID dan kategori Komunitas tidak bisa difilter. Pengacakan diganti Fisher-Yates seeded dan filter komunitas ditambahkan.
+- Tombol salin pesan/kode kini menangani izin clipboard gagal. Label UI dirapikan agar tidak menyatakan extractor atau mesin siap, tidak menunjukkan progress pipeline palsu, dan tidak menampilkan alamat preview fiktif. Grid dua panel dibuat fleksibel untuk layar laptop yang lebih sempit.
+- Next.js 16.4.1 berhasil dibangun untuk production dan berjalan di `127.0.0.1:3000`. FastAPI dimulai ulang dengan Python `.venv` di `127.0.0.1:8000`, satu worker. Sebelumnya API berjalan pada Python global dengan versi PyTorch dan FastAPI/Uvicorn yang berbeda dari environment proyek.
+- Health API `ok`, katalog berhasil dimuat, dan request intake minimal memberikan klarifikasi sesuai kontrak. Quick Tunnel baru mendaftar lewat QUIC; URL hanya dikirim di chat.
+- ESLint, TypeScript, production build, `git diff --check`, tes web 11/11, dan unittest API 2/2 lulus.
+- Batas bukti: generator belum dimuat dan extractor belum tersedia, sehingga generation dan inference tidak diuji. Tampilan browser dan halaman publik tunnel tidak dibuka; koneksi server dan tunnel saja tidak membuktikan tampilan atau interaksi end-to-end.
+- Rincian: `logs/RUN-669_ui_ux_runtime_recheck.txt`.

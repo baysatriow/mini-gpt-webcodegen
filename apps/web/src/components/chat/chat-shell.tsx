@@ -568,21 +568,26 @@ export function ChatShell() {
     || (latestMessage?.type === "generation_status" && latestMessage.status === "pending");
 
   return (
-    <main className="h-svh min-h-svh overflow-hidden bg-frost text-harbor-ink">
+    <main className="h-svh min-h-svh overflow-hidden bg-background text-foreground">
       <div className="flex h-full min-h-0">
-        <aside className="hidden w-[252px] shrink-0 border-r border-border lg:flex">
+        <aside className="hidden w-[260px] shrink-0 border-r border-border bg-sidebar lg:flex">
           <HistorySidebar {...historyProps} className="w-full" />
         </aside>
 
-        <div className="flex min-w-0 flex-1 flex-col lg:grid lg:grid-cols-[minmax(390px,0.88fr)_minmax(410px,1.12fr)]">
-          <section className={`${mobilePanel === "conversation" ? "flex" : "hidden"} min-h-0 min-w-0 flex-1 flex-col border-r border-border bg-white pb-16 lg:flex lg:pb-0`} aria-label="Percakapan generator">
-            <div className="flex h-[62px] shrink-0 items-center justify-between border-b border-border/80 px-4 sm:px-6">
+        <div className="flex min-w-0 flex-1 flex-col lg:grid lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)]">
+          {/* Conversation Panel */}
+          <section
+            className={`${mobilePanel === "conversation" ? "flex" : "hidden"} min-h-0 min-w-0 flex-1 flex-col border-r border-border bg-card pb-16 lg:flex lg:pb-0`}
+            aria-label="Percakapan generator"
+          >
+            {/* Header */}
+            <div className="flex h-[58px] shrink-0 items-center justify-between border-b border-border bg-card/80 px-4 backdrop-blur-md sm:px-6">
               <div className="flex min-w-0 items-center gap-3">
                 <div className="lg:hidden">
                   <Sheet open={historyOpen} onOpenChange={setHistoryOpen}>
                     <SheetTrigger
                       render={
-                        <Button variant="ghost" size="icon-sm" aria-label="Buka riwayat percakapan">
+                        <Button variant="ghost" size="icon-sm" aria-label="Buka riwayat percakapan" className="rounded-lg">
                           <PanelLeft aria-hidden="true" className="size-4" />
                         </Button>
                       }
@@ -593,26 +598,36 @@ export function ChatShell() {
                   </Sheet>
                 </div>
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-semibold text-harbor-ink">{activeSession.title}</p>
-                  <p className="hidden text-xs text-slate-note sm:block">Sesi disimpan di perangkat ini</p>
+                  <div className="flex items-center gap-2">
+                    <p className="truncate text-xs sm:text-sm font-semibold text-foreground">{activeSession.title}</p>
+                    <span className="hidden sm:inline-flex rounded-md bg-blue-50 px-1.5 py-0.5 text-[10px] font-medium text-primary border border-blue-200/60">
+                      Web Studio
+                    </span>
+                  </div>
+                  <p className="hidden text-[11px] text-muted-foreground sm:block">Sesi tersimpan lokal di perangkat</p>
                 </div>
               </div>
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={startNewSession}
-                className="shrink-0 gap-2 text-slate-note lg:hidden"
-              >
-                Baru
-              </Button>
-              <span className="hidden items-center gap-2 rounded-full border border-border px-2.5 py-1 text-[11px] text-slate-note sm:inline-flex">
-                <span className="size-1.5 rounded-full bg-verified" aria-hidden="true" />
-                Lokal
-              </span>
+
+              <div className="flex items-center gap-2">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={startNewSession}
+                  className="gap-1.5 text-xs text-muted-foreground hover:text-foreground rounded-lg h-8 px-2.5"
+                >
+                  <Sparkles className="size-3.5 text-primary" />
+                  <span className="hidden sm:inline">Percakapan</span> Baru
+                </Button>
+                <span className="hidden items-center gap-1.5 rounded-full border border-border bg-slate-50 px-2.5 py-1 text-[11px] text-muted-foreground sm:inline-flex">
+                  <span className="size-1.5 rounded-full bg-blue-500" aria-hidden="true" />
+                  Mode lokal
+                </span>
+              </div>
             </div>
 
-            <div className="flex min-h-0 flex-1 flex-col">
+            {/* Messages & Composer */}
+            <div className="flex min-h-0 flex-1 flex-col bg-background">
               <MessageList
                 messages={activeSession.messages}
                 onUseTemplate={useTemplate}
@@ -626,18 +641,35 @@ export function ChatShell() {
             </div>
           </section>
 
-          <section className={`${mobilePanel !== "conversation" ? "flex" : "hidden"} min-h-0 min-w-0 flex-1 flex-col bg-frost pb-16 lg:flex lg:pb-0`} aria-label="Kanvas hasil">
-            <div className="flex h-[62px] shrink-0 items-center justify-between border-b border-border bg-white/70 px-4 sm:px-6">
-              <div>
-                <p className="text-sm font-semibold text-harbor-ink">Kanvas halaman</p>
-                <p className="hidden max-w-[36ch] truncate text-xs text-slate-note sm:block">
-                  {acceptedSummary?.business_name || "Pratinjau muncul setelah hasil diterima"}
+          {/* Results Canvas Panel */}
+          <section
+            className={`${mobilePanel !== "conversation" ? "flex" : "hidden"} min-h-0 min-w-0 flex-1 flex-col bg-slate-50/50 pb-16 lg:flex lg:pb-0`}
+            aria-label="Kanvas hasil"
+          >
+            {/* Header */}
+            <div className="flex h-[58px] shrink-0 items-center justify-between border-b border-border bg-card/80 px-4 backdrop-blur-md sm:px-6">
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <p className="text-xs sm:text-sm font-semibold text-foreground">Kanvas & Pratinjau</p>
+                  {acceptedSummary ? (
+                    <span className="rounded-md bg-emerald-50 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700 border border-emerald-200">
+                      Selesai
+                    </span>
+                  ) : null}
+                </div>
+                <p className="hidden max-w-[36ch] truncate text-[11px] text-muted-foreground sm:block">
+                  {acceptedSummary?.business_name || "Pratinjau halaman yang dihasilkan"}
                 </p>
               </div>
-              <span className={`rounded-full border px-2.5 py-1 text-[11px] ${acceptedSummary ? "border-verified/20 bg-verified/5 text-verified" : "border-border bg-white text-slate-note"}`}>
+              <span className={`rounded-full border px-2.5 py-1 text-[11px] font-medium transition-all ${
+                acceptedSummary
+                  ? "border-emerald-200 bg-emerald-50 text-emerald-700 shadow-2xs"
+                  : "border-border bg-white text-muted-foreground"
+              }`}>
                 {canvasStatusLabel}
               </span>
             </div>
+
             <ResultWorkspace
               summary={acceptedSummary}
               status={latestGenerationMessage?.status ?? null}
@@ -654,17 +686,20 @@ export function ChatShell() {
           </section>
         </div>
 
-        <div className="fixed inset-x-0 bottom-0 z-20 flex justify-center border-t border-border bg-white/95 p-2 backdrop-blur lg:hidden">
-          <div className={`flex w-full rounded-xl bg-frost p-1 ${canViewCode ? "max-w-lg" : "max-w-sm"}`} role="group" aria-label="Pilih tampilan">
+        {/* Floating Mobile Bottom Navigation */}
+        <div className="fixed inset-x-0 bottom-0 z-20 flex justify-center border-t border-border bg-card/90 p-2.5 backdrop-blur-md lg:hidden">
+          <div className={`flex w-full rounded-2xl bg-slate-100 p-1 border border-border shadow-xs ${canViewCode ? "max-w-lg" : "max-w-sm"}`} role="group" aria-label="Pilih tampilan">
             <Button
               type="button"
               variant={mobilePanel === "conversation" ? "secondary" : "ghost"}
               size="sm"
               aria-pressed={mobilePanel === "conversation"}
               onClick={() => setMobilePanel("conversation")}
-              className="flex-1 gap-2 rounded-lg"
+              className={`flex-1 gap-1.5 rounded-xl text-xs font-medium transition-all ${
+                mobilePanel === "conversation" ? "bg-white text-foreground shadow-2xs font-semibold" : "text-muted-foreground"
+              }`}
             >
-              <Sparkles aria-hidden="true" className="size-3.5" />
+              <Sparkles aria-hidden="true" className="size-3.5 text-primary" />
               Percakapan
             </Button>
             <Button
@@ -676,7 +711,9 @@ export function ChatShell() {
                 setMobilePanel("preview");
                 setWorkspaceView("preview");
               }}
-              className="flex-1 gap-2 rounded-lg"
+              className={`flex-1 gap-1.5 rounded-xl text-xs font-medium transition-all ${
+                mobilePanel === "preview" ? "bg-white text-foreground shadow-2xs font-semibold" : "text-muted-foreground"
+              }`}
             >
               <PanelRight aria-hidden="true" className="size-3.5" />
               Kanvas
@@ -691,7 +728,9 @@ export function ChatShell() {
                   setMobilePanel("code");
                   setWorkspaceView("code");
                 }}
-                className="flex-1 gap-2 rounded-lg"
+                className={`flex-1 gap-1.5 rounded-xl text-xs font-medium transition-all ${
+                  mobilePanel === "code" ? "bg-white text-foreground shadow-2xs font-semibold" : "text-muted-foreground"
+                }`}
               >
                 Kode
               </Button>

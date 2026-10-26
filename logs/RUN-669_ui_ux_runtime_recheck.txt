@@ -1,0 +1,36 @@
+RUN-669, audit UI/UX dan restart aplikasi lokal
+Tanggal/waktu: 26 Oktober 2026, 11:45, Asia/Jakarta
+
+Cakupan
+- Meninjau perubahan UI/UX pada chat, form fakta, rekomendasi template, status generation, preview, dan panel source.
+- Membangun ulang Next.js untuk produksi, memulai ulang FastAPI lewat environment proyek, lalu memeriksa API dan tunnel.
+- Tidak menjalankan inference, generation model, training, atau membuka data test/final.
+
+Temuan dan perbaikan
+- Tombol Acak Ide memakai pengurutan berbasis huruf pertama ID. Diganti Fisher-Yates seeded agar setiap pengacakan menghasilkan sampel stabil saat render dan berubah saat diacak ulang.
+- Filter kategori Komunitas ditambahkan agar semua kategori template dapat dipilih.
+- Tombol salin kode dan pesan kini menampilkan sukses hanya setelah clipboard berhasil, dan memberi status gagal bila izin ditolak.
+- Teks UI yang menyatakan Local Engine Siap, ekstraksi AI selalu tersedia, dan tahapan progress aktif dihapus atau disederhanakan. Preview tidak lagi menampilkan alamat browser palsu.
+- Grid chat dan kanvas memakai track fleksibel tanpa lebar minimum tetap agar tidak memotong panel pada viewport laptop sempit.
+- Metadata aplikasi dirapikan agar tidak menjanjikan hasil dalam hitungan detik atau privasi yang tidak dibuktikan oleh konfigurasi akses.
+
+Runtime
+- Next.js 16.4.1 production build berhasil; server siap di 127.0.0.1:3000, PID 46344.
+- FastAPI dijalankan ulang dengan `.venv\Scripts\python.exe -m uvicorn apps.api.main:app --host 127.0.0.1 --port 8000 --workers 1`, PID 62792.
+- Sebelum restart, API memakai Python global. Environment global melaporkan PyTorch 2.8.0+cu128 dan FastAPI/Uvicorn 0.119.0/0.37.0, berbeda dari environment proyek. `.venv` melaporkan PyTorch 2.14.1+cu130 dan FastAPI/Uvicorn 0.143.1/0.53.0; `pip check` tidak menemukan dependency rusak.
+- Health API `ok`; katalog mengembalikan dua genre dan dua gaya. POST `/api/v1/intake/validate` untuk brief minimal memberikan `needs_clarification` dan satu kelompok fakta yang perlu dilengkapi, sesuai kontrak.
+- Quick Tunnel baru terdaftar lewat QUIC. URL sementara dikirim langsung di chat dan tidak ditulis di log.
+
+Verifikasi
+- `npm run lint`: lulus.
+- `npx tsc --noEmit`: lulus.
+- `npm test`: 11/11 lulus.
+- Production `npm run build`: lulus, termasuk TypeScript dan static generation.
+- API `unittest` terpilih: 2/2 lulus.
+- `git diff --check`: lulus.
+
+Batas bukti
+- Health tetap melaporkan `generator_loaded=false`, `extractor_available=false`, dan `extractor_loaded=false`. Tidak ada inference atau generation end-to-end. Prompt extraction tetap belum siap karena paket extractor belum dipromosikan.
+- UI tidak ditinjau secara visual lewat browser pada run ini. Port dan log server terverifikasi, tetapi halaman publik dan interaksi visual belum dibuka.
+- Tunnel terdaftar, namun halaman publik tidak diuji. Quick Tunnel tanpa autentikasi dapat diakses siapa pun yang memiliki URL.
+- Data test/final tidak dibuka.

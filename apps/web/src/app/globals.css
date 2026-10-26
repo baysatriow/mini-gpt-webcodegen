@@ -49,34 +49,34 @@
 
 :root {
   color-scheme: light;
-  --background: #f4f2ec;
-  --foreground: #202a29;
-  --card: #fefdf9;
-  --card-foreground: #202a29;
-  --popover: #fefdf9;
-  --popover-foreground: #202a29;
-  --primary: #3a6e5a;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #2563eb;
   --primary-foreground: #ffffff;
-  --secondary: #e9e9e1;
-  --secondary-foreground: #202a29;
-  --muted: #ecece6;
-  --muted-foreground: #67736d;
-  --accent: #e8f0e9;
-  --accent-foreground: #2e5948;
-  --destructive: #b44735;
-  --border: #e1e0d8;
-  --input: #c9cec7;
-  --ring: #3a6e5a;
-  --verified: #3a6e5a;
-  --sidebar: #f4f2ec;
-  --sidebar-foreground: #202a29;
-  --sidebar-primary: #3a6e5a;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #1e293b;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #eff6ff;
+  --accent-foreground: #1d4ed8;
+  --destructive: #ef4444;
+  --border: #e2e8f0;
+  --input: #cbd5e1;
+  --ring: #3b82f6;
+  --verified: #10b981;
+  --sidebar: #f8fafc;
+  --sidebar-foreground: #0f172a;
+  --sidebar-primary: #2563eb;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #e8f0e9;
-  --sidebar-accent-foreground: #202a29;
-  --sidebar-border: #e1e0d8;
-  --sidebar-ring: #3a6e5a;
-  --radius: 0.9rem;
+  --sidebar-accent: #e2e8f0;
+  --sidebar-accent-foreground: #0f172a;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #3b82f6;
+  --radius: 0.85rem;
 }
 
 @layer base {
@@ -85,12 +85,12 @@
   }
 
   html {
-    @apply h-full font-sans;
+    @apply h-full font-sans scroll-smooth;
     background: var(--background);
   }
 
   body {
-    @apply min-h-full bg-background text-foreground antialiased;
+    @apply min-h-full bg-background text-foreground antialiased selection:bg-blue-100 selection:text-blue-900;
     font-size: 15px;
     line-height: 1.6;
   }
@@ -107,14 +107,37 @@
   input:focus-visible,
   textarea:focus-visible,
   select:focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--ring) 32%, transparent);
+    outline: 2px solid var(--ring);
     outline-offset: 2px;
   }
 }
 
-::selection {
-    background: #e3ece4;
-    color: #202a29;
+/* Custom scrollbars for chat and code containers */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

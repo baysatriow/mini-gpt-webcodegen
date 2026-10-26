@@ -18,9 +18,9 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rancang | Website Generator Lokal",
+  title: "Rancang AI | Generator Website",
   description:
-    "Susun landing page dan company profile lewat percakapan, tinjau fakta, lalu unduh hasilnya.",
+    "Rancang dan tinjau landing page atau company profile dalam HTML, CSS, dan JavaScript dengan generator website lokal.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

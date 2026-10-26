@@ -1,10 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AlertCircle, Download, LoaderCircle, Monitor, Smartphone } from "lucide-react";
+import {
+  AlertCircle,
+  Code2,
+  Download,
+  Eye,
+  LoaderCircle,
+  Monitor,
+  Smartphone,
+  Tablet,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PreviewFrame } from "@/components/results/preview-frame";
+import { PreviewFrame, type ViewportMode } from "@/components/results/preview-frame";
 import { SourceTabs, type SourceLoadState } from "@/components/results/source-tabs";
 import type { GenerationSummary, GenerationStatus, SourceFilename } from "@/lib/api-types";
 import { getAcceptedDownloadUrl, getAcceptedPreviewUrl } from "@/lib/preview-url";
@@ -32,7 +41,7 @@ export function ResultWorkspace({
   onLoadSource,
   onDownloadSource,
 }: ResultWorkspaceProps) {
-  const [viewport, setViewport] = useState<"desktop" | "mobile">("desktop");
+  const [viewport, setViewport] = useState<ViewportMode>("desktop");
   const previewUrl = getAcceptedPreviewUrl(summary);
   const downloadUrl = getAcceptedDownloadUrl(summary);
 
@@ -44,30 +53,62 @@ export function ResultWorkspace({
     const pending = status === "pending";
     const failed = status === "generation_failed" || status === "input_too_long" || status === "completed";
     const heading = pending
-      ? "Menunggu halaman dari API lokal"
+      ? "Menghasilkan Halaman Web Lokal"
       : status === "input_too_long"
-        ? "Permintaan perlu diringkas"
+        ? "Permintaan Perlu Diringkas"
         : status === "generation_failed"
-          ? "Halaman belum berhasil dibuat"
+          ? "Halaman Belum Berhasil Dibuat"
           : status === "completed"
-            ? "Data hasil tidak lengkap"
-            : "Pratinjau akan muncul di sini";
+            ? "Data Hasil Tidak Lengkap"
+            : "Kanvas Halaman Web Interaktif";
     const description = status === "completed"
-      ? "Respons API tidak memiliki referensi hasil yang valid, jadi output tidak ditampilkan."
+      ? "Respons API tidak memiliki referensi hasil yang valid, sehingga pratinjau tidak dapat ditampilkan."
       : statusMessage ?? (pending
-        ? "Pembuatan berjalan sebagai satu operasi. Belum ada preview atau berkas yang bisa diunduh."
-        : "Lengkapi fakta usaha, tinjau ringkasan, lalu setujui pembuatan halaman.");
+        ? "Model sedang menyusun kode HTML, styling Tailwind/CSS, dan struktur visual. Pratinjau akan langsung muncul begitu proses selesai."
+        : "Tulis ide website Anda di kolom percakapan, tinjau ringkasan fakta, lalu klik Generate Website untuk melihat pratinjau live di sini.");
 
     return (
-      <div className="flex min-h-0 flex-1 items-center justify-center px-5 py-8 sm:px-8">
-        <div className={`w-full max-w-md rounded-xl border bg-white p-6 text-center ${failed ? "border-destructive/20" : "border-border"}`}>
-          <span className={`mx-auto grid size-11 place-items-center rounded-xl ${pending ? "bg-accent text-cobalt-action" : failed ? "bg-destructive/5 text-destructive" : "bg-frost text-slate-note"}`}>
-            {pending ? <LoaderCircle className="size-5 animate-spin" aria-hidden="true" /> : failed ? <AlertCircle className="size-5" aria-hidden="true" /> : <Monitor className="size-5" aria-hidden="true" />}
-          </span>
-          <h2 className="mt-4 text-base font-semibold text-harbor-ink">{heading}</h2>
-          <p className={`mt-2 text-sm leading-6 ${failed ? "text-destructive" : "text-slate-note"}`} role={failed ? "alert" : pending ? "status" : undefined}>
+      <div className="flex min-h-0 flex-1 items-center justify-center p-6 sm:p-10">
+        <div className={`w-full max-w-md rounded-2xl border bg-card p-6 sm:p-8 text-center shadow-xs ${
+          failed ? "border-destructive/30 bg-red-50/20" : "border-border/80"
+        }`}>
+          <div className={`mx-auto grid size-12 place-items-center rounded-2xl ${
+            pending
+              ? "bg-blue-50 text-primary border border-blue-200"
+              : failed
+                ? "bg-red-50 text-destructive border border-red-200"
+                : "bg-gradient-to-tr from-slate-100 to-blue-50 text-primary border border-border"
+          }`}>
+            {pending ? (
+              <LoaderCircle className="size-6 animate-spin" aria-hidden="true" />
+            ) : failed ? (
+              <AlertCircle className="size-6" aria-hidden="true" />
+            ) : (
+              <Monitor className="size-6" aria-hidden="true" />
+            )}
+          </div>
+
+          <h2 className="mt-4 text-base font-semibold text-foreground tracking-tight">{heading}</h2>
+          <p className={`mt-2 text-xs sm:text-sm leading-relaxed ${failed ? "text-destructive" : "text-muted-foreground"}`} role={failed ? "alert" : pending ? "status" : undefined}>
             {description}
           </p>
+
+          {!pending && !failed ? (
+            <div className="mt-6 pt-5 border-t border-border/80 grid grid-cols-3 gap-2 text-left">
+              <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                <p className="text-[10px] font-semibold text-foreground">Live Sandbox</p>
+                <p className="text-[9px] text-muted-foreground mt-0.5">Desktop & Mobile</p>
+              </div>
+              <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                <p className="text-[10px] font-semibold text-foreground">Clean Code</p>
+                <p className="text-[9px] text-muted-foreground mt-0.5">HTML, CSS, JS</p>
+              </div>
+              <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                <p className="text-[10px] font-semibold text-foreground">Download ZIP</p>
+                <p className="text-[9px] text-muted-foreground mt-0.5">Siap Deploy</p>
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
     );
@@ -81,36 +122,98 @@ export function ResultWorkspace({
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden px-3 pb-3 sm:px-5 sm:pb-5">
+      {/* Top Bar info & Download */}
       <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 py-3">
         <div className="min-w-0">
-          <p className="truncate text-sm font-semibold text-harbor-ink">{summary.business_name || "Halaman yang diterima"}</p>
-          <p className="mt-0.5 text-xs text-slate-note">{summary.genre === "company_profile" ? "Company profile" : "Landing page"} · {summary.style_mode === "tailwind" ? "Tailwind" : "CSS biasa"}</p>
+          <div className="flex items-center gap-2">
+            <h2 className="truncate text-sm font-semibold text-foreground">
+              {summary.business_name || "Halaman Diterima"}
+            </h2>
+            <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700 border border-emerald-200">
+              Diterima
+            </span>
+          </div>
+          <p className="mt-0.5 text-xs text-muted-foreground">
+            {summary.genre === "company_profile" ? "Company Profile" : "Landing Page"} ·{" "}
+            {summary.style_mode === "tailwind" ? "Tailwind CSS" : "CSS Murni"}
+          </p>
         </div>
-        <a href={downloadUrl} className="inline-flex h-9 items-center gap-2 rounded-lg border border-border bg-white px-3 text-sm font-medium text-harbor-ink transition-colors hover:bg-frost focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
-          <Download className="size-4" aria-hidden="true" />
-          Unduh ZIP
+
+        <a
+          href={downloadUrl}
+          className="inline-flex h-9 items-center gap-2 rounded-xl bg-primary text-primary-foreground px-3.5 text-xs font-medium shadow-xs shadow-primary/20 hover:bg-primary/90 transition-all"
+        >
+          <Download className="size-3.5" aria-hidden="true" />
+          Unduh File ZIP
         </a>
       </div>
 
-      <Tabs value={view} onValueChange={changeView} className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-border bg-white shadow-[0_12px_36px_rgba(30,45,69,0.07)]">
-        <TabsList variant="line" className="h-12 w-full shrink-0 justify-start gap-4 rounded-none border-b border-border px-4">
-          <TabsTrigger value="preview" className="h-full flex-none px-1 text-sm">Pratinjau</TabsTrigger>
-          <TabsTrigger value="code" className="h-full flex-none px-1 text-sm">Kode</TabsTrigger>
+      {/* Main Tabs Container */}
+      <Tabs
+        value={view}
+        onValueChange={changeView}
+        className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
+      >
+        <TabsList
+          variant="line"
+          className="h-12 w-full shrink-0 justify-start gap-4 rounded-none border-b border-border bg-slate-50/70 px-4"
+        >
+          <TabsTrigger value="preview" className="flex items-center gap-2 h-full px-2 text-xs font-medium">
+            <Eye className="size-3.5" />
+            Pratinjau
+          </TabsTrigger>
+          <TabsTrigger value="code" className="flex items-center gap-2 h-full px-2 text-xs font-medium">
+            <Code2 className="size-3.5" />
+            Kode Sumber
+          </TabsTrigger>
         </TabsList>
 
+        {/* Live Preview Viewport */}
         <TabsContent value="preview" className="m-0 flex min-h-0 flex-1 flex-col overflow-hidden">
-          <div className="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-border px-3 sm:px-4">
-            <div className="flex items-center gap-1 rounded-lg bg-frost p-1" role="group" aria-label="Ukuran pratinjau">
-              <Button type="button" size="sm" variant={viewport === "desktop" ? "secondary" : "ghost"} aria-pressed={viewport === "desktop"} onClick={() => setViewport("desktop")} className="h-8 gap-1.5 rounded-md px-2.5 text-xs">
-                <Monitor className="size-3.5" aria-hidden="true" />Desktop
+          <div className="flex h-11 shrink-0 items-center justify-between gap-2 border-b border-border bg-white px-3 sm:px-4">
+            {/* Viewport switchers */}
+            <div className="flex items-center gap-1 rounded-lg bg-slate-100 p-0.5" role="group" aria-label="Ukuran pratinjau">
+              <Button
+                type="button"
+                size="xs"
+                variant={viewport === "desktop" ? "secondary" : "ghost"}
+                aria-pressed={viewport === "desktop"}
+                onClick={() => setViewport("desktop")}
+                className="h-7 gap-1 rounded-md px-2 text-xs font-medium"
+              >
+                <Monitor className="size-3" aria-hidden="true" />
+                Desktop
               </Button>
-              <Button type="button" size="sm" variant={viewport === "mobile" ? "secondary" : "ghost"} aria-pressed={viewport === "mobile"} onClick={() => setViewport("mobile")} className="h-8 gap-1.5 rounded-md px-2.5 text-xs">
-                <Smartphone className="size-3.5" aria-hidden="true" />Mobile
+              <Button
+                type="button"
+                size="xs"
+                variant={viewport === "tablet" ? "secondary" : "ghost"}
+                aria-pressed={viewport === "tablet"}
+                onClick={() => setViewport("tablet")}
+                className="h-7 gap-1 rounded-md px-2 text-xs font-medium"
+              >
+                <Tablet className="size-3" aria-hidden="true" />
+                Tablet
+              </Button>
+              <Button
+                type="button"
+                size="xs"
+                variant={viewport === "mobile" ? "secondary" : "ghost"}
+                aria-pressed={viewport === "mobile"}
+                onClick={() => setViewport("mobile")}
+                className="h-7 gap-1 rounded-md px-2 text-xs font-medium"
+              >
+                <Smartphone className="size-3" aria-hidden="true" />
+                Mobile
               </Button>
             </div>
-            <span className="hidden text-xs text-slate-note sm:inline">Source hanya dari renderer lokal yang diterima</span>
+
+            <span className="hidden text-[11px] text-muted-foreground sm:inline">
+              Renderer lokal aman (iframe sandbox)
+            </span>
           </div>
-          <div className="min-h-0 flex-1 overflow-auto bg-[#E9EEF5] p-3 sm:p-5">
+
+          <div className="min-h-0 flex-1 overflow-auto bg-slate-100/70 p-3 sm:p-5">
             <PreviewFrame
               key={previewUrl}
               generationId={summary.generation_id}
@@ -121,6 +224,7 @@ export function ResultWorkspace({
           </div>
         </TabsContent>
 
+        {/* Source Code View */}
         <TabsContent value="code" className="m-0 flex min-h-0 flex-1 flex-col overflow-hidden">
           <SourceTabs
             generationId={summary.generation_id}
