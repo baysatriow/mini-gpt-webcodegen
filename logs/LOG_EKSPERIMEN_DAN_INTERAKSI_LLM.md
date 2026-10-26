@@ -7280,3 +7280,21 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Karakter kontrol pada tiga log historis dipulihkan berdasarkan hash di objek commit, report/config, dan catatan training terkait. Pemindaian ulang 3.268 file teks tidak menemukan karakter kontrol tersisa.
 - Lint, TypeScript, pencarian referensi aktif, dan `git diff --check` lulus. Test suite, production build, dan inspeksi browser tidak dijalankan; server yang berjalan tidak direstart.
 - Rincian: `logs/RUN-671_github_cleanup_audit.txt`.
+
+## AI-056, rancangan dan implementasi audit Usage
+
+- Tanggal/waktu: 26 Oktober 2026, 13:11, Asia/Jakarta.
+- Permintaan: rancang Usage agar pemilik dapat mengaudit pemakaian GPU dan riwayat tiap proses generate. Pengguna memilih ringkasan GPU sekaligus sebab kegagalan dalam satu tampilan.
+- Respons: menambahkan spesifikasi dan rencana audit, endpoint FastAPI untuk telemetri dan riwayat, penyimpanan SQLite yang membatasi data pada metadata operasional, serta dashboard Next.js dengan filter dan detail tahapan.
+- Perubahan terpilih: tetap simpan status, tahap, durasi, hitungan token, kode kendala, dan telemetri. Prompt, fakta usaha, kode hasil, exception mentah, dan path lokal tidak disimpan. Snapshot GPU saat ini dibedakan dari sampel device-wide yang hanya dikumpulkan saat generate.
+- Batas sistem: Usage tidak memuat model atau menjalankan inference. Generator dan extractor tetap unavailable pada health API saat verifikasi.
+
+## RUN-672, verifikasi Usage, UI, dan akses lokal
+
+- Tanggal/waktu: 26 Oktober 2026, 13:11, Asia/Jakarta.
+- Pemeriksaan UI: chat terbaru ditinjau di browser. Usage ditinjau pada desktop dan viewport 390 px. Pada viewport sempit angka memori GPU awalnya terpotong; komponen Stat diubah agar nilai membungkus baris dan tes regresi ditambahkan. Tampilan sesudah perbaikan memperlihatkan nilai lengkap, filter, dan keadaan riwayat kosong.
+- Pemeriksaan aplikasi: tes regresi wrapping awalnya gagal pada nilai memori yang terpotong, lalu lulus setelah perbaikan. `.venv\\Scripts\\python.exe -m unittest tests.api.test_usage_store tests.api.test_usage_telemetry tests.api.test_usages_api tests.api.test_generation_request_id` lulus 16/16. `npm test` lulus 18/18, `npm run lint` lulus, dan `npm run build` lulus dengan Next.js 16.4.1. `npm test` menampilkan peringatan Node tentang deteksi module type yang tidak memengaruhi hasil.
+- Pemeriksaan lokal port 3000: tanpa sesi `/` mengarah ke `/login` dengan 307 dan API memberi 401. Login valid membuat cookie HttpOnly SameSite=Lax; health, GPU current, daftar Usage, dan halaman Usage memberi 200; logout memberi 303 dan menghapus cookie. Auth diwajibkan, kredensial memenuhi panjang minimum, dan `.env.local` diabaikan Git.
+- Health API `ok`; `model_loaded`, `extractor_available`, `extractor_loaded`, dan `generator_loaded` semuanya `false`. GPU current terdeteksi sebagai NVIDIA GeForce RTX 5070. Riwayat kosong karena tidak ada inference yang dijalankan.
+- Batas bukti: generasi dan inference tidak diuji. Full Python suite yang dijalankan sebelumnya menghasilkan 163/164 lulus; satu kegagalan baseline pada `fullpage.test_source_bound_lineage.SourceBoundLineageFixture` berasal dari checksum fixture training yang berbeda dari hash yang dikunci di `src/fullpage/lineage.py`. Kedua file bersih dari perubahan dan data training tidak diubah.
+- Rincian: spesifikasi `docs/superpowers/specs/2026-10-26-usages-audit-design.md` dan rencana `docs/superpowers/plans/2026-10-26-usages-audit.md`.

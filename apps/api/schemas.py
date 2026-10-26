@@ -223,6 +223,142 @@ class ErrorResponse(APIModel):
     missing_fields: list[StrictStr] = Field(default_factory=list)
 
 
+UsageWindow = Literal["24h", "7d", "30d"]
+UsageOutcome = Literal["running", "completed", "rejected", "failed", "interrupted"]
+UsageStage = Literal[
+    "request_received",
+    "request_validation",
+    "intake_validation",
+    "model_load",
+    "inference",
+    "output_validation",
+    "render_export",
+    "persist_result",
+    "completed",
+    "server_restart",
+]
+UsageFailureCode = Literal[
+    "input_rejected",
+    "input_too_long",
+    "unsupported_request",
+    "generation_busy",
+    "model_unavailable",
+    "inference_failed",
+    "cuda_out_of_memory",
+    "output_invalid",
+    "render_failed",
+    "storage_failed",
+    "invalid_request",
+    "internal_error",
+    "server_interrupted",
+    "gpu_telemetry_unavailable",
+]
+
+
+class UsageSummaryResponse(APIModel):
+    window: UsageWindow
+    total_requests: StrictInt
+    inference_started: StrictInt
+    completed: StrictInt
+    rejected: StrictInt
+    failed: StrictInt
+    interrupted: StrictInt
+    success_rate_all: float | None
+    success_rate_inference: float | None
+    mean_duration_ms: float | None
+    gpu_run_count: StrictInt
+    gpu_sample_count: StrictInt
+    gpu_coverage_ratio: float | None
+    gpu_utilization_mean_pct: float | None
+    gpu_utilization_max_pct: float | None
+    gpu_memory_mean_mib: float | None
+    gpu_memory_max_mib: float | None
+    gpu_memory_total_mib: float | None
+    gpu_power_mean_w: float | None
+    gpu_temperature_max_c: float | None
+    gpu_sm_clock_mean_mhz: float | None
+    gpu_scope: StrictStr
+
+
+class UsageRecordResponse(APIModel):
+    usage_id: UUID
+    generation_id: UUID | None = None
+    started_at: datetime
+    finished_at: datetime | None = None
+    duration_ms: StrictInt | None = None
+    http_status: StrictInt | None = None
+    outcome: UsageOutcome
+    stage: UsageStage
+    failure_code: UsageFailureCode | None = None
+    inference_started: StrictBool
+    input_tokens: StrictInt | None = None
+    output_tokens: StrictInt | None = None
+    attempt_count: StrictInt | None = None
+    retry_count: StrictInt | None = None
+    section_count: StrictInt | None = None
+    renderer_status: StrictStr | None = None
+    model_id: StrictStr | None = None
+    gpu_sample_count: StrictInt
+    gpu_device_name: StrictStr | None = None
+    gpu_utilization_mean_pct: float | None = None
+    gpu_utilization_max_pct: float | None = None
+    gpu_memory_mean_mib: float | None = None
+    gpu_memory_max_mib: float | None = None
+    gpu_memory_total_mib: float | None = None
+    gpu_power_mean_w: float | None = None
+    gpu_temperature_max_c: float | None = None
+    gpu_sm_clock_mean_mhz: float | None = None
+    torch_allocated_baseline_bytes: StrictInt | None = None
+    torch_reserved_baseline_bytes: StrictInt | None = None
+    torch_allocated_peak_bytes: StrictInt | None = None
+    torch_reserved_peak_bytes: StrictInt | None = None
+    torch_allocated_delta_bytes: StrictInt | None = None
+    torch_reserved_delta_bytes: StrictInt | None = None
+
+
+class UsageEventResponse(APIModel):
+    stage: UsageStage
+    event_type: Literal["started", "completed", "rejected", "failed", "interrupted", "stage"]
+    failure_code: UsageFailureCode | None = None
+    occurred_at: datetime
+    elapsed_ms: StrictInt
+
+
+class UsageGpuSampleResponse(APIModel):
+    sampled_at: datetime
+    device_name: StrictStr | None = None
+    utilization_pct: float | None = None
+    memory_used_mib: float | None = None
+    memory_total_mib: float | None = None
+    power_w: float | None = None
+    temperature_c: float | None = None
+    sm_clock_mhz: float | None = None
+
+
+class UsageDetailResponse(UsageRecordResponse):
+    events: list[UsageEventResponse] = Field(default_factory=list)
+    samples: list[UsageGpuSampleResponse] = Field(default_factory=list)
+
+
+class UsageListResponse(APIModel):
+    items: list[UsageRecordResponse]
+    next_cursor: StrictStr | None = None
+    limit: Annotated[StrictInt, Field(ge=1, le=100)]
+
+
+class UsageGpuCurrentResponse(APIModel):
+    available: StrictBool
+    availability_code: UsageFailureCode | None = None
+    sampled_at: datetime
+    device_name: StrictStr | None = None
+    utilization_pct: float | None = None
+    memory_used_mib: float | None = None
+    memory_total_mib: float | None = None
+    power_w: float | None = None
+    temperature_c: float | None = None
+    sm_clock_mhz: float | None = None
+
+
 class SourceResponse(BaseModel):
     model_config = ConfigDict(extra="forbid", populate_by_name=True)
 

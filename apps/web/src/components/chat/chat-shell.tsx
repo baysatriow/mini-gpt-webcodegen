@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import { Composer } from "@/components/chat/composer";
 import { HistorySidebar } from "@/components/chat/history-sidebar";
@@ -28,11 +27,13 @@ import { readChatHistory, writeChatHistory } from "@/lib/history-storage";
 import { getFactValue, SOURCE_DRAFT_CONTRACT } from "@/lib/request-draft";
 import { getWebsiteTemplate, type WebsiteTemplateId } from "@/lib/website-templates";
 import { isValidGenerationId } from "@/lib/preview-url";
+import { cn } from "@/lib/utils";
 
 type MobilePanel = "conversation" | WorkspaceView;
 
-export function ChatShell() {
+export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
   const [state, dispatch] = useReducer(chatReducer, initialChatState);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [prompt, setPrompt] = useState("");
   const [catalog, setCatalog] = useState<CatalogResponse | null>(null);
   const [mobilePanel, setMobilePanel] = useState<MobilePanel>("conversation");
@@ -508,7 +509,7 @@ export function ChatShell() {
       type: "generation_status",
       requestSummaryId: message.id,
       status: "pending",
-      content: "Mengirim rancangan yang disetujui ke API lokal. Tunggu hasilnya sebelum meninggalkan sesi.",
+      content: "Mengirim rancangan yang disetujui untuk diproses. Tunggu hasilnya sebelum meninggalkan sesi.",
     });
     dispatch({
       type: "replace_message",
@@ -538,30 +539,33 @@ export function ChatShell() {
       <main className="grid min-h-svh place-items-center bg-frost text-sm text-slate-note" aria-busy="true">
         <div className="flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-3 shadow-xs">
           <LoaderCircle aria-hidden="true" className="size-4 animate-spin text-primary" />
-          Menyiapkan workspace lokal…
+          Menyiapkan workspace…
         </div>
       </main>
     );
   }
 
   const historyProps = {
+    showLogout,
     sessions: state.sessions,
     activeSessionId: activeSession.id,
     onNew: startNewSession,
     onSelect: selectSession,
     onDelete: removeSession,
+    onToggleCollapse: () => setSidebarOpen(false),
   };
+
+  function handleToggleSidebar() {
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+      setHistoryOpen(true);
+    } else {
+      setSidebarOpen((prev) => !prev);
+    }
+  }
 
   const sourceState = acceptedSummary
     ? sourceByGeneration[acceptedSummary.generation_id] ?? { status: "idle" as const }
     : { status: "idle" as const };
-  const canvasStatusLabel = latestGenerationMessage?.status === "completed"
-    ? acceptedSummary ? "Halaman diterima" : "Hasil tidak tersedia"
-    : latestGenerationMessage?.status === "pending"
-      ? "Menunggu API lokal"
-      : latestGenerationMessage
-        ? "Perlu diperbaiki"
-        : "Belum ada hasil";
   const latestMessage = activeSession.messages.at(-1) ?? null;
   const composerDisabled =
     (latestMessage?.type === "clarification" && (latestMessage.isValidating || (latestMessage.allowManualEditor && !promptRewrite)))
@@ -570,41 +574,49 @@ export function ChatShell() {
   return (
     <main className="h-svh min-h-svh overflow-hidden bg-background text-foreground">
       <div className="flex h-full min-h-0">
-        <aside className="hidden w-[260px] shrink-0 border-r border-border bg-sidebar lg:flex">
-          <HistorySidebar {...historyProps} className="w-full" />
+        {/* Collapsible Desktop Sidebar */}
+        <aside
+          className={cn(
+            "hidden shrink-0 border-r border-border bg-sidebar transition-all duration-200 lg:flex",
+            sidebarOpen ? "w-[260px]" : "w-0 overflow-hidden border-r-0",
+          )}
+        >
+          <HistorySidebar {...historyProps} className="w-[260px]" />
         </aside>
 
         <div className="flex min-w-0 flex-1 flex-col lg:grid lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)]">
           {/* Conversation Panel */}
           <section
-            className={`${mobilePanel === "conversation" ? "flex" : "hidden"} min-h-0 min-w-0 flex-1 flex-col border-r border-border bg-card pb-16 lg:flex lg:pb-0`}
+            className={`${mobilePanel === "conversation" ? "flex" : "hidden"} min-h-0 min-w-0 flex-1 flex-col border-r border-border bg-card pb-14 lg:flex lg:pb-0`}
             aria-label="Percakapan generator"
           >
             {/* Header */}
-            <div className="flex h-[58px] shrink-0 items-center justify-between border-b border-border bg-card/80 px-4 backdrop-blur-md sm:px-6">
-              <div className="flex min-w-0 items-center gap-3">
+            <div className="flex h-[50px] shrink-0 items-center justify-between border-b border-border bg-card px-3.5 sm:px-4">
+              <div className="flex min-w-0 items-center gap-2">
+                <Button
+                  variant="ghost"
+                  size="icon-xs"
+                  onClick={handleToggleSidebar}
+                  aria-label={sidebarOpen ? "Tutup sidebar" : "Buka sidebar"}
+                  title={sidebarOpen ? "Tutup sidebar" : "Buka sidebar"}
+                  className="size-7 rounded-lg text-muted-foreground hover:text-foreground"
+                >
+                  <PanelLeft aria-hidden="true" className="size-4" />
+                </Button>
+
+                {/* Mobile Drawer */}
                 <div className="lg:hidden">
                   <Sheet open={historyOpen} onOpenChange={setHistoryOpen}>
-                    <SheetTrigger
-                      render={
-                        <Button variant="ghost" size="icon-sm" aria-label="Buka riwayat percakapan" className="rounded-lg">
-                          <PanelLeft aria-hidden="true" className="size-4" />
-                        </Button>
-                      }
-                    />
                     <SheetContent side="left" showCloseButton={false} className="w-[min(88vw,300px)] max-w-none p-0">
                       <HistorySidebar {...historyProps} className="w-full" />
                     </SheetContent>
                   </Sheet>
                 </div>
+
                 <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    <p className="truncate text-xs sm:text-sm font-semibold text-foreground">{activeSession.title}</p>
-                    <span className="hidden sm:inline-flex rounded-md bg-blue-50 px-1.5 py-0.5 text-[10px] font-medium text-primary border border-blue-200/60">
-                      Web Studio
-                    </span>
-                  </div>
-                  <p className="hidden text-[11px] text-muted-foreground sm:block">Sesi tersimpan lokal di perangkat</p>
+                  <p className="truncate text-xs sm:text-sm font-semibold text-foreground">
+                    {activeSession.title}
+                  </p>
                 </div>
               </div>
 
@@ -617,12 +629,8 @@ export function ChatShell() {
                   className="gap-1.5 text-xs text-muted-foreground hover:text-foreground rounded-lg h-8 px-2.5"
                 >
                   <Plus className="size-3.5 text-primary" />
-                  <span className="hidden sm:inline">Percakapan</span> Baru
+                  <span className="hidden sm:inline">Percakapan Baru</span>
                 </Button>
-                <span className="hidden items-center gap-1.5 rounded-full border border-border bg-slate-50 px-2.5 py-1 text-[11px] text-muted-foreground sm:inline-flex">
-                  <span className="size-1.5 rounded-full bg-blue-500" aria-hidden="true" />
-                  Mode lokal
-                </span>
               </div>
             </div>
 
@@ -643,33 +651,9 @@ export function ChatShell() {
 
           {/* Results Canvas Panel */}
           <section
-            className={`${mobilePanel !== "conversation" ? "flex" : "hidden"} min-h-0 min-w-0 flex-1 flex-col bg-slate-50/50 pb-16 lg:flex lg:pb-0`}
+            className={`${mobilePanel !== "conversation" ? "flex" : "hidden"} min-h-0 min-w-0 flex-1 flex-col bg-background pb-14 lg:flex lg:pb-0`}
             aria-label="Kanvas hasil"
           >
-            {/* Header */}
-            <div className="flex h-[58px] shrink-0 items-center justify-between border-b border-border bg-card/80 px-4 backdrop-blur-md sm:px-6">
-              <div className="min-w-0">
-                <div className="flex items-center gap-2">
-                  <p className="text-xs sm:text-sm font-semibold text-foreground">Kanvas & Pratinjau</p>
-                  {acceptedSummary ? (
-                    <span className="rounded-md bg-emerald-50 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700 border border-emerald-200">
-                      Selesai
-                    </span>
-                  ) : null}
-                </div>
-                <p className="hidden max-w-[36ch] truncate text-[11px] text-muted-foreground sm:block">
-                  {acceptedSummary?.business_name || "Pratinjau halaman yang dihasilkan"}
-                </p>
-              </div>
-              <span className={`rounded-full border px-2.5 py-1 text-[11px] font-medium transition-all ${
-                acceptedSummary
-                  ? "border-emerald-200 bg-emerald-50 text-emerald-700 shadow-2xs"
-                  : "border-border bg-white text-muted-foreground"
-              }`}>
-                {canvasStatusLabel}
-              </span>
-            </div>
-
             <ResultWorkspace
               summary={acceptedSummary}
               status={latestGenerationMessage?.status ?? null}

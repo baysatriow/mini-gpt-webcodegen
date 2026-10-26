@@ -24,13 +24,13 @@ export function IntakeCard({ message, catalog, onValidate, onEditPrompt }: Intak
         </span>
         <div className="min-w-0 flex-1 pt-1">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-semibold text-foreground">Rancang AI</span>
+            <span className="text-xs font-semibold text-foreground">Rancang</span>
             <span className="rounded bg-blue-100/70 px-1.5 py-0.2 text-[10px] text-primary font-medium animate-pulse">
               Mengekstrak Fakta...
             </span>
           </div>
           <p className="text-sm font-medium leading-relaxed text-foreground">{message.content}</p>
-          <p className="mt-1 text-xs text-muted-foreground">Memeriksa struktur brief dan kelengkapan informasi bisnis secara lokal.</p>
+          <p className="mt-1 text-xs text-muted-foreground">Memeriksa struktur brief dan kelengkapan informasi bisnis.</p>
         </div>
       </article>
     );
@@ -130,7 +130,7 @@ export function IntakeCard({ message, catalog, onValidate, onEditPrompt }: Intak
         <CheckCircle2 aria-hidden="true" className="size-4" />
       </span>
       <div className="min-w-0 flex-1 pt-0.5">
-        <div className="rounded-2xl border border-border bg-card p-4 sm:p-5 shadow-2xs">
+        <div className="rounded-2xl border border-border bg-card p-3.5 sm:p-4 shadow-2xs">
           <div className="flex items-center gap-2 mb-1.5">
             <span className="text-xs font-semibold text-foreground">
               {message.templateId ? "Template Siap Disunting" : INTAKE_STATUS_LABEL[message.status]}
@@ -181,8 +181,8 @@ export function IntakeCard({ message, catalog, onValidate, onEditPrompt }: Intak
               />
             </div>
           ) : message.status === "needs_clarification" ? (
-            <div className="mt-3 rounded-xl bg-blue-50/80 border border-blue-200/80 p-3 text-xs leading-relaxed text-primary">
-              💬 Balas detail yang kurang dalam satu pesan pada kolom input di bawah.
+            <div className="mt-3 rounded-xl bg-blue-50/80 border border-blue-200/80 p-2.5 text-xs leading-relaxed text-primary">
+              Balas detail yang kurang dalam satu pesan pada kolom input di bawah.
             </div>
           ) : null}
         </div>

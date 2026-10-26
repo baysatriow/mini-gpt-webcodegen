@@ -9,7 +9,7 @@ import os
 from io import BytesIO
 from pathlib import Path
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import Response
 
 from apps.api.schemas import (
@@ -22,6 +22,12 @@ from apps.api.schemas import (
 from apps.api.services.artifacts import ArtifactNotFoundError, ArtifactStore, new_generation_id
 from apps.api.services.intake import validate_intake
 from apps.api.services.runtime import get_runtime
+from apps.api.services.usage_audit import UsageRecorder
+from apps.api.services.usage_telemetry import (
+    GenerationGpuSampler,
+    begin_torch_memory_measurement,
+    finish_torch_memory_measurement,
+)
 
 
 router = APIRouter(prefix="/api/v1/generations", tags=["generations"])
@@ -219,6 +225,58 @@ def _generation_failure(
     )
 
 
+def _request_recorder(request: Request) -> UsageRecorder | None:
+    recorder = getattr(request.state, "usage_recorder", None)
+    return recorder if isinstance(recorder, UsageRecorder) else None
+
+
+def _finish_usage(
+    request: Request,
+    *,
+    stage: str,
+    outcome: str,
+    http_status: int,
+    code: str | None,
+    generation_id: str | None = None,
+) -> None:
+    recorder = _request_recorder(request)
+    if recorder is None:
+        return
+    recorder.set_stage(stage, code=code, generation_id=generation_id)
+    recorder.finish(outcome, http_status=http_status, code=code)
+
+
+def _generation_telemetry(
+    recorder: UsageRecorder | None,
+    sampler: GenerationGpuSampler | None,
+    torch_baseline: dict[str, int] | None,
+) -> None:
+    if recorder is None:
+        return
+    metrics: dict[str, Any] = {}
+    if sampler is not None:
+        try:
+            metrics.update(sampler.finish())
+        except Exception:
+            logger.exception("GPU Usage sampler did not finish cleanly")
+    try:
+        metrics.update(finish_torch_memory_measurement(torch_baseline))
+    except Exception:
+        logger.exception("PyTorch Usage memory snapshot failed")
+    recorder.set_metrics(**metrics)
+
+
+def _safe_generation_failure_code(error: Exception) -> str:
+    try:
+        import torch
+
+        if isinstance(error, torch.cuda.OutOfMemoryError):
+            return "cuda_out_of_memory"
+    except Exception:
+        pass
+    return "inference_failed"
+
+
 @router.post(
     "",
     response_model=GenerationResponse,
@@ -235,9 +293,17 @@ def _generation_failure(
         500: {"model": ErrorResponse, "description": "Local generation service failed"},
     },
 )
-def create_generation(body: GenerationRequest) -> GenerationResponse:
+def create_generation(body: GenerationRequest, http_request: Request) -> GenerationResponse:
+    recorder = _request_recorder(http_request)
     runtime = get_runtime()
     if not runtime.generation_lock.acquire(blocking=False):
+        _finish_usage(
+            http_request,
+            stage="request_validation",
+            outcome="rejected",
+            http_status=409,
+            code="generation_busy",
+        )
         raise _http_error(
             409,
             "generation_in_progress",
@@ -245,6 +311,13 @@ def create_generation(body: GenerationRequest) -> GenerationResponse:
         )
     if not runtime.inference_lock.acquire(blocking=False):
         runtime.generation_lock.release()
+        _finish_usage(
+            http_request,
+            stage="request_validation",
+            outcome="rejected",
+            http_status=409,
+            code="generation_busy",
+        )
         raise _http_error(
             409,
             "model_busy",
@@ -252,6 +325,8 @@ def create_generation(body: GenerationRequest) -> GenerationResponse:
         )
 
     try:
+        if recorder is not None:
+            recorder.set_stage("intake_validation")
         intake = validate_intake(
             body.prompt,
             body.draft.model_dump(exclude_none=True),
@@ -261,6 +336,20 @@ def create_generation(body: GenerationRequest) -> GenerationResponse:
         if intake.status != "ready" or intake.request is None:
             too_long = intake.status == "input_too_long"
             status_code = 413 if too_long else 409
+            failure_code = (
+                "input_too_long"
+                if too_long
+                else "unsupported_request"
+                if intake.status == "unsupported_request"
+                else "input_rejected"
+            )
+            _finish_usage(
+                http_request,
+                stage="intake_validation",
+                outcome="rejected",
+                http_status=status_code,
+                code=failure_code,
+            )
             raise _http_error(
                 status_code,
                 intake.status,
@@ -278,6 +367,14 @@ def create_generation(body: GenerationRequest) -> GenerationResponse:
             output_root.mkdir(parents=True, exist_ok=True)
         except OSError as error:
             logger.exception("Generation output root is unavailable")
+            _finish_usage(
+                http_request,
+                stage="persist_result",
+                outcome="failed",
+                http_status=500,
+                code="storage_failed",
+                generation_id=generation_id,
+            )
             raise _http_error(
                 500,
                 "generation_storage_unavailable",
@@ -292,22 +389,53 @@ def create_generation(body: GenerationRequest) -> GenerationResponse:
             api_summary = _api_summary(request, created_at)
             output_dir = output_root / generation_id
         else:
+            _finish_usage(
+                http_request,
+                stage="persist_result",
+                outcome="failed",
+                http_status=500,
+                code="storage_failed",
+                generation_id=generation_id,
+            )
             raise _http_error(
                 500,
                 "generation_id_unavailable",
                 "ID generation lokal tidak dapat dialokasikan.",
             )
 
+        if recorder is not None:
+            recorder.set_stage("model_load", generation_id=generation_id)
+            recorder.set_metrics(model_id=runtime.settings.checkpoint_path.name)
         try:
             generator = runtime.get_generator()
         except Exception as error:
             logger.exception("Selected generator could not be initialized")
+            _finish_usage(
+                http_request,
+                stage="model_load",
+                outcome="failed",
+                http_status=503,
+                code="model_unavailable",
+                generation_id=generation_id,
+            )
             raise _http_error(503, "model_unavailable", "Model lokal belum siap untuk generation.") from error
 
+        sampler = None
+        torch_baseline = begin_torch_memory_measurement() if recorder is not None else None
+        if recorder is not None:
+            try:
+                sampler = GenerationGpuSampler(recorder.store, recorder.usage_id).start()
+            except Exception:
+                logger.exception("GPU Usage sampler could not start")
+            recorder.set_stage("inference", generation_id=generation_id)
         try:
             report = generator.generate(request, output_dir)
         except Exception as error:
             logger.exception("Generation %s failed before a report was returned", generation_id)
+            _generation_telemetry(recorder, sampler, torch_baseline)
+            if recorder is not None:
+                recorder.set_metrics(inference_started=True)
+                recorder.finish("failed", http_status=200, code=_safe_generation_failure_code(error))
             try:
                 output_dir.mkdir(parents=False, exist_ok=True)
                 _persist_result(
@@ -329,7 +457,48 @@ def create_generation(body: GenerationRequest) -> GenerationResponse:
         if not isinstance(report, dict):
             logger.error("Generation %s returned an invalid report", generation_id)
             report = {"request_id": request["request_id"], "status": "stage_failed"}
+        _generation_telemetry(recorder, sampler, torch_baseline)
         report["api_summary"] = api_summary
+        attempts = report.get("attempts")
+        attempts = attempts if isinstance(attempts, list) else []
+        total_generated_tokens = report.get("total_generated_tokens")
+        if type(total_generated_tokens) is not int or total_generated_tokens < 0:
+            total_generated_tokens = sum(
+                attempt.get("generated_tokens", 0)
+                for attempt in attempts
+                if isinstance(attempt, dict)
+                and type(attempt.get("generated_tokens")) is int
+                and attempt["generated_tokens"] >= 0
+            )
+        retry_count = sum(
+            1
+            for attempt in attempts
+            if isinstance(attempt, dict)
+            and type(attempt.get("retry")) is int
+            and attempt["retry"] > 0
+        )
+        if recorder is not None:
+            recorder.set_metrics(
+                inference_started=bool(attempts),
+                input_tokens=(
+                    report.get("total_input_tokens")
+                    if type(report.get("total_input_tokens")) is int and report["total_input_tokens"] >= 0
+                    else None
+                ),
+                output_tokens=total_generated_tokens,
+                attempt_count=len(attempts),
+                retry_count=retry_count,
+                section_count=report.get("sections") if type(report.get("sections")) is int else None,
+                renderer_status=(
+                    report.get("status")
+                    if report.get("status") in {"accepted", "stage_failed", "input_too_long", "missing_information"}
+                    else "unknown"
+                ),
+            )
+            recorder.set_stage("output_validation", generation_id=generation_id)
+            if report.get("status") == "accepted":
+                recorder.set_stage("render_export", generation_id=generation_id)
+            recorder.set_stage("persist_result", generation_id=generation_id)
         try:
             _persist_result(output_dir, report)
         except OSError:
@@ -337,6 +506,8 @@ def create_generation(body: GenerationRequest) -> GenerationResponse:
 
         status = report.get("status")
         if status == "accepted":
+            if recorder is not None:
+                recorder.finish("completed", http_status=200)
             return GenerationResponse(
                 status="completed",
                 generation_id=generation_id,
@@ -353,17 +524,23 @@ def create_generation(body: GenerationRequest) -> GenerationResponse:
                 files=["index.html", "styles.css", "app.js"],
             )
         if status == "input_too_long":
+            if recorder is not None:
+                recorder.finish("rejected", http_status=200, code="input_too_long")
             return GenerationResponse(
                 status="input_too_long",
                 generation_id=generation_id,
                 message="Request melebihi batas konteks. Ringkas prompt atau fakta secara manual.",
             )
         if status == "missing_information":
+            if recorder is not None:
+                recorder.finish("failed", http_status=200, code="output_invalid")
             return _generation_failure(
                 generation_id,
                 "Informasi usaha belum lengkap. Lengkapi fakta yang diminta sebelum mencoba kembali.",
                 ["business_facts"],
             )
+        if recorder is not None:
+            recorder.finish("failed", http_status=200, code="inference_failed")
         return _generation_failure(
             generation_id,
             "Generation gagal pada pemeriksaan internal. Periksa request lalu coba kembali.",

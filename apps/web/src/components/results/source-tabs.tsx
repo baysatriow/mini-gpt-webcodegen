@@ -161,7 +161,7 @@ export function SourceTabs({ generationId, state, onRetry, onDownload }: SourceT
             <div className="grid min-h-[360px] flex-1 place-items-center px-5 text-xs text-slate-300" role="status">
               <span className="inline-flex items-center gap-2">
                 <LoaderCircle className="size-4 animate-spin text-blue-400" aria-hidden="true" />
-                Mengambil source code dari API lokal…
+                Mengambil source code…
               </span>
             </div>
           ) : null}

@@ -52,7 +52,7 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
                 : "bg-blue-50 text-blue-700 border-blue-200"
             }`}
           >
-            {confirmed ? "✓ Disetujui Pengguna" : "Siap Ditinjau"}
+            {confirmed ? "Disetujui" : "Siap Ditinjau"}
           </span>
         </div>
 
@@ -65,9 +65,9 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
         />
 
         {/* Blueprint Card */}
-        <div className="mt-3.5 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+        <div className="mt-3 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
           {/* Header Specs */}
-          <div className="grid gap-3 border-b border-border bg-slate-50/80 p-4 sm:grid-cols-2 sm:px-5">
+          <div className="grid gap-3 border-b border-border bg-slate-50/80 p-3.5 sm:grid-cols-2 sm:px-4">
             <SummaryItem label="Nama Usaha" value={name} verified />
             <SummaryItem
               label="Jenis & Gaya Desain"
@@ -75,7 +75,7 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
             />
           </div>
 
-          <div className="space-y-4 p-4 sm:px-5">
+          <div className="space-y-3 p-3.5 sm:px-4">
             <SummaryItem label="Deskripsi Usaha" value={description} verified />
 
             <div>
@@ -120,10 +120,10 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
           </div>
 
           {/* Action Bar */}
-          <div className="flex flex-col-reverse gap-2 border-t border-border bg-slate-50/50 p-3 sm:flex-row sm:justify-end sm:items-center sm:px-5">
+          <div className="flex flex-col-reverse gap-2 border-t border-border bg-slate-50/50 p-2.5 sm:flex-row sm:justify-end sm:items-center sm:px-4">
             {confirmed ? (
               <p className="self-center text-xs font-medium text-emerald-600" role="status">
-                ✓ Blueprint dikonfirmasi. Siap menghasilkan halaman web.
+                Blueprint dikonfirmasi. Siap membuat halaman web.
               </p>
             ) : (
               <>
@@ -152,7 +152,7 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
         </div>
 
         <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
-          Periksa fakta di atas. Klik &ldquo;Generate Website&rdquo; untuk memulai sintesis halaman secara lokal.
+          Periksa fakta di atas. Klik &ldquo;Generate Website&rdquo; untuk memulai pembuatan halaman.
         </p>
       </div>
     </article>

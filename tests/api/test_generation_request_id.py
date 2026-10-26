@@ -24,6 +24,7 @@ class _Runtime:
         self.settings = SimpleNamespace(
             generation_output_dir=Path(output_root),
             project_root=Path.cwd(),
+            checkpoint_path=Path("TRAIN-025-step1800.pt"),
             host="127.0.0.1",
             port=8000,
         )
@@ -58,7 +59,8 @@ class GenerationRequestIdTests(unittest.TestCase):
                 patch("apps.api.routers.generations.get_runtime", return_value=runtime),
                 patch("apps.api.routers.generations.validate_intake", return_value=intake),
             ):
-                result = routers.generations.create_generation(body)
+                request = SimpleNamespace(state=SimpleNamespace())
+                result = routers.generations.create_generation(body, request)
 
         self.assertEqual("generation_failed", result.status)
         self.assertEqual(request_id, runtime.generator.request["request_id"])

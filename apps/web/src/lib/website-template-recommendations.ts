@@ -2,13 +2,13 @@ import type { WebsiteTemplate } from "./website-templates";
 
 export const WEBSITE_TEMPLATE_CATEGORIES = [
   { id: "all", label: "Semua" },
-  { id: "food", label: "🍽️ Kuliner" },
-  { id: "creative", label: "🎨 Kreatif" },
-  { id: "retail", label: "🛍️ Retail" },
-  { id: "service", label: "💼 Layanan" },
-  { id: "learning", label: "📚 Belajar" },
-  { id: "wellness", label: "🌿 Kebugaran" },
-  { id: "community", label: "🤝 Komunitas" },
+  { id: "food", label: "Kuliner" },
+  { id: "creative", label: "Kreatif" },
+  { id: "retail", label: "Retail" },
+  { id: "service", label: "Layanan" },
+  { id: "learning", label: "Belajar" },
+  { id: "wellness", label: "Kebugaran" },
+  { id: "community", label: "Komunitas" },
 ] as const;
 
 export type WebsiteTemplateCategoryFilter = (typeof WEBSITE_TEMPLATE_CATEGORIES)[number]["id"];

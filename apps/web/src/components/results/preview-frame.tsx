@@ -68,8 +68,8 @@ export function PreviewFrame({ generationId, src, title, viewport }: PreviewFram
           {/* Isolated Preview Indicator */}
           <div className="flex min-w-0 max-w-md flex-1 items-center gap-1.5 rounded-lg border border-border/80 bg-white px-2.5 py-1 text-[11px] text-muted-foreground shadow-2xs">
             <Lock className="size-3 text-emerald-600 shrink-0" />
-            <span className="truncate text-foreground">
-              Pratinjau terisolasi · {generationId}
+            <span className="truncate text-foreground font-mono text-[10px]">
+              preview://{generationId}
             </span>
           </div>
 
@@ -118,8 +118,8 @@ export function PreviewFrame({ generationId, src, title, viewport }: PreviewFram
                   <div className="relative mx-auto mb-3 flex size-10 items-center justify-center rounded-xl bg-blue-50 text-primary">
                     <Globe className="size-5 animate-pulse" />
                   </div>
-                  <p className="text-sm font-medium text-foreground" role="status">Memeriksa sandbox lokal…</p>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">Menyiapkan frame pratinjau interaktif dari API lokal.</p>
+                  <p className="text-sm font-medium text-foreground" role="status">Memeriksa pratinjau…</p>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">Menyiapkan frame pratinjau interaktif.</p>
                 </>
               ) : (
                 <>

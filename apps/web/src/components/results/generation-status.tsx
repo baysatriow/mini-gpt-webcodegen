@@ -28,7 +28,7 @@ export function GenerationStatus({ message }: GenerationStatusProps) {
 
       <div className="min-w-0 flex-1 pt-0.5">
         <div
-          className={`rounded-2xl border p-4 sm:p-5 shadow-xs transition-all ${
+          className={`rounded-2xl border p-3.5 sm:p-4 shadow-xs transition-all ${
             pending
               ? "border-blue-200/80 bg-blue-50/40"
               : failed
@@ -51,7 +51,7 @@ export function GenerationStatus({ message }: GenerationStatusProps) {
                 ? "Sedang menghasilkan website"
                 : failed
                   ? "Kendala Pembuatan"
-                  : "✓ Selesai & Terverifikasi"}
+                  : "Selesai & Terverifikasi"}
             </span>
           </div>
 
