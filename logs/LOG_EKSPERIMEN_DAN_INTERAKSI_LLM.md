@@ -7327,3 +7327,13 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Next.js production dimulai ulang sesudah build pada `127.0.0.1:3000`, PID 53612. Listener FastAPI tetap pada `127.0.0.1:8000`, PID 58012. Proses Cloudflare Tunnel PID 37708 tetap berjalan.
 - Log tunnel mengeluarkan satu timeout DNS saat menyegarkan resolver `region1.v2.argotunnel.com`; pembacaan berikutnya belum mengonfirmasi koneksi publik pulih. Tidak ada pemeriksaan melalui tunnel yang dianggap berhasil.
 - Pengamatan visual lokal masih diblokir kebijakan URL browser. Generation/inference tidak dijalankan dan source/model training tidak diubah.
+
+## RUN-675, jalankan server lokal dan Cloudflare Quick Tunnel
+
+- Tanggal/waktu: 28 Oktober 2026, 08:35, Asia/Jakarta.
+- Next.js production berjalan pada `127.0.0.1:3001`, PID `34572`. FastAPI berjalan pada `127.0.0.1:8000`, PID `39420`. Keduanya bind ke loopback.
+- Cloudflare Quick Tunnel PID `39156` terhubung via QUIC ke frontend port `3001`: `https://ideal-seal-satisfaction-gateway.trycloudflare.com`. FastAPI tidak dipublikasikan langsung.
+- Halaman HTTPS tunnel berhasil dimuat dan menampilkan form login aplikasi. GET `/api/v1/health` dari jaringan publik memberi `401 authentication_required`, sesuai akses tanpa sesi. Health check langsung ke FastAPI memberi `200` dan `status=ok`.
+- Health API melaporkan `model_loaded=false`, `extractor_available=false`, `extractor_loaded=false`, dan `generator_loaded=false`. Tidak ada generation atau inference yang dijalankan.
+- Akses aplikasi tetap diwajibkan autentikasi yang sudah dikonfigurasi secara lokal. Nilai kredensial dan secret tidak dicatat di log.
+- Tunnel ini adalah Quick Tunnel sementara; URL berlaku selama proses cloudflared berjalan dan dapat berubah setelah proses dihentikan atau dimulai ulang.
