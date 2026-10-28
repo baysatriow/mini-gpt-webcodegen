@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 import json
 import logging
 import os
+import secrets
 from io import BytesIO
 from pathlib import Path
 
@@ -19,7 +20,12 @@ from apps.api.schemas import (
     GenerationSummary,
     SourceResponse,
 )
-from apps.api.services.artifacts import ArtifactNotFoundError, ArtifactStore, new_generation_id
+from apps.api.services.artifacts import (
+    ArtifactNotFoundError,
+    ArtifactStore,
+    new_generation_id,
+    preview_content_security_policy,
+)
 from apps.api.services.intake import validate_intake
 from apps.api.services.runtime import get_runtime
 from apps.api.services.usage_audit import UsageRecorder
@@ -65,11 +71,14 @@ def _generation_directory(store: ArtifactStore, generation_id: str) -> Path:
 @router.get(
     "/{generation_id}/preview/{relative_path:path}",
     response_class=Response,
-    summary="Show one accepted preview file",
-    response_description="Renderer HTML, CSS, JavaScript, or a referenced local SVG asset",
+    summary="Show one accepted preview artifact",
+    response_description=(
+        "A self-contained HTML preview for index.html, or one accepted CSS, JavaScript, "
+        "or local SVG source artifact"
+    ),
     responses={
         200: {
-            "description": "One fixed-type accepted renderer file",
+            "description": "Self-contained HTML preview or one fixed-type accepted renderer file",
             "content": {
                 "text/html": {},
                 "text/css": {},
@@ -83,18 +92,27 @@ def _generation_directory(store: ArtifactStore, generation_id: str) -> Path:
 def preview_file(generation_id: str, relative_path: str) -> Response:
     store = _store()
     generation_dir = _generation_directory(store, generation_id)
+    inline_nonce = secrets.token_urlsafe(18) if relative_path == "index.html" else None
     try:
-        payload, content_type = store.read_accepted_preview_file(generation_dir, relative_path)
+        payload, content_type = store.read_accepted_preview_file(
+            generation_dir,
+            relative_path,
+            inline_nonce=inline_nonce,
+        )
     except ArtifactNotFoundError as error:
         raise _not_found() from error
 
     api_origin = _api_origin(get_runtime().settings.host, get_runtime().settings.port)
-    headers = {
-        "Content-Security-Policy": (
+    if relative_path == "index.html":
+        content_security_policy = preview_content_security_policy(inline_nonce)
+    else:
+        content_security_policy = (
             "default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; "
             f"connect-src 'none'; script-src 'self' {api_origin}; "
             f"style-src 'self' {api_origin}; img-src 'self' {api_origin} data:"
-        ),
+        )
+    headers = {
+        "Content-Security-Policy": content_security_policy,
         "X-Content-Type-Options": "nosniff",
         "Cache-Control": "no-store",
     }

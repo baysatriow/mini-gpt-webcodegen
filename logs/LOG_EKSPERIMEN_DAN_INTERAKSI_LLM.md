@@ -7337,3 +7337,15 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Health API melaporkan `model_loaded=false`, `extractor_available=false`, `extractor_loaded=false`, dan `generator_loaded=false`. Tidak ada generation atau inference yang dijalankan.
 - Akses aplikasi tetap diwajibkan autentikasi yang sudah dikonfigurasi secara lokal. Nilai kredensial dan secret tidak dicatat di log.
 - Tunnel ini adalah Quick Tunnel sementara; URL berlaku selama proses cloudflared berjalan dan dapat berubah setelah proses dihentikan atau dimulai ulang.
+
+## AI-058, perbaikan stylesheet pratinjau website
+
+- Tanggal/waktu: 28 Oktober 2026, 09:16, Asia/Jakarta.
+- Masalah: shell Rancang tetap bergaya, tetapi website hasil di panel pratinjau tampil sebagai HTML mentah. CSS, navigasi, dan ilustrasi SVG tidak terlihat benar.
+- Akar masalah: dokumen preview berjalan pada iframe sandbox allow-scripts dengan origin opaque. HTML meminta CSS, JavaScript, dan aset sebagai subresource terpisah melalui API. Request tersebut tidak membawa sesi autentikasi aplikasi, sehingga browser merender HTML tanpa stylesheet dan sebagian resource gagal.
+- Perbaikan: API merakit dokumen HTML preview mandiri dari output yang lolos verifikasi manifest dan checksum. CSS, JavaScript renderer, serta SVG yang disetujui disematkan dengan nonce CSP. Source asli dan ZIP unduhan tidak diubah.
+- Frontend mengambil dokumen melalui sesi aplikasi, memeriksa MIME type, redirect, nonce, dan CSP header/meta, lalu menyematkannya sebagai srcDoc di iframe sandbox. Parser CSP menerima normalisasi proxy yang setara untuk sumber self dan entity apostrof, tetapi menolak unsafe-inline, unsafe-eval, nonce berbeda, directive penting yang hilang, serta origin eksternal.
+- Pemeriksaan visual melalui tunnel menunjukkan navigasi berjarak, tipografi dan tombol bergaya, serta ilustrasi SVG tampil. DOM pratinjau berada pada about:srcdoc.
+- Tes API 18/18 dan tes web 25/25 lulus. ESLint dan TypeScript lulus. Build produksi Next.js lulus pada pemeriksaan sebelumnya setelah perubahan; tidak diulang agar server production aktif tidak terganggu.
+- Health API lokal ok. model_loaded, extractor_available, extractor_loaded, dan generator_loaded masih false. Tidak ada generation atau inference baru.
+- Rincian: logs/RUN-676_preview_css_auth_iframe_fix.txt.

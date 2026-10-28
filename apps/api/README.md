@@ -35,7 +35,7 @@ Tekan `Ctrl+C` untuk menghentikan server. API hanya menerima bind loopback. Defa
 | `POST` | `/api/v1/intake/validate` | Klarifikasi dan validasi tanpa menjalankan generation |
 | `POST` | `/api/v1/generations` | Validasi ulang, lalu membuat satu halaman dengan model lokal |
 | `GET` | `/api/v1/generations/{generation_id}` | Ringkasan status yang aman |
-| `GET` | `/api/v1/generations/{generation_id}/preview/{relative_path}` | Preview HTML dan berkas yang dirujuknya |
+| `GET` | `/api/v1/generations/{generation_id}/preview/{relative_path}` | HTML preview mandiri atau satu berkas CSS/JS/SVG yang diterima |
 | `GET` | `/api/v1/generations/{generation_id}/source` | Tiga berkas source hasil renderer |
 | `GET` | `/api/v1/generations/{generation_id}/download.zip` | Source, spesifikasi halaman, atribusi aset, dan aset terpakai |
 | `GET` | `/api/v1/usages/summary?window=24h` | KPI audit dan sampel GPU selama generation |
@@ -49,7 +49,7 @@ Setiap nilai draft harus muncul persis pada pesan sumber yang dirujuk. Respons m
 
 Extractor dilatih dari keluarga training saja. Synthetic development dipakai untuk gate raw extraction dan replay safety API. `qa/select_request_extract_v1.py` hanya menghasilkan paket `training/selected/request-extract-v1` bila semua ambang development lulus. Runtime memverifikasi manifest/checkpoint dan memuat extractor secara lazy di bawah inference lock bersama generator; health tidak memuat model. Jika paket belum lolos verifikasi atau belum ada, extraction mengembalikan respons fail-closed dan UI mempertahankan brief untuk editor manual. Test/final tidak dipakai untuk training atau pemilihan.
 
-Generation menyimpan berkas di `outputs/webapp/generations`, yang diabaikan Git. Preview, source, dan ZIP hanya tersedia jika laporan renderer berstatus `accepted` dan hash berkas cocok. Route preview memakai CSP ketat, content type tetap, dan cache `no-store`. Data prompt dan artefak tetap lokal.
+Generation menyimpan berkas di `outputs/webapp/generations`, yang diabaikan Git. Preview, source, dan ZIP hanya tersedia jika laporan renderer berstatus `accepted` dan hash berkas cocok. `preview/index.html` menanam CSS, JavaScript renderer, dan SVG yang disetujui ke dokumen preview agar sandbox tidak memerlukan permintaan subresource dengan sesi autentikasi terpisah. Endpoint `source` dan ZIP tetap berisi file renderer asli. Route preview memakai CSP ketat, content type tetap, dan cache `no-store`. Data prompt dan artefak tetap lokal.
 
 ## Audit Usage
 

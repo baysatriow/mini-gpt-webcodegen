@@ -11,6 +11,7 @@ import type {
   SourceFilename,
   SourceResponse,
 } from "@/lib/api-types";
+import { isTrustedPreviewDocument } from "@/lib/preview-security";
 
 export const API_BASE_URL = (
   process.env.NEXT_PUBLIC_API_BASE_URL ?? ""
@@ -157,11 +158,12 @@ export function getPreviewFileUrl(generationId: string, filename: SourceFilename
   return `${API_BASE_URL}${generationPath(generationId)}/preview/${encodeURIComponent(filename)}`;
 }
 
-export async function checkPreviewAvailability(generationId: string, signal: AbortSignal): Promise<void> {
+export async function loadPreviewDocument(generationId: string, signal: AbortSignal): Promise<string> {
   let response: Response;
   try {
     response = await fetch(getPreviewFileUrl(generationId, "index.html"), {
       cache: "no-store",
+      credentials: "same-origin",
       signal,
     });
   } catch (error) {
@@ -175,7 +177,24 @@ export async function checkPreviewAvailability(generationId: string, signal: Abo
     const payload: unknown = await response.json().catch(() => null);
     throw safeError(payload, response.status);
   }
-  if (response.body) await response.body.cancel().catch(() => undefined);
+
+  const contentType = response.headers.get("content-type")?.toLowerCase() ?? "";
+  const contentSecurityPolicy = response.headers.get("content-security-policy");
+  if (response.redirected || !contentType.startsWith("text/html") || !contentSecurityPolicy) {
+    throw new ApiClientError("Dokumen pratinjau tidak lolos pemeriksaan keamanan.", {
+      status: response.status,
+      code: "preview_invalid_document",
+    });
+  }
+
+  const document = await response.text();
+  if (!isTrustedPreviewDocument(document, contentSecurityPolicy)) {
+    throw new ApiClientError("Kebijakan keamanan pratinjau tidak cocok.", {
+      status: response.status,
+      code: "preview_invalid_document",
+    });
+  }
+  return document;
 }
 
 export function getDownloadZipUrl(generationId: string): string {

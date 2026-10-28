@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { AlertCircle, ExternalLink, Globe, Lock, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ApiClientError, checkPreviewAvailability } from "@/lib/api-client";
+import { ApiClientError, loadPreviewDocument } from "@/lib/api-client";
 
 export type ViewportMode = "desktop" | "tablet" | "mobile";
 
@@ -16,7 +16,7 @@ type PreviewFrameProps = {
 
 type PreviewState =
   | { status: "loading" }
-  | { status: "ready" }
+  | { status: "ready"; document: string }
   | { status: "error"; message: string };
 
 export function PreviewFrame({ generationId, src, title, viewport }: PreviewFrameProps) {
@@ -26,9 +26,9 @@ export function PreviewFrame({ generationId, src, title, viewport }: PreviewFram
   useEffect(() => {
     const controller = new AbortController();
     let active = true;
-    void checkPreviewAvailability(generationId, controller.signal)
-      .then(() => {
-        if (active) setPreviewState({ status: "ready" });
+    void loadPreviewDocument(generationId, controller.signal)
+      .then((document) => {
+        if (active) setPreviewState({ status: "ready", document });
       })
       .catch((error: unknown) => {
         if (!active || controller.signal.aborted) return;
@@ -102,7 +102,7 @@ export function PreviewFrame({ generationId, src, title, viewport }: PreviewFram
         {previewState.status === "ready" ? (
           <iframe
             key={`${src}-${attempt}`}
-            src={src}
+            srcDoc={previewState.document}
             title={`Pratinjau website ${title}`}
             sandbox="allow-scripts"
             referrerPolicy="no-referrer"
