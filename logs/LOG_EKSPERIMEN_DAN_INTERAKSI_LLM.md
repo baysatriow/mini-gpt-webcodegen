@@ -7349,3 +7349,17 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Tes API 18/18 dan tes web 25/25 lulus. ESLint dan TypeScript lulus. Build produksi Next.js lulus pada pemeriksaan sebelumnya setelah perubahan; tidak diulang agar server production aktif tidak terganggu.
 - Health API lokal ok. model_loaded, extractor_available, extractor_loaded, dan generator_loaded masih false. Tidak ada generation atau inference baru.
 - Rincian: logs/RUN-676_preview_css_auth_iframe_fix.txt.
+
+## RUN-677, menjalankan aplikasi lokal dan Quick Tunnel
+
+- Tanggal/waktu: 30 Oktober 2026, 20:44, Asia/Jakarta.
+- Atas permintaan pengguna, frontend Next.js production dijalankan pada 127.0.0.1:3000 dan FastAPI native dari .venv pada 127.0.0.1:8000 dengan satu worker. Docker tidak digunakan.
+- Cloudflare Quick Tunnel aktif dengan PID 4532 dan meneruskan trafik hanya ke frontend 127.0.0.1:3000. URL sementara dikirim di chat dan tidak ditulis di repo.
+- Autentikasi lokal aktif. Konfigurasi username/password dan session secret memenuhi syarat panjang; nilainya tidak disalin ke log. API_SERVER_ORIGIN tetap loopback dan NEXT_PUBLIC_API_BASE_URL kosong agar browser memakai origin Next.js yang sama.
+- Pemeriksaan lokal tanpa sesi: / dialihkan ke /login dengan 307, /login menjawab 200, dan /api/v1/health melalui frontend menjawab 401.
+- Pemeriksaan dari jaringan Quick Tunnel: / dialihkan ke /login dengan 307, /login menjawab 200, dan /api/v1/health menjawab 401. Sertifikat HTTPS diterima curl tanpa menonaktifkan validasi TLS.
+- Pada percobaan tunnel pertama DNS tidak dapat resolve api.trycloudflare.com. Setelah DNS sistem dan resolver publik berhasil menjawab, Quick Tunnel dimulai ulang dan URL berhasil dibuat.
+- Listener aktual: Next.js PID 66940 pada 127.0.0.1:3000; FastAPI PID 1772 pada 127.0.0.1:8000; cloudflared PID 4532. Port API tidak dipublikasikan.
+- Health FastAPI berstatus ok. model_loaded, extractor_available, extractor_loaded, dan generator_loaded bernilai false. Tidak ada generation atau inference yang dijalankan.
+- Build production yang telah tersedia dipakai ulang; tidak ada source atau dependency yang diubah untuk menjalankan layanan.
+- Rincian: logs/RUN-677_quick_tunnel_restart.txt.
