@@ -7363,3 +7363,14 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Health FastAPI berstatus ok. model_loaded, extractor_available, extractor_loaded, dan generator_loaded bernilai false. Tidak ada generation atau inference yang dijalankan.
 - Build production yang telah tersedia dipakai ulang; tidak ada source atau dependency yang diubah untuk menjalankan layanan.
 - Rincian: logs/RUN-677_quick_tunnel_restart.txt.
+
+## RUN-678, shutdown server lokal dan Cloudflare Tunnel
+
+- Tanggal/waktu: 31 Oktober 2026, 00:41, Asia/Jakarta.
+- Atas permintaan pengguna, listener Next.js pada 127.0.0.1:3000 dihentikan, begitu juga FastAPI pada 127.0.0.1:8000 dan Cloudflare Quick Tunnel yang mengarah ke port 3000.
+- Proses terkait yang dihentikan: Next.js listener PID 66940, FastAPI worker PID 1772 dan parent PID 67604, launcher cmd PID 67412, serta cloudflared PID 4532.
+- Verifikasi setelah shutdown: tidak ada listener pada port 3000, 3001, atau 8000. Tidak ada proses cloudflared yang tersisa.
+- URL tunnel sebelumnya menjawab HTTP 530 setelah proses cloudflared dihentikan.
+- Tidak ada generation atau inference yang berjalan. File environment dan kredensial tidak diubah.
+- Saat pencatatan, terdapat perubahan frontend lokal yang belum commit pada apps/web. Perubahan itu dibiarkan di working tree; commit shutdown hanya berisi log.
+- Rincian: logs/RUN-678_stop_local_application_and_tunnel.txt.
