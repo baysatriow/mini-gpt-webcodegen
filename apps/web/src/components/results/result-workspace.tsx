@@ -143,7 +143,7 @@ export function ResultWorkspace({
             {summary.business_name || "Halaman Web"}
           </span>
           <span className="hidden sm:inline-flex rounded-md bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground border border-border">
-            {genreLabel} Â· {styleLabel}
+            {genreLabel} · {styleLabel}
           </span>
         </div>
 

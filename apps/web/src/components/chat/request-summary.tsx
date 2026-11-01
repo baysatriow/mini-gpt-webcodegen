@@ -70,7 +70,7 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
             <SummaryItem label="Nama Usaha" value={name} verified />
             <SummaryItem
               label="Jenis & Gaya Desain"
-              value={`${optionLabel(catalog?.supported_genres, draft.genre)} Â· ${optionLabel(catalog?.supported_style_modes, draft.style_mode)}`}
+              value={`${optionLabel(catalog?.supported_genres, draft.genre)} · ${optionLabel(catalog?.supported_style_modes, draft.style_mode)}`}
             />
           </div>
 
@@ -105,7 +105,7 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
                   {extras.map((fact, index) => (
                     <li key={`${fact.kind}-${index}`} className="text-xs text-foreground bg-slate-50/50 rounded-lg p-2 border border-slate-100">
                       <span className="font-semibold text-primary">[{fact.kind.toUpperCase()}] {fact.title}</span>
-                      <span className="text-muted-foreground"> â€” {fact.text}</span>
+                      <span className="text-muted-foreground"> · {fact.text}</span>
                     </li>
                   ))}
                 </ul>

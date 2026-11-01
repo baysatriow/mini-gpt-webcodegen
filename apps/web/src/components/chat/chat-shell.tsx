@@ -188,7 +188,7 @@ export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
   ) {
     const pending: ClarificationMessage = {
       ...message,
-      content: "Memeriksa kelengkapan fakta dan cakupan halamanÃ¢â‚¬Â¦",
+      content: "Memeriksa kelengkapan fakta dan cakupan halaman…",
       draft,
       templateId: undefined,
       status: "needs_clarification",
@@ -254,7 +254,7 @@ export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
     const promptText = messages.map((message) => message.text).join("\n");
     const pending = createMessage({
       type: "clarification",
-      content: "Membaca brief dan memeriksa fakta yang Anda berikanÃ¢â‚¬Â¦",
+      content: "Membaca brief dan memeriksa fakta yang Anda berikan…",
       prompt: promptText,
       draft: emptyDraft(promptText),
       status: "needs_clarification",
@@ -539,7 +539,7 @@ export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
       <main className="grid min-h-svh place-items-center bg-frost text-sm text-slate-note" aria-busy="true">
         <div className="flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-3 shadow-xs">
           <LoaderCircle aria-hidden="true" className="size-4 animate-spin text-primary" />
-          Menyiapkan workspaceÃ¢â‚¬Â¦
+          Menyiapkan workspace…
         </div>
       </main>
     );
