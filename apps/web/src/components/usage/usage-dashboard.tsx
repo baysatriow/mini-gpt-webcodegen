@@ -77,7 +77,7 @@ function gpuScopeLabel(scope: string) {
 
 function StatLine({ label, value, detail }: { label: string; value: string; detail?: string }) {
   return (
-    <div className="min-w-0 px-3 py-2.5 first:pl-4 last:pr-4 lg:first:pl-0 lg:last:pr-0">
+    <div className="min-w-0 px-4 py-3 sm:px-5">
       <p className="text-[10px] leading-4 text-muted-foreground">{label}</p>
       <p className="mt-0.5 whitespace-normal break-words text-sm font-semibold leading-5 text-foreground">{value}</p>
       {detail ? <p className="mt-0.5 text-[10px] leading-4 text-muted-foreground">{detail}</p> : null}
@@ -652,7 +652,7 @@ export function UsageDashboard({ showLogout = false }: { showLogout?: boolean })
       </aside>
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-        <header className="flex min-h-[58px] shrink-0 items-center justify-between gap-3 border-b border-border bg-card px-3 sm:px-4">
+        <header className="flex min-h-[58px] shrink-0 items-center justify-between gap-3 border-b border-border bg-card px-4 sm:px-5">
           <div className="flex min-w-0 items-center gap-2.5">
             <div className="lg:hidden">
               <Sheet open={historyOpen} onOpenChange={setHistoryOpen}>
