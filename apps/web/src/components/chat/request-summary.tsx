@@ -35,7 +35,7 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
         className={`grid size-8 shrink-0 place-items-center rounded-xl border ${
           confirmed
             ? "border-emerald-200 bg-emerald-50 text-emerald-600"
-            : "border-blue-200 bg-blue-50 text-primary"
+            : "border-border bg-accent text-accent-foreground"
         }`}
       >
         {confirmed ? <BadgeCheck aria-hidden="true" className="size-4" /> : <ShieldCheck aria-hidden="true" className="size-4" />}
@@ -48,7 +48,7 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
             className={`rounded-full px-2 py-0.5 text-[10px] font-medium border ${
               confirmed
                 ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-                : "bg-blue-50 text-blue-700 border-blue-200"
+                : "bg-accent text-accent-foreground border-border"
             }`}
           >
             {confirmed ? "Disetujui" : "Siap Ditinjau"}
@@ -84,7 +84,7 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
               <ul className="mt-2 space-y-2">
                 {services.map((service, index) => (
                   <li key={`${service.title}-${index}`} className="flex items-start gap-2.5 rounded-xl border border-slate-100 bg-slate-50/70 p-3">
-                    <span className="grid size-5 shrink-0 place-items-center rounded-full bg-blue-100 text-[10px] font-bold text-primary">
+                    <span className="grid size-5 shrink-0 place-items-center rounded-full bg-secondary text-[10px] font-semibold text-secondary-foreground">
                       {index + 1}
                     </span>
                     <div className="min-w-0">
@@ -137,7 +137,7 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
                 <button
                   type="button"
                   onClick={() => onConfirm(message)}
-                  className="inline-flex items-center gap-2 rounded-xl text-xs font-bold h-9 px-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-sm shadow-blue-500/30 hover:shadow-md hover:shadow-blue-500/35 active:scale-95 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="inline-flex items-center gap-2 rounded-lg text-xs font-semibold h-9 px-4 bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[0.98] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <Sparkles aria-hidden="true" className="size-3.5" />
                   Generate Website Sekarang

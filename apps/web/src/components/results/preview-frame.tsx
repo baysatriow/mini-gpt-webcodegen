@@ -239,7 +239,7 @@ function LoadingOrErrorState({
         {state.status === "loading" ? (
           <>
             <div className="relative mx-auto mb-3 flex size-12 items-center justify-center rounded-2xl bg-blue-50 text-primary border border-blue-100 shadow-2xs">
-              <Globe className="size-6 animate-pulse" />
+              <Globe aria-hidden="true" className="size-6" />
             </div>
             <p className="text-sm font-semibold text-foreground" role="status">Memeriksa pratinjauÃ¢â‚¬Â¦</p>
             <p className="mt-1 text-xs leading-relaxed text-muted-foreground">Menyiapkan frame pratinjau interaktif.</p>

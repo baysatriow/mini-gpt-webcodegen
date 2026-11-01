@@ -17,9 +17,9 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "VibeCraft | AI Website Studio",
+  title: "WebCraft by VibeStack | WebCraft GPT",
   description:
-    "Bangun dan tinjau landing page atau company profile dalam HTML, CSS, dan JavaScript dengan generator website lokal.",
+    "WebCraft GPT dari VibeStack membantu menyusun dan meninjau landing page atau company profile dalam HTML, CSS, dan JavaScript.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -4,12 +4,12 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
   Activity,
+  Code2,
   LogOut,
   MessageSquare,
   PanelLeftClose,
   Plus,
   Search,
-  Sparkles,
   Trash2,
   X,
 } from "lucide-react";
@@ -47,18 +47,16 @@ export function HistorySidebar({
   }, [sessions, searchQuery]);
 
   return (
-    <div className={cn("flex h-full min-h-0 flex-col bg-sidebar select-none border-r border-border/80", className)}>
+    <div className={cn("flex h-full min-h-0 flex-col bg-sidebar border-r border-sidebar-border", className)}>
       {/* Brand & Sidebar Close Header */}
-      <div className="flex h-[52px] items-center justify-between px-3.5 border-b border-border/60">
+      <div className="flex h-[64px] items-center justify-between px-4 border-b border-sidebar-border">
         <div className="flex items-center gap-2.5">
-          <span className="grid size-7.5 shrink-0 place-items-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-sm shadow-blue-500/25">
-            <Sparkles aria-hidden="true" className="size-4" />
+          <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-primary text-[#f0a080]">
+            <Code2 aria-hidden="true" className="size-4" />
           </span>
-          <div className="flex items-center gap-1.5">
-            <span className="font-bold tracking-tight text-foreground text-sm">VibeCraft</span>
-            <span className="rounded bg-blue-50 px-1.5 py-0.2 text-[9px] font-bold text-primary border border-blue-200/60">
-              AI
-            </span>
+          <div className="flex flex-col leading-tight">
+            <span className="font-semibold tracking-tight text-foreground text-sm">WebCraft</span>
+            <span className="mt-0.5 text-[10px] text-muted-foreground">by VibeStack</span>
           </div>
         </div>
 
@@ -78,16 +76,14 @@ export function HistorySidebar({
       </div>
 
       {/* New Chat Button - Elevated & Tactile */}
-      <div className="p-2.5 pb-1">
+      <div className="p-3 pb-1">
         <button
           type="button"
           onClick={onNew}
-          className="group flex h-9.5 w-full items-center gap-2.5 rounded-xl bg-slate-900 px-3 text-xs font-semibold text-white shadow-sm transition-all duration-150 hover:bg-slate-800 hover:shadow active:scale-[0.98] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="group flex h-10 w-full items-center gap-2.5 rounded-lg bg-primary px-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 active:scale-[0.99] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <div className="grid size-5 place-items-center rounded-lg bg-white/15 text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-            <Plus aria-hidden="true" className="size-3.5 stroke-[2.5]" />
-          </div>
-          <span>Percakapan Baru</span>
+          <Plus aria-hidden="true" className="size-4 stroke-[2.25]" />
+          <span>Chat baru</span>
         </button>
       </div>
 
@@ -175,16 +171,16 @@ export function HistorySidebar({
         <Link
           href="/usage"
           aria-label="Buka Usage dan audit generate"
-          className="flex h-9 items-center gap-2.5 rounded-lg px-2.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-slate-200/50 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="flex h-9 items-center gap-2.5 rounded-lg px-2.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <Activity aria-hidden="true" className="size-4 text-blue-600" />
-          <span>Usage Dashboard</span>
+          <Activity aria-hidden="true" className="size-4 text-primary" />
+          <span>Penggunaan</span>
         </Link>
         {showLogout ? (
           <form action="/api/auth/logout" method="post">
             <button
               type="submit"
-              className="flex h-9 w-full items-center gap-2.5 rounded-lg px-2.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-slate-200/50 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="flex h-9 w-full items-center gap-2.5 rounded-lg px-2.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
             >
               <LogOut aria-hidden="true" className="size-4" />
               <span>Keluar</span>

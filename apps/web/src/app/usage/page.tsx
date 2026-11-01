@@ -5,8 +5,8 @@ import { isAccessRequired } from "@/lib/access-session.mjs";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Usage | VibeCraft",
-  description: "Ringkasan GPU dan audit aktivitas generate VibeCraft.",
+  title: "Penggunaan | WebCraft by VibeStack",
+  description: "Ringkasan GPU dan audit aktivitas generate WebCraft GPT.",
 };
 
 export default function UsagePage() {

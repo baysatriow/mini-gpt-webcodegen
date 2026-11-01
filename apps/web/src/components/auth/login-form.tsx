@@ -45,7 +45,7 @@ export function LoginForm() {
           required
           value={username}
           onChange={(event) => setUsername(event.target.value)}
-          className="h-11 w-full rounded-xl border border-border bg-background px-3.5 text-sm text-foreground outline-none transition focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-primary/15"
+            className="h-11 w-full rounded-lg border border-border bg-background px-3.5 text-sm text-foreground outline-none transition focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-primary/15"
         />
       </div>
       <div className="space-y-2">
@@ -59,7 +59,7 @@ export function LoginForm() {
             required
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            className="h-11 w-full rounded-xl border border-border bg-background px-3.5 pr-12 text-sm text-foreground outline-none transition focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-primary/15"
+            className="h-11 w-full rounded-lg border border-border bg-background px-3.5 pr-12 text-sm text-foreground outline-none transition focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-primary/15"
           />
           <button
             type="button"
@@ -76,7 +76,7 @@ export function LoginForm() {
         Sesi akses berlaku selama 12 jam pada perangkat ini.
       </p>
       {error ? <p role="alert" className="rounded-lg bg-destructive/10 px-3 py-2.5 text-sm text-destructive">{error}</p> : null}
-      <Button type="submit" disabled={pending || !username || !password} className="h-11 w-full rounded-xl">
+      <Button type="submit" disabled={pending || !username || !password} className="h-11 w-full rounded-lg">
         {pending ? <Sparkles aria-hidden="true" className="size-4 animate-pulse" /> : <LockKeyhole aria-hidden="true" className="size-4" />}
         {pending ? "Memeriksa akses..." : "Masuk"}
       </Button>

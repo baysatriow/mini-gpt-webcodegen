@@ -591,14 +591,14 @@ export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
             aria-label="Percakapan generator"
           >
             {/* Header */}
-            <div className="flex h-[50px] shrink-0 items-center justify-between border-b border-border bg-card px-3.5 sm:px-4">
+            <div className="flex min-h-[58px] shrink-0 items-center justify-between border-b border-border bg-card px-3.5 py-2 sm:px-4">
               <div className="flex min-w-0 items-center gap-2">
                 <button
                   type="button"
                   onClick={handleToggleSidebar}
                   aria-label={sidebarOpen ? "Tutup sidebar" : "Buka sidebar"}
                   title={sidebarOpen ? "Tutup sidebar" : "Buka sidebar"}
-                  className="grid size-8 place-items-center rounded-lg text-muted-foreground hover:bg-slate-100 hover:text-foreground active:scale-90 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="grid size-8 place-items-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <PanelLeft aria-hidden="true" className="size-4" />
                 </button>
@@ -613,6 +613,7 @@ export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
                 </div>
 
                 <div className="min-w-0">
+                  <span className="block text-[10px] leading-tight text-muted-foreground lg:hidden">WebCraft GPT</span>
                   <p className="truncate text-xs sm:text-sm font-semibold text-foreground">
                     {activeSession.title}
                   </p>
@@ -624,10 +625,10 @@ export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
                   type="button"
                   onClick={startNewSession}
                   aria-label="Percakapan Baru"
-                  className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-border/80 bg-white px-2.5 text-xs font-semibold text-foreground shadow-2xs hover:bg-slate-50 hover:border-slate-300 active:scale-95 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border bg-card px-2.5 text-xs font-semibold text-foreground transition-colors hover:bg-muted active:scale-[0.98] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  <Plus className="size-3.5 text-blue-600 stroke-[2.5]" />
-                  <span className="hidden sm:inline">Percakapan Baru</span>
+                  <Plus className="size-3.5 text-primary stroke-[2.25]" />
+                  <span className="hidden sm:inline">Chat baru</span>
                 </button>
               </div>
             </div>
@@ -673,8 +674,8 @@ export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
         </div>
 
         {/* Floating Mobile Bottom Navigation */}
-        <div className="fixed inset-x-0 bottom-0 z-20 flex justify-center border-t border-border bg-card/90 p-2.5 backdrop-blur-md lg:hidden">
-          <div className={`flex w-full rounded-2xl bg-slate-100 p-1 border border-border shadow-xs ${canViewCode ? "max-w-lg" : "max-w-sm"}`} role="group" aria-label="Pilih tampilan">
+        <div className="fixed inset-x-0 bottom-0 z-20 flex justify-center border-t border-border bg-card p-2 lg:hidden">
+          <div className={`flex w-full rounded-xl bg-muted p-1 border border-border ${canViewCode ? "max-w-lg" : "max-w-sm"}`} role="group" aria-label="Pilih tampilan">
             <Button
               type="button"
               variant={mobilePanel === "conversation" ? "secondary" : "ghost"}
@@ -682,7 +683,7 @@ export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
               aria-pressed={mobilePanel === "conversation"}
               onClick={() => setMobilePanel("conversation")}
               className={`flex-1 gap-1.5 rounded-xl text-xs font-medium transition-all ${
-                mobilePanel === "conversation" ? "bg-white text-foreground shadow-2xs font-semibold" : "text-muted-foreground"
+                mobilePanel === "conversation" ? "bg-card text-primary shadow-2xs font-semibold" : "text-muted-foreground hover:text-foreground"
               }`}
             >
               <MessageSquare aria-hidden="true" className="size-3.5 text-primary" />
@@ -698,7 +699,7 @@ export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
                 setWorkspaceView("preview");
               }}
               className={`flex-1 gap-1.5 rounded-xl text-xs font-medium transition-all ${
-                mobilePanel === "preview" ? "bg-white text-foreground shadow-2xs font-semibold" : "text-muted-foreground"
+                mobilePanel === "preview" ? "bg-card text-primary shadow-2xs font-semibold" : "text-muted-foreground hover:text-foreground"
               }`}
             >
               <Layout aria-hidden="true" className="size-3.5" />
@@ -715,7 +716,7 @@ export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
                   setWorkspaceView("code");
                 }}
                 className={`flex-1 gap-1.5 rounded-xl text-xs font-medium transition-all ${
-                  mobilePanel === "code" ? "bg-white text-foreground shadow-2xs font-semibold" : "text-muted-foreground"
+                mobilePanel === "code" ? "bg-card text-primary shadow-2xs font-semibold" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 <Code2 aria-hidden="true" className="size-3.5" />

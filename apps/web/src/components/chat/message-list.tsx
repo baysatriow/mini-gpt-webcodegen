@@ -2,8 +2,8 @@
 
 import { useMemo, useState } from "react";
 import {
-  Bot,
   Check,
+  Code2,
   ChevronRight,
   Coffee,
   Copy,
@@ -12,7 +12,6 @@ import {
   Palette,
   RefreshCw,
   ShoppingBag,
-  Sparkles,
   User,
   Wrench,
 } from "lucide-react";
@@ -38,7 +37,7 @@ function iconForCategory(category: string) {
   if (category === "service") return Wrench;
   if (category === "learning") return GraduationCap;
   if (category === "wellness") return HeartPulse;
-  return Sparkles;
+  return Code2;
 }
 
 type MessageListProps = {
@@ -83,20 +82,16 @@ export function MessageList({
       >
         {messages.length === 0 ? (
           <div className="flex min-h-[min(65vh,640px)] flex-col justify-center py-4">
-            {/* Header Badge */}
-            <div className="flex items-center gap-2 mb-3">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-primary border border-blue-200/60 shadow-2xs">
-                <Sparkles aria-hidden="true" className="size-3.5 text-primary" />
-                VibeCraft Studio Â· AI Web Generator
-              </span>
+            <div className="mb-2 text-xs font-medium text-primary">
+              WebCraft GPT <span className="text-muted-foreground">by VibeStack</span>
             </div>
 
             {/* Title & Subtitle */}
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl sm:leading-tight">
-              Wujudkan website modern impian Anda.
+              Ceritakan website yang ingin Anda buat.
             </h1>
             <p className="mt-3 max-w-2xl text-sm sm:text-base leading-relaxed text-muted-foreground">
-              Mulai dari ide singkat atau pilih template di bawah. Tinjau fakta yang tersedia, lengkapi yang kurang, lalu buat halaman HTML, CSS, dan JavaScript.
+              Tulis satu brief atau pilih ide contoh. Periksa fakta yang tersusun, lalu buat satu halaman dengan preview dan source HTML, CSS, serta JavaScript.
             </p>
 
             {/* Category Filter Pills & Shuffle Button */}
@@ -251,16 +246,13 @@ function MessageRow({
   const isError = message.type === "assistant" && message.tone === "error";
 
   return (
-    <article className="group flex items-start gap-3" aria-label="Pesan VibeCraft">
-      <span className="grid size-8 shrink-0 place-items-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-sm shadow-blue-500/25">
-        <Bot aria-hidden="true" className="size-4" />
+    <article className="group flex items-start gap-3" aria-label="Pesan WebCraft GPT">
+      <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-primary text-[#f0a080]">
+        <Code2 aria-hidden="true" className="size-4" />
       </span>
       <div className="min-w-0 flex-1 pt-0.5">
         <div className="flex items-center gap-1.5 mb-1">
-          <span className="text-xs font-bold text-foreground">VibeCraft</span>
-          <span className="rounded bg-blue-50 px-1 py-0.2 text-[9px] font-semibold text-primary border border-blue-200/60">
-            AI
-          </span>
+          <span className="text-xs font-semibold text-foreground">WebCraft GPT</span>
         </div>
         <div
           className={`rounded-2xl p-3.5 text-sm leading-relaxed ${

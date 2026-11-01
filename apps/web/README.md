@@ -1,4 +1,4 @@
-# Aplikasi web lokal
+# WebCraft GPT by VibeStack
 
 Frontend Next.js untuk membuat landing page atau company profile dari satu brief. Layar awal menyediakan 100 ide contoh fiktif dan menampilkan tiga ide sekaligus; tombol **Acak ide** menggantinya. Memilih ide mengisi form fakta otomatis, dan semua data tetap dapat diedit sebelum validasi. Brief bebas tetap menggunakan extractor dan editor manual bila extractor belum tersedia. Pengguna memeriksa fakta dan kutipan sumber, lalu memilih **Generate website**. UI hanya menampilkan preview, source, dan unduhan setelah API mengembalikan status `completed`.
 

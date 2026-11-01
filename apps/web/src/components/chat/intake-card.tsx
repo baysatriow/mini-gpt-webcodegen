@@ -19,14 +19,14 @@ export function IntakeCard({ message, catalog, onValidate, onEditPrompt }: Intak
   if (message.isValidating) {
     return (
       <article className="flex items-start gap-3" aria-label="Memeriksa permintaan" aria-live="polite">
-        <span className="grid size-8 shrink-0 place-items-center rounded-xl bg-blue-50 text-primary border border-blue-200">
+        <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-accent text-accent-foreground border border-border">
           <LoaderCircle aria-hidden="true" className="size-4 animate-spin" />
         </span>
         <div className="min-w-0 flex-1 pt-1">
           <div className="flex items-center gap-1.5 mb-1">
-            <span className="text-xs font-bold text-foreground">VibeCraft</span>
-            <span className="rounded bg-blue-100/70 px-1.5 py-0.2 text-[10px] text-primary font-semibold animate-pulse">
-              Mengekstrak Fakta...
+            <span className="text-xs font-semibold text-foreground">WebCraft GPT</span>
+            <span className="rounded-md bg-accent px-1.5 py-0.5 text-[10px] text-accent-foreground font-medium">
+              Memeriksa brief
             </span>
           </div>
           <p className="text-sm font-medium leading-relaxed text-foreground">{message.content}</p>
@@ -126,7 +126,7 @@ export function IntakeCard({ message, catalog, onValidate, onEditPrompt }: Intak
   const missingLabels = describeMissingFields(message.missingFields);
   return (
     <article className="flex items-start gap-3" aria-label={message.templateId ? "Template website siap diedit" : "Lengkapi informasi permintaan"}>
-      <span className="grid size-8 shrink-0 place-items-center rounded-xl border border-blue-200 bg-blue-50 text-primary">
+      <span className="grid size-8 shrink-0 place-items-center rounded-lg border border-border bg-accent text-accent-foreground">
         <CheckCircle2 aria-hidden="true" className="size-4" />
       </span>
       <div className="min-w-0 flex-1 pt-0.5">
@@ -135,7 +135,7 @@ export function IntakeCard({ message, catalog, onValidate, onEditPrompt }: Intak
             <span className="text-xs font-semibold text-foreground">
               {message.templateId ? "Template Siap Disunting" : INTAKE_STATUS_LABEL[message.status]}
             </span>
-            <span className="inline-flex items-center gap-1 rounded bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-primary border border-blue-200/60">
+            <span className="inline-flex items-center gap-1 rounded-md bg-accent px-2 py-0.5 text-[10px] font-medium text-accent-foreground border border-border">
               <Settings2 className="size-3" />
               Verifikasi Fakta
             </span>
@@ -181,7 +181,7 @@ export function IntakeCard({ message, catalog, onValidate, onEditPrompt }: Intak
               />
             </div>
           ) : message.status === "needs_clarification" ? (
-            <div className="mt-3 rounded-xl bg-blue-50/80 border border-blue-200/80 p-2.5 text-xs leading-relaxed text-primary">
+            <div className="mt-3 rounded-lg bg-accent/70 border border-border p-2.5 text-xs leading-relaxed text-accent-foreground">
               Balas detail yang kurang dalam satu pesan pada kolom input di bawah.
             </div>
           ) : null}

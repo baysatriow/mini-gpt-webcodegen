@@ -41,7 +41,7 @@ export function GenerationStatus({ message, onOpenCanvas }: GenerationStatusProp
             <span
               className={`rounded-full px-2 py-0.5 text-[10px] font-medium border ${
                 pending
-                  ? "bg-blue-100/80 text-blue-700 border-blue-200 animate-pulse"
+            ? "bg-blue-100/80 text-blue-700 border-blue-200"
                   : failed
                     ? "bg-red-100 text-red-700 border-red-200"
                     : "bg-emerald-100 text-emerald-800 border-emerald-200"

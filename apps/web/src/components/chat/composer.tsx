@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUp, Sparkles } from "lucide-react";
+import { ArrowUp, LoaderCircle } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
@@ -34,7 +34,7 @@ export function Composer({
   }
 
   return (
-    <div className="border-t border-border/70 bg-card/90 px-3 pb-3 pt-2 sm:px-5 sm:pb-4">
+    <div className="border-t border-border bg-card px-3 pb-3 pt-2 sm:px-5 sm:pb-4">
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -57,9 +57,8 @@ export function Composer({
                 key={idx}
                 type="button"
                 onClick={() => onChange(item.prompt)}
-                className="group inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-slate-200/90 bg-white px-2.5 py-1 text-[11px] font-semibold text-slate-600 shadow-2xs hover:border-blue-400 hover:bg-blue-50/40 hover:text-blue-700 active:scale-95 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="inline-flex shrink-0 items-center rounded-md border border-border bg-card px-2.5 py-1 text-[11px] font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground active:scale-[0.98] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
-                <span className="size-1 rounded-full bg-slate-300 group-hover:bg-blue-500 transition-colors" />
                 {item.label}
               </button>
             ))}
@@ -88,9 +87,9 @@ export function Composer({
           <div className="flex items-center justify-between gap-2 px-3 pb-2.5 pt-0.5">
             <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
               {disabled ? (
-                <span className="flex items-center gap-1 text-primary font-medium animate-pulse">
-                  <Sparkles className="size-3" />
-                  Memproses brief...
+                <span className="flex items-center gap-1 text-primary font-medium">
+                  <LoaderCircle aria-hidden="true" className="size-3 animate-spin" />
+                  Memproses brief
                 </span>
               ) : null}
             </div>
@@ -108,8 +107,8 @@ export function Composer({
                 className={cn(
                   "flex size-8 shrink-0 items-center justify-center rounded-xl transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                   canSubmit
-                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm shadow-blue-500/30 hover:from-blue-700 hover:to-indigo-700 hover:scale-105 active:scale-95"
-                    : "bg-slate-100 text-slate-300 cursor-not-allowed",
+                    ? "bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[0.97]"
+                    : "bg-muted text-muted-foreground",
                 )}
               >
                 <ArrowUp aria-hidden="true" className="size-4 stroke-[2.5]" />

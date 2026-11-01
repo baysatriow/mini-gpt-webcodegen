@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { LockKeyhole, ShieldAlert } from "lucide-react";
+import { Code2 } from "lucide-react";
 import { LoginForm } from "@/components/auth/login-form";
 import { isAccessConfigured, isAccessRequired } from "@/lib/access-session.mjs";
 
@@ -11,14 +11,14 @@ export default function LoginPage() {
   const configured = isAccessConfigured();
   return (
     <main className="flex min-h-screen items-center justify-center bg-background px-5 py-10">
-      <section className="w-full max-w-md rounded-3xl border border-border bg-card p-7 shadow-sm sm:p-9">
-        <div className="mb-7 flex items-center gap-3">
-          <span className="grid size-11 place-items-center rounded-2xl bg-primary text-primary-foreground">
-            {configured ? <LockKeyhole aria-hidden="true" className="size-5" /> : <ShieldAlert aria-hidden="true" className="size-5" />}
+      <section className="w-full max-w-md rounded-2xl border border-border bg-card p-7 shadow-sm sm:p-9">
+        <div className="mb-8 flex items-center gap-3">
+          <span className="grid size-11 place-items-center rounded-xl bg-primary text-[#f0a080]">
+            <Code2 aria-hidden="true" className="size-5" />
           </span>
           <div>
-            <p className="text-sm font-bold tracking-tight text-foreground">VibeCraft</p>
-            <p className="text-xs text-muted-foreground">Akses aplikasi</p>
+            <p className="text-base font-semibold tracking-tight text-foreground">WebCraft</p>
+            <p className="text-xs text-muted-foreground">by VibeStack · WebCraft GPT</p>
           </div>
         </div>
         {configured ? (
