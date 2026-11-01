@@ -26,3 +26,11 @@ Verification
 
 Pending at log creation
 - Build and refresh only the 3001 QA worktree from the pushed source commit, then recheck Usage at 924x707. Do not touch the main app on 3000 or create a tunnel.
+
+Follow-up verification: 2026-11-01 22:48:14 +07:00
+- Pushed source commit 5cf8857. Updated the clean isolated QA worktree F:\Generative_AI\usage-qa-20261101 to that commit. Its Next.js production build completed successfully on Next.js 16.4.1.
+- Restarted the local QA preview on 127.0.0.1:3001 only. Browser review of the rebuilt Usage detail at 924x707 measured 16px left padding on the first metric and 16px right padding on the last metric; document width remained 924px and detail panel width was 852px.
+- At 390x844, Usage document/body widths were 390px, the input panel was 334px, scrollX was 0, and the first metric retained 16px padding. Chat document/body widths were 390px and the composer was 363px wide.
+- Restored the user's normal browser viewport to 1920x889 and left the browser on 127.0.0.1:3001/usage.
+- Live API schema and detail responses include prompt and confirmed_facts. The selected 22:35 WIB record remains historical and has no prompt/facts because it was stored by the older API. New generation was not run.
+- Port 3000 and any tunnel were left untouched. No model, checkpoint, dataset, or user-owned untracked files were changed.
