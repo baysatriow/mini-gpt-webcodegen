@@ -7480,3 +7480,25 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Pemeriksaan visual setelah autentikasi belum selesai. CUA tidak dapat memindahkan kredensial dari clipboard Windows ke form secara aman, sehingga tidak ada login yang dikirim dari percobaan tersebut. Nilai kredensial tidak dicetak atau dicatat; clipboard diverifikasi kosong.
 - Tidak ada inference, training, perubahan checkpoint, atau perubahan FastAPI dalam pekerjaan rebrand ini.
 - Hasil source review, test, lint, dan build membuktikan status frontend pada checkout ini. Hasil tersebut bukan bukti visual halaman chat setelah login atau kualitas inference.
+
+## AI-064, audit branch dan perbaikan batas badan login sebelum PR
+
+- Tanggal/waktu: 1 November 2026, 17:15, Asia/Jakarta.
+- Pengguna meminta pemeriksaan Git dan seluruh perubahan branch sebelum membuat PR ke main.
+- Branch yang diperiksa: feature/pipeline-data-model-training terhadap main pada e6c86e4. Audit awal mencakup 57 commit, 208 tracked files, 15.532 penambahan dan 972 penghapusan. Branch tidak tertinggal dari main dan belum memiliki PR saat pemeriksaan pertama.
+- Ketiga file workspace yang belum dilacak dibiarkan tanpa perubahan dan tidak disertakan pada commit atau PR: Log Full Vibecode.md, docs/superpowers/specs/2026-11-01-vibecoding-project-report-design.md, dan reports/LAPORAN_PROYEK_1_VIBESTACK_WEBCRAFT_GPT.docx.
+- Pemeriksaan commit awal tidak menemukan trailer Co-authored-By. Diff tidak berisi checkpoint, database, arsip hasil, atau secret; perubahan .env hanya berupa apps/web/.env.example dengan nilai kosong.
+- Review read-only menemukan batas 4 KiB di endpoint login hanya bergantung pada Content-Length. Reproduksi lokal request chunked 8.241 byte tanpa Content-Length mencapai pemeriksaan kredensial dan menerima 401, bukan 413.
+- apps/web/src/lib/read-limited-json.mjs sekarang membatasi byte saat membaca stream, memeriksa Content-Length lebih awal, dan memetakan oversize menjadi HTTP 413. apps/web/tests/request-body-limit.test.mjs menambahkan regresi untuk stream tanpa header, header oversized biasa, nilai desimal sangat besar, dan payload tepat 4 KiB.
+- Review kedua menemukan nilai Content-Length desimal di luar rentang safe integer seharusnya tetap dianggap oversized. Klasifikasi ini diperbaiki dan tes khususnya lulus.
+- Perbaikan source dan tes dipush sebagai commit 776229f. Tidak ada perubahan API, pipeline data, tokenizer, model, atau konfigurasi training.
+
+## RUN-684, verifikasi seluruh branch dan PR ke main
+
+- Tanggal/waktu: 1 November 2026, 17:15, Asia/Jakarta.
+- Frontend suite lulus 32/32; ESLint lulus; Next.js production build lulus; git diff --check lulus.
+- Verifikasi endpoint lokal setelah build: request JSON chunked sekitar 8 KiB tanpa Content-Length mendapat 413; request JSON kecil dengan kredensial uji yang salah mendapat 401. Server uji hanya berjalan di localhost dan sudah dihentikan.
+- Suite Python penuh melalui Python sistem 3.13 dan pytest 8.4.2: 163 lulus, 1 dilewati, 1 gagal. .venv proyek belum memasang pytest. Kegagalan adalah tests/fullpage/test_source_bound_lineage.py::SourceBoundLineageFixture::test_source_bound_dataset_lineage_is_verified_without_final_parsing karena profil reports/training/FULLPAGE-GPU-005-CONTROLLED-B8.json memiliki SHA-256 2614D9BBBAAD76C4622790BB86AFFCB5858FA8FC9FD7984E4B03C09DBEB297F8 sedangkan pin di src/fullpage/lineage.py adalah 8a101fa71916993c3beb47c81c18255bb645ebe11862fa82fc93983ef02c2998. Test, source verifier, dan profil tidak berubah dari main, sehingga kegagalan tidak diperkenalkan oleh branch ini.
+- Review sumber berfokus pada autentikasi, proxy, batas ekstraksi prompt, preview/CSP, Usage, dan integrasi utama. Audit ini bukan inspeksi manual baris demi baris atas seluruh artefak training dan log historis.
+- PR https://github.com/baysatriow/mini-gpt-webcodegen/pull/1 dibuat dengan base main dan head feature/pipeline-data-model-training. Status GitHub saat dibuat OPEN, MERGEABLE, bukan draft, tanpa status CI. PR belum di-merge.
+- Tidak ada inference atau training yang dijalankan dan data final tetap tidak dibuka.
