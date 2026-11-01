@@ -14,9 +14,9 @@ Pengalaman chat mengambil pola percakapan dan panel kerja dari [shadcn chatbot t
 
 ## 2. Bukti dan batas model saat ini
 
-Kandidat development yang dipilih adalah TRAIN-025 pada step 1.800. Laporan development mencatat 80 dari 80 halaman selesai, seluruh role wajib tersedia, pemeriksaan fakta, tautan, dan aset lulus, serta `model_gate=true`. Development CE 0,004538349198307462 lebih rendah dari kandidat TRAIN-026 step 3.600. Data test dan final tidak digunakan. Pemeriksaan browser serta review visual manusia masih berstatus pending.
+Kandidat development yang dipilih adalah TRAIN-025 pada step 1.800. Laporan development mencatat 80 dari 80 halaman selesai, seluruh role wajib tersedia, pemeriksaan fakta, tautan, dan aset lulus, serta `model_gate=true`. Development CE 0,004538349198307462 lebih rendah dari kandidat TRAIN-026 step 3.600. Data test dan final tidak digunakan. Pemilik proyek menerima desain aplikasi untuk scope mini-proyek; skor visual hasil generasi tidak diklaim.
 
-Hasil ini membuktikan pipeline memenuhi kontraknya pada 80 request development yang dipakai untuk seleksi. Hasil tersebut tidak membuktikan kualitas visual 95 persen, mutu prompt dunia nyata, atau kesiapan produksi.
+Hasil ini membuktikan pipeline memenuhi kontraknya pada 80 request development yang dipakai untuk seleksi. Hasil tersebut tidak mengukur kualitas visual halaman hasil generasi, mutu prompt dunia nyata, atau kesiapan produksi.
 
 Model dan renderer saat ini tidak mempunyai kontrak untuk menulis HTML, CSS, JavaScript, atau paragraf copy faktual secara bebas. Model memilih plan halaman, peran section, tema, dan referensi ID fakta atau aset yang diizinkan. Resolver serta composer memeriksa referensi itu. Renderer lokal menghasilkan HTML, CSS biasa atau Tailwind, dan JavaScript dari interaksi yang tersedia di katalog. Copy nonfaktual memakai katalog copy lokal. Fakta usaha berasal dari request yang telah dikonfirmasi pengguna.
 
@@ -44,7 +44,7 @@ Akibatnya, aplikasi dapat menghasilkan halaman lengkap dengan struktur dan isi y
 - Script CDN, script eksternal, koneksi keluar, dan form website yang benar-benar mengirim data.
 - Inferensi otomatis dari prompt ketika data bisnis belum ada atau belum dikonfirmasi.
 - Perubahan training, dataset, checkpoint terpilih, atau pemakaian data final.
-- Klaim kualitas visual 95 persen sebelum review browser dan manusia selesai.
+- Skor visual 95 persen sebagai kriteria penerimaan mini-proyek.
 
 ## 4. Pengalaman pengguna
 

@@ -7530,3 +7530,11 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Perubahan dipush dalam commit `ad77108`, `31e397a`, `cb96aa3`, `d0671be`, dan `74b9ba1` pada `feature/pipeline-data-model-training`. Tidak ada trailer Co-authored-By.
 - Aplikasi utama port 3000, FastAPI utama port 8000, dan tunnel tidak dimulai ulang pada pekerjaan ini. Build QA port 3001 terpisah dari layanan tersebut.
 - Batas verifikasi: browser memakai API lama sehingga prompt/fakta baru belum dapat diperiksa end-to-end pada runtime utama. Perlu restart FastAPI dan build/restart Next.js untuk mengaktifkan versi baru di port 3000 serta tunnel.
+
+## RUN-687, persetujuan desain mini-proyek dan pembaruan dokumentasi
+
+- Tanggal/waktu: 1 November 2026, 23:29, Asia/Jakarta.
+- Pemilik proyek menyatakan desain aplikasi saat ini sudah memadai untuk mini-proyek dan meminta agar dokumentasi tidak lagi menampilkan review desain sebagai pekerjaan yang tertunda.
+- README utama, indeks dokumentasi, panduan generasi, spesifikasi dan rencana intake, panduan runtime, spesifikasi produk web, dan README kandidat FULLPAGE-V5 diselaraskan dengan penerimaan desain aplikasi tersebut.
+- Skor visual 95 persen untuk halaman hasil generasi tidak diklaim dan tidak dipakai sebagai gerbang penerimaan mini-proyek. Status final FULLPAGE-V5 dan catatan review data/model tetap dipisahkan serta tidak diubah.
+- Perubahan hanya menyentuh dokumentasi dan log. Source aplikasi, model, checkpoint, data, inference, dan training tidak diubah.

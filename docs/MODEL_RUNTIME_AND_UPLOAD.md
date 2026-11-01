@@ -71,6 +71,6 @@ Runtime saat ini membutuhkan CUDA. Audit memuat model dari root paket pada CUDA 
 
 ## Kualitas dan kemampuan
 
-Kandidat terpilih memenuhi gerbang kontrak development. Hasil 80/80 belum membuktikan kualitas visual 95 persen atau kemampuan menghasilkan situs bebas. Dataset, kontrak input, katalog renderer, dan komposer menentukan ruang variasinya.
+Kandidat terpilih memenuhi gerbang kontrak development. Hasil 80/80 mengukur kontrak development, bukan skor visual atau kemampuan menghasilkan situs bebas. Dataset, kontrak input, katalog renderer, dan komposer menentukan ruang variasinya.
 
 Extractor brief bebas adalah kandidat terpisah dan belum memiliki selection runtime yang dipromosikan. Paket ini menyediakan generator beserta contoh request terstruktur. Pada aplikasi, template dan editor fakta dapat digunakan untuk menyiapkan input.

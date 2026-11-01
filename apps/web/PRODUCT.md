@@ -31,7 +31,7 @@ The app uses a Next.js and shadcn interface with a local FastAPI adapter. Users 
 - Usage stores operational metadata, GPU telemetry, the user prompt, and user-confirmed facts in the local project database for 90 days so a run can be audited after navigation or a browser restart. Never store or show extractor tokens.
 - Read generated HTML, CSS, and JavaScript from the existing validated generation artifact endpoint. Do not duplicate source code into the Usage database. A failed run has no source output unless the validated endpoint returns an accepted artifact.
 - Usage and navigation must not trigger inference.
-- Human visual review and a 95 percent visual quality claim remain out of scope for this change.
+- The project owner considers the current application design sufficient for the mini-project. A 95 percent visual score for generated pages is not an acceptance gate and is not claimed.
 
 ## Brand Commitments
 
@@ -44,7 +44,7 @@ The app uses a Next.js and shadcn interface with a local FastAPI adapter. Users 
 
 - Product behavior and implementation constraints are documented in `README.md`, `apps/web/README.md`, `apps/api/README.md`, and the application design specifications under `docs/superpowers/specs/`.
 - The current source provides constrained HTML, CSS, and JavaScript output, accepted-source endpoints, a Usage audit, and GPU telemetry.
-- No human-rated visual quality score is recorded by this product context.
+- The project owner accepts the current application design for the mini-project. The project does not claim a measured visual quality score for generated website output.
 
 ## Product Principles
 
