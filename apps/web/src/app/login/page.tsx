@@ -17,7 +17,7 @@ export default function LoginPage() {
             {configured ? <LockKeyhole aria-hidden="true" className="size-5" /> : <ShieldAlert aria-hidden="true" className="size-5" />}
           </span>
           <div>
-            <p className="text-sm font-semibold tracking-tight text-foreground">Rancang AI</p>
+            <p className="text-sm font-bold tracking-tight text-foreground">VibeCraft</p>
             <p className="text-xs text-muted-foreground">Akses aplikasi</p>
           </div>
         </div>

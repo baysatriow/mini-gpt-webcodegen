@@ -1,7 +1,6 @@
 "use client";
 
 import { BadgeCheck, PencilLine, ShieldCheck, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { SourceEvidenceDisclosure } from "@/components/chat/source-evidence";
 import type { CatalogResponse, RequestDraft } from "@/lib/api-types";
 import type { RequestSummaryMessage } from "@/lib/chat-state";
@@ -71,7 +70,7 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
             <SummaryItem label="Nama Usaha" value={name} verified />
             <SummaryItem
               label="Jenis & Gaya Desain"
-              value={`${optionLabel(catalog?.supported_genres, draft.genre)} · ${optionLabel(catalog?.supported_style_modes, draft.style_mode)}`}
+              value={`${optionLabel(catalog?.supported_genres, draft.genre)} Â· ${optionLabel(catalog?.supported_style_modes, draft.style_mode)}`}
             />
           </div>
 
@@ -106,7 +105,7 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
                   {extras.map((fact, index) => (
                     <li key={`${fact.kind}-${index}`} className="text-xs text-foreground bg-slate-50/50 rounded-lg p-2 border border-slate-100">
                       <span className="font-semibold text-primary">[{fact.kind.toUpperCase()}] {fact.title}</span>
-                      <span className="text-muted-foreground"> — {fact.text}</span>
+                      <span className="text-muted-foreground"> â€” {fact.text}</span>
                     </li>
                   ))}
                 </ul>
@@ -127,25 +126,22 @@ export function RequestSummary({ message, catalog, onEdit, onConfirm }: RequestS
               </p>
             ) : (
               <>
-                <Button
+                <button
                   type="button"
-                  variant="outline"
-                  size="sm"
                   onClick={() => onEdit(message)}
-                  className="gap-2 rounded-xl text-xs h-9 border-border bg-white hover:bg-slate-50"
+                  className="inline-flex items-center gap-2 rounded-xl text-xs font-semibold h-9 px-3.5 border border-slate-200/90 bg-white hover:bg-slate-50 hover:border-slate-300 shadow-2xs active:scale-95 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring text-slate-700"
                 >
                   <PencilLine aria-hidden="true" className="size-3.5" />
                   Edit Detail
-                </Button>
-                <Button
+                </button>
+                <button
                   type="button"
-                  size="sm"
                   onClick={() => onConfirm(message)}
-                  className="gap-2 rounded-xl text-xs h-9 font-medium bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm shadow-blue-500/25 hover:from-blue-700 hover:to-indigo-700 transition-all"
+                  className="inline-flex items-center gap-2 rounded-xl text-xs font-bold h-9 px-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-sm shadow-blue-500/30 hover:shadow-md hover:shadow-blue-500/35 active:scale-95 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <Sparkles aria-hidden="true" className="size-3.5" />
                   Generate Website Sekarang
-                </Button>
+                </button>
               </>
             )}
           </div>

@@ -49,6 +49,7 @@ type MessageListProps = {
   onEditPrompt: (prompt: string) => void;
   onEditSummary: (message: RequestSummaryMessage) => void;
   onConfirmSummary: (message: RequestSummaryMessage) => void;
+  onOpenCanvas: () => void;
 };
 
 export function MessageList({
@@ -59,6 +60,7 @@ export function MessageList({
   onEditPrompt,
   onEditSummary,
   onConfirmSummary,
+  onOpenCanvas,
 }: MessageListProps) {
   const [selectedCategory, setSelectedCategory] = useState<WebsiteTemplateCategoryFilter>("all");
   const [shuffleSeed, setShuffleSeed] = useState(0);
@@ -83,18 +85,18 @@ export function MessageList({
           <div className="flex min-h-[min(65vh,640px)] flex-col justify-center py-4">
             {/* Header Badge */}
             <div className="flex items-center gap-2 mb-3">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-primary border border-blue-200/60 shadow-2xs">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-primary border border-blue-200/60 shadow-2xs">
                 <Sparkles aria-hidden="true" className="size-3.5 text-primary" />
-                Studio Rancang · Web Generator
+                VibeCraft Studio Â· AI Web Generator
               </span>
             </div>
 
             {/* Title & Subtitle */}
-            <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl sm:leading-tight">
-              Rancang website sesuai kebutuhan Anda.
+            <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl sm:leading-tight">
+              Wujudkan website modern impian Anda.
             </h1>
             <p className="mt-3 max-w-2xl text-sm sm:text-base leading-relaxed text-muted-foreground">
-              Mulai dari ide singkat atau pilih template. Tinjau fakta yang tersedia, lengkapi bagian yang kurang, lalu buat halaman HTML, CSS, dan JavaScript.
+              Mulai dari ide singkat atau pilih template di bawah. Tinjau fakta yang tersedia, lengkapi yang kurang, lalu buat halaman HTML, CSS, dan JavaScript.
             </p>
 
             {/* Category Filter Pills & Shuffle Button */}
@@ -122,7 +124,7 @@ export function MessageList({
               <button
                 type="button"
                 onClick={handleShuffle}
-                className="inline-flex shrink-0 items-center gap-1.5 self-start sm:self-auto rounded-lg border border-border bg-white px-3 py-1 text-xs font-medium text-foreground hover:bg-slate-50 transition-all shadow-2xs"
+                className="inline-flex shrink-0 items-center gap-1.5 self-start sm:self-auto rounded-lg border border-slate-200/90 bg-white px-3 py-1.5 text-xs font-semibold text-foreground hover:bg-slate-50 hover:border-slate-300 active:scale-95 transition-all shadow-2xs cursor-pointer"
                 aria-label="Acak rekomendasi template"
               >
                 <RefreshCw aria-hidden="true" className="size-3.5 text-muted-foreground" />
@@ -152,7 +154,7 @@ export function MessageList({
                         <ChevronRight className="size-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
                       </div>
                       <span className="mt-1 block text-xs leading-5 text-muted-foreground">
-                        {template.genre === "company_profile" ? "Company profile" : "Landing page"} · Contoh fiktif otomatis
+                        {template.genre === "company_profile" ? "Company profile" : "Landing page"} Â· Contoh fiktif otomatis
                       </span>
                     </div>
                   </button>
@@ -170,6 +172,7 @@ export function MessageList({
               onEditPrompt={onEditPrompt}
               onEditSummary={onEditSummary}
               onConfirmSummary={onConfirmSummary}
+              onOpenCanvas={onOpenCanvas}
             />
           ))
         )}
@@ -185,6 +188,7 @@ type MessageRowProps = {
   onEditPrompt: (prompt: string) => void;
   onEditSummary: (message: RequestSummaryMessage) => void;
   onConfirmSummary: (message: RequestSummaryMessage) => void;
+  onOpenCanvas: () => void;
 };
 
 function MessageRow({
@@ -194,6 +198,7 @@ function MessageRow({
   onEditPrompt,
   onEditSummary,
   onConfirmSummary,
+  onOpenCanvas,
 }: MessageRowProps) {
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
 
@@ -218,7 +223,7 @@ function MessageRow({
   }
 
   if (message.type === "generation_status") {
-    return <GenerationStatus message={message} />;
+    return <GenerationStatus message={message} onOpenCanvas={onOpenCanvas} />;
   }
 
   if (message.type === "clarification") {
@@ -246,13 +251,16 @@ function MessageRow({
   const isError = message.type === "assistant" && message.tone === "error";
 
   return (
-    <article className="group flex items-start gap-3" aria-label="Pesan Rancang">
-      <span className="grid size-8 shrink-0 place-items-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-2xs">
+    <article className="group flex items-start gap-3" aria-label="Pesan VibeCraft">
+      <span className="grid size-8 shrink-0 place-items-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-sm shadow-blue-500/25">
         <Bot aria-hidden="true" className="size-4" />
       </span>
       <div className="min-w-0 flex-1 pt-0.5">
-        <div className="flex items-center gap-2 mb-1">
-          <span className="text-xs font-semibold text-foreground">Rancang</span>
+        <div className="flex items-center gap-1.5 mb-1">
+          <span className="text-xs font-bold text-foreground">VibeCraft</span>
+          <span className="rounded bg-blue-50 px-1 py-0.2 text-[9px] font-semibold text-primary border border-blue-200/60">
+            AI
+          </span>
         </div>
         <div
           className={`rounded-2xl p-3.5 text-sm leading-relaxed ${

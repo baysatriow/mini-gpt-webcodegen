@@ -188,7 +188,7 @@ export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
   ) {
     const pending: ClarificationMessage = {
       ...message,
-      content: "Memeriksa kelengkapan fakta dan cakupan halaman…",
+      content: "Memeriksa kelengkapan fakta dan cakupan halamanÃ¢â‚¬Â¦",
       draft,
       templateId: undefined,
       status: "needs_clarification",
@@ -254,7 +254,7 @@ export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
     const promptText = messages.map((message) => message.text).join("\n");
     const pending = createMessage({
       type: "clarification",
-      content: "Membaca brief dan memeriksa fakta yang Anda berikan…",
+      content: "Membaca brief dan memeriksa fakta yang Anda berikanÃ¢â‚¬Â¦",
       prompt: promptText,
       draft: emptyDraft(promptText),
       status: "needs_clarification",
@@ -539,7 +539,7 @@ export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
       <main className="grid min-h-svh place-items-center bg-frost text-sm text-slate-note" aria-busy="true">
         <div className="flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-3 shadow-xs">
           <LoaderCircle aria-hidden="true" className="size-4 animate-spin text-primary" />
-          Menyiapkan workspace…
+          Menyiapkan workspaceÃ¢â‚¬Â¦
         </div>
       </main>
     );
@@ -593,16 +593,15 @@ export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
             {/* Header */}
             <div className="flex h-[50px] shrink-0 items-center justify-between border-b border-border bg-card px-3.5 sm:px-4">
               <div className="flex min-w-0 items-center gap-2">
-                <Button
-                  variant="ghost"
-                  size="icon-xs"
+                <button
+                  type="button"
                   onClick={handleToggleSidebar}
                   aria-label={sidebarOpen ? "Tutup sidebar" : "Buka sidebar"}
                   title={sidebarOpen ? "Tutup sidebar" : "Buka sidebar"}
-                  className="size-7 rounded-lg text-muted-foreground hover:text-foreground"
+                  className="grid size-8 place-items-center rounded-lg text-muted-foreground hover:bg-slate-100 hover:text-foreground active:scale-90 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <PanelLeft aria-hidden="true" className="size-4" />
-                </Button>
+                </button>
 
                 {/* Mobile Drawer */}
                 <div className="lg:hidden">
@@ -621,16 +620,15 @@ export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
               </div>
 
               <div className="flex items-center gap-2">
-                <Button
+                <button
                   type="button"
-                  variant="ghost"
-                  size="sm"
                   onClick={startNewSession}
-                  className="gap-1.5 text-xs text-muted-foreground hover:text-foreground rounded-lg h-8 px-2.5"
+                  aria-label="Percakapan Baru"
+                  className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-border/80 bg-white px-2.5 text-xs font-semibold text-foreground shadow-2xs hover:bg-slate-50 hover:border-slate-300 active:scale-95 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  <Plus className="size-3.5 text-primary" />
+                  <Plus className="size-3.5 text-blue-600 stroke-[2.5]" />
                   <span className="hidden sm:inline">Percakapan Baru</span>
-                </Button>
+                </button>
               </div>
             </div>
 
@@ -644,6 +642,10 @@ export function ChatShell({ showLogout = false }: { showLogout?: boolean }) {
                 onEditPrompt={editPrompt}
                 onEditSummary={editSummary}
                 onConfirmSummary={confirmSummary}
+                onOpenCanvas={() => {
+                  setWorkspaceView("preview");
+                  setMobilePanel("preview");
+                }}
               />
               <Composer value={prompt} onChange={setPrompt} onSubmit={sendPrompt} disabled={composerDisabled} />
             </div>

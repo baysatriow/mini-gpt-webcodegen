@@ -33,7 +33,7 @@ README sebelumnya mencampur status TRAIN-012, TRAIN-015, TRAIN-017, dan TRAIN-02
 
 Source pipeline, konfigurasi beku, checkpoint kanonis, dan hasil eksperimen tetap pada path yang diverifikasi oleh lineage. Pemindahan massal dapat membatalkan pemeriksaan hash dan path di checkpoint.
 
-Tiga belas file frontend memiliki perubahan lokal sebelum audit. Perubahan itu memerlukan review tersendiri sebelum menjadi bagian dari commit aplikasi. Commit penataan ini hanya memuat dokumentasi dan bukti audit.
+Tiga belas file frontend memiliki perubahan lokal sebelum audit. Tahap penataan menyimpan dokumentasi dan bukti audit dalam commit terpisah. Review aplikasi berikutnya memeriksa perubahan frontend, memperbaiki navigasi kanvas serta URL dan ukuran preview, lalu memasukkannya ke commit aplikasi.
 
 ## Aturan perapihan berikutnya
 

@@ -1,11 +1,11 @@
 "use client";
 
-import { AlertCircle, CheckCircle2, LoaderCircle, Sparkles } from "lucide-react";
+import { AlertCircle, ArrowRight, CheckCircle2, LoaderCircle, Sparkles } from "lucide-react";
 import type { GenerationStatusMessage } from "@/lib/chat-state";
 
-type GenerationStatusProps = { message: GenerationStatusMessage };
+type GenerationStatusProps = { message: GenerationStatusMessage; onOpenCanvas: () => void };
 
-export function GenerationStatus({ message }: GenerationStatusProps) {
+export function GenerationStatus({ message, onOpenCanvas }: GenerationStatusProps) {
   const pending = message.status === "pending";
   const failed = message.status === "generation_failed" || message.status === "input_too_long";
   const completed = message.status === "completed";
@@ -70,14 +70,19 @@ export function GenerationStatus({ message }: GenerationStatusProps) {
           ) : null}
 
           {completed ? (
-            <div className="mt-3 flex items-center justify-between rounded-xl bg-white/90 border border-emerald-200/80 p-3 text-xs text-foreground">
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-2.5 rounded-xl bg-white/95 border border-emerald-200 p-2.5 sm:p-3 text-xs text-foreground shadow-2xs">
               <div className="flex items-center gap-2">
-                <Sparkles className="size-4 text-emerald-600" />
-                <span className="font-medium">Halaman web siap dipratinjau & diunduh</span>
+                <Sparkles className="size-4 text-emerald-600 shrink-0" />
+                <span className="font-semibold text-emerald-950">Halaman web siap dipratinjau & diunduh</span>
               </div>
-                <span className="hidden sm:inline-flex items-center text-[11px] text-muted-foreground">
-                  Buka panel Kanvas
-                </span>
+              <button
+                type="button"
+                onClick={onOpenCanvas}
+                className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1 text-[11px] font-semibold shadow-xs active:scale-95 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <span>Lihat Kanvas</span>
+                <ArrowRight className="size-3" />
+              </button>
             </div>
           ) : null}
         </div>

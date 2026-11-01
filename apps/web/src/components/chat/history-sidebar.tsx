@@ -4,12 +4,12 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
   Activity,
-  Globe,
   LogOut,
   MessageSquare,
   PanelLeftClose,
   Plus,
   Search,
+  Sparkles,
   Trash2,
   X,
 } from "lucide-react";
@@ -51,10 +51,15 @@ export function HistorySidebar({
       {/* Brand & Sidebar Close Header */}
       <div className="flex h-[52px] items-center justify-between px-3.5 border-b border-border/60">
         <div className="flex items-center gap-2.5">
-          <span className="grid size-7.5 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground shadow-2xs">
-            <Globe aria-hidden="true" className="size-4" />
+          <span className="grid size-7.5 shrink-0 place-items-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-sm shadow-blue-500/25">
+            <Sparkles aria-hidden="true" className="size-4" />
           </span>
-          <span className="font-semibold tracking-tight text-foreground text-sm">Rancang</span>
+          <div className="flex items-center gap-1.5">
+            <span className="font-bold tracking-tight text-foreground text-sm">VibeCraft</span>
+            <span className="rounded bg-blue-50 px-1.5 py-0.2 text-[9px] font-bold text-primary border border-blue-200/60">
+              AI
+            </span>
+          </div>
         </div>
 
         {onToggleCollapse ? (
@@ -64,7 +69,7 @@ export function HistorySidebar({
             size="icon-xs"
             onClick={onToggleCollapse}
             aria-label="Tutup sidebar"
-            className="text-muted-foreground hover:text-foreground rounded-lg size-7"
+            className="text-muted-foreground hover:text-foreground rounded-lg size-7 active:scale-95 transition-all"
             title="Tutup sidebar"
           >
             <PanelLeftClose className="size-4" />
@@ -72,15 +77,18 @@ export function HistorySidebar({
         ) : null}
       </div>
 
-      {/* New Chat Button */}
+      {/* New Chat Button - Elevated & Tactile */}
       <div className="p-2.5 pb-1">
-        <Button
+        <button
+          type="button"
           onClick={onNew}
-          className="h-9 w-full justify-start gap-2.5 rounded-xl bg-slate-900 text-white hover:bg-slate-800 transition-all font-medium text-xs px-3 shadow-2xs"
+          className="group flex h-9.5 w-full items-center gap-2.5 rounded-xl bg-slate-900 px-3 text-xs font-semibold text-white shadow-sm transition-all duration-150 hover:bg-slate-800 hover:shadow active:scale-[0.98] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <Plus aria-hidden="true" className="size-4" />
+          <div className="grid size-5 place-items-center rounded-lg bg-white/15 text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+            <Plus aria-hidden="true" className="size-3.5 stroke-[2.5]" />
+          </div>
           <span>Percakapan Baru</span>
-        </Button>
+        </button>
       </div>
 
       {/* Search Bar (visible when multiple sessions exist) */}
@@ -101,7 +109,7 @@ export function HistorySidebar({
                 type="button"
                 onClick={() => setSearchQuery("")}
                 aria-label="Hapus pencarian"
-                className="absolute right-2 text-muted-foreground hover:text-foreground"
+                className="absolute right-2 text-muted-foreground hover:text-foreground cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <X className="size-3" />
               </button>
@@ -130,9 +138,9 @@ export function HistorySidebar({
                     aria-current={active ? "page" : undefined}
                     onClick={() => onSelect(session.id)}
                     className={cn(
-                      "flex min-w-0 flex-1 items-center gap-2 rounded-lg px-2.5 py-2 text-left text-xs transition-all",
+                      "flex min-w-0 flex-1 items-center gap-2 rounded-lg px-2.5 py-2 text-left text-xs transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                       active
-                        ? "bg-card text-foreground font-medium shadow-2xs border border-border/80"
+                        ? "bg-white text-foreground font-semibold shadow-2xs border border-border/80"
                         : "text-muted-foreground hover:bg-slate-200/50 hover:text-foreground",
                     )}
                   >
@@ -162,18 +170,22 @@ export function HistorySidebar({
         )}
       </nav>
 
+      {/* Bottom Nav Links */}
       <div className="space-y-1 border-t border-border/70 p-2">
         <Link
           href="/usage"
           aria-label="Buka Usage dan audit generate"
-          className="flex h-9 items-center gap-2.5 rounded-lg px-2.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-slate-200/50 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="flex h-9 items-center gap-2.5 rounded-lg px-2.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-slate-200/50 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <Activity aria-hidden="true" className="size-4" />
-          <span>Usage</span>
+          <Activity aria-hidden="true" className="size-4 text-blue-600" />
+          <span>Usage Dashboard</span>
         </Link>
         {showLogout ? (
           <form action="/api/auth/logout" method="post">
-            <button type="submit" className="flex h-9 w-full items-center gap-2.5 rounded-lg px-2.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-slate-200/50 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            <button
+              type="submit"
+              className="flex h-9 w-full items-center gap-2.5 rounded-lg px-2.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-slate-200/50 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
               <LogOut aria-hidden="true" className="size-4" />
               <span>Keluar</span>
             </button>

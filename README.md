@@ -1,6 +1,6 @@
 # Mini GPT WebCodeGen
 
-Proyek kuliah untuk melatih Mini GPT dari bobot acak dan menghasilkan satu halaman website. Aplikasi Rancang menerima brief atau template, memvalidasi fakta, menjalankan generator bertahap, lalu menyediakan preview dan unduhan HTML, CSS biasa atau Tailwind, serta JavaScript dari katalog interaksi.
+Proyek kuliah untuk melatih Mini GPT dari bobot acak dan menghasilkan satu halaman website. Aplikasi VibeCraft (sebelumnya Rancang) menerima brief atau template, memvalidasi fakta, menjalankan generator bertahap, lalu menyediakan preview dan unduhan HTML, CSS biasa atau Tailwind, serta JavaScript dari katalog interaksi.
 
 ## Status per 1 November 2026
 
@@ -69,7 +69,7 @@ Generator memilih rancangan melalui JSON dan ID katalog. Resolver memasukkan fak
 
 Target keluaran adalah landing page dan company profile satu halaman, dalam bahasa Indonesia. Pilihan style yang didukung adalah CSS biasa dan Tailwind lokal. Model dan renderer bekerja dengan bagian, layout, aset, serta interaksi dari katalog proyek.
 
-Generator belum ditujukan untuk backend bisnis, database aplikasi hasil, situs banyak halaman, React/Vue hasil generasi, atau JavaScript bebas. Frontend Rancang sendiri memakai Next.js; batas tersebut berlaku pada website yang dihasilkan.
+Generator belum ditujukan untuk backend bisnis, database aplikasi hasil, situs banyak halaman, React/Vue hasil generasi, atau JavaScript bebas. Frontend VibeCraft sendiri memakai Next.js; batas tersebut berlaku pada website yang dihasilkan.
 
 ## Data dan evaluasi
 

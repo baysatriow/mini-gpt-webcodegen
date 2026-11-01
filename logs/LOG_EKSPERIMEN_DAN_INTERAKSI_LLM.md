@@ -7418,3 +7418,24 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - SHA-256 ZIP v2: 2b50f93044156627bed2c201f6f561fcf382ac4a7217c62d3aba3b3fb8d919ac.
 - Audit reports/structure/AUDIT_2026-11-01.json diperbarui menjadi documentation_cleanup_status=complete dengan identitas ZIP v2 dan hasil pemeriksaan.
 - git diff --check untuk berkas dokumentasi dan audit lulus. Inference, training, server, tunnel, dan evaluasi final tidak dijalankan pada tahap dokumentasi.
+
+## AI-061, review seluruh perubahan frontend sebelum commit
+
+- Tanggal/waktu: 1 November 2026, 15:47, Asia/Jakarta.
+- Pengguna meminta setiap perubahan diperiksa lalu seluruh perubahan di-commit dan dipush.
+- Review mencakup 13 file UI yang sebelumnya belum commit: metadata, login, Usage, chat shell, composer, sidebar, intake, pesan, ringkasan, status generation, preview, dan workspace. Branding VibeCraft serta arah styling yang sudah ada dipertahankan.
+- Temuan diperbaiki: alamat preview fiktif diganti path artefak yang nyata; salinan link kini menjadi URL HTTP/HTTPS absolut sesuai origin lokal/tunnel; kegagalan clipboard mendapat feedback.
+- Preset preview mempertahankan lebar viewport: Mobile 390, Tablet 768, Desktop 1200, dengan ruang tambahan untuk bezel/border. Mode Fit menyesuaikan ruang tersedia. Toolbar dapat membungkus tanpa tinggi tetap; pemilih viewport tersedia pada layar kecil.
+- Tombol Lihat Kanvas kini memakai callback state ChatShell untuk membuka panel preview pada mobile. Tombol percakapan baru memperoleh nama aksesibel saat label visual disembunyikan. Kontrol native mendapat focus ring dan selector viewport mendapat aria-pressed.
+- Copy yang menjanjikan generator instan, kode bersih, atau output siap deploy diganti keterangan fungsi yang sesuai pipeline. README dan panduan struktur diselaraskan dengan branding dan selesainya review.
+- Preview tetap memakai fetch terautentikasi, validasi CSP, srcDoc, sandbox allow-scripts tanpa allow-same-origin, dan no-referrer pada ketiga mode.
+
+## RUN-681, verifikasi frontend setelah review
+
+- Tanggal/waktu: 1 November 2026, 15:47, Asia/Jakarta.
+- Tes web lulus 28/28, termasuk tiga regresi URL clipboard untuk origin lokal/tunnel, URL absolut, dan penolakan skema non-HTTP.
+- ESLint lulus. Production build Next.js 16.4.1 lulus, termasuk pemeriksaan TypeScript dan generation route.
+- Pada pemeriksaan awal, penambahan helper sempat menimpa preview-url.ts sehingga build mendeteksi export lama hilang. Isi semula dipulihkan dari HEAD yang sebelumnya bersih; helper tambahan dipindahkan ke shareable-preview-url.ts. Build dan tes kemudian diulang sampai lulus.
+- git diff --check lulus. Review ini mengandalkan source, unit test, lint dan build; interaksi browser langsung serta inference tidak diuji.
+- Tidak ada server atau tunnel yang dinyalakan, tidak ada dependency, bobot, tokenizer, dan benchmark final yang diubah.
+- Sebelum commit, fetch origin berhasil dan branch feature/pipeline-data-model-training tidak memiliki divergence.

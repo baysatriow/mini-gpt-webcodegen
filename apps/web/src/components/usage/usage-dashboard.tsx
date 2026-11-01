@@ -457,8 +457,8 @@ export function UsageDashboard({ showLogout = false }: { showLogout?: boolean })
               <ArrowLeft aria-hidden="true" className="size-4" />
             </Link>
             <div>
-              <p className="text-xs font-medium uppercase tracking-[0.12em] text-primary">Rancang AI</p>
-              <h1 className="mt-0.5 text-2xl font-semibold tracking-tight sm:text-3xl">Usage</h1>
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">VibeCraft Studio</p>
+              <h1 className="mt-0.5 text-2xl font-bold tracking-tight sm:text-3xl">Usage Dashboard</h1>
               <p className="mt-1 text-sm text-muted-foreground">Ringkasan GPU dan jejak tiap proses generate.</p>
             </div>
           </div>

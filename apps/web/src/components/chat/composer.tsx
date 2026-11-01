@@ -1,8 +1,8 @@
 "use client";
 
 import { ArrowUp, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 
 type ComposerProps = {
   value: string;
@@ -46,10 +46,10 @@ export function Composer({
           Jelaskan halaman web yang ingin dibuat
         </label>
 
-        {/* Quick Inspiration Pills without any emojis */}
+        {/* Quick Inspiration Pills */}
         {!value && (
-          <div className="mb-2 flex items-center gap-1.5 overflow-x-auto pb-1 text-xs no-scrollbar">
-            <span className="text-[11px] font-medium text-muted-foreground shrink-0 pr-1">
+          <div className="mb-2.5 flex items-center gap-1.5 overflow-x-auto pb-1 text-xs no-scrollbar">
+            <span className="text-[11px] font-semibold text-muted-foreground shrink-0 pr-1">
               Contoh:
             </span>
             {QUICK_INSPIRATIONS.map((item, idx) => (
@@ -57,8 +57,9 @@ export function Composer({
                 key={idx}
                 type="button"
                 onClick={() => onChange(item.prompt)}
-                className="shrink-0 rounded-lg border border-border/80 bg-background px-2.5 py-1 text-[11px] text-muted-foreground hover:border-primary/40 hover:bg-slate-100 hover:text-foreground transition-all shadow-2xs"
+                className="group inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-slate-200/90 bg-white px-2.5 py-1 text-[11px] font-semibold text-slate-600 shadow-2xs hover:border-blue-400 hover:bg-blue-50/40 hover:text-blue-700 active:scale-95 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
+                <span className="size-1 rounded-full bg-slate-300 group-hover:bg-blue-500 transition-colors" />
                 {item.label}
               </button>
             ))}
@@ -87,7 +88,7 @@ export function Composer({
           <div className="flex items-center justify-between gap-2 px-3 pb-2.5 pt-0.5">
             <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
               {disabled ? (
-                <span className="flex items-center gap-1 text-primary animate-pulse">
+                <span className="flex items-center gap-1 text-primary font-medium animate-pulse">
                   <Sparkles className="size-3" />
                   Memproses brief...
                 </span>
@@ -96,23 +97,23 @@ export function Composer({
 
             <div className="flex shrink-0 items-center gap-2">
               {value.length > 0 ? (
-                <span id="composer-character-count" className="text-[10px] tabular-nums text-muted-foreground">
+                <span id="composer-character-count" className="text-[10px] tabular-nums text-muted-foreground font-mono">
                   {value.length}/{maxLength}
                 </span>
               ) : null}
-              <Button
+              <button
                 type="submit"
-                size="icon-sm"
                 aria-label="Kirim prompt"
                 disabled={!canSubmit}
-                className={`size-7.5 rounded-xl transition-all ${
+                className={cn(
+                  "flex size-8 shrink-0 items-center justify-center rounded-xl transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                   canSubmit
-                    ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-2xs"
-                    : "bg-muted text-muted-foreground opacity-40"
-                }`}
+                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm shadow-blue-500/30 hover:from-blue-700 hover:to-indigo-700 hover:scale-105 active:scale-95"
+                    : "bg-slate-100 text-slate-300 cursor-not-allowed",
+                )}
               >
-                <ArrowUp aria-hidden="true" className="size-3.5" />
-              </Button>
+                <ArrowUp aria-hidden="true" className="size-4 stroke-[2.5]" />
+              </button>
             </div>
           </div>
         </div>

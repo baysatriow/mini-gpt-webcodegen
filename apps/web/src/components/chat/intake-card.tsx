@@ -23,9 +23,9 @@ export function IntakeCard({ message, catalog, onValidate, onEditPrompt }: Intak
           <LoaderCircle aria-hidden="true" className="size-4 animate-spin" />
         </span>
         <div className="min-w-0 flex-1 pt-1">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-semibold text-foreground">Rancang</span>
-            <span className="rounded bg-blue-100/70 px-1.5 py-0.2 text-[10px] text-primary font-medium animate-pulse">
+          <div className="flex items-center gap-1.5 mb-1">
+            <span className="text-xs font-bold text-foreground">VibeCraft</span>
+            <span className="rounded bg-blue-100/70 px-1.5 py-0.2 text-[10px] text-primary font-semibold animate-pulse">
               Mengekstrak Fakta...
             </span>
           </div>
