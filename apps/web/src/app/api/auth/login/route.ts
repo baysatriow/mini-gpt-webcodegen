@@ -7,8 +7,13 @@ import {
   SESSION_MAX_AGE_SECONDS,
   isSameHostOrigin,
 } from "@/lib/access-session.mjs";
+import {
+  readJsonWithByteLimit,
+  RequestBodyTooLargeError,
+} from "@/lib/read-limited-json.mjs";
 
 const noStore = { "Cache-Control": "no-store" };
+const MAX_LOGIN_BODY_BYTES = 4096;
 
 export async function POST(request: Request) {
   if (!isAccessRequired()) {
@@ -17,19 +22,16 @@ export async function POST(request: Request) {
   if (!isAccessConfigured()) {
     return Response.json({ error: "access_configuration_unavailable" }, { status: 503, headers: noStore });
   }
-  const contentLength = Number(request.headers.get("content-length") ?? "0");
-  if (Number.isFinite(contentLength) && contentLength > 4096) {
-    return Response.json({ error: "invalid_request" }, { status: 413, headers: noStore });
-  }
   if (!isSameHostOrigin(request.headers.get("origin") ?? undefined, request.headers.get("host") ?? undefined)) {
     return Response.json({ error: "invalid_request_origin" }, { status: 403, headers: noStore });
   }
 
   let body: unknown;
   try {
-    body = await request.json();
-  } catch {
-    return Response.json({ error: "invalid_request" }, { status: 400, headers: noStore });
+    body = await readJsonWithByteLimit(request, MAX_LOGIN_BODY_BYTES);
+  } catch (error) {
+    const status = error instanceof RequestBodyTooLargeError ? 413 : 400;
+    return Response.json({ error: "invalid_request" }, { status, headers: noStore });
   }
   if (
     !body ||
