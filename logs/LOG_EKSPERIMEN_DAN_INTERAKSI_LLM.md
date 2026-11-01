@@ -7461,3 +7461,22 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Health API langsung ok; model_loaded, extractor_available, extractor_loaded dan generator_loaded false. Tidak ada inference atau generation baru.
 - stdout/stderr ditulis ke TEMP Windows dengan awalan vibecraft-20261101. Metadata generation otomatis berada di outputs/webapp/usages/usage.sqlite3.
 - Layanan dibiarkan berjalan sesuai permintaan. Receipt runtime mencatat PID, endpoint, waktu pemeriksaan, serta hasil commit/push log ini.
+
+## AI-063, rebranding WebCraft by VibeStack
+
+- Tanggal/waktu: 1 November 2026, 16:49, Asia/Jakarta.
+- Pengguna menetapkan nama tim VibeStack, nama produk WebCraft GPT, dan identitas situs WebCraft by VibeStack, serta meminta pembaruan navigasi dan UI/UX dengan skill antislop-ui.
+- Arah visual didokumentasikan di apps/web/DESIGN.md: warna dasar hangat, aksen hijau pine dan terracotta, tipografi IBM Plex yang sudah tersedia, ikon Code2, navigasi workbench yang dipertahankan, serta gerak dekoratif dibatasi.
+- Branding diterapkan pada metadata, login, sidebar, navigasi, percakapan, form brief, status pembuatan, preview, Usage, dan README. Kunci localStorage rancang.chat-history dipertahankan agar riwayat browser yang sudah ada tidak hilang.
+- Perubahan hanya mencakup identitas dan antarmuka. API, pipeline model, tokenizer, checkpoint, data, dan training tidak diubah.
+- Source rebrand dicatat pada commit db71cc3 dan sudah dipush ke feature/pipeline-data-model-training. ls-remote mengonfirmasi hash commit tersebut sebagai HEAD branch remote.
+
+## RUN-683, pemeriksaan rebrand dan status verifikasi
+
+- Tanggal/waktu: 1 November 2026, 16:49, Asia/Jakarta.
+- Frontend suite lulus 28/28, ESLint lulus, dan production build Next.js lulus. git diff --check bersih sebelum commit.
+- Pemeriksaan lokal terakhir: /login merespons 200, / mengarahkan ke login dengan 307, dan proxy /api/v1/health tanpa sesi mengembalikan 401.
+- Browser menampilkan halaman login dengan identitas baru pada localhost dan URL Quick Tunnel yang sudah berjalan. Pemeriksaan visual terverifikasi untuk halaman login.
+- Pemeriksaan visual setelah autentikasi belum selesai. CUA tidak dapat memindahkan kredensial dari clipboard Windows ke form secara aman, sehingga tidak ada login yang dikirim dari percobaan tersebut. Nilai kredensial tidak dicetak atau dicatat; clipboard diverifikasi kosong.
+- Tidak ada inference, training, perubahan checkpoint, atau perubahan FastAPI dalam pekerjaan rebrand ini.
+- Hasil source review, test, lint, dan build membuktikan status frontend pada checkout ini. Hasil tersebut bukan bukti visual halaman chat setelah login atau kualitas inference.
