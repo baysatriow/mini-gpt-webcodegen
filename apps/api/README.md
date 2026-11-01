@@ -40,8 +40,8 @@ Tekan `Ctrl+C` untuk menghentikan server. API hanya menerima bind loopback. Defa
 | `GET` | `/api/v1/generations/{generation_id}/download.zip` | Source, spesifikasi halaman, atribusi aset, dan aset terpakai |
 | `GET` | `/api/v1/usages/summary?window=24h` | KPI audit dan sampel GPU selama generation |
 | `GET` | `/api/v1/usages/gpu/current` | Snapshot `nvidia-smi`, tanpa memuat model |
-| `GET` | `/api/v1/usages?cursor=&limit=25&window=7d` | Riwayat audit berhalaman |
-| `GET` | `/api/v1/usages/{usage_id}` | Detail status, timeline aman, dan maksimal 300 sampel GPU |
+| `GET` | `/api/v1/usages/?cursor=&limit=25&window=7d&q=` | Riwayat audit berhalaman dan pencarian prompt/fakta |
+| `GET` | `/api/v1/usages/{usage_id}` | Detail prompt, fakta terkonfirmasi, timeline, dan maksimal 300 sampel GPU |
 
 Health dan katalog tidak memuat bobot. Endpoint `intake/extract` menerima sampai 16 pesan dengan total maksimal 4.000 karakter, lalu menjalankan extractor hanya jika paket checkpoint sudah melewati gate development. Ekstraksi memakai 16 scope berurutan di dalam satu giliran API dan berbagi lock inferensi dengan generator. Endpoint ini tidak membuat berkas website. Bila extractor belum dipromosikan, gagal, atau brief melewati budget tokenizer, API mengembalikan error terkontrol agar UI memakai editor manual.
 
@@ -59,7 +59,7 @@ Database dan sampel per-run berada di `outputs/webapp/usages`; folder itu diabai
 
 `nvidia-smi` diambil selama generation pada interval satu detik. Nilai tersebut mencakup seluruh perangkat dan dapat memasukkan beban aplikasi desktop. Snapshot GPU saat ini hanya mengambil satu pembacaan dan tidak memuat model. Memori alokasi/reservasi PyTorch ditampilkan sebagai baseline, peak, dan delta proses yang terpisah. Jika alat GPU atau CUDA tidak tersedia, nilai metrik tetap `null` dan audit request tetap tersimpan.
 
-Usage menyimpan ID, waktu, durasi, outcome, tahap, kode kegagalan allowlist, jumlah token/attempt/bagian jika dilaporkan, nama checkpoint aman, dan metrik telemetri. Isi prompt, fakta bisnis, source, output halaman, exception mentah, stack trace, dan path absolut tidak disimpan atau dikembalikan oleh API Usage. Riwayat menggunakan cursor stabil berdasarkan waktu mulai dan ID.
+Usage menyimpan ID, waktu, durasi, outcome, tahap, kode kegagalan allowlist, jumlah token/attempt/bagian jika dilaporkan, nama checkpoint aman, dan metrik telemetri. Prompt generation dan fakta bisnis yang memiliki penanda user_confirmed disimpan di SQLite lokal selama 90 hari. Request yang gagal di-validasi sebelum handler generation tidak menyimpan prompt atau fakta. Token extractor, source, output halaman, exception mentah, stack trace, dan path absolut tidak disimpan atau dikembalikan oleh API Usage. Daftar hanya mengembalikan preview prompt maksimum 80 karakter; detail lengkap dimuat satu run pada satu waktu. Riwayat menggunakan cursor stabil berdasarkan waktu mulai dan ID. Query pencarian dibatasi 200 karakter dan memakai parameter SQL dengan wildcard yang di-escape.
 
 ## Tailwind untuk halaman hasil
 

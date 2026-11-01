@@ -18,6 +18,7 @@ from apps.api.schemas import (
     GenerationRequest,
     GenerationResponse,
     GenerationSummary,
+    MAX_PROMPT_CHARS,
     SourceResponse,
 )
 from apps.api.services.artifacts import (
@@ -28,7 +29,7 @@ from apps.api.services.artifacts import (
 )
 from apps.api.services.intake import validate_intake
 from apps.api.services.runtime import get_runtime
-from apps.api.services.usage_audit import UsageRecorder
+from apps.api.services.usage_audit import UsageRecorder, confirmed_business_facts
 from apps.api.services.usage_telemetry import (
     GenerationGpuSampler,
     begin_torch_memory_measurement,
@@ -313,6 +314,25 @@ def _safe_generation_failure_code(error: Exception) -> str:
 )
 def create_generation(body: GenerationRequest, http_request: Request) -> GenerationResponse:
     recorder = _request_recorder(http_request)
+    if recorder is not None:
+        prompt = body.prompt if len(body.prompt) <= MAX_PROMPT_CHARS else None
+        facts = confirmed_business_facts(body.draft.business_facts) if prompt is not None else []
+        try:
+            recorder.set_request_details(prompt, facts)
+        except Exception as error:
+            logger.exception("Could not persist confirmed request details; generation was not started")
+            _finish_usage(
+                http_request,
+                stage="request_validation",
+                outcome="failed",
+                http_status=503,
+                code="storage_failed",
+            )
+            raise _http_error(
+                503,
+                "usage_storage_unavailable",
+                "Penyimpanan audit lokal tidak tersedia. Generation tidak dijalankan.",
+            ) from error
     runtime = get_runtime()
     if not runtime.generation_lock.acquire(blocking=False):
         _finish_usage(

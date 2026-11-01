@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import asyncio
 from datetime import datetime, timezone
+import json
 import logging
+import re
 import threading
 import time
 import uuid
@@ -18,6 +20,80 @@ from apps.api.services.usage_store import UsageStore
 
 
 logger = logging.getLogger(__name__)
+_FACT_ID = re.compile(r"[a-z][a-z0-9_-]{0,63}\Z")
+_SCALAR_FACT_LABELS = {
+    "name": "Nama usaha",
+    "description": "Deskripsi usaha",
+    "value": "Nilai utama",
+}
+_STRUCTURED_FACT_LABELS = {
+    "service": "Layanan",
+    "project": "Proyek",
+    "process": "Langkah proses",
+    "faq": "FAQ",
+}
+
+
+def confirmed_business_facts(values: Any) -> list[dict[str, Any]]:
+    """Keep only explicitly confirmed, display-safe fields from the generation draft."""
+    if not isinstance(values, list):
+        return []
+    facts: list[dict[str, Any]] = []
+    kind_counts: dict[str, int] = {}
+    for fact in values[:24]:
+        if not isinstance(fact, dict):
+            continue
+        fact_id = fact.get("id")
+        kind = fact.get("kind")
+        if not isinstance(fact_id, str) or not _FACT_ID.fullmatch(fact_id) or not isinstance(kind, str):
+            continue
+        if kind in _SCALAR_FACT_LABELS:
+            if set(fact) != {"id", "kind", "value", "evidence"}:
+                continue
+            value = fact.get("value")
+            if fact.get("evidence") != {"user_confirmed": True}:
+                continue
+            max_length = 3000 if kind == "description" else 100 if kind == "name" else 1000
+            if not isinstance(value, str) or not value.strip() or len(value) > max_length:
+                continue
+            facts.append(
+                {
+                    "id": fact_id,
+                    "kind": kind,
+                    "label": _SCALAR_FACT_LABELS[kind],
+                    "title": None,
+                    "value": value,
+                }
+            )
+            continue
+        if kind not in _STRUCTURED_FACT_LABELS or set(fact) != {"id", "kind", "value"}:
+            continue
+        value = fact.get("value")
+        if not isinstance(value, dict) or set(value) != {"title", "title_evidence", "text", "text_evidence"}:
+            continue
+        title, text = value.get("title"), value.get("text")
+        if (
+            value.get("title_evidence") != {"user_confirmed": True}
+            or value.get("text_evidence") != {"user_confirmed": True}
+            or not isinstance(title, str)
+            or not title.strip()
+            or len(title) > 100
+            or not isinstance(text, str)
+            or not text.strip()
+            or len(text) > 3000
+        ):
+            continue
+        kind_counts[kind] = kind_counts.get(kind, 0) + 1
+        facts.append(
+            {
+                "id": fact_id,
+                "kind": kind,
+                "label": f"{_STRUCTURED_FACT_LABELS[kind]} {kind_counts[kind]}",
+                "title": title,
+                "value": text,
+            }
+        )
+    return facts
 
 
 class UsageRecorder:
@@ -61,6 +137,14 @@ class UsageRecorder:
             self.store.update_record(self.usage_id, **safe_metrics)
         except Exception:
             logger.exception("Could not record Usage metrics")
+
+    def set_request_details(self, prompt: str | None, confirmed_facts: list[dict[str, Any]]) -> None:
+        facts_json = json.dumps(confirmed_facts, separators=(",", ":"), ensure_ascii=False)
+        self.store.update_record(
+            self.usage_id,
+            prompt=prompt,
+            confirmed_facts_json=facts_json,
+        )
 
     def finish(
         self,
