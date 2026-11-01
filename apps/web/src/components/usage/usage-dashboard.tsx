@@ -77,7 +77,7 @@ function gpuScopeLabel(scope: string) {
 
 function StatLine({ label, value, detail }: { label: string; value: string; detail?: string }) {
   return (
-    <div className="min-w-0 px-3 py-2.5 first:pl-0 last:pr-0">
+    <div className="min-w-0 px-3 py-2.5 first:pl-4 last:pr-4 lg:first:pl-0 lg:last:pr-0">
       <p className="text-[10px] leading-4 text-muted-foreground">{label}</p>
       <p className="mt-0.5 whitespace-normal break-words text-sm font-semibold leading-5 text-foreground">{value}</p>
       {detail ? <p className="mt-0.5 text-[10px] leading-4 text-muted-foreground">{detail}</p> : null}

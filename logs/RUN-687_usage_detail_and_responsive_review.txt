@@ -1,0 +1,28 @@
+RUN-687: Usage input audit and responsive layout review
+Started: 2026-11-01 22:45:51 +07:00
+Scope: Refresh the local FastAPI process so Usage detail fields are available, then inspect the Usage and Chat layouts at reported viewport sizes.
+
+Findings
+- The running FastAPI process on 127.0.0.1:8000 exposed an older UsageDetailResponse schema without prompt or confirmed_facts.
+- Current source at commit 2d73fc4 already adds both fields to the response and persists the user prompt plus explicitly confirmed facts.
+- The selected historical Usage record was created by the older process. Its stored prompt is empty and confirmed facts list is empty, so that input cannot be recovered from Usage.
+- The Next.js preview on port 3001 is a separate QA worktree at commit 74b9ba1. It is not the main repository checkout.
+- At 924x707, first and last SummaryBand metric cells had zero outer padding below the desktop sidebar breakpoint, making edge labels touch the viewport.
+- Chat at 390x844 had no document-level horizontal overflow; the composer and conversation/canvas switch remained visible.
+
+Actions
+- Restarted only the verified project FastAPI listener. It now binds to 127.0.0.1:8000.
+- Confirmed the live OpenAPI UsageDetailResponse includes prompt and confirmed_facts. The current historical record response includes both keys, with no stored prompt or facts.
+- Refreshed Usage in the local 3001 preview. It now reports the selected record as a legacy run instead of claiming the API omitted fields.
+- Updated StatLine edge padding in apps/web/src/components/usage/usage-dashboard.tsx. Horizontal padding is restored below lg and remains flush when the desktop sidebar is present.
+- No inference was run. No tunnel, port 3000 server, model, checkpoint, dataset, or user-owned untracked file was changed.
+
+Verification
+- ESLint for usage-dashboard.tsx: passed.
+- TypeScript no-emit check: passed.
+- git diff --check: passed.
+- Impeccable detector for usage-dashboard.tsx: no findings.
+- Browser: Chat checked at 390x844; Usage detail checked at 924x707. The running 3001 page is still the older QA build until it is rebuilt from the current source.
+
+Pending at log creation
+- Build and refresh only the 3001 QA worktree from the pushed source commit, then recheck Usage at 924x707. Do not touch the main app on 3000 or create a tunnel.
