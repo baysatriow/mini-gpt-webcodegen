@@ -7502,3 +7502,16 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Review sumber berfokus pada autentikasi, proxy, batas ekstraksi prompt, preview/CSP, Usage, dan integrasi utama. Audit ini bukan inspeksi manual baris demi baris atas seluruh artefak training dan log historis.
 - PR https://github.com/baysatriow/mini-gpt-webcodegen/pull/1 dibuat dengan base main dan head feature/pipeline-data-model-training. Status GitHub saat dibuat OPEN, MERGEABLE, bukan draft, tanpa status CI. PR belum di-merge.
 - Tidak ada inference atau training yang dijalankan dan data final tetap tidak dibuka.
+
+## RUN-685, penyimpanan input terkonfirmasi dan pencarian Usage
+
+- Tanggal/waktu: 1 November 2026, 21:42, Asia/Jakarta.
+- Pengguna menyetujui implementasi spesifikasi rework Usage, shell bersama, dan detail inference pada commit spesifikasi 586f846.
+- Database Usage mendapat migrasi aditif idempotent untuk prompt dan confirmed_facts_json. Record lama tetap tersedia dengan prompt null dan fakta kosong; retensi 90 hari tetap berlaku.
+- Handler generation menyimpan prompt yang berada dalam batas 4.000 karakter dan hanya fakta bisnis yang setiap nilainya memiliki evidence user_confirmed. Request yang gagal divalidasi sebelum handler tidak menyimpan prompt. extraction_token dan body request penuh tidak disimpan.
+- Detail API menambahkan prompt dan fakta terkonfirmasi. Daftar hanya mengirim preview prompt maksimum 80 karakter. Filter q dibatasi 200 karakter dan menelusuri prompt serta fakta dengan SQL berparameter dan wildcard yang di-escape.
+- API README dan web README diperbarui. Tidak ada source HTML/CSS/JavaScript yang dimasukkan ke database Usage.
+- Pemeriksaan awal menunjukkan regresi yang diharapkan sebelum implementasi. Sesudah perubahan, unittest terfokus lulus 12/12 dan seluruh tests/api lulus 20/20. git diff --check lulus.
+- Tidak ada server, browser, inference, training, model, atau GPU yang dijalankan. Implementasi shell dan UI Usage belum dilakukan.
+- Commit 2d73fc4 feat(usage): persist confirmed request audit details dipush ke origin/feature/pipeline-data-model-training. Commit tidak menambahkan trailer Co-authored-By.
+- Batas bukti: hasil ini membuktikan migrasi, store, dan kontrak API melalui tes Python. Belum ada bukti alur generation produksi, render UI, maupun browser.
