@@ -1,0 +1,34 @@
+RUN-686, implementasi shell dan workspace Usage
+Tanggal/waktu: 1 November 2026, 22:11, Asia/Jakarta
+
+Tujuan
+Menerapkan rancangan comp-first untuk navigasi bersama, workspace Usage, dan detail audit inference bagi tim VibeStack.
+
+Implementasi
+- HistorySidebar dipakai bersama oleh Chat dan Usage. Pada desktop sidebar tetap terlihat; pada layar kecil navigasi terbuka sebagai drawer.
+- Usage memiliki ringkasan request dan GPU, pencarian server-side prompt/fakta, filter status/tahap/periode, riwayat run, dan detail terpilih.
+- Detail memuat input/fakta bila API menyediakan field audit, rail lima tahap, event aktual, status, source accepted, metrik GPU seluruh perangkat, dan metrik PyTorch proses model.
+- Source dibaca hanya dari endpoint generation yang diterima renderer dan dirender sebagai teks. Tidak ada eksekusi source di halaman audit.
+- Kompatibilitas terhadap API lama menampilkan penjelasan saat prompt/fakta belum dikembalikan. Reselect run yang sama memuat detail kembali. Header detail duplikat dihapus. Pesan ruang lingkup GPU API lama diterjemahkan ke bahasa Indonesia.
+- README produk dan status spesifikasi diperbarui. Retensi lokal 90 hari dan batas privasi mengikuti rancangan yang disetujui.
+
+Verifikasi
+- Frontend test: 35/35 lulus.
+- ESLint komponen yang berubah: lulus.
+- TypeScript: lulus.
+- Next.js production build terpisah: lulus.
+- API test `tests.api.test_usages_api`: 6/6 lulus.
+- Impeccable detector pada komponen Usage dan sidebar: tidak menemukan temuan.
+- QA browser desktop 1280 x 720 dan mobile 390 x 844. Drawer Usage dapat dibuka, run dapat dipilih kembali, dan dokumen mobile tidak melebar dari viewport.
+- `git diff --check`: lulus.
+
+Runtime dan batas bukti
+- QA web memakai loopback port 3001 dan API aktif loopback port 8000.
+- API aktif masih mengembalikan response lama tanpa prompt dan confirmed_facts. Fallback tampil dengan benar. Implementasi source terbaru sudah memiliki field tersebut, namun API utama belum direstart.
+- Server utama port 3000 dan Cloudflare Tunnel tidak diubah atau dimulai ulang. Aktivasi versi branch di layanan utama membutuhkan build dan restart setelah API terbaru siap.
+- Tidak menjalankan inference, generation, training, atau memuat source pengguna. Tidak mengubah model atau data training.
+
+Git
+- Branch: `feature/pipeline-data-model-training`.
+- Commits pushed: `ad77108`, `31e397a`, `cb96aa3`, `d0671be`, `74b9ba1`.
+- Tidak menambahkan trailer `Co-authored-By`.

@@ -7515,3 +7515,18 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Tidak ada server, browser, inference, training, model, atau GPU yang dijalankan. Implementasi shell dan UI Usage belum dilakukan.
 - Commit 2d73fc4 feat(usage): persist confirmed request audit details dipush ke origin/feature/pipeline-data-model-training. Commit tidak menambahkan trailer Co-authored-By.
 - Batas bukti: hasil ini membuktikan migrasi, store, dan kontrak API melalui tes Python. Belum ada bukti alur generation produksi, render UI, maupun browser.
+
+## RUN-686, implementasi shell dan workspace Usage
+
+- Tanggal/waktu: 1 November 2026, 22:11, Asia/Jakarta.
+- Pengguna menyetujui rancangan comp-first untuk shell bersama, Usage master/detail, rincian setiap inference, dan telemetry perangkat.
+- `HistorySidebar` kini digunakan bersama di Chat dan Usage. Pada mobile, drawer mempertahankan navigasi Usage. Workspace menampilkan ringkasan, filter, pencarian prompt/fakta, daftar run, rail lima tahap, input/fakta terkonfirmasi, source yang diterima sebagai teks inert, event, metrik GPU, dan metrik PyTorch.
+- Source hanya dimuat melalui endpoint artefak generation yang telah diterima renderer. Halaman Usage tidak menjalankan HTML, CSS, atau JavaScript hasil.
+- Review visual menemukan judul detail berulang dan kondisi mobile yang dapat berhenti memuat saat pengguna membuka ulang run terpilih. Header disatukan dan pemuatan detail diberi pemicu ulang untuk ID yang sama. Label GPU lama juga diterjemahkan di UI agar tetap konsisten sebelum API diperbarui.
+- API lokal yang sedang aktif masih memakai response lama tanpa field prompt dan confirmed_facts. UI menampilkan fallback yang menjelaskan pembaruan FastAPI diperlukan; event dan telemetry tetap terlihat. Source API branch terbaru memuat field baru, tetapi proses FastAPI utama belum dimulai ulang.
+- QA browser dijalankan pada build production terpisah di port 3001, menggunakan API lokal pada port 8000. Tampilan desktop 1280 x 720 dan mobile 390 x 844 diperiksa. Drawer mobile dan pemilihan run terverifikasi. `document.documentElement.scrollWidth` dan `window.innerWidth` sama-sama 390 pada viewport mobile.
+- Frontend: 35 tes lulus, ESLint lulus, TypeScript lulus, dan build Next.js lulus. API: 6 tes `tests.api.test_usages_api` lulus setelah perubahan label GPU. Detector Impeccable pada komponen Usage dan sidebar menghasilkan `[]`. `git diff --check` lulus.
+- Tidak menjalankan inference, membuat generation baru, membuka atau mengunduh source, training, atau mengubah model, tokenizer, dataset, checkpoint, maupun konfigurasi training.
+- Perubahan dipush dalam commit `ad77108`, `31e397a`, `cb96aa3`, `d0671be`, dan `74b9ba1` pada `feature/pipeline-data-model-training`. Tidak ada trailer Co-authored-By.
+- Aplikasi utama port 3000, FastAPI utama port 8000, dan tunnel tidak dimulai ulang pada pekerjaan ini. Build QA port 3001 terpisah dari layanan tersebut.
+- Batas verifikasi: browser memakai API lama sehingga prompt/fakta baru belum dapat diperiksa end-to-end pada runtime utama. Perlu restart FastAPI dan build/restart Next.js untuk mengaktifkan versi baru di port 3000 serta tunnel.

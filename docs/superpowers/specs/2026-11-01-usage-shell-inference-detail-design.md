@@ -1,6 +1,6 @@
 # Spesifikasi Rework Usage, Shell, dan Detail Inference
 
-Status: disetujui untuk implementasi
+Status: implementasi pada branch selesai, aktivasi server utama menunggu restart
 
 Tanggal: 1 November 2026
 
@@ -217,8 +217,15 @@ Jika validasi Pydantic gagal sebelum generation handler, record tetap mencatat m
 - Endpoint source dapat mengembalikan 404 untuk generation yang belum diterima renderer atau artefaknya sudah tidak tersedia. Mitigasi: state unavailable, tanpa membaca file mentah dari path lain.
 - Shell berbagi riwayat browser yang sudah dikelola ChatShell. Mitigasi: gunakan kontrak HistorySidebar yang ada atau adapter tanpa mengubah format localStorage dan reducer Chat.
 
-## 10. Batas implementasi dan review
+## 10. Status implementasi dan review
 
-Tahap ini hanya menghasilkan spesifikasi dan referensi comp. Belum ada perubahan komponen UI, kontrak API, database, migrasi, atau behavior aplikasi. Implementasi dimulai setelah pengguna menyetujui dokumen ini.
+- Implementasi API, penyimpanan input terkonfirmasi, shell bersama, workspace Usage, detail inference, fallback API lama, dan penyatuan header detail sudah ada pada branch `feature/pipeline-data-model-training` hingga commit `74b9ba1`.
+- Verifikasi frontend: 35 tes lulus, ESLint lulus, TypeScript lulus, dan production build Next.js lulus.
+- Verifikasi API terfokus: 6 tes `tests.api.test_usages_api` lulus. Pemeriksaan sebelumnya untuk seluruh suite `tests/api` mencatat 20 tes lulus sebelum perubahan label `gpu_scope`; tes API terfokus setelah perubahan memastikan label baru.
+- Review browser pada build QA lokal: desktop 1280 x 720 dan mobile 390 x 844. Sidebar desktop tetap terlihat, drawer mobile mempertahankan item Usage, detail run dapat dibuka kembali tanpa macet, dan lebar dokumen mobile tetap 390 px.
+- Detector Impeccable dijalankan pada komponen Usage dan sidebar; hasilnya kosong.
+- FastAPI yang sedang berjalan masih mengembalikan response lama tanpa `prompt` dan `confirmed_facts`. UI menampilkan penjelasan fallback dan tetap menunjukkan event serta telemetry. Source API terbaru sudah mengembalikan field tersebut, tetapi proses FastAPI utama belum dimulai ulang.
+- Uji browser tidak menjalankan inference dan tidak membuka atau mengunduh source pengguna. Tidak ada perubahan model, tokenizer, dataset, checkpoint, atau konfigurasi training.
+- Build dan review dilakukan pada checkout QA terpisah di port 3001. Server Next.js utama, FastAPI utama di port 8000, dan Cloudflare Tunnel tidak dimulai ulang dalam tahap ini.
 
-Setelah disetujui, implementasi mengikuti urutan: migrasi dan skema Usage, capture input terkonfirmasi, kontrak API dan client, shell bersama, workspace Usage, lalu review visual desktop dan mobile. Setiap tahap diverifikasi terhadap kriteria penerimaan sebelum perubahan berikutnya.
+Untuk mengaktifkan prompt dan fakta pada server utama, mulai ulang FastAPI dengan source terbaru. Agar antarmuka baru tampil di port 3000 dan tunnel, build serta mulai ulang Next.js utama setelah FastAPI siap.
