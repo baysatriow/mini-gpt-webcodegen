@@ -7,6 +7,8 @@ import {
   Activity,
   AlertCircle,
   ArrowLeft,
+  Check,
+  Copy,
   Cpu,
   LoaderCircle,
   Menu,
@@ -303,21 +305,66 @@ function RunList({
   );
 }
 
+function RunDetailHeader({ record, detail, onBack }: {
+  record: UsageRecord | null;
+  detail: UsageDetail | null;
+  onBack: () => void;
+}) {
+  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
+  const usageId = detail?.usage_id ?? record?.usage_id ?? null;
+  const outcome = detail?.outcome ?? record?.outcome;
+  const startedAt = detail?.started_at ?? record?.started_at;
+  const duration = detail?.duration_ms ?? record?.duration_ms;
+
+  async function copyRunId() {
+    if (!usageId) return;
+    const copied = await copyTextToClipboard(usageId);
+    setCopyStatus(copied ? "copied" : "failed");
+    window.setTimeout(() => setCopyStatus("idle"), 1800);
+  }
+
+  return (
+    <header className="sticky top-0 z-10 flex min-h-[60px] shrink-0 items-center justify-between gap-3 border-b border-border bg-card/95 px-3 py-2 backdrop-blur-sm sm:px-4">
+      <div className="flex min-w-0 items-center gap-2">
+        <Button type="button" variant="ghost" size="icon" onClick={onBack} aria-label="Kembali ke daftar riwayat" className="size-8 shrink-0 rounded-lg lg:hidden">
+          <ArrowLeft aria-hidden="true" className="size-4" />
+        </Button>
+        <div className="min-w-0">
+          <p className="truncate text-xs font-semibold text-foreground">{record ? recordTitle(detail ?? record) : "Detail run"}</p>
+          <div className="flex min-w-0 flex-wrap items-center gap-x-1.5 text-[10px] leading-4 text-muted-foreground">
+            {startedAt ? <span>{dateLabel(startedAt)}</span> : <span>Pilih run dari riwayat</span>}
+            {usageId ? <><span aria-hidden="true">·</span><span>ID {shortId(usageId)}</span></> : null}
+            {duration !== undefined ? <><span aria-hidden="true">·</span><span>{durationLabel(duration)}</span></> : null}
+          </div>
+        </div>
+      </div>
+      <div className="flex shrink-0 items-center gap-2">
+        {usageId ? (
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => void copyRunId()}
+            className="h-8 gap-1.5 rounded-lg px-2 text-[10px] sm:text-xs"
+            aria-label={copyStatus === "copied" ? "ID tersalin" : copyStatus === "failed" ? "Gagal menyalin ID" : "Salin ID lengkap"}
+            aria-live="polite"
+          >
+            {copyStatus === "copied" ? <Check aria-hidden="true" className="size-3.5" /> : <Copy aria-hidden="true" className="size-3.5" />}
+            <span className="hidden sm:inline">{copyStatus === "copied" ? "ID tersalin" : copyStatus === "failed" ? "Gagal menyalin" : "Salin ID"}</span>
+          </Button>
+        ) : null}
+        {outcome ? <OutcomeBadge outcome={outcome} /> : null}
+      </div>
+    </header>
+  );
+}
+
 function RunDetail({ detail, loading, error, onRetry }: {
   detail: UsageDetail | null;
   loading: boolean;
   error: string | null;
   onRetry: () => void;
 }) {
-  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
-
-  async function copyRunId() {
-    if (!detail) return;
-    const copied = await copyTextToClipboard(detail.usage_id);
-    setCopyStatus(copied ? "copied" : "failed");
-    window.setTimeout(() => setCopyStatus("idle"), 1800);
-  }
-
   if (loading) {
     return <div className="flex min-h-64 flex-1 items-center justify-center text-sm text-muted-foreground" role="status"><LoaderCircle aria-hidden="true" className="mr-2 size-4 animate-spin" /> Memuat detail audit...</div>;
   }
@@ -346,23 +393,6 @@ function RunDetail({ detail, loading, error, onRetry }: {
 
   return (
     <div className="min-w-0 flex-1 space-y-4 p-3 sm:p-4 xl:p-5">
-      <header className="flex min-w-0 flex-wrap items-start justify-between gap-3 border-b border-border/80 pb-3">
-        <div className="min-w-0">
-          <h2 className="break-words text-lg font-semibold leading-snug tracking-tight text-foreground sm:text-xl">{recordTitle(detail)}</h2>
-          <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
-            <span>{dateLabel(detail.started_at)}</span>
-            <span aria-hidden="true">·</span>
-            <span>ID {shortId(detail.usage_id)}</span>
-            <span aria-hidden="true">·</span>
-            <span>{durationLabel(detail.duration_ms)}</span>
-          </div>
-          <button type="button" onClick={() => void copyRunId()} className="mt-1.5 break-all font-mono text-[10px] text-muted-foreground underline decoration-border underline-offset-2 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-live="polite">
-            {copyStatus === "copied" ? "ID tersalin" : copyStatus === "failed" ? "Gagal menyalin ID" : "Salin ID lengkap"} <span className="sr-only">{detail.usage_id}</span>
-          </button>
-        </div>
-        <OutcomeBadge outcome={detail.outcome} />
-      </header>
-
       <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)]">
         <div className="min-w-0 rounded-xl border border-border bg-card p-3 sm:p-4">
           <UsageEvidence detail={detail} />
@@ -685,18 +715,7 @@ export function UsageDashboard({ showLogout = false }: { showLogout?: boolean })
               "lg:flex",
             )}
           >
-            <div className="sticky top-0 z-10 flex min-h-12 shrink-0 items-center justify-between gap-3 border-b border-border bg-card/95 px-3 backdrop-blur-sm sm:px-4">
-              <div className="flex min-w-0 items-center gap-2">
-                <Button type="button" variant="ghost" size="icon" onClick={() => setMobileView("list")} aria-label="Kembali ke daftar riwayat" className="size-8 shrink-0 rounded-lg lg:hidden">
-                  <ArrowLeft aria-hidden="true" className="size-4" />
-                </Button>
-                <div className="min-w-0">
-                  <p className="truncate text-xs font-semibold text-foreground">{selectedRecord ? recordTitle(selectedRecord) : "Detail run"}</p>
-                  <p className="text-[10px] text-muted-foreground">{detail ? `ID ${shortId(detail.usage_id)}` : "Pilih run dari riwayat"}</p>
-                </div>
-              </div>
-              {detail ? <OutcomeBadge outcome={detail.outcome} /> : null}
-            </div>
+            <RunDetailHeader record={selectedRecord} detail={detail} onBack={() => setMobileView("list")} />
             <RunDetail
               detail={detail}
               loading={detailLoading}
