@@ -240,6 +240,9 @@ export function UsageEventLog({ detail }: { detail: UsageDetail }) {
 
 export function UsageEvidence({ detail }: { detail: UsageDetail }) {
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
+  const hasRequestDetails = Object.prototype.hasOwnProperty.call(detail, "prompt")
+    && Array.isArray(detail.confirmed_facts);
+  const confirmedFacts = Array.isArray(detail.confirmed_facts) ? detail.confirmed_facts : [];
 
   async function copyPrompt() {
     if (!detail.prompt) return;
@@ -261,18 +264,20 @@ export function UsageEvidence({ detail }: { detail: UsageDetail }) {
         <pre className="mt-2 max-h-52 overflow-auto whitespace-pre-wrap break-words rounded-xl border border-border/80 bg-[#f7f6f0] p-3 font-sans text-sm leading-6 text-foreground selection:bg-[#dce9df]">{detail.prompt}</pre>
       ) : (
         <p className="mt-2 rounded-xl border border-dashed border-border bg-muted/35 p-3 text-sm leading-relaxed text-muted-foreground">
-          Detail input belum tersedia untuk run lama atau request yang ditolak sebelum isi request diterima.
+          {hasRequestDetails
+            ? "Detail input belum tersedia untuk run lama atau request yang ditolak sebelum isi request diterima."
+            : "API FastAPI belum mengembalikan detail input. Perbarui atau mulai ulang API lokal agar prompt dan fakta tersimpan dapat ditampilkan."}
         </p>
       )}
 
       <div className="mt-5 border-t border-border/80 pt-4">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <h3 className="text-sm font-semibold text-foreground">Fakta yang dikonfirmasi</h3>
-          <span className="text-xs text-muted-foreground">{detail.confirmed_facts.length} fakta</span>
+          <span className="text-xs text-muted-foreground">{numberLabel(confirmedFacts.length)} fakta</span>
         </div>
-        {detail.confirmed_facts.length ? (
+        {confirmedFacts.length ? (
           <dl className="mt-2 divide-y divide-border/70 rounded-xl border border-border/80 bg-card px-3">
-            {detail.confirmed_facts.map((fact) => (
+            {confirmedFacts.map((fact) => (
               <div key={fact.id} className="grid min-w-0 gap-1 py-2.5 sm:grid-cols-[minmax(92px,0.7fr)_minmax(0,1.3fr)] sm:gap-3">
                 <dt className="text-xs leading-5 text-muted-foreground">{fact.label}{fact.title ? ` · ${fact.title}` : ""}</dt>
                 <dd className="whitespace-pre-wrap break-words text-sm leading-5 text-foreground">{fact.value}</dd>
@@ -281,7 +286,9 @@ export function UsageEvidence({ detail }: { detail: UsageDetail }) {
           </dl>
         ) : (
           <p className="mt-2 rounded-xl bg-muted/40 p-3 text-xs leading-relaxed text-muted-foreground">
-            Tidak ada fakta terkonfirmasi yang tercatat pada run ini.
+            {hasRequestDetails
+              ? "Tidak ada fakta terkonfirmasi yang tercatat pada run ini."
+              : "Fakta belum dapat dibaca karena API lokal belum mengembalikan field audit input."}
           </p>
         )}
       </div>

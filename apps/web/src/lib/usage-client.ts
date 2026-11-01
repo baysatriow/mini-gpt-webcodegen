@@ -55,7 +55,7 @@ export type UsageSummary = {
 export type UsageRecord = {
   usage_id: string;
   generation_id: string | null;
-  title_preview: string | null;
+  title_preview?: string | null;
   started_at: string;
   finished_at: string | null;
   duration_ms: number | null;
@@ -117,8 +117,8 @@ export type UsageConfirmedFact = {
 };
 
 export type UsageDetail = UsageRecord & {
-  prompt: string | null;
-  confirmed_facts: UsageConfirmedFact[];
+  prompt?: string | null;
+  confirmed_facts?: UsageConfirmedFact[];
   events: UsageEvent[];
   samples: UsageGpuSample[];
 };

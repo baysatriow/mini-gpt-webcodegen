@@ -50,5 +50,7 @@ test("Usage inspection renders accepted source as inert text and shares navigati
   assert.match(components, /getSource\(generationId\)/);
   assert.match(components, /Fakta yang dikonfirmasi/);
   assert.match(components, /const STAGE_GROUPS/);
+  assert.match(components, /const confirmedFacts = Array\.isArray\(detail\.confirmed_facts\)/);
+  assert.match(components, /API FastAPI belum mengembalikan detail input/);
   assert.match(sidebar, /aria-current=\{activeSection === "usage" \? "page" : undefined\}/);
 });
