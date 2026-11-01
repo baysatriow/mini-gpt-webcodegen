@@ -625,6 +625,7 @@ export function UsageDashboard({ showLogout = false }: { showLogout?: boolean })
     setDetailError(null);
     setDetailLoading(true);
     setSelectedId(record.usage_id);
+    setDetailVersion((value) => value + 1);
     setMobileView("detail");
   }
 

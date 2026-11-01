@@ -297,6 +297,10 @@ class UsageApiTests(unittest.TestCase):
 
             self.assertEqual(200, summary.status_code)
             self.assertEqual(2, summary.json()["total_requests"])
+            self.assertEqual(
+                "Sampel nvidia-smi mencatat penggunaan seluruh GPU hanya selama proses generate.",
+                summary.json()["gpu_scope"],
+            )
             self.assertEqual(200, page.status_code)
             self.assertEqual(1, len(page.json()["items"]))
             self.assertEqual(200, detail.status_code)

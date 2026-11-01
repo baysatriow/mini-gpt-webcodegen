@@ -54,3 +54,10 @@ test("Usage inspection renders accepted source as inert text and shares navigati
   assert.match(components, /API FastAPI belum mengembalikan detail input/);
   assert.match(sidebar, /aria-current=\{activeSection === "usage" \? "page" : undefined\}/);
 });
+
+test("reselecting a Usage run reloads its detail even when its ID is unchanged", () => {
+  const dashboard = read("../src/components/usage/usage-dashboard.tsx");
+  const selectRecord = dashboard.match(/function selectRecord\(record: UsageRecord\) \{[\s\S]*?\n  \}/);
+  assert.ok(selectRecord, "selectRecord handler should exist");
+  assert.match(selectRecord[0], /setDetailVersion\(\(value\) => value \+ 1\)/);
+});

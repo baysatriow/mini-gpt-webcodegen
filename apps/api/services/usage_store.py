@@ -772,7 +772,7 @@ class UsageStore:
             "gpu_power_mean_w": row["gpu_power_sum"] / gpu_denominator if gpu_denominator else None,
             "gpu_temperature_max_c": row["gpu_temperature_max_c"],
             "gpu_sm_clock_mean_mhz": row["gpu_sm_clock_sum"] / gpu_denominator if gpu_denominator else None,
-            "gpu_scope": "Device-wide nvidia-smi samples collected during generation only",
+            "gpu_scope": "Sampel nvidia-smi mencatat penggunaan seluruh GPU hanya selama proses generate.",
         }
 
     def prune(self, now: datetime) -> int:
