@@ -68,6 +68,13 @@ const STAGE_OPTIONS: UsageStage[] = [
   "server_restart",
 ];
 
+function gpuScopeLabel(scope: string) {
+  if (scope === "Device-wide nvidia-smi samples collected during generation only") {
+    return "Sampel nvidia-smi mencatat penggunaan seluruh GPU hanya selama proses generate.";
+  }
+  return scope;
+}
+
 function StatLine({ label, value, detail }: { label: string; value: string; detail?: string }) {
   return (
     <div className="min-w-0 px-3 py-2.5 first:pl-0 last:pr-0">
@@ -148,7 +155,7 @@ function SummaryBand({ summary, gpu, summaryError, gpuError }: {
         </details>
       ) : null}
       {summaryError ? <p role="status" className="border-t border-border/80 px-4 py-2 text-xs text-amber-900">Ringkasan periode belum tersedia. Riwayat tetap dapat diperiksa. {summaryError}</p> : null}
-      {summary?.gpu_scope ? <p className="border-t border-border/70 px-4 py-1.5 text-[10px] leading-4 text-muted-foreground">{summary.gpu_scope}</p> : null}
+      {summary?.gpu_scope ? <p className="border-t border-border/70 px-4 py-1.5 text-[10px] leading-4 text-muted-foreground">{gpuScopeLabel(summary.gpu_scope)}</p> : null}
     </section>
   );
 }

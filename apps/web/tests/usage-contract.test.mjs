@@ -24,6 +24,12 @@ test("Usage dashboard explains unavailable telemetry and renders readable outcom
   assert.match(source, /Kembali ke chat/);
 });
 
+test("Usage dashboard localizes the legacy GPU scope message", () => {
+  const dashboard = read("../src/components/usage/usage-dashboard.tsx");
+  assert.match(dashboard, /Device-wide nvidia-smi samples collected during generation only/);
+  assert.match(dashboard, /Sampel nvidia-smi mencatat penggunaan seluruh GPU hanya selama proses generate\./);
+});
+
 test("Usage metric values wrap on narrow screens instead of truncating", () => {
   const source = read("../src/components/usage/usage-components.tsx");
   assert.match(source, /whitespace-normal break-words leading-snug text-sm font-medium text-foreground/);
