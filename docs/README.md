@@ -1,35 +1,36 @@
-# Dokumentasi Proyek
+# Dokumentasi Mini GPT WebCodeGen
 
-Dokumen di sini menjelaskan ruang lingkup, persyaratan tugas, sumber dataset, environment, dan urutan kerja Mini GPT WebCodeGen.
+Gunakan panduan aktif di bawah untuk menjalankan proyek. Laporan bertanggal dan notebook menyimpan hasil eksperimen pada tahap masing-masing.
 
-## Dokumen utama
+## Menjalankan aplikasi dan model
 
-- [Desain aplikasi chat generator](superpowers/specs/2026-10-15-generator-chat-application-design.md): alur chat, RequestDraft source-bound, batas model, API, preview, dan unduhan.
-- [Desain prompt-first dan intake ringkas](superpowers/specs/2026-10-16-prompt-first-intake-design.md): analisis kemampuan model saat ini, ekstraksi fakta terverifikasi, klarifikasi gabungan, dan UI prompt-first.
-- [Rencana implementasi prompt-first](superpowers/plans/2026-10-16-prompt-first-intake.md): corpus extractor, checkpoint terpisah, API, UI, gate development, dan log.
-- [Roadmap aplikasi generator](superpowers/plans/2026-10-15-generator-app-roadmap.md): urutan paket TRAIN-025, FastAPI, lalu UI Next.js/shadcn.
-- [Paket runtime terpilih](../training/selected/fullpage-v5/README.md): provenance kandidat TRAIN-025 step 1.800 dan batas review visualnya.
-- [API lokal generator](../apps/api/README.md): setup `.venv`, server satu worker, CORS, rute, dan batas lazy-load model.
-- [Ruang lingkup dan rancangan pipeline](PROJECT_SCOPE_AND_PIPELINE.md): target, batas, interface modul, evaluasi, risiko, dan tahapan.
-- [Rencana implementasi data, model, dan training](superpowers/plans/2026-10-12-pipeline-data-model-training.md): tugas implementasi serta verifikasi yang harus ditinjau sebelum mulai coding.
-- [Analisis dataset awal](ANALISIS_DATASET_2026-10-12.md): isi, akses, lisensi, dan keterbatasan Webdev, WebMC, serta WebSight.
-- [Perbandingan dataset dan stack](PERBANDINGAN_DATASET_STACK_WEB_2026-10-12.md): hasil audit Vulcan dan kandidat CSS biasa atau Tailwind.
-- [Panduan environment](PANDUAN_ENVIRONMENT.md): VENV, PyTorch CUDA, kernel notebook, dan bukti pemeriksaan GPU.
-- [Panduan pipeline data](PIPELINE_DATA_GUIDE.md): command akuisisi, preparation, review SFT, tokenizer, dan pemeriksaan integritas.
-- [Review pipeline](../reports/REVIEW_PIPELINE_2026-10-12.md): empat temuan, perbaikan, regression tests, dan batas review data.
-- [Panduan training](TRAINING_GUIDE.md): profiling, smoke/baseline, resume, SFT, failure artifact, dan evaluasi.
-- [Optimasi GPU](../reports/GPU_TRAINING_OPTIMIZATION_2026-10-13.md): empat sweep RTX 5070, runtime optimal, training nyata, telemetry, dan batas kualitas.
-- [Ringkasan baseline](../reports/PIPELINE_TRAINING_SUMMARY.md): hasil pretraining terukur, grafik, checkpoint dan probe JSON historis.
-- [Hasil SFT pilot](../reports/SFT_PILOT_SUMMARY_2026-10-13.md): approval, 40 update, loss target dan generasi 0/4 valid.
-- [Pengembangan output](SFT_DEVELOPMENT_2026-10-13.md): diagnosis, curriculum sintetis, serialization, dan penyalinan nama.
-- [Panduan generasi website](GENERATING_WEBSITES.md): format prompt, validasi isi, ekspor lokal CSS/Tailwind/JavaScript dan batasnya.
-- [Notebook proses](../notebooks/README.md): notebook berurutan, output aktual, dan kernel proyek.
-- [Review training](../reports/REVIEW_TRAINING_2026-10-12.md): checkpoint terbaik, transaksi save, lineage parent/SFT/test, verified copy, dan Minor ditunda.
+| Kebutuhan | Panduan |
+| --- | --- |
+| Memahami keadaan proyek | [README utama](../README.md) |
+| Memahami folder dan batas modul | [Struktur proyek](PROJECT_STRUCTURE.md) |
+| Menyiapkan Python dan CUDA | [Environment](PANDUAN_ENVIRONMENT.md) |
+| Menemukan bobot dan menyiapkan upload | [Model runtime dan upload](MODEL_RUNTIME_AND_UPLOAD.md) |
+| Menjalankan generator lewat CLI | [Generasi website](GENERATING_WEBSITES.md) |
+| Menjalankan chat, preview, dan login | [Frontend](../apps/web/README.md) |
+| Menjalankan FastAPI dan Usage | [API](../apps/api/README.md) |
+| Memeriksa kandidat terpilih | [Paket FULLPAGE-V5](../training/selected/fullpage-v5/README.md) |
 
-## Status
+## Pipeline dan bukti
 
-Environment, pipeline data, Mini GPT dan evaluator tersedia. Generator halaman terpilih TRAIN-025 step 1.800 menerima draft terstruktur yang melewati validasi source-bound. Kandidat ekstraktor brief bebas `REQUEST-EXTRACT-V1` step 1.800 masih menjalani evaluasi pada data synthetic development; gerbang raw dan safety API belum lulus, jadi ekstraksi otomatis belum diaktifkan. Jika kandidat belum tersedia, UI tetap menyimpan brief dan memakai editor manual. Final/test tetap tertutup.
+- [Rancangan pipeline](PROJECT_SCOPE_AND_PIPELINE.md) merekam ruang lingkup dan tahap awal.
+- [Pipeline data](PIPELINE_DATA_GUIDE.md), [kurasi anotasi](ANNOTATION_REVIEW_GUIDE.md), dan [training](TRAINING_GUIDE.md) menjelaskan prosedur eksperimen.
+- [Analisis dataset](ANALISIS_DATASET_2026-10-12.md) dan [perbandingan stack](PERBANDINGAN_DATASET_STACK_WEB_2026-10-12.md) mencatat hasil audit sumber pada tanggalnya.
+- [Notebook proses](../notebooks/README.md) menyusun urutan pekerjaan.
+- [Laporan seleksi FULLPAGE-V5](../reports/training/FULLPAGE-V5_DEVELOPMENT_SELECTION.json) memilih TRAIN-025 step 1800 dari hasil development.
+- [Audit 1 November](../reports/structure/AUDIT_2026-11-01.json) memverifikasi model, tokenizer, struktur, dan paket upload.
+- [Log training](../logs/LOG_TRAINING.md) dan [log eksperimen](../logs/LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md) mempertahankan riwayat pelaksanaan.
 
-UI prompt-first sekarang memakai satu brief dan satu klarifikasi gabungan, menyajikan bukti sumber untuk pemeriksaan, lalu menunggu persetujuan eksplisit sebelum generation. Build, lint, TypeScript, dan review browser di viewport sekitar 624 x 864 serta 1440 x 900 berhasil pada 17 Oktober 2026. Jalur prompt-first belum diverifikasi end-to-end dengan inference aplikasi. Panduan setup ada di [panduan API lokal](../apps/api/README.md) dan [panduan UI lokal](../apps/web/README.md). Data, BPE, checkpoint, dan output development tetap lokal.
+## Desain aplikasi
 
-Sebelum mengambil atau merilis data, periksa lagi revision, lisensi, atribusi, dan ketentuan penggunaan saat itu.
+[Desain chat](superpowers/specs/2026-10-15-generator-chat-application-design.md), [desain intake](superpowers/specs/2026-10-16-prompt-first-intake-design.md), dan [roadmap](superpowers/plans/2026-10-15-generator-app-roadmap.md) mencatat keputusan arsitektur. Status implementasi terkini diringkas di README utama dan panduan aplikasi.
+
+Extractor otomatis belum memiliki selection runtime yang dipromosikan pada audit 1 November. Pengguna dapat memilih contoh fiktif dan mengisi editor fakta. Generator terpilih menerima fakta yang lolos validasi. Target visual 95 persen masih memerlukan review manusia; final FULLPAGE-V5 tetap tertutup.
+
+## Arsip dokumentasi
+
+[README historis](history/README_BEFORE_2026-11-01.md) dan [panduan CLI historis](history/GENERATING_WEBSITES_BEFORE_2026-11-01.md) menyimpan isi sebelum penataan. Angka dan pernyataan runtime di arsip harus dibaca bersama tanggal eksperimennya. Snapshot final eksperimen lama tidak menjadi hasil final FULLPAGE-V5.

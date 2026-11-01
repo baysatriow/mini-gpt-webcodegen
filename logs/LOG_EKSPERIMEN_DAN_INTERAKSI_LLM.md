@@ -7397,3 +7397,24 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Tidak ada generation baru, training, pembukaan final/test, server, atau tunnel yang dijalankan. Bobot asli tidak diubah.
 - Skrip sementara pelaksanaan ada di .tmp/prepare_upload_20261101.py; direktori .tmp dan paket outputs tetap diabaikan Git.
 - Tahap berikutnya: rapikan README dan panduan pemakaian setelah pilihan mode antislop diterima.
+
+## AI-060, penataan dokumentasi dengan antislop during
+
+- Tanggal/waktu: 1 November 2026, 15:37, Asia/Jakarta.
+- Pengguna memilih mode antislop during untuk langsung diterapkan saat merapikan dokumentasi. Pilihan berlaku untuk sesi ini; settings global tidak diubah.
+- README utama ditulis ulang menjadi status terkini, alur aplikasi, struktur, scope, bukti data/evaluasi, dan tautan panduan. TRAIN-025 step 1800 menjadi satu-satunya kandidat aplikasi yang dirujuk sebagai runtime terkini.
+- README lama dan panduan CLI historis disimpan di docs/history dengan penanda snapshot serta tautan relatif yang disesuaikan.
+- Indeks docs diperbarui. Panduan PROJECT_STRUCTURE, MODEL_RUNTIME_AND_UPLOAD, GENERATING_WEBSITES, dan README paket terpilih menjelaskan folder, CUDA, pointer .versions, tokenizer, perintah CLI, lokasi upload, dan batas kemampuan.
+- Larangan upload lama pada README paket diperbarui sesuai permintaan pengguna menyiapkan model untuk upload. Bobot tetap diabaikan Git; belum ada upload ke layanan eksternal.
+- Paket v2 menyertakan README pemakaian dan manifest hash yang diperbarui. ZIP awal dipertahankan. Model/source/runtime di dalam paket tetap cocok dengan hash yang diperiksa pada RUN-679.
+- Tahap dokumentasi tidak mengubah 13 file UI lokal. Hash git diff apps/web sebelum dan sesudah tahap ini identik.
+
+## RUN-680, pemeriksaan panduan aktif dan ZIP v2
+
+- Tanggal/waktu: 1 November 2026, 15:37, Asia/Jakarta.
+- Enam dokumen aktif diperiksa: semua tautan file lokal tersedia, code fence seimbang, dan tidak ada em dash atau en dash baru. Snapshot historis mempertahankan isi tahapan sebelumnya.
+- CLI qa.generate_fullpage --help berhasil. Contoh request pada paket upload lolos validator request dengan katalog aset paket.
+- ZIP v2 berisi 109 file, 54.439.464 byte. CRC semua anggota serta hash file yang terdaftar pada UPLOAD_MANIFEST.json lulus.
+- SHA-256 ZIP v2: 2b50f93044156627bed2c201f6f561fcf382ac4a7217c62d3aba3b3fb8d919ac.
+- Audit reports/structure/AUDIT_2026-11-01.json diperbarui menjadi documentation_cleanup_status=complete dengan identitas ZIP v2 dan hasil pemeriksaan.
+- git diff --check untuk berkas dokumentasi dan audit lulus. Inference, training, server, tunnel, dan evaluasi final tidak dijalankan pada tahap dokumentasi.

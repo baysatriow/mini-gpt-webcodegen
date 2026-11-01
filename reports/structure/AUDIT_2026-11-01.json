@@ -9,16 +9,15 @@
     "checkpoint_sha256": "c1a450149eb8f860cc42595bba283e0f9e915a436f38f967516bc5107bd1c446",
     "inference_performed": false
   },
-  "archive": "outputs/releases/fullpage-v5-TRAIN-025-step1800.zip",
-  "archive_bytes": 54437217,
-  "archive_sha256": "1dc5ebcdaec137ee9e909778ef58fa2ab4d2d960f291410f52ac29a3222de362",
-  "file_count": 108,
+  "archive": "outputs/releases/fullpage-v5-TRAIN-025-step1800-v2.zip",
+  "archive_bytes": 54439464,
+  "archive_sha256": "2b50f93044156627bed2c201f6f561fcf382ac4a7217c62d3aba3b3fb8d919ac",
+  "file_count": 109,
   "archive_crc_verified": true,
   "selected_development_accepted": 80,
   "selected_development_total": 80,
   "visual_95_percent_proven": false,
   "extractor_selection_exists": false,
-  "readme_contains_superseded_runtime_claims": true,
   "existing_ui_changes_preserved": true,
   "servers_started": false,
   "package_load_verified": true,
@@ -27,7 +26,7 @@
     "to": "sampah/local-cache/2026-11-01/app",
     "files": 0
   },
-  "documentation_cleanup_status": "awaiting_antislop_mode_choice",
+  "documentation_cleanup_status": "complete",
   "pretrain_snapshot": {
     "accepted": 54996,
     "deduplicated": 51211,
@@ -56,5 +55,27 @@
     "assets": "renderer asset allowlist",
     "examples": "historical samples and galleries",
     "sampah": "recoverable quarantine"
-  }
+  },
+  "previous_archive": {
+    "archive": "outputs/releases/fullpage-v5-TRAIN-025-step1800.zip",
+    "archive_bytes": 54437217,
+    "archive_sha256": "1dc5ebcdaec137ee9e909778ef58fa2ab4d2d960f291410f52ac29a3222de362",
+    "file_count": 108
+  },
+  "antislop_mode": "during; explicit session choice",
+  "package_content_hashes_verified": true,
+  "active_docs": [
+    "README.md",
+    "docs/README.md",
+    "docs/PROJECT_STRUCTURE.md",
+    "docs/GENERATING_WEBSITES.md",
+    "docs/MODEL_RUNTIME_AND_UPLOAD.md",
+    "training/selected/fullpage-v5/README.md"
+  ],
+  "active_document_links_verified": true,
+  "readme_before_cleanup_contained_superseded_runtime_claims": true,
+  "package_load_verification_scope": "v1 CUDA load; v2 runtime/source hashes unchanged; documentation added",
+  "cli_help_verified": true,
+  "sample_request_validation_verified": true,
+  "existing_ui_diff_unchanged": true
 }
