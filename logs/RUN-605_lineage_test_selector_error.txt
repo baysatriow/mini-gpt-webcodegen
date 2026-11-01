@@ -1,0 +1,4 @@
+RUN-605 | 16 Oktober 2026 | Asia/Jakarta
+Jenis: Test selection attempt
+Perintah/proses: lineage_test_selector_error
+Hasil: The dotted unittest selector used the wrong fixture class name and stopped with AttributeError before running the selected test. Corrected by invoking the test module in RUN-606.

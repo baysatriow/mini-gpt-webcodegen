@@ -1,0 +1,4 @@
+RUN-612 | 16 Oktober 2026 | Asia/Jakarta
+Jenis: FastAPI local session
+Perintah/proses: api_local_restart
+Hasil: Restarted API with `.venv\Scripts\python.exe -m uvicorn apps.api.main:app --host 127.0.0.1 --port 8000 --workers 1`. Startup passed. API remains bound to loopback.

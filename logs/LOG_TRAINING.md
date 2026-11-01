@@ -1225,7 +1225,7 @@ Tujuan V5 adalah mengurangi kesalahan penyalinan identitas dengan meminta model 
 
 - RUN-593 completed normally at global_step=3600 and last_committed_step=3600. The report and exact-resume checkpoint verification passed.
 - The current V5 config SHA-256 and report config SHA-256 both equal 8852971e852e3b4ce6a6b845c24c8629e65d2a5f699d30968c2f3ce61a353186.
-- TRAIN-026 resumed from checkpoints/TRAIN-025/last.pt, whose verified digest is 7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339. The completed checkpoint digest is cc586807fe8db32ae04f746e7684642b36f7f1652cfca3339b11cfd5b8f179c5.
+- TRAIN-026 resumed from checkpoints/TRAIN-025/last.pt, whose verified digest is e7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339. The completed checkpoint digest is cc586807fe8db32ae04f746e7684642b36f7f1652cfca3339b11cfd5b8f179c5.
 - Final training-loop validation cross-entropy is 0.005312048531726459. It is not a full-page generation score.
 - The user correctly asked for another F: storage check. The training engine's shutil.disk_usage currently reports 26.919 GiB free, about 10.879 GiB above its frozen reserve plus checkpoint allowance.
 - Candidate snapshots, generation output directories, and report paths for the 1,800 and 3,600 comparisons are absent. Continue with the approved fixed 80-request development comparison. Final/test data remain unopened.
@@ -1240,7 +1240,7 @@ Immutable weights-only snapshots passed the project snapshot utility. TRAIN-025 
 
 TRAIN-025 step 1,800 development result
 
-Kandidat step 1.800 mendapat 80/80 halaman lengkap, 0 kegagalan, model_gate=true, dan pemeriksaan facts/links/assets lulus. Report development memastikan inal_used=false dan checkpoint cocok dengan snapshot. Ini hasil validator/pipeline, belum review visual browser. Evaluasi step 3.600 masih diperlukan sebelum laporan seleksi final dibuat.
+Kandidat step 1.800 mendapat 80/80 halaman lengkap, 0 kegagalan, model_gate=true, dan pemeriksaan facts/links/assets lulus. Report development memastikan final_used=false dan checkpoint cocok dengan snapshot. Ini hasil validator/pipeline, belum review visual browser. Evaluasi step 3.600 masih diperlukan sebelum laporan seleksi final dibuat.
 
 TRAIN-026 step-3600 development preflight
 
@@ -1248,15 +1248,15 @@ Sebelum evaluasi kandidat kedua, free space dicek ulang menjadi 26,802 GiB. Head
 
 TRAIN-026 step 3.600 development result
 
-Kandidat step 3.600 memperoleh 80/80 halaman lengkap, 0 kegagalan, model_gate=true, dan pemeriksaan facts/links/assets lulus. Request SHA-256 cocok dengan kandidat step 1.800. Report memastikan inal_used=false. Kedua kandidat mencapai gate, sehingga selector beku akan memakai jumlah halaman lengkap, lalu CE ordinary sebagai tie-breaker, dan step lebih awal jika tetap seri. Review visual browser belum dilakukan.
+Kandidat step 3.600 memperoleh 80/80 halaman lengkap, 0 kegagalan, model_gate=true, dan pemeriksaan facts/links/assets lulus. Request SHA-256 cocok dengan kandidat step 1.800. Report memastikan final_used=false. Kedua kandidat mencapai gate, sehingga selector beku akan memakai jumlah halaman lengkap, lalu CE ordinary sebagai tie-breaker, dan step lebih awal jika tetap seri. Review visual browser belum dilakukan.
 
 ### RUN-596 selector preflight
 
-Dua report development cocok pada 80 request yang sama, 80/80 lengkap, model_gate=true, facts/links/assets valid, dan inal_used=false. Checkpoint dan hash report training sudah tertaut lewat snapshot masing-masing. Output selector belum ada dan tidak akan menimpa file. Berikutnya jalankan selector resmi dengan aturan beku: halaman lengkap terbanyak, CE biasa sebagai tie-breaker, lalu step lebih awal jika seri. Test/final tetap tertutup.
+Dua report development cocok pada 80 request yang sama, 80/80 lengkap, model_gate=true, facts/links/assets valid, dan final_used=false. Checkpoint dan hash report training sudah tertaut lewat snapshot masing-masing. Output selector belum ada dan tidak akan menimpa file. Berikutnya jalankan selector resmi dengan aturan beku: halaman lengkap terbanyak, CE biasa sebagai tie-breaker, lalu step lebih awal jika seri. Test/final tetap tertutup.
 
 ### RUN-596 selector attempt 1: rejected report identity, no selection
 
-Selector berhenti karena report evaluasi menyebut path dan manifest V5, sedangkan kontrak selection membekukan path dan manifest V4. Ini bukan kegagalan halaman atau data yang berubah. Hash file request validation V4 dan V5 identik (2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836) dan hash canonical 80 request identik (4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173). Semua 160 halaman hasil generation dan identitas checkpoint cocok. Selector tidak menulis laporan pilihan. Berikutnya evaluator dijalankan ulang dengan path dataset V4 dan --resume ke folder hasil yang sama, memakai report path baru. Dengan begitu metadata report memenuhi kontrak V4 dan output halaman digunakan kembali. Final tetap tertutup.
+Selector berhenti karena report evaluasi menyebut path dan manifest V5, sedangkan kontrak selection membekukan path dan manifest V4. Ini bukan kegagalan halaman atau data yang berubah. Hash file request validation V4 dan V5 identik (2091d047ee3692dcba1fbdb9b81e4c20e56b85e1ff46ad54b5eacd906c9d6836) dan hash canonical 80 request identik (e4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173). Semua 160 halaman hasil generation dan identitas checkpoint cocok. Selector tidak menulis laporan pilihan. Berikutnya evaluator dijalankan ulang dengan path dataset V4 dan --resume ke folder hasil yang sama, memakai report path baru. Dengan begitu metadata report memenuhi kontrak V4 dan output halaman digunakan kembali. Final tetap tertutup.
 
 ### RUN-597 preflight: rebind reports to the frozen V4 request source
 
@@ -1269,4 +1269,168 @@ Preflight confirms the V4 and V5 request bytes and canonical request objects are
 | 1,800 | TRAIN-025 | 80/80 | 80/80 | 0.004538349198307462 | Passed |
 | 3,600 | TRAIN-026 | 80/80 | 80/80 | 0.005312048531726459 | Passed |
 
-The frozen selector status is passed and selected TRAIN-025 step 1,800. Both candidates tie at 80 complete pages, so lower ordinary development CE selects step 1,800. The exact facts/links/assets checks passed for both. inal_used=false. This proves the machine validator and development contract gate on these 80 requests. Browser and human visual review remain pending, so this is not yet a visual quality claim or final readiness claim. The first selector attempt is preserved in RUN-596; it failed only because the report was labeled with the V5 manifest/path while the selector correctly required the V4 frozen request identity. RUN-597 rebuilt report metadata by resuming the existing outputs and passed.
+The frozen selector status is passed and selected TRAIN-025 step 1,800. Both candidates tie at 80 complete pages, so lower ordinary development CE selects step 1,800. The exact facts/links/assets checks passed for both. final_used=false. This proves the machine validator and development contract gate on these 80 requests. Browser and human visual review remain pending, so this is not yet a visual quality claim or final readiness claim. The first selector attempt is preserved in RUN-596; it failed only because the report was labeled with the V5 manifest/path while the selector correctly required the V4 frozen request identity. RUN-597 rebuilt report metadata by resuming the existing outputs and passed.
+
+### RUN-642: prompt extractor corpus prepared, no training yet
+
+- Dataset lokal `data/processed/request_extract/v1`: 69.120 baris train dari 240 keluarga V5 train dan 15.200 baris development dari 950 keluarga sintetis baru.
+- Corpus memiliki 16 scope output agar target setiap decode tetap muat pada konteks 2.048 token. Budget terberat 543 token, dengan prefix terberat pada scope yang sama 1.409 token. Total maksimum scope tersebut 1.952 token.
+- Coverage train per keluarga: nama/deskripsi/nilai/layanan/proses masing-masing 240; FAQ 120; proyek 120; tiap jenis halaman 120. Lima belas bucket safety development memiliki 50 keluarga unik per bucket.
+- Audit lineage dan bukti lulus. Irisan keluarga train/development = 0; irisan pola prompt = 0; final dibuka/digunakan = false.
+- Manifest SHA-256 `e561564c3ffb75e25b6a6fdc6feadaca5a7ec1f9fecf3f6f799311dea4cf36dc`. Data train dan development tetap lokal serta diabaikan Git.
+- Ini baru membuktikan corpus dan budget statis lolos audit. Belum ada training, inference, selection, atau klaim kemampuan extractor. Lihat `logs/RUN-642_prompt_extract_dataset_v1.txt`.
+
+### RUN-643: request extractor trainer preparation
+
+- Tanggal/waktu: 16 Oktober 2026, 22:52, Asia/Jakarta.
+- Menambahkan dataset compact-array, collator tensor, sampler bucket resumable, verifier lineage, trainer dua tahap, preflight RTX 5070, snapshot weights-only, evaluasi development, dan selector fail-closed.
+- Pemeriksaan statis menemukan ketidakcocokan tipe pada collator umum. Perbaikan dibuat sebelum training.
+- Python bytecode compilation dan `git diff --check` lulus. Tidak menambah atau menjalankan test suite.
+- Belum membekukan konfigurasi, menjalankan preflight GPU, menyimpan update, melakukan training/inference, atau membuka final/test.
+- Rincian: `logs/RUN-643_request_extract_trainer_prep.txt`.
+
+### RUN-644: konfigurasi parent ditolak
+
+- Percobaan membekukan config berhenti sebelum menulis file karena verifier membaca nama metrik yang tidak sesuai dengan laporan selection V5.
+- Nilai di report tetap membuktikan TRAIN-025 step 1.800, 80 halaman lengkap, 80 required roles, dan model gate lulus. Kode verifier akan disesuaikan ke struktur yang disimpan.
+- Tidak ada training, inference, atau akses final/test. Lihat `logs/RUN-644_request_extract_config_attempt.txt`.
+
+### RUN-645: config extractor dibekukan
+
+- Config berhasil dibuat dengan hash sumber, data, tokenizer, dan parent yang diverifikasi. SHA-256: `15ac854334e31c64b5a2adffbfcdb90efc8ce697101ae4db18f339fe9a9b83bb`.
+- Parent adalah TRAIN-025 step 1.800, weights-only. Dataset manifest sesuai hash RUN-642. Config menetapkan 3.600 update dalam dua tahap dan reserve 15 GiB.
+- RUN-644 tetap dicatat sebagai kegagalan pemetaan nama field dan tidak menulis config.
+- Belum ada GPU preflight, training/inference, atau pembukaan final/test. Lihat `logs/RUN-645_request_extract_config_frozen.txt`.
+
+### RUN-646: RTX 5070 preflight launch
+
+- Commit `0dd9a84` berisi pipeline dan config beku sudah dipush ke branch fitur.
+- Preflight yang akan dijalankan memverifikasi storage, RTX 5070, BF16, dan satu update disposable pada batch train terpanjang. Path laporan dipastikan belum ada.
+- Tidak menyimpan update disposable sebagai training dan tidak menulis checkpoint. Final/test tertutup.
+- Catatan launch: `logs/RUN-646_request_extract_preflight_launch.txt`.
+
+### RUN-647: RTX 5070 preflight passed
+
+- CUDA/BF16 pada RTX 5070 lulus. Satu update disposable pada batch train 8 x 1.813 token memerlukan 0.7401 detik dan tidak disimpan.
+- GPU headroom setelah peak: 9,683,599,360 byte. Ruang F: 17,568,010,240 byte sebelum update, dengan 345,034,752 byte di atas reserve 15 GiB plus estimasi checkpoint. Free sesudah update 17,568,006,144 byte.
+- Tidak ada checkpoint ditulis. Direktori run 1.800 dan 3.600 masih belum ada. Final/test tertutup.
+- Rincian/hash: `logs/RUN-647_request_extract_preflight_pass.txt`.
+
+### RUN-648: REQEXT-V1-1800 launch
+
+- Fresh disk check: 17,567,727,616 byte free. Checkpoint run directories belum ada. Frozen config hash tetap sama.
+- Memulai fresh SFT dari parent TRAIN-025 step 1.800 hingga extractor global step 1.800. Training memakai train split; development hanya menghitung validation loss pada titik tetap.
+- Engine memeriksa reserve 15 GiB dan budget lokal saat penulisan. Jika guard storage gagal, run berhenti dan checkpoint yang ada tetap dipertahankan.
+- Tidak menjalankan generation/inference dan tidak membuka test/final. Catatan launch: `logs/RUN-648_reqext_1800_launch.txt`.
+
+### RUN-649: REQEXT-V1-1800 attempt 1 gagal
+
+- Training berhenti pada global step 1.440 karena sampler menghasilkan batch kosong di batas epoch. Root cause dikonfirmasi pada iterator inherited yang tidak memakai batch-per-bucket subclass.
+- Checkpoint terakhir yang committed adalah inisialisasi step 0. Folder dan report gagal dipertahankan; tidak ada file dihapus. F: masih memiliki 17,394,282,496 byte free.
+- Tidak melakukan development generation atau membuka final/test. Belum ada kandidat 1.800.
+- Perbaikan akan memakai iterator per-bucket dan checkpoint pemulihan setiap 300 update, sambil menjaga kandidat perbandingan tetap 1.800 dan 3.600. Rincian: `logs/RUN-649_reqext_1800_failed_sampler.txt`.
+
+### RUN-650: sampler diperbaiki, config r1 dibekukan
+
+- Iterator extractor sekarang memakai `batches(epoch)` per length bucket dan menyimpan cursor terhadap jumlah batch bucket, memperbaiki root cause RUN-649.
+- Config baru `training-request-extract-v1-r1.json` berhasil dibuat dengan hash `9bc454c2eeb420e48136b356bfd14e0a38d23039e7fd79d37bce38ac6d93cee0`. File config lama tetap dipertahankan untuk mengikat failed attempt.
+- Checkpoint interval recovery diubah ke 600 update; snapshot kandidat tetap di 1.800/3.600.
+- Bytecode compilation dan diff check lulus. Belum ada preflight r1, retry training, inference, atau akses final/test. Detail: `logs/RUN-650_reqext_sampler_fix_config_r1.txt`.
+
+### RUN-651: r1 GPU preflight launch
+
+- Commit `59dab7e` berisi iterator bucket dan config r1 sudah dipush.
+- Konfigurasi preflight baru memakai path report kosong. F: free 17,393,930,240 byte sebelum pemeriksaan.
+- Preflight akan menjalankan satu update disposable dan tidak menyimpan checkpoint. Training retry menunggu hasil gate.
+- Detail launch: `logs/RUN-651_request_extract_preflight_r1_launch.txt`.
+
+### RUN-652: r1 RTX 5070 preflight passed
+
+- Config r1 dan parent hash cocok. RTX 5070/BF16 lulus; batch terpanjang 8 x 1.813 token menyelesaikan update disposable dalam 0.5829 detik.
+- GPU headroom setelah peak 9,683,599,360 byte. F: free 17,393,672,192 byte sebelum update, menyisakan 170,696,704 byte di atas reserve 15 GiB ditambah checkpoint estimate. Free setelahnya 17,393,664,000 byte.
+- Tidak ada checkpoint tersimpan. Attempt1 tetap dipertahankan dan akan diarsip sebelum retry. Final/test tertutup.
+- Rincian: `logs/RUN-652_request_extract_preflight_r1_pass.txt`.
+
+### RUN-653: REQEXT-V1-1800 retry launch
+
+- Preflight r1 lulus dan sudah dipush. Config/report hash tertaut pada catatan launch.
+- Attempt 1 dipindahkan ke arsip lokal dengan 11 artefak dan manifest hash; tidak dihapus. Semua canonical path untuk retry telah dipastikan kosong.
+- Memulai ulang fresh dari TRAIN-025 step 1.800 sampai update 1.800. Recovery checkpoint setiap 600 update; snapshot kandidat tetap pada step 1.800.
+- Storage free terbaru 17,393,397,760 byte. Engine tetap menjaga reserve 15 GiB dan guard per write. Final/test tetap tertutup.
+- Rincian: `logs/RUN-653_reqext_1800_retry_launch.txt`.
+
+### RUN-654: REQEXT-V1-1800 passed
+
+- Retry mencapai global/last committed step 1.800 dengan status `stopped_at_limit`, sesuai stage pertama dari config 3.600 update. Checkpoint SHA-256: `ed3c98d2da77998c257230bef3a93e24479aa67971664c1fa8d384b46a287b21`.
+- Development validation CE turun dari 5.7648178093 ke 1.4613933164 pada 1.900 batch. Ini loss token, bukan skor ekstraksi atau visual.
+- Sampler melewati batas epoch yang menyebabkan RUN-649 tanpa error. Checkpoint recovery step 1.200 terverifikasi.
+- F: free 16,924,983,296 byte. Belum ada generation/inference extractor, final/test tetap tertutup.
+- Catatan: `logs/RUN-654_reqext_1800_training_pass.txt`.
+
+### RUN-655: candidate step 1.800 snapshot/evaluation launch
+
+- Training report dan checkpoint step 1.800 terverifikasi. Snapshot, JSONL evaluation, dan report path dipastikan belum ada.
+- Membuat snapshot weights-only, lalu menjalankan raw greedy extraction hanya pada 15.200 scope development. Evaluasi melaporkan field exactness, source validity, safety buckets, serta waktu decode per brief.
+- Evaluasi raw tidak meluluskan API safety gate dan tidak mempromosikan model. Test/final tetap tertutup.
+- Rincian: `logs/RUN-655_reqext_1800_development_eval_launch.txt`.
+
+### RUN-656: prompt-first extraction API implementation
+
+- Source API sekarang memiliki route extraction dengan brief bebas, bukti sumber deterministik, grouped clarification, token konteks bertanda tangan, dan lock bersama untuk model GPU.
+- Kompilasi Python dan pembentukan OpenAPI berhasil; import aplikasi tidak memuat PyTorch. Test suite dan inference API tidak dijalankan.
+- Raw development extraction checkpoint 1.800 masih berlangsung. Model belum dipromosikan; final/test tetap tertutup.
+- Rincian: `logs/RUN-656_prompt_first_extraction_api_implementation.txt`.
+
+### RUN-657: prompt-first UI build and responsive review
+
+- Tanggal/waktu: 17 Oktober 2026, 00:17, Asia/Jakarta.
+- Production build Next.js berhasil setelah server web diperbarui dari build lama. TypeScript, ESLint, dan `git diff --check` juga lulus.
+- Browser review pada viewport default 624 x 864 dan 1440 x 900 menunjukkan composer brief, tiga contoh prompt, rail riwayat desktop, kanvas preview, dan navigasi percakapan/kanvas pada lebar mobile. Ukuran viewport direset setelah review.
+- Tidak ada permintaan yang dikirim ke endpoint ekstraksi atau generation. Evaluasi raw development checkpoint step 1.800 berlanjut terpisah dan saat pencatatan telah mencapai 3.700 dari 15.200 scope. Final/test tetap tertutup.
+- API lokal tetap aktif di `127.0.0.1:8000`; Next.js dilayani di `127.0.0.1:3000` dari build terbaru.
+- Rincian: `logs/RUN-657_prompt_first_ui_build_review.txt`.
+
+### RUN-658: prompt-first documentation review
+
+- Tanggal/waktu: 17 Oktober 2026, 00:21, Asia/Jakarta.
+- README root, docs, aplikasi web, dan API diselaraskan dengan kontrak satu brief, bukti sumber, klarifikasi gabungan, fallback manual, dan status gate model yang belum selesai.
+- Rencana dan ledger menandai Task 4 selesai dengan commit `5adb0e1`. Training/evaluasi extractor dan API safety replay masih terbuka.
+- Dokumentasi membatasi klaim pada bukti yang ada. Tidak ada klaim bahwa extractor sudah dipilih, inference prompt-first sudah diuji end-to-end, atau target visual 95 persen sudah tercapai.
+- Tidak ada dataset, checkpoint, secret, atau keluaran generation yang ditambahkan ke Git. Rincian: `logs/RUN-658_prompt_first_documentation_review.txt`.
+
+### RUN-659: pemulihan route API saat raw evaluation berjalan
+
+- Proses FastAPI lama belum memuat route prompt-first yang sudah tercatat di source. API direstart dari `.venv`; GET OpenAPI kini memuat `/api/v1/intake/extract` dan GET health mengembalikan `ok`.
+- API berjalan tanpa generator atau extractor yang dimuat. Kandidat REQUEST-EXTRACT-V1 belum dipilih, jadi ekstraksi tetap fail-closed. Tidak ada API inference atau generation.
+- Evaluasi development GPU terpisah tidak dihentikan. Progress terakhir yang terlihat pada output pemeriksaan adalah 8.700/15.200 scope; laporan akhir belum ada. Final/test tetap tertutup.
+- Detail insiden: `logs/RUN-659_stale_api_route_recovery.txt`.
+
+### RUN-660: request UI ditolak sampai extractor terpilih
+
+- API route aktif, tetapi selection REQUEST-EXTRACT-V1 belum ada. Runtime menolak sebelum membuat model extractor dan API mengembalikan fallback manual.
+- Tidak ada inference atau website generation pada request ini. Raw development evaluation berlangsung sampai output terakhir 9.200/15.200; tidak ada promosi. Final/test tertutup.
+- Detail: `logs/RUN-660_prompt_extractor_not_selected.txt`.
+
+
+### RUN-661: safety recheck aplikasi dan pipeline
+
+- Unit suite menjalankan 147 test: 146 lulus, 1 error pada `test_source_bound_dataset_lineage_is_verified_without_final_parsing` karena checksum profil training berbeda dari pin.
+- Checksum pin adalah `8a101fa71916993c3beb47c81c18255bb645ebe11862fa82fc93983ef02c2998`; file profil yang tercatat di Git memiliki hash `2614d9bbbaad76c4622790bb86affcb5858fa8fc9fd7984e4b03c09dbeb297f8`. Tidak ada file tracked dengan hash pin. Pin dan gate tidak diubah.
+- `npm run lint` dan `npm run build` lulus. UI root menjawab HTTP 200; API health menjawab 200 dan OpenAPI memuat route extraction serta generation.
+- POST brief sintetis ke route extraction mengembalikan 503 `extractor_unavailable`. Health setelah request menunjukkan semua flag model false, sesuai fallback manual fail-closed.
+- Cache development extractor step 1.800 berisi 15.200 row unik dan payload checkpoint tersedia. Laporan agregat serta `training/selected/request-extract-v1/selection.json` belum ada.
+- Rebuild laporan resmi dihentikan guard source hash ketika menggunakan scorer sementara yang berbeda. Scorer tersebut dikembalikan untuk menjaga lineage; scorer beku sebelumnya diketahui crash pada output malformed dengan `KeyError: kind`.
+- Pesan batas prompt dikoreksi ke 4.000 karakter, test batas diperbarui ke 4.001, dan fixture API dilengkapi `inference_lock`.
+- Tidak ada training atau generation produksi. Dataset final/test tetap tertutup. Tidak ada selection dibuat atau dipromosikan.
+- Catatan rinci: `logs/RUN-661_safety_recheck.txt`.
+
+### RUN-662: REQEXT-V1-3600 continuation, completed
+
+- Waktu: 17 Oktober 2026, 20:48 sampai 20:59, Asia/Jakarta.
+- REQEXT-V1-3600 melanjutkan `checkpoints/REQEXT-V1-1800/last.pt` sampai global step 3.600 pada RTX 5070. Mode BF16, SDPA, fused AdamW, batch size 8, akumulasi gradien 6, dan blok 2.048 dipertahankan sesuai konfigurasi beku.
+- Status training `completed`, 3.600 update, durasi 623,49 detik, total 32.820.813 token. Loss train terakhir 0,000662.
+- Validation loss naik dari 1,461393 pada checkpoint resume ke 1,544953 pada akhir run. Checkpoint validasi terbaik tetap step 1.800, loss 1,461393. Hasil ini tidak menunjukkan perbaikan generalisasi dan tidak cukup sebagai alasan promosi.
+- Ringkasan lengkap: `reports/training/REQEXT-V1-3600.json`. Snapshot bobot: `checkpoints/REQUEST-EXTRACT-V1/step3600.pt`, payload SHA-256 `033d919c9709d99dfc2c1da11cf962e14763e563bfcdb55121f4c06cdb65812f`.
+- API gate development untuk kandidat step 1.800 berstatus `not_passed`, tidak eligible untuk seleksi, exact precision dan recall 0, serta resolver error pada 950 dari 950 keluarga. Laporan: `reports/request_extract/REQEXT-V1-1800_API_GATE.json`.
+- Step 3.600 belum menjalani raw development inference atau API gate. Tidak dibuat selection dan tidak ada checkpoint extractor yang dipromosikan. Final/test tetap tertutup.
+- Detail run: `logs/RUN-662_reqext_v1_3600_resume.txt`.

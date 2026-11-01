@@ -1,0 +1,30 @@
+RUN-663: prompt-first fallback UI fix
+Waktu: 17 Oktober 2026, 21:07, Asia/Jakarta
+
+Masalah
+- API ekstraksi yang aktif mengembalikan 503 `extractor_unavailable` karena belum ada kandidat extractor di paket seleksi.
+- UI lama menerjemahkan kondisi fail-closed yang diketahui menjadi kartu error merah dan form manual penuh.
+
+Perubahan
+- `apps/web/src/components/chat/chat-shell.tsx` menangani 503 `extractor_unavailable` secara khusus.
+- UI meminta `/api/v1/intake/validate` menurunkan field yang belum tersedia dari request draft kosong, lalu menampilkan satu form klarifikasi tanpa error merah.
+- Form meminta fakta lengkap yang bisa diisi. Tidak ada nama, layanan, proses, atau FAQ yang direka oleh aplikasi.
+- Label agregat `request_draft` tidak ditampilkan karena tidak memiliki kontrol form tersendiri. Kontrak API dan validasinya tidak diubah.
+- Jika validasi fallback juga gagal, UI mempertahankan jalur error sebelumnya.
+
+Verifikasi
+- Prompt lokal yang dipakai: `Buat landing page untuk kedai kopi dengan nuansa hangat dan sederhana.`
+- Browser menampilkan status `Perlu dilengkapi` dan satu form, bukan status error.
+- Data demo fiktif diisi hanya untuk menguji validasi, lalu dipilih status usaha fiktif/demo. Setelah menekan `Periksa detail`, API mengembalikan ringkasan request `Siap ditinjau`.
+- Tombol `Generate website` tidak ditekan. Tidak ada website atau output generator baru yang dibuat.
+- API health: status `ok`, `generator_loaded=true`, `extractor_available=false`, `extractor_loaded=false`.
+- Next.js UI HTTP 200.
+- `npm run lint`: lulus.
+- `npm run build`: lulus, TypeScript dan static page generation berhasil.
+- Regression test: `python -m unittest tests.api.test_request_extract_api_gate_digest tests.fullpage.test_request_extract_evaluation`, 2 test lulus.
+- `git diff --check`: lulus.
+
+Batas bukti
+- Percobaan ini membuktikan jalur fallback manual dan validasi sampai tahap review. Ini bukan bukti prompt-only extraction atau generation berhasil.
+- Kandidat extractor belum terseleksi. Final/test tetap tertutup.
+- Unit suite penuh tidak dijalankan pada run ini. Pemeriksaan sebelumnya mencatat 146 lulus dan satu error checksum profil frozen pada RUN-661.

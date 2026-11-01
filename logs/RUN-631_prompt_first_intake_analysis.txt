@@ -1,0 +1,6 @@
+RUN-631, analisis kemampuan model dan desain prompt-first
+Tanggal/waktu: 16 Oktober 2026, sekitar 17:25 Asia/Jakarta
+Permintaan: sederhanakan chat generator dan analisis apakah model mampu menerima fakta halaman dalam satu prompt.
+Temuan: UI memaksa form nama, deskripsi, keunggulan, 3 layanan, 3 proses, serta 3 FAQ atau 2 proyek. Intake tidak mengekstrak fakta dari prompt. Mini GPT memakai konteks 2048 token dan dilatih untuk PagePlan serta SectionDraft, bukan ekstraksi RequestDraft. Renderer tetap menyusun HTML, CSS, dan JavaScript.
+Artefak: draft desain prompt-first di docs/superpowers/specs/2026-10-16-prompt-first-intake-design.md. Mencakup usulan task request_extract, endpoint intake baru, satu klarifikasi gabungan, serta ringkasan dan generation action tunggal.
+Status: menunggu review desain dan persetujuan pengguna. Belum ada kode aplikasi, API, training, atau inference yang dijalankan.

@@ -1,0 +1,14 @@
+RUN-635, resolusi konflik genre dan style
+Tanggal/waktu: 16 Oktober 2026, sekitar 17:56, Asia/Jakarta
+
+Pemicu
+Review independen mencatat bahwa nilai genre/style didukung sebagai enum, sehingga konflik antar-giliran tidak boleh hilang akibat pemilihan satu enum atau default.
+
+Revisi yang dicatat
+- Extractor mengeluarkan semua mention genre/style dengan nilai enum, phrase sumber, ID pesan, dan intent. Server menerapkan default hanya bila tidak ada mention aktif.
+- Nilai aktif berbeda memerlukan koreksi eksplisit yang terverifikasi; nilai paling baru tidak menang otomatis. Jika tidak jelas, intake meminta klarifikasi.
+- Alias genre/style dibekukan dalam catalog berversi. Dataset dan gate keselamatan mencakup konflik serta koreksi setting.
+
+Status
+- Menunggu review independen final serta persetujuan pengguna sebelum implementasi.
+- Tidak mengubah kode aplikasi/API/model, tidak menjalankan inference atau training, dan partisi final tetap tertutup.

@@ -1,0 +1,4 @@
+RUN-611 | 16 Oktober 2026 | Asia/Jakarta
+Jenis: Frontend production build
+Perintah/proses: web_build_final
+Hasil: Command: `npm run build`. Result: passed with Next.js 16.4.1; `/` and `/_not-found` were generated.

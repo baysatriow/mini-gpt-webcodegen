@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import base64
 import hashlib
 import json
 import re
@@ -39,6 +40,18 @@ _SAFE_STATUS_MESSAGES = {
     "generation_failed": "Halaman belum berhasil dibuat. Periksa request lalu coba kembali.",
     "input_too_long": "Request melebihi batas konteks. Ringkas prompt atau fakta secara manual.",
 }
+_PREVIEW_NONCE_PATTERN = re.compile(r"^[A-Za-z0-9_-]{24}$")
+
+
+def preview_content_security_policy(nonce: str) -> str:
+    """Return the strict policy shared by direct and srcdoc preview documents."""
+    if not isinstance(nonce, str) or not _PREVIEW_NONCE_PATTERN.fullmatch(nonce):
+        raise ArtifactIntegrityError("A valid preview nonce is required")
+    return (
+        "default-src 'none'; base-uri 'none'; object-src 'none'; form-action 'none'; "
+        f"connect-src 'none'; script-src 'nonce-{nonce}'; "
+        f"style-src 'nonce-{nonce}'; img-src data:"
+    )
 
 
 def new_generation_id() -> str:
@@ -317,10 +330,16 @@ class ArtifactStore:
         return source
 
     def read_accepted_preview_file(
-        self, generation_dir: Path, relative_path: str
+        self, generation_dir: Path, relative_path: str, *, inline_nonce: str | None = None
     ) -> tuple[bytes, str]:
         _, _, files, website = self._accepted(generation_dir)
         if relative_path in _SOURCE_CONTENT_TYPES:
+            if relative_path == "index.html":
+                preview_content_security_policy(inline_nonce)
+                return (
+                    self._standalone_preview_document(website, files, inline_nonce),
+                    _SOURCE_CONTENT_TYPES[relative_path],
+                )
             payload, _ = self._verified_output(website, files, relative_path)
             return payload, _SOURCE_CONTENT_TYPES[relative_path]
 
@@ -347,6 +366,77 @@ class ArtifactStore:
         if expected is None or hashlib.sha256(payload).hexdigest() != expected:
             raise ArtifactIntegrityError("Accepted asset checksum mismatch")
         return payload, "image/svg+xml"
+
+    def _standalone_preview_document(
+        self, website: Path, files: dict[str, str], inline_nonce: str
+    ) -> bytes:
+        html_payload, _ = self._verified_output(website, files, "index.html")
+        css_payload, _ = self._verified_output(website, files, "styles.css")
+        script_payload, _ = self._verified_output(website, files, "app.js")
+        page_spec, _ = self._page_spec(website, files)
+        try:
+            html = html_payload.decode("utf-8")
+            css = css_payload.decode("utf-8")
+            script = script_payload.decode("utf-8")
+        except UnicodeError as error:
+            raise ArtifactIntegrityError("Accepted preview source is not valid UTF-8") from error
+
+        stylesheet_link = '<link rel="stylesheet" href="styles.css">'
+        script_link = '<script src="app.js" defer></script>'
+        if (
+            html.count("<head>") != 1
+            or html.count(stylesheet_link) != 1
+            or html.count(script_link) != 1
+            or html.count("</body>") != 1
+        ):
+            raise ArtifactIntegrityError("Accepted preview document has unsupported resource references")
+        if "</style" in css.lower() or "</script" in script.lower():
+            raise ArtifactIntegrityError("Accepted preview source cannot be safely inlined")
+
+        csp_meta = (
+            '<meta http-equiv="Content-Security-Policy" '
+            f'content="{preview_content_security_policy(inline_nonce)}">'
+        )
+        html = html.replace("<head>", f"<head>\n{csp_meta}", 1)
+        html = html.replace(
+            stylesheet_link,
+            f'<style nonce="{inline_nonce}">\n{css}\n</style>',
+            1,
+        )
+        html = html.replace(script_link, "", 1)
+
+        asset_pattern = re.compile(
+            r'(?P<prefix>\bsrc=(?P<quote>["\']))assets/(?P<asset_id>[a-z0-9][a-z0-9_-]{0,63})\.svg(?P=quote)'
+        )
+        asset_matches = list(asset_pattern.finditer(html))
+        requested_assets = {match.group("asset_id") for match in asset_matches}
+        if not requested_assets.issubset(self._asset_ids(page_spec)):
+            raise ArtifactIntegrityError("Preview references an unapproved asset")
+        for asset_id in requested_assets:
+            trusted_path = self._trusted_asset(asset_id)
+            expected = files.get(f"assets/{asset_id}.svg")
+            try:
+                payload = trusted_path.read_bytes()
+            except OSError as error:
+                raise ArtifactNotFoundError("Asset not found") from error
+            if expected is None or hashlib.sha256(payload).hexdigest() != expected:
+                raise ArtifactIntegrityError("Accepted asset checksum mismatch")
+            data_uri = "data:image/svg+xml;base64," + base64.b64encode(payload).decode("ascii")
+            html = asset_pattern.sub(
+                lambda match, current=asset_id, uri=data_uri: (
+                    match.group("prefix") + uri + match.group("quote")
+                    if match.group("asset_id") == current
+                    else match.group(0)
+                ),
+                html,
+            )
+
+        html = html.replace(
+            "</body>",
+            f'<script nonce="{inline_nonce}">\n{script}\n</script>\n</body>',
+            1,
+        )
+        return html.encode("utf-8")
 
     def build_accepted_zip(self, generation_dir: Path, destination: BinaryIO) -> None:
         _, _, files, website = self._accepted(generation_dir)

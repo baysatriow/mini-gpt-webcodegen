@@ -1,0 +1,26 @@
+RUN-677, menjalankan aplikasi lokal dan Quick Tunnel
+
+Tanggal/waktu: 30 Oktober 2026, 20:44, Asia/Jakarta.
+Repository: F:\Generative_AI\Vibe_Coding_Proyek_1.
+
+Runtime
+- Next.js production memakai build yang sudah ada setelah perbaikan preview dan berjalan pada 127.0.0.1:3000, listener PID 66940.
+- FastAPI berjalan native melalui .venv, satu worker pada 127.0.0.1:8000, listener PID 1772.
+- Cloudflare Quick Tunnel PID 4532 mengarah ke frontend http://127.0.0.1:3000. FastAPI tidak dibuka ke Internet.
+- Tunnel URL bersifat sementara dan disampaikan di chat. URL tidak disimpan dalam repo.
+
+Perlindungan akses
+- APP_ACCESS_REQUIRED aktif, username tersedia, password memenuhi minimal 16 karakter, dan APP_SESSION_SECRET memenuhi minimal 32 karakter. Nilai rahasia tidak dicatat.
+- API_SERVER_ORIGIN menunjuk ke loopback FastAPI. NEXT_PUBLIC_API_BASE_URL kosong sehingga frontend memakai origin tunnel yang sama.
+- Pemeriksaan lokal tanpa sesi: GET / menghasilkan 307 ke /login, GET /login menghasilkan 200, dan GET /api/v1/health menghasilkan 401.
+- Pemeriksaan publik Quick Tunnel tanpa sesi memberikan hasil sama: 307, 200, dan 401. curl berhasil memvalidasi HTTPS tanpa opsi melewati TLS.
+
+Gangguan dan pemulihan
+- Percobaan Quick Tunnel pertama berakhir sebelum URL dibuat karena DNS gagal resolve api.trycloudflare.com.
+- Resolver lokal dan resolver publik kemudian sama-sama berhasil menjawab DNS Cloudflare. Proses tunnel dimulai ulang dan memperoleh URL Quick Tunnel baru.
+
+Batas verifikasi
+- Health FastAPI berstatus ok. model_loaded=false, extractor_available=false, extractor_loaded=false, generator_loaded=false.
+- Tidak ada generation atau inference. Model dan extractor tetap tidak dimuat.
+- Source, dependency, data test/final, serta kredensial tidak diubah.
+- RUN detail tidak memuat URL tunnel, password, username, atau session secret.

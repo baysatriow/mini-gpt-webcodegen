@@ -1,0 +1,30 @@
+RUN-664, rekomendasi template website
+Tanggal/waktu: 20 Oktober 2026, 20:07, Asia/Jakarta
+
+Tujuan
+- Mengurangi input berulang dengan pilihan ide website yang langsung mengisi form otomatis.
+- Menyediakan 100 ide yang dapat diganti tanpa memenuhi layar dengan seratus kartu sekaligus.
+
+Implementasi
+- `apps/web/src/lib/website-templates.ts` memuat 100 ide unik dalam tujuh kategori. Data lengkap form dibangun sebagai contoh fiktif dari kategori dan jenis halaman.
+- Layar awal menampilkan tiga kartu. Tombol `Acak ide` memilih tiga ID lain dari kumpulan yang sama.
+- Landing page diisi otomatis dengan tiga layanan, tiga proses, dan tiga FAQ.
+- Company profile diisi otomatis dengan tiga layanan, tiga proses, dan dua contoh proyek.
+- Pemilihan template langsung membuka editor fakta. Nama, deskripsi, nilai, layanan, fakta tambahan, gaya, jenis halaman, dan status fiktif sudah terisi.
+- Template ID disimpan pada state percakapan lokal. Saat pengguna mengirim form, ID template dilepas agar nilai yang sudah diedit tetap digunakan dari RequestDraft.
+- README aplikasi menjelaskan bahwa template tidak memanggil extractor atau membuat halaman. Prompt bebas tetap memakai alur extractor.
+
+Verifikasi
+- Pencacahan source: 100 rekomendasi, 100 ID unik, tanpa duplikat.
+- `npm run lint`: lulus.
+- `npm run build`: lulus, termasuk pemeriksaan TypeScript dan static generation.
+- `git diff --check`: lulus.
+- Review browser localhost: tombol acak mengganti tiga kartu awal dengan tiga rekomendasi berbeda. Pemilihan `Toko pakaian preloved` membuka form dengan seluruh field terisi dan status `Usaha fiktif atau demo` terpilih.
+- Form tidak dikirim. Tidak ada request ekstraksi model, validasi intake, atau generation.
+- Next.js dev server berjalan pada `http://127.0.0.1:3000`. FastAPI di `127.0.0.1:8000` menolak koneksi saat UI memuat katalog dan preview dari riwayat lama. Template tetap dapat dipilih dan diedit lokal; validasi dan generation menunggu API hidup.
+
+Batasan
+- Nilai bisnis template adalah contoh generik. Pengguna tetap perlu menyesuaikannya dengan fakta yang benar sebelum validasi.
+- Browser review dilakukan pada viewport desktop. Perubahan ini belum diperiksa pada viewport mobile.
+- Tidak ada perubahan model, dataset, checkpoint, atau pipeline training.
+- Commit dan push dilakukan setelah catatan ini, sesuai instruksi proyek.

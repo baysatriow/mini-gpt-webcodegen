@@ -1,0 +1,22 @@
+Audit repository: 26 Oktober 2026, 11:55-12:00, Asia/Jakarta
+
+Ringkasan audit
+- Branch `feature/pipeline-data-model-training` telah di-fetch dan sinkron dengan origin sebelum perubahan. Audit menghitung 3.504 file terlacak Git, termasuk 2.235 file di `examples/`.
+- Komponen tooltip tidak memiliki pemakai `Tooltip`, `TooltipTrigger`, atau `TooltipContent`. Satu-satunya referensi aktif adalah `TooltipProvider` di layout global.
+- `apps/web/src/components/ui/tooltip.tsx` dipindahkan ke `sampah/apps/web/src/components/ui/tooltip.tsx`; provider yang tidak dipakai dilepas dari `apps/web/src/app/layout.tsx`. `@base-ui/react` tidak dihapus karena masih dipakai komponen lain.
+- Panduan pemulihan dan alasan karantina ada di `sampah/README.md`.
+- Gallery AI-018 lama, log, report, dataset, notebook, dan lineage tidak dipindahkan karena masih dirujuk atau menjadi bukti riwayat eksperimen. Checkpoint/output lokal yang diabaikan Git tidak disentuh.
+
+Pemeriksaan
+- `npm run lint`: lulus.
+- `npx tsc --noEmit`: lulus.
+- `git diff --check`: lulus.
+- Pencarian source setelah pemindahan tidak menemukan referensi tooltip aktif di `apps/web/src`.
+- Tidak menjalankan test suite atau production build. Perubahan hanya melepas provider yang tidak dipakai; server production yang sudah berjalan tidak direstart.
+
+Batas pemeriksaan
+- Perubahan belum diuji lewat browser visual.
+- Belum menghapus file apa pun. File yang ditemukan tetap tersedia di `sampah/` untuk keputusan pengguna.
+Perbaikan keterbacaan log
+- Pemindaian menyeluruh menemukan karakter kontrol pada tiga log Markdown. Karakter yang menggantikan SHA Git, SHA checkpoint TRAIN-025, SHA request development, dan awalan `final_used` dipulihkan dari objek commit, report/config, serta catatan training yang cocok.
+- Pemindaian ulang mencakup 3.268 file teks terlacak dan file tambahan di working tree; karakter kontrol tersisa: 0.

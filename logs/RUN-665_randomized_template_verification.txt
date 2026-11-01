@@ -1,0 +1,20 @@
+RUN-665, pengujian ulang rekomendasi template
+Tanggal/waktu: 20 Oktober 2026, 20:15, Asia/Jakarta
+
+Cakupan
+- Pengujian ulang data katalog 100 rekomendasi, shuffle UI, pemilihan template dan isi otomatis.
+- ESLint, unit test request draft, production build, HTTP frontend, dan batas integrasi API.
+
+Hasil
+- Pemeriksaan runtime langsung pada `website-templates.ts`: 100 template; ID dan label unik; tujuh kategori; setiap template memuat tiga layanan dan tiga langkah proses; landing page memiliki tiga FAQ; company profile memiliki dua proyek. Helper untuk cek dan lookup ID juga diperiksa. Semua assertion lulus.
+- Unit test dengan `node --experimental-strip-types --test tests/request-draft.test.mjs`: 3/3 lulus. Ada warning Node tentang package type, tidak ada kegagalan.
+- `npm run lint`: exit 0.
+- `npm run build`: exit 0. Next.js sukses mengompilasi, memeriksa TypeScript, dan membuat halaman statis.
+- Browser pada `http://127.0.0.1:3000`: sesi uji baru menampilkan 3 ide. Klik acak menampilkan Studio produksi video, Butik busana, dan Toko kacamata, tidak termasuk tiga ide awal. Klik Studio produksi video mengisi prompt dan seluruh form company profile dengan nilai fiktif yang bisa diedit. Status fiktif terpilih.
+- Setelah build, server dev dinyalakan kembali, halaman memuat HTTP 200 dan sesi uji bertahan setelah reload.
+- Git: fetch berhasil, branch fitur sinkron sebelum perubahan log, dan `git diff --check` bersih saat diperiksa setelah build.
+
+Batas verifikasi
+- FastAPI `127.0.0.1:8000` tidak listening. Alur katalog API, intake validation, generation, dan inference model tidak dijalankan.
+- Form tidak dikirim, tidak ada website yang dihasilkan, dan tidak ada prompt yang diproses model.
+- Tidak ada perubahan source code; hanya log ini dan entri AI-049 yang ditambahkan.

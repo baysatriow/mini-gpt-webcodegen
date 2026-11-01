@@ -1,0 +1,30 @@
+RUN-676, perbaikan pemuatan CSS dan aset pada preview
+
+Tanggal/waktu: 28 Oktober 2026, 09:16, Asia/Jakarta.
+Branch: feature/pipeline-data-model-training.
+
+Diagnosis
+- Screenshot memperlihatkan shell aplikasi bergaya tetapi hasil iframe memakai font serif default, tautan navigasi menempel, tombol browser default, dan ilustrasi gagal dimuat.
+- Preview berada di iframe sandboxed dengan allow-scripts tanpa allow-same-origin. Resource terpisah memerlukan sesi autentikasi aplikasi dan gagal di konteks iframe opaque.
+- Proxy tunnel juga menormalisasi representasi CSP, sehingga validasi string literal sebelumnya menolak policy aman.
+
+Perbaikan
+- API membuat HTML preview mandiri dan menyematkan CSS, JavaScript renderer, serta SVG yang lolos manifest, hash, checksum, dan allowlist. CSP menggunakan nonce dan membatasi koneksi jaringan.
+- Frontend mengambil HTML lewat sesi aplikasi, memeriksa content type, redirect, nonce, dan kesetaraan CSP header/meta, lalu memasukkannya ke srcDoc iframe. Isolasi sandbox tetap tanpa allow-same-origin.
+- Download source dan ZIP tetap memakai file renderer asli.
+
+Verifikasi
+- API unittest: 18/18 lulus. Web tests: 25/25 lulus, termasuk validasi CSP ternormalisasi dan penolakan policy tidak aman.
+- npm run lint dan TypeScript tsc --noEmit lulus.
+- git diff --check lulus sebelum pencatatan log. Jalankan ulang sebelum commit.
+- Build produksi Next.js lulus pada pemeriksaan sebelumnya setelah perubahan. Tidak diulang agar server production di port 3001 tetap stabil.
+- Browser tunnel kini menampilkan navigasi, hero, CTA, dan SVG bergaya. Accessibility tree menunjukkan about:srcdoc dan seksi halaman lengkap.
+- FastAPI health lokal ok. Model dan extractor tidak tersedia atau dimuat. Tidak ada generation, inference, atau perubahan pipeline training.
+
+Runtime
+- Next.js production: 127.0.0.1:3001, PID 69616.
+- FastAPI: 127.0.0.1:8000, PID 38784. Cloudflare Tunnel hanya meneruskan ke frontend.
+
+Catatan
+- Node test runner memberi peringatan MODULE_TYPELESS_PACKAGE_JSON, tetapi 25/25 tes web lulus.
+- Tidak ada kredensial, token sesi, nonce CSP, prompt, atau isi artefak yang dicatat.

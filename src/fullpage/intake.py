@@ -15,7 +15,7 @@ from .source_bound_prompts import source_bound_plan_prompt
 
 ROOT = Path(__file__).resolve().parents[2]
 DRAFT_SCHEMA_PATH = ROOT / "configs/fullpage/request-draft-source-bound-v1.schema.json"
-MAX_PROMPT_CHARS = 1000
+MAX_PROMPT_CHARS = 4000
 CONTRACT_VERSION = "request-draft-source-bound-v1"
 _DRAFT_SCHEMA = json.loads(DRAFT_SCHEMA_PATH.read_text(encoding="utf-8"))
 Draft202012Validator.check_schema(_DRAFT_SCHEMA)
@@ -23,21 +23,37 @@ _DRAFT_VALIDATOR = Draft202012Validator(_DRAFT_SCHEMA)
 
 _SCALAR_KINDS = {"name", "description", "value"}
 _STRUCTURED_KINDS = {"service", "project", "process", "faq"}
-_MISSING_KIND_FIELDS = {
+_FACT_KIND_ORDER = ("name", "description", "value", "service", "process", "faq", "project")
+_FACT_IDS = {"name": "name", "description": "about", "value": "values"}
+_FACT_ID_PREFIXES = {"service": "srv", "process": "step", "faq": "faq", "project": "project"}
+_FACT_FIELD_NAMES = {
     "name": "business_facts.name",
     "description": "business_facts.description",
+    "value": "business_facts.value",
     "service": "business_facts.service",
+    "process": "business_facts.process",
+    "faq": "business_facts.faq",
+    "project": "business_facts.project",
 }
+_REQUIRED_FACT_COUNTS = {
+    "landing_page": {"name": 1, "description": 1, "value": 1, "service": 3, "process": 3, "faq": 3},
+    "company_profile": {"name": 1, "description": 1, "value": 1, "service": 3, "process": 3, "project": 2},
+}
+_GENRE_ASSETS = {"landing_page": "studio-shapes", "company_profile": "company-shapes"}
 _FIELD_LABELS = {
     "genre": "jenis halaman",
     "style_mode": "gaya CSS",
     "business_facts.name": "nama usaha",
     "business_facts.description": "deskripsi usaha",
-    "business_facts.service": "minimal satu layanan",
+    "business_facts.value": "nilai atau keunggulan usaha",
+    "business_facts.service": "3 layanan usaha",
+    "business_facts.process": "3 langkah proses usaha",
+    "business_facts.faq": "3 pertanyaan dan jawaban untuk FAQ",
+    "business_facts.project": "2 proyek atau karya untuk portofolio",
     "business_facts": "fakta usaha",
     "business_facts.ids": "ID fakta usaha yang berbeda",
     "requested_features": "kemampuan yang diminta",
-    "asset_ids": "aset gambar yang tersedia",
+    "asset_ids": "ilustrasi lokal sesuai jenis halaman",
     "fictitious": "status contoh atau usaha nyata",
     "prompt": "prompt asli",
     "request_draft": "format data request",
@@ -114,8 +130,21 @@ def _clean_fact(fact):
 def _request_candidate(prompt, draft):
     source = draft if isinstance(draft, dict) else {}
     raw_facts = source.get("business_facts", [])
-    facts = [_clean_fact(fact) for fact in raw_facts] if isinstance(raw_facts, list) else []
-    facts = [fact for fact in facts if fact is not None]
+    facts = []
+    kind_counts = {}
+    for raw_fact in raw_facts if isinstance(raw_facts, list) else []:
+        fact = _clean_fact(raw_fact)
+        if fact is None:
+            continue
+        kind = fact["kind"]
+        if kind in _FACT_IDS:
+            fact["id"] = _FACT_IDS[kind]
+        else:
+            index = kind_counts.get(kind, 0)
+            fact["id"] = f"{_FACT_ID_PREFIXES[kind]}{index}"
+            kind_counts[kind] = index + 1
+        facts.append(fact)
+    facts.sort(key=lambda fact: _FACT_KIND_ORDER.index(fact["kind"]))
     candidate = {
         "request_id": "intake-pending",
         "prompt": prompt,
@@ -175,16 +204,36 @@ def _prompt_mentions_value(prompt, value):
     return re.search(pattern, prompt, flags=re.IGNORECASE) is not None
 
 
-def _prompt_mentions_capability(prompt, item):
-    """Match catalog phrases so unsupported scope cannot pass as an empty feature list."""
-    phrases = item.get("evidence_phrases", [])
-    return any(
-        isinstance(phrase, str) and _prompt_mentions_value(prompt, phrase)
-        for phrase in phrases
-    )
+def _prompt_capability_occurrences(prompt, item):
+    """Find catalog phrases with exact spans for conservative mention handling."""
+    for phrase in item.get("evidence_phrases", []):
+        if not isinstance(phrase, str) or not phrase.strip():
+            continue
+        pattern = r"(?<!\w)" + re.escape(phrase.strip()) + r"(?!\w)"
+        for match in re.finditer(pattern, prompt, flags=re.IGNORECASE):
+            yield phrase, match.start(), match.end()
 
 
-def _requested_capabilities(draft, prompt, by_id):
+def _prompt_mentions_capability(prompt, item, capability_id, assessments=None):
+    """Keep unclassified catalog mentions fail-closed, while honoring verified inactive spans."""
+    inactive_intents = {"retracted", "negated", "future", "reference", "unclear"}
+    for phrase, start, end in _prompt_capability_occurrences(prompt, item):
+        suppressed = any(
+            isinstance(assessment, dict)
+            and assessment.get("capability_id") == capability_id
+            and assessment.get("start") == start
+            and assessment.get("end") == end
+            and isinstance(assessment.get("phrase"), str)
+            and assessment.get("phrase", "").casefold() == phrase.casefold()
+            and assessment.get("intent") in inactive_intents
+            for assessment in assessments or []
+        )
+        if not suppressed:
+            return True
+    return False
+
+
+def _requested_capabilities(draft, prompt, by_id, capability_assessments=None):
     unsupported = []
     missing = []
     features = draft.get("requested_features") if isinstance(draft, dict) else None
@@ -210,7 +259,9 @@ def _requested_capabilities(draft, prompt, by_id):
         else:
             missing.append(f"requested_features.{capability_id}.evidence")
     for capability_id, item in by_id.items():
-        if capability_id not in seen and _prompt_mentions_capability(prompt, item):
+        if capability_id not in seen and _prompt_mentions_capability(
+            prompt, item, capability_id, capability_assessments
+        ):
             unsupported.append(item)
     return unsupported, missing
 
@@ -223,7 +274,7 @@ def _fact_missing_fields(draft, prompt, assets):
     if not 3 <= len(facts) <= 24:
         missing.append("business_facts")
 
-    counts = {kind: 0 for kind in _MISSING_KIND_FIELDS}
+    counts = {kind: 0 for kind in _FACT_FIELD_NAMES}
     identifiers = []
     for index, fact in enumerate(facts):
         if not isinstance(fact, dict):
@@ -255,14 +306,19 @@ def _fact_missing_fields(draft, prompt, assets):
 
     if len(identifiers) != len(set(identifiers)):
         missing.append("business_facts.ids")
-    for kind, field in _MISSING_KIND_FIELDS.items():
-        if counts[kind] < 1 or (kind in {"name", "description"} and counts[kind] > 1):
-            missing.append(field)
+    required_counts = _REQUIRED_FACT_COUNTS.get(draft.get("genre"), {})
+    for kind, minimum in required_counts.items():
+        invalid_count = counts[kind] != minimum if kind in _FACT_IDS else counts[kind] < minimum
+        if invalid_count:
+            missing.append(_FACT_FIELD_NAMES[kind])
 
     asset_ids = draft.get("asset_ids")
+    expected_asset = _GENRE_ASSETS.get(draft.get("genre"))
     if not isinstance(asset_ids, list) or any(not isinstance(identifier, str) for identifier in asset_ids):
         missing.append("asset_ids")
     elif len(set(asset_ids)) != len(asset_ids) or any(identifier not in assets for identifier in asset_ids):
+        missing.append("asset_ids")
+    elif expected_asset and expected_asset not in asset_ids:
         missing.append("asset_ids")
     return missing
 
@@ -285,14 +341,21 @@ def _unsupported(message):
     return IntakeResult("unsupported_request", message, (), None)
 
 
-def prepare_intake(prompt: str, draft: dict, tokenizer, request_catalog: dict) -> IntakeResult:
+def prepare_intake(
+    prompt: str,
+    draft: dict,
+    tokenizer,
+    request_catalog: dict,
+    *,
+    capability_assessments: list[dict] | None = None,
+) -> IntakeResult:
     """Validate one user-provided RequestDraft without extracting facts from prose."""
     if not isinstance(prompt, str) or not prompt.strip():
         return _clarification(["prompt"])
     if len(prompt) > MAX_PROMPT_CHARS:
         return IntakeResult(
             "input_too_long",
-            "Prompt melebihi 1.000 karakter. Ringkas prompt secara manual; sistem tidak memotong teks.",
+            "Prompt melebihi 4.000 karakter. Ringkas prompt secara manual; sistem tidak memotong teks.",
             (),
             None,
         )
@@ -317,7 +380,9 @@ def prepare_intake(prompt: str, draft: dict, tokenizer, request_catalog: dict) -
     if not isinstance(draft, dict):
         return _clarification(["request_draft"])
 
-    unsupported_capabilities, capability_missing = _requested_capabilities(draft, prompt, capability_by_id)
+    unsupported_capabilities, capability_missing = _requested_capabilities(
+        draft, prompt, capability_by_id, capability_assessments
+    )
     genre, style = draft.get("genre"), draft.get("style_mode")
     unsupported_genre = (
         isinstance(genre, str)

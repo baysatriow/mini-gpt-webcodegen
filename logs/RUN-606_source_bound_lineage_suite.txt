@@ -1,0 +1,4 @@
+RUN-606 | 16 Oktober 2026 | Asia/Jakarta
+Jenis: Frozen training-lineage guard
+Perintah/proses: source_bound_lineage_suite
+Hasil: Command: `.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_lineage`. Result: 13 passed, 1 error. The existing frozen profile file does not match its pinned checksum. No profile, hash, checkpoint, or training data was changed.

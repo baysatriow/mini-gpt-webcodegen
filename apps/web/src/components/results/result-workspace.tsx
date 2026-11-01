@@ -1,13 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AlertCircle, Download, LoaderCircle, Monitor, Smartphone } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PreviewFrame } from "@/components/results/preview-frame";
+import {
+  AlertCircle,
+  Code2,
+  Download,
+  Eye,
+  LoaderCircle,
+  Maximize2,
+  Monitor,
+  Smartphone,
+  Tablet,
+} from "lucide-react";
+import { PreviewFrame, type ViewportMode } from "@/components/results/preview-frame";
 import { SourceTabs, type SourceLoadState } from "@/components/results/source-tabs";
 import type { GenerationSummary, GenerationStatus, SourceFilename } from "@/lib/api-types";
 import { getAcceptedDownloadUrl, getAcceptedPreviewUrl } from "@/lib/preview-url";
+import { cn } from "@/lib/utils";
 
 export type WorkspaceView = "preview" | "code";
 
@@ -32,7 +41,7 @@ export function ResultWorkspace({
   onLoadSource,
   onDownloadSource,
 }: ResultWorkspaceProps) {
-  const [viewport, setViewport] = useState<"desktop" | "mobile">("desktop");
+  const [viewport, setViewport] = useState<ViewportMode>("responsive");
   const previewUrl = getAcceptedPreviewUrl(summary);
   const downloadUrl = getAcceptedDownloadUrl(summary);
 
@@ -44,92 +53,241 @@ export function ResultWorkspace({
     const pending = status === "pending";
     const failed = status === "generation_failed" || status === "input_too_long" || status === "completed";
     const heading = pending
-      ? "Menunggu halaman dari API lokal"
+      ? "Menghasilkan Halaman Web"
       : status === "input_too_long"
-        ? "Permintaan perlu diringkas"
+        ? "Permintaan Perlu Diringkas"
         : status === "generation_failed"
-          ? "Halaman belum berhasil dibuat"
+          ? "Halaman Belum Berhasil Dibuat"
           : status === "completed"
-            ? "Data hasil tidak lengkap"
-            : "Pratinjau akan muncul di sini";
+            ? "Data Hasil Tidak Lengkap"
+            : "Kanvas Studio Web";
     const description = status === "completed"
-      ? "Respons API tidak memiliki referensi hasil yang valid, jadi output tidak ditampilkan."
+      ? "Respons server tidak memiliki referensi hasil yang valid, sehingga pratinjau tidak dapat ditampilkan."
       : statusMessage ?? (pending
-        ? "Pembuatan berjalan sebagai satu operasi. Belum ada preview atau berkas yang bisa diunduh."
-        : "Lengkapi fakta usaha, tinjau ringkasan, lalu setujui pembuatan halaman.");
+        ? "Model menyusun rancangan dan isi bagian halaman. Renderer menyiapkan HTML, CSS, dan JavaScript setelah validasi."
+        : "Tulis ide website Anda di kolom percakapan, tinjau ringkasan fakta, lalu klik Generate Website untuk melihat pratinjau live di sini.");
 
     return (
-      <div className="flex min-h-0 flex-1 items-center justify-center px-5 py-8 sm:px-8">
-        <div className={`w-full max-w-md rounded-xl border bg-white p-6 text-center ${failed ? "border-destructive/20" : "border-border"}`}>
-          <span className={`mx-auto grid size-11 place-items-center rounded-xl ${pending ? "bg-accent text-cobalt-action" : failed ? "bg-destructive/5 text-destructive" : "bg-frost text-slate-note"}`}>
-            {pending ? <LoaderCircle className="size-5 animate-spin" aria-hidden="true" /> : failed ? <AlertCircle className="size-5" aria-hidden="true" /> : <Monitor className="size-5" aria-hidden="true" />}
+      <div className="flex h-full min-h-0 flex-1 flex-col">
+        {/* Clean minimal header */}
+        <div className="flex h-[52px] shrink-0 items-center justify-between border-b border-border bg-card px-4 sm:px-6">
+          <div className="flex items-center gap-2">
+            <span className="text-xs sm:text-sm font-bold text-foreground">Kanvas & Pratinjau</span>
+          </div>
+          <span className="rounded-md border border-border bg-muted px-2.5 py-0.5 text-[11px] text-muted-foreground font-medium">
+            {pending ? "Memproses..." : "Belum ada hasil"}
           </span>
-          <h2 className="mt-4 text-base font-semibold text-harbor-ink">{heading}</h2>
-          <p className={`mt-2 text-sm leading-6 ${failed ? "text-destructive" : "text-slate-note"}`} role={failed ? "alert" : pending ? "status" : undefined}>
-            {description}
-          </p>
+        </div>
+
+        {/* Empty / Pending State Content */}
+        <div className="flex min-h-0 flex-1 items-center justify-center bg-muted/50 p-6 sm:p-10">
+          <div className={`w-full max-w-md rounded-2xl border bg-card p-6 sm:p-8 text-center shadow-xs ${
+            failed ? "border-destructive/30 bg-red-50/20" : "border-border/80"
+          }`}>
+            <div className={`mx-auto grid size-13 place-items-center rounded-2xl ${
+              pending
+                ? "bg-accent text-accent-foreground border border-border"
+                : failed
+                  ? "bg-red-50 text-destructive border border-red-200"
+                  : "bg-secondary text-secondary-foreground border border-border"
+            }`}>
+              {pending ? (
+                <LoaderCircle className="size-6 animate-spin" aria-hidden="true" />
+              ) : failed ? (
+                <AlertCircle className="size-6" aria-hidden="true" />
+              ) : (
+                <Monitor className="size-6" aria-hidden="true" />
+              )}
+            </div>
+
+            <h2 className="mt-4 text-base font-bold text-foreground tracking-tight">{heading}</h2>
+            <p className={`mt-2 text-xs sm:text-sm leading-relaxed ${failed ? "text-destructive" : "text-muted-foreground"}`} role={failed ? "alert" : pending ? "status" : undefined}>
+              {description}
+            </p>
+
+            {!pending && !failed ? (
+              <div className="mt-6 pt-5 border-t border-border/80 grid grid-cols-3 gap-2 text-left">
+                <div className="p-2.5 rounded-lg bg-muted border border-border">
+                  <p className="text-[10px] font-bold text-foreground">Live Sandbox</p>
+                  <p className="text-[9px] text-muted-foreground mt-0.5">Desktop & Mobile</p>
+                </div>
+                <div className="p-2.5 rounded-lg bg-muted border border-border">
+                  <p className="text-[10px] font-bold text-foreground">Source HTML</p>
+                  <p className="text-[9px] text-muted-foreground mt-0.5">HTML, CSS, JS</p>
+                </div>
+                <div className="p-2.5 rounded-lg bg-muted border border-border">
+                  <p className="text-[10px] font-bold text-foreground">Download ZIP</p>
+                  <p className="text-[9px] text-muted-foreground mt-0.5">Source statis</p>
+                </div>
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
     );
   }
 
-  function changeView(value: string | null) {
-    if (value !== "preview" && value !== "code") return;
-    onViewChange(value);
-    if (value === "code") onLoadSource(summary.generation_id);
-  }
+  const genreLabel = summary.genre === "company_profile" ? "Company Profile" : "Landing Page";
+  const styleLabel = summary.style_mode === "tailwind" ? "Tailwind CSS" : "CSS Murni";
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-hidden px-3 pb-3 sm:px-5 sm:pb-5">
-      <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 py-3">
-        <div className="min-w-0">
-          <p className="truncate text-sm font-semibold text-harbor-ink">{summary.business_name || "Halaman yang diterima"}</p>
-          <p className="mt-0.5 text-xs text-slate-note">{summary.genre === "company_profile" ? "Company profile" : "Landing page"} · {summary.style_mode === "tailwind" ? "Tailwind" : "CSS biasa"}</p>
+    <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden bg-background">
+      {/* Studio Top Control Bar */}
+      <div className="flex min-h-[52px] shrink-0 flex-wrap items-center justify-between gap-3 border-b border-border bg-card px-3.5 py-2 sm:px-5">
+        {/* Left: Project title & badge */}
+        <div className="flex min-w-0 items-center gap-2">
+          <span className="relative flex size-2 shrink-0" title="Generation selesai" aria-hidden="true">
+            <span className="relative inline-flex size-2 rounded-full bg-emerald-600" />
+          </span>
+          <span className="truncate text-xs sm:text-sm font-bold text-foreground max-w-[140px] sm:max-w-[200px]">
+            {summary.business_name || "Halaman Web"}
+          </span>
+          <span className="hidden sm:inline-flex rounded-md bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground border border-border">
+            {genreLabel} Â· {styleLabel}
+          </span>
         </div>
-        <a href={downloadUrl} className="inline-flex h-9 items-center gap-2 rounded-lg border border-border bg-white px-3 text-sm font-medium text-harbor-ink transition-colors hover:bg-frost focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
-          <Download className="size-4" aria-hidden="true" />
-          Unduh ZIP
-        </a>
+
+        {/* Center: Segmented Preview / Code Toggle */}
+        <div className="inline-flex items-center rounded-lg bg-muted p-0.5 border border-border" role="tablist">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={view === "preview"}
+            onClick={() => onViewChange("preview")}
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-lg px-3 py-1 text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              view === "preview"
+                ? "bg-card text-primary shadow-2xs font-semibold"
+                : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            <Eye className="size-3.5" />
+            <span>Pratinjau</span>
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={view === "code"}
+            onClick={() => onViewChange("code")}
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-lg px-3 py-1 text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              view === "code"
+                ? "bg-card text-primary shadow-2xs font-semibold"
+                : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            <Code2 className="size-3.5" />
+            <span>Kode Sumber</span>
+          </button>
+        </div>
+
+        {/* Right: Viewport Mode Switcher & Download CTA */}
+        <div className="flex items-center gap-2 shrink-0">
+          {view === "preview" ? (
+            <div
+              className="inline-flex items-center rounded-lg bg-muted p-0.5 border border-border"
+              role="group"
+              aria-label="Ukuran pratinjau"
+            >
+              <button
+                type="button"
+                title="Lebar Penuh (Fit)"
+                aria-label="Lebar Penuh"
+                aria-pressed={viewport === "responsive"}
+                onClick={() => setViewport("responsive")}
+                className={cn(
+                  "inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  viewport === "responsive"
+                    ? "bg-card text-primary shadow-2xs font-semibold"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                <Maximize2 className="size-3" />
+                <span className="hidden md:inline">Fit</span>
+              </button>
+              <button
+                type="button"
+                title="Desktop (1200px)"
+                aria-label="Desktop"
+                aria-pressed={viewport === "desktop"}
+                onClick={() => setViewport("desktop")}
+                className={cn(
+                  "inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  viewport === "desktop"
+                    ? "bg-card text-primary shadow-2xs font-semibold"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                <Monitor className="size-3" />
+                <span className="hidden md:inline">Desktop</span>
+              </button>
+              <button
+                type="button"
+                title="Tablet (768px)"
+                aria-label="Tablet"
+                aria-pressed={viewport === "tablet"}
+                onClick={() => setViewport("tablet")}
+                className={cn(
+                  "inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  viewport === "tablet"
+                    ? "bg-card text-primary shadow-2xs font-semibold"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                <Tablet className="size-3" />
+                <span className="hidden md:inline">Tablet</span>
+              </button>
+              <button
+                type="button"
+                title="Mobile (390px)"
+                aria-label="Mobile"
+                aria-pressed={viewport === "mobile"}
+                onClick={() => setViewport("mobile")}
+                className={cn(
+                  "inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  viewport === "mobile"
+                    ? "bg-card text-primary shadow-2xs font-semibold"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                <Smartphone className="size-3" />
+                <span className="hidden md:inline">Mobile</span>
+              </button>
+            </div>
+          ) : null}
+
+          {/* Download */}
+          <a
+            href={downloadUrl}
+            className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-primary px-3.5 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90 active:scale-[0.98] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <Download className="size-3.5 stroke-[2.5]" aria-hidden="true" />
+            <span className="hidden sm:inline">Unduh</span> ZIP
+          </a>
+        </div>
       </div>
 
-      <Tabs value={view} onValueChange={changeView} className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-border bg-white shadow-[0_12px_36px_rgba(30,45,69,0.07)]">
-        <TabsList variant="line" className="h-12 w-full shrink-0 justify-start gap-4 rounded-none border-b border-border px-4">
-          <TabsTrigger value="preview" className="h-full flex-none px-1 text-sm">Pratinjau</TabsTrigger>
-          <TabsTrigger value="code" className="h-full flex-none px-1 text-sm">Kode</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="preview" className="m-0 flex min-h-0 flex-1 flex-col overflow-hidden">
-          <div className="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-border px-3 sm:px-4">
-            <div className="flex items-center gap-1 rounded-lg bg-frost p-1" role="group" aria-label="Ukuran pratinjau">
-              <Button type="button" size="sm" variant={viewport === "desktop" ? "secondary" : "ghost"} aria-pressed={viewport === "desktop"} onClick={() => setViewport("desktop")} className="h-8 gap-1.5 rounded-md px-2.5 text-xs">
-                <Monitor className="size-3.5" aria-hidden="true" />Desktop
-              </Button>
-              <Button type="button" size="sm" variant={viewport === "mobile" ? "secondary" : "ghost"} aria-pressed={viewport === "mobile"} onClick={() => setViewport("mobile")} className="h-8 gap-1.5 rounded-md px-2.5 text-xs">
-                <Smartphone className="size-3.5" aria-hidden="true" />Mobile
-              </Button>
-            </div>
-            <span className="hidden text-xs text-slate-note sm:inline">Source hanya dari renderer lokal yang diterima</span>
-          </div>
-          <div className="min-h-0 flex-1 overflow-auto bg-[#E9EEF5] p-3 sm:p-5">
-            <PreviewFrame
-              key={previewUrl}
-              generationId={summary.generation_id}
-              src={previewUrl}
-              title={summary.business_name || "hasil generator"}
-              viewport={viewport}
-            />
-          </div>
-        </TabsContent>
-
-        <TabsContent value="code" className="m-0 flex min-h-0 flex-1 flex-col overflow-hidden">
+      {/* Main Studio Canvas Body */}
+      {view === "preview" ? (
+        <div className="min-h-0 flex-1 overflow-auto bg-muted/50 p-3 sm:p-5 flex flex-col items-start">
+          <PreviewFrame
+            key={previewUrl}
+            generationId={summary.generation_id}
+            src={previewUrl}
+            title={summary.business_name || "hasil generator"}
+            viewport={viewport}
+          />
+        </div>
+      ) : (
+        <div className="min-h-0 flex-1 overflow-hidden">
           <SourceTabs
             generationId={summary.generation_id}
             state={sourceState}
             onRetry={onLoadSource}
             onDownload={onDownloadSource}
           />
-        </TabsContent>
-      </Tabs>
+        </div>
+      )}
     </div>
   );
 }

@@ -49,34 +49,34 @@
 
 :root {
   color-scheme: light;
-  --background: #f2f5f9;
-  --foreground: #1e2d45;
-  --card: #ffffff;
-  --card-foreground: #1e2d45;
-  --popover: #ffffff;
-  --popover-foreground: #1e2d45;
-  --primary: #2463eb;
+  --background: #f4f3ed;
+  --foreground: #202824;
+  --card: #fffefa;
+  --card-foreground: #202824;
+  --popover: #fffefa;
+  --popover-foreground: #202824;
+  --primary: #214f3e;
   --primary-foreground: #ffffff;
-  --secondary: #e9eef5;
-  --secondary-foreground: #1e2d45;
-  --muted: #edf1f6;
-  --muted-foreground: #60718b;
-  --accent: #eaf0ff;
-  --accent-foreground: #1c51c5;
-  --destructive: #b42318;
-  --border: #d9e1ec;
-  --input: #cbd5e1;
-  --ring: #2463eb;
-  --verified: #0c806f;
-  --sidebar: #ffffff;
-  --sidebar-foreground: #1e2d45;
-  --sidebar-primary: #2463eb;
+  --secondary: #e8ece6;
+  --secondary-foreground: #263b32;
+  --muted: #eceee8;
+  --muted-foreground: #5f6963;
+  --accent: #e7eee8;
+  --accent-foreground: #214f3e;
+  --destructive: #b83f36;
+  --border: #d9ded7;
+  --input: #c5cec6;
+  --ring: #527b68;
+  --verified: #287455;
+  --sidebar: #eceee8;
+  --sidebar-foreground: #202824;
+  --sidebar-primary: #214f3e;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f2f5f9;
-  --sidebar-accent-foreground: #1e2d45;
-  --sidebar-border: #e3e8ef;
-  --sidebar-ring: #2463eb;
-  --radius: 0.8rem;
+  --sidebar-accent: #e0e5dd;
+  --sidebar-accent-foreground: #202824;
+  --sidebar-border: #d9ded7;
+  --sidebar-ring: #527b68;
+  --radius: 0.75rem;
 }
 
 @layer base {
@@ -85,7 +85,7 @@
   }
 
   html {
-    @apply h-full font-sans;
+    @apply h-full font-sans scroll-smooth;
     background: var(--background);
   }
 
@@ -93,6 +93,11 @@
     @apply min-h-full bg-background text-foreground antialiased;
     font-size: 15px;
     line-height: 1.6;
+  }
+
+  ::selection {
+    background: #dce9df;
+    color: #183d2d;
   }
 
   button,
@@ -107,14 +112,32 @@
   input:focus-visible,
   textarea:focus-visible,
   select:focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--ring) 32%, transparent);
+    outline: 2px solid var(--ring);
     outline-offset: 2px;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
   }
 }
 
-::selection {
-  background: #dbe7ff;
-  color: #1e2d45;
+/* Custom scrollbars for chat and code containers */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 
 @media (prefers-reduced-motion: reduce) {

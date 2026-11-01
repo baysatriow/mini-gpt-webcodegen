@@ -1,0 +1,4 @@
+RUN-604 | 16 Oktober 2026 | Asia/Jakarta
+Jenis: Frontend request checks
+Perintah/proses: web_request_draft_tests
+Hasil: Command: `node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test apps/web/tests/request-draft.test.mjs`. Result: 3 tests passed.

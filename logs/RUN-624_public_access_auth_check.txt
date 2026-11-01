@@ -1,0 +1,4 @@
+RUN-624, pemeriksaan akses tunnel
+Tanggal/waktu: 16 Oktober 2026, sekitar 15:06 Asia/Jakarta
+Hasil: tanpa autentikasi ke halaman utama mendapat 401. Dengan Basic Auth, halaman utama, /api/v1/health, dan /api/v1/catalog mendapat 200. Tunnel menuju 127.0.0.1:3000; FastAPI hanya mendengarkan di 127.0.0.1:8000.
+Batas: tidak menjalankan generation baru, inference jarak jauh, atau uji beban. URL dan kredensial tidak dicatat.

@@ -1,0 +1,4 @@
+RUN-607 | 16 Oktober 2026 | Asia/Jakarta
+Jenis: Frontend lint, first attempt
+Perintah/proses: web_lint_ref_error
+Hasil: Command: `npm run lint`. Result: failed on `activeSessionIdRef.current` being updated during React render in `chat-shell.tsx`.

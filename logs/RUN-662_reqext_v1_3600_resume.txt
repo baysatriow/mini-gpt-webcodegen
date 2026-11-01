@@ -1,0 +1,30 @@
+RUN-662: REQEXT-V1-3600 continuation
+Waktu: 17 Oktober 2026, 20:48 sampai 20:59, Asia/Jakarta
+
+Tujuan
+- Melanjutkan percobaan extractor dari checkpoint 1.800 ke budget yang telah direncanakan, lalu mencatat kualitas validasi sebelum memutuskan seleksi.
+
+Konfigurasi dan lineage
+- Run ID: REQEXT-V1-3600.
+- Resume parent: checkpoints/REQEXT-V1-1800/last.pt.
+- Perangkat: NVIDIA GeForce RTX 5070, CUDA BF16.
+- Mode: batch size 8, gradient accumulation 6, SDPA, fused AdamW, block size 2.048.
+- Config hash: 9bc454c2eeb420e48136b356bfd14e0a38d23039e7fd79d37bce38ac6d93cee0.
+- Summary: reports/training/REQEXT-V1-3600.json.
+
+Hasil
+- Training completed pada global step 3.600, durasi 623,49 detik, total 32.820.813 token.
+- Loss train terakhir: 0,0006620508.
+- Validation loss parent step 1.800: 1,4613933164, perplexity 4,311963.
+- Validation loss step 3.600: 1,5449527745, perplexity 4,687750.
+- Best validation tetap pada step 1.800. Penurunan loss train yang sangat rendah bersama validation loss yang memburuk merupakan sinyal generalisasi yang tidak membaik.
+- Snapshot step 3.600: checkpoints/REQUEST-EXTRACT-V1/step3600.pt, payload SHA-256 033d919c9709d99dfc2c1da11cf962e14763e563bfcdb55121f4c06cdb65812f.
+
+Gate dan keputusan
+- API gate step 1.800: reports/request_extract/REQEXT-V1-1800_API_GATE.json, `not_passed`, `selection_eligible=false`, exact precision 0, exact recall 0, resolver errors 950 dari 950 keluarga.
+- Raw development inference dan API gate step 3.600 belum dijalankan.
+- Tidak membuat atau mempromosikan selection. API tetap menolak extractor yang tidak terpilih. Final/test tidak dibuka dan tidak digunakan.
+
+Kesimpulan
+- Run mencapai budget update, tetapi bukti yang ada tidak mendukung promosi model extractor.
+- Langkah berikutnya perlu memperbaiki kualitas data/target dan mengulang evaluasi development sebelum selection. Jangan menyamakan training selesai dengan model siap dipakai.

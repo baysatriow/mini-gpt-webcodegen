@@ -1,0 +1,22 @@
+RUN-658: prompt-first documentation review
+Date: 2026-10-17 00:21 Asia/Jakarta
+Branch: feature/pipeline-data-model-training
+
+Documentation updates
+- Root README distinguishes the selected TRAIN-025 page generator from the unpromoted REQUEST-EXTRACT-V1 brief extractor.
+- docs/README.md, apps/web/README.md, and apps/api/README.md describe one brief, source-grounded facts, one grouped clarification, manual fallback, and explicit generation approval.
+- apps/api/README.md records train-only extractor training, development-only gates, selector behavior, verified lazy loading under the shared inference lock, and fail-closed fallback.
+- The prompt-first plan and SDD ledger mark Task 4 complete at commit 5adb0e1 and keep training and API safety gates pending.
+
+Evidence boundary
+- The raw extractor development evaluation and API safety replay have not completed. No selection or promotion is claimed.
+- UI build, lint, TypeScript, and responsive visual review passed as recorded in RUN-657.
+- The prompt-first UI did not send a brief to the extraction endpoint or generation endpoint during review. This documentation change does not run model inference.
+- Frozen test/final partitions remain closed.
+
+Git hygiene review
+- This documentation change adds no dataset rows, checkpoints, generated websites, credentials, or HMAC tokens.
+- No extra authorship trailer was added to the UI implementation commit.
+- Focused source review confirms the extractor corpus builder reads the frozen V5 training request file, filters to frozen train families, and tags generated rows by split. The raw evaluator consumes development rows. The selector requires matching frozen development hashes, passing raw and API safety reports, and sealed-data flags. Runtime refuses to load unless selection is passed and automatic extraction is promoted.
+- The full feature diff since `ad23cb7` contains no dataset, checkpoint, generated website output, environment file, or credential file. The follow-up diff contains only documentation, plan, and log files.
+- `git diff --check` passed. Commit-history scan found no attribution trailers. This review record and documentation update are included in the Task 5 commit `docs: record prompt-first intake implementation`.

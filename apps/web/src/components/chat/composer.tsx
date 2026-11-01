@@ -1,8 +1,8 @@
 "use client";
 
-import { ArrowUp, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowUp, LoaderCircle } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 
 type ComposerProps = {
   value: string;
@@ -12,12 +12,19 @@ type ComposerProps = {
   maxLength?: number;
 };
 
+const QUICK_INSPIRATIONS = [
+  { label: "Kedai Kopi", prompt: "Buat landing page kedai kopi artisan modern dengan menu manual brew, biji kopi kemasan, dan suasana hangat." },
+  { label: "Studio Desain", prompt: "Buat company profile untuk studio desain grafis & branding digital bernama PixelCraft dengan portfolio proyek dan layanan utama." },
+  { label: "Toko Roti & Kue", prompt: "Buat landing page toko roti artisanal dengan pilihan roti sourdough, pastry fresh harian, dan info pemesanan." },
+  { label: "Brand Skincare", prompt: "Buat landing page brand perawatan kulit organik dengan formula bahan alami, daftar produk unggulan, dan testimoni." },
+];
+
 export function Composer({
   value,
   onChange,
   onSubmit,
   disabled = false,
-  maxLength = 1000,
+  maxLength = 4000,
 }: ComposerProps) {
   const canSubmit = value.trim().length > 0 && !disabled;
 
@@ -27,20 +34,41 @@ export function Composer({
   }
 
   return (
-    <div className="border-t border-border/80 bg-white/80 px-4 pb-4 pt-3 sm:px-6 sm:pb-5">
+    <div className="border-t border-border bg-card px-3 pb-3 pt-2 sm:px-5 sm:pb-4">
       <form
         onSubmit={(event) => {
           event.preventDefault();
           submit();
         }}
-        className="mx-auto w-full max-w-3xl"
+        className="mx-auto w-full max-w-2xl"
       >
         <label htmlFor="chat-prompt" className="sr-only">
           Jelaskan halaman web yang ingin dibuat
         </label>
-        <div className="rounded-2xl border border-border bg-paper shadow-[0_6px_24px_rgba(30,45,69,0.06)] transition-shadow focus-within:shadow-[0_8px_28px_rgba(30,45,69,0.10)]">
+
+        {/* Quick Inspiration Pills */}
+        {!value && (
+          <div className="mb-2.5 flex items-center gap-1.5 overflow-x-auto pb-1 text-xs no-scrollbar">
+            <span className="text-[11px] font-semibold text-muted-foreground shrink-0 pr-1">
+              Contoh:
+            </span>
+            {QUICK_INSPIRATIONS.map((item, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => onChange(item.prompt)}
+                className="inline-flex shrink-0 items-center rounded-md border border-border bg-card px-2.5 py-1 text-[11px] font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground active:scale-[0.98] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div className="rounded-2xl border border-border bg-background shadow-xs transition-all focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/10">
           <Textarea
             id="chat-prompt"
+            aria-describedby={value.length > 0 ? "composer-guidance composer-character-count" : "composer-guidance"}
             value={value}
             onChange={(event) => onChange(event.target.value)}
             onKeyDown={(event) => {
@@ -50,39 +78,46 @@ export function Composer({
               }
             }}
             maxLength={maxLength}
-            rows={2}
+            rows={1}
             disabled={disabled}
-            placeholder="Ceritakan website yang ingin Anda bangun..."
-            aria-describedby="composer-guidance composer-count"
-            className="max-h-40 min-h-[72px] resize-none border-0 bg-transparent px-4 pt-4 text-[15px] leading-6 shadow-none placeholder:text-slate-note/75 focus-visible:border-0 focus-visible:ring-0"
+            placeholder="Ketik brief website yang ingin Anda buat..."
+            className="max-h-36 min-h-[48px] resize-none border-0 bg-transparent px-3.5 pt-3 text-xs sm:text-sm leading-relaxed shadow-none placeholder:text-muted-foreground/60 focus-visible:border-0 focus-visible:ring-0 text-foreground"
           />
-          <div className="flex items-center justify-between gap-3 px-3 pb-3 pt-1">
-            <div className="flex min-w-0 items-center gap-2 text-xs text-slate-note">
-              <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-frost">
-                <Sparkles aria-hidden="true" className="size-3.5 text-cobalt-action" />
-              </span>
-              <span id="composer-guidance" className="truncate">
-                Saya akan bertanya jika fakta usaha belum lengkap.
-              </span>
+
+          <div className="flex items-center justify-between gap-2 px-3 pb-2.5 pt-0.5">
+            <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+              {disabled ? (
+                <span className="flex items-center gap-1 text-primary font-medium">
+                  <LoaderCircle aria-hidden="true" className="size-3 animate-spin" />
+                  Memproses brief
+                </span>
+              ) : null}
             </div>
+
             <div className="flex shrink-0 items-center gap-2">
-              <span id="composer-count" className="hidden text-xs tabular-nums text-slate-note sm:inline">
-                {value.length}/{maxLength}
-              </span>
-              <Button
+              {value.length > 0 ? (
+                <span id="composer-character-count" className="text-[10px] tabular-nums text-muted-foreground font-mono">
+                  {value.length}/{maxLength}
+                </span>
+              ) : null}
+              <button
                 type="submit"
-                size="icon"
                 aria-label="Kirim prompt"
                 disabled={!canSubmit}
-                className="size-9 rounded-xl"
+                className={cn(
+                  "flex size-8 shrink-0 items-center justify-center rounded-xl transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  canSubmit
+                    ? "bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[0.97]"
+                    : "bg-muted text-muted-foreground",
+                )}
               >
-                <ArrowUp aria-hidden="true" className="size-4" />
-              </Button>
+                <ArrowUp aria-hidden="true" className="size-4 stroke-[2.5]" />
+              </button>
             </div>
           </div>
         </div>
-        <p className="mt-2 text-center text-[11px] leading-5 text-slate-note">
-          Rancang memakai fakta yang Anda berikan dan komponen lokal yang tersedia.
+        <p id="composer-guidance" className="mt-1.5 px-1 text-[10px] leading-relaxed text-muted-foreground">
+          Tekan Enter untuk mengirim, Shift+Enter untuk membuat baris baru.
         </p>
       </form>
     </div>

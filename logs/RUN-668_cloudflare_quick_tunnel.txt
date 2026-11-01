@@ -1,0 +1,25 @@
+RUN-668, Cloudflare Quick Tunnel untuk preview aplikasi
+Tanggal/waktu: 26 Oktober 2026, 11:20, Asia/Jakarta
+
+Cakupan
+- Menjaga Next.js dan FastAPI berjalan secara native di komputer lokal.
+- Membuka Quick Tunnel Cloudflare ke Next.js port 3000 atas instruksi pengguna.
+- Tidak menjalankan Docker, training, atau inference.
+
+Server lokal
+- Next.js: 127.0.0.1:3000, PID 62980.
+- FastAPI: 127.0.0.1:8000, PID 51596.
+- API tetap loopback-only. `apps/web/next.config.ts` memiliki rewrite `/api/:path*` ke `http://127.0.0.1:8000/api/:path*`, jadi UI dan API memakai hostname tunnel yang sama.
+- Health API terakhir menjawab `ok`. Generator belum dimuat, extractor belum tersedia, dan extractor belum dimuat.
+
+Cloudflare tunnel
+- Perintah: `cloudflared tunnel --url http://127.0.0.1:3000 --no-autoupdate`.
+- Cloudflared PID 54504.
+- Quick Tunnel berhasil dibuat dan koneksi terdaftar melalui QUIC. Precheck DNS, UDP, TCP, dan koneksi API Cloudflare lulus. Log kemudian mencatat satu DNS lookup timeout; metrik lokal sesudahnya menunjukkan satu koneksi aktif dan nol error proxy.
+- URL tunnel diberikan langsung kepada pengguna di chat, tidak disalin ke file atau Git. URL bersifat sementara dan tidak menggunakan autentikasi.
+- Pengguna memilih Quick Tunnel setelah mengetahui bahwa siapa pun yang memiliki URL dapat mengaksesnya.
+
+Batas verifikasi
+- Tidak membuka URL publik melalui browser pada run ini. Status `Registered tunnel connection` dan precheck daemon membuktikan koneksi tunnel terdaftar, bukan bahwa setiap interaksi UI atau generation berhasil.
+- Prompt extraction tetap fail-closed karena paket extractor belum memiliki selection. Generator dimuat lazy ketika API menerima generation. Tidak ada request generation dalam run ini.
+- URL tidak dicatat di log agar tidak menggandakan akses publik ke dalam riwayat Git.

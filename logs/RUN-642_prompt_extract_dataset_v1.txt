@@ -1,0 +1,52 @@
+RUN-642, prompt extractor v1 corpus and audit
+
+Date/time: 2026-10-16 22:34 Asia/Jakarta
+Branch: feature/pipeline-data-model-training
+Base at start: ad23cb7, with plan commits 9af289c and ad23cb7 already pushed
+Purpose: prepare a source-grounded extraction corpus after the user approved keeping every required business fact while simplifying the intake to one prompt and one grouped clarification.
+
+User-facing decision
+
+- Keep all required facts for a complete landing page or company profile.
+- Let the user submit one free-form brief, then ask for all missing facts together.
+- Preserve source evidence, conflict handling, an explicit status choice, and an explicit Generate action.
+- Keep automatic extraction disabled until a separate checkpoint passes the frozen development gate.
+
+Preflight and failed attempts
+
+1. Initial direct invocation `python qa/prepare_request_extract_v1.py` failed with `ModuleNotFoundError: No module named 'src'`. No dataset was created. Use module invocation from the project root.
+2. Module invocation with a single complete output found an example requiring 1,221 prefix tokens and 1,723 target tokens. The 2,944-token total cannot fit the 2,048-token context. No dataset was created.
+3. The first scoped target pass found a correction phrase longer than the schema's 240-character limit. The target now stores only the exact correction cue phrase, while old and replacement values remain separate and source-checked.
+4. A combined services scope exceeded context on a long correction example. Services and processes were split by item position; FAQ and project scopes are also per item. The final request has 16 fixed internal scopes.
+5. The first per-item validator attempt applied the item index twice and rejected `service_2`. Validation now checks that a per-item scope has at most one fact of the expected kind without slicing its output again. No dataset was written by this failed preflight.
+
+Successful corpus build
+
+- Static compilation: `python -m py_compile src/fullpage/request_extract_contracts.py qa/prepare_request_extract_v1.py qa/audit_request_extract_v1.py` passed.
+- Destination was absent before building. Available space was 18,018,185,216 bytes. Data files total 448,778,749 bytes. Available space after build and audit was 17,569,394,688 bytes.
+- Build command: `python -m qa.prepare_request_extract_v1`.
+- Training rows: 69,120, sourced only from the frozen V5 training request file and 240 source families.
+- Development rows: 15,200, sourced from 950 new synthetic families using prompt pattern IDs not used for training.
+- Train family coverage: name 240, description 240, value 240, service 240, process 240, FAQ 120, project 120; landing page 120 and company profile 120.
+- Development has 15 safety buckets with 50 unique families in each; each page genre has 475 development families.
+- Exact-scope budgets are recorded in the ignored dataset manifest. The largest reserved output is 543 tokens for `page_settings`; its largest prefix is 1,409 tokens; total 1,952 of 2,048. The maximum prefix across scopes is 1,446 tokens for `faq_1`, which reserves 238 output tokens.
+- Read-only audit command: `python -m qa.audit_request_extract_v1 --report outputs/request_extract/v1/data-audit.json`.
+- Audit result: passed; zero train/development family intersection; zero prompt-pattern intersection; all source values and mentions verified; all train/development target and prefix budgets fit; `final_opened=false`, `final_used=false`, `existing_validation_used=false`, `existing_test_used=false`.
+- Notebook was validated as nbformat 4 with 10 cells and 4 code cells. The displayed example replaces source brief and fact values with redaction labels; cell IDs are present.
+- Manifest SHA-256: `e561564c3ffb75e25b6a6fdc6feadaca5a7ec1f9fecf3f6f799311dea4cf36dc`.
+- Train JSONL SHA-256: `1df8625ec58e1006d8589cc337c858e166afa0688077cfe834bbd924c0d0d8e7`.
+- Development JSONL SHA-256: `27e42d423fa7d1223ef42fb590208a23dcece127e1f2d254fba4671ab9d00c73`.
+- Audit report SHA-256: `4c226be34413c13c2eff9491f422d48354b441907143388da0217049871416c4`.
+
+Scope and limitations
+
+- Up to 16 sequential internal decodes may be required per API request. This latency has not been measured on the RTX 5070 and must be measured before promotion.
+- The corpus is synthetic where noted and has not received human review. Audit success proves schema, lineage, exact source substrings, disjoint families/patterns, and token budgets. It does not prove model extraction quality.
+- No training, inference, automated test suite, generation, checkpoint selection, or final/test data access occurred.
+- Data and audit artifacts stay local and are ignored by Git. The notebook redacts the displayed example and has no training output yet.
+
+Next steps
+
+1. Freeze the corpus after review and implement a distinct scoped dataset encoder and trainer initialized from the exact selected TRAIN-025 step-1800 checkpoint.
+2. Check storage and CUDA memory before training. Log each preflight and run before launching it.
+3. Score only the frozen extractor development set and promote automatic extraction only if every frozen gate passes. Otherwise keep the manual editor as the active path.

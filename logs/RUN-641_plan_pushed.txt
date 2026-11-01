@@ -1,0 +1,15 @@
+RUN-641, rencana prompt-first dipublikasikan
+Tanggal: 2026-10-16 22:12 Asia/Jakarta
+
+Perubahan
+- Menambahkan rencana lima task ke docs/superpowers/plans/2026-10-16-prompt-first-intake.md.
+- Menautkan rencana dari docs/README.md.
+- Mencatat audit awal dan keputusan scope di log utama dan AI-051.
+
+Pemeriksaan
+- git diff --check: lulus.
+- Test/build/training/inference: tidak dijalankan.
+
+Git
+- Commit: 9af289c docs: plan prompt-first intake implementation.
+- Push ke origin/feature/pipeline-data-model-training: berhasil.

@@ -35,6 +35,8 @@ def validate_intake(
     prompt: str,
     draft: dict[str, Any],
     runtime: Runtime | None = None,
+    extraction_token: str | None = None,
+    capability_assessments: list[dict[str, Any]] | None = None,
 ) -> IntakeResponse:
     """Validate a user draft without loading a generator or creating output."""
     if not isinstance(prompt, str) or not prompt.strip():
@@ -50,6 +52,10 @@ def validate_intake(
         return _workflow_response("needs_clarification", ["prompt"])
 
     services = runtime or get_runtime()
+    if extraction_token is not None:
+        capability_assessments = services.verify_intake_token(prompt, extraction_token)
+        if capability_assessments is None:
+            return _workflow_response("needs_clarification", ["prompt"])
     services.ensure_project_importable()
     from src.fullpage.intake import prepare_intake
 
@@ -58,6 +64,7 @@ def validate_intake(
         draft,
         services.get_tokenizer(),
         services.get_intake_catalog(),
+        capability_assessments=capability_assessments,
     )
     return _workflow_response(
         result.status,

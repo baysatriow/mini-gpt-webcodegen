@@ -1,0 +1,12 @@
+# RUN-656: prompt-first extraction API implementation
+
+- Tanggal/waktu: 16 Oktober 2026, 23:55, Asia/Jakarta.
+- Branch: `feature/pipeline-data-model-training`.
+- Implementasi menambahkan `POST /api/v1/intake/extract`, kontrak Pydantic berformat `prompt-messages-v1`, batas 16 pesan dan 4.000 karakter, serta satu draft parsial dengan klarifikasi gabungan.
+- Resolver menerima nilai hanya bila teksnya muncul persis di pesan yang dikutip. Rentang bukti mencatat offset Python, UTF-16, dan offset canonical prompt. Konflik, koreksi ambigu, fitur aktif yang belum didukung, dan permintaan di luar katalog tidak menghasilkan draft siap generation.
+- Runtime memiliki satu lock inference dan memuat extractor/generator bergantian. Token HMAC mengikat penilaian capability yang telah diverifikasi ke canonical prompt saat validasi ulang. Health melaporkan status muat masing-masing model tanpa mengimpor PyTorch saat startup.
+- Batas `prompt` pada `src/fullpage/intake.py` dan kedua schema generation diselaraskan menjadi 4.000 karakter. Tiga perubahan ini tidak termasuk 23 file dalam hash source training extractor r1.
+- Verifikasi statis: `py_compile` lulus; FastAPI OpenAPI berhasil dibangun dan mendaftarkan route extract/validate beserta contoh schema; `git diff --check` lulus; import aplikasi tidak memuat PyTorch.
+- `ruff` tidak tersedia di `.venv` (`No module named ruff`). Tidak ada test suite, HTTP inference, API inference, atau review browser yang dijalankan.
+- Evaluasi raw checkpoint step 1.800 masih berjalan pada synthetic development. Progres terakhir yang terlihat 1.700 dari 15.200 scope. Extractor belum dipromosikan; tanpa selection package yang lolos gate, endpoint tetap fail-closed dan UI harus memakai editor manual.
+- Partisi development dipakai hanya untuk evaluasi yang telah diluncurkan. Data final/test tetap tertutup.

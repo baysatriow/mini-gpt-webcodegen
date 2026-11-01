@@ -1,0 +1,16 @@
+RUN-633, provenance prompt-first dan audit development gate
+Tanggal/waktu: 16 Oktober 2026, sekitar 17:52, Asia/Jakarta
+
+Pemicu
+Review independen putaran keenam menemukan detail kontrak yang masih belum cukup deterministik untuk false rejection, bukti sumber lintas pesan, dan pembuktian pemisahan data.
+
+Revisi yang dicatat
+- API intake menerima pesan terstruktur dengan ID dan format kanonis berversi. Server mempertahankan segment map asli dan tidak mencoba menebak batas pesan dengan memecah teks.
+- Setiap nilai, capability mention, dan koreksi mengacu pada ID pesan. Server memverifikasi substring pada pesan itu dan mengembalikan atribusi sumber serta rentang UTF-16 untuk UI dan rentang Python untuk validator.
+- Perulangan quote ditangani deterministik; item list identik dideduplikasi. Satu capability ID memiliki paling banyak satu `requested_features`; mention aktif menang atas mention nonaktif, sementara intent unclear meminta klarifikasi.
+- False-rejection rate didefinisikan per keluarga prompt unik, dengan denominator known-catalog, out-of-catalog, dan unclear yang dilaporkan terpisah. Setiap denominator minimal 50 keluarga unik agar dapat dinilai sebagai gate.
+- Manifest development wajib membuktikan disjointness keluarga sumber dan pola prompt terhadap data TRAIN-025 serta seluruh partisi extractor, dan menghitung keluarga unik, bukan baris.
+
+Status
+- Spesifikasi masih menunggu audit independen terakhir dan persetujuan pengguna.
+- Tidak mengubah kode aplikasi/API/model, tidak menjalankan inference atau training, dan tidak membuka partisi final.

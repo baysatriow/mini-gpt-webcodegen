@@ -4688,7 +4688,7 @@ p=j(\"reports/training/FULLPAGE-GPU-005.json\"); print(\"GPU\",json.dumps([{k:r.
 - **Waktu:** 2026-10-14T18:19:34.3451387+07:00 sampai 2026-10-14T18:19:42.8726404+07:00.
 - **Tujuan:** Menjalankan uji komposisi source-bound sebelum komposer tersedia untuk membuktikan perilaku gagal yang diharapkan.
 - **Command:**  .\\.venv\\Scripts\\python.exe -m unittest tests.fullpage.test_source_bound_compose -v .
-- **Commit:** base 6e45e486ae8b3a0bda1d208ef3bfe855baf8531; uji dan fixture belum di-commit.
+- **Commit:** base a6e45e486ae8b3a0bda1d208ef3bfe855baf8531; uji dan fixture belum di-commit.
 - **Hasil:** exit 1; gagal pada impor modul komposer yang belum dibuat, seperti diharapkan.
 - **Output lengkap:** $outPath.
 ### RUN-398
@@ -6471,7 +6471,7 @@ RUN-592 lulus preflight segar, termasuk source lineage, checkpoint/report TRAIN-
 
 ## RUN-593, hasil training TRAIN-026
 
-TRAIN-026 selesai normal pada global step 3.600 dan last_committed_step=3600. Config beku dan digest report cocok. Checkpoint parent TRAIN-025 yang digunakan saat resume ber-hash 7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339; checkpoint TRAIN-026 ber-hash cc586807fe8db32ae04f746e7684642b36f7f1652cfca3339b11cfd5b8f179c5. Loss validasi internal training 0,005312048531726459 adalah cross-entropy token, bukan nilai kualitas halaman. Cek ulang drive F menunjukkan 26,919 GiB kosong. Tahap berikutnya membandingkan snapshot step 1.800 dan 3.600 pada 80 prompt development yang sama. Data test/final tetap tertutup.
+TRAIN-026 selesai normal pada global step 3.600 dan last_committed_step=3600. Config beku dan digest report cocok. Checkpoint parent TRAIN-025 yang digunakan saat resume ber-hash e7d1b18c6ea4beceafc0d68150697ec2b3e09ee5285a6d14f32dd9d048d00339; checkpoint TRAIN-026 ber-hash cc586807fe8db32ae04f746e7684642b36f7f1652cfca3339b11cfd5b8f179c5. Loss validasi internal training 0,005312048531726459 adalah cross-entropy token, bukan nilai kualitas halaman. Cek ulang drive F menunjukkan 26,919 GiB kosong. Tahap berikutnya membandingkan snapshot step 1.800 dan 3.600 pada 80 prompt development yang sama. Data test/final tetap tertutup.
 
 ## RUN-595, perbandingan development V5 dimulai
 
@@ -6479,11 +6479,11 @@ RUN-595 menyiapkan snapshot bobot TRAIN-025 step 1.800 dan TRAIN-026 step 3.600,
 
 ## Hasil kandidat step 1.800
 
-Evaluasi development TRAIN-025 mencapai 80/80 halaman accepted dari 80 request, tanpa kegagalan, model_gate=true, dan pemeriksaan fakta/tautan/aset lulus. Request set SHA-256 4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173; checkpoint SHA-256 c1a450149eb8f860cc42595bba283e0f9e915a436f38f967516bc5107bd1c446. Final tidak digunakan. Pemeriksaan visual manusia/browser belum dijalankan. Lanjutkan evaluasi step 3.600 sebelum menentukan kandidat terpilih.
+Evaluasi development TRAIN-025 mencapai 80/80 halaman accepted dari 80 request, tanpa kegagalan, model_gate=true, dan pemeriksaan fakta/tautan/aset lulus. Request set SHA-256 e4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173; checkpoint SHA-256 c1a450149eb8f860cc42595bba283e0f9e915a436f38f967516bc5107bd1c446. Final tidak digunakan. Pemeriksaan visual manusia/browser belum dijalankan. Lanjutkan evaluasi step 3.600 sebelum menentukan kandidat terpilih.
 
 ## Hasil kandidat step 3.600
 
-TRAIN-026 step 3.600 mencapai 80/80 halaman accepted, model_gate=true, facts/links/assets valid, dan inal_used=false. Request SHA-256 identik dengan evaluasi step 1.800: 4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173. Kedua kandidat memenuhi gate. Jalankan selector resmi sebelum menetapkan kandidat terpilih. Belum ada review visual browser.
+TRAIN-026 step 3.600 mencapai 80/80 halaman accepted, model_gate=true, facts/links/assets valid, dan final_used=false. Request SHA-256 identik dengan evaluasi step 1.800: e4878282587164116459f1de23a62fb53ba8be1b4866a48166491181e1f25173. Kedua kandidat memenuhi gate. Jalankan selector resmi sebelum menetapkan kandidat terpilih. Belum ada review visual browser.
 
 ## Interaksi AI, penyebab selector mismatch
 
@@ -6694,7 +6694,7 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Dokumentasi: README API dan web menjelaskan pemeriksaan kemampuan serta perilaku preview; spesifikasi memperjelas bahwa pembayaran online di luar cakupan.
 - Pemeriksaan: review perubahan secara source-level dan git diff --check lulus. Tidak menjalankan test, build, lint, server, inference, training, atau membuka data test/final. Tidak ada pemeriksaan visual browser atau end-to-end.
 - Batas: frasa kemampuan yang terdeteksi hanya yang tercantum pada katalog. Sebutan yang dinegasikan tetap dapat memerlukan prompt yang dirumuskan ulang; pemeriksaan ini bukan pemahaman konteks bahasa.
-- Status: perbaikan source siap dicommit ke branch kerja; kelulusan build, integrasi live, dan kualitas visual belum dibuktikan.
+- Status: perbaikan source tercatat pada commit `e6c86e4` dan telah dipush. Kelulusan build, integrasi live, dan kualitas visual belum dibuktikan.
 
 ## AI-038, dokumentasi pengoperasian frontend
 
@@ -6702,4 +6702,803 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Tujuan: mendokumentasikan setup UI lokal dan memperbarui status source aplikasi sesuai implementasi pada branch.
 - Perubahan: README frontend menjelaskan salinan `.env.example`, instalasi dari lockfile, cara menjalankan UI, alamat konfigurasi FastAPI, perilaku riwayat lokal, batas inference, serta kapan generation dimulai. README root dan indeks dokumentasi merujuk ke panduan UI dan membedakan source implementasi dari runtime yang belum dijalankan. Metadata status pada spesifikasi diperbarui tanpa mengubah kontrak produk.
 - Pemeriksaan: review isi dokumen dan target link secara source-level. Tidak menjalankan command setup, server, build, lint, test, inference, atau evaluasi data test/final.
-- Status perubahan: siap dicommit dan dipush ke `feature/pipeline-data-model-training`.
+- Status perubahan: tercatat pada commit `095d2dc` dan telah dipush ke `feature/pipeline-data-model-training`.
+
+## RUN-601, pemeriksaan runtime lokal tanpa inference
+
+- Tanggal: 16 Oktober 2026, zona waktu Asia/Jakarta.
+- Tujuan: melanjutkan pekerjaan setelah implementasi aplikasi digabung ke `main`, dengan memeriksa kesiapan dependency dan menjalankan UI serta API lokal.
+- Batas pemeriksaan: tidak memanggil endpoint generation, tidak menjalankan training atau evaluasi final, dan tidak membuka data test/final.
+- Pemeriksaan yang direncanakan: cek import dependency FastAPI/Uvicorn/PyTorch, cek runtime Node/Next, jalankan server API dan UI, lalu akses health, catalog, intake validation tanpa membuat generation.
+- Preflight awal: Node `v22.23.3`, npm `11.6.0`, dan Next.js `v16.4.1` tersedia. FastAPI awalnya belum terpasang; port 3000 dan 8000 tidak memiliki listener saat diperiksa.
+- Dependency API: perintah `.\.venv\Scripts\python.exe -m pip install -r apps/api/requirements-api.txt` dicatat sebelum dijalankan dan selesai dengan exit code 0. Versi terpasang: FastAPI `0.143.1` dan Uvicorn `0.53.0`.
+- Environment model: PyTorch `2.14.1+cu130`, `torch.cuda.is_available()` mengembalikan `True`, perangkat terdeteksi sebagai NVIDIA GeForce RTX 5070. Pemeriksaan ini tidak menjalankan tensor generation atau inference.
+- Startup berikutnya: API memakai `.\.venv\Scripts\python.exe -m uvicorn apps.api.main:app --host 127.0.0.1 --port 8000 --workers 1`; UI memakai `npm run dev -- --hostname 127.0.0.1` dari `apps/web`.
+- Startup: FastAPI selesai startup di `http://127.0.0.1:8000` dan Next.js siap di `http://127.0.0.1:3000`; keduanya bind ke loopback.
+- HTTP: `GET /api/v1/health`, `GET /api/v1/catalog`, `GET /openapi.json`, dan `GET /` berhasil dengan status 200. Health tetap melaporkan `model_loaded: false` sebelum dan sesudah intake.
+- Intake browser: prompt generik membuka form klarifikasi. Setelah memasukkan fakta contoh fiktif `Kedai Demo`, validasi intake menghasilkan status `Siap ditinjau` dan menampilkan tombol persetujuan generation. Tombol tidak ditekan dan endpoint generation tidak dipanggil.
+- Visual: halaman awal, form fakta, ringkasan tervalidasi, dan batas persetujuan terlihat di browser pada viewport sekitar 624 × 858 piksel. Review ini mencakup alur intake; preview website hasil generation dan kualitas visual 95 persen belum dinilai.
+- Artefak dev: Next.js membuat `apps/web/AGENTS.md` saat startup. File panduan yang dibuat framework ini disertakan agar working tree kembali bersih.
+- Tidak dijalankan: build, lint, test suite, training, generation, inference, atau evaluasi final.
+- Status: startup lokal dan integrasi intake berhasil pada pemeriksaan ini; uji visual atas halaman hasil dan penilaian manusia tetap menunggu.
+
+## RUN-602, Origin routing precheck
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: local_api_proxy_red.
+- Hasil: GET Next.js `/api/v1/health` returned 404 while direct FastAPI health returned 200. This exposed the missing same-origin rewrite before public tunneling. No generation was triggered.
+
+## RUN-603, Python focused checks
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: source_bound_intake_tests.
+- Hasil: Command: `.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_intake tests.api.test_generation_request_id`. Result: 21 tests passed.
+
+## RUN-604, Frontend request checks
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: web_request_draft_tests.
+- Hasil: Command: `node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test apps/web/tests/request-draft.test.mjs`. Result: 3 tests passed.
+
+## RUN-605, Test selection attempt
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: lineage_test_selector_error.
+- Hasil: The dotted unittest selector used the wrong fixture class name and stopped with AttributeError before running the selected test. Corrected by invoking the test module in RUN-606.
+
+## RUN-606, Frozen training-lineage guard
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: source_bound_lineage_suite.
+- Hasil: Command: `.venv\Scripts\python.exe -m unittest tests.fullpage.test_source_bound_lineage`. Result: 13 passed, 1 error. The existing frozen profile file does not match its pinned checksum. No profile, hash, checkpoint, or training data was changed.
+
+## RUN-607, Frontend lint, first attempt
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: web_lint_ref_error.
+- Hasil: Command: `npm run lint`. Result: failed on `activeSessionIdRef.current` being updated during React render in `chat-shell.tsx`.
+
+## RUN-608, Frontend lint after ref fix
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: web_lint_ref_fix.
+- Hasil: Command: `npm run lint`. Result: passed after moving the ref update into an effect.
+
+## RUN-609, Production build, first attempt
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: web_build_summary_type_error.
+- Hasil: Command: `npm run build`. Compilation passed, then TypeScript failed because `summary` could be null in the result workspace event handler.
+
+## RUN-610, Frontend lint after result guard
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: web_lint_final.
+- Hasil: Command: `npm run lint`. Result: passed.
+
+## RUN-611, Frontend production build
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: web_build_final.
+- Hasil: Command: `npm run build`. Result: passed with Next.js 16.4.1; `/` and `/_not-found` were generated.
+
+## RUN-612, FastAPI local session
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: api_local_restart.
+- Hasil: Restarted API with `.venv\Scripts\python.exe -m uvicorn apps.api.main:app --host 127.0.0.1 --port 8000 --workers 1`. Startup passed. API remains bound to loopback.
+
+## RUN-613, Production frontend startup, first attempt
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: next_start_port_conflict.
+- Hasil: `npm run start -- --hostname 127.0.0.1` returned EADDRINUSE because the previous development server still owned port 3000. The old server session was stopped before retry.
+
+## RUN-614, Production frontend session
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: next_production_local.
+- Hasil: Restarted with `npm run start -- --hostname 127.0.0.1`. Next.js 16.4.1 reported ready at `http://127.0.0.1:3000`.
+
+## RUN-615, Local app routes
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: same_origin_proxy_smoke.
+- Hasil: GET `/api/v1/health`, `/api/v1/catalog`, and `/` through port 3000 all returned 200. Health was `ok`; model was unloaded before the first request. The rewrite reached FastAPI.
+
+## RUN-616, Local UI model generation
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: local_ui_generation.
+- Hasil: Submitted a user-confirmed fictitious Kedai Demo landing page through the browser UI. Intake and generation returned 200. TRAIN-025 step 1800 accepted 9 sections, first-attempt success true, 10 stages including plan plus 9 sections, 1637 generated tokens, no stage errors. Output: `outputs/webapp/generations/bbfb4be1-9e5f-4ce2-84f6-b3eafb47b1da`.
+
+## RUN-617, Generated artifact check
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: preview_and_zip_verification.
+- Hasil: Browser loaded preview HTML, CSS, JavaScript, and local SVG successfully. Mobile preview was visually inspected; browser console had no errors. Summary status was completed. ZIP returned 200, `application/zip`, 8268 bytes. This is one fictitious demo, not a visual quality score.
+
+## RUN-618, Tunnel configuration check
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: ngrok_config_preflight.
+- Hasil: `ngrok config check` reported a valid local configuration. No tunnel was opened.
+
+## RUN-619, Tunnel capability check
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 14:57, Asia/Jakarta.
+- Perintah atau proses: ngrok_policy_preflight.
+- Hasil: `ngrok http --help` confirmed support for `--traffic-policy-file`. Official Next.js and ngrok docs were reviewed for rewrites and Basic Auth. No public endpoint was created.
+
+## AI-040, uji generation lokal dan kesiapan tunnel
+
+# AI-040, uji generation lokal dan kesiapan tunnel
+
+- Tanggal: 16 Oktober 2026, zona waktu Asia/Jakarta.
+- Permintaan: setelah aplikasi siap, uji generation model lokal, jalankan FastAPI di komputer ini, lalu siapkan tunnel ngrok dan beri tahu pengguna.
+- Tujuan debugging: menutup kegagalan request ID, intake yang belum meminta fakta sesuai kontrak source-bound, dan origin API yang tidak bisa dipakai melalui tunnel frontend.
+- Perubahan terpilih: API mempertahankan request ID intake yang tervalidasi; validator intake meminta fakta minimum menurut jenis halaman dan menormalisasi ID fakta UI ke ID yang dipakai model; form meminta nilai usaha, tiga layanan, tiga langkah proses, serta tiga FAQ untuk landing page atau dua proyek untuk company profile, dan memilih aset lokal yang sesuai; Next.js meneruskan `/api/*` ke FastAPI loopback; ref sesi dipindah dari render ke effect dan callback workspace menjaga null-safety.
+- Keputusan yang tidak diambil: tidak mengubah profil training yang checksum-nya terkunci; tidak menjalankan training atau membuka data test/final; tidak mengubah API agar bind ke alamat publik.
+- Verifikasi: 21 tes intake/API dan 3 tes request frontend lulus; lint dan production build lulus; health, catalog, dan halaman Next.js memberi 200; generation UI memakai TRAIN-025 step 1800 dan diterima sebagai 9 section; preview mobile tampil; ZIP 200; browser console tanpa error.
+- Batas: hasil generation hanya satu usaha fiktif untuk uji jalur lokal. Ini bukan evaluasi development baru, review manusia, atau bukti target visual 95 persen.
+- Status tunnel: konfigurasi ngrok valid dan Traffic Policy tersedia. Endpoint belum dibuka. Pemeriksaan menemukan aturan saat-action confirmation untuk public exposure, sehingga persetujuan spesifik diminta sebelum membuka URL publik. FastAPI tetap lokal.
+- Lokasi catatan interaksi: `logs/interaksi_llm/AI-040_2026-10-16.md`. Share link tidak dibuat.
+
+## RUN-620, commit dan push aplikasi lokal
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 15:00, Asia/Jakarta.
+- Perintah: `git commit -m "feat: enable local full-page model generation"` lalu `git push origin feature/pipeline-data-model-training`.
+- Hasil: commit `b4cc624` berhasil dipush ke branch `feature/pipeline-data-model-training`. Pesan commit tidak memiliki trailer co-author. Working tree bersih setelah push.
+- Cakupan: perbaikan intake dan request ID, proxy Next.js ke API loopback, kesiapan UI, test regresi, dokumentasi, dan log RUN/AI-040.
+
+## RUN-621, pemeriksaan proses ngrok pertama
+
+- Tanggal: 16 Oktober 2026, sekitar 15:00, Asia/Jakarta.
+- Perintah: audit PowerShell untuk proses ngrok dan listener aplikasi.
+- Hasil: command berhenti di parser sebelum pemeriksaan berjalan karena elemen pipe kosong. Dicoba ulang dengan RUN-622.
+
+## RUN-622, pemeriksaan proses ngrok dan listener
+
+- Tanggal: 16 Oktober 2026, sekitar 15:00, Asia/Jakarta.
+- Perintah: audit proses ngrok dan listener port 3000 serta 8000.
+- Hasil: tidak ada proses ngrok; Next.js mendengarkan di `127.0.0.1:3000` dan FastAPI di `127.0.0.1:8000`. Tidak ada endpoint publik yang aktif.
+
+## RUN-623, tunnel ngrok terlindungi dimulai
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 15:05, Asia/Jakarta.
+- Proses: ngrok v3.39.11 dengan Traffic Policy Basic Auth meneruskan Next.js pada 127.0.0.1:3000. Inspeksi request ngrok dinonaktifkan.
+- Hasil: sesi tunnel tersambung dan endpoint HTTPS dibuat. URL publik serta kredensial tidak disimpan di log atau repository.
+- Batas akses: hanya frontend yang diteruskan. FastAPI tetap di 127.0.0.1:8000.
+
+## RUN-624, pemeriksaan akses endpoint tunnel
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 15:06, Asia/Jakarta.
+- Pemeriksaan: akses tanpa autentikasi dan dengan Basic Auth ke halaman utama; health dan catalog melalui proxy same-origin; target tunnel; serta alamat listener FastAPI.
+- Hasil: halaman tanpa autentikasi mendapat HTTP 401; halaman terautentikasi mendapat HTTP 200; health dan catalog terautentikasi mendapat HTTP 200. Target ngrok adalah http://127.0.0.1:3000, sementara FastAPI hanya mendengarkan di 127.0.0.1.
+- Batas: ini membuktikan proteksi akses dasar dan konektivitas saat diperiksa, bukan inference jarak jauh atau uji beban. URL dan kredensial tidak dicatat.
+
+## RUN-625, rotasi kredensial tunnel
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 15:09, Asia/Jakarta.
+- Proses: endpoint pertama dihentikan dan Traffic Policy Basic Auth sementara diperbarui sebelum kredensial disampaikan kepada pengguna.
+- Hasil: tunnel baru tersambung ke Next.js pada loopback port 3000. Detail URL dan rahasia tidak disimpan.
+- Batas: FastAPI tetap lokal pada loopback port 8000. Tidak ada generation tambahan.
+## RUN-626, pemeriksaan ulang tunnel setelah rotasi
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 15:10, Asia/Jakarta.
+- Pemeriksaan: akses publik tanpa dan dengan Basic Auth, health dan catalog API, target tunnel, serta alamat listener FastAPI.
+- Hasil: halaman tanpa autentikasi mendapat HTTP 401; halaman, health, dan catalog dengan autentikasi mendapat HTTP 200. Tunnel menuju 127.0.0.1:3000 dan FastAPI hanya mendengarkan di 127.0.0.1:8000.
+- Batas: tidak menjalankan generation baru, inference jarak jauh, atau uji beban. URL dan kredensial tidak dicatat.
+## RUN-627, Basic Auth diubah ke kredensial pilihan pengguna
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 15:17, Asia/Jakarta.
+- Permintaan: gunakan pasangan Basic Auth pilihan pengguna untuk akses demo.
+- Proses: tunnel sebelumnya dihentikan, policy sementara diperbarui, lalu tunnel baru dimulai menuju Next.js loopback port 3000.
+- Hasil: endpoint baru aktif. Kredensial tidak dimasukkan ke log atau repository.
+- Catatan: password pilihan pengguna mudah ditebak, sehingga hanya disarankan untuk demo sementara. FastAPI tetap lokal.
+## RUN-628, verifikasi Basic Auth kustom
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 15:18, Asia/Jakarta.
+- Pemeriksaan: akses root tanpa autentikasi dan dengan kredensial pilihan pengguna; health dan catalog API; target tunnel; serta alamat listener FastAPI.
+- Hasil: tanpa autentikasi mendapat HTTP 401; root, health, dan catalog terautentikasi mendapat HTTP 200. Tunnel menuju 127.0.0.1:3000; FastAPI hanya mendengarkan di 127.0.0.1:8000.
+- Batas: tidak menjalankan generation baru, inference, atau uji beban. Password tidak dicatat.
+## RUN-629, preflight Cloudflare Tunnel terlindungi email
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 15:20, Asia/Jakarta.
+- Pemeriksaan awal: cloudflared 2026.3.0 tidak mendukung flag pembatas email OTP.
+- Perubahan: cloudflared diperbarui melalui winget ke versi 2026.10.1; flag allowed-mail tersedia.
+- Hasil: kesiapan Quick Tunnel terverifikasi. Tunnel Cloudflare belum dibuka karena alamat email penerima OTP belum diberikan secara lengkap. Tunnel ngrok yang sudah terlindungi tetap berjalan.
+- Kredensial dan alamat email tidak disimpan di repository.
+## RUN-630, Cloudflare Quick Tunnel dengan OTP email
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 17:22, Asia/Jakarta.
+- Permintaan: jalankan tunnel Cloudflare menuju Next.js lokal, dibatasi OTP email untuk alamat yang diberikan pengguna.
+- Proses: cloudflared 2026.10.1 diteruskan ke 127.0.0.1:3000 dengan allowed-mail. Alamat email dan URL publik tidak dicatat di repository.
+- Hasil: koneksi tunnel terdaftar; akses tanpa autentikasi diarahkan ke alur Cloudflare Access (HTTP 302). FastAPI tetap di 127.0.0.1:8000, dan tunnel ngrok tetap aktif.
+- Batas: belum menjalankan generation atau inference baru.
+
+## RUN-631, analisis model dan desain prompt-first
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 17:25, Asia/Jakarta.
+- Permintaan: sederhanakan chat generator, kurangi pertanyaan berulang, dan analisis kemampuan model menerima fakta melalui satu prompt.
+- Temuan: form UI mewajibkan fakta per bagian; endpoint intake hanya memvalidasi draft dan tidak mengekstrak fakta dari prompt. Checkpoint saat ini dilatih untuk PagePlan dan SectionDraft, bukan ekstraksi RequestDraft. Renderer menyusun HTML, CSS, dan JavaScript.
+- Artefak: draft desain prompt-first dan intake ringkas dibuat di `docs/superpowers/specs/2026-10-16-prompt-first-intake-design.md`.
+- Status: menunggu review desain serta persetujuan pengguna. Belum mengubah kode aplikasi, API, training, atau checkpoint, dan tidak menjalankan inference baru.
+
+## RUN-632, revisi analisis prompt-first dan validasi bukti fakta
+
+- Tanggal dan waktu: 16 Oktober 2026, sekitar 17:33, Asia/Jakarta.
+- Pemicu: pengguna menjelaskan bahwa pengisian fakta halaman yang berulang terasa terlalu panjang dan meminta analisis apakah model cukup menerima seluruh fakta itu.
+- Pemeriksaan tambahan: kontrak source-bound mewajibkan fakta untuk role halaman. Copy catalog memakai nilai fakta yang diberikan, sedangkan resolver menempatkan nilai ke komponen lokal. Model saat ini tidak mengekstrak nilai fakta dari prompt bebas.
+- Revisi desain: tegaskan bahwa 2.048 token bukan bukti kemampuan ekstraksi; budget prompt efektif dihitung setelah instruksi dan output JSON. Draft extractor mengembalikan nilai salinan persis, server mencocokkan nilai ke brief dan membuat rentang bukti sendiri. Brief dibatasi keras 4.000 karakter dan ditolak bila tidak muat, tanpa pemotongan diam-diam.
+- Gate eksperimen yang diusulkan: precision exact-value minimal 95 persen, recall fakta eksplisit minimal 90 persen, nol fakta tanpa bukti valid, dan development generation gate yang ada tetap lulus. Checkpoint extractor dipisah dari checkpoint generator TRAIN-025 step 1800.
+- Status: menunggu review independen putaran kedua dan persetujuan pengguna. Tidak ada kode, training, atau inference yang dijalankan. Final tetap tertutup.
+
+## RUN-633, provenance prompt-first dan audit development gate
+
+- Tanggal/waktu: 16 Oktober 2026, sekitar 17:52, Asia/Jakarta.
+- Pemicu: review independen putaran keenam meminta aturan deterministik untuk mention capability berulang, bukti sumber dari beberapa pesan, dan audit pemisahan keluarga development.
+- Revisi desain: intake memakai pesan terstruktur dengan format kanonis berversi dan segment map server. Fakta serta mention menyebut ID pesan; server memverifikasi kutipan, mengembalikan atribusi sumber, dan menyediakan rentang UTF-16 untuk UI serta rentang Python untuk validator. Koreksi harus mengacu pada tepat satu fakta lama dan menempatkan pengganti serta cue koreksi dalam pesan yang sama.
+- Revisi capability: hanya ID unsupported yang diketahui boleh menjadi requested feature. Mention dinilai per kejadian; satu mention aktif memblokir generation, unclear meminta klarifikasi, dan semua mention nonaktif tidak memblokir. False-rejection dihitung per keluarga prompt unik dengan denominator known-catalog, out-of-catalog, dan unclear terpisah.
+- Revisi data: manifest beku dan skrip audit harus membuktikan keluarga sumber serta pola prompt development tidak beririsan dengan TRAIN-025 atau partisi extractor. Hitungan gate memakai keluarga unik, bukan baris.
+- Status: menunggu review independen lanjutan dan persetujuan pengguna. Tidak mengubah aplikasi, API implementasi, model, atau checkpoint; tidak menjalankan inference/training. Partisi final tetap tertutup.
+
+## RUN-634, kontrak input extractor dan occurrence mapping
+
+- Tanggal/waktu: 16 Oktober 2026, sekitar 17:54, Asia/Jakarta.
+- Pemicu: review independen meminta kepastian bahwa ID pesan terlihat oleh extractor serta mention identik dapat dipetakan ke occurrence yang tepat.
+- Revisi desain: `request_extract` menerima serialized structured-message JSON berversi yang sama pada training dan inference. Segment map dari objek pesan asli tetap menjadi sumber bukti authoritative.
+- Revisi mention: catatan capability dan out-of-catalog menyertakan `occurrence_index` berbasis nol untuk phrase identik pada pesan sumber. Catatan duplikat atau mismatch jumlah occurrence meminta klarifikasi.
+- Status: menunggu review independen final dan persetujuan pengguna. Tidak mengubah aplikasi/API/model, tidak menjalankan inference/training. Partisi final tetap tertutup.
+
+## RUN-635, resolusi konflik genre dan style
+
+- Tanggal/waktu: 16 Oktober 2026, sekitar 17:56, Asia/Jakarta.
+- Pemicu: review independen menandai bahwa enum genre/style yang didukung bisa menyembunyikan konflik antar-giliran jika extractor hanya memberi satu nilai.
+- Revisi desain: extractor melaporkan mention genre/style satu per kemunculan dengan enum, phrase sumber, ID pesan, dan intent. Server memakai default hanya jika tak ada mention aktif. Nilai aktif yang berbeda memerlukan koreksi eksplisit tervalidasi atau meminta klarifikasi; nilai terbaru tidak menang otomatis.
+- Revisi evaluasi: alias setting dibekukan dalam catalog berversi dan contoh minimum/gate development memasukkan konflik serta koreksi genre/style.
+- Status: menunggu review independen final dan persetujuan pengguna. Tidak mengubah aplikasi/API/model, tidak menjalankan inference/training. Partisi final tetap tertutup.
+
+## RUN-636, pembatalan capability dan klarifikasi setting
+
+- Tanggal/waktu: 16 Oktober 2026, sekitar 18:00, Asia/Jakarta.
+- Pemicu: review independen meminta alur pembatalan permintaan unsupported lintas giliran serta validasi nilai lama saat koreksi genre/style.
+- Revisi desain: capability `retracted` harus mengikuti permintaan aktif sebelumnya, dibuktikan dengan cue allowlist dalam pesan berikutnya, dan menonaktifkan status hingga ada permintaan aktif baru. Campuran request/retraction satu pesan meminta klarifikasi.
+- Revisi evaluasi: sedikitnya 50 keluarga untuk pembatalan known dan out-of-catalog; retraction-overblocking memiliki denominator dan gate sendiri.
+- Revisi setting: koreksi harus menunjuk setting aktif terdahulu yang sudah terselesaikan; retraction tanpa replacement meminta klarifikasi dan tidak menerapkan default diam-diam.
+- Kontrak input: extractor menerima struktur pesan ber-ID; `canonical_prompt` server digunakan `RequestDraft`, validasi, dan generation dengan isi dan urutan yang sama.
+- Status: menunggu konfirmasi reviewer dan persetujuan pengguna. Tidak mengubah aplikasi/API/model, tidak menjalankan inference/training. Partisi final tetap tertutup.
+
+## RUN-637, gate untuk pembatalan genre/style
+
+- Tanggal/waktu: 16 Oktober 2026, sekitar 18:03, Asia/Jakarta.
+- Pemicu: reviewer meminta bucket development eksplisit bagi setting genre/style yang diretract tanpa pengganti.
+- Revisi gate: minimal 50 keluarga unik; 100 persen harus menghasilkan `needs_clarification`, tanpa mempertahankan setting lama atau memilih default secara diam-diam.
+- Status: menunggu konfirmasi reviewer singkat dan persetujuan pengguna. Tidak mengubah aplikasi/API/model, tidak menjalankan inference/training. Partisi final tetap tertutup.
+
+## RUN-638, review spesifikasi prompt-first selesai
+
+- Tanggal/waktu: 16 Oktober 2026, sekitar 18:05, Asia/Jakarta.
+- Hasil: reviewer independen menyatakan spesifikasi siap untuk persetujuan pengguna setelah kontrak provenance, setting, pembatalan capability, dan gate evaluasi dilengkapi.
+- Batas: perubahan hanya pada dokumen dan log. Implementasi aplikasi/API/model belum dimulai. Tidak menjalankan test, training, inference, atau membuka partisi final.
+- Status: menunggu keputusan pengguna atas scope sebelum scaffolding implementasi.
+
+## RUN-639, review akhir prompt-first siap untuk persetujuan pengguna
+
+- Tanggal/waktu: 16 Oktober 2026, sekitar 18:05, Asia/Jakarta.
+- Hasil review final: gate untuk retraction genre/style tanpa pengganti memiliki bucket minimal 50 keluarga dan target klarifikasi 100 persen. Reviewer menyatakan spesifikasi siap untuk persetujuan pengguna.
+- Status: dokumen sudah didorong ke branch fitur; menunggu keputusan jumlah fakta wajib sebelum implementasi. Belum mengubah aplikasi, API implementasi, extractor, atau checkpoint. Tidak menjalankan test/training/inference. Partisi final tetap tertutup.
+
+## RUN-640, preflight implementasi prompt-first
+
+- Tanggal/waktu: 16 Oktober 2026, 22:09, Asia/Jakarta.
+- Branch dan kondisi awal: `feature/pipeline-data-model-training`, bersih pada `fe388d1`; spesifikasi prompt-first telah disetujui dan pengguna memilih mempertahankan seluruh fakta wajib.
+- Audit sumber: TRAIN-025 step 1800 menghasilkan PagePlan dan SectionDraft dari RequestDraft terstruktur. Kode tidak memuat task `request_extract`; API dan composer membatasi prompt ke 1.000 karakter, konteks model 2.048 token.
+- Keputusan: siapkan extractor terpisah dengan bukti sumber, gated development-only, dan fallback editor manual. Tidak mengubah generator halaman atau membuka partisi final.
+- Rencana: `docs/superpowers/plans/2026-10-16-prompt-first-intake.md`; workspace ledger berada di `.superpowers/sdd/2026-10-16-prompt-first-intake/progress.md`.
+- Catatan tool: skrip workspace skill memakai Bash, tetapi pemanggilan dari PowerShell gagal menyelesaikan path Windows. Workspace ledger dibuat manual di lokasi yang sama. Ini tidak mengubah repo atau data.
+- Batas verifikasi: hanya inspeksi sumber, kontrak, manifest training, dan spesifikasi. Tidak menambah atau menjalankan test, training, inference, build, atau evaluasi. Final/test tetap tertutup.
+- Status: implementasi belum dimulai.
+
+## RUN-641, rencana prompt-first dipublikasikan
+
+- Tanggal/waktu: 16 Oktober 2026, 22:12, Asia/Jakarta.
+- Perubahan: rencana lima task dan arah visual ditambahkan ke dokumentasi serta indeks docs.
+- Pemeriksaan: `git diff --check` lulus; tidak menjalankan test, build, training, atau inference.
+- Commit: `9af289c docs: plan prompt-first intake implementation`.
+- Push: berhasil ke `origin/feature/pipeline-data-model-training`.
+- Status: Task 1 implementasi kontrak extractor dan corpus menjadi langkah berikutnya.
+
+## RUN-642, corpus extractor prompt-first diaudit
+
+- Tanggal/waktu: 16 Oktober 2026, 22:34, Asia/Jakarta.
+- Keputusan pengguna yang dibawa ke implementasi: pertahankan semua fakta wajib. Sederhanakan pengalaman menjadi satu brief bebas dan satu klarifikasi gabungan, lalu tampilkan review fakta bersumber sebelum generation.
+- Perubahan: kontrak extractor `request-extract-v1`, generator corpus terisolasi, development sintetis, audit lineage/token/provenance, dan notebook inspeksi dibuat. Layanan/proses/FAQ/proyek menggunakan scope per posisi agar target tidak menghabiskan konteks.
+- Hasil: 84.320 baris lokal. Audit lulus atas 240 keluarga train dan 950 keluarga development. Lima belas bucket safety masing-masing memiliki 50 keluarga unik. Total prefix plus budget terbesar adalah 1.952 dari 2.048 token.
+- Batas bukti: belum menjalankan training atau inference. Corpus belum ditinjau manusia. Final/test tetap tertutup. Extractor belum diintegrasikan dan belum menjadi default aplikasi.
+- RUN-642 mencatat kegagalan pemanggilan, perubahan scope, hash, audit, storage, dan langkah berikutnya.
+
+## RUN-643, persiapan trainer extractor
+
+- Tanggal/waktu: 16 Oktober 2026, 22:52, Asia/Jakarta.
+- Keputusan pengguna tetap berlaku: semua fakta wajib dipertahankan. Pengalaman yang dituju mengumpulkan satu brief bebas, mengajukan satu klarifikasi gabungan, lalu menampilkan review fakta dengan bukti sumber sebelum pembuatan halaman.
+- Kode trainer terpisah dikunci ke dua kandidat, update 1.800 dan exact resume sampai 3.600. Evaluasi development melaporkan latensi per brief untuk enam belas scope internal.
+- Pemeriksaan statis menemukan dan memperbaiki penggunaan collator list pada dataset tensor. Bytecode compilation dan pemeriksaan whitespace lulus.
+- Belum ada preflight GPU, training, inference, evaluasi extractor, atau integrasi API/UI. Extractor belum dipromosikan. Final/test tetap tertutup.
+- Rincian teknis tercatat append-only di `logs/RUN-643_request_extract_trainer_prep.txt`.
+
+## RUN-644, konfigurasi parent extractor gagal aman
+
+- Tanggal/waktu: 16 Oktober 2026, 22:53, Asia/Jakarta.
+- Generator konfigurasi berhenti sebelum menulis config karena verifier meminta nama field yang tidak ada pada laporan seleksi parent. Laporan menunjukkan `complete=80`, `required_roles=80`, dan `model_gate=true`.
+- Tidak ada perubahan pada dataset atau checkpoint, tidak ada training/inference, dan final/test tetap tertutup.
+- Langkah lanjut: perbaiki verifier sesuai format report yang dibekukan, lalu ulang konfigurasi dengan tujuan yang masih kosong. Catatan lengkap ada di `logs/RUN-644_request_extract_config_attempt.txt`.
+
+## RUN-645, konfigurasi extractor dibekukan
+
+- Tanggal/waktu: 16 Oktober 2026, 22:54, Asia/Jakarta.
+- Setelah field verifier dicocokkan dengan laporan seleksi yang benar, config berhasil dibentuk dan mengikat 16 scope, data extractor, tokenizer, source code, serta parent TRAIN-025 step 1.800.
+- SHA-256 config `15ac854334e31c64b5a2adffbfcdb90efc8ce697101ae4db18f339fe9a9b83bb`; reserve yang dibekukan 15 GiB; training direncanakan 3.600 update dengan checkpoint per 1.800.
+- Belum menjalankan GPU preflight atau update disposable, training, inference, development scoring, atau selection. Final/test tetap tertutup.
+- Rincian: `logs/RUN-645_request_extract_config_frozen.txt`.
+
+## RUN-646, preflight RTX 5070 akan dijalankan
+
+- Tanggal/waktu: 16 Oktober 2026, 22:55, Asia/Jakarta.
+- Kode dan config sudah dipush pada commit `0dd9a84`. Laporan preflight belum ada.
+- Preflight memakai satu update disposable pada batch train terpanjang untuk mengukur GPU dan menyaring kemampuan storage sebelum training. Tidak menyimpan checkpoint.
+- Development dibaca untuk lineage/loader, tetapi tidak dipakai untuk update atau inference. Final/test tetap tertutup.
+- Rincian: `logs/RUN-646_request_extract_preflight_launch.txt`.
+
+## RUN-647, preflight RTX 5070 lulus
+
+- Tanggal/waktu: 16 Oktober 2026, 22:59, Asia/Jakarta.
+- GPU RTX 5070, BF16, batch terpanjang 8 x 1.813 token, dan satu update disposable lulus. Durasi langkah 0.7401 detik. Tidak ada update yang disimpan.
+- GPU headroom setelah peak 9,683,599,360 byte. Ruang disk tetap 17,568,006,144 byte sesudah preflight; guard membandingkan reserve 15 GiB, estimasi checkpoint, dan headroom 345,034,752 byte.
+- Angka loss preflight tidak dipakai sebagai hasil model. Development hanya dimuat untuk loader/lineage. Final/test tetap tertutup.
+- Rincian ada di `logs/RUN-647_request_extract_preflight_pass.txt`.
+
+## RUN-648, extractor step 1.800 diluncurkan
+
+- Tanggal/waktu: 16 Oktober 2026, 23:00, Asia/Jakarta.
+- Setelah pemeriksaan ruang terbaru dan ketiadaan output run, training fresh dimulai dari parent TRAIN-025 step 1.800 dengan target tepat global step 1.800.
+- Validation CE memakai development tanpa gradient update. Tidak ada generator inference atau akses final/test.
+- Detail command dan pengamanan storage tercatat di `logs/RUN-648_reqext_1800_launch.txt`.
+
+## RUN-649, attempt pertama berhenti di batas epoch
+
+- Tanggal/waktu: 16 Oktober 2026, 23:14, Asia/Jakarta.
+- Training berhenti pada global step 1.440 dengan batch kosong. Penelusuran kode mengonfirmasi iterator dasar memakai satu permutation dataset, sedangkan sampler extractor mengubah jumlah batch menjadi jumlah ceil per bucket tanpa override iterator. Implementasi `TaskBatchSampler` menunjukkan pola override yang benar.
+- Last committed checkpoint masih step 0 dan seluruh artefak dipertahankan. Ruang disk F: 17,394,282,496 byte.
+- Akan diperbaiki dengan iterator resumable per bucket dan checkpoint pemulihan tiap 300 update. Kandidat tetap dibandingkan pada 1.800 dan 3.600. Tidak ada inference atau pembukaan final/test.
+- Rincian: `logs/RUN-649_reqext_1800_failed_sampler.txt`.
+
+## RUN-650, iterator diperbaiki dan config r1 dibekukan
+
+- Tanggal/waktu: 16 Oktober 2026, 23:16, Asia/Jakarta.
+- Akar error telah dipetakan ke iterator dataloader yang mengabaikan batch per-bucket. Extractor kini memakai iterator resumable dari bucket yang sebenarnya.
+- Dibekukan config baru `training-request-extract-v1-r1.json`, SHA-256 `9bc454c2eeb420e48136b356bfd14e0a38d23039e7fd79d37bce38ac6d93cee0`. Config lama dan bukti run gagal tidak dihapus.
+- Checkpoint pemulihan dijadwalkan setiap 600 update; perbandingan kandidat tetap pada 1.800 dan 3.600.
+- Belum ada preflight r1, retry training, generation/inference, atau akses final/test. Rincian: `logs/RUN-650_reqext_sampler_fix_config_r1.txt`.
+
+## RUN-651, preflight r1 akan dijalankan
+
+- Tanggal/waktu: 16 Oktober 2026, 23:17, Asia/Jakarta.
+- Perbaikan iterator dan config r1 sudah dipush pada commit `59dab7e`.
+- Preflight mengukur batch train terpanjang dan pemeriksaan GPU/storage memakai report baru yang belum ada. Failed attempt1 tetap dipertahankan.
+- Training retry akan bergantung pada preflight. Final/test tetap tertutup.
+- Rincian: `logs/RUN-651_request_extract_preflight_r1_launch.txt`.
+
+## RUN-652, preflight r1 lulus
+
+- Tanggal/waktu: 16 Oktober 2026, 23:20, Asia/Jakarta.
+- GPU RTX 5070/BF16 dan satu update disposable pada batch 8 x 1.813 token lulus. Durasi 0.5829 detik, tanpa menyimpan update atau checkpoint.
+- GPU headroom 9,683,599,360 byte. Disk free sesudah preflight 17,393,664,000 byte. Margin di atas reserve ditambah conservative checkpoint estimate adalah 170,696,704 byte.
+- Attempt1 tetap dipertahankan. Development tidak dipakai untuk update atau inference; final/test tertutup.
+- Catatan lengkap: `logs/RUN-652_request_extract_preflight_r1_pass.txt`.
+
+## RUN-653, retry step 1.800 diluncurkan
+
+- Tanggal/waktu: 16 Oktober 2026, 23:21, Asia/Jakarta.
+- Failed attempt 1 diarsip lokal dengan sebelas artefak dan manifest hash, tidak dihapus. Canonical run/report paths sudah kosong.
+- R1 preflight lulus. Retry dimulai fresh dari parent TRAIN-025 step 1.800 menggunakan recovery checkpoint setiap 600 update.
+- Storage free 17,393,397,760 byte sebelum training. Final/test tertutup.
+- Rincian config dan arsip: `logs/RUN-653_reqext_1800_retry_launch.txt`.
+
+## RUN-654, tahap training step 1.800 selesai
+
+- Tanggal/waktu: 16 Oktober 2026, 23:36, Asia/Jakarta.
+- Retry berhasil melewati batas epoch tanpa batch kosong dan mencapai step 1.800. Checkpoint terverifikasi dengan SHA-256 `ed3c98d2da77998c257230bef3a93e24479aa67971664c1fa8d384b46a287b21`.
+- Development CE awal 5.7648 dan 1.800 sebesar 1.4614. Ini hanya CE pada development, belum membuktikan ekstraksi fakta ataupun kualitas halaman.
+- Belum ada extractor generation. Final/test tetap tertutup. Laporan lengkap ada di `logs/RUN-654_reqext_1800_training_pass.txt`.
+
+## RUN-655, evaluasi development step 1.800 diluncurkan
+
+- Tanggal/waktu: 16 Oktober 2026, 23:37, Asia/Jakarta.
+- Snapshot weights-only baru dan output evaluasi dipastikan belum ada.
+- Raw extractor akan menjalankan 15.200 scope pada synthetic development untuk mengukur fakta bersumber, field exactness, safety buckets, dan latensi per brief.
+- Report ini belum melewati safety resolver API dan tidak dapat mempromosikan extractor. Final/test tetap tertutup.
+- Rincian: `logs/RUN-655_reqext_1800_development_eval_launch.txt`.
+
+## RUN-656, API extraction source-grounded
+
+- Tanggal/waktu: 16 Oktober 2026, 23:55, Asia/Jakarta.
+- Pengguna ingin alur brief bebas dan satu klarifikasi sambil tetap mempertahankan semua fakta wajib. API kini menerima riwayat pesan terstruktur, memeriksa span sumber, menampilkan konflik, dan memakai satu lock untuk dua model.
+- Batas prompt generation diselaraskan menjadi 4.000 karakter. OpenAPI dan kompilasi statis lulus; PyTorch belum dimuat saat startup. Ruff tidak terpasang, test suite dan API inference tidak dijalankan.
+- Evaluasi raw step 1.800 masih berlangsung pada development. Fitur tetap fail-closed sampai API safety gate serta selection lulus. Final/test tertutup.
+- Catatan lengkap: `logs/RUN-656_prompt_first_extraction_api_implementation.txt`.
+
+## AI-041, evaluasi keselamatan resolver API
+
+- Tanggal/waktu: 17 Oktober 2026, 00:05, Asia/Jakarta.
+- Konteks: pengguna ingin mengirim satu brief bebas dan mempertahankan seluruh fakta wajib, dengan satu klarifikasi gabungan. Extractor perlu melewati pemeriksaan resolver API sebelum dapat dipilih.
+- Perubahan: ditambahkan `qa/evaluate_request_extract_api_v1.py` untuk menggabungkan hasil development beku dari enam belas scope dan memutarnya melalui resolver produksi tanpa menjalankan inference model. Skrip mengikat hash checkpoint, config, corpus, dan manifest, memeriksa bukti sumber, status klarifikasi, koreksi, unsupported, serta setiap bucket minimal lima puluh keluarga.
+- Gate diperketat agar semua brief dengan maksud fitur yang ambigu meminta klarifikasi. Keluaran yang tidak punya bukti sumber, lolos sebagai unsupported request aktif, atau salah menghubungkan artefak development akan gagal tertutup.
+- Validasi saat ini: `py_compile` dan `git diff --check` lulus. Replay API belum dijalankan karena raw inference development 15.200 baris masih berjalan. Belum ada seleksi atau promosi extractor. Final/test tetap tertutup.
+- Perubahan yang tidak dipilih: tidak mengulangi inference GPU di gate API, tidak mengubah checkpoint/config/data, dan tidak membuat extractor otomatis aktif sebelum seluruh gate lulus.
+- Referensi: `qa/evaluate_request_extract_api_v1.py`; tidak ada tautan berbagi atau ekspor sesi.
+
+## AI-042, penyederhanaan chat prompt-first
+
+- Tanggal/waktu: 17 Oktober 2026, 00:17, Asia/Jakarta.
+- Konteks: pengguna merasa intake terlalu banyak bertanya dan meminta chat serta UI/UX yang lebih ringkas. Fakta lengkap tetap wajib, satu balasan klarifikasi gabungan diperbolehkan, dan halaman hanya dibuat setelah fakta diperiksa.
+- Perubahan: brief bebas menjadi titik awal, tiga contoh prompt tetap tersedia, composer dibatasi 4.000 karakter, pesan sesi dikirim sebagai riwayat terstruktur ke endpoint ekstraksi, sumber fakta dapat diperiksa, dan balasan tidak lengkap kedua membuka editor hanya untuk bagian yang masih kurang. API tidak membuat halaman selama ekstraksi.
+- Pengamanan: semua nilai tetap harus bersumber dari pesan pengguna dan melewati validasi intake yang ada. Jika extractor belum tersedia, brief disimpan dan editor manual dibuka. Ekstraksi otomatis tetap bergantung pada gate development dan seleksi kandidat.
+- Tampilan: tema kertas hangat dan hijau diterapkan. Review browser pada sesi kosong menunjukkan satu area prompt, tiga contoh, status satu klarifikasi, dan preview kosong sebelum generation. Ukuran default sekitar 624 x 864 dan viewport desktop 1440 x 900 ditinjau; viewport dikembalikan ke ukuran default.
+- Verifikasi: TypeScript, ESLint, production build, dan `git diff --check` lulus. Review UI tidak mengirim prompt dan tidak memanggil endpoint ekstraksi atau generation. Raw evaluation development yang terpisah masih berjalan pada checkpoint step 1.800.
+- Batas bukti: kandidat belum dipromosikan, jadi kecukupan model belum dinyatakan. Hasil generate end-to-end belum diperiksa melalui alur prompt baru. Final/test tetap tertutup.
+- Referensi run: `logs/RUN-657_prompt_first_ui_build_review.txt`.
+
+## AI-043, sinkronisasi dokumentasi dan status gate
+
+- Tanggal/waktu: 17 Oktober 2026, 00:21, Asia/Jakarta.
+- README root, docs, aplikasi web, dan API membedakan TRAIN-025 sebagai generator draft terstruktur dari kandidat REQUEST-EXTRACT-V1 untuk brief bebas.
+- Dokumentasi menjelaskan training dari keluarga train saja, gate raw dan API, seleksi paket, lazy-load dengan lock bersama, fallback manual, satu klarifikasi gabungan, dan persetujuan generation.
+- Status UI build, review browser, extractor yang belum dipromosikan, serta test/final yang tetap tertutup dicatat sesuai bukti. Tidak ada klaim end-to-end baru atau target visual 95 persen.
+- Rencana dan ledger menandai Task 4 selesai pada commit `5adb0e1`; Task 2/3 gates dan final diff review tetap terbuka.
+- Referensi run: `logs/RUN-658_prompt_first_documentation_review.txt`.
+
+## AI-044, pemulihan route intake yang belum termuat
+
+- Tanggal/waktu: 17 Oktober 2026, 01:08-01:09, Asia/Jakarta.
+- Screenshot UI memperlihatkan `Resource not found` setelah brief disimpan. Penyebabnya adalah proses FastAPI aktif memuat source lama: route `/api/v1/intake/extract` ada di source dan frontend, tetapi tidak ada pada OpenAPI yang dilayani proses lama.
+- API lokal direstart dari `.venv` tanpa menghentikan evaluasi GPU terpisah. OpenAPI kini mencantumkan route ekstraksi; health API menjawab `ok` dengan seluruh flag model bernilai false.
+- Kandidat extractor belum tersedia di paket seleksi, jadi route yang sudah aktif masih fail-closed sampai development gate selesai. Tidak ada prompt yang dikirim ke model, tidak ada generation, dan tab browser tidak di-refresh.
+- Pemeriksaan terakhir menerima progress raw development 8.700/15.200; belum ada laporan akhir. Final/test tetap tertutup.
+- Rincian: `logs/RUN-659_stale_api_route_recovery.txt`.
+
+## AI-045, prompt kembali ke editor karena extractor belum dipilih
+
+- Tanggal/waktu: 17 Oktober 2026, 01:13-01:14, Asia/Jakarta.
+- Setelah API route dipulihkan, pengguna mencoba brief di chat. API menemukan route, tetapi paket selection extractor belum tersedia. `get_extractor()` berhenti sebelum model dibuat; `FileNotFoundError` dibungkus sebagai `PromptExtractionFailure`, lalu UI menampilkan fallback manual.
+- Tidak terjadi inferensi model atau generation. Brief tidak disalin ke log; data tetap tersimpan pada UI lokal.
+- Raw development evaluation masih berlangsung, terakhir terlihat 9.200/15.200 scope. Final/test tetap tertutup.
+- Rincian: `logs/RUN-660_prompt_extractor_not_selected.txt`.
+
+
+## AI-046, safety recheck aplikasi dan pipeline
+
+- Tanggal/waktu: 17 Oktober 2026, 14:46, Asia/Jakarta.
+- Unit suite menjalankan 147 test: 146 lulus, 1 error pada checksum frozen profile. Hash pin 8a101fa71916993c3beb47c81c18255bb645ebe11862fa82fc93983ef02c2998 berbeda dari hash file profil yang ada, 2614d9bbbaad76c4622790bb86affcb5858fa8fc9fd7984e4b03c09dbeb297f8. Checksum/gate tidak diubah.
+- ESLint dan production build Next.js lulus. Root UI HTTP 200, API health 200, dan OpenAPI mencantumkan route extraction serta generation.
+- POST brief sintetis mengembalikan 503 extractor_unavailable karena belum ada selection. Runtime tetap dengan seluruh flag model false. Ini fallback manual fail-closed yang diharapkan.
+- Cache development step 1.800 berisi 15.200 row unik, tetapi laporan agregat dan selection tidak tersedia. Rebuild report tidak diteruskan karena source hash evaluator harus tetap cocok dengan lineage. Tidak ada training, generation produksi, atau akses final/test.
+- Pesan batas prompt dikoreksi dari 1.000 menjadi 4.000 karakter, test API dilengkapi inference_lock, dan test batas diperbarui ke 4.001. Percobaan scorer yang mengubah sumber beku dikembalikan.
+- Catatan rinci: logs/RUN-661_safety_recheck.txt.
+
+## AI-047, fallback klarifikasi prompt diperbaiki
+
+- Tanggal/waktu: 17 Oktober 2026, 21:07, Asia/Jakarta.
+- Brief contoh kedai kopi mencapai endpoint ekstraksi, tetapi API mengembalikan 503 `extractor_unavailable` karena model extractor belum lolos selection gate. UI kini menangani kode ini secara khusus, meminta endpoint validasi menyiapkan daftar field kosong, lalu menampilkan satu editor fakta biasa tanpa status error merah.
+- Form tetap meminta fakta lengkap dan tidak mengarang informasi usaha. Field agregat `request_draft` tetap berasal dari kontrak API, tetapi disembunyikan dari daftar visual karena tidak memiliki input tersendiri.
+- Di browser lokal, prompt contoh menghasilkan form klarifikasi tunggal. Isian demo yang secara eksplisit ditandai fiktif berhasil melewati validasi dan mencapai ringkasan `Siap ditinjau`. Tombol `Generate website` tidak ditekan.
+- Health setelah percobaan: generator utama termuat; `extractor_available=false` dan `extractor_loaded=false`. Belum ada inference extractor atau website yang dihasilkan. Pemakaian prompt-only tetap menunggu kandidat extractor yang lolos evaluasi dan seleksi.
+- ESLint, production build Next.js, dan dua regression test API/scorer lulus. UI localhost menjawab HTTP 200. Final/test tetap tertutup.
+- Rincian: `logs/RUN-663_prompt_first_fallback_ui_fix.txt`.
+
+## AI-048, rekomendasi template acak dan isi otomatis
+
+- Tanggal/waktu: 20 Oktober 2026, 20:07, Asia/Jakarta.
+- Konteks: pengguna meminta pilihan ide yang lebih sederhana, lalu mengarahkan agar tersedia 100 rekomendasi yang dapat diacak dan diganti.
+- Perubahan: layar awal menyediakan kumpulan 100 ide website. Tiga kartu ditampilkan sekaligus dan tombol **Acak ide** menggantinya dengan tiga ide lain. Memilih ide membuka form lengkap yang terisi otomatis.
+- Data template: seluruh nilai diberi label contoh fiktif dan status usaha default `fiktif`. Landing page mengisi tiga layanan, tiga langkah, dan tiga FAQ; company profile mengisi tiga layanan, tiga langkah, dan dua proyek. Nilai tetap dapat diedit sebelum validasi.
+- Batas alur: pemilihan dan pengacakan template hanya mengubah state lokal browser. Prompt bebas tetap memakai alur extractor yang tersedia. Tidak ada ekstraksi model, validasi intake, atau generation dalam review ini.
+- Verifikasi: katalog berisi 100 ID unik; ESLint, TypeScript production build, dan `git diff --check` lulus. Review browser berhasil mengacak tiga ide dan membuka template Toko pakaian preloved dengan field terisi serta status fiktif terpilih. Form tidak dikirim.
+- Batas bukti: konten contoh bersifat generik dan perlu disesuaikan dengan fakta usaha sebelum digunakan. API pada `127.0.0.1:8000` tidak berjalan saat review; pemilihan template tetap bekerja lokal, tetapi validasi intake dan generation tidak tersedia. Review visual dilakukan pada tampilan desktop; responsivitas mobile belum ditinjau untuk perubahan ini.
+- Rincian: `logs/RUN-664_randomized_website_templates.txt`.
+
+## AI-049, pengujian ulang rekomendasi template
+
+- Tanggal/waktu: 20 Oktober 2026, 20:15, Asia/Jakarta.
+- Pengguna meminta pengujian dan pemeriksaan fitur 100 rekomendasi yang dapat diacak.
+- Pengujian data TypeScript memastikan jumlah 100, ID dan label unik, tujuh kategori, tiga layanan dan tiga proses pada semua template, aturan FAQ atau proyek sesuai jenis halaman, serta helper lookup dan guard ID. Seluruh assertion lulus.
+- Suite unit `apps/web/tests/request-draft.test.mjs`: 3/3 lulus. Node menampilkan peringatan ringan bahwa package belum menyatakan `type: module`; tidak ada test yang gagal.
+- `npm run lint`: lulus. `npm run build`: lulus, termasuk kompilasi Next.js, TypeScript, dan static generation.
+- Review browser lokal: percakapan uji baru menampilkan tiga rekomendasi awal. Tombol acak menggantinya dengan tiga rekomendasi lain. Memilih `Studio produksi video` mengisi prompt dan form company profile, Tailwind, tiga layanan, tiga proses, dua proyek, serta status usaha fiktif. Setelah reload, percakapan dan form tetap tersedia di local history.
+- Next.js lokal menjawab HTTP 200 setelah build dan server dev dinyalakan kembali. FastAPI pada `127.0.0.1:8000` tidak listening. Karena itu katalog backend, validasi intake, generation, dan inference model tidak diuji. Form tidak dikirim.
+- `git fetch origin` berhasil sebelum pemeriksaan; branch fitur awalnya sinkron dengan remote. Pemeriksaan ini hanya menambahkan dokumentasi hasil test, tanpa mengubah kode aplikasi atau model.
+- Rincian: `logs/RUN-665_randomized_template_verification.txt`.
+
+## AI-050, peringkasan editor fakta halaman
+
+- Tanggal/waktu: 26 Oktober 2026, 00:29, Asia/Jakarta.
+- Konteks: pengguna menyetujui form yang lebih ringkas dengan bagian buka-tutup, semua fakta wajib dan validasi tetap dipertahankan.
+- Perubahan: editor fakta dikelompokkan menjadi usaha dan tampilan, layanan, isi halaman, serta pengaturan tambahan. Ringkasan tiap bagian memperlihatkan jenis halaman, jumlah layanan lengkap, jumlah rincian wajib lengkap, atau status usaha dan jumlah aset. Bagian usaha terbuka saat form dimuat. Kelompok dengan kontrol HTML wajib dibuka oleh event validasi; `DraftValidationError` juga membuka kelompok form agar isian yang belum lengkap terlihat.
+- Verifikasi: ESLint lulus, pemeriksaan tipe TypeScript lulus, unit test request draft 3/3 lulus, production build Next.js lulus dari salinan aplikasi terisolasi agar output dev server port 3000 tidak tertimpa, dan `git diff --check` lulus.
+- Batas bukti: kebijakan browser menghalangi inspeksi visual ke `127.0.0.1:3000`, sehingga tampilan langsung, toggle keyboard, dan interaksi form belum dikonfirmasi melalui browser. Tidak ada API, GPU, inference, atau generation yang dipanggil.
+- Rincian: `logs/RUN-666_form_ui_compaction.txt`.
+
+## AI-051, menjalankan server lokal dan smoke test aplikasi
+
+- Tanggal/waktu: 26 Oktober 2026, 00:39, Asia/Jakarta.
+- Next.js sudah berjalan pada `127.0.0.1:3000`. FastAPI dijalankan satu worker melalui `.venv` pada `127.0.0.1:8000`; keduanya tetap terikat ke loopback dan tidak memakai tunnel.
+- ESLint, TypeScript, dan tes draft frontend lulus. Tes API berbasis `unittest` lulus 2/2. `pytest` tidak tersedia di `.venv`, sehingga tidak dipasang untuk pemeriksaan ini.
+- Health API menjawab `ok` dengan generator dan extractor belum dimuat. Katalog memuat dua jenis halaman, dua gaya, dan tujuh capability di luar cakupan. OpenAPI memuat seluruh route utama.
+- Draft landing page fiktif dengan fakta lengkap melewati `/intake/validate` dengan status `ready` tanpa fakta yang kurang. `/intake/extract` menjawab 503 `extractor_unavailable`, sesuai karena selection extractor belum tersedia. Health sesudahnya tetap menunjukkan semua model belum dimuat.
+- Tidak dijalankan training atau generation model. RTX 5070 sedang menunjukkan 3.846 MiB terpakai dan proses Python lain terdaftar; tidak ada inferensi baru agar tidak berbagi GPU saat proses tersebut berlangsung. Data test dan final tetap tertutup.
+- Batas bukti: Next.js terdeteksi listening, tetapi inspeksi browser ke port 3000 ditolak kebijakan, jadi review visual dan interaksi antarmuka belum diverifikasi. Build terisolasi tercatat di RUN-666, bukan dijalankan ulang pada run ini.
+- Rincian: `logs/RUN-667_local_ui_api_smoke_tests.txt`.
+
+## AI-052, Cloudflare Quick Tunnel untuk preview aplikasi
+
+- Tanggal/waktu: 26 Oktober 2026, 11:20, Asia/Jakarta.
+- Atas permintaan pengguna, `cloudflared tunnel --url http://127.0.0.1:3000 --no-autoupdate` membuka Quick Tunnel ke Next.js. Tunnel terhubung melalui QUIC; pemeriksaan DNS, UDP, TCP, dan Cloudflare API lulus.
+- FastAPI tetap berjalan pada `127.0.0.1:8000`. Rewrite Next.js meneruskan `/api/*` ke API lokal, sehingga satu hostname tunnel dipakai oleh UI dan route API. Port API tidak dibuka langsung ke Internet.
+- Pengguna memilih Quick Tunnel setelah diberi tahu bahwa URL sementara tidak memiliki OTP dan dapat diakses siapa pun yang memiliki URL. URL hanya dikirim dalam chat dan sengaja tidak ditulis di repo karena berfungsi sebagai akses publik.
+- Health API `ok`; generator dan extractor belum dimuat. Paket extractor belum dipilih, sedangkan generator bekerja lazy saat generation diminta. Tidak ada training atau inference pada run tunnel.
+- Batas bukti: setelah koneksi terdaftar, log mencatat satu timeout lookup DNS. Pemeriksaan metrik lokal sesudahnya menunjukkan satu koneksi aktif dan nol error proxy; halaman publik tidak dibuka atau diuji melalui browser pada run ini. Quick Tunnel hanya hidup selama proses cloudflared dan server lokal berjalan.
+- Rincian: `logs/RUN-668_cloudflare_quick_tunnel.txt`.
+
+## AI-053, audit UI/UX dan restart runtime
+
+- Tanggal/waktu: 26 Oktober 2026, 11:45, Asia/Jakarta.
+- Review UI menemukan pengacakan rekomendasi terlalu bergantung pada huruf awal ID dan kategori Komunitas tidak bisa difilter. Pengacakan diganti Fisher-Yates seeded dan filter komunitas ditambahkan.
+- Tombol salin pesan/kode kini menangani izin clipboard gagal. Label UI dirapikan agar tidak menyatakan extractor atau mesin siap, tidak menunjukkan progress pipeline palsu, dan tidak menampilkan alamat preview fiktif. Grid dua panel dibuat fleksibel untuk layar laptop yang lebih sempit.
+- Next.js 16.4.1 berhasil dibangun untuk production dan berjalan di `127.0.0.1:3000`. FastAPI dimulai ulang dengan Python `.venv` di `127.0.0.1:8000`, satu worker. Sebelumnya API berjalan pada Python global dengan versi PyTorch dan FastAPI/Uvicorn yang berbeda dari environment proyek.
+- Health API `ok`, katalog berhasil dimuat, dan request intake minimal memberikan klarifikasi sesuai kontrak. Quick Tunnel baru mendaftar lewat QUIC; URL hanya dikirim di chat.
+- ESLint, TypeScript, production build, `git diff --check`, tes web 11/11, dan unittest API 2/2 lulus.
+- Batas bukti: generator belum dimuat dan extractor belum tersedia, sehingga generation dan inference tidak diuji. Tampilan browser dan halaman publik tunnel tidak dibuka; koneksi server dan tunnel saja tidak membuktikan tampilan atau interaksi end-to-end.
+- Rincian: `logs/RUN-669_ui_ux_runtime_recheck.txt`.
+
+## AI-054, tindak lanjut source UI dan rebuild production
+
+- Tanggal/waktu: 26 Oktober 2026, 11:47-11:51, Asia/Jakarta.
+- Pemeriksaan tambahan pada source terbaru menemukan import ikon pemuatan yang tersisa setelah UI beralih ke `LoaderCircle`. Import dibersihkan dan lint serta TypeScript kembali lulus.
+- Copy composer dibuat jujur terhadap status runtime: brief tersimpan lokal, sedangkan generate memerlukan model dan extractor aktif.
+- Build produksi Next.js 16.4.1 berhasil dan server aktif pada `127.0.0.1:3000`, PID 58716. FastAPI aktif pada `127.0.0.1:8000`, PID 62792; Quick Tunnel tetap terhubung lewat proses cloudflared PID 29040.
+- Health API `ok`, contract `request-draft-source-bound-v1`, tetapi `model_loaded`, `extractor_available`, `extractor_loaded`, dan `generator_loaded` bernilai `false`.
+- Lint, TypeScript, build, tes web 11/11, API unittest 2/2, dan `git diff --check` lulus. Peringatan Node pada tes terkait deteksi module type dan tidak menggagalkan tes.
+- Batas bukti: generation/inference end-to-end dan inspeksi visual browser tidak dilakukan. Koneksi tunnel tidak dianggap bukti halaman publik berfungsi. Data test/final tidak dibuka.
+- Rincian: `logs/RUN-670_ui_followup_rebuild.txt`.
+## AI-055, audit kebersihan GitHub dan karantina file
+
+- Tanggal/waktu: 26 Oktober 2026, 11:55-12:00, Asia/Jakarta.
+- Branch feature sudah di-fetch dan sama dengan origin sebelum perubahan.
+- Audit menemukan komponen Tooltip tidak memiliki pemakai UI. File dipindahkan dari `apps/web/src/components/ui/tooltip.tsx` ke `sampah/apps/web/src/components/ui/tooltip.tsx`, dan `TooltipProvider` dilepas dari layout global.
+- Indeks `sampah/README.md` menjelaskan alasan dan cara pemulihan. File tidak dihapus.
+- Log, laporan, dataset, notebook, provenance, dan gallery AI-018 lama dipertahankan karena masih dirujuk atau merekam bukti eksperimen.
+- Karakter kontrol pada tiga log historis dipulihkan berdasarkan hash di objek commit, report/config, dan catatan training terkait. Pemindaian ulang 3.268 file teks tidak menemukan karakter kontrol tersisa.
+- Lint, TypeScript, pencarian referensi aktif, dan `git diff --check` lulus. Test suite, production build, dan inspeksi browser tidak dijalankan; server yang berjalan tidak direstart.
+- Rincian: `logs/RUN-671_github_cleanup_audit.txt`.
+
+## AI-056, rancangan dan implementasi audit Usage
+
+- Tanggal/waktu: 26 Oktober 2026, 13:11, Asia/Jakarta.
+- Permintaan: rancang Usage agar pemilik dapat mengaudit pemakaian GPU dan riwayat tiap proses generate. Pengguna memilih ringkasan GPU sekaligus sebab kegagalan dalam satu tampilan.
+- Respons: menambahkan spesifikasi dan rencana audit, endpoint FastAPI untuk telemetri dan riwayat, penyimpanan SQLite yang membatasi data pada metadata operasional, serta dashboard Next.js dengan filter dan detail tahapan.
+- Perubahan terpilih: tetap simpan status, tahap, durasi, hitungan token, kode kendala, dan telemetri. Prompt, fakta usaha, kode hasil, exception mentah, dan path lokal tidak disimpan. Snapshot GPU saat ini dibedakan dari sampel device-wide yang hanya dikumpulkan saat generate.
+- Batas sistem: Usage tidak memuat model atau menjalankan inference. Generator dan extractor tetap unavailable pada health API saat verifikasi.
+
+## RUN-672, verifikasi Usage, UI, dan akses lokal
+
+- Tanggal/waktu: 26 Oktober 2026, 13:11, Asia/Jakarta.
+- Pemeriksaan UI: chat terbaru ditinjau di browser. Usage ditinjau pada desktop dan viewport 390 px. Pada viewport sempit angka memori GPU awalnya terpotong; komponen Stat diubah agar nilai membungkus baris dan tes regresi ditambahkan. Tampilan sesudah perbaikan memperlihatkan nilai lengkap, filter, dan keadaan riwayat kosong.
+- Pemeriksaan aplikasi: tes regresi wrapping awalnya gagal pada nilai memori yang terpotong, lalu lulus setelah perbaikan. `.venv\\Scripts\\python.exe -m unittest tests.api.test_usage_store tests.api.test_usage_telemetry tests.api.test_usages_api tests.api.test_generation_request_id` lulus 16/16. `npm test` lulus 18/18, `npm run lint` lulus, dan `npm run build` lulus dengan Next.js 16.4.1. `npm test` menampilkan peringatan Node tentang deteksi module type yang tidak memengaruhi hasil.
+- Pemeriksaan lokal port 3000: tanpa sesi `/` mengarah ke `/login` dengan 307 dan API memberi 401. Login valid membuat cookie HttpOnly SameSite=Lax; health, GPU current, daftar Usage, dan halaman Usage memberi 200; logout memberi 303 dan menghapus cookie. Auth diwajibkan, kredensial memenuhi panjang minimum, dan `.env.local` diabaikan Git.
+- Health API `ok`; `model_loaded`, `extractor_available`, `extractor_loaded`, dan `generator_loaded` semuanya `false`. GPU current terdeteksi sebagai NVIDIA GeForce RTX 5070. Riwayat kosong karena tidak ada inference yang dijalankan.
+- Batas bukti: generasi dan inference tidak diuji. Full Python suite yang dijalankan sebelumnya menghasilkan 163/164 lulus; satu kegagalan baseline pada `fullpage.test_source_bound_lineage.SourceBoundLineageFixture` berasal dari checksum fixture training yang berbeda dari hash yang dikunci di `src/fullpage/lineage.py`. Kedua file bersih dari perubahan dan data training tidak diubah.
+- Rincian: spesifikasi `docs/superpowers/specs/2026-10-26-usages-audit-design.md` dan rencana `docs/superpowers/plans/2026-10-26-usages-audit.md`.
+
+## RUN-673, push dan tunnel preview terautentikasi
+
+- Tanggal/waktu: 26 Oktober 2026, 13:15, Asia/Jakarta.
+- Commit `9f0a570` (`Add Usage audit dashboard and access gate`) sudah dipush ke `origin/feature/pipeline-data-model-training` tanpa trailer co-author. Catatan tahap deploy ini menyusul sebagai commit dokumentasi.
+- Production server Next.js 16.4.1 dimulai ulang setelah build terbaru pada `127.0.0.1:3000`. FastAPI tetap pada `127.0.0.1:8000`; kedua listener hanya bind ke loopback.
+- Cloudflare Quick Tunnel aktif melalui QUIC ke Next.js port 3000: `https://banner-volumes-basketball-taxi.trycloudflare.com`. FastAPI tidak dipublikasikan langsung.
+- Pemeriksaan publik tanpa login: `/` mengarah ke `/login` dengan 307, `/login` memberi 200, dan `/api/v1/health` memberi 401. Browser memuat form login HTTPS. Uji sesi valid dan API Usage dilakukan lokal tanpa menyertakan kredensial di log.
+- Batas deployment: ini tunnel preview sementara, bukan hosting produksi dengan uptime tetap. URL akan berubah setelah proses tunnel berhenti atau dimulai ulang. Kredensial akses disampaikan terpisah kepada pemilik.
+- Batas fungsi: health API tetap menunjukkan model dan extractor belum tersedia. Tidak ada generation atau inference selama deploy.
+
+## AI-057, diagnosis source viewer dan pratinjau website
+
+- Tanggal/waktu: 26 Oktober 2026, 13:29, Asia/Jakarta.
+- Penyebab kode tampak satu baris: renderer menyusun HTML tanpa pemformatan, Tailwind CLI menyimpan CSS dalam mode minify, dan panel Kode sebelumnya menampilkan source mentah langsung.
+- Panel Kode kini memformat HTML, CSS, dan JavaScript secara lazy untuk tampilan dengan Prettier. Pengaturan memakai lebar target 100 karakter dan indentasi dua spasi. Jika parsing gagal, panel kembali menampilkan source asli. Tombol Salin memakai format yang terlihat; unduhan file per tab dan ZIP tetap mengambil artefak asli.
+- Contoh tersimpan `examples/generated/AI-018-last-v2/page0279-tailwind` memiliki status generation `accepted`. Referensi lokal ke `styles.css`, `app.js`, dan ilustrasi tersedia. CSS berisi rule layout dan utility Tailwind yang dipakai halaman; hook menu dan formulir hadir di HTML serta JavaScript. Ini pemeriksaan struktur source, bukan bukti visual browser.
+- Browser memperlihatkan halaman awal generator pada tunnel lama, bukan hasil generate. Tab localhost tidak dapat diinspeksi oleh browser tool dalam sesi ini. Tidak ada generation atau inference baru; laporan terakhir RUN-672 mencatat model dan extractor unavailable.
+- Tes formatter regresi pertama gagal karena modul formatter belum dibuat, lalu tiga tes formatter lulus. Setelah perubahan, tes web 21/21, ESLint, TypeScript, dan production build Next.js 16.4.1 lulus. Tes Node menampilkan peringatan module type pada file TypeScript yang diimpor langsung oleh test runner.
+- `npm install` melaporkan 5 advisory pada dependency tree, terdiri dari 1 moderate dan 4 high. Advisory belum dianalisis dalam pekerjaan ini.
+- Pemeriksaan visual aktual pada hasil AI tetap menunggu halaman hasil yang bisa diamati. Data test/final dan pipeline training tidak diubah.
+
+## RUN-674, muat ulang server setelah pembaruan code viewer
+
+- Tanggal/waktu: 26 Oktober 2026, 13:32, Asia/Jakarta.
+- Production build terakhir lulus. Tes web 21/21, ESLint, dan TypeScript lulus.
+- Next.js production dimulai ulang sesudah build pada `127.0.0.1:3000`, PID 53612. Listener FastAPI tetap pada `127.0.0.1:8000`, PID 58012. Proses Cloudflare Tunnel PID 37708 tetap berjalan.
+- Log tunnel mengeluarkan satu timeout DNS saat menyegarkan resolver `region1.v2.argotunnel.com`; pembacaan berikutnya belum mengonfirmasi koneksi publik pulih. Tidak ada pemeriksaan melalui tunnel yang dianggap berhasil.
+- Pengamatan visual lokal masih diblokir kebijakan URL browser. Generation/inference tidak dijalankan dan source/model training tidak diubah.
+
+## RUN-675, jalankan server lokal dan Cloudflare Quick Tunnel
+
+- Tanggal/waktu: 28 Oktober 2026, 08:35, Asia/Jakarta.
+- Next.js production berjalan pada `127.0.0.1:3001`, PID `34572`. FastAPI berjalan pada `127.0.0.1:8000`, PID `39420`. Keduanya bind ke loopback.
+- Cloudflare Quick Tunnel PID `39156` terhubung via QUIC ke frontend port `3001`: `https://ideal-seal-satisfaction-gateway.trycloudflare.com`. FastAPI tidak dipublikasikan langsung.
+- Halaman HTTPS tunnel berhasil dimuat dan menampilkan form login aplikasi. GET `/api/v1/health` dari jaringan publik memberi `401 authentication_required`, sesuai akses tanpa sesi. Health check langsung ke FastAPI memberi `200` dan `status=ok`.
+- Health API melaporkan `model_loaded=false`, `extractor_available=false`, `extractor_loaded=false`, dan `generator_loaded=false`. Tidak ada generation atau inference yang dijalankan.
+- Akses aplikasi tetap diwajibkan autentikasi yang sudah dikonfigurasi secara lokal. Nilai kredensial dan secret tidak dicatat di log.
+- Tunnel ini adalah Quick Tunnel sementara; URL berlaku selama proses cloudflared berjalan dan dapat berubah setelah proses dihentikan atau dimulai ulang.
+
+## AI-058, perbaikan stylesheet pratinjau website
+
+- Tanggal/waktu: 28 Oktober 2026, 09:16, Asia/Jakarta.
+- Masalah: shell Rancang tetap bergaya, tetapi website hasil di panel pratinjau tampil sebagai HTML mentah. CSS, navigasi, dan ilustrasi SVG tidak terlihat benar.
+- Akar masalah: dokumen preview berjalan pada iframe sandbox allow-scripts dengan origin opaque. HTML meminta CSS, JavaScript, dan aset sebagai subresource terpisah melalui API. Request tersebut tidak membawa sesi autentikasi aplikasi, sehingga browser merender HTML tanpa stylesheet dan sebagian resource gagal.
+- Perbaikan: API merakit dokumen HTML preview mandiri dari output yang lolos verifikasi manifest dan checksum. CSS, JavaScript renderer, serta SVG yang disetujui disematkan dengan nonce CSP. Source asli dan ZIP unduhan tidak diubah.
+- Frontend mengambil dokumen melalui sesi aplikasi, memeriksa MIME type, redirect, nonce, dan CSP header/meta, lalu menyematkannya sebagai srcDoc di iframe sandbox. Parser CSP menerima normalisasi proxy yang setara untuk sumber self dan entity apostrof, tetapi menolak unsafe-inline, unsafe-eval, nonce berbeda, directive penting yang hilang, serta origin eksternal.
+- Pemeriksaan visual melalui tunnel menunjukkan navigasi berjarak, tipografi dan tombol bergaya, serta ilustrasi SVG tampil. DOM pratinjau berada pada about:srcdoc.
+- Tes API 18/18 dan tes web 25/25 lulus. ESLint dan TypeScript lulus. Build produksi Next.js lulus pada pemeriksaan sebelumnya setelah perubahan; tidak diulang agar server production aktif tidak terganggu.
+- Health API lokal ok. model_loaded, extractor_available, extractor_loaded, dan generator_loaded masih false. Tidak ada generation atau inference baru.
+- Rincian: logs/RUN-676_preview_css_auth_iframe_fix.txt.
+
+## RUN-677, menjalankan aplikasi lokal dan Quick Tunnel
+
+- Tanggal/waktu: 30 Oktober 2026, 20:44, Asia/Jakarta.
+- Atas permintaan pengguna, frontend Next.js production dijalankan pada 127.0.0.1:3000 dan FastAPI native dari .venv pada 127.0.0.1:8000 dengan satu worker. Docker tidak digunakan.
+- Cloudflare Quick Tunnel aktif dengan PID 4532 dan meneruskan trafik hanya ke frontend 127.0.0.1:3000. URL sementara dikirim di chat dan tidak ditulis di repo.
+- Autentikasi lokal aktif. Konfigurasi username/password dan session secret memenuhi syarat panjang; nilainya tidak disalin ke log. API_SERVER_ORIGIN tetap loopback dan NEXT_PUBLIC_API_BASE_URL kosong agar browser memakai origin Next.js yang sama.
+- Pemeriksaan lokal tanpa sesi: / dialihkan ke /login dengan 307, /login menjawab 200, dan /api/v1/health melalui frontend menjawab 401.
+- Pemeriksaan dari jaringan Quick Tunnel: / dialihkan ke /login dengan 307, /login menjawab 200, dan /api/v1/health menjawab 401. Sertifikat HTTPS diterima curl tanpa menonaktifkan validasi TLS.
+- Pada percobaan tunnel pertama DNS tidak dapat resolve api.trycloudflare.com. Setelah DNS sistem dan resolver publik berhasil menjawab, Quick Tunnel dimulai ulang dan URL berhasil dibuat.
+- Listener aktual: Next.js PID 66940 pada 127.0.0.1:3000; FastAPI PID 1772 pada 127.0.0.1:8000; cloudflared PID 4532. Port API tidak dipublikasikan.
+- Health FastAPI berstatus ok. model_loaded, extractor_available, extractor_loaded, dan generator_loaded bernilai false. Tidak ada generation atau inference yang dijalankan.
+- Build production yang telah tersedia dipakai ulang; tidak ada source atau dependency yang diubah untuk menjalankan layanan.
+- Rincian: logs/RUN-677_quick_tunnel_restart.txt.
+
+## RUN-678, shutdown server lokal dan Cloudflare Tunnel
+
+- Tanggal/waktu: 31 Oktober 2026, 00:41, Asia/Jakarta.
+- Atas permintaan pengguna, listener Next.js pada 127.0.0.1:3000 dihentikan, begitu juga FastAPI pada 127.0.0.1:8000 dan Cloudflare Quick Tunnel yang mengarah ke port 3000.
+- Proses terkait yang dihentikan: Next.js listener PID 66940, FastAPI worker PID 1772 dan parent PID 67604, launcher cmd PID 67412, serta cloudflared PID 4532.
+- Verifikasi setelah shutdown: tidak ada listener pada port 3000, 3001, atau 8000. Tidak ada proses cloudflared yang tersisa.
+- URL tunnel sebelumnya menjawab HTTP 530 setelah proses cloudflared dihentikan.
+- Tidak ada generation atau inference yang berjalan. File environment dan kredensial tidak diubah.
+- Saat pencatatan, terdapat perubahan frontend lokal yang belum commit pada apps/web. Perubahan itu dibiarkan di working tree; commit shutdown hanya berisi log.
+- Rincian: logs/RUN-678_stop_local_application_and_tunnel.txt.
+
+## AI-059, audit struktur dan paket model untuk upload
+
+- Tanggal/waktu: 1 November 2026, 15:26, Asia/Jakarta.
+- Permintaan: periksa dan rapikan struktur, gunakan antislop untuk dokumentasi, commit/push per progress, serta tunjukkan model yang dapat dicoba dan insight proyek.
+- Audit menemukan README mencampur status terbaru dan runtime historis TRAIN-012/015/017. Dokumentasi terpilih juga masih melarang upload meskipun pengguna kini meminta persiapan upload. Perapihan prose menunggu pilihan mode antislop karena settings global belum tersedia dan skill meminta pilihan during atau after.
+- Model terpilih terverifikasi sebagai TRAIN-025 step 1800, 14.579.712 parameter, konteks 2048, enam layer dan enam head, embedding 384. Hash payload, checkpoint kanonis, selection report, dan tokenizer cocok.
+- Bobot terpilih dimuat melalui Runtime.get_generator pada CUDA tanpa inference. Paket mandiri juga dimuat lewat FullPageGenerator dari root paket, dengan pemeriksaan lineage tetap aktif.
+- Salinan siap upload dibuat di outputs/releases/fullpage-v5-TRAIN-025-step1800.zip. Paket memuat 108 file, termasuk pointer, payload .versions, manifest checkpoint, tokenizer, source/config/aset, dependency lock dan contoh request development. ZIP CRC lulus. Tidak ada raw data, final/test atau kredensial yang disertakan.
+- Root app hanya berisi direktori cache kosong dan tidak memiliki file tracked. Direktori itu dipindahkan secara reversible ke sampah/local-cache/2026-11-01/app setelah containment source/destination diverifikasi.
+- Tiga belas file UI sudah berubah sebelum audit. Perubahan tersebut dipertahankan unstaged.
+- Bukti: reports/structure/AUDIT_2026-11-01.json. Angka 80/80 merujuk validator development dan bukan kualitas visual 95 persen. Selection extractor belum tersedia; final tetap tertutup.
+
+## RUN-679, verifikasi struktur dan paket upload terpilih
+
+- Tanggal/waktu: 1 November 2026, 15:26, Asia/Jakarta.
+- Pembacaan checkpoint lokal berhasil dengan weights_only. Digest checkpoint dan tokenizer cocok dengan selection serta lineage.
+- Probe awal loader CPU memakai argumen device yang tidak didukung dan gagal TypeError sebelum inference. Probe dikoreksi ke adapter aplikasi yang memakai CUDA dan berhasil memuat model.
+- Pemanggilan awal skrip ekspor dengan relative module gagal, lalu dikoreksi dengan runpy. Percobaan berikutnya menemukan request development berada di attempt-01/request.json; lokasi diperbaiki dan paket parsial dilanjutkan tanpa menghapus data.
+- Paket selesai: 54.437.217 byte, SHA-256 1dc5ebcdaec137ee9e909778ef58fa2ab4d2d960f291410f52ac29a3222de362. Semua anggota ZIP lolos CRC dan generator dari root paket berhasil dimuat di CUDA.
+- Tidak ada generation baru, training, pembukaan final/test, server, atau tunnel yang dijalankan. Bobot asli tidak diubah.
+- Skrip sementara pelaksanaan ada di .tmp/prepare_upload_20261101.py; direktori .tmp dan paket outputs tetap diabaikan Git.
+- Tahap berikutnya: rapikan README dan panduan pemakaian setelah pilihan mode antislop diterima.
+
+## AI-060, penataan dokumentasi dengan antislop during
+
+- Tanggal/waktu: 1 November 2026, 15:37, Asia/Jakarta.
+- Pengguna memilih mode antislop during untuk langsung diterapkan saat merapikan dokumentasi. Pilihan berlaku untuk sesi ini; settings global tidak diubah.
+- README utama ditulis ulang menjadi status terkini, alur aplikasi, struktur, scope, bukti data/evaluasi, dan tautan panduan. TRAIN-025 step 1800 menjadi satu-satunya kandidat aplikasi yang dirujuk sebagai runtime terkini.
+- README lama dan panduan CLI historis disimpan di docs/history dengan penanda snapshot serta tautan relatif yang disesuaikan.
+- Indeks docs diperbarui. Panduan PROJECT_STRUCTURE, MODEL_RUNTIME_AND_UPLOAD, GENERATING_WEBSITES, dan README paket terpilih menjelaskan folder, CUDA, pointer .versions, tokenizer, perintah CLI, lokasi upload, dan batas kemampuan.
+- Larangan upload lama pada README paket diperbarui sesuai permintaan pengguna menyiapkan model untuk upload. Bobot tetap diabaikan Git; belum ada upload ke layanan eksternal.
+- Paket v2 menyertakan README pemakaian dan manifest hash yang diperbarui. ZIP awal dipertahankan. Model/source/runtime di dalam paket tetap cocok dengan hash yang diperiksa pada RUN-679.
+- Tahap dokumentasi tidak mengubah 13 file UI lokal. Hash git diff apps/web sebelum dan sesudah tahap ini identik.
+
+## RUN-680, pemeriksaan panduan aktif dan ZIP v2
+
+- Tanggal/waktu: 1 November 2026, 15:37, Asia/Jakarta.
+- Enam dokumen aktif diperiksa: semua tautan file lokal tersedia, code fence seimbang, dan tidak ada em dash atau en dash baru. Snapshot historis mempertahankan isi tahapan sebelumnya.
+- CLI qa.generate_fullpage --help berhasil. Contoh request pada paket upload lolos validator request dengan katalog aset paket.
+- ZIP v2 berisi 109 file, 54.439.464 byte. CRC semua anggota serta hash file yang terdaftar pada UPLOAD_MANIFEST.json lulus.
+- SHA-256 ZIP v2: 2b50f93044156627bed2c201f6f561fcf382ac4a7217c62d3aba3b3fb8d919ac.
+- Audit reports/structure/AUDIT_2026-11-01.json diperbarui menjadi documentation_cleanup_status=complete dengan identitas ZIP v2 dan hasil pemeriksaan.
+- git diff --check untuk berkas dokumentasi dan audit lulus. Inference, training, server, tunnel, dan evaluasi final tidak dijalankan pada tahap dokumentasi.
+
+## AI-061, review seluruh perubahan frontend sebelum commit
+
+- Tanggal/waktu: 1 November 2026, 15:47, Asia/Jakarta.
+- Pengguna meminta setiap perubahan diperiksa lalu seluruh perubahan di-commit dan dipush.
+- Review mencakup 13 file UI yang sebelumnya belum commit: metadata, login, Usage, chat shell, composer, sidebar, intake, pesan, ringkasan, status generation, preview, dan workspace. Branding VibeCraft serta arah styling yang sudah ada dipertahankan.
+- Temuan diperbaiki: alamat preview fiktif diganti path artefak yang nyata; salinan link kini menjadi URL HTTP/HTTPS absolut sesuai origin lokal/tunnel; kegagalan clipboard mendapat feedback.
+- Preset preview mempertahankan lebar viewport: Mobile 390, Tablet 768, Desktop 1200, dengan ruang tambahan untuk bezel/border. Mode Fit menyesuaikan ruang tersedia. Toolbar dapat membungkus tanpa tinggi tetap; pemilih viewport tersedia pada layar kecil.
+- Tombol Lihat Kanvas kini memakai callback state ChatShell untuk membuka panel preview pada mobile. Tombol percakapan baru memperoleh nama aksesibel saat label visual disembunyikan. Kontrol native mendapat focus ring dan selector viewport mendapat aria-pressed.
+- Copy yang menjanjikan generator instan, kode bersih, atau output siap deploy diganti keterangan fungsi yang sesuai pipeline. README dan panduan struktur diselaraskan dengan branding dan selesainya review.
+- Preview tetap memakai fetch terautentikasi, validasi CSP, srcDoc, sandbox allow-scripts tanpa allow-same-origin, dan no-referrer pada ketiga mode.
+
+## RUN-681, verifikasi frontend setelah review
+
+- Tanggal/waktu: 1 November 2026, 15:47, Asia/Jakarta.
+- Tes web lulus 28/28, termasuk tiga regresi URL clipboard untuk origin lokal/tunnel, URL absolut, dan penolakan skema non-HTTP.
+- ESLint lulus. Production build Next.js 16.4.1 lulus, termasuk pemeriksaan TypeScript dan generation route.
+- Pada pemeriksaan awal, penambahan helper sempat menimpa preview-url.ts sehingga build mendeteksi export lama hilang. Isi semula dipulihkan dari HEAD yang sebelumnya bersih; helper tambahan dipindahkan ke shareable-preview-url.ts. Build dan tes kemudian diulang sampai lulus.
+- git diff --check lulus. Review ini mengandalkan source, unit test, lint dan build; interaksi browser langsung serta inference tidak diuji.
+- Tidak ada server atau tunnel yang dinyalakan, tidak ada dependency, bobot, tokenizer, dan benchmark final yang diubah.
+- Sebelum commit, fetch origin berhasil dan branch feature/pipeline-data-model-training tidak memiliki divergence.
+
+## AI-062, start aplikasi dan audit sinkronisasi log
+
+- Tanggal/waktu pemeriksaan: 1 November 2026, 16:19, Asia/Jakarta.
+- Pengguna meminta proyek dan Cloudflare Tunnel dijalankan, lalu lokasi dan kelengkapan log dicocokkan dengan chat terakhir.
+- Log utama sebelum pemeriksaan mencapai AI-061/RUN-681 dan merekam review frontend, tes serta batas tanpa review browser atau inference. Hasil commit/push lima tahap terbaru belum dicatat dengan hash commit eksplisit.
+- Indeks logs/README.md masih menyatakan training belum dimulai. Pernyataan itu sudah tidak sesuai; indeks diperbarui untuk menjelaskan log utama, training, Usage, stdout/stderr dan receipt runtime.
+- Log Markdown ditambahkan manual per kegiatan, tidak otomatis menyalin seluruh chat. Kredensial yang diminta di chat tidak disalin ke log. Audit ini mencocokkan tahap terbaru, bukan audit penuh seluruh pesan historis.
+- Entry log training terakhir yang diperiksa adalah RUN-662/REQEXT-V1-3600 pada 17 Oktober. Tidak ada training baru pada tahap aplikasi/dokumentasi berikutnya.
+- Catatan susulan hasil commit/push yang diverifikasi dari Git: e9b6546 start aplikasi/tunnel; b554898 shutdown; d1379df audit struktur/model; 641dfa7 penataan dokumentasi; 1545bdc review UI VibeCraft dan kontrol preview. Kelimanya berada dalam riwayat branch origin pada pemeriksaan.
+- Bukti: reports/structure/LOG_SYNC_2026-11-01.json. Receipt setelah push dicatat lokal di outputs/runtime/latest-session.json agar hash commit hasil pencatatan dapat direkam tanpa mengubah riwayat sebelumnya.
+
+## RUN-682, start lokal dan Quick Tunnel dengan pemeriksaan akses
+
+- Tanggal/waktu: 1 November 2026, 16:19, Asia/Jakarta.
+- Next.js production memakai build terbaru setelah review UI, listener PID 42848 pada 127.0.0.1:3000. FastAPI .venv satu worker memakai listener PID 61828 pada 127.0.0.1:8000. Launcher masing-masing PID 37496 dan 65604.
+- Quick Tunnel PID 45572 meneruskan hanya ke Next.js port 3000. URL sementara disampaikan di chat dan receipt lokal, tidak ditulis ke log Git.
+- Perintah gabungan awal untuk membaca konfigurasi dan startup ditolak pemeriksaan otomatis tanpa alasan rinci. Startup dilanjutkan dengan perintah lokal yang lebih sempit tanpa membaca secret. Proteksi akses diverifikasi lewat HTTP sebelum tunnel dibuat.
+- Pemeriksaan lokal dan publik tanpa sesi: root 307 ke /login, login 200, dan /api/v1/health melalui frontend 401. HTTPS publik diperiksa curl tanpa melewati validasi TLS.
+- Health API langsung ok; model_loaded, extractor_available, extractor_loaded dan generator_loaded false. Tidak ada inference atau generation baru.
+- stdout/stderr ditulis ke TEMP Windows dengan awalan vibecraft-20261101. Metadata generation otomatis berada di outputs/webapp/usages/usage.sqlite3.
+- Layanan dibiarkan berjalan sesuai permintaan. Receipt runtime mencatat PID, endpoint, waktu pemeriksaan, serta hasil commit/push log ini.
+
+## AI-063, rebranding WebCraft by VibeStack
+
+- Tanggal/waktu: 1 November 2026, 16:49, Asia/Jakarta.
+- Pengguna menetapkan nama tim VibeStack, nama produk WebCraft GPT, dan identitas situs WebCraft by VibeStack, serta meminta pembaruan navigasi dan UI/UX dengan skill antislop-ui.
+- Arah visual didokumentasikan di apps/web/DESIGN.md: warna dasar hangat, aksen hijau pine dan terracotta, tipografi IBM Plex yang sudah tersedia, ikon Code2, navigasi workbench yang dipertahankan, serta gerak dekoratif dibatasi.
+- Branding diterapkan pada metadata, login, sidebar, navigasi, percakapan, form brief, status pembuatan, preview, Usage, dan README. Kunci localStorage rancang.chat-history dipertahankan agar riwayat browser yang sudah ada tidak hilang.
+- Perubahan hanya mencakup identitas dan antarmuka. API, pipeline model, tokenizer, checkpoint, data, dan training tidak diubah.
+- Source rebrand dicatat pada commit db71cc3 dan sudah dipush ke feature/pipeline-data-model-training. ls-remote mengonfirmasi hash commit tersebut sebagai HEAD branch remote.
+
+## RUN-683, pemeriksaan rebrand dan status verifikasi
+
+- Tanggal/waktu: 1 November 2026, 16:49, Asia/Jakarta.
+- Frontend suite lulus 28/28, ESLint lulus, dan production build Next.js lulus. git diff --check bersih sebelum commit.
+- Pemeriksaan lokal terakhir: /login merespons 200, / mengarahkan ke login dengan 307, dan proxy /api/v1/health tanpa sesi mengembalikan 401.
+- Browser menampilkan halaman login dengan identitas baru pada localhost dan URL Quick Tunnel yang sudah berjalan. Pemeriksaan visual terverifikasi untuk halaman login.
+- Pemeriksaan visual setelah autentikasi belum selesai. CUA tidak dapat memindahkan kredensial dari clipboard Windows ke form secara aman, sehingga tidak ada login yang dikirim dari percobaan tersebut. Nilai kredensial tidak dicetak atau dicatat; clipboard diverifikasi kosong.
+- Tidak ada inference, training, perubahan checkpoint, atau perubahan FastAPI dalam pekerjaan rebrand ini.
+- Hasil source review, test, lint, dan build membuktikan status frontend pada checkout ini. Hasil tersebut bukan bukti visual halaman chat setelah login atau kualitas inference.
+
+## AI-064, audit branch dan perbaikan batas badan login sebelum PR
+
+- Tanggal/waktu: 1 November 2026, 17:15, Asia/Jakarta.
+- Pengguna meminta pemeriksaan Git dan seluruh perubahan branch sebelum membuat PR ke main.
+- Branch yang diperiksa: feature/pipeline-data-model-training terhadap main pada e6c86e4. Audit awal mencakup 57 commit, 208 tracked files, 15.532 penambahan dan 972 penghapusan. Branch tidak tertinggal dari main dan belum memiliki PR saat pemeriksaan pertama.
+- Ketiga file workspace yang belum dilacak dibiarkan tanpa perubahan dan tidak disertakan pada commit atau PR: Log Full Vibecode.md, docs/superpowers/specs/2026-11-01-vibecoding-project-report-design.md, dan reports/LAPORAN_PROYEK_1_VIBESTACK_WEBCRAFT_GPT.docx.
+- Pemeriksaan commit awal tidak menemukan trailer Co-authored-By. Diff tidak berisi checkpoint, database, arsip hasil, atau secret; perubahan .env hanya berupa apps/web/.env.example dengan nilai kosong.
+- Review read-only menemukan batas 4 KiB di endpoint login hanya bergantung pada Content-Length. Reproduksi lokal request chunked 8.241 byte tanpa Content-Length mencapai pemeriksaan kredensial dan menerima 401, bukan 413.
+- apps/web/src/lib/read-limited-json.mjs sekarang membatasi byte saat membaca stream, memeriksa Content-Length lebih awal, dan memetakan oversize menjadi HTTP 413. apps/web/tests/request-body-limit.test.mjs menambahkan regresi untuk stream tanpa header, header oversized biasa, nilai desimal sangat besar, dan payload tepat 4 KiB.
+- Review kedua menemukan nilai Content-Length desimal di luar rentang safe integer seharusnya tetap dianggap oversized. Klasifikasi ini diperbaiki dan tes khususnya lulus.
+- Perbaikan source dan tes dipush sebagai commit 776229f. Tidak ada perubahan API, pipeline data, tokenizer, model, atau konfigurasi training.
+
+## RUN-684, verifikasi seluruh branch dan PR ke main
+
+- Tanggal/waktu: 1 November 2026, 17:15, Asia/Jakarta.
+- Frontend suite lulus 32/32; ESLint lulus; Next.js production build lulus; git diff --check lulus.
+- Verifikasi endpoint lokal setelah build: request JSON chunked sekitar 8 KiB tanpa Content-Length mendapat 413; request JSON kecil dengan kredensial uji yang salah mendapat 401. Server uji hanya berjalan di localhost dan sudah dihentikan.
+- Suite Python penuh melalui Python sistem 3.13 dan pytest 8.4.2: 163 lulus, 1 dilewati, 1 gagal. .venv proyek belum memasang pytest. Kegagalan adalah tests/fullpage/test_source_bound_lineage.py::SourceBoundLineageFixture::test_source_bound_dataset_lineage_is_verified_without_final_parsing karena profil reports/training/FULLPAGE-GPU-005-CONTROLLED-B8.json memiliki SHA-256 2614D9BBBAAD76C4622790BB86AFFCB5858FA8FC9FD7984E4B03C09DBEB297F8 sedangkan pin di src/fullpage/lineage.py adalah 8a101fa71916993c3beb47c81c18255bb645ebe11862fa82fc93983ef02c2998. Test, source verifier, dan profil tidak berubah dari main, sehingga kegagalan tidak diperkenalkan oleh branch ini.
+- Review sumber berfokus pada autentikasi, proxy, batas ekstraksi prompt, preview/CSP, Usage, dan integrasi utama. Audit ini bukan inspeksi manual baris demi baris atas seluruh artefak training dan log historis.
+- PR https://github.com/baysatriow/mini-gpt-webcodegen/pull/1 dibuat dengan base main dan head feature/pipeline-data-model-training. Status GitHub saat dibuat OPEN, MERGEABLE, bukan draft, tanpa status CI. PR belum di-merge.
+- Tidak ada inference atau training yang dijalankan dan data final tetap tidak dibuka.

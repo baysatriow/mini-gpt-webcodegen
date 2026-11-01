@@ -1,0 +1,4 @@
+RUN-627, Basic Auth dikustomisasi
+Tanggal/waktu: 16 Oktober 2026, sekitar 15:17 Asia/Jakarta
+Hasil: policy Basic Auth diubah ke pasangan kredensial pilihan pengguna. Tunnel lama dihentikan dan endpoint baru tersambung ke Next.js 127.0.0.1:3000.
+Catatan keamanan: password yang dipilih mudah ditebak dan hanya cocok untuk demo sementara. Nilai kredensial tidak dicatat.

@@ -1,0 +1,20 @@
+RUN-659, pemulihan endpoint ekstraksi API lokal
+Tanggal/waktu: 17 Oktober 2026, 01:08-01:09 Asia/Jakarta.
+
+Pemicu
+- UI lokal pada 127.0.0.1:3000 menampilkan `Resource not found` setelah brief prompt-first dikirim. UI menyimpan brief lalu membuka editor manual.
+
+Temuan
+- Frontend memanggil `POST /api/v1/intake/extract`; route tersebut sudah ada pada source `apps/api/routers/intake.py` dan tercantum pada dokumentasi API.
+- Sebelum restart, OpenAPI dari `127.0.0.1:8000` tidak menampilkan route tersebut. Proses FastAPI lama berjalan sejak 16 Oktober 2026 pukul 14:53 dan memuat aplikasi dari source lama. Handler 404 menampilkan `Resource not found`, sehingga ini adalah route API yang belum termuat, bukan resource halaman hasil.
+- Proses API lama dihentikan dan FastAPI dijalankan ulang memakai `.venv` repo. Proses evaluasi GPU terpisah tidak dihentikan.
+
+Bukti setelah pemulihan
+- GET `/openapi.json` sekarang menampilkan `POST /api/v1/intake/extract`.
+- GET `/api/v1/health` mengembalikan status `ok`; `model_loaded=false`, `generator_loaded=false`, `extractor_loaded=false`, `extractor_available=false`.
+- Paket seleksi extractor belum tersedia. Karena itu, endpoint kini tersedia tetapi tetap fail-closed sampai kandidat melewati gate development. Brief baru belum diuji ke endpoint dan tidak ada inference prompt atau website yang dijalankan.
+- Draft browser tidak di-refresh atau diubah.
+- Raw evaluation REQUEST-EXTRACT-V1 step 1800 tetap berjalan terpisah pada development. Output proses yang diterima saat pemeriksaan terakhir menunjukkan 8.700 dari 15.200 scope; laporan akhir belum tersedia. Final/test tetap tertutup.
+
+Batas verifikasi
+- Ini membuktikan route termuat dan health API merespons. Ini tidak membuktikan ekstraksi prompt berhasil atau generator menghasilkan website.

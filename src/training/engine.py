@@ -200,6 +200,17 @@ def save_checkpoint(path: Path, state: dict):
         current = sum(p.stat().st_size for d in phase_dirs if d.exists() for p in d.rglob('*') if p.is_file())
         if current + projected + 16 * 1024**2 > 1.5 * 1024**3:
             raise OSError('Checkpoint write would exceed fullpage phase artifact budget1.5GiB')
+    elif state['config'].get('data_origin') == 'request_extract_v1':
+        root = path.resolve().parents[2]
+        model_bytes = sum(t.numel() * t.element_size() for t in {t.data_ptr(): t for t in state['model'].values()}.values())
+        projected = model_bytes * (1 if state.get('weights_only') else 3) + 32 * 1024**2
+        reserve = state['config']['reserve_free_bytes']
+        if shutil.disk_usage(root).free < reserve + projected:
+            raise OSError('Extractor checkpoint write would breach the configured disk reserve')
+        run_directory = root / 'checkpoints' / state['run_id']
+        current = sum(item.stat().st_size for item in run_directory.rglob('*') if item.is_file()) if run_directory.exists() else 0
+        if current + projected + 16 * 1024**2 > state['config'].get('checkpoint_artifact_budget_bytes', 2 * 1024**3):
+            raise OSError('Extractor checkpoint write would exceed its local artifact budget')
     path.parent.mkdir(parents=True, exist_ok=True)
     versions = path.parent / ".versions"
     versions.mkdir(exist_ok=True)
@@ -318,6 +329,8 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
         raise ValueError("Exact resume requires ResumableBatchSampler and num_workers=0")
     source_bound_parent, source_bound_initial_path = None, None
     source_bound_resume_state = None
+    request_extract_parent, request_extract_initial_path = None, None
+    request_extract_resume_state = None
     if config.get("fullpage_contract_version") == "source-bound-v1":
         from src.fullpage.lineage import (
             TRAIN024_PATH,
@@ -347,6 +360,16 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
             validate_source_bound_train025_report(
                 parent_report, config, sha256_file(config_path), resume_digest,
             )
+    if config.get('data_origin') == 'request_extract_v1':
+        from src.fullpage.request_extract_lineage import (
+            verify_request_extract_resume,
+            verify_request_extract_sources,
+        )
+        request_extract_parent, request_extract_initial_path = verify_request_extract_sources(config, root)
+        if resume:
+            request_extract_resume_state = verify_request_extract_resume(Path(resume), config, root)
+            request_extract_parent = None
+            request_extract_initial_path = None
     directory = root / "checkpoints" / run_id
     directory.mkdir(parents=True, exist_ok=False)
     summary_path = root / f"reports/training/{run_id}.json"
@@ -401,6 +424,9 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
             model_bytes = sum(tensor.numel() * tensor.element_size() for tensor in unique_tensors.values())
             retained_generations = 8 if performance.get('best_weights_only', False) else 12
             estimated_checkpoint_bytes = model_bytes * retained_generations + 128 * 1024**2
+        elif config.get('data_origin') == 'request_extract_v1':
+            model_bytes = sum(t.numel() * t.element_size() for t in {t.data_ptr(): t for t in model.state_dict().values()}.values())
+            estimated_checkpoint_bytes = model_bytes * 8 + 128 * 1024**2
         else:
             estimated_checkpoint_bytes = model.parameter_count() * 12 * 6 + 64 * 1024**2
         if shutil.disk_usage(root).free < config["reserve_free_bytes"] + estimated_checkpoint_bytes:
@@ -409,6 +435,10 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
             load_checkpoint(source_bound_initial_path, model, None, None,
                             restore_rng=False, state=source_bound_parent)
             source_bound_parent = None
+        if request_extract_parent is not None and not resume:
+            load_checkpoint(request_extract_initial_path, model, None, None,
+                            restore_rng=False, state=request_extract_parent)
+            request_extract_parent = None
         if device.type == "cuda":
             torch.cuda.reset_peak_memory_stats()
         optimizer_options = {"fused": True} if performance.get("fused_adamw", False) else {}
@@ -423,7 +453,8 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
         step, best, total_tokens, best_reference = 0, float("inf"), 0, None
         best_path = directory / "best.pt"
         if (config.get("initial_checkpoint") and not resume
-                and config.get('fullpage_contract_version') != 'source-bound-v1'):
+                and config.get('fullpage_contract_version') != 'source-bound-v1'
+                and config.get('data_origin') != 'request_extract_v1'):
             # Preserve the legacy initializer's ordering and validation behavior.
             from src.training.lineage import validate_initial_checkpoint
             initial_path = root / config["initial_checkpoint"]
@@ -438,6 +469,7 @@ def run_training(config_path: Path, train_loader, validation_loader, run_id: str
             load_checkpoint(initial_path, model, None, None, restore_rng=False)
         if resume:
             state = (source_bound_resume_state if source_bound_resume_state is not None
+                     else request_extract_resume_state if request_extract_resume_state is not None
                      else read_checkpoint(Path(resume)))
             if state.get('weights_only'):
                 raise ValueError('Exact resume requires last checkpoint with optimizer/scheduler state; best is weights-only')

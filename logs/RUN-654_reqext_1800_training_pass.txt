@@ -1,0 +1,10 @@
+RUN-654, REQEXT-V1-1800 berhasil selesai
+Tanggal/waktu: 16 Oktober 2026, 23:36, Asia/Jakarta.
+
+R1 retry mencapai `global_step=1800` dan `last_committed_step=1800` dengan status `stopped_at_limit`, sesuai tahap pertama dari config 3.600 update. Checkpoint run ID dan step telah diverifikasi. Checkpoint SHA-256 `ed3c98d2da77998c257230bef3a93e24479aa67971664c1fa8d384b46a287b21`. Config SHA-256 `9bc454c2eeb420e48136b356bfd14e0a38d23039e7fd79d37bce38ac6d93cee0`.
+
+Development validation cross-entropy: initial 5.7648178093, step 1.800 1.4613933164 pada 1.900 batch dan 2,947,828 supervised tokens. Ini token loss, bukan ekstraksi fakta atau kualitas halaman. Sampler melewati titik gagal lama sekitar update 1.440 tanpa batch kosong. Checkpoint recovery step 1.200 sudah terbaca cocok.
+
+Ruang F: setelah tahap 1 tersisa 16,924,983,296 byte. Tidak ada generation/inference selama training. Final/test tetap tertutup. Candidate snapshot dan evaluasi development extractor belum dijalankan.
+
+Langkah berikutnya: buat snapshot weights-only step 1.800, kemudian evaluasi extraction output pada development sintetis saja.

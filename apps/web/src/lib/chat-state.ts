@@ -1,9 +1,14 @@
 import type {
   GenerationStatus,
   GenerationSummary,
+  IntakeConflict,
   IntakeResponse,
+  PromptMessage,
   RequestDraft,
+  SourceEvidence,
+  UnsupportedRequest,
 } from "@/lib/api-types";
+import type { WebsiteTemplateId } from "@/lib/website-templates";
 
 export type MessageBase = { id: string; createdAt: string };
 
@@ -27,6 +32,13 @@ export type ClarificationMessage = MessageBase & {
   missingFields: string[];
   isValidating?: boolean;
   isError?: boolean;
+  allowManualEditor?: boolean;
+  showOnlyMissing?: boolean;
+  templateId?: WebsiteTemplateId;
+  sourceEvidence?: SourceEvidence[];
+  sourceMessages?: PromptMessage[];
+  conflicts?: IntakeConflict[];
+  unsupportedRequests?: UnsupportedRequest[];
 };
 
 export type RequestSummaryMessage = MessageBase & {
@@ -36,6 +48,9 @@ export type RequestSummaryMessage = MessageBase & {
   draft: RequestDraft;
   state: "editing" | "ready_to_confirm" | "confirmed";
   validation: IntakeResponse;
+  sourceEvidence?: SourceEvidence[];
+  sourceMessages?: PromptMessage[];
+  extractionToken?: string;
 };
 
 export type GenerationStatusMessage = MessageBase & {

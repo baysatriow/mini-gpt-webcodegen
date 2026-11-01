@@ -1,0 +1,12 @@
+RUN-648, peluncuran REQEXT-V1 sampai update 1.800
+Tanggal/waktu: 16 Oktober 2026, 23:00, Asia/Jakarta.
+
+Commit terakhir dipush: `6836fe8 docs: record extractor RTX 5070 preflight`.
+Config SHA-256: `15ac854334e31c64b5a2adffbfcdb90efc8ce697101ae4db18f339fe9a9b83bb`.
+Preflight RUN-647 lulus. Pemeriksaan ruang terbaru melaporkan 17,567,727,616 byte free. Run directory update 1.800 dan 3.600 belum ada.
+
+Rencana: jalankan `qa.train_request_extract_v1` sebagai `REQEXT-V1-1800`, fresh dari parent TRAIN-025 step 1.800, berhenti tepat pada global step 1.800. Config tetap menargetkan total 3.600; tahap berikutnya wajib exact-resume dari `checkpoints/REQEXT-V1-1800/last.pt`.
+
+Engine memvalidasi cross-entropy development pada inisialisasi dan update 1.800 tanpa gradient update development. Optimizer memakai train rows saja. Checkpoint disimpan oleh guard 15 GiB dan budget artefak 2 GiB. Tidak membuka test/final, tidak menjalankan generation/inference, dan tidak mengubah aplikasi/API/UI.
+
+Jika ada kegagalan, checkpoint terakhir dan log engine menjadi bukti status; tidak menghapus artefak. Hasil training dicatat pada RUN berikutnya.

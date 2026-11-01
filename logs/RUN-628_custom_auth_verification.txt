@@ -1,0 +1,4 @@
+RUN-628, verifikasi Basic Auth kustom
+Tanggal/waktu: 16 Oktober 2026, sekitar 15:18 Asia/Jakarta
+Hasil: tanpa autentikasi mendapat 401. Dengan kredensial kustom, halaman utama, /api/v1/health, dan /api/v1/catalog mendapat 200. Tunnel menuju 127.0.0.1:3000, FastAPI tetap loopback-only pada 127.0.0.1:8000.
+Batas: tidak ada generation baru, inference, atau uji beban. Password tidak dicatat.

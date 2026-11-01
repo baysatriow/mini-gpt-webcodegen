@@ -1,0 +1,10 @@
+RUN-645, konfigurasi extractor berhasil dibekukan
+Tanggal/waktu: 16 Oktober 2026, 22:54, Asia/Jakarta.
+
+Konfigurasi `configs/fullpage/training-request-extract-v1.json` berhasil dibuat setelah verifier disesuaikan dengan field laporan seleksi V5 yang benar. SHA-256 config: `15ac854334e31c64b5a2adffbfcdb90efc8ce697101ae4db18f339fe9a9b83bb`.
+
+Parent: TRAIN-025 step 1.800, weights-only, SHA-256 `c1a450149eb8f860cc42595bba283e0f9e915a436f38f967516bc5107bd1c446`. Dataset manifest SHA-256 `e561564c3ffb75e25b6a6fdc6feadaca5a7ec1f9fecf3f6f799311dea4cf36dc`. Config menetapkan 16 scope, batch 8, accumulation 6, update sampai 3.600, BF16, dan reserve storage 15 GiB.
+
+RUN-644 tetap tersimpan sebagai percobaan konfigurasi gagal yang tidak menulis file. Config kini membekukan hash semua sumber training, lineage, evaluasi, dan selection. Tidak ada perubahan sumber ter-hash sejak config dibuat.
+
+Batas: GPU preflight dan update disposable belum dijalankan. Belum ada training, inference, development scoring, atau selection. Final/test tertutup.

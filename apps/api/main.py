@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 import logging
+import asyncio
+from contextlib import asynccontextmanager, suppress
+from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
@@ -10,8 +13,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from apps.api.routers import generations, health, intake
+from apps.api.routers import generations, health, intake, usages
 from apps.api.schemas import ErrorResponse
+from apps.api.services.usage_audit import audit_generation_request
+from apps.api.services.usage_store import UsageStore
 from apps.api.settings import load_settings
 
 
@@ -26,8 +31,30 @@ _HTTP_ERRORS = {
 }
 
 
-def create_app() -> FastAPI:
+def create_app(*, usage_root: Path | None = None) -> FastAPI:
     settings = load_settings()
+
+    @asynccontextmanager
+    async def lifespan(app: FastAPI):
+        store = UsageStore(usage_root or settings.project_root / "outputs/webapp/usages")
+        instance_id = store.start_instance()
+        app.state.usage_store = store
+        app.state.usage_instance_id = instance_id
+
+        async def heartbeat() -> None:
+            while True:
+                await asyncio.sleep(15)
+                await asyncio.to_thread(store.heartbeat_instance, instance_id)
+
+        task = asyncio.create_task(heartbeat(), name="usage-instance-heartbeat")
+        try:
+            yield
+        finally:
+            task.cancel()
+            with suppress(asyncio.CancelledError):
+                await task
+            await asyncio.to_thread(store.stop_instance, instance_id)
+
     app = FastAPI(
         title="Mini GPT WebCodeGen API",
         description=(
@@ -37,6 +64,7 @@ def create_app() -> FastAPI:
         version="0.1.0",
         docs_url="/docs",
         openapi_url="/openapi.json",
+        lifespan=lifespan,
     )
     app.add_middleware(
         CORSMiddleware,
@@ -44,7 +72,10 @@ def create_app() -> FastAPI:
         allow_credentials=False,
         allow_methods=["GET", "POST"],
         allow_headers=["Content-Type"],
+        expose_headers=["X-Usage-ID"],
     )
+
+    app.middleware("http")(audit_generation_request)
 
     @app.exception_handler(StarletteHTTPException)
     async def handle_http_exception(
@@ -87,6 +118,7 @@ def create_app() -> FastAPI:
     app.include_router(health.router)
     app.include_router(intake.router)
     app.include_router(generations.router)
+    app.include_router(usages.router)
     return app
 
 

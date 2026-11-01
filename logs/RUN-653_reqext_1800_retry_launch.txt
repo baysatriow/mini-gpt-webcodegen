@@ -1,0 +1,10 @@
+RUN-653, REQEXT-V1-1800 retry launch
+Tanggal/waktu: 16 Oktober 2026, 23:21, Asia/Jakarta.
+
+R1 preflight lulus pada RUN-652 dan sudah dipush dalam commit `b612451`. Config SHA-256 `9bc454c2eeb420e48136b356bfd14e0a38d23039e7fd79d37bce38ac6d93cee0`. Preflight report SHA-256 `2d0f1ed7c044a78ece49e116ce49aa024606eb21cdbeba43bdc67d1d966e1c31`.
+
+Attempt 1 telah dipindahkan, bukan dihapus, ke `outputs/request_extract/v1/attempts/REQEXT-V1-1800-attempt1`. Sebelas artefak dan hash tercatat di `ARCHIVE_MANIFEST.json`, SHA-256 manifest `aec2d94ec630ab9a0106f9f1ca6acce76bdf242a7f4373616e84acd97875bb5a`. Seluruh canonical path untuk run, report, metrics, GPU metrics, dan console log dipastikan kosong sebelum retry.
+
+Rencana: jalankan fresh `REQEXT-V1-1800` dari parent TRAIN-025 step 1.800 sampai update 1.800 memakai config r1. Last-state checkpoint interval 600 untuk recovery. Candidate snapshot tetap pada update 1.800. Storage free terbaru 17,393,397,760 byte; engine mempertahankan reserve 15 GiB dan menguji guard pada setiap write.
+
+Development dihitung untuk validation CE pada titik yang ditentukan tanpa gradient update. Tidak menjalankan generation/inference. Final/test tetap tertutup.

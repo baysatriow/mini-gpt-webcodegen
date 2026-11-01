@@ -18,6 +18,7 @@ export type ConfirmedBusinessFacts = {
   styleMode: StyleMode;
   name: string;
   description: string;
+  value: string;
   services: Array<{ title: string; text: string }>;
   additionalFacts: ConfirmedStructuredFact[];
   requestedFeatureIds: string[];
@@ -36,6 +37,7 @@ export function createDraft(prompt: string, facts: ConfirmedBusinessFacts): Requ
   const cleanPrompt = prompt.trim();
   const name = facts.name.trim();
   const description = facts.description.trim();
+  const value = facts.value.trim();
   const services = facts.services.map((service) => ({
     title: service.title.trim(),
     text: service.text.trim(),
@@ -49,12 +51,26 @@ export function createDraft(prompt: string, facts: ConfirmedBusinessFacts): Requ
   if (!cleanPrompt) throw new DraftValidationError("Prompt belum diisi.");
   if (!name) throw new DraftValidationError("Nama usaha perlu diisi.");
   if (!description) throw new DraftValidationError("Deskripsi usaha perlu diisi.");
+  if (!value) throw new DraftValidationError("Nilai atau keunggulan usaha perlu diisi.");
   if (services.some((service) => !service.title || !service.text)) {
     throw new DraftValidationError("Lengkapi nama dan deskripsi tiap layanan, atau hapus baris yang kosong.");
   }
-  if (services.length === 0) throw new DraftValidationError("Tambahkan setidaknya satu layanan dengan nama dan deskripsi.");
+  if (services.length < 3) throw new DraftValidationError("Tambahkan 3 layanan usaha yang akan ditampilkan.");
   if (additionalFacts.some((fact) => Boolean(fact.title) !== Boolean(fact.text))) {
     throw new DraftValidationError("Lengkapi judul dan isi setiap fakta tambahan, atau hapus fakta yang belum lengkap.");
+  }
+  const factCounts = additionalFacts.reduce<Record<string, number>>((counts, fact) => {
+    if (fact.title && fact.text) counts[fact.kind] = (counts[fact.kind] ?? 0) + 1;
+    return counts;
+  }, {});
+  if ((factCounts.process ?? 0) < 3) {
+    throw new DraftValidationError("Tambahkan 3 langkah proses usaha.");
+  }
+  if (facts.genre === "landing_page" && (factCounts.faq ?? 0) < 3) {
+    throw new DraftValidationError("Tambahkan 3 pertanyaan dan jawaban FAQ.");
+  }
+  if (facts.genre === "company_profile" && (factCounts.project ?? 0) < 2) {
+    throw new DraftValidationError("Tambahkan 2 proyek atau karya untuk portofolio.");
   }
 
   const businessFacts: BusinessFact[] = [
@@ -70,6 +86,12 @@ export function createDraft(prompt: string, facts: ConfirmedBusinessFacts): Requ
       value: description,
       evidence: { user_confirmed: true },
     },
+    {
+      id: "business-value",
+      kind: "value",
+      value,
+      evidence: { user_confirmed: true },
+    },
     ...services.map((service, index) => ({
       id: `service-${index + 1}`,
       kind: "service" as const,
@@ -82,22 +104,32 @@ export function createDraft(prompt: string, facts: ConfirmedBusinessFacts): Requ
     })),
     ...additionalFacts
       .filter((fact) => fact.title && fact.text)
-      .map((fact, index) => ({
-        id: `${fact.kind}-${index + 1}`,
-        kind: fact.kind,
-        value: {
-          title: fact.title,
-          title_evidence: { user_confirmed: true as const },
-          text: fact.text,
-          text_evidence: { user_confirmed: true as const },
-        },
-      })),
+      .sort((left, right) => {
+        const order = { process: 0, faq: 1, project: 2 };
+        return order[left.kind] - order[right.kind];
+      })
+      .map((fact, index, completeFacts) => {
+        const kindIndex = completeFacts
+          .slice(0, index)
+          .filter((item) => item.kind === fact.kind).length;
+        return {
+          id: `${fact.kind}-${kindIndex + 1}`,
+          kind: fact.kind,
+          value: {
+            title: fact.title,
+            title_evidence: { user_confirmed: true as const },
+            text: fact.text,
+            text_evidence: { user_confirmed: true as const },
+          },
+        };
+      }),
   ];
 
   if (businessFacts.length > 24) {
     throw new DraftValidationError("Jumlah fakta terlalu banyak. Hapus beberapa fakta tambahan.");
   }
-  const assetIds = [...new Set(facts.assetIds)];
+  const genreAsset = facts.genre === "landing_page" ? "studio-shapes" : "company-shapes";
+  const assetIds = [...new Set([genreAsset, ...facts.assetIds])];
   if (assetIds.length > 8) throw new DraftValidationError("Pilih maksimal delapan aset lokal.");
   const requestedFeatureIds = [...new Set(facts.requestedFeatureIds)];
   if (requestedFeatureIds.length > 32) {
@@ -119,7 +151,7 @@ export function createDraft(prompt: string, facts: ConfirmedBusinessFacts): Requ
   };
 }
 
-export function getFactValue(draft: RequestDraft, kind: "name" | "description"): string {
+export function getFactValue(draft: RequestDraft, kind: "name" | "description" | "value"): string {
   const fact = draft.business_facts.find((item) => item.kind === kind);
   return fact && "value" in fact && typeof fact.value === "string" ? fact.value : "";
 }
