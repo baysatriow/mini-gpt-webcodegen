@@ -7374,3 +7374,26 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - Tidak ada generation atau inference yang berjalan. File environment dan kredensial tidak diubah.
 - Saat pencatatan, terdapat perubahan frontend lokal yang belum commit pada apps/web. Perubahan itu dibiarkan di working tree; commit shutdown hanya berisi log.
 - Rincian: logs/RUN-678_stop_local_application_and_tunnel.txt.
+
+## AI-059, audit struktur dan paket model untuk upload
+
+- Tanggal/waktu: 1 November 2026, 15:26, Asia/Jakarta.
+- Permintaan: periksa dan rapikan struktur, gunakan antislop untuk dokumentasi, commit/push per progress, serta tunjukkan model yang dapat dicoba dan insight proyek.
+- Audit menemukan README mencampur status terbaru dan runtime historis TRAIN-012/015/017. Dokumentasi terpilih juga masih melarang upload meskipun pengguna kini meminta persiapan upload. Perapihan prose menunggu pilihan mode antislop karena settings global belum tersedia dan skill meminta pilihan during atau after.
+- Model terpilih terverifikasi sebagai TRAIN-025 step 1800, 14.579.712 parameter, konteks 2048, enam layer dan enam head, embedding 384. Hash payload, checkpoint kanonis, selection report, dan tokenizer cocok.
+- Bobot terpilih dimuat melalui Runtime.get_generator pada CUDA tanpa inference. Paket mandiri juga dimuat lewat FullPageGenerator dari root paket, dengan pemeriksaan lineage tetap aktif.
+- Salinan siap upload dibuat di outputs/releases/fullpage-v5-TRAIN-025-step1800.zip. Paket memuat 108 file, termasuk pointer, payload .versions, manifest checkpoint, tokenizer, source/config/aset, dependency lock dan contoh request development. ZIP CRC lulus. Tidak ada raw data, final/test atau kredensial yang disertakan.
+- Root app hanya berisi direktori cache kosong dan tidak memiliki file tracked. Direktori itu dipindahkan secara reversible ke sampah/local-cache/2026-11-01/app setelah containment source/destination diverifikasi.
+- Tiga belas file UI sudah berubah sebelum audit. Perubahan tersebut dipertahankan unstaged.
+- Bukti: reports/structure/AUDIT_2026-11-01.json. Angka 80/80 merujuk validator development dan bukan kualitas visual 95 persen. Selection extractor belum tersedia; final tetap tertutup.
+
+## RUN-679, verifikasi struktur dan paket upload terpilih
+
+- Tanggal/waktu: 1 November 2026, 15:26, Asia/Jakarta.
+- Pembacaan checkpoint lokal berhasil dengan weights_only. Digest checkpoint dan tokenizer cocok dengan selection serta lineage.
+- Probe awal loader CPU memakai argumen device yang tidak didukung dan gagal TypeError sebelum inference. Probe dikoreksi ke adapter aplikasi yang memakai CUDA dan berhasil memuat model.
+- Pemanggilan awal skrip ekspor dengan relative module gagal, lalu dikoreksi dengan runpy. Percobaan berikutnya menemukan request development berada di attempt-01/request.json; lokasi diperbaiki dan paket parsial dilanjutkan tanpa menghapus data.
+- Paket selesai: 54.437.217 byte, SHA-256 1dc5ebcdaec137ee9e909778ef58fa2ab4d2d960f291410f52ac29a3222de362. Semua anggota ZIP lolos CRC dan generator dari root paket berhasil dimuat di CUDA.
+- Tidak ada generation baru, training, pembukaan final/test, server, atau tunnel yang dijalankan. Bobot asli tidak diubah.
+- Skrip sementara pelaksanaan ada di .tmp/prepare_upload_20261101.py; direktori .tmp dan paket outputs tetap diabaikan Git.
+- Tahap berikutnya: rapikan README dan panduan pemakaian setelah pilihan mode antislop diterima.
