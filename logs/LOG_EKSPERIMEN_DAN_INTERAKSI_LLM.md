@@ -7439,3 +7439,25 @@ Komponen `apps/web/src/components/ui/tabs.tsx` terbentuk dan terlihat di working
 - git diff --check lulus. Review ini mengandalkan source, unit test, lint dan build; interaksi browser langsung serta inference tidak diuji.
 - Tidak ada server atau tunnel yang dinyalakan, tidak ada dependency, bobot, tokenizer, dan benchmark final yang diubah.
 - Sebelum commit, fetch origin berhasil dan branch feature/pipeline-data-model-training tidak memiliki divergence.
+
+## AI-062, start aplikasi dan audit sinkronisasi log
+
+- Tanggal/waktu pemeriksaan: 1 November 2026, 16:19, Asia/Jakarta.
+- Pengguna meminta proyek dan Cloudflare Tunnel dijalankan, lalu lokasi dan kelengkapan log dicocokkan dengan chat terakhir.
+- Log utama sebelum pemeriksaan mencapai AI-061/RUN-681 dan merekam review frontend, tes serta batas tanpa review browser atau inference. Hasil commit/push lima tahap terbaru belum dicatat dengan hash commit eksplisit.
+- Indeks logs/README.md masih menyatakan training belum dimulai. Pernyataan itu sudah tidak sesuai; indeks diperbarui untuk menjelaskan log utama, training, Usage, stdout/stderr dan receipt runtime.
+- Log Markdown ditambahkan manual per kegiatan, tidak otomatis menyalin seluruh chat. Kredensial yang diminta di chat tidak disalin ke log. Audit ini mencocokkan tahap terbaru, bukan audit penuh seluruh pesan historis.
+- Entry log training terakhir yang diperiksa adalah RUN-662/REQEXT-V1-3600 pada 17 Oktober. Tidak ada training baru pada tahap aplikasi/dokumentasi berikutnya.
+- Catatan susulan hasil commit/push yang diverifikasi dari Git: e9b6546 start aplikasi/tunnel; b554898 shutdown; d1379df audit struktur/model; 641dfa7 penataan dokumentasi; 1545bdc review UI VibeCraft dan kontrol preview. Kelimanya berada dalam riwayat branch origin pada pemeriksaan.
+- Bukti: reports/structure/LOG_SYNC_2026-11-01.json. Receipt setelah push dicatat lokal di outputs/runtime/latest-session.json agar hash commit hasil pencatatan dapat direkam tanpa mengubah riwayat sebelumnya.
+
+## RUN-682, start lokal dan Quick Tunnel dengan pemeriksaan akses
+
+- Tanggal/waktu: 1 November 2026, 16:19, Asia/Jakarta.
+- Next.js production memakai build terbaru setelah review UI, listener PID 42848 pada 127.0.0.1:3000. FastAPI .venv satu worker memakai listener PID 61828 pada 127.0.0.1:8000. Launcher masing-masing PID 37496 dan 65604.
+- Quick Tunnel PID 45572 meneruskan hanya ke Next.js port 3000. URL sementara disampaikan di chat dan receipt lokal, tidak ditulis ke log Git.
+- Perintah gabungan awal untuk membaca konfigurasi dan startup ditolak pemeriksaan otomatis tanpa alasan rinci. Startup dilanjutkan dengan perintah lokal yang lebih sempit tanpa membaca secret. Proteksi akses diverifikasi lewat HTTP sebelum tunnel dibuat.
+- Pemeriksaan lokal dan publik tanpa sesi: root 307 ke /login, login 200, dan /api/v1/health melalui frontend 401. HTTPS publik diperiksa curl tanpa melewati validasi TLS.
+- Health API langsung ok; model_loaded, extractor_available, extractor_loaded dan generator_loaded false. Tidak ada inference atau generation baru.
+- stdout/stderr ditulis ke TEMP Windows dengan awalan vibecraft-20261101. Metadata generation otomatis berada di outputs/webapp/usages/usage.sqlite3.
+- Layanan dibiarkan berjalan sesuai permintaan. Receipt runtime mencatat PID, endpoint, waktu pemeriksaan, serta hasil commit/push log ini.
