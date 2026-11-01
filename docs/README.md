@@ -29,7 +29,7 @@ Gunakan panduan aktif di bawah untuk menjalankan proyek. Laporan bertanggal dan 
 
 [Desain chat](superpowers/specs/2026-10-15-generator-chat-application-design.md), [desain intake](superpowers/specs/2026-10-16-prompt-first-intake-design.md), dan [roadmap](superpowers/plans/2026-10-15-generator-app-roadmap.md) mencatat keputusan arsitektur. Status implementasi terkini diringkas di README utama dan panduan aplikasi.
 
-Extractor otomatis belum memiliki selection runtime yang dipromosikan pada audit 1 November. Pengguna dapat memilih contoh fiktif dan mengisi editor fakta. Generator terpilih menerima fakta yang lolos validasi. Target visual 95 persen masih memerlukan review manusia; final FULLPAGE-V5 tetap tertutup.
+Extractor otomatis belum memiliki selection runtime yang dipromosikan pada audit 1 November. Pengguna dapat memilih contoh fiktif dan mengisi editor fakta. Generator terpilih menerima fakta yang lolos validasi. Pemilik proyek menerima desain aplikasi untuk scope mini-proyek. Skor visual 95 persen untuk hasil generasi bukan kriteria penerimaan dan tidak diklaim; final FULLPAGE-V5 tetap tertutup.
 
 ## Arsip dokumentasi
 

@@ -12,7 +12,8 @@ WebCraft by VibeStack adalah aplikasi generator website WebCraft GPT. Proyek ini
 | Pemuatan model | Adapter aplikasi dan paket upload berhasil memuat model di CUDA pada audit 1 November |
 | Development | Validator menerima 80/80 request pada laporan seleksi |
 | Extractor brief bebas | Belum dipromosikan; selection runtime belum tersedia |
-| Kualitas visual | Target 95 persen belum dibuktikan oleh review manusia |
+| Desain aplikasi | Diterima pemilik proyek sebagai memadai untuk scope mini-proyek |
+| Skor visual hasil generasi | Target 95 persen bukan gerbang penerimaan dan tidak diklaim |
 | Evaluasi final FULLPAGE-V5 | Tetap tertutup; hasil final eksperimen lama memakai benchmark terpisah |
 
 Audit pemuatan tidak menjalankan inference baru. Angka 80/80 mengukur kepatuhan kontrak development. Angka itu tidak mengukur daya tarik visual atau kemampuan menghasilkan layout bebas.
@@ -75,7 +76,7 @@ Generator belum ditujukan untuk backend bisnis, database aplikasi hasil, situs b
 
 Snapshot pipeline awal mencatat 54.996 baris diterima, menjadi 51.211 setelah deduplikasi: 41.639 train, 5.016 validation, dan 4.556 test. Angka ini berasal dari manifest pretraining, bukan jumlah pasangan SFT terbaru. Family assignment, tokenizer, lineage, dan laporan eksperimen mengikat data yang dipakai tiap run.
 
-[Audit struktur dan model](reports/structure/AUDIT_2026-11-01.json) memuat hasil pemeriksaan terbaru. [Manifest runtime](training/selected/fullpage-v5/selection.json) dan [laporan seleksi](reports/training/FULLPAGE-V5_DEVELOPMENT_SELECTION.json) menjadi rujukan identitas kandidat. Evaluasi visual manusia dan evaluasi final harus dilaporkan terpisah dari validasi schema.
+[Audit struktur dan model](reports/structure/AUDIT_2026-11-01.json) memuat hasil pemeriksaan terbaru. [Manifest runtime](training/selected/fullpage-v5/selection.json) dan [laporan seleksi](reports/training/FULLPAGE-V5_DEVELOPMENT_SELECTION.json) menjadi rujukan identitas kandidat. Penerimaan desain aplikasi dicatat terpisah dari validasi schema model. Proyek ini tidak mengklaim skor visual 95 persen untuk halaman yang dihasilkan.
 
 ## Dokumentasi dan riwayat
 

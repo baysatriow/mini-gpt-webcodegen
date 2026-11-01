@@ -46,6 +46,6 @@ Untuk preview hasil melalui aplikasi, ikuti [panduan frontend](../apps/web/READM
 
 ## Batas bukti
 
-Audit 1 November memverifikasi hash, tokenizer, dan pemuatan kandidat pada CUDA tanpa inference baru. Laporan seleksi menerima 80/80 request development. Review visual manusia serta evaluasi final FULLPAGE-V5 belum selesai.
+Audit 1 November memverifikasi hash, tokenizer, dan pemuatan kandidat pada CUDA tanpa inference baru. Laporan seleksi menerima 80/80 request development. Pemilik proyek menerima desain aplikasi untuk scope mini-proyek. Skor visual 95 persen untuk hasil generasi bukan kriteria penerimaan dan tidak diklaim. Evaluasi final FULLPAGE-V5 tetap tertutup.
 
 Panduan TRAIN-012/015 disimpan dalam [arsip CLI](history/GENERATING_WEBSITES_BEFORE_2026-11-01.md).

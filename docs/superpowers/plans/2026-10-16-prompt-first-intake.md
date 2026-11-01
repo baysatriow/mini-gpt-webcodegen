@@ -21,7 +21,7 @@
 - Load the extractor and generator one at a time under the same inference lock.
 - Do not add automated test files or run test suites in this task. Use build, lint, schema/data audits, local non-final development evaluation, and browser review, and describe exactly what each proves.
 - Commit and push each coherent change to the current feature branch without any `Co-Authored-By` trailer.
-- Preserve the sealed final partition and do not claim 95 percent visual quality without browser and human review.
+- Preserve the sealed final partition. The project owner accepts the application design for the mini-project; do not claim a measured visual score for generated pages.
 
 ## Review Focus
 
