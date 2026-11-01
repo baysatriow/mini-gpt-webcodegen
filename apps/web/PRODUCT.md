@@ -28,8 +28,7 @@ The app uses a Next.js and shadcn interface with a local FastAPI adapter. Users 
 - Supported output styles are plain CSS and Tailwind CSS.
 - Generation runs only after the user confirms the request and the API validates it.
 - The model selects from the constrained page pipeline. The renderer creates the accepted website files.
-- The current Usage implementation stores operational metadata and telemetry for 90 days. It does not yet store prompts or confirmed facts.
-- The owner approved storing the user prompt and user-confirmed facts in local Usage storage for 90 days so an inference can be audited after navigation or a browser restart. Never store or show extractor tokens.
+- Usage stores operational metadata, GPU telemetry, the user prompt, and user-confirmed facts in the local project database for 90 days so a run can be audited after navigation or a browser restart. Never store or show extractor tokens.
 - Read generated HTML, CSS, and JavaScript from the existing validated generation artifact endpoint. Do not duplicate source code into the Usage database. A failed run has no source output unless the validated endpoint returns an accepted artifact.
 - Usage and navigation must not trigger inference.
 - Human visual review and a 95 percent visual quality claim remain out of scope for this change.

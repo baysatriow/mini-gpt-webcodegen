@@ -10,10 +10,13 @@ test("Usage client is same-origin, typed, and never caches audit data", () => {
   assert.match(source, /cache:\s*["']no-store["']/);
   assert.match(source, /export type UsageRecord/);
   assert.match(source, /export function getUsageDetail/);
+  assert.match(source, /filters\.q\.trim\(\)\.slice\(0, 200\)/);
 });
 
 test("Usage dashboard explains unavailable telemetry and renders readable outcome labels", () => {
-  const source = read("../src/components/usage/usage-dashboard.tsx");
+  const dashboard = read("../src/components/usage/usage-dashboard.tsx");
+  const components = read("../src/components/usage/usage-components.tsx");
+  const source = `${dashboard}\n${components}`;
   assert.match(source, /Telemetri GPU belum tersedia/);
   assert.match(source, /Tidak ada data GPU selama proses generate/);
   assert.match(source, /function outcomeLabel/);
@@ -22,7 +25,7 @@ test("Usage dashboard explains unavailable telemetry and renders readable outcom
 });
 
 test("Usage metric values wrap on narrow screens instead of truncating", () => {
-  const source = read("../src/components/usage/usage-dashboard.tsx");
+  const source = read("../src/components/usage/usage-components.tsx");
   assert.match(source, /whitespace-normal break-words leading-snug text-sm font-medium text-foreground/);
   assert.doesNotMatch(source, /truncate text-sm font-medium text-foreground">\{value\}/);
 });
@@ -34,4 +37,18 @@ test("chat navigation and composer guidance remain accessible", () => {
   assert.match(composer, /aria-describedby=/);
   assert.match(composer, /id=["']composer-guidance["']/);
   assert.match(composer, /id=["']composer-character-count["']/);
+});
+
+test("Usage inspection renders accepted source as inert text and shares navigation", () => {
+  const dashboard = read("../src/components/usage/usage-dashboard.tsx");
+  const components = read("../src/components/usage/usage-components.tsx");
+  const sidebar = read("../src/components/chat/history-sidebar.tsx");
+  assert.match(dashboard, /<HistorySidebar \{\.\.\.historyProps\}/);
+  assert.match(dashboard, /activeSection: "usage"/);
+  assert.match(components, /<code>\{source\}<\/code>/);
+  assert.doesNotMatch(components, /dangerouslySetInnerHTML|<iframe/i);
+  assert.match(components, /getSource\(generationId\)/);
+  assert.match(components, /Fakta yang dikonfirmasi/);
+  assert.match(components, /const STAGE_GROUPS/);
+  assert.match(sidebar, /aria-current=\{activeSection === "usage" \? "page" : undefined\}/);
 });

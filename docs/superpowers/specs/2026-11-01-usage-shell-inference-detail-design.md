@@ -1,6 +1,6 @@
 # Spesifikasi Rework Usage, Shell, dan Detail Inference
 
-Status: draf untuk persetujuan pengguna
+Status: disetujui untuk implementasi
 
 Tanggal: 1 November 2026
 

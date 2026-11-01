@@ -1,21 +1,43 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Activity,
   AlertCircle,
   ArrowLeft,
-  CheckCircle2,
-  ChevronDown,
-  Clock3,
   Cpu,
-  Database,
   LoaderCircle,
+  Menu,
   RefreshCw,
-  XCircle,
+  Search,
 } from "lucide-react";
+import { HistorySidebar } from "@/components/chat/history-sidebar";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import {
+  FAILURE_LABELS,
+  OUTCOME_LABELS,
+  STAGE_LABELS,
+  OutcomeBadge,
+  UsageEventLog,
+  UsageEvidence,
+  UsageGpuDetails,
+  UsageSourcePanel,
+  UsageStageRail,
+  dateLabel,
+  durationLabel,
+  memoryLabel,
+  numberLabel,
+  outcomeLabel,
+  percentLabel,
+  recordTitle,
+  shortId,
+} from "@/components/usage/usage-components";
+import { copyTextToClipboard } from "@/lib/clipboard";
+import { createChatSession, type ChatSession } from "@/lib/chat-state";
+import { readChatHistory, writeChatHistory } from "@/lib/history-storage";
 import {
   getCurrentGpu,
   getUsageDetail,
@@ -23,61 +45,13 @@ import {
   getUsageSummary,
   type CurrentGpu,
   type UsageDetail,
-  type UsageEvent,
-  type UsageFailureCode,
   type UsageOutcome,
-  type UsagePage,
   type UsageRecord,
   type UsageStage,
   type UsageSummary,
   type UsageWindow,
 } from "@/lib/usage-client";
-
-const OUTCOME_LABELS: Record<UsageOutcome, string> = {
-  running: "Sedang berjalan",
-  completed: "Berhasil",
-  rejected: "Ditolak sebelum inference",
-  failed: "Gagal",
-  interrupted: "Terhenti saat server restart",
-};
-
-const STAGE_LABELS: Record<UsageStage, string> = {
-  request_received: "Permintaan diterima",
-  request_validation: "Validasi format request",
-  intake_validation: "Validasi fakta halaman",
-  model_load: "Memuat model",
-  inference: "Inference",
-  output_validation: "Validasi output",
-  render_export: "Render dan ekspor",
-  persist_result: "Menyimpan hasil",
-  completed: "Selesai",
-  server_restart: "Server restart",
-};
-
-const FAILURE_LABELS: Record<UsageFailureCode, string> = {
-  input_rejected: "Input ditolak",
-  input_too_long: "Input terlalu panjang",
-  unsupported_request: "Permintaan di luar kemampuan",
-  generation_busy: "Generator sedang digunakan",
-  model_unavailable: "Model tidak tersedia",
-  inference_failed: "Inference gagal",
-  cuda_out_of_memory: "Memori CUDA tidak cukup",
-  output_invalid: "Output tidak valid",
-  render_failed: "Render gagal",
-  storage_failed: "Penyimpanan hasil gagal",
-  invalid_request: "Format request tidak valid",
-  internal_error: "Kesalahan internal",
-  server_interrupted: "Proses terhenti saat server restart",
-  gpu_telemetry_unavailable: "Telemetri GPU tidak tersedia",
-};
-
-const OUTCOME_STYLES: Record<UsageOutcome, string> = {
-  running: "border-blue-200 bg-blue-50 text-blue-800",
-  completed: "border-emerald-200 bg-emerald-50 text-emerald-800",
-  rejected: "border-amber-200 bg-amber-50 text-amber-900",
-  failed: "border-red-200 bg-red-50 text-red-800",
-  interrupted: "border-slate-200 bg-slate-100 text-slate-700",
-};
+import { cn } from "@/lib/utils";
 
 const STAGE_OPTIONS: UsageStage[] = [
   "request_received",
@@ -92,294 +66,418 @@ const STAGE_OPTIONS: UsageStage[] = [
   "server_restart",
 ];
 
-function outcomeLabel(outcome: UsageOutcome) {
-  return OUTCOME_LABELS[outcome];
+function StatLine({ label, value, detail }: { label: string; value: string; detail?: string }) {
+  return (
+    <div className="min-w-0 px-3 py-2.5 first:pl-0 last:pr-0">
+      <p className="text-[10px] leading-4 text-muted-foreground">{label}</p>
+      <p className="mt-0.5 whitespace-normal break-words text-sm font-semibold leading-5 text-foreground">{value}</p>
+      {detail ? <p className="mt-0.5 text-[10px] leading-4 text-muted-foreground">{detail}</p> : null}
+    </div>
+  );
 }
 
-function dateLabel(value: string | null) {
-  if (!value) return "Belum tersedia";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "Belum tersedia";
-  return new Intl.DateTimeFormat("id-ID", {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(date);
-}
-
-function numberLabel(value: number | null, digits = 0) {
-  if (value === null || !Number.isFinite(value)) return "Belum tersedia";
-  return new Intl.NumberFormat("id-ID", { maximumFractionDigits: digits }).format(value);
-}
-
-function percentLabel(value: number | null) {
-  return value === null ? "Belum tersedia" : `${numberLabel(value * 100, 1)}%`;
-}
-
-function durationLabel(value: number | null) {
-  if (value === null) return "Belum tersedia";
-  if (value < 1000) return `${numberLabel(value)} ms`;
-  return `${numberLabel(value / 1000, 1)} dtk`;
-}
-
-function memoryLabel(value: number | null) {
-  if (value === null) return "Belum tersedia";
-  return value >= 1024 ? `${numberLabel(value / 1024, 2)} GiB` : `${numberLabel(value)} MiB`;
-}
-
-function shortId(value: string) {
-  return value.slice(0, 8).toUpperCase();
-}
-
-function StageLabel({ stage }: { stage: UsageStage }) {
-  return <>{STAGE_LABELS[stage]}</>;
-}
-
-function Metric({ label, value, hint, icon: Icon }: {
-  label: string;
-  value: string;
-  hint?: string;
-  icon: typeof Activity;
+function SummaryBand({ summary, gpu, summaryError, gpuError }: {
+  summary: UsageSummary | null;
+  gpu: CurrentGpu | null;
+  summaryError: string | null;
+  gpuError: boolean;
 }) {
+  const summaryPlaceholder = summaryError ? "Belum tersedia" : "Memuat";
+  const unavailableGpu = gpuError || gpu?.available === false;
+  const gpuName = gpu?.device_name ?? (unavailableGpu ? "Telemetri GPU belum tersedia" : "Membaca status perangkat...");
+  const currentUtilization = gpu?.available && gpu.utilization_pct !== null
+    ? `${numberLabel(gpu.utilization_pct, 1)}%`
+    : "Belum tersedia";
+  const currentMemory = gpu?.available && gpu.memory_used_mib !== null
+    ? `${memoryLabel(gpu.memory_used_mib)} / ${memoryLabel(gpu.memory_total_mib)}`
+    : "Belum tersedia";
+  const currentTemperature = gpu?.available && gpu.temperature_c !== null
+    ? `${numberLabel(gpu.temperature_c)} °C`
+    : "Belum tersedia";
+  const currentPower = gpu?.available && gpu.power_w !== null
+    ? `${numberLabel(gpu.power_w, 1)} W`
+    : "Belum tersedia";
+
   return (
-    <article className="rounded-2xl border border-border bg-card p-4 shadow-xs sm:p-5">
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <p className="text-xs font-medium text-muted-foreground">{label}</p>
-          <p className="mt-2 text-2xl font-semibold tracking-tight text-foreground">{value}</p>
-          {hint ? <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{hint}</p> : null}
-        </div>
-        <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-muted text-muted-foreground">
-          <Icon aria-hidden="true" className="size-4" />
-        </span>
+    <section className="shrink-0 border-b border-border bg-card" aria-label="Ringkasan penggunaan dan GPU">
+      <div className="grid grid-cols-2 divide-x divide-y divide-border/80 sm:grid-cols-4 sm:divide-y-0">
+        <StatLine label="Request" value={summary ? numberLabel(summary.total_requests) : summaryPlaceholder} detail={summary ? `${numberLabel(summary.inference_started)} memulai inference` : undefined} />
+        <StatLine label="Berhasil" value={summary ? numberLabel(summary.completed) : summaryPlaceholder} detail={summary ? `Rasio ${percentLabel(summary.success_rate_all)}` : undefined} />
+        <StatLine label="Gagal / ditolak" value={summary ? `${numberLabel(summary.failed)} / ${numberLabel(summary.rejected)}` : summaryPlaceholder} detail={summary ? `${numberLabel(summary.interrupted)} terhenti` : undefined} />
+        <StatLine label="Durasi rata-rata sukses" value={summary ? durationLabel(summary.mean_duration_ms) : summaryPlaceholder} />
       </div>
-    </article>
-  );
-}
 
-function OutcomeBadge({ outcome }: { outcome: UsageOutcome }) {
-  const Icon = outcome === "completed"
-    ? CheckCircle2
-    : outcome === "failed" || outcome === "interrupted"
-      ? XCircle
-      : outcome === "rejected"
-        ? AlertCircle
-        : LoaderCircle;
-  return (
-    <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium ${OUTCOME_STYLES[outcome]}`}>
-      <Icon aria-hidden="true" className={`size-3.5 ${outcome === "running" ? "animate-spin" : ""}`} />
-      {outcomeLabel(outcome)}
-    </span>
-  );
-}
-
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="min-w-0 rounded-xl bg-muted/50 px-3 py-2.5">
-      <p className="text-[11px] text-muted-foreground">{label}</p>
-      <p className="mt-1 whitespace-normal break-words leading-snug text-sm font-medium text-foreground">{value}</p>
-    </div>
-  );
-}
-
-function formatEventType(event: UsageEvent) {
-  if (event.event_type === "started") return "Dimulai";
-  if (event.event_type === "completed") return "Berhasil";
-  if (event.event_type === "rejected") return "Ditolak";
-  if (event.event_type === "failed") return "Gagal";
-  if (event.event_type === "interrupted") return "Terhenti";
-  return "Perubahan tahap";
-}
-
-function UsageTimeline({ detail }: { detail: UsageDetail }) {
-  const utilizationSamples = detail.samples.filter((sample) => sample.utilization_pct !== null);
-  const memorySamples = detail.samples.filter((sample) => sample.memory_used_mib !== null);
-  const polyline = (samples: typeof detail.samples, field: "utilization_pct" | "memory_used_mib", maximum: number) => {
-    if (samples.length < 2) return "";
-    const width = 320;
-    const height = 88;
-    return samples.map((sample, index) => {
-      const x = 4 + (index / (samples.length - 1)) * (width - 8);
-      const value = sample[field] ?? 0;
-      const y = height - 5 - (Math.min(1, value / Math.max(maximum, 1)) * (height - 10));
-      return `${x.toFixed(1)},${y.toFixed(1)}`;
-    }).join(" ");
-  };
-  const utilizationLine = polyline(utilizationSamples, "utilization_pct", 100);
-  const memoryLimit = detail.samples.reduce((maximum, sample) => Math.max(maximum, sample.memory_total_mib ?? 0), 0);
-  const memoryLine = polyline(memorySamples, "memory_used_mib", memoryLimit || 1);
-
-  return (
-    <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(260px,0.8fr)]">
-      <section className="rounded-2xl border border-border bg-background p-4" aria-labelledby={`timeline-${detail.usage_id}`}>
-        <div className="flex flex-wrap items-start justify-between gap-2">
-          <div>
-            <h4 id={`timeline-${detail.usage_id}`} className="text-sm font-semibold text-foreground">Tahapan proses</h4>
-            <p className="mt-1 text-xs text-muted-foreground">Urutan dan waktu relatif sejak request diterima.</p>
+      <div className="grid min-w-0 border-t border-border/80 lg:grid-cols-[minmax(230px,0.8fr)_minmax(0,1.5fr)]">
+        <div className="min-w-0 border-b border-border/80 px-4 py-2.5 lg:border-b-0 lg:border-r">
+          <div className="flex items-center gap-2">
+            <Cpu aria-hidden="true" className="size-4 shrink-0 text-primary" />
+            <p className="truncate text-xs font-medium text-foreground">{gpuName}</p>
+            <span className={cn(
+              "ml-auto shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-medium",
+              gpu?.available ? "border-emerald-200 bg-emerald-50 text-emerald-900" : "border-border bg-muted text-muted-foreground",
+            )}>
+              {gpu?.available ? "Snapshot sekarang" : "Tidak tersedia"}
+            </span>
           </div>
-          <span className="text-xs text-muted-foreground">{detail.events.length} peristiwa</span>
+          <p className="mt-1.5 text-[11px] leading-4 text-muted-foreground">
+            Utilisasi {currentUtilization} <span aria-hidden="true">·</span> Memori {currentMemory}
+            <span aria-hidden="true"> · </span>Suhu {currentTemperature}<span aria-hidden="true"> · </span>Daya {currentPower}
+            {gpu?.sampled_at ? ` · Dibaca ${dateLabel(gpu.sampled_at)}` : ""}
+          </p>
         </div>
-        {detail.events.length ? (
-          <ol className="mt-4 space-y-0">
-            {detail.events.map((event, index) => (
-              <li key={`${event.occurred_at}-${index}`} className="relative flex gap-3 pb-4 last:pb-0">
-                {index < detail.events.length - 1 ? <span aria-hidden="true" className="absolute bottom-0 left-[7px] top-4 w-px bg-border" /> : null}
-                <span aria-hidden="true" className={`relative mt-1 size-3.5 shrink-0 rounded-full border-2 ${event.event_type === "failed" || event.event_type === "rejected" ? "border-destructive bg-destructive/15" : "border-primary bg-background"}`} />
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                    <p className="text-sm font-medium text-foreground"><StageLabel stage={event.stage} /> <span className="font-normal text-muted-foreground">· {formatEventType(event)}</span></p>
-                    <p className="text-xs tabular-nums text-muted-foreground">+{durationLabel(event.elapsed_ms)}</p>
-                  </div>
-                  <p className="mt-0.5 text-xs text-muted-foreground">{dateLabel(event.occurred_at)}{event.failure_code ? ` · ${FAILURE_LABELS[event.failure_code]}` : ""}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        ) : <p className="mt-4 text-sm text-muted-foreground">Tahapan belum tercatat.</p>}
-      </section>
 
-      <section className="space-y-4" aria-label="Rincian resource">
-        <div className="rounded-2xl border border-border bg-background p-4">
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <h4 className="text-sm font-semibold text-foreground">Telemetri selama generate</h4>
-              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">nvidia-smi membaca seluruh perangkat dan hanya disampel ketika proses generate berjalan.</p>
-            </div>
-            <span className="rounded-lg bg-muted px-2 py-1 text-xs text-muted-foreground">{detail.samples.length} sampel</span>
-          </div>
-          {detail.samples.length ? (
-            <>
-              <svg className="mt-4 h-24 w-full overflow-visible" viewBox="0 0 320 88" role="img" aria-label={`Grafik ${utilizationSamples.length} sampel utilisasi GPU dan ${memorySamples.length} sampel memori GPU`}>
-                <line x1="4" y1="83" x2="316" y2="83" stroke="currentColor" className="text-border" />
-                <line x1="4" y1="44" x2="316" y2="44" stroke="currentColor" strokeDasharray="3 4" className="text-border" />
-                {utilizationLine ? <polyline points={utilizationLine} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" className="text-primary" /> : null}
-                {memoryLine ? <polyline points={memoryLine} fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="5 4" strokeLinejoin="round" strokeLinecap="round" className="text-amber-600" /> : null}
-              </svg>
-              <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
-                <span className="inline-flex items-center gap-1.5"><i aria-hidden="true" className="size-2 rounded-full bg-primary" /> Utilisasi GPU</span>
-                <span className="inline-flex items-center gap-1.5"><i aria-hidden="true" className="size-2 rounded-full bg-amber-600" /> Memori GPU</span>
-              </div>
-            </>
-          ) : <p className="mt-4 rounded-xl bg-muted/60 p-3 text-sm text-muted-foreground">Tidak ada data GPU selama proses generate. Ini bisa terjadi jika inference berjalan terlalu singkat atau telemetri tidak tersedia.</p>}
-          <div className="mt-4 grid grid-cols-2 gap-2">
-            <Stat label="Rata-rata GPU" value={detail.gpu_utilization_mean_pct === null ? "Belum tersedia" : `${numberLabel(detail.gpu_utilization_mean_pct, 1)}%`} />
-            <Stat label="Puncak VRAM perangkat" value={memoryLabel(detail.gpu_memory_max_mib)} />
-            <Stat label="Suhu maksimum" value={detail.gpu_temperature_max_c === null ? "Belum tersedia" : `${numberLabel(detail.gpu_temperature_max_c)} °C`} />
-            <Stat label="Daya rata-rata" value={detail.gpu_power_mean_w === null ? "Belum tersedia" : `${numberLabel(detail.gpu_power_mean_w, 1)} W`} />
-          </div>
+        <div className="grid grid-cols-2 divide-x divide-border/80 sm:grid-cols-4">
+          <StatLine label="Sample pada periode" value={summary ? numberLabel(summary.gpu_sample_count) : summaryPlaceholder} detail={summary ? `${numberLabel(summary.gpu_run_count)} run` : undefined} />
+          <StatLine label="Cakupan run" value={summary ? percentLabel(summary.gpu_coverage_ratio) : summaryPlaceholder} detail={summary ? `${numberLabel(summary.gpu_run_count)} dari ${numberLabel(summary.inference_started)} inference` : undefined} />
+          <StatLine label="Rata-rata utilisasi" value={summary?.gpu_utilization_mean_pct === null || !summary ? summaryPlaceholder : `${numberLabel(summary.gpu_utilization_mean_pct, 1)}%`} />
+          <StatLine label="Puncak memori perangkat" value={summary ? memoryLabel(summary.gpu_memory_max_mib) : summaryPlaceholder} />
         </div>
-        <div className="rounded-2xl border border-border bg-background p-4">
-          <h4 className="text-sm font-semibold text-foreground">Memori PyTorch proses</h4>
-          <p className="mt-1 text-xs leading-relaxed text-muted-foreground">Penggunaan proses model, terpisah dari total memori perangkat.</p>
-          <div className="mt-4 grid grid-cols-2 gap-2">
-            <Stat label="Allocated baseline" value={memoryLabel(detail.torch_allocated_baseline_bytes === null ? null : detail.torch_allocated_baseline_bytes / 1024 / 1024)} />
-            <Stat label="Allocated peak" value={memoryLabel(detail.torch_allocated_peak_bytes === null ? null : detail.torch_allocated_peak_bytes / 1024 / 1024)} />
-            <Stat label="Allocated delta" value={memoryLabel(detail.torch_allocated_delta_bytes === null ? null : detail.torch_allocated_delta_bytes / 1024 / 1024)} />
-            <Stat label="Reserved peak" value={memoryLabel(detail.torch_reserved_peak_bytes === null ? null : detail.torch_reserved_peak_bytes / 1024 / 1024)} />
+      </div>
+      {summary ? (
+        <details className="border-t border-border/80 px-4 py-2.5">
+          <summary className="cursor-pointer text-[11px] font-medium text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Metrik periode lainnya</summary>
+          <div className="mt-1 grid grid-cols-2 divide-x divide-border/80 sm:grid-cols-5">
+            <StatLine label="Puncak utilisasi" value={summary.gpu_utilization_max_pct === null ? "Belum tersedia" : `${numberLabel(summary.gpu_utilization_max_pct, 1)}%`} />
+            <StatLine label="Rata-rata memori perangkat" value={memoryLabel(summary.gpu_memory_mean_mib)} />
+            <StatLine label="Kapasitas memori" value={memoryLabel(summary.gpu_memory_total_mib)} />
+            <StatLine label="Suhu maksimum" value={summary.gpu_temperature_max_c === null ? "Belum tersedia" : `${numberLabel(summary.gpu_temperature_max_c)} °C`} />
+            <StatLine label="Daya / clock rata-rata" value={`${summary.gpu_power_mean_w === null ? "Belum tersedia" : `${numberLabel(summary.gpu_power_mean_w, 1)} W`} / ${summary.gpu_sm_clock_mean_mhz === null ? "Belum tersedia" : `${numberLabel(summary.gpu_sm_clock_mean_mhz)} MHz`}`} />
           </div>
-        </div>
-      </section>
-    </div>
+        </details>
+      ) : null}
+      {summaryError ? <p role="status" className="border-t border-border/80 px-4 py-2 text-xs text-amber-900">Ringkasan periode belum tersedia. Riwayat tetap dapat diperiksa. {summaryError}</p> : null}
+      {summary?.gpu_scope ? <p className="border-t border-border/70 px-4 py-1.5 text-[10px] leading-4 text-muted-foreground">{summary.gpu_scope}</p> : null}
+    </section>
   );
 }
 
-function UsageItem({ record, expanded, detail, loading, detailError, onToggle }: {
-  record: UsageRecord;
-  expanded: boolean;
+function RunList({
+  records,
+  selectedId,
+  loading,
+  pageError,
+  summary,
+  query,
+  status,
+  stage,
+  nextCursor,
+  loadingMore,
+  onQueryChange,
+  onStatusChange,
+  onStageChange,
+  onSelect,
+  onLoadMore,
+  onRetry,
+}: {
+  records: UsageRecord[];
+  selectedId: string | null;
+  loading: boolean;
+  pageError: string | null;
+  summary: UsageSummary | null;
+  query: string;
+  status: UsageOutcome | "";
+  stage: UsageStage | "";
+  nextCursor: string | null;
+  loadingMore: boolean;
+  onQueryChange: (value: string) => void;
+  onStatusChange: (value: UsageOutcome | "") => void;
+  onStageChange: (value: UsageStage | "") => void;
+  onSelect: (record: UsageRecord) => void;
+  onLoadMore: () => void;
+  onRetry: () => void;
+}) {
+  const hasFilters = Boolean(query.trim() || status || stage);
+
+  return (
+    <>
+      <div className="shrink-0 border-b border-border px-3.5 pb-3 pt-3.5 sm:px-4">
+        <div className="flex items-baseline justify-between gap-2">
+          <h2 className="text-sm font-semibold text-foreground">Riwayat pembuatan</h2>
+          <span className="text-xs tabular-nums text-muted-foreground">{numberLabel(records.length)} ditampilkan</span>
+        </div>
+        <label className="relative mt-3 block">
+          <span className="sr-only">Cari prompt dan fakta</span>
+          <Search aria-hidden="true" className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <input
+            value={query}
+            onChange={(event) => onQueryChange(event.target.value.slice(0, 200))}
+            maxLength={200}
+            type="search"
+            placeholder="Cari prompt atau fakta..."
+            className="h-10 w-full rounded-lg border border-input bg-background pl-9 pr-3 text-xs text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          />
+        </label>
+        <div className="mt-2 grid grid-cols-2 gap-2">
+          <label>
+            <span className="sr-only">Filter status</span>
+            <select value={status} onChange={(event) => onStatusChange(event.target.value as UsageOutcome | "")} className="h-9 w-full min-w-0 rounded-lg border border-input bg-background px-2 text-xs text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+              <option value="">Semua status</option>
+              {(Object.keys(OUTCOME_LABELS) as UsageOutcome[]).map((outcome) => <option key={outcome} value={outcome}>{outcomeLabel(outcome)}</option>)}
+            </select>
+          </label>
+          <label>
+            <span className="sr-only">Filter tahap</span>
+            <select value={stage} onChange={(event) => onStageChange(event.target.value as UsageStage | "")} className="h-9 w-full min-w-0 rounded-lg border border-input bg-background px-2 text-xs text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+              <option value="">Semua tahap</option>
+              {STAGE_OPTIONS.map((item) => <option key={item} value={item}>{STAGE_LABELS[item]}</option>)}
+            </select>
+          </label>
+        </div>
+        {hasFilters ? (
+          <button type="button" onClick={() => { onQueryChange(""); onStatusChange(""); onStageChange(""); }} className="mt-2 text-xs font-medium text-primary underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            Hapus filter
+          </button>
+        ) : null}
+      </div>
+
+      {pageError ? (
+        <div className="mx-3 mt-3 rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-xs text-destructive sm:mx-4" role="alert">
+          <p className="leading-relaxed">{pageError}{records.length ? " Daftar terakhir yang berhasil dimuat tetap ditampilkan." : ""}</p>
+          <Button type="button" variant="outline" size="sm" onClick={onRetry} className="mt-2 h-7 rounded-md">Coba lagi</Button>
+        </div>
+      ) : null}
+
+      <div className="min-h-0 flex-1 overflow-y-auto px-2.5 py-2.5 sm:px-3">
+        {loading && records.length === 0 ? (
+          <p className="flex items-center justify-center gap-2 py-10 text-xs text-muted-foreground" role="status"><LoaderCircle aria-hidden="true" className="size-4 animate-spin" /> Memuat riwayat...</p>
+        ) : pageError && records.length === 0 ? (
+          <p className="px-3 py-5 text-center text-xs text-muted-foreground" role="status">Riwayat belum dapat ditampilkan.</p>
+        ) : records.length ? (
+          <ul className="space-y-1.5">
+            {records.map((record) => {
+              const selected = record.usage_id === selectedId;
+              return (
+                <li key={record.usage_id}>
+                  <button
+                    type="button"
+                    onClick={() => onSelect(record)}
+                    aria-pressed={selected}
+                    className={cn(
+                      "w-full min-w-0 rounded-lg border px-3 py-2.5 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                      selected
+                        ? "border-[#b65c3b] bg-[#fff5ef]"
+                        : "border-transparent bg-transparent hover:border-border hover:bg-card",
+                    )}
+                  >
+                    <span className="flex min-w-0 items-start justify-between gap-2">
+                      <span className="line-clamp-2 min-w-0 text-xs font-semibold leading-5 text-foreground">{recordTitle(record)}</span>
+                      {selected ? <span className="shrink-0 rounded-full border border-[#d77a54]/40 bg-white px-1.5 py-0.5 text-[9px] font-medium text-[#8d3e25]">Terpilih</span> : null}
+                    </span>
+                    <span className="mt-2 flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
+                      <OutcomeBadge outcome={record.outcome} />
+                      <span className="text-[10px] tabular-nums text-muted-foreground">{durationLabel(record.duration_ms)}</span>
+                    </span>
+                    <span className="mt-1.5 flex min-w-0 items-center justify-between gap-2 text-[10px] leading-4 text-muted-foreground">
+                      <span className="truncate">{dateLabel(record.started_at)}</span>
+                      <span className="shrink-0">{record.failure_code ? FAILURE_LABELS[record.failure_code] : record.stage.replaceAll("_", " ")}</span>
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <div className="px-3 py-8 text-center">
+            <Activity aria-hidden="true" className="mx-auto size-5 text-muted-foreground" />
+            <h3 className="mt-2 text-sm font-medium text-foreground">{hasFilters ? "Tidak ada hasil" : "Belum ada aktivitas"}</h3>
+            <p className="mx-auto mt-1 max-w-xs text-xs leading-relaxed text-muted-foreground">
+              {hasFilters
+                ? "Coba hapus filter atau gunakan kata pencarian yang berbeda."
+                : summary?.total_requests
+                  ? "Tidak ada run yang cocok pada filter saat ini."
+                  : "Request generate akan muncul di sini, termasuk yang ditolak saat validasi."}
+            </p>
+            {!hasFilters && !summary?.total_requests ? <Link href="/" className="mt-3 inline-flex text-xs font-medium text-primary underline underline-offset-4">Kembali ke chat</Link> : null}
+          </div>
+        )}
+        {nextCursor ? (
+          <div className="flex justify-center py-3">
+            <Button type="button" variant="outline" size="sm" onClick={onLoadMore} disabled={loadingMore} className="rounded-lg">
+              {loadingMore ? <LoaderCircle aria-hidden="true" className="size-3.5 animate-spin" /> : null}
+              {loadingMore ? "Memuat..." : "Muat aktivitas berikutnya"}
+            </Button>
+          </div>
+        ) : null}
+      </div>
+    </>
+  );
+}
+
+function RunDetail({ detail, loading, error, onRetry }: {
   detail: UsageDetail | null;
   loading: boolean;
-  detailError: string | null;
-  onToggle: () => void;
+  error: string | null;
+  onRetry: () => void;
 }) {
-  const detailId = `usage-detail-${record.usage_id}`;
-  return (
-    <li className="list-none">
-      <article className="rounded-2xl border border-border bg-card p-4 shadow-xs sm:p-5">
-        <button
-          type="button"
-          aria-expanded={expanded}
-          aria-controls={detailId}
-          onClick={onToggle}
-          className="flex w-full items-start justify-between gap-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-        >
-          <span className="min-w-0">
-            <span className="flex flex-wrap items-center gap-2">
-              <OutcomeBadge outcome={record.outcome} />
-              <span className="text-xs text-muted-foreground">ID {shortId(record.usage_id)}</span>
-            </span>
-            <span className="mt-2 block text-sm font-medium text-foreground">{dateLabel(record.started_at)}</span>
-          </span>
-          <ChevronDown aria-hidden="true" className={`mt-2 size-4 shrink-0 text-muted-foreground transition-transform ${expanded ? "rotate-180" : ""}`} />
-        </button>
+  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
 
-        <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-6">
-          <Stat label="Tahap terakhir" value={STAGE_LABELS[record.stage]} />
-          <Stat label="Durasi" value={durationLabel(record.duration_ms)} />
-          <Stat label="Inference" value={record.inference_started ? "Dimulai" : "Belum dimulai"} />
-          <Stat label="Token masuk / keluar" value={`${numberLabel(record.input_tokens)} / ${numberLabel(record.output_tokens)}`} />
-          <Stat label="Seksi / percobaan" value={`${numberLabel(record.section_count)} / ${numberLabel(record.attempt_count)}${record.retry_count ? ` · ${record.retry_count} retry` : ""}`} />
-          <Stat label="VRAM perangkat puncak" value={memoryLabel(record.gpu_memory_max_mib)} />
+  async function copyRunId() {
+    if (!detail) return;
+    const copied = await copyTextToClipboard(detail.usage_id);
+    setCopyStatus(copied ? "copied" : "failed");
+    window.setTimeout(() => setCopyStatus("idle"), 1800);
+  }
+
+  if (loading) {
+    return <div className="flex min-h-64 flex-1 items-center justify-center text-sm text-muted-foreground" role="status"><LoaderCircle aria-hidden="true" className="mr-2 size-4 animate-spin" /> Memuat detail audit...</div>;
+  }
+  if (error) {
+    return (
+      <div className="flex min-h-64 flex-1 items-center justify-center px-5">
+        <div className="max-w-sm text-center">
+          <AlertCircle aria-hidden="true" className="mx-auto size-5 text-destructive" />
+          <p className="mt-2 text-sm leading-relaxed text-destructive" role="alert">{error}</p>
+          <Button type="button" variant="outline" size="sm" onClick={onRetry} className="mt-3 gap-1.5 rounded-lg"><RefreshCw aria-hidden="true" className="size-3.5" /> Coba lagi</Button>
         </div>
+      </div>
+    );
+  }
+  if (!detail) {
+    return (
+      <div className="flex min-h-64 flex-1 items-center justify-center px-6 text-center">
+        <div className="max-w-sm">
+          <Activity aria-hidden="true" className="mx-auto size-6 text-muted-foreground" />
+          <h2 className="mt-3 text-base font-semibold text-foreground">Pilih satu run untuk diperiksa</h2>
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">Detail audit menampilkan input, fakta yang dikonfirmasi, tahapan proses, source yang diterima, dan telemetry perangkat.</p>
+        </div>
+      </div>
+    );
+  }
 
-        {(record.failure_code || record.http_status || record.model_id || record.gpu_sample_count > 0) ? (
-          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 border-t border-border pt-3 text-xs text-muted-foreground">
-            {record.failure_code ? <span>Kode: {FAILURE_LABELS[record.failure_code]}</span> : null}
-            {record.http_status ? <span>HTTP {record.http_status}</span> : null}
-            {record.model_id ? <span>Model: {record.model_id}</span> : null}
-            <span>{record.gpu_sample_count} sampel GPU</span>
+  return (
+    <div className="min-w-0 flex-1 space-y-4 p-3 sm:p-4 xl:p-5">
+      <header className="flex min-w-0 flex-wrap items-start justify-between gap-3 border-b border-border/80 pb-3">
+        <div className="min-w-0">
+          <h2 className="break-words text-lg font-semibold leading-snug tracking-tight text-foreground sm:text-xl">{recordTitle(detail)}</h2>
+          <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
+            <span>{dateLabel(detail.started_at)}</span>
+            <span aria-hidden="true">·</span>
+            <span>ID {shortId(detail.usage_id)}</span>
+            <span aria-hidden="true">·</span>
+            <span>{durationLabel(detail.duration_ms)}</span>
           </div>
-        ) : null}
+          <button type="button" onClick={() => void copyRunId()} className="mt-1.5 break-all font-mono text-[10px] text-muted-foreground underline decoration-border underline-offset-2 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-live="polite">
+            {copyStatus === "copied" ? "ID tersalin" : copyStatus === "failed" ? "Gagal menyalin ID" : "Salin ID lengkap"} <span className="sr-only">{detail.usage_id}</span>
+          </button>
+        </div>
+        <OutcomeBadge outcome={detail.outcome} />
+      </header>
 
-        {expanded ? (
-          <div id={detailId} className="mt-4 border-t border-border pt-4">
-            {loading ? <p className="flex items-center gap-2 text-sm text-muted-foreground" role="status"><LoaderCircle className="size-4 animate-spin" /> Memuat detail audit...</p> : null}
-            {detailError ? <p className="text-sm text-destructive" role="alert">{detailError}</p> : null}
-            {detail ? <UsageTimeline detail={detail} /> : null}
+      <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)]">
+        <div className="min-w-0 rounded-xl border border-border bg-card p-3 sm:p-4">
+          <UsageEvidence detail={detail} />
+        </div>
+        <div className="grid min-w-0 gap-4 lg:grid-cols-[minmax(116px,0.28fr)_minmax(0,1fr)]">
+          <div className="min-w-0 rounded-xl border border-border bg-card p-3 sm:p-4">
+            <UsageStageRail detail={detail} />
           </div>
-        ) : null}
-      </article>
-    </li>
+          <UsageSourcePanel generationId={detail.generation_id} />
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-border bg-card p-3 sm:p-4">
+        <UsageGpuDetails detail={detail} />
+        <UsageEventLog detail={detail} />
+      </div>
+
+      <dl className="grid grid-cols-2 gap-2 border-t border-border/80 pt-3 sm:grid-cols-4">
+        <div><dt className="text-[10px] text-muted-foreground">HTTP</dt><dd className="mt-0.5 text-xs font-medium text-foreground">{detail.http_status ?? "Belum tersedia"}</dd></div>
+        <div><dt className="text-[10px] text-muted-foreground">Token masuk / keluar</dt><dd className="mt-0.5 text-xs font-medium text-foreground">{numberLabel(detail.input_tokens)} / {numberLabel(detail.output_tokens)}</dd></div>
+        <div><dt className="text-[10px] text-muted-foreground">Seksi / percobaan</dt><dd className="mt-0.5 text-xs font-medium text-foreground">{numberLabel(detail.section_count)} / {numberLabel(detail.attempt_count)}{detail.retry_count ? ` · ${detail.retry_count} retry` : ""}</dd></div>
+        <div><dt className="text-[10px] text-muted-foreground">Status renderer</dt><dd className="mt-0.5 break-words text-xs font-medium text-foreground">{detail.renderer_status ?? "Belum tersedia"}</dd></div>
+      </dl>
+    </div>
   );
 }
 
 export function UsageDashboard({ showLogout = false }: { showLogout?: boolean }) {
-  const [window, setWindow] = useState<UsageWindow>("24h");
+  const router = useRouter();
+  const [period, setPeriod] = useState<UsageWindow>("24h");
   const [status, setStatus] = useState<UsageOutcome | "">("");
   const [stage, setStage] = useState<UsageStage | "">("");
+  const [query, setQuery] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [summary, setSummary] = useState<UsageSummary | null>(null);
   const [gpu, setGpu] = useState<CurrentGpu | null>(null);
+  const [gpuError, setGpuError] = useState(false);
   const [records, setRecords] = useState<UsageRecord[]>([]);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [pageError, setPageError] = useState<string | null>(null);
+  const [summaryError, setSummaryError] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [detail, setDetail] = useState<UsageDetail | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
   const [detailError, setDetailError] = useState<string | null>(null);
+  const [detailVersion, setDetailVersion] = useState(0);
+  const [mobileView, setMobileView] = useState<"list" | "detail">("list");
+  const [historyOpen, setHistoryOpen] = useState(false);
+  const [sessions, setSessions] = useState<ChatSession[]>([]);
+  const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
+  const [navigationError, setNavigationError] = useState<string | null>(null);
+  const refreshSequence = useRef(0);
+
+  useEffect(() => {
+    const timer = globalThis.setTimeout(() => {
+      const history = readChatHistory();
+      setSessions(history.sessions);
+      setActiveSessionId(history.activeSessionId);
+    }, 0);
+    return () => globalThis.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const timer = globalThis.setTimeout(() => setSearchTerm(query.trim()), 280);
+    return () => globalThis.clearTimeout(timer);
+  }, [query]);
 
   const refresh = useCallback(async (quiet = false) => {
+    const sequence = ++refreshSequence.current;
     if (!quiet) setRefreshing(true);
-    setError(null);
-    try {
-      const [nextSummary, nextGpu, page] = await Promise.all([
-        getUsageSummary(window),
-        getCurrentGpu(),
-        getUsagePage({ window, status, stage, limit: 25 }),
-      ]);
-      setSummary(nextSummary);
-      setGpu(nextGpu);
-      setRecords(page.items);
-      setNextCursor(page.next_cursor);
-      setExpandedId(null);
-      setDetail(null);
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Data Usage tidak dapat dimuat.");
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
+    setPageError(null);
+    setSummaryError(null);
+    const gpuRequest = getCurrentGpu();
+    const [nextSummary, page] = await Promise.allSettled([
+      getUsageSummary(period),
+      getUsagePage({ window: period, status, stage, q: searchTerm, limit: 25 }),
+    ]);
+    if (sequence !== refreshSequence.current) return;
+
+    if (nextSummary.status === "fulfilled") {
+      setSummary(nextSummary.value);
+    } else {
+      setSummary(null);
+      setSummaryError(nextSummary.reason instanceof Error ? nextSummary.reason.message : "Ringkasan Usage tidak dapat dimuat.");
     }
-  }, [stage, status, window]);
+
+    if (page.status === "fulfilled") {
+      setDetail(null);
+      setDetailError(null);
+      setRecords(page.value.items);
+      setNextCursor(page.value.next_cursor);
+      setSelectedId((current) => page.value.items.some((record) => record.usage_id === current)
+        ? current
+        : page.value.items[0]?.usage_id ?? null);
+      setPageError(null);
+    } else {
+      setPageError(page.reason instanceof Error ? page.reason.message : "Riwayat Usage tidak dapat dimuat.");
+    }
+
+    void gpuRequest.then((value) => {
+      if (sequence !== refreshSequence.current) return;
+      setGpu(value);
+      setGpuError(false);
+    }).catch(() => {
+      if (sequence !== refreshSequence.current) return;
+      setGpu(null);
+      setGpuError(true);
+    });
+    setLoading(false);
+    setRefreshing(false);
+    setDetailVersion((value) => value + 1);
+  }, [period, searchTerm, stage, status]);
 
   useEffect(() => {
     const timer = globalThis.setTimeout(() => void refresh(true), 0);
@@ -387,219 +485,226 @@ export function UsageDashboard({ showLogout = false }: { showLogout?: boolean })
   }, [refresh]);
 
   useEffect(() => {
-    let timer: ReturnType<typeof setInterval> | null = null;
     const poll = () => {
       if (document.visibilityState !== "visible") return;
-      void getCurrentGpu().then(setGpu).catch(() => setGpu(null));
+      void getCurrentGpu().then((value) => {
+        setGpu(value);
+        setGpuError(false);
+      }).catch(() => {
+        setGpu(null);
+        setGpuError(true);
+      });
     };
+    const timer = globalThis.setInterval(poll, 15_000);
     const onVisibility = () => {
       if (document.visibilityState === "visible") {
         poll();
         void refresh(true);
       }
     };
-    timer = setInterval(poll, 15_000);
     document.addEventListener("visibilitychange", onVisibility);
     return () => {
-      if (timer) clearInterval(timer);
+      globalThis.clearInterval(timer);
       document.removeEventListener("visibilitychange", onVisibility);
     };
   }, [refresh]);
 
-  const coverageHint = useMemo(() => {
-    if (!summary || summary.gpu_coverage_ratio === null) return "Belum ada inference untuk dihitung";
-    return `${summary.gpu_run_count} dari ${summary.inference_started} proses inference memiliki sampel`;
-  }, [summary]);
+  useEffect(() => {
+    if (!selectedId) return;
+    let active = true;
+    const timer = globalThis.setTimeout(() => {
+      setDetailLoading(true);
+      void getUsageDetail(selectedId).then((nextDetail) => {
+        if (active) setDetail(nextDetail);
+      }).catch((cause: unknown) => {
+        if (active) setDetailError(cause instanceof Error ? cause.message : "Detail audit tidak dapat dimuat.");
+      }).finally(() => {
+        if (active) setDetailLoading(false);
+      });
+    }, 0);
+    return () => {
+      active = false;
+      globalThis.clearTimeout(timer);
+    };
+  }, [selectedId, detailVersion]);
 
   async function loadMore() {
     if (!nextCursor || loadingMore) return;
     setLoadingMore(true);
+    setPageError(null);
     try {
-      const page: UsagePage = await getUsagePage({ cursor: nextCursor, window, status, stage, limit: 25 });
-      setRecords((current) => [...current, ...page.items]);
+      const page = await getUsagePage({ cursor: nextCursor, window: period, status, stage, q: searchTerm, limit: 25 });
+      setRecords((current) => {
+        const seen = new Set(current.map((record) => record.usage_id));
+        return [...current, ...page.items.filter((record) => !seen.has(record.usage_id))];
+      });
       setNextCursor(page.next_cursor);
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Halaman berikutnya tidak dapat dimuat.");
+      setPageError(cause instanceof Error ? cause.message : "Aktivitas berikutnya tidak dapat dimuat.");
     } finally {
       setLoadingMore(false);
     }
   }
 
-  async function toggleDetail(record: UsageRecord) {
-    if (expandedId === record.usage_id) {
-      setExpandedId(null);
-      setDetail(null);
-      return;
-    }
-    setExpandedId(record.usage_id);
+  function persistHistory(nextSessions: ChatSession[], nextActiveId: string | null) {
+    const saved = writeChatHistory({
+      sessions: nextSessions,
+      activeSessionId: nextActiveId,
+      restored: true,
+    });
+    if (!saved) setNavigationError("Riwayat browser tidak dapat diperbarui. Periksa izin penyimpanan browser.");
+    return saved;
+  }
+
+  function startChat() {
+    const session = createChatSession();
+    const nextSessions = [session, ...sessions];
+    if (!persistHistory(nextSessions, session.id)) return;
+    setNavigationError(null);
+    router.push("/");
+  }
+
+  function selectChat(sessionId: string) {
+    if (!sessions.some((session) => session.id === sessionId)) return;
+    if (!persistHistory(sessions, sessionId)) return;
+    setNavigationError(null);
+    router.push("/");
+  }
+
+  function deleteChat(sessionId: string) {
+    const nextSessions = sessions.filter((session) => session.id !== sessionId);
+    const nextActiveId = activeSessionId === sessionId ? nextSessions[0]?.id ?? null : activeSessionId;
+    if (!persistHistory(nextSessions, nextActiveId)) return;
+    setSessions(nextSessions);
+    setActiveSessionId(nextActiveId);
+    setNavigationError(null);
+  }
+
+  const historyProps = {
+    sessions,
+    activeSessionId: null,
+    activeSection: "usage" as const,
+    onNew: startChat,
+    onSelect: selectChat,
+    onDelete: deleteChat,
+    showLogout,
+  };
+
+  function selectRecord(record: UsageRecord) {
     setDetail(null);
     setDetailError(null);
     setDetailLoading(true);
-    try {
-      setDetail(await getUsageDetail(record.usage_id));
-    } catch (cause) {
-      setDetailError(cause instanceof Error ? cause.message : "Detail audit tidak dapat dimuat.");
-    } finally {
-      setDetailLoading(false);
-    }
+    setSelectedId(record.usage_id);
+    setMobileView("detail");
   }
 
-  const memoryUsed = gpu?.memory_used_mib === null || !gpu ? "Belum tersedia" : memoryLabel(gpu.memory_used_mib);
-  const memoryTotal = gpu?.memory_total_mib === null || !gpu ? "Belum tersedia" : memoryLabel(gpu.memory_total_mib);
-  const utilization = gpu?.utilization_pct === null || !gpu ? "Belum tersedia" : `${numberLabel(gpu.utilization_pct, 1)}%`;
+  function retryDetail() {
+    setDetail(null);
+    setDetailError(null);
+    setDetailLoading(true);
+    setDetailVersion((value) => value + 1);
+  }
+
+  const selectedRecord = records.find((record) => record.usage_id === selectedId) ?? null;
 
   return (
-    <main className="min-h-screen bg-muted/30 px-4 py-5 text-foreground sm:px-6 sm:py-8 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <header className="mb-6 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex min-w-0 items-center gap-3">
-            <Link href="/" aria-label="Kembali ke chat" className="grid size-10 shrink-0 place-items-center rounded-xl border border-border bg-card text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-              <ArrowLeft aria-hidden="true" className="size-4" />
-            </Link>
-            <div>
-              <p className="text-xs font-medium text-primary">WebCraft by VibeStack</p>
-              <h1 className="mt-0.5 text-2xl font-semibold tracking-tight sm:text-3xl">Penggunaan</h1>
-              <p className="mt-1 text-sm text-muted-foreground">Ringkasan GPU dan jejak tiap proses generate.</p>
+    <main className="flex h-svh min-h-svh overflow-hidden bg-background text-foreground">
+      <aside aria-label="Navigasi utama" className="hidden w-[260px] shrink-0 border-r border-border bg-sidebar lg:flex">
+        <HistorySidebar {...historyProps} className="w-[260px]" />
+      </aside>
+
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+        <header className="flex min-h-[58px] shrink-0 items-center justify-between gap-3 border-b border-border bg-card px-3 sm:px-4">
+          <div className="flex min-w-0 items-center gap-2.5">
+            <div className="lg:hidden">
+              <Sheet open={historyOpen} onOpenChange={setHistoryOpen}>
+                <Button type="button" variant="ghost" size="icon" onClick={() => setHistoryOpen(true)} aria-label="Buka navigasi utama" className="size-9 rounded-lg">
+                  <Menu aria-hidden="true" className="size-4" />
+                </Button>
+                <SheetContent side="left" showCloseButton={false} className="w-[min(88vw,300px)] max-w-none p-0">
+                  <SheetTitle className="sr-only">Navigasi WebCraft</SheetTitle>
+                  <HistorySidebar {...historyProps} className="w-full" />
+                </SheetContent>
+              </Sheet>
+            </div>
+            <div className="min-w-0">
+              <h1 className="truncate text-base font-semibold tracking-tight text-foreground sm:text-lg">Penggunaan</h1>
+              <p className="hidden text-[11px] leading-4 text-muted-foreground sm:block">Audit input, hasil, tahapan, dan sumber daya tiap generate.</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <label htmlFor="usage-window" className="sr-only">Periode ringkasan</label>
-            <select id="usage-window" value={window} onChange={(event) => setWindow(event.target.value as UsageWindow)} className="h-10 rounded-xl border border-border bg-card px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring">
+          <div className="flex shrink-0 items-center gap-2">
+            <label htmlFor="usage-period" className="sr-only">Periode ringkasan dan riwayat</label>
+            <select id="usage-period" value={period} onChange={(event) => setPeriod(event.target.value as UsageWindow)} className="h-9 rounded-lg border border-input bg-background px-2.5 text-xs text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:h-10 sm:text-sm">
               <option value="24h">24 jam</option>
               <option value="7d">7 hari</option>
               <option value="30d">30 hari</option>
             </select>
-            <Button type="button" variant="outline" size="icon" aria-label="Muat ulang Usage" onClick={() => void refresh()} disabled={refreshing} className="size-10 rounded-xl bg-card">
-              <RefreshCw aria-hidden="true" className={`size-4 ${refreshing ? "animate-spin" : ""}`} />
+            <Button type="button" variant="outline" size="icon" aria-label="Muat ulang Usage" onClick={() => void refresh()} disabled={refreshing} className="size-9 rounded-lg bg-card sm:size-10">
+              <RefreshCw aria-hidden="true" className={cn("size-4", refreshing && "animate-spin")} />
             </Button>
-            {showLogout ? <form action="/api/auth/logout" method="post"><button type="submit" className="h-10 rounded-xl border border-border bg-card px-3 text-sm font-medium text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Keluar</button></form> : null}
           </div>
         </header>
 
-        {error ? (
-          <div role="alert" className="mb-5 flex flex-wrap items-start justify-between gap-3 rounded-2xl border border-destructive/30 bg-destructive/5 p-4 text-sm">
-            <span className="flex items-center gap-2 text-destructive"><AlertCircle aria-hidden="true" className="size-4 shrink-0" />{error}</span>
-            <Button type="button" variant="outline" size="sm" onClick={() => void refresh()} className="rounded-lg">Coba lagi</Button>
-          </div>
-        ) : null}
+        {navigationError ? <p role="alert" className="shrink-0 border-b border-amber-300 bg-amber-50 px-4 py-2 text-xs text-amber-950">{navigationError}</p> : null}
+        <SummaryBand summary={summary} gpu={gpu} summaryError={summaryError} gpuError={gpuError} />
 
-        <section className="mb-5 rounded-3xl border border-border bg-card p-4 shadow-xs sm:p-6" aria-labelledby="gpu-heading">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div className="flex items-start gap-3">
-              <span className="grid size-11 place-items-center rounded-2xl bg-primary/10 text-primary"><Cpu aria-hidden="true" className="size-5" /></span>
-              <div>
-                <h2 id="gpu-heading" className="text-base font-semibold">GPU saat ini</h2>
-                <p className="mt-1 text-sm text-muted-foreground">{gpu?.device_name ?? (gpu?.available === false ? "Telemetri GPU belum tersedia" : "Membaca status perangkat...")}</p>
+        <div className="flex min-h-0 min-w-0 flex-1">
+          <section
+            aria-label="Daftar riwayat generate"
+            className={cn(
+              "min-h-0 min-w-0 flex-col bg-background",
+              mobileView === "list" ? "flex" : "hidden",
+              "lg:flex lg:w-[300px] lg:shrink-0 lg:border-r lg:border-border xl:w-[318px]",
+            )}
+          >
+            <RunList
+              records={records}
+              selectedId={selectedId}
+              loading={loading}
+              pageError={pageError}
+              summary={summary}
+              query={query}
+              status={status}
+              stage={stage}
+              nextCursor={nextCursor}
+              loadingMore={loadingMore}
+              onQueryChange={setQuery}
+              onStatusChange={setStatus}
+              onStageChange={setStage}
+              onSelect={selectRecord}
+              onLoadMore={() => void loadMore()}
+              onRetry={() => void refresh()}
+            />
+          </section>
+
+          <section
+            aria-label="Detail audit inference"
+            className={cn(
+              "min-h-0 min-w-0 flex-1 flex-col overflow-y-auto bg-background",
+              mobileView === "detail" ? "flex" : "hidden",
+              "lg:flex",
+            )}
+          >
+            <div className="sticky top-0 z-10 flex min-h-12 shrink-0 items-center justify-between gap-3 border-b border-border bg-card/95 px-3 backdrop-blur-sm sm:px-4">
+              <div className="flex min-w-0 items-center gap-2">
+                <Button type="button" variant="ghost" size="icon" onClick={() => setMobileView("list")} aria-label="Kembali ke daftar riwayat" className="size-8 shrink-0 rounded-lg lg:hidden">
+                  <ArrowLeft aria-hidden="true" className="size-4" />
+                </Button>
+                <div className="min-w-0">
+                  <p className="truncate text-xs font-semibold text-foreground">{selectedRecord ? recordTitle(selectedRecord) : "Detail run"}</p>
+                  <p className="text-[10px] text-muted-foreground">{detail ? `ID ${shortId(detail.usage_id)}` : "Pilih run dari riwayat"}</p>
+                </div>
               </div>
+              {detail ? <OutcomeBadge outcome={detail.outcome} /> : null}
             </div>
-            <span className={`rounded-full border px-3 py-1 text-xs font-medium ${gpu?.available ? "border-emerald-200 bg-emerald-50 text-emerald-800" : "border-amber-200 bg-amber-50 text-amber-900"}`}>
-              {gpu?.available ? "Snapshot tersedia" : "Data tidak tersedia"}
-            </span>
-          </div>
-          {gpu?.available ? (
-            <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <Stat label="Utilisasi" value={utilization} />
-              <Stat label="Memori perangkat" value={`${memoryUsed} / ${memoryTotal}`} />
-              <Stat label="Suhu" value={gpu.temperature_c === null ? "Belum tersedia" : `${numberLabel(gpu.temperature_c)} °C`} />
-              <Stat label="Daya" value={gpu.power_w === null ? "Belum tersedia" : `${numberLabel(gpu.power_w, 1)} W`} />
-            </div>
-          ) : (
-            <p className="mt-4 rounded-xl bg-muted/60 p-3 text-sm leading-relaxed text-muted-foreground">
-              Snapshot tidak tersedia. Pastikan driver NVIDIA dan nvidia-smi dapat diakses. Histori generation tetap tampil jika ada sampel yang tersimpan.
-            </p>
-          )}
-          <p className="mt-3 text-xs text-muted-foreground">
-            Snapshot diambil saat halaman Usage dibuka. Histori GPU hanya disampel selama proses generate dan merupakan data seluruh perangkat, bukan proses model saja.
-            {gpu?.sampled_at ? ` Terakhir dibaca ${dateLabel(gpu.sampled_at)}.` : ""}
-          </p>
-        </section>
-
-        {loading && !summary ? (
-          <div className="flex min-h-48 items-center justify-center rounded-3xl border border-border bg-card text-sm text-muted-foreground" role="status">
-            <LoaderCircle aria-hidden="true" className="mr-2 size-4 animate-spin" /> Memuat ringkasan Usage...
-          </div>
-        ) : summary ? (
-          <>
-            <section className="mb-5 grid grid-cols-2 gap-3 xl:grid-cols-4" aria-label="Ringkasan hasil generate">
-              <Metric label="Total request" value={numberLabel(summary.total_requests)} hint={`${numberLabel(summary.inference_started)} memulai inference`} icon={Activity} />
-              <Metric label="Berhasil" value={numberLabel(summary.completed)} hint={`Tingkat berhasil ${percentLabel(summary.success_rate_all)}`} icon={CheckCircle2} />
-              <Metric label="Gagal / ditolak" value={`${numberLabel(summary.failed)} / ${numberLabel(summary.rejected)}`} hint={`${numberLabel(summary.interrupted)} terhenti karena restart`} icon={XCircle} />
-              <Metric label="Rata-rata durasi sukses" value={durationLabel(summary.mean_duration_ms)} hint="Hanya request yang berhasil" icon={Clock3} />
-            </section>
-
-            <section className="mb-6 rounded-3xl border border-border bg-card p-4 shadow-xs sm:p-6" aria-labelledby="gpu-history-heading">
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div>
-                  <h2 id="gpu-history-heading" className="text-base font-semibold">GPU selama generation</h2>
-                  <p className="mt-1 text-sm text-muted-foreground">{summary.gpu_sample_count} sampel di {summary.gpu_run_count} proses. {coverageHint}.</p>
-                </div>
-                <span className="rounded-full border border-border bg-muted/50 px-3 py-1 text-xs text-muted-foreground">Cakupan {percentLabel(summary.gpu_coverage_ratio)}</span>
-              </div>
-              <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
-                <Stat label="Rata-rata utilisasi" value={summary.gpu_utilization_mean_pct === null ? "Belum tersedia" : `${numberLabel(summary.gpu_utilization_mean_pct, 1)}%`} />
-                <Stat label="Puncak utilisasi" value={summary.gpu_utilization_max_pct === null ? "Belum tersedia" : `${numberLabel(summary.gpu_utilization_max_pct, 1)}%`} />
-                <Stat label="Rata-rata VRAM" value={memoryLabel(summary.gpu_memory_mean_mib)} />
-                <Stat label="Puncak VRAM" value={memoryLabel(summary.gpu_memory_max_mib)} />
-                <Stat label="Suhu maksimum" value={summary.gpu_temperature_max_c === null ? "Belum tersedia" : `${numberLabel(summary.gpu_temperature_max_c)} °C`} />
-                <Stat label="Daya rata-rata" value={summary.gpu_power_mean_w === null ? "Belum tersedia" : `${numberLabel(summary.gpu_power_mean_w, 1)} W`} />
-              </div>
-              <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{summary.gpu_scope}.</p>
-            </section>
-
-            <section className="rounded-3xl border border-border bg-card p-4 shadow-xs sm:p-6" aria-labelledby="history-heading">
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div>
-                  <h2 id="history-heading" className="text-base font-semibold">Riwayat generate</h2>
-                  <p className="mt-1 text-sm text-muted-foreground">Audit hanya menyimpan status, tahapan, durasi, token, kode kendala, dan telemetri. Prompt serta isi hasil tidak disimpan.</p>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <label htmlFor="usage-status" className="sr-only">Filter status</label>
-                  <select id="usage-status" value={status} onChange={(event) => setStatus(event.target.value as UsageOutcome | "")} className="h-9 rounded-lg border border-border bg-background px-2.5 text-xs outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                    <option value="">Semua status</option>
-                    {(Object.keys(OUTCOME_LABELS) as UsageOutcome[]).map((outcome) => <option key={outcome} value={outcome}>{outcomeLabel(outcome)}</option>)}
-                  </select>
-                  <label htmlFor="usage-stage" className="sr-only">Filter tahap</label>
-                  <select id="usage-stage" value={stage} onChange={(event) => setStage(event.target.value as UsageStage | "")} className="h-9 max-w-48 rounded-lg border border-border bg-background px-2.5 text-xs outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                    <option value="">Semua tahap</option>
-                    {STAGE_OPTIONS.map((option) => <option key={option} value={option}>{STAGE_LABELS[option]}</option>)}
-                  </select>
-                </div>
-              </div>
-
-              {records.length ? (
-                <ul className="mt-5 space-y-3">
-                  {records.map((record) => (
-                    <UsageItem
-                      key={record.usage_id}
-                      record={record}
-                      expanded={expandedId === record.usage_id}
-                      detail={expandedId === record.usage_id ? detail : null}
-                      loading={expandedId === record.usage_id && detailLoading}
-                      detailError={expandedId === record.usage_id ? detailError : null}
-                      onToggle={() => void toggleDetail(record)}
-                    />
-                  ))}
-                </ul>
-              ) : (
-                <div className="mt-5 rounded-2xl border border-dashed border-border bg-muted/30 px-5 py-10 text-center">
-                  <Database aria-hidden="true" className="mx-auto size-6 text-muted-foreground/70" />
-                  <h3 className="mt-3 text-sm font-medium text-foreground">Belum ada aktivitas pada periode ini</h3>
-                  <p className="mx-auto mt-1 max-w-md text-sm leading-relaxed text-muted-foreground">Request generate akan muncul di sini, termasuk yang ditolak saat validasi. Buka chat untuk membuat halaman.</p>
-                  <Link href="/" className="mt-4 inline-flex items-center gap-2 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">Kembali ke chat</Link>
-                </div>
-              )}
-
-              {nextCursor ? (
-                <div className="mt-5 flex justify-center">
-                  <Button type="button" variant="outline" onClick={() => void loadMore()} disabled={loadingMore} className="rounded-xl">
-                    {loadingMore ? <LoaderCircle aria-hidden="true" className="size-4 animate-spin" /> : <ChevronDown aria-hidden="true" className="size-4" />}
-                    Muat aktivitas berikutnya
-                  </Button>
-                </div>
-              ) : null}
-            </section>
-          </>
-        ) : null}
+            <RunDetail
+              detail={detail}
+              loading={detailLoading}
+              error={detailError}
+              onRetry={retryDetail}
+            />
+          </section>
+        </div>
       </div>
     </main>
   );
