@@ -18,11 +18,13 @@ Buat `.env.local` dari `.env.example`, lalu jalankan frontend. Buka [http://loca
 
 ## Usage dan audit proses
 
-Halaman [Usage](http://localhost:3000/usage) menampilkan snapshot GPU saat ini, ringkasan hasil generate, cakupan sampel, dan daftar audit. Pilih 24 jam, 7 hari, atau 30 hari. Setiap baris dapat dibuka untuk melihat urutan tahapan, sampel GPU, dan ringkasan memori PyTorch.
+Halaman [Usage](http://localhost:3000/usage) memakai sidebar yang sama dengan Chat dan workspace daftar run serta detail terpilih. Pilih periode 24 jam, 7 hari, atau 30 hari. Cari prompt atau fakta, lalu filter berdasarkan status dan tahap. Detail run menampilkan prompt yang diterima, fakta terkonfirmasi, rail lima tahap, event sistem, serta metrik GPU dan memori PyTorch.
+
+Source baru dimuat saat tombol **Tampilkan source** ditekan. Usage meminta hanya artefak yang diterima renderer melalui endpoint generation yang sudah ada. Kode ditampilkan sebagai teks mentah yang tidak dijalankan. Tab HTML, CSS, dan JavaScript menyediakan salin, unduh file, serta unduh ZIP. Run tanpa generation atau artefak diterima menampilkan alasan bahwa source belum tersedia.
 
 Snapshot GPU diperbarui ketika halaman terlihat. Riwayat `nvidia-smi` hanya merekam sampel selama generation berjalan, dengan cakupan seluruh perangkat. Untuk itu, beban aplikasi lain juga dapat muncul pada metrik perangkat. Tidak ada sampel berarti data tidak tersedia, bukan nilai nol. Metrik alokasi dan reservasi PyTorch ditampilkan terpisah.
 
-Audit menyimpan metadata operasional seperti ID, waktu, durasi, status, tahap, kode kendala, jumlah token atau bagian jika tersedia, dan telemetri. Prompt, fakta bisnis, source, hasil website, exception mentah, kredensial, dan path lokal tidak disimpan oleh fitur Usage. Database berada di `outputs/webapp/usages`, di luar Git, dengan retensi 90 hari. Katalog dan halaman Usage tidak memuat model atau menjalankan inference.
+Audit menyimpan metadata operasional seperti ID, waktu, durasi, status, tahap, kode kendala, jumlah token atau bagian jika tersedia, dan telemetri. Prompt generation dan fakta bisnis yang memiliki penanda konfirmasi pengguna disimpan lokal selama 90 hari agar detail run tetap bisa dibuka setelah pindah halaman atau browser dimulai ulang. Token extractor, source, hasil website, exception mentah, kredensial, dan path lokal tidak disimpan oleh fitur Usage. Database berada di `outputs/webapp/usages`, di luar Git. Riwayat Chat di localStorage merupakan penyimpanan terpisah. Katalog dan halaman Usage tidak memuat model atau menjalankan inference.
 
 ## Login saat dibagikan lewat Quick Tunnel
 

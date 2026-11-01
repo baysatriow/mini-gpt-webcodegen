@@ -283,6 +283,7 @@ class UsageSummaryResponse(APIModel):
 class UsageRecordResponse(APIModel):
     usage_id: UUID
     generation_id: UUID | None = None
+    title_preview: Annotated[StrictStr, Field(max_length=80)] | None = None
     started_at: datetime
     finished_at: datetime | None = None
     duration_ms: StrictInt | None = None
@@ -335,7 +336,17 @@ class UsageGpuSampleResponse(APIModel):
     sm_clock_mhz: float | None = None
 
 
+class UsageConfirmedFactResponse(APIModel):
+    id: Annotated[StrictStr, Field(min_length=1, max_length=64)]
+    kind: Literal["name", "description", "value", "service", "project", "process", "faq"]
+    label: Annotated[StrictStr, Field(min_length=1, max_length=100)]
+    title: Annotated[StrictStr, Field(max_length=100)] | None = None
+    value: Annotated[StrictStr, Field(min_length=1, max_length=3000)]
+
+
 class UsageDetailResponse(UsageRecordResponse):
+    prompt: Annotated[StrictStr, Field(max_length=MAX_PROMPT_CHARS)] | None = None
+    confirmed_facts: list[UsageConfirmedFactResponse] = Field(default_factory=list)
     events: list[UsageEventResponse] = Field(default_factory=list)
     samples: list[UsageGpuSampleResponse] = Field(default_factory=list)
 

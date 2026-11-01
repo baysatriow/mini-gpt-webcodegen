@@ -60,6 +60,8 @@ _RECORD_COLUMNS = {
     "outcome",
     "stage",
     "failure_code",
+    "prompt",
+    "confirmed_facts_json",
     "inference_started",
     "input_tokens",
     "output_tokens",
@@ -121,6 +123,48 @@ _SAMPLE_FIELDS = {
 }
 _WINDOWS = {"24h": timedelta(hours=24), "7d": timedelta(days=7), "30d": timedelta(days=30)}
 _TIME_FIELDS = {"started_at", "finished_at"}
+_MAX_PROMPT_CHARS = 4000
+_MAX_CONFIRMED_FACTS_JSON_CHARS = 96_000
+_CONFIRMED_FACT_KINDS = {"name", "description", "value", "service", "project", "process", "faq"}
+
+
+def _validate_confirmed_facts_json(value: Any) -> str:
+    if not isinstance(value, str) or len(value) > _MAX_CONFIRMED_FACTS_JSON_CHARS:
+        raise ValueError("Confirmed Usage facts are outside the storage limit")
+    try:
+        facts = json.loads(value)
+    except (TypeError, json.JSONDecodeError) as error:
+        raise ValueError("Confirmed Usage facts must be valid JSON") from error
+    if not isinstance(facts, list) or len(facts) > 24:
+        raise ValueError("Confirmed Usage facts must be a bounded list")
+    for fact in facts:
+        if not isinstance(fact, dict) or set(fact) != {"id", "kind", "label", "title", "value"}:
+            raise ValueError("Confirmed Usage fact contains fields outside the privacy allowlist")
+        kind = fact["kind"]
+        if not isinstance(kind, str) or kind not in _CONFIRMED_FACT_KINDS:
+            raise ValueError("Confirmed Usage fact has an invalid kind")
+        scalar_limit = 3000 if kind == "description" else 1000 if kind == "value" else 100
+        value_limit = scalar_limit if kind in {"name", "description", "value"} else 3000
+        title = fact["title"]
+        if (
+            not isinstance(fact["id"], str)
+            or not fact["id"]
+            or len(fact["id"]) > 64
+            or not isinstance(fact["label"], str)
+            or not fact["label"]
+            or len(fact["label"]) > 100
+            or (title is not None and (not isinstance(title, str) or len(title) > 100))
+            or (kind in {"name", "description", "value"} and title is not None)
+            or (kind in {"service", "project", "process", "faq"} and (not isinstance(title, str) or not title))
+            or not isinstance(fact["value"], str)
+            or not fact["value"]
+            or len(fact["value"]) > value_limit
+        ):
+            raise ValueError("Confirmed Usage fact has an invalid value")
+    normalized = json.dumps(facts, separators=(",", ":"), ensure_ascii=False)
+    if len(normalized) > _MAX_CONFIRMED_FACTS_JSON_CHARS:
+        raise ValueError("Confirmed Usage facts are outside the storage limit")
+    return normalized
 
 
 def _utc_now() -> datetime:
@@ -202,6 +246,8 @@ class UsageStore:
                     outcome TEXT NOT NULL,
                     stage TEXT NOT NULL,
                     failure_code TEXT,
+                    prompt TEXT,
+                    confirmed_facts_json TEXT NOT NULL DEFAULT '[]',
                     inference_started INTEGER NOT NULL DEFAULT 0,
                     input_tokens INTEGER,
                     output_tokens INTEGER,
@@ -247,6 +293,16 @@ class UsageStore:
                 CREATE INDEX IF NOT EXISTS idx_usage_events_run ON usage_stage_events(usage_id, event_id);
                 """
             )
+            columns = {
+                row[1]
+                for row in connection.execute("PRAGMA table_info(usage_records)").fetchall()
+            }
+            if "prompt" not in columns:
+                connection.execute("ALTER TABLE usage_records ADD COLUMN prompt TEXT")
+            if "confirmed_facts_json" not in columns:
+                connection.execute(
+                    "ALTER TABLE usage_records ADD COLUMN confirmed_facts_json TEXT NOT NULL DEFAULT '[]'"
+                )
             connection.commit()
 
     def _acquire_process_lock(self) -> None:
@@ -435,6 +491,12 @@ class UsageStore:
             value = clean["renderer_status"]
             if value not in {"accepted", "stage_failed", "input_too_long", "missing_information", "unknown"}:
                 raise ValueError("Invalid renderer status")
+        if "prompt" in clean:
+            value = clean["prompt"]
+            if value is not None and (not isinstance(value, str) or len(value) > _MAX_PROMPT_CHARS):
+                raise ValueError("Usage prompt is outside the storage limit")
+        if "confirmed_facts_json" in clean:
+            clean["confirmed_facts_json"] = _validate_confirmed_facts_json(clean["confirmed_facts_json"])
         if "server_instance_id" in clean:
             clean["server_instance_id"] = UsageStore._validate_usage_id(clean["server_instance_id"])
         for field in _TIME_FIELDS & clean.keys():
@@ -604,6 +666,7 @@ class UsageStore:
         window: str | None,
         status: str | None,
         stage: str | None,
+        q: str | None = None,
     ) -> dict[str, Any]:
         if type(limit) is not int or not 1 <= limit <= 100:
             raise ValueError("Usage page limit must be between 1 and 100")
@@ -613,8 +676,15 @@ class UsageStore:
             raise ValueError("Invalid Usage status filter")
         if stage is not None and stage not in _STAGES:
             raise ValueError("Invalid Usage stage filter")
+        if q is not None and (not isinstance(q, str) or len(q) > 200):
+            raise ValueError("Invalid Usage search query")
         clauses: list[str] = []
         parameters: list[Any] = []
+        search = (q or "").strip()
+        if search:
+            escaped = search.replace("!", "!!").replace("%", "!%").replace("_", "!_")
+            clauses.append("(prompt LIKE ? ESCAPE '!' OR confirmed_facts_json LIKE ? ESCAPE '!')")
+            parameters.extend((f"%{escaped}%", f"%{escaped}%"))
         if window:
             clauses.append("started_at >= ?")
             parameters.append((_utc_now() - _WINDOWS[window]).isoformat())
@@ -630,9 +700,14 @@ class UsageStore:
             parameters.extend((started_at, started_at, usage_id))
         where = " WHERE " + " AND ".join(clauses) if clauses else ""
         parameters.append(limit + 1)
+        list_columns = sorted(_RECORD_COLUMNS - {"prompt", "confirmed_facts_json"})
         with closing(self._connect()) as connection:
             rows = connection.execute(
-                "SELECT * FROM usage_records" + where + " ORDER BY started_at DESC, usage_id DESC LIMIT ?",
+                "SELECT "
+                + ",".join(list_columns)
+                + ",substr(prompt, 1, 80) AS prompt_preview FROM usage_records"
+                + where
+                + " ORDER BY started_at DESC, usage_id DESC LIMIT ?",
                 parameters,
             ).fetchall()
         has_more = len(rows) > limit
@@ -697,7 +772,7 @@ class UsageStore:
             "gpu_power_mean_w": row["gpu_power_sum"] / gpu_denominator if gpu_denominator else None,
             "gpu_temperature_max_c": row["gpu_temperature_max_c"],
             "gpu_sm_clock_mean_mhz": row["gpu_sm_clock_sum"] / gpu_denominator if gpu_denominator else None,
-            "gpu_scope": "Device-wide nvidia-smi samples collected during generation only",
+            "gpu_scope": "Sampel nvidia-smi mencatat penggunaan seluruh GPU hanya selama proses generate.",
         }
 
     def prune(self, now: datetime) -> int:

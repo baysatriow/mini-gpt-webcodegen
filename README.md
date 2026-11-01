@@ -31,7 +31,7 @@ Untuk mencoba generator langsung melalui terminal, gunakan [panduan generasi](do
 
 ## Alur aplikasi
 
-~~~mermaid
+```mermaid
 flowchart TD
     A[Brief atau template] --> B[Draft fakta halaman]
     B --> C[Validasi dan konfirmasi pengguna]
@@ -41,7 +41,7 @@ flowchart TD
     F --> G[Renderer HTML, CSS, JavaScript dan aset]
     G --> H[Preview sandbox dan unduhan]
     G --> I[Metadata proses di Usage]
-~~~
+```
 
 Generator memilih rancangan melalui JSON dan ID katalog. Resolver memasukkan fakta yang telah dikonfirmasi. Renderer menyediakan interaksi yang didukung, termasuk menu dan formulir demo. Pengiriman formulir ke layanan bisnis nyata memerlukan integrasi terpisah.
 

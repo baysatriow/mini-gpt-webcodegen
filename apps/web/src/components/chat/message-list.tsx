@@ -149,7 +149,7 @@ export function MessageList({
                         <ChevronRight className="size-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
                       </div>
                       <span className="mt-1 block text-xs leading-5 text-muted-foreground">
-                        {template.genre === "company_profile" ? "Company profile" : "Landing page"} Â· Contoh fiktif otomatis
+                        {template.genre === "company_profile" ? "Company profile" : "Landing page"} · Contoh fiktif otomatis
                       </span>
                     </div>
                   </button>

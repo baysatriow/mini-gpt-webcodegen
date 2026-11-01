@@ -20,6 +20,7 @@ import type { ChatSession } from "@/lib/chat-state";
 type HistorySidebarProps = {
   sessions: ChatSession[];
   activeSessionId: string | null;
+  activeSection?: "chat" | "usage";
   onNew: () => void;
   onSelect: (sessionId: string) => void;
   onDelete: (sessionId: string) => void;
@@ -31,6 +32,7 @@ type HistorySidebarProps = {
 export function HistorySidebar({
   sessions,
   activeSessionId,
+  activeSection = "chat",
   onNew,
   onSelect,
   onDelete,
@@ -171,7 +173,13 @@ export function HistorySidebar({
         <Link
           href="/usage"
           aria-label="Buka Usage dan audit generate"
-          className="flex h-9 items-center gap-2.5 rounded-lg px-2.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          aria-current={activeSection === "usage" ? "page" : undefined}
+          className={cn(
+            "flex h-9 items-center gap-2.5 rounded-lg px-2.5 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+            activeSection === "usage"
+              ? "bg-sidebar-accent text-sidebar-accent-foreground"
+              : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+          )}
         >
           <Activity aria-hidden="true" className="size-4 text-primary" />
           <span>Penggunaan</span>

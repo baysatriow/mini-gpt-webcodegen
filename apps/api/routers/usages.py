@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import logging
 from typing import Annotated
 from uuid import UUID
@@ -46,9 +47,12 @@ def _prune_if_due(store: UsageStore) -> None:
 
 def _record_view(record: dict) -> dict:
     count = record.get("gpu_sample_count") or 0
+    prompt_preview = record.get("prompt") or record.get("prompt_preview")
+    title_preview = " ".join(prompt_preview.split())[:80] if isinstance(prompt_preview, str) else None
     return {
         "usage_id": record["usage_id"],
         "generation_id": record.get("generation_id"),
+        "title_preview": title_preview or None,
         "started_at": record["started_at"],
         "finished_at": record.get("finished_at"),
         "duration_ms": record.get("duration_ms"),
@@ -124,6 +128,7 @@ def list_usages(
     window: UsageWindow | None = None,
     status: UsageOutcome | None = None,
     stage: UsageStage | None = None,
+    q: Annotated[str | None, Query(max_length=200)] = None,
 ) -> UsageListResponse:
     store = _store(request)
     _prune_if_due(store)
@@ -134,6 +139,7 @@ def list_usages(
             window=window,
             status=status,
             stage=stage,
+            q=q,
         )
     except ValueError as error:
         raise HTTPException(
@@ -166,6 +172,12 @@ def usage_detail(usage_id: UUID, request: Request, response: Response) -> UsageD
     samples = store.get_samples(str(usage_id), limit=300)
     response.headers["Cache-Control"] = "no-store"
     data = _record_view(record)
+    try:
+        confirmed_facts = json.loads(record.get("confirmed_facts_json") or "[]")
+    except (TypeError, json.JSONDecodeError):
+        confirmed_facts = []
+    data["prompt"] = record.get("prompt")
+    data["confirmed_facts"] = confirmed_facts if isinstance(confirmed_facts, list) else []
     data["events"] = record.get("events", [])
     data["samples"] = samples
     return UsageDetailResponse.model_validate(data)

@@ -55,6 +55,7 @@ export type UsageSummary = {
 export type UsageRecord = {
   usage_id: string;
   generation_id: string | null;
+  title_preview?: string | null;
   started_at: string;
   finished_at: string | null;
   duration_ms: number | null;
@@ -107,7 +108,20 @@ export type UsageGpuSample = {
   sm_clock_mhz: number | null;
 };
 
-export type UsageDetail = UsageRecord & { events: UsageEvent[]; samples: UsageGpuSample[] };
+export type UsageConfirmedFact = {
+  id: string;
+  kind: "name" | "description" | "value" | "service" | "project" | "process" | "faq";
+  label: string;
+  title: string | null;
+  value: string;
+};
+
+export type UsageDetail = UsageRecord & {
+  prompt?: string | null;
+  confirmed_facts?: UsageConfirmedFact[];
+  events: UsageEvent[];
+  samples: UsageGpuSample[];
+};
 export type UsagePage = { items: UsageRecord[]; next_cursor: string | null; limit: number };
 export type CurrentGpu = {
   available: boolean;
@@ -151,12 +165,14 @@ export function getUsagePage(filters: {
   window?: UsageWindow;
   status?: UsageOutcome | "";
   stage?: UsageStage | "";
+  q?: string;
 } = {}) {
   const query = new URLSearchParams({ limit: String(filters.limit ?? 25) });
   if (filters.cursor) query.set("cursor", filters.cursor);
   if (filters.window) query.set("window", filters.window);
   if (filters.status) query.set("status", filters.status);
   if (filters.stage) query.set("stage", filters.stage);
+  if (filters.q?.trim()) query.set("q", filters.q.trim().slice(0, 200));
   return requestJson<UsagePage>(`/api/v1/usages/?${query.toString()}`);
 }
 

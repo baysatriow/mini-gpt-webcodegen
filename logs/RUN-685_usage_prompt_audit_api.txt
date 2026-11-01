@@ -1,0 +1,28 @@
+RUN-685, penyimpanan input terkonfirmasi dan pencarian Usage
+Tanggal/waktu: 1 November 2026, 21:42 Asia/Jakarta
+
+Tujuan
+Menyimpan prompt dan fakta pengguna yang dikonfirmasi pada audit generation lokal agar detail inference tetap dapat dibaca dari Usage setelah navigasi atau browser dimulai ulang.
+
+Perubahan
+- Tambah migrasi SQLite aditif dan idempotent untuk prompt serta confirmed_facts_json.
+- Simpan hanya prompt maksimal 4.000 karakter dan fakta yang memiliki evidence user_confirmed pada setiap nilai. Request yang gagal sebelum handler tetap hanya memiliki metadata operasional. extraction_token tidak disimpan.
+- Tambah prompt dan fakta ke response detail. Daftar hanya mengirim title_preview maksimum 80 karakter.
+- Tambah q maksimal 200 karakter untuk mencari prompt dan fakta dengan SQL berparameter dan escaping wildcard.
+- Perbarui apps/api/README.md dan apps/web/README.md.
+
+Pemeriksaan
+- Tes awal menunjukkan kegagalan yang diharapkan pada migrasi, penambahan data, dan respons baru.
+- .venv/Scripts/python.exe -m unittest tests.api.test_usage_store tests.api.test_usages_api: 12 lulus.
+- .venv/Scripts/python.exe -m unittest discover -s tests/api -p 'test_*.py': 20 lulus.
+- git diff --check: lulus.
+- Tidak menjalankan server, browser, inference, training, atau GPU.
+
+Git
+- Branch: feature/pipeline-data-model-training.
+- Commit: 2d73fc4 feat(usage): persist confirmed request audit details.
+- Push: berhasil ke origin/feature/pipeline-data-model-training.
+- Tidak ada trailer Co-authored-By.
+
+Batas
+Pemeriksaan API tidak membuktikan generation model end-to-end. UI Usage, navigasi shell, dan review browser masih belum dilakukan.

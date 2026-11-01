@@ -7,10 +7,10 @@
 | [Log utama](LOG_EKSPERIMEN_DAN_INTERAKSI_LLM.md) | Permintaan, keputusan, perubahan, hasil pemeriksaan, kendala dan commit | Ditambahkan per kegiatan oleh pelaksana atau asisten |
 | [Log training](LOG_TRAINING.md) | Pretraining, SFT, resume, checkpoint, metrik dan evaluasi | Ditambahkan ketika pekerjaan training atau evaluasi dilakukan |
 | RUN-*.txt di folder ini | Catatan rinci untuk run yang memiliki berkas pendamping | Ditulis per run; sebagian run hanya memiliki bagian pada log utama |
-| outputs/webapp/usages/usage.sqlite3 | Metadata request generate, status, tahapan dan telemetri | Dicatat otomatis oleh fitur Usage |
+| outputs/webapp/usages/usage.sqlite3 | Metadata request, status, tahapan, telemetri, prompt generation, dan fakta bisnis terkonfirmasi | Dicatat otomatis oleh fitur Usage |
 | stdout/stderr server | Pesan Next.js, FastAPI dan cloudflared | Ditulis proses selama berjalan |
 
-Log Markdown menyimpan ringkasan pelaksanaan. Tidak ada proses yang otomatis menyalin setiap pesan chat ke file ini. Konfirmasi dan hasil commit/push perlu dicatat secara eksplisit setelah kegiatan. Usage menyimpan metadata operasional, bukan transkrip chat.
+Log Markdown menyimpan ringkasan pelaksanaan. Tidak ada proses yang otomatis menyalin setiap pesan chat ke file ini. Konfirmasi dan hasil commit/push perlu dicatat secara eksplisit setelah kegiatan. Usage menyimpan metadata operasional serta satu prompt generation dan fakta terkonfirmasi per run, bukan transkrip chat.
 
 ## Penomoran dan koreksi
 

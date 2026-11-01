@@ -1,4 +1,6 @@
 from datetime import datetime, timedelta, timezone
+import json
+import sqlite3
 import tempfile
 import unittest
 import uuid
@@ -18,6 +20,49 @@ def _record(usage_id: str, instance_id: str, started_at: datetime) -> dict:
 
 
 class UsageStoreTests(unittest.TestCase):
+    def test_existing_database_migrates_prompt_and_fact_columns_idempotently(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            database = Path(temporary) / "usage.sqlite3"
+            connection = sqlite3.connect(database)
+            with connection:
+                connection.execute(
+                    "CREATE TABLE usage_records ("
+                    "usage_id TEXT PRIMARY KEY, server_instance_id TEXT NOT NULL, "
+                    "generation_id TEXT, started_at TEXT NOT NULL, finished_at TEXT, "
+                    "duration_ms INTEGER, http_status INTEGER, outcome TEXT NOT NULL, "
+                    "stage TEXT NOT NULL, failure_code TEXT, inference_started INTEGER NOT NULL DEFAULT 0, "
+                    "gpu_sample_count INTEGER NOT NULL DEFAULT 0)"
+                )
+                connection.execute(
+                    "INSERT INTO usage_records(usage_id, server_instance_id, started_at, outcome, stage) "
+                    "VALUES (?, ?, ?, 'completed', 'completed')",
+                    (
+                        "00000000-0000-4000-8000-000000000040",
+                        "00000000-0000-4000-8000-000000000041",
+                        datetime.now(timezone.utc).isoformat(),
+                    ),
+                )
+            connection.close()
+
+            store = UsageStore(Path(temporary))
+            first = store.start_instance()
+            migrated = store.get_record("00000000-0000-4000-8000-000000000040")
+            connection = sqlite3.connect(database)
+            try:
+                columns = {row[1] for row in connection.execute("PRAGMA table_info(usage_records)")}
+            finally:
+                connection.close()
+            self.assertIn("prompt", columns)
+            self.assertIn("confirmed_facts_json", columns)
+            self.assertIsNone(migrated["prompt"])
+            self.assertEqual("[]", migrated["confirmed_facts_json"])
+            store.stop_instance(first)
+
+            second_store = UsageStore(Path(temporary))
+            second = second_store.start_instance()
+            self.assertEqual("[]", second_store.get_record("00000000-0000-4000-8000-000000000040")["confirmed_facts_json"])
+            second_store.stop_instance(second)
+
     def test_start_instance_rejects_a_second_live_owner(self):
         with tempfile.TemporaryDirectory() as temporary:
             store = UsageStore(Path(temporary))
@@ -52,7 +97,7 @@ class UsageStoreTests(unittest.TestCase):
             )
             store.stop_instance(new_instance)
 
-    def test_list_records_uses_stable_cursor_and_privacy_allowlist(self):
+    def test_list_records_uses_stable_cursor_and_prompt_fact_search(self):
         with tempfile.TemporaryDirectory() as temporary:
             store = UsageStore(Path(temporary))
             instance = store.start_instance()
@@ -61,16 +106,38 @@ class UsageStoreTests(unittest.TestCase):
             second_id = "00000000-0000-4000-8000-000000000002"
             store.create_record(_record(first_id, instance, datetime.fromisoformat(stamp)))
             store.create_record(_record(second_id, instance, datetime.fromisoformat(stamp)))
+            store.update_record(
+                first_id,
+                prompt="Landing page untuk Ruang_Tanah",
+                confirmed_facts_json=json.dumps(
+                    [{"id": "business-name", "kind": "name", "label": "Nama usaha", "title": None, "value": "Ruang Tanah"}],
+                    ensure_ascii=False,
+                ),
+            )
 
             page = store.list_records(cursor=None, limit=1, window=None, status=None, stage=None)
             next_page = store.list_records(
                 cursor=page["next_cursor"], limit=1, window=None, status=None, stage=None
             )
+            searched_prompt = store.list_records(
+                cursor=None, limit=25, window=None, status=None, stage=None, q="Ruang_Tanah"
+            )
+            searched_fact = store.list_records(
+                cursor=None, limit=25, window=None, status=None, stage=None, q="Ruang Tanah"
+            )
+            escaped_wildcard = store.list_records(
+                cursor=None, limit=25, window=None, status=None, stage=None, q="Ruang%"
+            )
 
             self.assertEqual([second_id], [row["usage_id"] for row in page["items"]])
             self.assertEqual([first_id], [row["usage_id"] for row in next_page["items"]])
+            self.assertEqual([first_id], [row["usage_id"] for row in searched_prompt["items"]])
+            self.assertEqual([first_id], [row["usage_id"] for row in searched_fact["items"]])
+            self.assertEqual([], escaped_wildcard["items"])
             with self.assertRaises(ValueError):
-                store.create_record({**_record(str(uuid.uuid4()), instance, datetime.now(timezone.utc)), "prompt": "private"})
+                store.create_record({**_record(str(uuid.uuid4()), instance, datetime.now(timezone.utc)), "extraction_token": "private"})
+            with self.assertRaises(ValueError):
+                store.update_record(first_id, confirmed_facts_json='[{"extraction_token":"private"}]')
             store.stop_instance(instance)
 
     def test_retention_removes_expired_sample_before_record(self):
